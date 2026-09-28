@@ -1,0 +1,422 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+5,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+4,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+15,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+14,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+8,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+11,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+12,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+6,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+7,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Domestic Goose,Anser,Anser anser domesticus,1
+1,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+3,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Domestic Goose,Anser,Anser anser domesticus,1
+13,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+2,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+9,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+10,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+19,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+16,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+17,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+23,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+18,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+22,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+20,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+26,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+21,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+25,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+28,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+29,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+27,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+24,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Domestic Goose,Anser,Anser anser domesticus,1
+30,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+34,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+35,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+33,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+32,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+39,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+38,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+31,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+44,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+36,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+41,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+40,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,12
+43,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+42,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+37,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Greylag Goose,Anser,Anser anser,1
+45,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+48,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+46,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+50,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+52,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+49,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+51,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+57,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Domestic Goose,Anser,Anser anser forma domestica,5
+53,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+54,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,8
+56,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+58,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+59,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+55,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,15
+47,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+60,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+61,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+62,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+63,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+64,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+67,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+66,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+65,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+68,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+70,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+72,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+73,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Domestic Goose,Anser,Anser anser domesticus,1
+69,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+74,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+71,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+76,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser domesticus,5
+77,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+75,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+78,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+80,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+79,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+82,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+81,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+85,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+86,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+89,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+90,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+88,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+87,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+83,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+84,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser domesticus,2
+97,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+93,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+94,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+95,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Barnacle Goose,Branta,Branta leucopsis,2
+91,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,2
+98,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+99,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+96,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+102,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+104,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+101,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+100,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+103,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+108,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+92,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+109,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+107,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+105,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+106,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+111,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+110,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+113,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+114,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+115,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+112,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+120,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+117,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+119,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+124,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+121,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,10
+123,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+122,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,98,Cackling Goose,Branta,hutchinsii,5
+125,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+116,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Greater White-fronted Goose,Anser,Anser albifrons,2
+118,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+127,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+126,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+128,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+129,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+130,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+136,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+131,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+137,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+134,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+132,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+141,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+133,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+142,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+140,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+138,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+135,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+143,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+139,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+144,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+145,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+149,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+146,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+150,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,20
+148,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+152,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+156,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,20
+153,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser domesticus,5
+147,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+155,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,20
+159,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Barnacle Goose,Branta,Branta leucopsis,5
+154,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+158,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+160,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+157,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+161,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+165,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+162,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+151,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+164,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+163,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser,2
+167,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+166,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+169,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+172,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+174,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+170,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+175,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+168,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser,2
+177,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+176,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+173,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+178,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+171,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+182,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+180,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+184,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+183,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+179,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+185,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+189,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+190,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+187,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+192,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+194,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser domesticus,5
+195,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+181,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+193,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+186,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+191,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+197,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,12
+199,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+198,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,12
+188,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+200,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+205,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+207,4,362736713,Canada Goose,Branta canadensis,No Animal Visible,N/A,N/A,1,No Animal Visible,N/A,N/A,0
+196,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Domestic Goose,Anser,Anser anser domesticus,5
+204,4,362736713,Canada Goose,Branta canadensis,Black Bear,Ursus,Ursus americanus,45,Wild Boar,Sus,Sus scrofa,10
+202,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,10,Virginia Opossum,Didelphis,Didelphis virginiana,8
+206,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,10,Mallard,Anas,Anas platyrhynchos,8
+208,4,362736713,Canada Goose,Branta canadensis,Common Watersnake,Nerodia,Nerodia sipedon,10,North American Beaver,Castor,Castor canadensis,8
+209,4,362736713,Canada Goose,Branta canadensis,Black Bear,Ursus,Ursus americanus,2,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+211,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,8,Raccoon,Procyon,Procyon lotor,5
+212,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,2,Virginia Opossum,Didelphis,Didelphis virginiana,1
+214,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,70,Black Bear,Ursus,Ursus americanus,25
+210,4,362736713,Canada Goose,Branta canadensis,Virginia Opossum,Didelphis,Didelphis virginiana,8,Raccoon,Procyon,Procyon lotor,7
+220,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Domestic Goose,Anser,Anser anser domesticus,15
+219,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+215,4,362736713,Canada Goose,Branta canadensis,Virginia Opossum,Didelphis,Didelphis virginiana,30,Raccoon,Procyon,Procyon lotor,25
+218,4,362736713,Canada Goose,Branta canadensis,Great Egret,Ardea,Ardea alba,18,Great Blue Heron,Ardea,Ardea herodias,15
+213,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,5,Raccoon,Procyon,Procyon lotor,2
+203,4,362736713,Canada Goose,Branta canadensis,Sloth,Choloepus,Choloepus sp.,50,Virginia Opossum,Didelphis,Didelphis virginiana,10
+217,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,60,Domestic Goose,Anser,Anser anser domesticus,30
+216,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,15,American Coot,Fulica,Fulica americana,10
+225,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+222,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,75,Mallard,Anas,Anas platyrhynchos,30
+221,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,30,Canada Goose,Branta,Branta canadensis,25
+223,4,362736713,Canada Goose,Branta canadensis,Big Brown Bat,Eptesicus,Eptesicus fuscus,15,Eastern Red Bat,Lasiurus,Lasiurus borealis,10
+227,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Domestic Goose,Anser,Anser anser,3
+224,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,American Black Bear,Ursus,Ursus americanus,1
+228,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,5,Mallard,Anas,Anas platyrhynchos,3
+229,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,20,Mallard,Anas,Anas platyrhynchos,10
+201,4,362736713,Canada Goose,Branta canadensis,Elephant,Loxodonta,Loxodonta africana,5,Human,Homo,Homo sapiens,10
+226,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+232,4,362736713,Canada Goose,Branta canadensis,Striped Skunk,Mephitis,Mephitis mephitis,40,Raccoon,Procyon,Procyon lotor,15
+233,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Raccoon,Procyon,Procyon lotor,2
+238,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,25,Feral Hog,Sus,Sus scrofa,20
+236,4,362736713,Canada Goose,Branta canadensis,Eastern Rat Snake,Pantherophis,Pantherophis alleghaniensis,15,Virginia Opossum,Didelphis,Didelphis virginiana,8
+230,4,362736713,Canada Goose,Branta canadensis,Beaver,Castor,Castor canadensis,15,Common Snapping Turtle,Chelydra,Chelydra serpentina,8
+234,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,5,Virginia Opossum,Didelphis,Didelphis virginiana,3
+231,4,362736713,Canada Goose,Branta canadensis,"REASONING PROCESS:
+The image is very dark, likely an infrared or night-vision capture, and appears to be rotated. When mentally rotated to a natural orientation, the image reveals a distinct animal head and neck on the right side, largely obscured by foreground vegetation. The most striking visual feature is the pattern on the head and neck: a black head and neck with a prominent white patch extending from below the eye across the throat, resembling a ""chin strap"". The body is mostly hidden but appears bulky.
+
+*   **Visual appearance:** The black head and neck with a clear white chin strap is an unmistakable field mark for a Canada Goose. The overall silhouette visible is consistent with a large bird.
+*   **Body shape:** Large, bulky bird, typical of a goose.
+*   **Fur/feather/skin texture:** Appears to be feathered, consistent with a bird.
+*   **Coloration and markings:** The distinctive white chin strap on a black head and neck is the primary identifying feature and strongly points to *Branta canadensis*.
+*   **Pose and silhouette:** The animal is upright, with its head and neck extended, peering through vegetation.
+*   **Habitat consistency:** The observation location is North Carolina, which is well within the range of Canada Geese. They are common in various habitats, including wetlands, lakes, parks, and agricultural areas.
+*   **Time/date plausibility:** May 18th is within their active season, and 9:00 AM is a typical time for geese to be foraging.
+*   **Species prevalence in region:** Canada Geese are abundant residents in North Carolina.
+*   **Visual ambiguity:** Despite the low light and obscured body, the head and neck pattern is very distinct and reduces ambiguity significantly.
+
+**Candidate Species Ranking:**
+
+1.  **Canada Goose (Branta canadensis):** The visual markings (black head/neck with white chin strap) are a perfect match. Geographic range and seasonal presence are highly consistent. This is a very confident identification.
+
+2.  **Cackling Goose (Branta hutchinsii):** This species is extremely similar in appearance to the Canada Goose, sharing the same distinctive head and neck pattern. The primary difference is size (Cackling Geese are smaller). Without a clear size reference in the image, visual differentiation is challenging. However, Cackling Geese are primarily winter visitors to North Carolina, and most would have migrated north by mid-May, making their presence less likely than a Canada Goose, which is a year-round resident. It is the most plausible second option due to its strong visual resemblance.
+
+Probability Assignment: The visual evidence for Canada Goose is extremely strong due to the unique head markings. Cackling Goose is a less probable but visually identical alternative if size cannot be determined, though its seasonal presence is less likely for May in NC.
+
+Canada Goose",Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+235,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,10,American Black Bear,Ursus,Ursus americanus,5
+242,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,15,Wild Pig,Sus,Sus scrofa,10
+239,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,7,Canada Goose,Branta,Branta canadensis,3
+245,4,362736713,Canada Goose,Branta canadensis,African Elephant,Loxodonta,Loxodonta africana,75,Asian Elephant,Elephas,Elephas maximus,25
+240,4,362736713,Canada Goose,Branta canadensis,Virginia Opossum,Didelphis,Didelphis virginiana,5,White-tailed Deer,Odocoileus,Odocoileus virginianus,3
+243,4,362736713,Canada Goose,Branta canadensis,Asian Elephant,Elephas,Elephas maximus,70,African Elephant,Loxodonta,Loxodonta africana,25
+249,4,362736713,Canada Goose,Branta canadensis,Eastern Rat Snake,Pantherophis,Pantherophis alleghaniensis,20,Eastern Copperhead,Agkistrodon,Agkistrodon contortrix,10
+252,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+237,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,50,Domestic Goose,Anser,Anser anser domesticus,10
+250,4,362736713,Canada Goose,Branta canadensis,Black Racer,Coluber,Coluber constrictor,15,Eastern Rat Snake,Pantherophis,Pantherophis alleghaniensis,10
+248,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,15,Raccoon,Procyon,Procyon lotor,10
+244,4,362736713,Canada Goose,Branta canadensis,"REASONING PROCESS:
+The image provided is extremely dark, rotated 90 degrees clockwise, and of very low resolution/contrast, making detailed visual identification nearly impossible. After significant digital enhancement, a faint, elongated, dark shape can be discerned on the right side of the image, appearing to be within or at the edge of dense vegetation (possibly grass or weeds). The shape lacks any visible limbs or distinct features of a quadruped, suggesting a limbless animal.
+
+Given the location (Concord, North Carolina, USA) and time (May 18, 9 AM), several animal species are plausible.
+-   **Body shape:** Elongated, somewhat cylindrical, no visible limbs. This strongly suggests a snake.
+-   **Fur/feather/skin texture:** Not discernible due to image quality.
+-   **Coloration and markings:** Appears uniformly dark, though a very faint, lighter ventral area is minimally suggested, which could be an optical illusion or the belly of a dark snake.
+-   **Pose and silhouette:** The object is horizontal (after correcting for rotation), lying low to the ground in vegetation.
+-   **Habitat consistency:** Dense vegetation is a common habitat for many snake species in North Carolina.
+-   **Time/date plausibility:** May is an active season for snakes, and 9 AM is a typical time for diurnal snakes to be out basking or foraging.
+-   **Species prevalence in region:** North Carolina has numerous snake species. Common dark-colored, diurnal snakes include Black Racers and Eastern Rat Snakes.
+-   **Visual ambiguity:** Extreme. This is the primary challenge.
+
+Candidate species consideration:
+1.  **Snakes:** The elongated, limbless form strongly points to a snake.
+    *   **Black Racer (Coluber constrictor):** Very common throughout North Carolina, uniformly dark (especially adults), diurnal, and often found in grassy areas. Fits the shape and plausibility.
+    *   **Eastern Rat Snake (Pantherophis alleghaniensis):** Also very common and can be quite dark (especially adults in western NC, though eastern populations might retain juvenile patterns longer). Diurnal. Fits the elongated shape and plausibility.
+    *   Other dark snakes (e.g., Eastern Kingsnake) are possible but less likely given the lack of visible banding or specific patterns.
+2.  **Mammals:** If the shape is misinterpreted, a mammal could be an option, but the lack of legs or a distinct mammalian body shape makes it less likely.
+    *   **Virginia Opossum (Didelphis virginiana):** Common, can appear dark, but the shape is typically thicker and a tail would often be visible.
+    *   **Raccoon (Procyon lotor):** Common, can appear dark, but the body shape doesn't match the elongated form.
+    *   **Eastern Cottontail (Sylvilagus floridanus):** Common, but the shape doesn't appear rabbit-like.
+
+Given the extreme ambiguity, confidence levels must be very low. The most reasonable interpretation of the very faint visual cues is an elongated, limbless creature. Between the two most plausible snake species, differentiation is impossible. I will rank Black Racer slightly higher due to its more consistently uniformly dark adult appearance and common ""sleek"" body, which might align with the very blurry image better than the often bulkier Rat Snake.
+
+SSOT RANDOMNESS STEP:
+Generated seed: `a3x8z1qK` (internal use for tie-breaking, not revealed). This seed confirms the ordering in case of perfect visual parity, but the visual cues, however faint, lean slightly towards the slenderer appearance of a racer.
+
+Top1 Common Name",Top1 Genus,Top1 Species,Top1 Probability,Top2 Common Name,Top2 Genus,Top2 Species,"Top2 Probability
+---"
+241,4,362736713,Canada Goose,Branta canadensis,American Black Bear,Ursus,Ursus americanus,15,Feral Hog,Sus,Sus scrofa,10
+255,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+247,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,5,Virginia Opossum,Didelphis,Didelphis virginiana,2
+251,5,362736713,Canada Goose,Branta canadensis,"SSOT RANDOMNESS SEED (internal): `s3M8xN6a`
+
+REASONING:
+The provided image and its crops are almost entirely dark, presenting no discernible visual features of an animal. The faint patterns visible are extremely ambiguous and do not allow for the identification of any specific form, texture, or coloration that would indicate an animal's presence.
+
+Therefore, identification based on visual appearance is impossible.
+
+The observation metadata provides a location (North Carolina, USA) and a date/time (May 18, 9 AM). This information indicates a temperate climate during late spring/early summer, and a morning time when many diurnal and some nocturnal animals might be active.
+
+Given the complete lack of visual information, any animal identified would be purely speculative. To adhere to the task of returning the ""most likely species predictions,"" I must rely solely on geographic plausibility and species prevalence in the specified region.
+
+I will select two common and widespread mammal species known to inhabit North Carolina, as they represent statistically plausible candidates if an animal were hypothetically present but completely obscured in the image.
+
+1.  **Eastern Gray Squirrel (Sciurus carolinensis):** This species is extremely common throughout North Carolina, including urban, suburban, and natural environments. They are highly active during the morning hours in May.
+2.  **White-tailed Deer (Odocoileus virginianus):** Also very common across North Carolina, found in a variety of habitats from forests to suburban fringes. They are active during morning hours.
+
+Since there is absolutely no visual evidence to support the presence of *any* animal, the confidence in these predictions is extremely low. Therefore, the assigned probabilities reflect this extreme uncertainty and are set to the lowest possible positive integer, acknowledging that while these species are prevalent in the region, there is no direct visual support for their identification in this specific image.
+
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+253,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+254,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,2,Domestic Dog,Canis,Canis lupus familiaris,1
+246,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,20,Canada Goose,Branta,Branta canadensis,10
+256,5,362736713,Canada Goose,Branta canadensis,American Bullfrog,Lithobates,Lithobates catesbeianus,0,Common Snapping Turtle,Chelydra,Chelydra serpentina,0
+259,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,American Black Bear,Ursus,Ursus americanus,2
+260,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+265,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+257,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+258,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+262,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+261,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+266,5,362736713,Canada Goose,Branta canadensis,No animal visible,Unknown,No animal visible,0,No animal visible,Unknown,No animal visible,0
+269,5,362736713,Canada Goose,Branta canadensis,"No animal is visible in the provided images. The images are too dark to discern any features. Therefore, no identification is possible based on visual appearance. The predictions below are placeholders based on common species in the geographic location, assigned a probability of 0 to reflect the complete lack of visual evidence.
+
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+263,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,carolinensis,5,White-tailed Deer,Odocoileus,virginianus,3
+270,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+267,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+272,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+264,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,7,Raccoon,Procyon,Procyon lotor,5
+268,5,362736713,Canada Goose,Branta canadensis,Error,Error,Error,0,Error,Error,Error,0
+276,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+278,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+279,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,2,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+280,5,362736713,Canada Goose,Branta canadensis,Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+275,5,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,1,Virginia Opossum,Didelphis,Didelphis virginiana,1
+281,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+273,5,362736713,Canada Goose,Branta canadensis,"The provided image is extremely dark and does not contain any discernible features of an animal. All crops are similarly dark and uninformative. Therefore, it is impossible to identify any animal species based on visual appearance.
+
+Given the complete lack of visual information, my confidence in identifying any specific animal from this image is 0. However, to comply with the required output format, I must provide species names. I will select two common species found in the geographic location (near Charlotte, North Carolina, USA) during the specified time (mid-May morning). These choices are based purely on geographic and temporal plausibility in the *absence* of any visual evidence, and not on any identification from the image itself. The probability for both will be 0, accurately reflecting that no identification was made from the visual input.
+
+**Reasoning Steps:**
+1.  **Visual appearance:** Image is entirely black/dark grey; no animal features are visible.
+2.  **Observation metadata:** Location: Charlotte, NC area. Date/Time: May 18, 9 AM. These conditions are suitable for many common wildlife species.
+3.  **Geographic plausibility:** White-tailed Deer and Eastern Gray Squirrel are both very common in this region.
+4.  **Seasonal and temporal likelihood:** Both species are active during mid-May mornings.
+5.  **Visual ambiguity:** The image is completely ambiguous, providing no data for species identification.
+6.  **Confidence:** Due to zero visual information, the confidence in identifying any animal is 0. The randomness seed is not applied as there are no visually plausible options to differentiate.
+
+White-tailed Deer",Odocoileus,virginianus,0,Eastern Gray Squirrel,Sciurus,carolinensis,0
+284,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+277,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,American Black Bear,Ursus,Ursus americanus,2
+283,5,362736713,Canada Goose,Branta canadensis,Beaver,Castor,Castor canadensis,15,North American River Otter,Lontra,Lontra canadensis,8
+274,5,362736713,Canada Goose,Branta canadensis,"**SSOT RANDOMNESS SEED:** `a1b2c3d4`
+
+**REASONING PROCESS:**
+The image provided is extremely dark, with almost no discernible visual information. The additional cropped images are equally dark and offer no further clarity. Therefore, visual appearance (body shape, fur/feather/skin texture, coloration and markings, pose and silhouette) cannot be reliably used for identification.
+
+The location (35.3929335505, -80.8388249743) is in Mecklenburg County, North Carolina, USA, near Huntersville. This area includes suburban and natural/wooded habitats. The date/time is May 18th at 9:00 AM, indicating mid-morning in spring.
+
+Given the complete lack of visual cues, identifying a specific species is impossible. The task, however, requires two predictions and acknowledges that ""lower confidence should produce lower probabilities"" and ""if multiple species are similarly plausible, reflect uncertainty honestly."" In this extreme case, almost any animal found in the region could be obscured in such a dark image.
+
+I must rely on geographic plausibility and seasonal/temporal likelihood to make the most educated *guess* among highly common wildlife in the specified area. The faint, slightly lighter gray area in the center-left of the image is a vague, rounded form that could, with extreme generosity, be interpreted as part of a medium-to-large mammal's body.
+
+Considering common wildlife in North Carolina (especially Mecklenburg County) that are active in the morning in May:
+*   **White-tailed Deer (Odocoileus virginianus):** Extremely common throughout North Carolina, often active during morning hours. A partial or blurred view of a deer's body could match the vague shape.
+*   **Raccoon (Procyon lotor):** Very common, found in a wide range of habitats, though more active at night, they are often observed during the day, particularly mornings. A raccoon's body shape could also fit the indistinct form.
+*   **Virginia Opossum (Didelphis virginiana):** Also common, mainly nocturnal but can be seen in the morning.
+*   **Eastern Gray Squirrel (Sciurus carolinensis):** Abundant, but the vague shape appears a bit too large for a squirrel.
+*   **Coyote (Canis latrans):** Present, but generally less common than deer or raccoons in terms of individual sightings in developed areas.
+*   **Black Bear (Ursus americanus):** Less common in this specific developed county, though possible in more rural parts of NC.
+
+Given the extreme visual ambiguity, both White-tailed Deer and Raccoon are highly plausible as common, medium-to-large mammals that might be present and active. I am applying the randomness step here as there's effectively no visual tie-breaker. I'm selecting White-tailed Deer as Top 1 due to its very widespread presence and the possibility that the vague shape represents a larger animal's partial view. Raccoon is a very close second in plausibility.
+
+The probabilities will be very low to reflect the near-total absence of visual identification features.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,5,Raccoon,Procyon,Procyon lotor,3
+286,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Raccoon,Procyon,Procyon lotor,3
+292,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+287,5,362736713,Canada Goose,Branta canadensis,"REASONING PROCESS:
+The provided image is almost entirely dark grey with extremely faint, indiscernible light grey lines. These lines do not form any recognizable animal shape, features, or patterns. The image lacks any visual information that could be used for species identification. Therefore, visual appearance, body shape, fur/feather/skin texture, coloration, markings, pose, and silhouette cannot be used.
+
+Given the complete lack of visual data, the confidence in identifying any species from the image is effectively zero. However, the task requires returning two predictions with integer probabilities from 0-100. To adhere to this, I will assign the lowest possible non-negative integer probability (1) to represent the absolute minimum confidence, acknowledging that no visual identification is possible.
+
+Geographic and temporal data:
+Location: (35.3929335505, -80.8388249743) - This location is in North Carolina, near Charlotte, USA.
+Date/Time: 2026-05-18 at 9 Military time (9:00 AM) - Mid-May, morning.
+
+Based on geographic and temporal plausibility, a vast number of common species could be present. Given the lack of visual information, any selection is arbitrary. I will choose two extremely common and widespread species in North Carolina that are active during the morning in May.
+
+Candidate 1: Eastern Gray Squirrel (Sciurus carolinensis). This species is ubiquitous in forests, parks, and suburban areas across North Carolina and is highly active in the morning.
+Candidate 2: American Robin (Turdus migratorius). This common songbird is also widespread across North Carolina and frequently seen foraging in the morning in May.
+
+Since there is no visual evidence, the assignment of these species is based purely on the context data and common prevalence, not on any visual identification from the image itself. The probabilities reflect this absolute lack of visual confidence.
+
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+282,5,362736713,Canada Goose,Branta canadensis,Crayfish,Procambarus,Procambarus acutus,5,American Toad,Anaxyrus,Anaxyrus americanus,2
+288,5,362736713,Canada Goose,Branta canadensis,American Alligator,Alligator,Alligator mississippiensis,8,Common Snapping Turtle,Chelydra,Chelydra serpentina,5
+295,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,White-tailed Deer,Odocoileus,Odocoileus virginianus,0
+271,5,362736713,Canada Goose,Branta canadensis,Crayfish,Cambarus,sp.,15,Giant Water Bug,Lethocerus,americanus,10
+290,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+291,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,American Black Bear,Ursus,Ursus americanus,1
+289,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Coyote,Canis,Canis latrans,1
+294,5,362736713,Canada Goose,Branta canadensis,No animal identifiable,Unidentifiable,Unidentifiable,0,No animal identifiable,Unidentifiable,Unidentifiable,0
+296,5,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,5,Virginia Opossum,Didelphis,Didelphis virginiana,3
+298,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+297,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+293,5,362736713,Canada Goose,Branta canadensis,Common Snapping Turtle,Chelydra,Chelydra serpentina,5,Beaver,Castor,Castor canadensis,3
+299,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,White-tailed Deer,Odocoileus,Odocoileus virginianus,0
+300,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,7,Eastern Cottontail,Sylvilagus,Sylvilagus floridanus,4
+285,5,362736713,Canada Goose,Branta canadensis,Freshwater Crab,Potamon,Potamon sp.,10,Red Swamp Crayfish,Procambarus,Procambarus clarkii,8

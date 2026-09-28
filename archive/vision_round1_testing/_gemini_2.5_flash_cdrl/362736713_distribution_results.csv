@@ -1,0 +1,960 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+10,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+14,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+15,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+12,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+6,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+8,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+7,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+2,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+11,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+3,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+4,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+1,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+5,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+13,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+9,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+21,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+18,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+16,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+17,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+24,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+19,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+26,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+25,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+20,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+22,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Barnacle Goose,Branta,Branta leucopsis,2
+27,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+30,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+28,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+23,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,1
+29,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+31,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+34,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+35,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+33,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+36,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+32,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+37,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+38,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+39,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+41,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Brant,Branta,Branta bernicla,2
+40,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+44,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+42,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+43,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+45,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+46,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+49,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+48,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+51,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+52,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+47,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+50,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+57,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+55,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+58,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+53,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+59,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+54,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+60,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Brant,Branta,Branta bernicla,5
+56,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+61,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+63,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+64,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+62,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+65,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+71,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+69,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+72,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+70,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+67,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+73,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+68,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+66,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,1
+74,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+75,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+76,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+78,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+81,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+79,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+80,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+83,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+84,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+87,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,7
+77,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+82,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+86,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+88,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+85,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+89,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+91,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+90,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+98,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+92,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+95,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+93,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+97,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+96,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+100,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+99,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+102,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+101,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+94,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+103,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+104,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+105,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+107,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,15
+106,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+109,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+108,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+111,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+110,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+113,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+112,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+114,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+118,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+116,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+119,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+115,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+117,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+120,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+121,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+123,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+126,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+122,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Domestic Goose,Anser,Anser anser,5
+127,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+125,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+124,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+129,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+131,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+128,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+130,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Brant,Branta,Branta bernicla,2
+133,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+135,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+132,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+136,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,7
+137,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+143,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+141,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+138,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+134,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+142,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+140,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,93,Cackling Goose,Branta,Branta hutchinsii,7
+139,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+145,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Brant,Branta,Branta bernicla,10
+144,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,8
+146,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+150,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+147,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+148,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+149,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+154,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,88,Cackling Goose,Branta,Branta hutchinsii,15
+156,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+152,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,10
+153,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Domestic Goose,Anser,Anser anser domesticus,10
+157,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,38,Cackling Goose,Branta,Branta hutchinsii,5
+161,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,15
+164,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,75,Cackling Goose,Branta,Branta hutchinsii,15
+160,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+163,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Greylag Goose,Anser,Anser anser,5
+165,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Egyptian Goose,Alopochen,Alopochen aegyptiacus,5
+155,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Domestic Goose,Anser,Anser anser domesticus,5
+166,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,10
+168,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+151,3,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is extremely dark, has very low contrast, and appears rotated 90 degrees clockwise. Details are difficult to discern.
+    *   **Specific tokens:**
+        *   **Body shape:** Goose-like, large waterfowl with a relatively long neck.
+        *   **Plumage:** Appears mostly dark grayish-brown with a lighter belly/flank area. Faintly discernible black head/neck and a white patch consistent with a chinstrap are visible, though heavily obscured by darkness.
+        *   **Head/Beak:** Head appears dark. Beak is not clearly distinguishable.
+        *   **Tail/Legs:** Not visible.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, image rotation.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Despite the very low clarity, the overall silhouette, the apparent dark head and neck, and the faint indication of a white chinstrap strongly suggest a Canada Goose (Branta canadensis).
+    *   **Path B (Contextual):**
+        *   **Location:** (35.3929335505, -80.8388249743) is in North Carolina, USA. Canada Geese are common and widespread residents/migrants throughout this region.
+        *   **Date/Time:** May 18th, 09:00. This is a typical time of year and day for Canada Geese to be active in this area.
+        *   The metadata is highly consistent with the presence of a Canada Goose.
+    *   **Compare:** There is high agreement between the visual cues (faint but consistent) and the contextual information. However, the visual clarity is very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The extreme darkness and low contrast are major limitations. While the key identifying features (dark head/neck, white chinstrap) are *just* discernible, their low visibility prevents high confidence purely from the image. The contextual information is crucial for bolstering the identification.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Cackling Goose (Branta hutchinsii). This species is very similar in appearance to the Canada Goose, differing primarily in size (which cannot be determined from this image). In low light, it would be impossible to differentiate based on visual characteristics alone. Other dark geese (e.g., some domestic geese) would have different head patterns.
+
+PHASE 2: CALIBRATED OUTPUT
+Canada Goose",Branta,Branta canadensis,35,Cackling Goose,Branta,Branta hutchinsii,10
+159,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Domestic Goose,Anser,Anser anser domesticus,8
+169,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,78,Brant,Branta,Branta bernicla,15
+167,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,5
+158,3,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Very low. The image is extremely dark, rotated 90 degrees clockwise, and appears blurry/low resolution.
+    *   **Specific Tokens:**
+        *   **Body:** Appears to be a large water bird, goose-like in shape.
+        *   **Plumage:** Predominantly dark/greyish body plumage.
+        *   **Head/Neck:** Dark head and neck.
+        *   **Key Feature:** A distinct white patch is visible under the chin, extending up towards the cheek, contrasting with the dark head and neck.
+    *   **Perceptual Barriers:** Extreme darkness (low light), significant image rotation (90 degrees clockwise), general blurriness/low resolution.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The observed combination of a large goose-like body, dark head and neck, and crucially, the distinct white chin strap/cheek patch, strongly points to a Canada Goose.
+    *   **Path B (Contextual):**
+        *   **Location:** (35.3929335505, -80.8388249743) is in North Carolina, USA.
+        *   **Date/Time:** May 18th. Canada Geese (Branta canadensis) are a year-round resident and extremely common species throughout North America, including North Carolina.
+    *   **Compare:** Visual cues and contextual information are in strong agreement, both supporting the identification as a Canada Goose.
+
+3.  **SELF-REFLECTION (Critic):**
+    *   **Degradation:** The primary degradations are extreme darkness, rotation, and blur. Despite these, the highly diagnostic white chin strap on a dark head/neck is discernible.
+    *   **Most Likely 'Look-alike' species for this specific degradation:** Given the visible white chin strap, the most similar look-alike would be a Cackling Goose (Branta hutchinsii), which has nearly identical plumage but is smaller. However, without a clear sense of scale, and considering Canada Geese are far more common in this region, Cackling Goose would be a secondary consideration. Other large waterfowl lack this specific head pattern.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** High agreement (visual cues align with contextual information).
+*   **Clarity:** Low clarity (due to darkness, rotation, blur).
+*   **Probability Calculation:** According to the rules, ""Low Agreement OR Low Clarity = Low Probability (under 40)"". Since the clarity is low, the probability for the Top1 species must be under 40, despite the high agreement and discernibility of a key diagnostic feature.
+
+Canada Goose",Branta,Branta canadensis,35,Cackling Goose,Branta,Branta hutchinsii,5
+172,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+176,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Brant,Branta,Branta bernicla,15
+174,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,88,Greylag Goose,Anser,Anser anser,5
+182,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+177,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,8
+162,3,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is significantly underexposed, resulting in extreme darkness and low contrast. There is also an apparent 90-degree clockwise rotation (the subject appears upright when viewed with a mental counter-clockwise rotation). Some blur is present.
+    *   **Specific Tokens:**
+        *   **Body Shape:** Large, robust, waterfowl-like body.
+        *   **Neck:** Relatively long, dark, curved neck.
+        *   **Head:** Distinctive black head with a clear white chin strap/patch. This is the most salient and diagnostic feature despite the low light.
+        *   **Feather Texture:** Appears to be greyish-brown on the body, consistent with geese, but details are obscured.
+        *   **Bill:** Short, dark bill, partially visible.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, image rotation, slight blur.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The combination of a large goose-like body, a long dark neck, and a black head with a prominent white chin strap strongly indicates a Canada Goose (*Branta canadensis*).
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date (May) are well within the range and typical breeding season for Canada Geese. They are abundant in urban and suburban areas, parks, and near water bodies throughout this region.
+    *   **Compare:** Path A and Path B show high agreement. The visual evidence (distinctive chin strap) aligns perfectly with the common species expected in the given context. However, the overall visual clarity is low.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The extreme underexposure and low contrast make it difficult to discern subtle feather patterns, bill color details, or leg/foot characteristics. The image rotation further complicates immediate interpretation.
+    *   **Most Likely 'Look-alike' species for this specific degradation:** While the white chin strap is quite diagnostic, if it were less clear due to the degradation, other large waterfowl could be considered. A **Domestic Goose** (*Anser anser*) could be a look-alike in terms of general size and shape, particularly if no head markings were discernible or if a pale marking on a domestic goose was misinterpreted. However, the specific chin strap pattern of the Canada Goose is usually absent in domestic geese. Other goose species like Brant (*Branta bernicla*) or Barnacle Goose (*Branta leucopsis*) have different white head/neck patterns (neck patch or face patch, respectively) and are generally less common in inland North Carolina, making them less likely look-alikes given the visible features.
+
+PHASE 2: CALIBRATED OUTPUT
+Despite the high agreement between visual and contextual cues, the overall perceptual clarity of the image is low due to darkness and low contrast. According to the instruction, ""Low Clarity = Low Probability (under 40)"". Therefore, the probability must reflect this degradation, even if the diagnostic features are somewhat visible.
+
+Canada Goose",Branta,Branta canadensis,35,Domestic Goose,Anser,Anser anser,10
+180,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,88,Cackling Goose,Branta,Branta hutchinsii,15
+175,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Mute Swan,Cygnus,Cygnus olor,5
+181,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Domestic Goose,Anser,Anser anser,5
+170,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,7
+183,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,15
+179,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,80,Cackling Goose,Branta,Branta hutchinsii,15
+184,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,15
+189,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,15
+185,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,88,Cackling Goose,Branta,Branta hutchinsii,10
+171,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,80,Domestic Goose,Anser,Anser anser,15
+187,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Domestic Goose,Anser,Anser anser domesticus,5
+173,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Cackling Goose,Branta,Branta hutchinsii,10
+191,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,7
+178,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Barnacle Goose,Branta,Branta leucopsis,5
+195,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,92,Cackling Goose,Branta,Branta hutchinsii,15
+188,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Domestic Goose,Anser,Anser anser domesticus,5
+194,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,10
+198,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,15
+197,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,15
+192,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,30
+196,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,18,Mallard,Anas,Anas platyrhynchos,7
+190,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,10
+193,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,38,Cackling Goose,Branta,Branta hutchinsii,5
+203,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,2,Mallard,Anas,Anas platyrhynchos,1
+200,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,93,Cackling Goose,Branta,Branta hutchinsii,7
+202,4,362736713,Canada Goose,Branta canadensis,No animal detected,N/A,N/A,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+186,3,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** The image is extremely dark, monochrome, and rotated 90 degrees clockwise. This severely impacts overall clarity.
+    *   **Specific Tokens:** A large bird-like figure is visible. Key features include a dark head and neck, a distinct white patch under the chin/cheek (chinstrap), and a lighter body. The shape is consistent with a goose.
+    *   **Perceptual Barriers:** Extreme darkness/low light, low contrast, rotation, monochrome effect, possibly some motion blur or low resolution contributing to fuzziness.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visible white chinstrap against a dark head and neck is a highly diagnostic feature pointing strongly to a Canada Goose. The overall body shape and size are also consistent with a goose.
+    *   **Path B (Contextual):** The location (North Carolina, USA) and date (May) are well within the native range and typical presence period for Canada Geese, which are common year-round residents and breeders in the area. The apparent habitat (grassy area) is also typical.
+    *   **Compare:** Path A and Path B are in strong agreement. The visual evidence, despite poor overall image clarity, provides a key diagnostic feature that aligns perfectly with the contextual information.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** While the distinctive white chinstrap is discernible, the overall image quality (darkness, rotation, monochrome) is very poor. This low clarity makes it difficult to ascertain other details like feather texture, exact plumage shades, or precise body proportions, which could potentially rule out very rare or obscure look-alikes.
+    *   **Most likely 'Look-alike' species for this specific degradation:** If the white chinstrap were to be completely obscured or misinterpreted due to the low clarity, the image would simply show a large, dark-necked, light-bodied goose. In this scenario, various Domestic Goose breeds (e.g., derived from Greylag Goose) could be considered look-alikes, as they vary widely in appearance and are present in human-influenced landscapes. However, given that the chinstrap *is* discernible, Canada Goose remains the primary identification.
+
+PHASE 2: CALIBRATED OUTPUT
+Canada Goose",Branta,Branta canadensis,35,Domestic Goose,Anser,Anser anser domesticus,15
+199,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Cackling Goose,Branta,Branta hutchinsii,5
+208,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Raccoon,Procyon,Procyon lotor,2
+207,4,362736713,Canada Goose,Branta canadensis,American Black Bear,Ursus,Ursus americanus,5,White-tailed Deer,Odocoileus,Odocoileus virginianus,2
+215,4,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,1,Unidentifiable,N/A,N/A,1
+210,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,5,Mallard,Anas,Anas platyrhynchos,3
+206,4,362736713,Canada Goose,Branta canadensis,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+204,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black with very low contrast.
+    *   **Specific Tokens:** No clear tokens can be identified. There is a vague, elongated, curved shape in the center-left that *might* be an animal, intertwined with equally vague vegetation. No discernible ear shape, tail, fur/scale texture, or distinct anatomical features are visible.
+    *   **Perceptual Barriers:** Extreme darkness, severe lack of contrast, high noise/grain, lack of detail, potential motion blur. The image is highly degraded.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The extremely dark and indistinct shape prevents any confident visual identification. The blurred form could vaguely suggest an elongated object like a snake, a tree branch, or even indistinct foliage.
+    *   **Path B (Contextual):**
+        *   **Location:** (35.3929335505, -80.8388249743) corresponds to North Carolina, USA, specifically near Charlotte. This region is home to a diverse range of wildlife, including various snake species (e.g., rat snakes, copperheads, garter snakes), mammals (e.g., squirrels, opossums), and birds.
+        *   **Date/Time:** May 18th, 09:00 (morning). This is during springtime when many animals are active.
+    *   **Compare:** Visual clarity is critically low, making it impossible to form a strong visual hypothesis. Therefore, there is no direct conflict with contextual information, but also no support for a specific species. The extreme lack of visual data inherently leads to low confidence.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this specific degradation (extreme darkness and indistinct, elongated shape) would be a tree branch, a shadow, draped fabric, or any dark, obscured elongated object. In terms of animal species, any common snake or a mammal with an elongated body (like an opossum tail) that could be in an arboreal setting in North Carolina would be a speculative look-alike. The visual ambiguity is paramount.
+
+PHASE 2: CALIBRATED OUTPUT
+Eastern Rat Snake",Pantherophis,Pantherophis alleghaniensis,3,Eastern Copperhead,Agkistrodon,Agkistrodon contortrix,1
+213,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,10,Mallard,Anas,Anas platyrhynchos,5
+209,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and almost entirely dark, appearing as a dark grey rectangle. The 'hint' crops offer no additional clarity.
+    *   **Specific Tokens:** No identifiable animal tokens (ear shape, tail, texture, body outline) are discernible. There are vague patterns that might suggest foliage or textured surfaces, but nothing that forms the shape of an animal.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, general blur, and possibly vertical orientation which makes interpretation difficult without a clear subject.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No species can be identified visually. There is no discernible animal in the image.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is in North Carolina, USA. The date/time (2026-05-18 at 09:00) is within typical daylight hours. This context indicates a temperate region where various wildlife (e.g., deer, squirrels, raccoons, birds) could be present, but provides no specific animal suggestion without visual input.
+    *   **Compare:** Path A yields no identification of an animal. Path B provides a geographical context but no direct species suggestion. There is zero agreement on a specific animal identification as no animal is visible. Clarity is critically low.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is essentially a black rectangle with faint, unidentifiable textures. It is impossible to identify any wildlife species from this visual data. Any attempt to do so would be speculative and without basis in perception.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of clarity and discernible features, no specific look-alike species can be identified. The image appears to be a dark abstract pattern rather than an animal. The degradation makes any object appear as ""nothing specific.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete inability to identify any animal visually, the probability of any identification is 0. To adhere to the output format, common species found in the specified geographical area are listed with a probability of 0, reflecting that no visual identification was made.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+211,4,362736713,Canada Goose,Branta canadensis,Unidentifiable Animal,Indeterminate,Indeterminate,1,Unidentifiable Animal,Indeterminate,Indeterminate,1
+205,4,362736713,Canada Goose,Branta canadensis,African Elephant,Loxodonta,Loxodonta africana,5,American Black Bear,Ursus,Ursus americanus,2
+214,4,362736713,Canada Goose,Branta canadensis,"**PHASE 1: MULTI-MODULE INTERNAL EVALUATION**
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, making nearly all details indistinguishable. The image is also inverted.
+    *   **Specific tokens:** A very faint, inverted, dark, oblong shape is barely discernible in the central-left area of the main image. It *vaguely* resembles the silhouette of a waterfowl (e.g., a duck or goose) seen from the side, with a body and a neck/head pointing left. No specific features like ear shape, tail, or texture are identifiable. The provided crops offer no additional clarity.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, significant blur (though hard to ascertain due to darkness), and image rotation (inverted).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient for species identification. The faint, inverted outline *could* be a waterfowl.
+    *   **Path B (Contextual):**
+        *   Location: (35.3929335505, -80.8388249743) is in North Carolina, USA, near Charlotte. This area contains various habitats, including parks, ponds, and wetlands where waterfowl are common.
+        *   Date/Time: May 18th is spring, a time when many waterfowl species are present in North Carolina.
+    *   **Compare:** There is a weak suggestion from the visual (faint waterfowl-like shape) that aligns with the possibility of waterfowl in the given context. However, the extreme lack of visual clarity makes any specific identification purely speculative. The agreement between visual and contextual paths is very low due to the visual degradation.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness, low contrast, and inverted orientation, almost any dark, oblong object in a water body could be mistaken for a waterfowl. Without distinguishing features, it's impossible to differentiate between different species of ducks (e.g., Mallard, Wood Duck) or even between a duck and a small goose (e.g., Canada Goose). Furthermore, the degradation is so severe that it could be a log, a rock, or even photographic noise interpreted as a shape.
+
+**PHASE 2: CALIBRATED OUTPUT**
+
+Due to the extremely low perceptual clarity and very low agreement between paths for any specific identification, the probability score must be very low (under 40). Assigning a specific species is nearly impossible. I will choose two common waterfowl that *could* plausibly fit the ambiguous, inverted outline, acknowledging the extreme uncertainty.
+
+Mallard",Anas,Anas platyrhynchos,5,Canada Goose,Branta,Branta canadensis,1
+219,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,5,Mallard,Anas,Anas platyrhynchos,2
+220,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,15,Wood Duck,Aix,Aix sponsa,5
+212,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and underexposed, rendering almost all details indistinguishable.
+    *   **Specific Tokens:** No discernible tokens such as ear shape, tail, body texture, or limb structure can be identified. There is an extremely faint, slightly less dark, rounded blob in the center-left of the main image, but its features are entirely obscure.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), very low contrast, lack of sharp focus/blur, and overall absence of detail are significant barriers. The image is effectively black. The provided crops offer no additional clarity.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on visual information alone, no species can be identified. The faint blob is too indistinct to confidently assign to any animal.
+    *   **Path B (Contextual):** The location (North Carolina, near Charlotte) and time (daytime in spring) suggest a temperate environment with common wildlife such as White-tailed Deer, Raccoons, Coyotes, Opossums, various birds, and small mammals. However, the metadata does not offer specific clues about *which* animal might be present, only the general ecological context.
+    *   **Compare:** Path A provides no definitive visual identification. Path B provides only broad geographic context. There is a strong conflict due to the complete lack of visual evidence. Clarity is exceptionally low. Consequently, confidence must be extremely low.
+3.  **SELF-REFLECTION (Critic):** The most likely 'look-alike' for this level of degradation (extreme underexposure/darkness) is ""an indistinct shadow"" or ""a featureless blob."" Any interpretation of the faint, lighter area as an animal is highly speculative and based on forced perception rather than clear evidence. This could easily be a part of the environment (e.g., a rock, a tree stump) or an object, or any large animal. The degradation makes all potential species appear indistinguishable.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low agreement between visual and contextual information, and the exceptionally low clarity of the image, the probability scores must be very low (under 40, likely single digits). Due to the prompt's requirement to provide a species, I will make a highly speculative guess based on the location and the vague impression of a large, lighter-colored shape.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,3,Coyote,Canis,Canis latrans,1
+218,4,362736713,Canada Goose,Branta canadensis,Eastern Rat Snake,Pantherophis,alleghaniensis,5,Black Racer,Coluber,constrictor,2
+223,4,362736713,Canada Goose,Branta canadensis,Unidentifiable,Unknown,Unknown,5,Unidentifiable,Unknown,Unknown,2
+217,4,362736713,Canada Goose,Branta canadensis,"**PHASE 1: MULTI-MODULE INTERNAL EVALUATION**
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making it nearly impossible to discern any meaningful details. There is a vague, vertical, slightly lighter shape in the center-right against a darker, textured background.
+    *   **Specific Tokens:** No specific tokens (ear shape, tail, fur/feather texture, eye shape, etc.) are identifiable due to the extreme darkness and lack of detail.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, heavy underexposure, blur/lack of sharpness.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no reliable visual information to suggest any specific wildlife species. The vague shape could be interpreted as a portion of a bird, a mammal, or even an inanimate object.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and time (morning) indicate a temperate climate where a wide variety of birds and mammals could be found. However, this context alone cannot identify a species without visual input.
+    *   **Compare:** There is no agreement possible between Path A and Path B regarding a specific species, as Path A yields no identifiable species. The clarity is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation (near-total darkness and lack of detail), the vague shape could be interpreted as almost anything, including a tree stump, a rock, an out-of-focus piece of foliage, or an extremely blurry animal (e.g., an owl, raccoon, squirrel, or even a deer). The degradation prevents any meaningful comparison to specific look-alikes.
+
+**PHASE 2: CALIBRATED OUTPUT**
+Given the extremely low clarity and complete lack of identifiable features, coupled with no agreement between visual and contextual paths for a specific species, the probability for any identification must be exceptionally low. I am selecting two common, broadly possible species for the region purely for format compliance, with probabilities reflecting the utter lack of visual evidence.
+
+Great Horned Owl",Bubo,Bubo virginianus,1,Raccoon,Procyon,Procyon lotor,1
+222,4,362736713,Canada Goose,Branta canadensis,American Black Bear,Ursus,Ursus americanus,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,0
+201,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image clarity is extremely low. It is very dark, has low contrast, and appears to be rotated 90 degrees clockwise from its original orientation. The subject is a large, dark, bulky animal with what appears to be a thick, possibly shaggy coat. The most distinct (though still unclear) token is a robust, dark, curved structure on the animal's head, resembling a horn or a very thick antler. No clear ear shape, tail, or distinct facial features are discernible. Perceptual Barriers include extreme darkness, low contrast, image rotation, and general blur/lack of sharpness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual features (large, bulky, shaggy appearance, and prominent horn-like structure) most strongly suggest a large ungulate, specifically an American Bison (Bison bison) or potentially domestic cattle (Bos taurus) due to the apparent horn and robust build.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743), near Concord, North Carolina, makes a wild American Bison sighting highly unlikely, as they are not native to this region in the wild. The most common large wild mammals in this area are White-tailed Deer (Odocoileus virginianus) and American Black Bear (Ursus americanus).
+    *   **Compare:** There is a significant conflict between Path A (visual suggestion of a horned/heavily antlered animal like a bison) and Path B (contextual likelihood of deer or bear). This strong conflict, coupled with the extremely low visual clarity, dictates that confidence must be very low for any identification.
+
+3.  **SELF-REFLECTION:** Act as a critic. The most likely 'Look-alike' species for this specific degradation, if the animal were, for instance, a White-tailed Deer, would be an animal with a more robust build and a horn-like feature, such as a Bison or a domestic cow, because the degradation makes it difficult to discern typical deer features from the perceived ""horn."" Conversely, if the animal truly is a Bison (as the visual hint suggests), then domestic cattle would be a common look-alike.
+
+PHASE 2: CALIBRATED OUTPUT
+American Bison",Bison,Bison bison,15,White-tailed Deer,Odocoileus,Odocoileus virginianus,10
+225,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,2,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+216,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and appears to be out of focus or highly blurred. The details are almost entirely obscured.
+    *   **Specific tokens:** No discernible tokens (ear shape, tail, texture) can be identified with any certainty. A very faint, amorphous, dark shape can be vaguely perceived in the lower-middle portion of the image, potentially surrounded by or partially covered by light-colored, linear textures that might be vegetation or reflections on water.
+    *   **'Perceptual Barriers':** Extreme darkness (underexposure), low contrast, significant blur/low resolution, and potential obstruction by environmental elements (water, dense vegetation).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests a dark, bulky, elongated form. No specific anatomical features are identifiable to suggest a particular species. It could vaguely resemble a mammal, a large bird, or even an inanimate object like a log, due to the extreme lack of clarity.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is near Charlotte, North Carolina, USA, an area with diverse habitats including wooded regions, creeks, and rivers. Common wildlife in such an environment includes deer, raccoons, opossums, various bird species, beavers, and North American river otters. Given the faint impression of a bulky, potentially low-lying presence, semi-aquatic mammals are plausible if it were in or near water.
+    *   **Compare:** Path A provides almost no information, making a direct comparison or agreement with Path B impossible. The clarity is extremely low, thus confidence must be very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image quality is so poor that it is virtually impossible to make a reliable identification of any wildlife species. Any attempt to identify a species would be based on pure speculation and contextual probabilities rather than visual evidence.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the object could be a submerged log, a rock, a shadow, or any number of dark-colored, medium-to-large animals (e.g., a beaver, an otter, a large turtle, a deer partially obscured in dense foliage, or even a large bird like a heron) viewed under conditions of very poor visibility. The degradation makes nearly any bulky, dark object a ""look-alike.""
+
+PHASE 2: CALIBRATED OUTPUT
+Beaver",Castor,Castor canadensis,1,North American River Otter,Lontra,Lontra canadensis,1
+230,4,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+227,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, rotated 90 degrees clockwise, and appears to be of very low resolution or heavily compressed. It is almost entirely black with faint, dark gray outlines. The ""crops"" offer no additional clarity due to the extreme darkness.
+    *   **Specific Tokens:** No discernible tokens (ear shape, tail, fur texture, eye position, body proportions) are visible. There is a vague, amorphous dark shape that *could* be an object or an animal, but no defining features.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), low contrast, severe blur, low resolution, image rotation (90 degrees clockwise).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is insufficient to suggest any specific species. The faint, dark shape is too ambiguous to interpret as an animal, let alone a particular species. If one were to squint, it *might* vaguely resemble an animal clinging to a vertical surface, but this is a highly subjective interpretation due to degradation.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is in North Carolina, USA. This suggests common North American wildlife. Date: May 18.
+    *   **Compare:** There is a severe conflict between the non-existent visual data (Path A) and the geographical context (Path B). The visual information is so degraded that it cannot support or contradict any species identification, making comparison impossible. Clarity is extremely low. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness, low contrast, and blur, the faint shapes could be misinterpreted as almost anything: a shadow, a piece of debris, a plant, or any small to medium-sized mammal. If forced to assume it is an animal, and given the context of North Carolina, common arboreal mammals like Eastern Gray Squirrels or Virginia Opossums are plausible as generic ""dark shapes in a tree,"" but *no visual evidence* supports this over random environmental patterns. The image essentially presents a complete lack of identifiable features.
+
+PHASE 2: CALIBRATED OUTPUT
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,5,Virginia Opossum,Didelphis,Didelphis virginiana,3
+226,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Greylag Goose,Anser,Anser anser,5
+228,4,362736713,Canada Goose,Branta canadensis,Sloth,Bradypus,Bradypus variegatus,1,Virginia Opossum,Didelphis,Didelphis virginiana,0
+221,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost black.
+    *   **Specific tokens:** No discernible ear shape, tail, fur pattern, or other species-specific features are visible. A very faint, rounded, dark shape can be vaguely perceived in the central-left area, potentially suggesting a body part of a medium to large animal or object, along with some indistinct texture on the far left that could be foliage or fur. A faint blue/purple hue is present on the central dark shape.
+    *   **'Perceptual Barriers':** Extreme underexposure/darkness, very low contrast, blur, and resolution limitations make confident identification impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides insufficient visual information to suggest any specific species. The faint shapes are too ambiguous.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina) is consistent with temperate forest and suburban wildlife, including species like White-tailed Deer, Raccoon, Coyote, various birds, etc. The date/time (May, 9 AM) is a typical active period for many animals.
+    *   **Compare:** There is a significant conflict. Path A yields virtually no identifiable visual cues for a species. Path B provides a broad list of possibilities but no link to the visual data. The clarity is extremely low. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, almost any medium to large-sized animal with dark or shadow-obscured fur could appear this way. Common large mammals in the North Carolina region, such as White-tailed Deer or Raccoon, are general possibilities, but this is based purely on context, not on any visual characteristic in the image itself. The bluish tint is an anomaly that further complicates visual interpretation.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of identifiable species-specific tokens, visual agreement is effectively zero. Therefore, the probability score for any named species must be very low, reflecting near-zero confidence. Based on the geographic location (North Carolina) and the extremely vague hint of a mammalian form, common local species are listed as a best *guess* under the constraint of providing specific names, but with minimal probability.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,2,Raccoon,Procyon,Procyon lotor,1
+231,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,1,Canada Goose,Branta,Branta canadensis,0
+236,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,15,Domestic Duck,Anas,Anas platyrhynchos domesticus,5
+233,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Raccoon,Procyon,Procyon lotor,3
+224,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black. What little is visible is very dark, low contrast, and possibly blurred. The image appears to be rotated 90 degrees clockwise from a natural orientation.
+    *   **Specific tokens:** Faintly visible on the left is a very dark, textured mass, possibly vegetation or animal hide. To its right, a slightly smoother, bulky dark shape is discernible, with an extremely subtle, lighter, purplish-blue, somewhat ear-like or appendage-like protrusion on its right side.
+    *   **'Perceptual Barriers':** Extreme underexposure, very low contrast, severe darkness, potential blur, and apparent rotation significantly hinder identification.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** After extreme mental processing to discern details from the very dark image, the faint bulky shape with the subtle purplish protrusion vaguely suggests a large mammal's head/ear, possibly resembling an elephant. However, this is highly speculative due to the overwhelming darkness.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is North Carolina, USA. Wild elephants are not found in North Carolina.
+    *   **Compare:** Path A's highly speculative visual suggestion of an elephant strongly conflicts with Path B's geographic context. The clarity is also extremely low. This necessitates a very low confidence score.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, almost any large, dark, bulky object could be a look-alike. These include large rocks, tree stumps, abstract art installations, or other large domestic or wild mammals (e.g., a cow or a bear) seen in extremely poor lighting. The specific 'purplish' element is confounding and could be an artifact.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and strong conflict between the faint visual suggestion and the contextual data, the probability for any specific identification is extremely low. The visual evidence is insufficient to confidently identify any species, wildlife or otherwise. However, following the prompt's structure, a species must be named, reflecting the lowest possible confidence.
+
+African Bush Elephant",Loxodonta,Loxodonta africana,3,American Black Bear,Ursus,Ursus americanus,1
+229,4,362736713,Canada Goose,Branta canadensis,African Bush Elephant,Loxodonta,Loxodonta africana,10,American Black Bear,Ursus,Ursus americanus,5
+234,4,362736713,Canada Goose,Branta canadensis,Virginia Opossum,Didelphis,Didelphis virginiana,5,Raccoon,Procyon,Procyon lotor,3
+240,4,362736713,Canada Goose,Branta canadensis,Unidentifiable Animal,Unknown,Unknown,1,Unidentifiable Animal,Unknown,Unknown,1
+241,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,25,Domestic Goose,Anser,Anser anser domesticus,10
+232,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black. There are faint, indistinguishable lighter areas in the center of the original image, but no discernible forms or features. The provided cropped hints offer no additional clarity and are equally dark.
+    *   **Specific Tokens:** None. No ear shape, tail, fur/skin texture, limb structure, or facial features can be identified due to the extreme darkness.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, potential blur (indistinguishable), and overall lack of any discernible detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on visual information alone, no species can be identified. There is only an extremely vague, large, dark, elongated shape that *could* be an animal, but it's equally likely to be a log, mud, or simply an artifact of poor lighting.
+    *   **Path B (Contextual):** The location (Charlotte, Mecklenburg County, North Carolina) is relevant. Common large wildlife in this area includes White-tailed Deer (Odocoileus virginianus), Black Bear (Ursus americanus), and various smaller mammals. American Alligators (Alligator mississippiensis) are found in North Carolina, primarily in the eastern part of the state, but their range has been expanding, and occasional sightings in the Piedmont region are not impossible, though less common. River Otters (Lontra canadensis) and Beavers (Castor canadensis) are present but generally smaller. The date and time (May 18, 9 AM) suggest daylight, but the image is critically underexposed.
+    *   **Compare:** There is a severe conflict due to the near-total absence of visual information. Path A offers no reliable data to compare with Path B. Any species suggested by context cannot be supported or refuted by the visual data. This leads to extremely low confidence.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness and lack of features, the most likely 'look-alike' is ""any large, dark, indistinct object or shadow in water or on land"" or ""a poorly lit portion of the environment (e.g., mud, water surface, vegetation)."" If forced to interpret the vague central lighter area as an animal, and given the North Carolina location, plausible, large, dark animals that might appear in such a state include American Alligator (if partially submerged) or a White-tailed Deer (if swimming or partially submerged in dark water/mud).
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, resulting in a probability that must be under 40. Given the absolute lack of discernible features, the confidence in any identification is minimal. I will assign the lowest possible non-zero probabilities to reflect this.
+
+American Alligator",Alligator,Alligator mississippiensis,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+238,4,362736713,Canada Goose,Branta canadensis,Unknown Animal,Indeterminate,Indeterminate species,1,Unknown Animal,Indeterminate,Indeterminate species,1
+239,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, making details almost completely indistinguishable. It appears rotated or taken from an unusual vertical angle.
+    *   **Specific Tokens:** No identifiable ear shape, tail, or distinct animal texture can be discerned. There is a vague, elongated, slightly lighter area in the center-left that *might* be an animal's body, but it lacks any specific features. The surrounding areas show very dark, blurry textures possibly indicative of foliage or a rough surface.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, blur, and potential image rotation. The subject matter is almost entirely obscured by darkness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no specific species due to the profound lack of visual information. A faint, elongated, dark shape *could* hypothetically be interpreted as a small to medium-sized mammal or a bird clinging or hanging, but this is pure speculation with no supporting details.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is in North Carolina, USA. The date is May 18, 9 AM. This context indicates a temperate climate with diverse wildlife, including many common mammals (e.g., raccoons, opossums, squirrels, bats), birds, reptiles, and amphibians. The time of day (9 AM) for such a dark image suggests it might be taken in deep shadow or indoors, or it is a nocturnal animal still present.
+    *   **Compare:** Path A provides no reliable species suggestion, while Path B offers a broad range of possibilities for North Carolina fauna. There is no agreement between the visual and contextual paths regarding a specific species. Clarity is critically low. This necessitates extremely low confidence.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the most likely 'look-alike' is ""an unidentifiable dark object,"" ""shadow,"" or ""abstract pattern."" If forced to consider an animal that *could* hypothetically present such a vague, dark, somewhat elongated form within the given geographical context, and considering the poor visibility, a nocturnal or crepuscular climbing mammal like a Virginia Opossum or a Raccoon might fit the *barely perceptible* dark outline if one stretches interpretation. However, this is based on imagination rather than visual evidence.
+
+PHASE 2: CALIBRATED OUTPUT
+Low Agreement (no visual ID, broad context) + Extremely Low Clarity = Extremely Low Probability (under 40, approaching 0).
+
+Virginia Opossum",Didelphis,Didelphis virginiana,2,Raccoon,Procyon,Procyon lotor,1
+243,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost black. There is a faint, indistinct, dark shape that might be an animal, located in the lower-right quadrant of the main image, against a textured background (possibly vegetation or a wall). The image also appears rotated 90 degrees clockwise.
+    *   **Specific tokens:** No discernable ear shape, tail, fur texture, or other identifying features. The shape is a dark, amorphous blob.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, low contrast, rotation, lack of resolution/detail, general blur.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Visually, it is impossible to identify any specific species. The shape is too indistinct. It *could* be a small to medium-sized mammal, but this is pure speculation based on the general outline of a dark mass.
+    *   **Path B (Contextual):** The location (near Charlotte, North Carolina, USA) and time (09:00 AM) suggest potential sightings of common local wildlife such as Eastern Cottontail rabbits, Virginia Opossums, Raccoons, Squirrels, etc.
+    *   **Compare:** Path A provides no reliable visual information, making it impossible to agree or conflict with Path B. The clarity is critically low. Therefore, confidence in any identification must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this degradation is ""unidentifiable dark blob"" or ""shadow."" Due to the extreme lack of visual data, any medium-sized animal (e.g., Eastern Cottontail, Virginia Opossum, Raccoon, domestic cat) could *potentially* produce such an indistinct outline. The degradation is so severe that distinguishing features are completely absent.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and the absolute lack of discernible features in the visual data, any species identification is highly speculative and effectively a guess. The agreement between visual and contextual paths is negligible due to the visual data's inadequacy. Therefore, the probability scores must be very low, reflecting this profound uncertainty. I am forced to select species for the format, so I will choose common mammals in the region that *could* hypothetically fit a vague, low-to-the-ground, dark outline.
+
+Eastern Cottontail",Sylvilagus,Sylvilagus floridanus,10,Virginia Opossum,Didelphis,Didelphis virginiana,5
+251,5,362736713,Canada Goose,Branta canadensis,Unknown,Unknown,Unknown,1,Unknown,Unknown,Unknown,1
+242,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,1,Canada Goose,Branta,Branta canadensis,1
+244,4,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,1,Common Opossum,Didelphis,Didelphis virginiana,1
+235,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black. There is virtually no discernible detail. The cropped images offer no additional clarity, being equally dark.
+    *   **Specific Tokens:** None identifiable. No features such as ear shape, tail, fur texture, eyes, or body outlines of an animal are present.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, blur (or lack of sharp focus due to darkness). These barriers render any visual identification impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no identifiable species. It is a dark, indistinct blob or textured background.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) provides a geographical range for potential species. The date/time (May, morning) provides seasonal and temporal context. This metadata alone cannot suggest a *specific* species without visual input.
+    *   **Compare:** There is no agreement between Path A and Path B as Path A provides no species information. Perceptual clarity is critically low (effectively zero). Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the image could 'look like' almost any object (animal, plant, inanimate) that is completely obscured by shadow or underexposure. There is insufficient visual information to suggest a specific 'look-alike' animal. The degradation prevents any form of visual identification, making ""a dark, unidentifiable object"" the most accurate 'look-alike'.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** There is no agreement possible due to the complete lack of visual information from Path A.
+*   **Clarity:** Extremely low (effectively zero).
+*   **Probability Score:** Given the extremely low clarity and lack of agreement, the probability must be very low (under 40), approaching 0. As no animal is discernible, any species identification would be purely speculative and not based on perception. To fulfill the format requirement, common species for the region are provided as placeholders with the lowest possible probability to reflect the absence of visual evidence.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+237,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and very low contrast, rendering most details invisible. It appears as a very dark, indistinct shape against an equally dark, textured background.
+    *   **Specific Tokens:** No discernable ear shape, tail, fur texture, eye, or limb structure can be identified. There is a vague, rounded, slightly lighter (but still very dark) form in the center-left that *could* be an animal's body, but no defining features. The background appears to be dark foliage or bark.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, potential blur/noise, and complete lack of identifiable features.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the severe lack of visual information, it is impossible to identify any specific species from the image. The shape is too ambiguous to suggest any particular animal.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and time (morning in May) are suitable for a wide variety of wildlife, including common mammals like raccoons, opossums, squirrels, various bird species, and reptiles. This broad context does not narrow down possibilities without visual input.
+    *   **Compare:** There is a strong conflict between the inability to visually discern any species-specific features (Path A) and the broad range of possibilities suggested by the metadata (Path B). The clarity is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness and lack of detail, the object could easily be mistaken for an inanimate object such as a knot in a tree, a shadow, a dark piece of debris, or general noise in a poorly lit photograph. If assumed to be an animal, any medium-sized, dark-colored mammal common to the region (e.g., Raccoon, Opossum) could appear as such an indistinct, rounded blob under these conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+Raccoon",Procyon,Procyon lotor,5,Virginia Opossum,Didelphis,Didelphis virginiana,3
+249,4,362736713,Canada Goose,Branta canadensis,Unidentifiable Animal,N/A,N/A,5,Unidentifiable Animal,N/A,N/A,5
+247,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Feral Hog,Sus,Sus scrofa,2
+257,5,362736713,Canada Goose,Branta canadensis,Undetermined,Unknown,Undetermined,0,Undetermined,Unknown,Undetermined,0
+254,5,362736713,Canada Goose,Branta canadensis,North American Black Bear,Ursus,Ursus americanus,5,Raccoon,Procyon,Procyon lotor,2
+250,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,2,Feral Hog,Sus,scrofa,1
+245,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is severely underexposed and extremely dark. No discernible animal forms, features (ear shape, tail, fur, eyes), or textures can be identified. There are faint, indistinct variations in shade that *might* suggest blurred vegetation or background elements, but nothing indicative of wildlife.
+    *   **Specific tokens:** None identifiable.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low resolution, blur, complete lack of detail or definition.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no specific species. No animal is discernible whatsoever.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is near Huntersville, North Carolina, USA, a temperate region with diverse wildlife. The date/time (May 18, 9 AM) is suitable for many diurnal or crepuscular species. This metadata suggests a range of common species (e.g., White-tailed Deer, Eastern Gray Squirrel, Raccoon, various birds) could be present, but provides no specific animal identification.
+    *   **Compare:** Path A provides no visual information to compare with Path B. Therefore, there is no agreement, and the clarity is extremely low. This necessitates a very low confidence score.
+
+3.  **SELF-REFLECTION:** Act as a critic. Identify the most likely 'Look-alike' species for this specific degradation.
+    Given the extreme darkness and complete lack of discernible features, there are no 'look-alikes' that could be confused with a specific animal. The image is too degraded to resemble any particular species or even a type of animal. It simply looks like a very dark, indistinct scene. Any named species would be a guess based purely on geographical context, not visual data.
+
+PHASE 2: CALIBRATED OUTPUT
+Due to the extreme lack of visual clarity and the inability to identify any animal features, the agreement between visual and contextual information is effectively non-existent for identification purposes. The probability score must be extremely low.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+248,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black.
+    *   **Specific Tokens:** No discernible tokens (ear shape, tail, texture, eyes, limbs, etc.) are visible. There is a very faint, slightly lighter, rounded, low-lying shape in the center of the main image and its upper crops, but it lacks any distinguishing features. The surrounding areas appear to be dark, indistinct vegetation or ground.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, complete lack of detail, potential blur.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on the visual data, no species can be identified. The image contains only an extremely vague, indistinct light patch that *might* be an animal, but offers no concrete features.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and time (May, 9 AM) suggest a wide range of common wildlife, including various mammals (e.g., Eastern Cottontail, White-tailed Deer, Raccoon, Opossum) and birds (e.g., various waterfowl, ground birds, songbirds).
+    *   **Compare:** There is virtually no agreement between Path A and Path B because Path A provides no identifiable visual information. Clarity is critically low. This necessitates extremely low confidence.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation is literally ""any low-lying object or shadow"" or ""random patterns in vegetation,"" as no animal features are visible. If forced to interpret the faint shape as an animal, any common species that can be low to the ground in a vegetated environment (e.g., rabbit, deer fawn, ground bird) could hypothetically fit the non-existent visual information.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and complete lack of agreement between visual and contextual information, the probability for any species identification must be exceptionally low. I am forced to select species despite zero supporting visual evidence. The chosen species are common in the region and could vaguely fit an indistinct, low-lying shape.
+
+Eastern Cottontail",Sylvilagus,Sylvilagus floridanus,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+252,5,362736713,Canada Goose,Branta canadensis,No Animal Identified,Unknown,Unknown,1,No Animal Identified,Unknown,Unknown,1
+255,5,362736713,Canada Goose,Branta canadensis,Indeterminable,Unidentifiable,Unidentifiable,1,Indeterminable,Unidentifiable,Unidentifiable,0
+253,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,5
+246,4,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Image Analysis:** The image is severely underexposed and extremely dark, rendering most visual information imperceptible. There are faint, indistinct lighter shapes in the central-bottom portion of the original image, which, if the image is rotated 180 degrees (so the 'grass' texture is at the bottom), appear as a blurred, somewhat upright form against a slightly lighter background. The provided crops offer no additional clarity due to identical darkness.
+    *   **Specific Tokens:** None clearly discernible. Any interpretation of shape (e.g., long neck, body) is highly speculative and based on extremely weak visual cues that border on pareidolia.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, significant blur, and lack of distinct detail are major barriers. The image appears to be presented upside down relative to typical animal orientation against a landscape.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Visual identification is impossible due to the extreme darkness and blur. While faint outlines *could* be imagined as a large, standing animal, no diagnostic features are present to confirm any specific species.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is in the Piedmont region of North Carolina, near Charlotte, an area with numerous lakes and rivers (e.g., Lake Wylie, Catawba River). The date (May 18) and time (9 AM) are typical for wildlife activity. Common large wildlife in this region includes Great Blue Herons, White-tailed Deer, various waterfowl, etc. A Great Blue Heron is a common wading bird found in aquatic habitats and would fit the very faint ""tall, standing animal"" outline if one were to speculate.
+    *   **Compare:** There is effectively no agreement between Path A and Path B in terms of definitive identification. Path A yields no reliable species information. Path B suggests possibilities for the region. The clarity is critically low. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this degradation:** Given the extreme darkness and blur, the image mostly resembles a ""dark, featureless blob"" or ""shadows/unidentifiable objects."" No specific animal 'look-alike' can be identified because no primary animal shape is discernible without significant digital manipulation.
+
+PHASE 2: CALIBRATED OUTPUT
+Great Blue Heron",Ardea,Ardea herodias,1,Undetermined,Animalia,sp.,0
+256,5,362736713,Canada Goose,Branta canadensis,Unidentifiable Object,Unknown,Unknown,5,Ambiguous Animal,Unknown,Unknown,1
+260,5,362736713,Canada Goose,Branta canadensis,American Black Bear,Ursus,Ursus americanus,8,White-tailed Deer,Odocoileus,Odocoileus virginianus,5
+262,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,Unknown,Unknown,2,Unidentifiable,Unknown,Unknown,1
+263,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and very dark, appearing almost entirely as shades of dark grey.
+    *   **Specific Tokens:** No discernible features such as ear shape, tail, fur texture, or body outline are visible. There are faint, indistinct shapes in the central portion of the image that might be an object or animal, but they lack any detail for identification.
+    *   **Perceptual Barriers:** Severe underexposure, extremely low contrast, and blur. The image is essentially a dark, featureless rectangle.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest any particular species. It is unidentifiable.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is near Charlotte, North Carolina, USA. The date is May 18, 2026, at 9 AM. This context suggests common diurnal or crepuscular species found in suburban/natural areas of the southeastern US.
+    *   **Compare:** Path A yields no identification due to extreme lack of clarity. Path B provides geographic and temporal context but cannot overcome the complete absence of visual information. There is a fundamental conflict between the need to identify and the inability to perceive. Clarity is extremely low. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is not identifiable as any specific species. Any identification would be pure speculation based solely on potential local fauna rather than visual evidence.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the ""degradation"" makes it impossible to discern any animal features that could be mistaken for another. The faint, amorphous dark blob in the center could, if forced to interpret, be almost any small to medium-sized mammal commonly found in the region (e.g., a domestic cat, rabbit, raccoon, opossum), or simply a shadow or inanimate object.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual clarity and the inability to identify any specific features, the probability of correct identification is virtually zero. However, to adhere to the output format, I must provide a Top1 and Top2. These are chosen based purely on being common local fauna that *could* theoretically be present in a dark, indistinct blob in that region, but with probabilities reflecting the complete uncertainty.
+
+Eastern Cottontail",Sylvilagus,Sylvilagus floridanus,1,Domestic Cat,Felis,Felis catus,1
+259,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making it nearly monochromatic grey. Details are almost entirely absent.
+    *   **Specific Tokens:**
+        *   **Ear shape:** No discernible ear shape.
+        *   **Tail:** No discernible tail.
+        *   **Texture:** The left side of the image shows a faint, vertically oriented, fuzzy texture, possibly dense vegetation or blurred fur. In the central-right, a very faint, slightly lighter, curved, and somewhat bulky organic shape is barely visible against the dark background. The right side and background show extremely faint, intricate, angular patterns that could be blurred branches or foliage.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, heavy blur, significant lack of detail, overall degradation.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to identify any specific wildlife species. The faint organic shape is too indistinct to confidently assign to an animal. It could be an animal's body part (e.g., back, shoulder), or a natural non-animal object like a rock or tree stump.
+    *   **Path B (Contextual):**
+        *   **Location:** (35.3929335505, -80.8388249743) is in North Carolina, near Charlotte, USA. This is a temperate region, likely suburban or forested.
+        *   **Date/Time:** May 18th, 9:00 AM.
+        *   Species common to this area include White-tailed Deer, Raccoon, Opossum, various birds, squirrels, and potentially Black Bear in less urbanized areas.
+    *   **Compare:** Path A provides no clear species suggestion. Path B provides a broad list of possible species for the region. Due to the extreme lack of visual clarity from Path A, there is no agreement or disagreement possible with Path B's suggestions on a specific species. Clarity is critically low. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image quality is so poor that attempting a confident identification is impossible. The faint, central organic shape is the only element that *might* suggest an animal, but it lacks any diagnostic features. It's essentially a dark, indistinct blob. The crops offer no additional clarity.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness and lack of detail, the ""look-alike"" is generic ""dark, organic shape"" or ""obscured object."" If forced to speculate based on the faint, somewhat bulky and curved shape, and considering common large mammals in North Carolina, a White-tailed Deer is a plausible *speculation* for a partially obscured animal, or even a Black Bear. However, this is based on inference and probability of occurrence rather than visual evidence.
+
+PHASE 2: CALIBRATED OUTPUT
+White-tailed Deer",Odocoileus,Odocoileus virginianus,10,Black Bear,Ursus,Ursus americanus,5
+258,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The images are extremely dark, essentially presenting as a uniform dark gray with only very faint, indistinct lighter gray patterns. No discernible animal features (ear shape, tail, texture, body outline) are visible.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, severe blur/lack of detail, and overall visual obscuration render the image completely unidentifiable for any wildlife.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No species can be suggested based on the visual information. The image does not contain any identifiable animal characteristics.
+    *   **Path B (Contextual):** The location (North Carolina) provides a broad range of potential local fauna. However, without any visual cues from the image, this context cannot be used to suggest a specific species.
+    *   **Compare:** Path A provides no species information. Path B provides geographic context but no species-specific hints without visual input. There is no conflict, but also no agreement due to the complete lack of visual data. Clarity is extremely low (effectively zero). Confidence must be lowered significantly.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation is an abstract dark texture, shadows, or extremely out-of-focus plant matter. There is no feature that resembles any animal, even a highly degraded one.
+
+PHASE 2: CALIBRATED OUTPUT
+Based on the complete absence of identifiable visual information and the resulting null agreement and clarity, the probability for identifying any specific species is extremely low. Therefore, placeholder names are used with the lowest possible probability as per the ""under 40"" rule.
+
+Unknown Animal",Incertae,sedis,1,Unidentified Organism,Incertae,species,1
+267,5,362736713,Canada Goose,Branta canadensis,Indiscernible,N/A,N/A,0,Indiscernible,N/A,N/A,0
+269,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+272,5,362736713,Canada Goose,Branta canadensis,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+261,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey with extremely faint, indistinct lighter patterns. There are no clear edges, forms, or details that resemble any biological organism.
+    *   **Specific Tokens:** No discernible tokens such as ear shape, tail, fur/feather texture, eyes, limbs, or body outlines are present. The faint patterns appear abstract or like a background texture.
+    *   **Perceptual Barriers:** Severe underexposure, extremely low contrast, significant blur/lack of detail, and high degradation. The image is practically devoid of identifiable visual information.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No wildlife species can be suggested or identified from the visual content. The image contains no recognizable animal.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina) and time (morning) suggest the potential presence of various common North American wildlife such as squirrels, birds, rabbits, raccoons, or deer.
+    *   **Compare:** Path A provides no visual evidence for any species, while Path B indicates a general range of possibilities. This represents a fundamental conflict as visual information is absent. Clarity is effectively zero. Therefore, confidence is extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation (darkness, lack of detail), there is no discernible animal to have a ""look-alike."" The image appears to be a dark textured background or a severely underexposed photograph where no subject is visible. Therefore, no animal species can be identified or even plausibly mistaken for another.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of identifiable features, no wildlife species can be identified. The probability for any specific species would be 0. The output reflects the inability to perceive any animal.
+
+No Animal Visible",None,None,0,No Animal Visible,None,None,0
+271,5,362736713,Canada Goose,Branta canadensis,Unknown Species,Undetermined,Undetermined,2,Unknown Species,Undetermined,Undetermined,1
+268,5,362736713,Canada Goose,Branta canadensis,Undetermined Species,Undetermined,Undetermined,0,Undetermined Species,Undetermined,Undetermined,0
+265,5,362736713,Canada Goose,Branta canadensis,Unknown Animal,N/A,N/A,0,Unknown Animal,N/A,N/A,0
+277,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Coyote,Canis,Canis latrans,2
+266,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image and its crops are extremely dark, blurry, and low contrast. There are no discernible features typical of an animal (e.g., ear shape, tail, texture, eyes, body outline). Faint, irregular patterns are visible, possibly remnants of a highly degraded image, a texture, or an abstract drawing, but nothing that can be unequivocally identified as an animal.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, significant blur/fading, complete lack of detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any identifiable wildlife species. No animal features are present.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date/time suggest that various terrestrial and avian species common to the southeastern US could potentially be present.
+    *   **Compare:** Path A and Path B are in strong conflict regarding the presence of an identifiable animal. The visual data provides no basis for species identification, rendering any contextual suggestions moot for identification purposes. Clarity is extremely low.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation is ""no identifiable animal"" or ""abstract pattern/noise."" The image degradation is so severe that no animal features are visible, making it impossible to confuse with a similar species. Any identification would be pure conjecture without visual support.
+
+PHASE 2: CALIBRATED OUTPUT
+Due to extremely low clarity and a complete lack of visual agreement on any identifiable animal, the probability score for any specific species must be 0, indicating that no animal can be identified from the provided images. To adhere to the output format, common species for the geographic location are listed with a 0% probability.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+274,5,362736713,Canada Goose,Branta canadensis,Eastern Rat Snake,Pantherophis,Pantherophis alleghaniensis,1,Black Racer,Coluber,Coluber constrictor,1
+276,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making visual identification nearly impossible.
+    *   **Specific Tokens:** There are no clearly discernible specific tokens (ear shape, tail, texture). A very faint, large, dark, somewhat rounded mass with indistinct edges can be observed in the lower-middle portion of the image, possibly partially submerged or on a dark substrate. The background and foreground are equally dark and indistinct, possibly representing water, mud, or dense vegetation. The provided crops offer no additional clarity.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, lack of detail, blur, and overall poor image quality.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the almost complete lack of visual information, no specific species can be suggested with any confidence. The vague dark shape *could* hypothetically be a variety of aquatic or semi-aquatic animals, but this is pure speculation.
+    *   **Path B (Contextual):** The location (North Carolina, USA, inland) and date/time (May, 9 AM) suggest a temperate, freshwater or terrestrial environment during daytime. Common fauna in this region include various fish, amphibians, reptiles (turtles, snakes), and freshwater crustaceans.
+    *   **Compare:** Path A provides no reliable visual cues. Path B provides a geographical context. There is a complete lack of agreement between visual data and potential species due to the absence of visual data. Clarity is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most Likely 'Look-alike' species for this specific degradation:** Any dark, vaguely-shaped object, animal, or even inanimate natural feature (e.g., a submerged log, rock) that could exist in a freshwater environment in North Carolina. Given the extreme darkness, virtually any medium-to-large sized aquatic or semi-aquatic animal from the region could appear as this indistinct blob. Examples include a large crayfish, a turtle, a bullfrog, or even a partially submerged fish.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and complete lack of agreement from visual cues, the probability for any identification will be minimal. The identification is based on the extremely faint, unspecific shape and the geographic location, resulting in the lowest possible confidence.
+
+Rusty Crayfish",Faxonius,Faxonius rusticus,1,Common Snapping Turtle,Chelydra,Chelydra serpentina,1
+264,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey/black, with very minimal discernable detail. The crops also exhibit the same extreme darkness.
+    *   **Specific Tokens:** No specific tokens (ear shape, tail, texture, fur pattern) are identifiable. There is a faint, indistinct, vertical mass slightly right of center in the main image, but its form is too ambiguous to extract any animal features.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, and heavy fading obscure all potential visual information.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image visually suggests no identifiable species due to the profound lack of detail and extreme darkness. The faint central mass could be an animal, a human, a tree stump, or just a random dark patch.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date/time (May, morning) are consistent with the presence of various wildlife, including White-tailed Deer, American Black Bear, Raccoons, Coyotes, etc.
+    *   **Compare:** There is a significant conflict/lack of agreement. Path A offers no visual information for identification, making it impossible to correlate with the species suggested by Path B.
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation are effectively anything that could appear as an indistinct, dark, vertical-ish blob in a forest setting. This includes tree stumps, shadows, humans, or any large, dark-furred animal (e.g., American Black Bear) or a common large mammal (e.g., White-tailed Deer). The degradation is too severe to identify meaningful look-alikes beyond generic shapes.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement between visual perception (Path A) and contextual information (Path B) for specific identification, the probability for any species must be minimal. No reliable identification can be made from the image data. The species listed below are chosen as placeholder examples of common large mammals in the given location, with a minimal probability reflecting the absence of visual evidence.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,1,American Black Bear,Ursus,Ursus americanus,1
+270,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is almost entirely dark grey, appearing severely underexposed or obscured. Only faint, ambiguous lighter grey lines and indistinct textures are visible. No clear object or animal is discernible.
+    *   **Specific tokens (ear shape, tail, texture):** No identifiable ear shape, tail, or specific animal texture (e.g., fur, feathers, scales) can be observed. The faint lines are too indistinct to constitute reliable tokens for identification.
+    *   **'Perceptual Barriers':** Extreme low light/contrast, severe blurring/fading, and general lack of detail make any specific identification impossible.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no discernible visual cues that suggest any specific wildlife species. The faint patterns are too abstract and degraded to form an identifiable animal shape or feature.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina) and date/time (May 18, 9 AM) indicate a temperate environment in late spring. This context suggests a wide range of common local wildlife, including various birds, mammals (e.g., squirrels, raccoons, deer), reptiles, and amphibians.
+    *   **Compare:** There is a complete conflict between Path A (no visual information for species identification) and the task's requirement to identify a species. The visual clarity is extremely low. Consequently, confidence in any species identification derived from the image must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation, the image does not clearly resemble any specific animal. It primarily looks like a plain dark grey surface or an abstract, highly blurred pattern. If forced to speculate based on the *barely* perceptible wispy textures, one might abstractly imagine something with fur or feathers, but this is a guess without any supporting visual evidence. No specific ""look-alike"" for a degraded animal image can be confidently identified from this input. The most accurate ""look-alike"" for this image is ""unidentifiable object.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual clarity and the inability to discern any specific animal features from the image (Visual Self-Check), and the resulting complete lack of agreement between visual data and potential species identification (Self-Consistency Audit), the probability of accurate identification for any species is effectively zero. To adhere to the output format, common species from the geographic region are provided with the lowest possible probability score to reflect the total absence of visual evidence.
+
+American Robin",Turdus,Turdus migratorius,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+275,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is almost entirely dark gray, with extremely faint, indiscernible light gray patterns. These patterns are too ambiguous to suggest any specific form, let alone an animal. There are no identifiable tokens such as ear shape, tail, or texture.
+    **Perceptual Barriers:** Extreme darkness, negligible contrast, severe lack of detail, and visual information. The image is effectively a blank, dark canvas.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no identifiable species. There is no visual information that could lead to an animal identification.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is in North Carolina, USA, a region known for diverse wildlife including White-tailed Deer, Eastern Gray Squirrel, Raccoon, various birds, etc. The date and time (May 18, 9 AM) are typical for animal activity. However, this metadata provides only potential species, not a specific identification.
+    *   **Compare:** Path A (no visual information) and Path B (contextual possibility of many species) are in complete conflict regarding specific species identification from the image. The visual clarity is virtually zero. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image provides no discernable visual data for identifying any wildlife species. It is a degraded input to the point of being uninterpretable for its intended purpose.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete absence of identifiable features, there are no ""look-alike"" species. Any species would look like the blank darkness presented.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Probability Score:** The agreement between visual data and contextual data for a specific species is non-existent as no animal is visible. Visual clarity is at its absolute minimum. Both factors dictate an extremely low probability.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,0,Raccoon,Procyon,Procyon lotor,0
+281,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+273,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed/dark, rendering most details invisible. The ""hints"" are merely cropped sections of the same dark image and do not improve clarity.
+    *   **Specific Tokens:** A very faint, broad, somewhat rounded or irregular dark shape is discernible in the center of the original image and the bottom-right of the first two crops. No clear ear shape, tail, or distinct texture is visible. There might be a very vague protrusion on the right side of the main shape, possibly a limb or irregular edge.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, blur, and lack of detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image vaguely suggests a broad-bodied, possibly shelled creature, such as a turtle or a very large crustacean (like a crab or crayfish), or even a large amphibian, due to the indistinct, solid-looking shape. However, the extreme lack of detail makes any specific visual identification impossible.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is inland North Carolina, near Charlotte. This area is characterized by freshwater aquatic and terrestrial habitats. Common wildlife includes numerous freshwater turtle species, various amphibians, and crayfish. Large true crabs are less common in inland freshwater environments in North Carolina.
+    *   **Compare:** Path A's vague visual suggestion of a broad, possibly shelled animal broadly aligns with common freshwater turtles or large amphibians in the inland North Carolina context of Path B. However, the clarity is so low that this ""agreement"" is based on minimal information and widespread possibilities, not strong confirming details.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image quality is exceptionally poor, making a definitive species identification almost impossible. Any identification is highly speculative. The perceived shape is so generic that it could be interpreted as many different objects (animal or not) under such severe degradation.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the dark, broad, somewhat irregular shape in a potential aquatic/semi-aquatic setting in inland North Carolina, other common possibilities (besides the chosen ones) could include a large rock, a submerged log, or other types of freshwater turtles or large amphibians (e.g., a bullfrog in very murky water).
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, and the agreement between visual and contextual paths is very weak due to the overwhelming perceptual barriers. Therefore, the probability must be very low.
+
+Common Snapping Turtle",Chelydra,Chelydra serpentina,15,Eastern Mud Turtle,Kinosternon,Kinosternon subrubrum,10
+280,5,362736713,Canada Goose,Branta canadensis,No Animal Detected,N/A,N/A,2,Unidentifiable Object,N/A,N/A,1
+284,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Wild Pig,Sus,Sus scrofa,1
+279,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey, resembling an underexposed photograph or a solid dark color. Very faint, abstract light grey patterns are barely discernible, mostly in the bottom half. These patterns do not form any recognizable animal features such as ear shape, tail, or fur texture. The ""crops"" provided are identical in their extreme darkness and lack of detail.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, complete lack of distinct features, and potential blur. The visual information is insufficient for species identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest any specific wildlife species. The faint patterns are too amorphous and indistinct to be interpreted as an animal.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina) and date (mid-May) indicate a temperate region with common North American wildlife such as squirrels, raccoons, opossums, deer, various birds, etc. However, this metadata provides no visual confirmation for any specific species in the image.
+    *   **Compare:** There is a complete conflict between Path A and Path B in terms of specific species identification. Path A yields no visual evidence for any animal, while Path B offers a broad range of possibilities for the region. Perceptual clarity is virtually non-existent for an animal. Therefore, confidence in any identification MUST be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this specific degradation is ""dark, abstract texture"" or ""unidentifiable blur."" Due to the extreme lack of visual information, no specific animal look-alike can be identified based on the image content itself. If any animal were present, it is entirely obscured.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement + Clarity:** Both are extremely low. There is no visual agreement on any species, and clarity is absent. The probability score must be very low, effectively close to zero, for any named species. To adhere to the format, I will assign minimal probabilities reflecting the complete lack of visual evidence.
+
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,1,Raccoon,Procyon,Procyon lotor,0
+278,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+292,5,362736713,Canada Goose,Branta canadensis,Indeterminable,N/A,N/A,0,Indeterminable,N/A,N/A,0
+282,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray/black, with very faint, indistinct lighter gray patterns or textures. There is no discernible subject. The ""crops"" provided offer no additional clarity; they are equally dark and featureless.
+    *   **Specific tokens:** No specific tokens such as ear shape, tail, fur texture, or body outlines are visible.
+    *   **'Perceptual Barriers':** Severe underexposure, extreme darkness, very low contrast, complete lack of focus on any subject, and overall indistinctness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest any specific wildlife species. There are no identifiable features of an animal. It appears to be an abstract dark, textured surface or an extremely dark photo of foliage/ground.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date/time (May 18, 9 AM) indicate a temperate climate during spring. This context allows for a wide range of potential local wildlife (e.g., squirrels, deer, various birds, raccoons, opossums). However, without visual input, this metadata alone cannot suggest a specific species.
+    *   **Compare:** Path A yields no visual evidence of a species. Path B provides only broad geographical/temporal context without visual correlation. There is a complete lack of agreement between visual data and the requirement to identify a species. Clarity is effectively zero for identification purposes. Therefore, confidence in identifying any species is extremely low (zero).
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image presents no discernible animal features. Any attempt to identify a species would be pure conjecture and not linked to any visual perception. The degradation (extreme darkness) is so severe that it renders the image useless for wildlife identification.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete absence of animal features, there are no 'look-alike' species. The image appears as a dark, textured background or abstract pattern rather than any animal. The most accurate 'look-alike' for the *perceived object* is ""not an animal.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement between visual data and any potential species identification, the probability for any specific species being present and identifiable is 0.
+
+No Animal Detected",incertae,sedis,0,Unidentifiable Organism,incertae,sedis,0
+293,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,0,Unidentifiable,N/A,N/A,0
+294,5,362736713,Canada Goose,Branta canadensis,Unknown,N/A,N/A,1,Unknown,N/A,N/A,1
+287,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+286,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black/dark grey with only extremely faint, indistinct lighter lines visible.
+    *   **Specific Tokens:** None are identifiable. There is no discernible ear shape, tail, or texture that clearly belongs to any animal. The faint lines are too ambiguous.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, general blur/lack of distinct features. The image content is practically non-existent for identification purposes.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to suggest any specific species. The faint patterns could be abstract texture, background elements, or highly degraded remnants of an animal, but no features allow for identification.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina) and date (May) suggest a range of common local wildlife (e.g., Eastern Gray Squirrel, Raccoon, White-tailed Deer, various birds). However, this context alone cannot identify a species without visual confirmation.
+    *   **Compare:** Path A yields no identifiable species, meaning there is no agreement with Path B. The clarity is critically low. This necessitates a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this degraded image is ""abstract texture,"" ""a dark, underexposed photograph of nothing discernible,"" or ""pareidolia-inducing faint patterns."" There is no specific animal look-alike for this level of degradation as no animal features are visible.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Low (no visual identification possible to agree with context).
+*   **Clarity:** Extremely low.
+
+Given the complete lack of identifiable visual information, the probability for any specific species is practically zero. However, the format requires numerical probabilities and species names. Therefore, generic, common species from the provided location are selected as placeholders, with the probability set to the absolute minimum to reflect the unidentifiable nature of the image.
+
+Unidentifiable Animal",incertae,sedis,1,No Animal Detected,incertae,sedis,1
+290,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey/black. There are no clear discernible shapes or features of any animal. Very faint, abstract light grey patterns are present, but they do not form any recognizable biological structure. The ""crops"" do not improve clarity; they are merely magnified portions of the same dark image.
+    *   **Specific Tokens:** None identifiable. There are no visible ears, tails, fur, feathers, or any anatomical parts.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, lack of contrast, severe visual degradation, absence of any recognizable subject matter.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest any particular species. No animal is discernible.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date/time (May, 9 AM) indicate a temperate climate and daytime, allowing for a wide variety of local fauna. However, this metadata alone does not suggest a specific species without visual input.
+    *   **Compare:** There is a complete lack of agreement because Path A yields no identifiable visual content related to a species. Clarity is critically low. This necessitates a very low probability.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of any discernible form, there are no meaningful ""look-alikes"" in terms of animal species. The image looks like an abstract dark texture or a photograph taken in complete darkness, rather than any specific animal that might be mistaken for another. The degradation is so severe that it prevents any biological identification whatsoever.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of any identifiable features in the image, no species can be determined. Both visual and contextual information, when combined, cannot resolve any animal identification. The probability of correctly identifying any species from this image is 0.
+
+Unidentifiable",N/A,N/A,0,Unidentifiable,N/A,N/A,0
+283,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,15,Unidentifiable,N/A,N/A,5
+297,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Black Bear,Ursus,Ursus americanus,1
+291,5,362736713,Canada Goose,Branta canadensis,No Identifiable Species,Unidentifiable,Undetermined,1,No Identifiable Species,Unidentifiable,Undetermined,1
+298,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,1,Unidentifiable,N/A,N/A,1
+288,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,0
+289,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray with only faint, indistinct lighter patterns. There is no clear subject or form.
+    *   **Specific Tokens:** None discernable. No identifiable ear shape, tail, fur texture, or any other anatomical feature of an animal. The faint patterns could be abstract textures, light reflections, or severely degraded photographic noise, but do not form a coherent animal shape.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, severe lack of detail, and high degradation/obscurity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any particular species. There are no visual cues for identification.
+    *   **Path B (Contextual):** The location (Charlotte, North Carolina, USA) and date/time suggest common terrestrial and freshwater species found in the southeastern United States during late spring. This context provides a broad set of possibilities but no specific species without visual input.
+    *   **Compare:** Path A provides no identifiable visual information to agree or disagree with Path B. The clarity is effectively zero. Therefore, agreement is extremely low, and confidence must be lowered significantly.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is completely uninformative for species identification. It is too dark and lacks any discernable features of an animal. Any identification would be a baseless guess.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, no specific ""look-alike"" can be identified. The degradation is so severe that it renders the image unidentifiable, meaning any animal, or even a non-animal, would appear as an indistinguishable dark field.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and non-existent agreement from the visual information, the probability must be very low (under 40, approaching 0). Since the format requires specific species names, common local species are listed with an exceptionally low probability to reflect the complete lack of visual evidence.
+
+Eastern Gray Squirrel",Sciurus,Sciurus carolinensis,1,Raccoon,Procyon,Procyon lotor,1
+295,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,N/A,N/A,0,Unidentifiable,N/A,N/A,0
+296,5,362736713,Canada Goose,Branta canadensis,No identifiable species,No Genus,No Species,0,Unidentifiable Object,N/A,N/A,0
+285,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost black and grey, with very low contrast and blur. The original image is rotated 90 degrees clockwise.
+    *   **Specific Tokens:** Faint, blurry outline of a multi-legged creature with a carapace and what appear to be two prominent, robust claws (chelae). One claw might be slightly larger or positioned differently than the other, suggesting potential asymmetry, but this is highly speculative due to the poor clarity. Some texture resembling grass or submerged vegetation is vaguely visible in the background/foreground.
+    *   **Perceptual Barriers:** Extreme darkness (low light), low contrast, blur, significant image degradation, and rotation of the original image.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The faint outline suggests a decapod crustacean (e.g., crab or crayfish) due to the carapace-like body and prominent pincers. The potential claw asymmetry, if real, could hint towards a crab species like a fiddler crab, but this is uncertain given the degradation.
+    *   **Path B (Contextual):** The location (35.3929335505, -80.8388249743) is near Charlotte, North Carolina, specifically in an inland freshwater region (near Lake Norman). Date/Time (May 18, 9 AM) is suitable for aquatic activity. In this environment, native freshwater crayfish are extremely common, while true freshwater crabs are not native to mainland North America. Coastal/estuarine crabs (like fiddler crabs or blue crabs) are highly improbable at this inland coordinate.
+    *   **Compare:** There is a conflict between the visual suggestion of a ""crab-like"" form (especially if perceiving claw asymmetry) and the strong contextual evidence for a ""crayfish"" in an inland freshwater environment. The extreme lack of visual clarity significantly lowers confidence in any visual-only identification. Therefore, contextual data heavily influences the primary identification, but the visual ambiguity necessitates considering look-alikes.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness, low contrast, and blur, any decapod crustacean with a similar body plan (carapace, pincers, legs) could be a look-alike. If the perceived claw asymmetry were clearer, a fiddler crab (*Uca* spp.) would be a strong visual look-alike for the degradation, despite being geographically improbable for this specific location. Otherwise, other types of robust freshwater crustaceans or even misinterpretations of debris are possible due to the degradation.
+
+PHASE 2: CALIBRATED OUTPUT
+
+The clarity of the image is extremely low, leading to a very low probability score for any identification. The contextual data for an inland freshwater environment strongly favors a crayfish over a crab as the most likely species. The visual, while highly ambiguous, is generally consistent with a crustacean.
+
+Crayfish",Cambarus,Cambarus sp.,20,Fiddler Crab,Uca,Uca pugilator,5
+299,5,362736713,Canada Goose,Branta canadensis,African Elephant,Loxodonta,Loxodonta africana,1,American Black Bear,Ursus,Ursus americanus,1
+300,5,362736713,Canada Goose,Branta canadensis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey, with only very faint, indistinct light grey lines or patterns visible. There is no discernible subject or clear form. The provided crops offer no additional clarity.
+    *   **Specific Tokens:** No specific tokens like ear shape, tail, fur texture, or body outlines can be identified. The faint patterns are abstract and do not resolve into animal features.
+    *   **Perceptual Barriers:** Severe darkness, extremely low contrast, complete lack of distinct features, severe obfuscation. The image is functionally devoid of useful visual information for species identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to suggest any specific species. It suggests ""unidentifiable object"" or ""no identifiable subject.""
+    *   **Path B (Contextual):** The metadata indicates the location is North Carolina, USA (35.3929335505, -80.8388249743), and the date is May 18, 2026. This context suggests a wide variety of temperate fauna, but provides no specific species hint related to the image content.
+    *   **Compare:** Path A yields no visual identification, while Path B provides a geographical context without a visual anchor. There is no agreement between visual and contextual information regarding a specific species. Clarity is extremely low. Therefore, confidence must be significantly lowered.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image provides no discernable visual data for species identification. Any attempt to identify a species would be pure conjecture and not linked to perception. The image essentially presents as a very dark, abstract texture rather than a photograph of wildlife.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete lack of visual detail (extreme darkness), any animal present would appear as an indistinct, dark shape, or nothing at all. Therefore, differentiation between potential look-alike species is impossible. The ""look-alike"" is effectively ""any animal completely obscured by darkness"" or ""no animal visible.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of identifiable visual features, no species can be identified with any confidence. To comply with the output format requiring species names and probabilities ""under 40"" for low clarity, the lowest possible non-zero probability (1) will be assigned, reflecting the complete lack of visual evidence for *any* specific species. Common species from the geographical region (North Carolina) are chosen as placeholders to adhere to the format, despite the lack of visual support.
+
+White-tailed Deer",Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1

@@ -1,0 +1,80 @@
+{
+  "baseline_prompt_id": "severity_triage_prompt",
+  "review_output": {
+    "prompt_strengths": [
+      "Explicitly defines the severity levels (0 to 3).",
+      "Clearly lists the critical rules for Level 3 triage.",
+      "Explicitly excludes weather from the first prototype.",
+      "Defines a clear JSON output schema with specific keys."
+    ],
+    "prompt_weaknesses": [
+      "Fails to explicitly instruct the model not to invent facts, outcomes, or responder actions.",
+      "Does not provide clear instructions on how to handle incomplete or uncertain data."
+    ],
+    "safety_requirements_preserved": [
+      "entanglement -> Level 3 Critical",
+      "wound plus bleeding -> Level 3 Critical",
+      "respiratory distress plus unresponsive -> Level 3 Critical",
+      "cetacean with mobility concern -> Level 3 Critical",
+      "weather is excluded from this first prototype",
+      "JSON output schema must remain explicit"
+    ],
+    "safety_requirements_missing": [
+      "no invented facts, outcomes, or responder actions"
+    ],
+    "ambiguous_instructions": [
+      "The scoring considerations list factors but do not provide a clear scoring rubric or formula.",
+      "It is unclear how 'data quality uncertainty' should be scored or handled without an explicit instruction against hallucination."
+    ],
+    "recommended_revision_goals": [
+      "Add an explicit instruction forbidding the invention of facts, outcomes, or responder actions.",
+      "Provide explicit guidance on how to handle incomplete or uncertain data, ensuring the model expresses uncertainty.",
+      "Clarify the scoring mechanism or weightings for the non-critical scoring considerations."
+    ],
+    "review_confidence": 0.95
+  },
+  "revision_output": {
+    "revised_prompt": "You are LifeJacket Severity Triage Module, operating within Agent 2.\n\nAssign severity_level using this policy:\n0 = Info\n1 = Monitor\n2 = Respond\n3 = Critical\n\nCritical rules (If any of these are met, triage immediately to Level 3 Critical):\n- entanglement -> Level 3 Critical\n- wound + bleeding -> Level 3 Critical\n- respiratory distress + unresponsive -> Level 3 Critical\n- cetacean + mobility concern -> Level 3 Critical\n\nScoring considerations if no critical rule is triggered (Use these to determine severity_score and severity_level 0-2):\n- High Priority Factors (significantly increase score): injury, wound, bleeding, mobility concern, respiratory distress, abnormal posture, swelling.\n- Situational Factors (moderately increase score): near people, near dogs.\n- Data Quality Uncertainty: If data is incomplete or uncertain, lower the severity_confidence score and document the uncertainty in the triage_rationale. Do not invent or assume missing details.\n\nStrict Operational Constraints:\n1. Do not use weather for this first prototype.\n2. Prohibit invented facts, outcomes, or responder actions. Base all triage decisions strictly on the provided incident packet.\n3. If data is missing, do not assume or hallucinate details.\n\nReturn JSON only with keys:\n- severity_level: 0 | 1 | 2 | 3\n- severity_score: number\n- severity_confidence: number from 0 to 1\n- triage_reason_codes: list of strings\n- triggered_rules: list of strings\n- triage_rationale: string\n\nIncident packet:\n{incident_packet_json}",
+    "changes_made": [
+      "Added explicit prohibition against inventing facts, outcomes, or responder actions.",
+      "Added explicit guidance on handling incomplete or uncertain data by lowering severity_confidence and documenting it in the rationale.",
+      "Clarified the scoring mechanism by categorizing non-critical considerations into High Priority and Situational factors.",
+      "Structured the operational constraints clearly to prevent hallucination."
+    ],
+    "preserved_safety_requirements": [
+      "Preserved all four Level 3 critical rules exactly in meaning.",
+      "Preserved allowed severity levels 0, 1, 2, and 3.",
+      "Preserved JSON-only structured output fields.",
+      "Kept weather excluded from this prototype."
+    ],
+    "remaining_risks": [
+      "The scoring mechanism for non-critical rules remains qualitative rather than strictly mathematical, which may lead to minor variations in severity_score across similar cases."
+    ],
+    "requires_human_approval": true
+  },
+  "comparison_output": {
+    "comparison_summary": "The revised prompt maintains all critical escalation rules, JSON constraints, and weather exclusions from the baseline while significantly improving clarity around scoring considerations and adding strict constraints against hallucination and fact invention.",
+    "baseline_risks": [
+      "The baseline prompt lacks explicit instructions against hallucinating or inventing facts when data is incomplete.",
+      "Scoring considerations in the baseline are unstructured, which could lead to inconsistent scoring weights between high-priority clinical signs and situational factors."
+    ],
+    "revised_prompt_improvements": [
+      "Categorized scoring considerations into High Priority and Situational Factors for more consistent scoring.",
+      "Added explicit instructions to lower confidence and document uncertainty instead of inventing facts.",
+      "Added strict operational constraints prohibiting hallucination of facts, outcomes, or responder actions."
+    ],
+    "revised_prompt_regressions": [],
+    "safety_requirements_preserved": [
+      "All four critical escalation rules are preserved.",
+      "The exclusion of weather data is maintained.",
+      "The required JSON output schema is identical."
+    ],
+    "recommendation": "promote_after_human_review",
+    "human_review_checklist": [
+      "Verify that the model correctly triggers Level 3 Critical for entanglement, wound+bleeding, and cetacean mobility cases.",
+      "Confirm that the model handles incomplete data by lowering confidence and stating uncertainty without inventing details.",
+      "Ensure the JSON output format is strictly adhered to in test runs."
+    ]
+  },
+  "promotion_status": "requires_human_approval"
+}

@@ -1,0 +1,205 @@
+{
+  "species_output": {
+    "species_group": "pinniped",
+    "species_group_confidence": 0.95,
+    "evidence_used": [
+      "California sea lion is a pinniped",
+      "CV top 1 species is California sea lion",
+      "LLM likely species is California sea lion"
+    ],
+    "uncertainty_notes": "Low uncertainty. Both computer vision and LLM agree on California sea lion.",
+    "needs_human_species_review": false
+  },
+  "validation_output": {
+    "case_quality_status": "complete",
+    "data_conflict_flag": false,
+    "needs_more_info": false,
+    "missing_info": [],
+    "validation_rationale": "The report contains all necessary triage information, including location, timestamp, species group (pinniped), and animal condition evidence (limited mobility, visible wound, bleeding). There are no data conflicts, as both computer vision and LLM agree on the species."
+  },
+  "duplicate_output": {
+    "case_match_status": "probable_duplicate",
+    "matched_incident_id": "DEMO_001_PINNIPED_WOUND",
+    "match_confidence": 0.98,
+    "match_rationale": "The current report is an extremely close match to DEMO_001_PINNIPED_WOUND. The reports are separated by only 12 minutes in time and approximately 30 meters in distance at Santa Barbara Beach. Both reports identify the animal as a California sea lion.",
+    "uncertainty_notes": "Very low uncertainty. The spatial and temporal proximity, combined with the identical species identification, strongly indicates this is a duplicate report of the same animal."
+  },
+  "severity_output": {
+    "severity_level": 3,
+    "severity_score": 0.95,
+    "severity_confidence": 0.98,
+    "triage_reason_codes": [
+      "WOUND",
+      "BLEEDING",
+      "LIMITED_MOBILITY",
+      "NEAR_PEOPLE",
+      "NEAR_DOGS"
+    ],
+    "triggered_rules": [
+      "wound + bleeding"
+    ],
+    "triage_rationale": "The incident involves a California sea lion with a confirmed visible wound and active bleeding, which triggers the critical triage rule for 'wound + bleeding' resulting in a Level 3 (Critical) classification. The animal also exhibits limited mobility and is located on a public beach near people and dogs, increasing the urgency. Although flagged as a probable duplicate of DEMO_001_PINNIPED_WOUND, the individual report itself meets the criteria for critical severity."
+  },
+  "action_output": {
+    "recommended_action": "Immediate escalation",
+    "alert_type": "Critical Pinniped Injury",
+    "alert_priority": "Critical",
+    "volunteer_allowed": false,
+    "coordinator_review_required": true,
+    "rationale": "The incident is classified as Level 3 (Critical) due to a California sea lion with active bleeding and a visible wound on a public beach near people and dogs. Immediate escalation is required. Additionally, because this is flagged as a probable duplicate of incident DEMO_001_PINNIPED_WOUND, coordinator review is required to manage the duplicate status."
+  },
+  "dispatch_output": {
+    "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+    "dispatch_hotline": "805-567-1505",
+    "dispatch_email": "info@cimwi.org",
+    "dispatch_website": "http://www.cimwi.org",
+    "dispatch_response_area": "Santa Barbara and Ventura Counties, California",
+    "dispatch_response_type": "Live Pinniped Rescue and Rehabilitation; Dead Pinniped Response; Live Cetacean Stabilization and Short-Term Holding; Sea Turtle Response; Whale Entanglement Response",
+    "dispatch_match_confidence": 1.0,
+    "dispatch_match_reason": "The incident occurred at Santa Barbara Beach, CA, involving a live California sea lion (pinniped) with a wound and bleeding. CIMWI is the designated response center for Santa Barbara County and specializes in live pinniped rescue and rehabilitation.",
+    "dispatch_alternate_centers": [
+      "The Marine Mammal Center - San Luis Obispo Operations (TMMC-SLO)",
+      "California Wildlife Center (CWC)"
+    ]
+  },
+  "alert_card_output": {
+    "alert_card_title_generated": "CRITICAL: Injured California Sea Lion at Santa Barbara Beach - Immediate Escalation Required",
+    "alert_card_summary_generated": "A Level 3 critical incident has been reported at Santa Barbara Beach, CA, involving a California sea lion with limited mobility, a visible wound, and active bleeding. This report is flagged as a probable duplicate of incident DEMO_001_PINNIPED_WOUND. Due to the severity, immediate escalation to Channel Islands Marine & Wildlife Institute (CIMWI) at 805-567-1505 is required. Coordinator review is required to manage the duplicate status. Volunteer response is not allowed. Safety warning: Keep distance from the animal. Do not touch, feed, move, or pour water on the animal. Keep people and dogs away from the animal.",
+    "alert_card_key_risks_generated": [
+      "Active bleeding and visible wound indicating severe trauma",
+      "Limited mobility on a public beach increases vulnerability",
+      "High risk of public interaction due to proximity to people and dogs",
+      "Potential confusion or split response due to probable duplicate report status"
+    ],
+    "alert_card_missing_info_generated": [
+      "Current exact location updates if the animal moves",
+      "Photos or videos to confirm the severity of the bleeding and wound",
+      "Confirmation of whether the public is actively keeping distance"
+    ],
+    "alert_card_next_steps_generated": [
+      "Initiate immediate escalation to Channel Islands Marine & Wildlife Institute (CIMWI) at 805-567-1505.",
+      "Assign a coordinator to review the duplicate status (DEMO_001_PINNIPED_WOUND) and consolidate reports.",
+      "Instruct anyone on-site to keep distance and keep people and dogs away from the sea lion.",
+      "Strictly enforce safety protocols: do not touch, feed, move, or pour water on the animal.",
+      "Do not dispatch volunteers as volunteer response is not allowed for this critical incident."
+    ]
+  },
+  "guardrail_output": {
+    "pass_guardrails": true,
+    "violations": [],
+    "missing_required_content": [],
+    "invented_or_unsupported_claims": [],
+    "corrected_copy_if_needed": ""
+  },
+  "grounding_output": {
+    "grounded": false,
+    "unsupported_claims": [
+      "The generated text claims there is missing info ('Current exact location updates if the animal moves', 'Photos or videos to confirm the severity of the bleeding and wound', 'Confirmation of whether the public is actively keeping distance') which contradicts the incident packet stating 'needs_more_info' is false and 'missing_info' is empty."
+    ],
+    "changed_decisions": [],
+    "unsafe_language": [],
+    "recommended_action": "Regenerate the alert card to remove the 'alert_card_missing_info_generated' section, as the incident packet explicitly states that no additional information is needed."
+  },
+  "audit_output": {
+    "audit_summary": "Audit of incident DEMO_002_DUPLICATE_CRITICAL involving a California sea lion at Santa Barbara Beach. The system classified the incident as a Level 3 Critical Pinniped Injury due to active bleeding and wounds, matched it as a probable duplicate of DEMO_001_PINNIPED_WOUND, and routed dispatch to CIMWI. A grounding check flagged a minor contradiction in the generated alert card regarding missing information.",
+    "inputs_used": [
+      "Reported location: Santa Barbara Beach, CA (34.421, -119.698)",
+      "Reported species: California sea lion (CV confidence: 0.78, LLM confidence: 0.91)",
+      "Reported conditions: limited mobility, visible wound, active bleeding, near people, near dogs",
+      "Temporal and spatial proximity to incident DEMO_001_PINNIPED_WOUND (12 minutes, ~30 meters)"
+    ],
+    "rules_triggered": [
+      "wound + bleeding (Critical Level 3 severity)",
+      "Duplicate detection rule (probable duplicate match confidence: 0.98)",
+      "Geographic dispatch routing rule (matched to CIMWI with 1.0 confidence)"
+    ],
+    "outputs_generated": [
+      "Severity Level: 3 (Critical) with immediate escalation recommended",
+      "Dispatch assignment: Channel Islands Marine & Wildlife Institute (CIMWI)",
+      "Case match status: probable_duplicate of DEMO_001_PINNIPED_WOUND",
+      "Alert card title: 'CRITICAL: Injured California Sea Lion at Santa Barbara Beach - Immediate Escalation Required'",
+      "Coordinator review required: true (to manage duplicate status)"
+    ],
+    "residual_risks": [
+      "Potential split response or resource waste due to duplicate report status (requires coordinator consolidation)",
+      "Public safety and animal harassment risks due to proximity to people and dogs on a public beach",
+      "Grounding mismatch: Alert card generated missing info requirements ('location updates', 'photos/videos') despite system validation marking 'needs_more_info' as false"
+    ]
+  },
+  "display_approved": false,
+  "display_status": "held_for_coordinator_review",
+  "decision_record": {
+    "incident_id": "DEMO_002_DUPLICATE_CRITICAL",
+    "report_timestamp": "2026-05-20T15:12:00Z",
+    "latitude": 34.421,
+    "longitude": -119.698,
+    "place_name": "Santa Barbara Beach, CA",
+    "cv_top1_species": "California sea lion",
+    "cv_top1_confidence": 0.78,
+    "reported_mobility": "limited",
+    "reported_visible_wound": true,
+    "reported_bleeding": true,
+    "reported_entanglement": false,
+    "reported_near_people": true,
+    "reported_near_dogs": true,
+    "llm_likely_species": "California sea lion",
+    "llm_species_confidence": 0.91,
+    "llm_injury_present": true,
+    "llm_wound_present": true,
+    "llm_bleeding_present": true,
+    "llm_entanglement_present": false,
+    "llm_respiratory_distress_present": false,
+    "llm_unresponsive_present": false,
+    "llm_mobility_concern": "limited",
+    "species_group": "pinniped",
+    "species_group_confidence": 0.95,
+    "evidence_used": [
+      "California sea lion is a pinniped",
+      "CV top 1 species is California sea lion",
+      "LLM likely species is California sea lion"
+    ],
+    "uncertainty_notes": "Very low uncertainty. The spatial and temporal proximity, combined with the identical species identification, strongly indicates this is a duplicate report of the same animal.",
+    "needs_human_species_review": false,
+    "case_quality_status": "complete",
+    "data_conflict_flag": false,
+    "needs_more_info": false,
+    "missing_info": [],
+    "validation_rationale": "The report contains all necessary triage information, including location, timestamp, species group (pinniped), and animal condition evidence (limited mobility, visible wound, bleeding). There are no data conflicts, as both computer vision and LLM agree on the species.",
+    "case_match_status": "probable_duplicate",
+    "matched_incident_id": "DEMO_001_PINNIPED_WOUND",
+    "match_confidence": 0.98,
+    "match_rationale": "The current report is an extremely close match to DEMO_001_PINNIPED_WOUND. The reports are separated by only 12 minutes in time and approximately 30 meters in distance at Santa Barbara Beach. Both reports identify the animal as a California sea lion.",
+    "severity_level": 3,
+    "severity_score": 0.95,
+    "severity_confidence": 0.98,
+    "triage_reason_codes": [
+      "WOUND",
+      "BLEEDING",
+      "LIMITED_MOBILITY",
+      "NEAR_PEOPLE",
+      "NEAR_DOGS"
+    ],
+    "triggered_rules": [
+      "wound + bleeding"
+    ],
+    "triage_rationale": "The incident involves a California sea lion with a confirmed visible wound and active bleeding, which triggers the critical triage rule for 'wound + bleeding' resulting in a Level 3 (Critical) classification. The animal also exhibits limited mobility and is located on a public beach near people and dogs, increasing the urgency. Although flagged as a probable duplicate of DEMO_001_PINNIPED_WOUND, the individual report itself meets the criteria for critical severity.",
+    "recommended_action": "Immediate escalation",
+    "alert_type": "Critical Pinniped Injury",
+    "alert_priority": "Critical",
+    "volunteer_allowed": false,
+    "coordinator_review_required": true,
+    "rationale": "The incident is classified as Level 3 (Critical) due to a California sea lion with active bleeding and a visible wound on a public beach near people and dogs. Immediate escalation is required. Additionally, because this is flagged as a probable duplicate of incident DEMO_001_PINNIPED_WOUND, coordinator review is required to manage the duplicate status.",
+    "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+    "dispatch_hotline": "805-567-1505",
+    "dispatch_email": "info@cimwi.org",
+    "dispatch_website": "http://www.cimwi.org",
+    "dispatch_response_area": "Santa Barbara and Ventura Counties, California",
+    "dispatch_response_type": "Live Pinniped Rescue and Rehabilitation; Dead Pinniped Response; Live Cetacean Stabilization and Short-Term Holding; Sea Turtle Response; Whale Entanglement Response",
+    "dispatch_match_confidence": 1.0,
+    "dispatch_match_reason": "The incident occurred at Santa Barbara Beach, CA, involving a live California sea lion (pinniped) with a wound and bleeding. CIMWI is the designated response center for Santa Barbara County and specializes in live pinniped rescue and rehabilitation.",
+    "dispatch_alternate_centers": [
+      "The Marine Mammal Center - San Luis Obispo Operations (TMMC-SLO)",
+      "California Wildlife Center (CWC)"
+    ]
+  }
+}

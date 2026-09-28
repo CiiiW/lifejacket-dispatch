@@ -1,0 +1,58 @@
+{
+  "report_date": "2026-05-11",
+  "total_cases_documented": 2,
+  "severity_counts": {
+    "0_info": 0,
+    "1_monitor": 0,
+    "2_respond": 1,
+    "3_critical": 1
+  },
+  "critical_incidents": [
+    "INC_80ca122f"
+  ],
+  "dispatches_recorded": [
+    {
+      "incident_id": "INC_b0fe9663",
+      "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+      "dispatch_hotline": "805-567-1505"
+    },
+    {
+      "incident_id": "INC_80ca122f",
+      "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+      "dispatch_hotline": "805-567-1505"
+    }
+  ],
+  "unresolved_or_followup_cases": [
+    "INC_80ca122f"
+  ],
+  "duplicate_incident_notes": [
+    "No duplicate incidents were officially flagged in the approved records. Both cases are classified as new incidents despite sharing identical coordinates, which is noted as an artifact of the mock location source."
+  ],
+  "chronological_case_log": [
+    {
+      "incident_id": "INC_b0fe9663",
+      "location": "Santa Barbara Beach, CA",
+      "species_group": "pinniped",
+      "severity_level": 2,
+      "recommended_action": "Notify rescue center",
+      "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+      "case_status_summary": "The case is complete and logged as a new incident. The animal is a California sea lion with a confirmed wound but is moving normally with no active bleeding.",
+      "documentation_limitations": "The identical coordinates are an artifact of the mock location source. The user was unsure about bleeding."
+    },
+    {
+      "incident_id": "INC_80ca122f",
+      "location": "Santa Barbara Beach, CA",
+      "species_group": "pinniped",
+      "severity_level": 3,
+      "recommended_action": "Immediate escalation",
+      "dispatch_center_name": "Channel Islands Marine & Wildlife Institute (CIMWI)",
+      "case_status_summary": "The case is flagged as review_needed due to species uncertainty and a data conflict. The user reported active bleeding and a wound, triggering a critical triage level.",
+      "documentation_limitations": "Species confidence remains below 0.90 after two follow-up questions, and further questions are not permitted. There is a data conflict: the user reported bleeding, but computer vision did not detect visible blood."
+    }
+  ],
+  "next_shift_attention_items": [
+    "Review INC_80ca122f due to species verification status being 'uncertain_needs_review' and species confidence remaining below 0.90.",
+    "Resolve the data conflict in INC_80ca122f regarding the presence of active bleeding (reported by user, not detected by computer vision)."
+  ],
+  "audit_statement": "This daily operational record has been compiled using only approved case outputs from the LifeJacket system. No details, severities, recommended actions, or dispatch details have been altered or invented."
+}

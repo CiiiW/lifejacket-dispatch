@@ -1,0 +1,37 @@
+{
+  "baseline_prompt_id": "severity_triage_prompt",
+  "iteration_number": 1,
+  "review_output": {
+    "prompt_strengths": [
+      "Critical escalation rules are explicit.",
+      "JSON fields support auditability."
+    ],
+    "prompt_weaknesses": [
+      "Non-critical scoring considerations do not describe how uncertainty should be discussed."
+    ],
+    "safety_requirements_missing": [],
+    "recommended_revision_goals": [
+      "Require the rationale to state uncertain or missing evidence."
+    ]
+  },
+  "revision_output": {
+    "changes_made": [
+      "Added an instruction to identify missing evidence in triage_rationale."
+    ],
+    "preserved_safety_requirements": [
+      "All four critical rules",
+      "JSON-only output",
+      "Weather excluded"
+    ],
+    "requires_human_approval": true
+  },
+  "comparison_output": {
+    "comparison_summary": "Revision improves uncertainty reporting without changing critical escalation behavior.",
+    "recommendation": "promote_after_human_review",
+    "human_review_checklist": [
+      "Confirm critical rules remain unchanged.",
+      "Run all fixed evaluation scenarios before approval."
+    ]
+  },
+  "promotion_status": "requires_human_approval"
+}

@@ -1,0 +1,6 @@
+incident_id,report_timestamp,place_name,species_group,case_quality_status,case_match_status,severity_level,recommended_action,dispatch_center_name,alert_card_title
+DEMO_001_PINNIPED_WOUND,2026-05-20T15:00:00Z,"Santa Barbara Beach, CA",pinniped,complete,new_incident,1,Volunteer monitor,Channel Islands Marine & Wildlife Institute (CIMWI),Monitor: California sea lion near Santa Barbara Beach
+DEMO_002_DUPLICATE_CRITICAL,2026-05-20T15:12:00Z,"Santa Barbara Beach, CA",pinniped,complete,probable_duplicate,3,Immediate escalation,Channel Islands Marine & Wildlife Institute (CIMWI),Critical: wounded sea lion near Santa Barbara Beach
+DEMO_003_CETACEAN_MOBILITY,2026-05-20T16:30:00Z,"Ventura Beach, CA",cetacean,review_needed,new_incident,3,Immediate escalation,Channel Islands Marine & Wildlife Institute (CIMWI),Critical: dolphin mobility concern near Ventura Beach
+DEMO_004_INCOMPLETE_UNKNOWN,2026-05-20T17:05:00Z,unknown beach,unknown,incomplete,not_evaluable,0,Guidance only,,Info: incomplete wildlife report needs follow-up
+DEMO_005_TURTLE_ENTANGLEMENT,2026-05-20T18:00:00Z,"Laguna Beach, Orange County, CA",sea_turtle,complete,new_incident,3,Immediate escalation,Pacific Marine Mammal Center (PMMC),Critical: entangled sea turtle near Laguna Beach

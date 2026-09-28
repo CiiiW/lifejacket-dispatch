@@ -1,0 +1,204 @@
+{
+  "validation": {
+    "species_conflict_confidence_threshold": 0.55
+  },
+  "duplicate_matching": {
+    "distance_km": 1.0,
+    "time_hours": 24.0,
+    "confidence_weights": {
+      "distance": 0.45,
+      "time": 0.35,
+      "species": 0.2
+    },
+    "probable_duplicate_threshold": 0.7
+  },
+  "species_groups": {
+    "pinniped": [
+      "seal",
+      "harbor seal",
+      "grey seal",
+      "gray seal",
+      "elephant seal",
+      "monk seal",
+      "sea lion",
+      "california sea lion",
+      "stellar sea lion",
+      "steller sea lion",
+      "fur seal",
+      "walrus",
+      "pinniped"
+    ],
+    "cetacean": [
+      "whale",
+      "dolphin",
+      "porpoise",
+      "orca",
+      "humpback whale",
+      "gray whale",
+      "grey whale",
+      "minke whale",
+      "pilot whale",
+      "bottlenose dolphin",
+      "common dolphin",
+      "harbor porpoise",
+      "cetacean"
+    ],
+    "sea_turtle": [
+      "sea turtle",
+      "green sea turtle",
+      "loggerhead",
+      "loggerhead sea turtle",
+      "leatherback",
+      "leatherback sea turtle",
+      "hawksbill",
+      "olive ridley",
+      "kemps ridley",
+      "kemp's ridley",
+      "turtle"
+    ]
+  },
+  "species_grouping": {
+    "gemini_min_confidence": 0.6,
+    "unknown_terms": ["unknown", "unclear", "not sure", "n/a"],
+    "substring_terms": {
+      "pinniped": ["seal", "sea lion", "walrus"],
+      "cetacean": ["whale", "dolphin", "porpoise", "orca"],
+      "sea_turtle": ["turtle"]
+    }
+  },
+  "severity": {
+    "scoring_weights": {
+      "injury": 1.4,
+      "wound": 1.3,
+      "bleeding": 1.4,
+      "mobility_concern": 1.2,
+      "respiratory_distress": 1.5,
+      "abnormal_posture": 0.9,
+      "swelling": 0.7,
+      "near_people": 0.6,
+      "near_dogs": 0.5
+    },
+    "level_thresholds": {
+      "critical": 6.5,
+      "respond": 3.0,
+      "monitor": 1.0
+    },
+    "weather_adjustment": {
+      "multiplier": 0.35,
+      "max_points": 0.5
+    },
+    "confidence": {
+      "base": 0.92,
+      "incomplete_penalty": 0.25,
+      "review_needed_penalty": 0.12,
+      "data_conflict_penalty": 0.12,
+      "unknown_species_penalty": 0.08,
+      "minimum": 0.45
+    }
+  },
+  "recommended_actions": {
+    "0": {
+      "recommended_action": "Guidance only",
+      "alert_type": "info",
+      "alert_priority": "low",
+      "volunteer_allowed": true,
+      "coordinator_review_required": false
+    },
+    "1": {
+      "recommended_action": "Volunteer monitor",
+      "alert_type": "monitor",
+      "alert_priority": "normal",
+      "volunteer_allowed": true,
+      "coordinator_review_required": true
+    },
+    "2": {
+      "recommended_action": "Notify rescue center",
+      "alert_type": "response",
+      "alert_priority": "high",
+      "volunteer_allowed": false,
+      "coordinator_review_required": true
+    },
+    "3": {
+      "recommended_action": "Immediate escalation",
+      "alert_type": "critical",
+      "alert_priority": "urgent",
+      "volunteer_allowed": false,
+      "coordinator_review_required": true
+    }
+  },
+  "weather_risk": {
+    "wind_speed_mph_risk": 15.0,
+    "wind_speed_mph_high_risk": 22.0,
+    "precipitation_probability_risk": 0.4,
+    "visibility_miles_risk": 5.0,
+    "condition_terms": ["fog", "storm", "thunder", "rain", "snow", "sleet"],
+    "max_score": 1.5
+  },
+  "dispatch": {
+    "scoring_weights": {
+      "area": 0.58,
+      "capability": 0.42
+    },
+    "area_match_base_score": 0.55,
+    "area_match_per_term_score": 0.15,
+    "species_capability_score": 0.35,
+    "unknown_species_general_score": 0.2,
+    "response_need_score": 0.3,
+    "dead_only_mismatch_penalty": 0.2,
+    "entanglement_score": 0.2,
+    "rehabilitation_score": 0.08,
+    "transport_score": 0.05,
+    "alternate_min_confidence": 0.45,
+    "place_to_area_terms": {
+      "santa barbara": ["santa barbara"],
+      "ventura": ["ventura"],
+      "malibu": ["malibu", "los angeles"],
+      "topanga": ["topanga", "los angeles"],
+      "los angeles": ["los angeles"],
+      "san pedro": ["los angeles"],
+      "laguna beach": ["orange"],
+      "orange county": ["orange"],
+      "san diego": ["san diego"],
+      "la jolla": ["san diego"],
+      "santa cruz": ["santa cruz"],
+      "monterey": ["monterey"],
+      "moss landing": ["monterey"],
+      "san luis obispo": ["san luis obispo"],
+      "morro bay": ["san luis obispo"],
+      "santa maria": ["san luis obispo", "santa barbara"],
+      "san francisco": ["san francisco"],
+      "san mateo": ["san mateo"],
+      "marin": ["marin"],
+      "sonoma": ["sonoma"],
+      "mendocino": ["mendocino"],
+      "humboldt": ["humboldt"],
+      "del norte": ["del norte"],
+      "crescent city": ["del norte"],
+      "arcata": ["humboldt"],
+      "seattle": ["seattle", "king"],
+      "west seattle": ["west seattle", "seattle", "king"],
+      "vashon": ["vashon"],
+      "maury": ["maury"],
+      "des moines": ["des moines", "king"],
+      "tacoma": ["pierce"],
+      "pierce": ["pierce"],
+      "kitsap": ["kitsap"],
+      "whatcom": ["whatcom"],
+      "san juan": ["san juan"],
+      "whidbey": ["whidbey"],
+      "camano": ["camano"],
+      "skagit": ["skagit"],
+      "snohomish": ["snohomish"],
+      "port townsend": ["jefferson"],
+      "port angeles": ["port angeles", "clallam"],
+      "neah bay": ["makah", "neah bay"],
+      "olympia": ["thurston"],
+      "clatsop": ["clatsop"],
+      "tillamook": ["tillamook"],
+      "lincoln": ["lincoln"],
+      "lane": ["lane"],
+      "coos": ["coos"],
+      "curry": ["curry"]
+    }
+  }
+}

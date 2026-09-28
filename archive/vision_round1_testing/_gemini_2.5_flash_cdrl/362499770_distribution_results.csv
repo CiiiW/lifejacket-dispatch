@@ -1,0 +1,768 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+3,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,7
+13,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+10,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+15,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+4,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+2,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+6,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+12,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+11,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+9,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+8,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+5,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+14,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+1,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,98,Steller Sea Lion,Eumetopias,jubatus,15
+7,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+16,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+20,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Harbor Seal,Phoca,Phoca vitulina,5
+17,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+19,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+21,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+27,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+18,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+22,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+23,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+24,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+30,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+26,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,93,Steller Sea Lion,Eumetopias,Eumetopias jubatus,14
+28,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+25,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+29,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+32,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+31,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+34,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+33,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+38,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+41,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+36,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+39,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+37,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+44,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+35,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+43,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+45,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,97,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+40,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+46,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+47,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+42,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+53,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+48,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+51,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+49,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+56,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+52,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+55,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+57,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+50,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+61,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+60,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+62,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+59,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+63,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+54,1,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,90,California Sea Lion,Zalophus,Zalophus californianus,45
+58,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+64,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+65,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+71,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+66,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+69,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+67,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+68,1,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,95,California Sea Lion,Zalophus,Zalophus californianus,15
+72,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+76,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+75,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+74,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+80,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+73,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,12
+77,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+82,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+84,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+83,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+78,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+70,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+81,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+79,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+85,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+87,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+88,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+90,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+86,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+89,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+92,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+98,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+91,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+93,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+94,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+95,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+99,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+96,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+97,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+100,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+101,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+103,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,55
+110,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+102,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+105,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+111,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+107,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+109,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+106,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+108,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,85,Steller Sea Lion,Eumetopias,jubatus,20
+112,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+115,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+104,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+113,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+120,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+114,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+122,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+117,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+118,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,93,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+119,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+116,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+123,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,95,Steller Sea Lion,Eumetopias,jubatus,12
+125,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+124,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+127,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+121,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+128,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+126,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,90,California Sea Lion,Zalophus,Zalophus californianus,60
+133,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,8
+129,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+132,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+134,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+131,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+140,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+137,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+139,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,92,California Sea Lion,Zalophus,Zalophus californianus,15
+141,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+135,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+130,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,90,California Sea Lion,Zalophus,Zalophus californianus,30
+138,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+136,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,85,California Sea Lion,Zalophus,Zalophus californianus,70
+143,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+145,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+142,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,28
+144,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+147,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+146,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+150,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,96,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+148,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+156,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+151,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,25
+155,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,35,Harbor Seal,Phoca,vitulina,18
+157,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+152,3,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making detailed identification very challenging. There is also some blur and the image is rotated 90 degrees clockwise.
+    *   **Specific tokens:**
+        *   **Ear shape:** Indiscernible due to darkness and distance.
+        *   **Tail/hind flippers:** Appears fused/tucked on the primary animal, but details are too obscured for definitive classification between true seals and eared seals.
+        *   **Texture/color:** Animals appear dark, monochromatic (likely black/dark brown), and somewhat glossy. No distinct fur patterns are visible.
+        *   **Body posture:** Animals are hauled out on a wooden dock next to water, resting. This behavior is typical of pinnipeds.
+    *   **Perceptual Barriers:** Extreme darkness/low light, low resolution, blur, and image rotation significantly impede identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The shapes strongly suggest marine mammals, specifically pinnipeds (seals or sea lions) due to their body form, flippers (visible foreflippers on the main animal), and presence on a dock by water. Lack of discernible external ear flaps and a somewhat ""blended"" head/neck on the primary animal *slightly* favors a true seal (Phocidae) over an eared seal (Otariidae), but this is highly speculative given the poor image quality.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in Puget Sound, Washington State. This region is well-known habitat for several pinniped species, including Harbor Seals (Phoca vitulina), California Sea Lions (Zalophus californianus), and Steller Sea Lions (Eumetopias jubatus). The date/time (May 17th, noon) is consistent with active presence of these species.
+    *   **Compare:** Visual evidence of pinnipeds on a dock aligns perfectly with the contextual information of pinniped presence in Puget Sound. However, the visual clarity is insufficient to confidently differentiate between specific species of pinnipeds.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this degradation are:
+        *   **Harbor Seal (Phoca vitulina):** Extremely common in Puget Sound, frequently haul out on docks, and their lack of prominent external ear flaps fits the visual ambiguity.
+        *   **California Sea Lion (Zalophus californianus):** Also common in Puget Sound, frequently haul out on docks, and their general body shape could be confused with seals under such poor lighting conditions, despite having external ear flaps (which are not visible here).
+        *   **Steller Sea Lion (Eumetopias jubatus):** Larger and less common than Harbor Seals or California Sea Lions, but also present and haul out. Differentiation is impossible at this clarity.
+
+    *   Given the extreme lack of clarity, positively identifying a specific species is not possible. However, the overall body shape and commonality strongly suggest a pinniped. I will prioritize Harbor Seal due to its widespread presence and the difficulty in discerning ear flaps, which visually makes them harder to distinguish from the blurry images. California Sea Lion is a close second given its prevalence on docks in the region.
+
+PHASE 2: CALIBRATED OUTPUT
+Harbor Seal",Phoca,Phoca vitulina,30,California Sea Lion,Zalophus,Zalophus californianus,15
+153,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+154,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+149,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,90,California Sea Lion,Zalophus,Zalophus californianus,30
+160,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,10
+161,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,15
+163,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+162,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+167,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,18,California Sea Lion,Zalophus,Zalophus californianus,5
+164,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,65,California Sea Lion,Zalophus,Zalophus californianus,30
+158,3,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is very dark, rotated 90 degrees, and appears to be low resolution, resulting in significant blurring of details.
+    *   **Specific Tokens:**
+        *   **Shape:** Elongated, torpedo-like bodies. At least two individuals are visible on the wooden platform, exhibiting a general pinniped form.
+        *   **Limbs:** Fore-flippers appear to be used to prop up the body, especially for the animal on the left. Hind flippers are not clearly discernible for species-specific details.
+        *   **Texture:** Appears uniformly dark and smooth due to lighting conditions, consistent with marine mammals.
+        *   **Ear shape:** Not visible due to darkness and resolution.
+        *   **Tail:** Not visible.
+    *   **Perceptual Barriers:** Extreme darkness/low light (primary barrier), significant image rotation, low resolution/blur.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The animals' general body shape, their presence on a dock, and critically, the posture of the animal on the left (propped up on its fore-flippers, with the body elevated) are highly characteristic of an otariid (eared seal, e.g., sea lion) rather than a phocid (true seal, which typically ""humps"" or drags itself along land with hind flippers extended backward). The lack of visible ear flaps or other fine details prevents further visual distinction between otariid species.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) corresponds to an area in Puget Sound, near Port Townsend, Washington, USA. Both Harbor Seals (*Phoca vitulina*) and California Sea Lions (*Zalophus californianus*) are commonly found in Puget Sound and are known to haul out on docks and human-made structures. Steller Sea Lions (*Eumetopias jubatus*) are also present but less common on docks in this specific area compared to California Sea Lions.
+    *   **Compare:** Both visual and contextual paths strongly indicate a pinniped. The visual clue of the propped-up posture leans towards a sea lion (Otariidae). Contextually, California Sea Lions are very common in this region and known for this behavior. Harbor Seals, while extremely common, do not typically adopt this specific posture on land. Despite the very low visual clarity, this specific postural token provides a stronger visual agreement for California Sea Lion over Harbor Seal.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation are other pinnipeds common to the area, primarily Harbor Seals (*Phoca vitulina*) and potentially Steller Sea Lions (*Eumetopias jubatus*). The extreme darkness and blur make differentiation challenging, as key features like ear flaps, snout shape, and detailed flipper morphology are obscured. However, the visible posture serves as the primary (albeit blurry) distinguishing feature from true seals.
+
+PHASE 2: CALIBRATED OUTPUT
+California Sea Lion",Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,20
+168,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+159,3,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is severely underexposed (dark), rotated 90 degrees clockwise, and appears to be taken from a distance, resulting in low resolution and detail for the subjects.
+    *   **Specific Tokens:**
+        *   **Shape/Outline:** Multiple large, dark, fusiform mammals are visible. They exhibit robust bodies, visible fore flippers, and a posture suggesting they can raise their bodies off the ground. Several individuals are on a wooden dock, and many more are packed onto a floating structure in the background.
+        *   **Texture:** Appears smooth, dark fur, consistent with pinnipeds. Fine details are indistinguishable due to darkness.
+        *   **Ear shape:** Cannot be definitively seen due to darkness and distance, but the overall posture and body plan are consistent with eared seals (otariids).
+        *   **Tail:** Not clearly visible.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, image rotation, low contrast, distant subjects leading to low resolution, and lack of fine detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The animals' body shape, the prominent use of fore flippers to prop themselves up on the dock, and their aggregation behavior strongly suggest they are sea lions (otariids). They are clearly not true seals (phocids), which move differently on land (wiggling, unable to rotate hind flippers forward). The size appears consistent with common sea lion species.
+    *   **Path B (Contextual):**
+        *   **Location:** (48.1153861667, -122.7510083333) corresponds to Puget Sound, Washington, USA.
+        *   **Date/Time:** May 17, 2026.
+        *   **Species in region:** California Sea Lions (Zalophus californianus) and Steller Sea Lions (Eumetopias jubatus) are both common in Puget Sound and are well-known for hauling out on docks, navigational buoys, and rafts. California Sea Lions are particularly known for gathering in large numbers on such structures. Harbor Seals (Phoca vitulina) are also abundant but exhibit different terrestrial locomotion and typically do not form such dense, stacked aggregations on structures like this.
+    *   **Compare:** There is high agreement between the visual evidence (otariid morphology and behavior) and the contextual information (Puget Sound is a known habitat for sea lions that exhibit this haul-out behavior). However, the clarity for distinguishing *between* sea lion species is low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species, given the low clarity and visual cues, would be other sea lion species, primarily the Steller Sea Lion (Eumetopias jubatus), which is also found in the region and uses similar haul-out sites, though generally less numerously on docks than California Sea Lions in Puget Sound. The visual degradation makes it difficult to discern key identifying features such as sagittal crest (in adult male California Sea Lions) or snout shape differences. Harbor Seals (Phoca vitulina) are a less likely look-alike due to discernible differences in body posture and terrestrial movement, even in this low-clarity image.
+
+PHASE 2: CALIBRATED OUTPUT
+California Sea Lion",Zalophus,Zalophus californianus,38,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+165,3,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35,California Sea Lion,Zalophus,Zalophus californianus,28
+171,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,20,California Sea Lion,Zalophus,Zalophus californianus,15
+169,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,10
+170,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,65,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+173,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,15
+166,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,38,Steller Sea Lion,Eumetopias,jubatus,10
+179,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,75,California Sea Lion,Zalophus,Zalophus californianus,15
+175,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,25,Harbor Seal,Phoca,Phoca vitulina,10
+177,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+184,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+181,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,10
+174,3,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Very low. The image is extremely dark, underexposed, and has very low contrast, making it difficult to discern fine details. The image is also rotated 90 degrees clockwise, which hinders immediate recognition.
+    *   **Specific tokens (ear shape, tail, texture):**
+        *   **Ear shape:** Apparent external ear flaps (pinnae) are faintly visible on the larger animal, suggesting an eared seal (otariid).
+        *   **Tail:** Not visible or very short, consistent with pinnipeds.
+        *   **Texture:** Appears dark, smooth/sleek, but specific fur texture is indiscernible due to darkness.
+        *   **Body shape:** Elongated, robust bodies with visible flippers, consistent with pinnipeds. They are hauled out on a wooden dock.
+    *   **'Perceptual Barriers':** Extreme darkness/underexposure, low contrast, image rotation, and distance contribute to very low clarity.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests large marine mammals with external ears (otariids), likely sea lions, resting on a man-made structure (dock). The hauling-out behavior and body shape are consistent with sea lions.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in Puget Sound, Washington State. Both California Sea Lions (Zalophus californianus) and Steller Sea Lions (Eumetopias jubatus) are known to frequent this area and commonly haul out on docks, buoys, and other man-made structures. Harbor Seals (Phoca vitulina) are also abundant but lack external ear flaps. The date (May) is within the period both sea lion species can be found in the area.
+    *   **Compare:** There is high agreement that the animals are otariids (eared seals), specifically sea lions, given both visual cues (apparent ear flaps, body shape, hauling-out behavior) and contextual data (geographic location and habitat). However, the extremely low visual clarity prevents a confident distinction between specific sea lion species.
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation are California Sea Lion and Steller Sea Lion. Due to the very poor lighting and lack of fine detail, distinguishing between these two species, which share similar habitats and behaviors in this region, is exceptionally difficult. Key distinguishing features like snout shape, size, and specific coloration are obscured.
+
+PHASE 2: CALIBRATED OUTPUT
+Low clarity severely limits the confidence in species-level identification, despite high agreement on the animal type (sea lion). Therefore, probabilities must be low as per the instruction ""Low Clarity = Low Probability (under 40)"".
+
+California Sea Lion",Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+172,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+178,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,75,Steller Sea Lion,Eumetopias,Eumetopias jubatus,22
+182,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,65,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+180,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,38,Steller Sea Lion,Eumetopias,Eumetopias jubatus,18
+176,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,65,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+186,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,12
+183,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,5,California Sea Lion,Zalophus,Zalophus californianus,2
+187,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+190,3,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35,California Sea Lion,Zalophus,Zalophus californianus,25
+185,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,75,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+188,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+196,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,10
+189,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,30,California Sea Lion,Zalophus,Zalophus californianus,15
+193,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,28,California Sea Lion,Zalophus,Zalophus californianus,15
+192,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,65,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+191,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,75,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+194,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,80,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+197,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+195,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+199,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+204,4,362499770,California Sea Lion,Zalophus californianus,Unidentifiable Species,N/A,N/A,5,Unidentifiable Object,N/A,N/A,5
+210,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,12,American River Otter,Lontra,Lontra canadensis,8
+200,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+201,4,362499770,California Sea Lion,Zalophus californianus,Norway Rat,Rattus,Rattus norvegicus,10,Black Rat,Rattus,Rattus rattus,5
+198,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,35,Harbor Seal,Phoca,Phoca vitulina,15
+205,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+206,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,25,California Sea Lion,Zalophus,Zalophus californianus,10
+207,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+211,4,362499770,California Sea Lion,Zalophus californianus,Northwestern Crow,Corvus,Corvus caurinus,35,American Crow,Corvus,Corvus brachyrhynchos,25
+209,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,15,North American River Otter,Lontra,Lontra canadensis,8
+212,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,15,California Sea Lion,Zalophus,Zalophus californianus,5
+208,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,15
+202,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, rotated, and severely underexposed, making identification of any object, especially wildlife, virtually impossible. Specific tokens such as ear shape, tail, or fur/feather texture are entirely absent. There are discernible shapes of what appear to be two long, cylindrical, man-made objects (possibly rockets or missiles) and part of a wooden structure. A very faint, indistinct dark shape is visible on the structure, which could potentially be a human figure, but definitely not identifiable as wildlife.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, image rotation, lack of resolution for fine details.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest the presence of any wildlife species. The primary identifiable objects are artificial.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) corresponds to a coastal area near Whidbey Island, Washington state, USA. This region supports various marine and terrestrial wildlife (e.g., seabirds, marine mammals, deer). However, the metadata alone does not indicate that wildlife is present *in this specific image*.
+    *   **Compare:** Path A (no visual evidence of wildlife) and Path B (geographic context allows for wildlife, but doesn't confirm its presence in the image) are in conflict regarding the presence of wildlife. The clarity is critically low for any wildlife identification.
+3.  **SELF-REFLECTION:** As a critic, the image lacks any discernible features belonging to a wildlife species. The existing shapes are either clearly artificial or too vague to interpret as an animal. The task of wildlife identification cannot be reliably performed.
+    *   **Most likely 'Look-alike' species for this degradation:** Given the extreme darkness and lack of any animal-like forms, there are no reasonable ""look-alike"" wildlife species. Any identification would be pure speculation or pareidolia, as the image essentially contains no visual information relevant to wildlife.
+
+PHASE 2: CALIBRATED OUTPUT
+Due to extremely low clarity and the complete absence of identifiable wildlife features, coupled with the visual data contradicting the implied presence of wildlife, the confidence in identifying any species is minimal. To adhere to the format, I must assign species, but the probability reflects the profound lack of evidence.
+
+Harbor Seal",Phoca,Phoca vitulina,1,Glaucous-winged Gull,Larus,Larus glaucescens,1
+221,4,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,5,American Crow,Corvus,Corvus brachyrhynchos,3
+218,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,5,Common Raven,Corvus,Corvus corax,1
+203,4,362499770,California Sea Lion,Zalophus californianus,Dark-eyed Junco,Junco,Junco hyemalis,1,European Starling,Sturnus,Sturnus vulgaris,0
+213,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,1,Glaucous-winged Gull,Larus,Larus glaucescens,1
+214,4,362499770,California Sea Lion,Zalophus californianus,Barn Swallow,Hirundo,Hirundo rustica,15,Cliff Swallow,Petrochelidon,Petrochelidon pyrrhonota,5
+219,4,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,35,American Crow,Corvus,Corvus brachyrhynchos,20
+222,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,30,California Sea Lion,Zalophus,Zalophus californianus,10
+225,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,35,American Crow,Corvus,Corvus brachyrhynchos,15
+227,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,8,Common Raven,Corvus,Corvus corax,3
+217,4,362499770,California Sea Lion,Zalophus californianus,Big Brown Bat,Eptesicus,Eptesicus fuscus,1,Little Brown Bat,Myotis,Myotis lucifugus,1
+224,4,362499770,California Sea Lion,Zalophus californianus,Bat,Myotis,Myotis lucifugus,5,Owl,Strix,Strix varia,1
+215,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is overwhelmingly dark, bordering on being a silhouette or just a dark blob. Details are almost completely obscured.
+    *   **Specific tokens:**
+        *   **Ear shape:** Not discernible.
+        *   **Tail:** Appears relatively short and broad, but definition is too low for certainty.
+        *   **Texture:** Feathered texture is not visible; the object appears uniformly dark.
+        *   **Head/Beak:** A vague head-like protrusion is visible, suggesting an avian creature. A strong hooked beak (characteristic of raptors) is hinted at but not clearly visible. The overall shape suggests a robust body.
+    *   **Perceptual Barriers:**
+        *   **Extreme darkness/low light:** This is the most significant barrier, rendering almost all fine details invisible.
+        *   **Low resolution/Blur:** Contributes to the lack of clarity.
+        *   **Angle:** The creature is viewed from below, further obscuring distinguishing features.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests a large, dark-bodied bird perched on a wooden structure (likely a dock or pier). The shape vaguely hints at a robust build and potentially a strong head/beak structure, consistent with a large raptor.
+    *   **Path B (Contextual):**
+        *   **Location (48.1153861667, -122.7510083333):** This is located in the Puget Sound area of Washington state, a region known for a variety of marine and coastal wildlife.
+        *   **Date/Time (2026-05-17 at 12:00):** Midday in May, indicating conditions should typically allow for clear observation, making the image's darkness an intrinsic issue.
+        *   Common large birds found perching on docks/structures in this area include Bald Eagles, Ospreys, Great Blue Herons, and Double-crested Cormorants. Bald Eagles are particularly abundant and frequently perch on artificial structures near water. Juvenile Bald Eagles are uniformly dark.
+    *   **Compare:** Both paths consistently suggest a large bird. The visual path, despite its extreme lack of clarity, leans towards a robust, possibly raptor-like form. The contextual path strongly supports large raptors like Bald Eagles as a common species in this exact habitat. However, due to the overwhelmingly low visual clarity, any specific identification is highly speculative. The agreement is only at a very general level (""large bird"").
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness and lack of detail, any large, dark-feathered bird found in the Puget Sound area that perches on docks could be mistaken. Key look-alikes under these conditions would be:
+        *   **Double-crested Cormorant:** Very common, dark, and perches on structures, but usually has a more slender neck.
+        *   **Great Blue Heron:** Common, but typically has a much longer neck and legs, and a different body posture.
+        *   Other dark raptors or large water birds whose specific features are obliterated by the low light.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, making precise identification impossible. The agreement between visual and contextual cues is limited to ""large bird."" Therefore, the probability score must be very low. The identification below is a 'best guess' under severe perceptual limitations, reflecting the high uncertainty.
+
+Bald Eagle",Haliaeetus,leucocephalus,20,Double-crested Cormorant,Nannopterum,auritum,8
+226,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,5,Pelagic Cormorant,Phalacrocorax,Phalacrocorax pelagicus,3
+220,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1. VISUAL SELF-CHECK:
+   - Perceptual Clarity: Extremely low. The images are severely underexposed and rotated, rendering almost all detail invisible. There is a dark, indistinct, oblong shape on what appears to be a wooden dock in one of the crops, but it lacks any discernible features characteristic of wildlife.
+   - Specific Tokens: None identifiable for wildlife. The shape on the dock is vaguely human-like or an inanimate object. No ear shape, tail, fur/feather texture, or distinctive body outline of any animal can be perceived.
+   - Perceptual Barriers: Extreme darkness/low light (primary), image rotation, and functional low resolution due to lack of light.
+
+2. SELF-CONSISTENCY AUDIT:
+   - Path A (Visual): The image suggests no identifiable wildlife species. The primary discernible shape on the dock appears to be a human figure or an inanimate object, not an animal.
+   - Path B (Contextual): The location (48.1153861667, -122.7510083333) is in Puget Sound, near Port Townsend, Washington. This is a marine environment known for species like Harbor Seals, California Sea Lions, various seabirds, etc. The date/time (May 17, midday) does not conflict with wildlife activity.
+   - Compare: There is a strong conflict. The visual data provides no evidence of any wildlife, while the contextual data suggests that marine wildlife is possible in the area. Due to the extreme lack of visual evidence, confidence in identifying *any* wildlife from the image is exceptionally low.
+
+3. SELF-REFLECTION:
+   - Critic: The images are too dark and indistinct to make any wildlife identification. The visible object on the dock is not an animal. Providing a wildlife identification would be pure conjecture based solely on location, contradicting the principle of linking perception to accuracy.
+   - Most Likely 'Look-alike' species for this specific degradation: Given the total absence of discernible animal features, there are no specific 'look-alikes' for wildlife. The object visible could be misinterpreted as a very dark, indistinct marine mammal (e.g., a seal) if one were trying extremely hard to find an animal based purely on context, but this is not supported by visual data. More accurately, the object resembles a human person or an inanimate object on a dock.
+
+PHASE 2: CALIBRATED OUTPUT
+- Probability Score Justification: The clarity is extremely low, and there is a significant disagreement between the visual data (no wildlife) and the contextual possibilities. Therefore, the probability of accurately identifying any wildlife species from this image is virtually zero. To adhere to the output format requiring positive probabilities, the lowest possible non-zero probability (1) will be assigned to reflect this complete lack of visual evidence for wildlife. The species chosen are the most common marine mammals in the given location, purely based on context, as no visual cues exist.
+
+Harbor Seal",Phoca,Phoca vitulina,1,California Sea Lion,Zalophus,Zalophus californianus,1
+223,4,362499770,California Sea Lion,Zalophus californianus,No wildlife species discernible,N/A,N/A,1,Indeterminable Object,N/A,N/A,0
+228,4,362499770,California Sea Lion,Zalophus californianus,Unidentifiable,Unidentifiable,Unidentifiable,1,Unidentifiable,Unidentifiable,Unidentifiable,1
+231,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,10,California Sea Lion,Zalophus,Zalophus californianus,5
+216,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The entire image is severely underexposed, dark, and blurry. It also appears rotated 90 degrees clockwise. Details are indiscernible. The provided crops offer no additional clarity; they are equally dark and blurry segments of the main image.
+    *   **Specific tokens:** No specific biological tokens (ear shape, tail, fur/feather texture) can be identified for any wildlife species. There is a dark, indistinct, elongated shape on the right side of the image against what appears to be a wooden structure. This shape lacks any discernible features that would indicate an animal. On the left side, there are two distinct cylindrical, pointed objects that appear to be man-made (e.g., missiles or rockets) in or near water, next to what looks like a dark shoreline or structure.
+    *   **'Perceptual Barriers':** Severe underexposure/darkness, significant blur, extreme lack of detail/resolution, image rotation, and partial obstruction by shadow/darkness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on visual perception, no wildlife species can be identified. The objects visible are either man-made (cylindrical objects, wooden structure) or an indistinct dark shape that could be human, equipment, or an unidentifiable object, but not clearly an animal.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) corresponds to the Puget Sound area near Hansville, Washington, USA. This is a marine and coastal environment known for various marine mammals (e.g., seals, sea lions, porpoises), birds, and terrestrial mammals. The date and time are typical for wildlife activity.
+    *   **Compare:** Path A (no animal identified visually) is in strong conflict with the expectation of identifying a wildlife species given the contextual information (Path B), which would suggest certain species are plausible if an animal were visible. The clarity is prohibitively low for any identification. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for the dark, indistinct shape on the right side, if it *had* to be an animal, would be a very dark, distant, and blurry marine mammal such as a Harbor Seal (Phoca vitulina) or a larger diving bird. However, this is a forced interpretation due to the prompt's requirement and is not supported by any visual evidence. The shape is more consistent with a human figure, a piece of equipment, or a general dark object. The cylindrical objects on the left are clearly not wildlife.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of visual agreement on the presence of any wildlife species, the probability of correctly identifying any animal is effectively zero. However, to adhere to the output format, I will list the most contextually plausible marine mammal for the region, assigning an extremely low probability to reflect the non-identifiability.
+
+Harbor Seal",Phoca,Phoca vitulina,1,California Sea Lion,Zalophus,Zalophus californianus,0
+235,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,15,Common Raven,Corvus,Corvus corax,5
+230,4,362499770,California Sea Lion,Zalophus californianus,Unknown Species,Unknown,Unknown,1,Unknown Species,Unknown,Unknown,1
+233,4,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,35,American Crow,Corvus,Corvus brachyrhynchos,30
+229,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and appears rotated (upside down). All details are heavily obscured.
+    *   **Specific tokens:** A very dark, elongated, somewhat blob-like shape is visible on a wooden surface (likely a dock or pier) in the upper part of the image (when rotated correctly). Below this surface is a dark body of water with vertical structures (pilings) extending into it. No discernible features like ear shape, tail, or texture are visible on the subject.
+    *   **'Perceptual Barriers':** Extreme underexposure/darkness, image rotation, significant blur/lack of detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image *vaguely* suggests a dark, elongated object or creature on a wooden structure over water. It is impossible to identify any specific species from the visual information alone due to the severe degradation. It could be a bird, a mammal, or even an inanimate object/shadow.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in the Puget Sound area of Washington state, specifically Penn Cove near Coupeville on Whidbey Island. This is a coastal marine environment. Common wildlife in this area that might be found on or near docks include various seabirds (e.g., cormorants, gulls), and marine mammals (e.g., river otters, harbor seals). The date (May) and time (midday) are unremarkable for species identification.
+    *   **Compare:** Visual information (Path A) is extremely ambiguous and offers no specific agreement with the context (Path B) beyond ""something dark in a coastal environment."" There is no conflict because Path A is too vague to contradict, but there is also no meaningful agreement. Due to the extremely low clarity, confidence must be very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the object could be almost anything dark and elongated. If it is a living creature, common ""look-alikes"" for a dark, elongated form on a dock in this region would include a Double-crested Cormorant (*Phalacrocorax auritus*), various gulls (e.g., Glaucous-winged Gull *Larus glaucescens*), or a River Otter (*Lontra canadensis*). It could also easily be misinterpreted as a piece of debris, a shadow, or even a different type of bird or mammal.
+
+PHASE 2: CALIBRATED OUTPUT
+Double-crested Cormorant",Phalacrocorax,Phalacrocorax auritus,5,River Otter,Lontra,Lontra canadensis,2
+236,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,8,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,7
+237,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,15,European Starling,Sturnus,Sturnus vulgaris,5
+232,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely underexposed, rotated, and lacks significant detail. Perceptual clarity is critically low.
+    *   **Specific Tokens:** There is a dark, indistinct blob on a wooden surface (possibly a dock or boat hull) in the upper right quadrant of the image. It appears somewhat elongated and curved, with a faint suggestion of a head and body. No distinguishing features like ear shape, tail, or fur texture are discernible. Other objects appear to be poles or structures, not animals.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), severe rotation (image is sideways), very low resolution/detail, potential motion blur or poor focus, reflections/shadows obscuring any potential form.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides insufficient visual information to confidently identify any species. The dark blob could be an animal, a piece of debris, or an artifact of lighting/shadow. If an animal, its shape is too generic to point to a specific species.
+    *   **Path B (Contextual):**
+        *   **Location:** (48.1153861667, -122.7510083333) is in Port Hadlock, Washington, on the Puget Sound. This is a coastal, marine environment known for marine mammals and semi-aquatic species.
+        *   **Date/Time:** 2026-05-17 at 12:00 (midday). The extreme darkness of the image is inconsistent with the midday time, suggesting poor camera settings or extreme shadows.
+        *   **Species common to this area:** North American River Otters, Harbor Seals, various seabirds, raccoons, etc.
+    *   **Compare:** Path A (visual) offers no concrete identification. Path B (contextual) suggests several plausible marine/coastal animals if the blob *is* an animal. However, the visual data is so poor that it neither confirms nor denies any species from the contextual information. Clarity is extremely low, leading to very low agreement between visual and contextual paths for any specific species identification.
+
+3.  **SELF-REFLECTION:** Given the extreme degradation, the most likely 'look-alike' for the dark blob could be a wet rock, a log, a shadow, debris (e.g., tarp, fishing net), or almost any non-animal object of a similar shape and color. If it is an animal, the lack of specific features means differentiation from common dark-furred/skinned animals (e.g., otter, seal, raccoon, even a domestic animal if on a dock) is impossible based on visual information.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity of the image is extremely low, making any specific identification highly speculative. Therefore, the probability score must be very low, well under 40. The choices below are the most plausible *guesses* based purely on the geographical context, assuming the blob is indeed an animal.
+
+North American River Otter",Lontra,Lontra canadensis,5,Harbor Seal,Phoca,Phoca vitulina,2
+243,4,362499770,California Sea Lion,Zalophus californianus,No animal detected,N/A,N/A,1,No animal detected,N/A,N/A,1
+242,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,15,Common Raven,Corvus,Corvus corax,8
+244,4,362499770,California Sea Lion,Zalophus californianus,Unknown Species,Unknown,Unknown,0,Unknown Species,Unknown,Unknown,0
+249,4,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,5,American Crow,Corvus,Corvus brachyrhynchos,3
+247,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Nannopterum,Nannopterum auritum,5,Great Blue Heron,Ardea,Ardea herodias,2
+238,4,362499770,California Sea Lion,Zalophus californianus,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+245,4,362499770,California Sea Lion,Zalophus californianus,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+240,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and very dark, obscuring almost all color, texture, and fine details. The main subject (a bird) is visible as a dark silhouette.
+    *   **Specific tokens:**
+        *   **Body Shape:** Elongated, slender neck, robust body, typical of a cormorant.
+        *   **Beak/Bill:** Appears long and pointed, consistent with a cormorant.
+        *   **Posture:** Perching on a wooden dock/pier over water.
+        *   **Color/Pattern:** Indiscernible due to darkness.
+    *   **Perceptual Barriers:** Extreme darkness/low light, low resolution/blur. The primary image is also rotated (upside down), though crops help to reorient the subject.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The silhouette and general morphology strongly suggest a cormorant (family Phalacrocoracidae). However, due to the severe lack of visual detail, distinguishing between specific cormorant species is impossible from the image alone.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is the Puget Sound area in coastal Washington state. This is a marine environment where several species of cormorants are common, including Double-crested Cormorant, Brandt's Cormorant, and Pelagic Cormorant. Cormorants frequently perch on docks and pilings.
+    *   **Compare:** Path A and Path B strongly agree that the subject is a cormorant. However, the extreme visual degradation (low clarity) prevents a confident species-level identification based purely on visual tokens. This low clarity necessitates a low confidence score for any specific species.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image quality is too poor to identify species-specific diagnostic features (e.g., gular pouch color, crests, specific bill shape/color, size). Any species identification beyond the family level is highly speculative and relies heavily on contextual prevalence.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Within the cormorant family, Double-crested Cormorant (*Nannopterum auritus*), Brandt's Cormorant (*Urile penicillatus*), and Pelagic Cormorant (*Urile pelagicus*) are all common in the specified location and share similar general silhouettes, especially in poor lighting. The Double-crested Cormorant is often the most widespread and commonly observed cormorant perching on artificial structures like docks in such areas.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low visual clarity, and the inability to distinguish key species-specific features, the probability must be low (under 40) even though the family identification is strong and contextual information helps narrow down possibilities.
+
+Double-crested Cormorant",Nannopterum,Nannopterum auritus,28,Brandt's Cormorant,Urile,Urile penicillatus,8
+248,4,362499770,California Sea Lion,Zalophus californianus,Unidentifiable Wildlife,Unknown,Unknown,0,Unidentifiable Wildlife,Unknown,Unknown,0
+241,4,362499770,California Sea Lion,Zalophus californianus,Little Brown Bat,Myotis,Myotis lucifugus,35,Big Brown Bat,Eptesicus,Eptesicus fuscus,25
+253,5,362499770,California Sea Lion,Zalophus californianus,Pigeon,Columba,Columba livia,0,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,0
+254,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,15,American Crow,Corvus,Corvus brachyrhynchos,5
+257,5,362499770,California Sea Lion,Zalophus californianus,Unknown,N/A,N/A,0,Unknown,N/A,N/A,0
+239,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black or dark grey. No distinct shapes or features indicative of wildlife are discernible.
+    *   **Specific tokens:** No tokens such as ear shape, tail, texture, fur, feathers, or scales for any animal are visible. The faint outlines suggest man-made structures (e.g., wooden planks, poles, possibly a person or object on a structure).
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, potential motion blur (unclear due to darkness), image rotation.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest the presence of any wildlife species. No animal forms or features are identifiable.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) corresponds to coastal waters near Marrowstone Island, Washington, USA. This area is known to host various wildlife, including marine mammals (e.g., Harbor Seals, Steller Sea Lions) and numerous bird species (e.g., gulls, cormorants, eagles). The date/time (2026-05-17 at 12:00) indicates midday, which contradicts the extreme darkness of the image.
+    *   **Compare:** Path A (no visual evidence of wildlife) and Path B (potential for various wildlife in the area) are in conflict because there is no visual information to support any species identification. The clarity is extremely low. Therefore, confidence in any identification must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and complete lack of discernible features, there is no meaningful ""look-alike"" species. The degradation prevents any form from being recognized as an animal. The perceived objects are too indistinct to resemble any specific wildlife, even for misidentification.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of visual evidence for any wildlife species, the probability of correctly identifying any animal is effectively zero. The probability score *must* be under 40. To reflect this extreme uncertainty and lack of visual information, while adhering to the required output format, a nominal, very low probability will be assigned to plausible local species, indicating that no identification can be made from the image.
+
+Harbor Seal",Phoca,vitulina,1,Glaucous-winged Gull,Larus,glaucescens,1
+246,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is severely underexposed and extremely dark. Perceptual clarity is critically low.
+    *   **Specific tokens identified:** None. There is a dark, indistinct, blob-like shape visible on a lighter wooden surface in the right portion of the image. No features such as ear shape, tail, fur texture, eye reflection, or limb structure are discernible.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, lack of contrast, low resolution (due to darkness obscuring detail), and a slight rotation of the original image relative to common viewing orientation.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no specific visual cues to identify any wildlife species. The blob-like shape could be an animal, a shadow, debris, or a stain. No morphological characteristics are present for identification.
+    *   **Path B (Contextual):** The location is (48.1153861667, -122.7510083333), which is in the Puget Sound region of Washington State, USA (Whidbey Island area). The date/time is 2026-05-17 at 12:00 (noon). This context indicates a temperate region with a variety of wildlife, including small mammals and birds that might inhabit human structures. However, without visual input, it doesn't narrow down species.
+    *   **Compare:** There is no agreement between Path A and Path B because Path A yields virtually no information. The clarity is extremely low. Therefore, confidence in any identification must be extremely low.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' species for this specific degradation are ""unknown object,"" ""shadow,"" ""debris,"" or ""any small, dark, indistinct object."" Due to the absolute lack of visual detail, distinguishing between various small mammals (e.g., mouse, rat, squirrel) or even a bird is impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement between visual and contextual information for any specific species, the probability score must be very low. Any identification is pure speculation based solely on the expectation that *something* might be present, rather than any discernible evidence.
+
+Common House Mouse",Mus,Mus musculus,1,Brown Rat,Rattus,Rattus norvegicus,1
+251,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black or very dark grey. There is virtually no discernible detail. The cropped images offer no additional clarity.
+    *   **Specific tokens:** Cannot identify any specific tokens (ear shape, tail, texture, plumage, fur patterns, limb structure) due to the profound darkness and lack of contrast.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, significant rotation (image is sideways). This degradation completely obscures any visual information relevant for species identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No identifiable species. There is a faint, dark, somewhat amorphous shape on what appears to be a wooden vertical surface (possibly a wall or building exterior). This shape is too indistinct to identify as any particular animal.
+    *   **Path B (Contextual):**
+        *   Location: (48.1153861667, -122.7510083333) is in Washington State, near Port Townsend. This is a region with diverse wildlife, including many bird species, small to medium-sized mammals (e.g., raccoons, squirrels, coyotes, deer, domestic animals like cats).
+        *   Date/Time: 2026-05-17 at 12:00 PM (midday) suggests ample daylight, which makes the extreme darkness of the image indicative of a camera malfunction or deep shadow.
+        *   The faint outlines suggest a creature that might be perched or clinging to a vertical structure.
+    *   **Compare:** Path A yields no identification. Path B provides geographical context but cannot compensate for the absolute lack of visual data. There is no agreement possible between visual data (which is non-existent) and contextual data. Clarity is extremely low. Therefore, confidence must be very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the object could be almost any dark-colored animal of small to medium size, a shadow, or even an inanimate object. If forced to speculate based on the faint outline that *might* be a hunched figure on a vertical surface, common dark-colored animals in Washington that might perch on a building could include a Common Raven, American Crow, or a domestic cat. However, this is pure conjecture due to the severe degradation.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and complete lack of agreement from visual cues, the probability for any species identification is extremely low. The choices below are speculative and based on the *very* faint and ambiguous shape, coupled with common species in the given location.
+
+Common Raven",Corvus,Corvus corax,5,American Crow,Corvus,Corvus brachyrhynchos,2
+250,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and very dark, making detailed identification impossible. The original image and crops provide very little discernible detail.
+    *   **Specific Tokens:** No reliable specific tokens can be identified (ear shape, tail, texture are all indistinguishable). A faint, dark, somewhat elongated shape can be seen under what appears to be a pier or dock. It has a general bird-like silhouette (body and head/neck protrusion) but without any defining features.
+    *   **Perceptual Barriers:** Severe underexposure/darkness, potential blur, very low resolution, ambiguous perspective (looking up from below a structure).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The faint, dark silhouette under the pier vaguely suggests a dark-bodied bird, possibly perching. The shape is highly ambiguous.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is coastal Washington, USA, near Port Townsend. This is a marine/coastal environment. The date and time (May 17, 12:00) suggest midday, which conflicts with the extreme darkness of the image, indicating severe underexposure or poor camera settings. In this region, common marine birds include various cormorants, gulls, and other waterbirds that might perch on or under piers.
+    *   **Compare:** The visual path offers only a weak, ambiguous suggestion of a bird. The contextual path supports the possibility of a marine bird in this location. However, the extreme lack of visual clarity means any agreement is based on a highly speculative interpretation of the visual data. This mandates very low confidence.
+
+3.  **SELF-REFLECTION:**
+    *   Given the extreme degradation, the most likely 'Look-alike' species for this specific degradation includes any dark, somewhat elongated object or animal. This could range from debris/trash to various dark-plumaged birds (e.g., different cormorant species, ravens, some ducks) or even marine mammals (e.g., seals, otters) if their shape were distorted enough. Given the faint silhouette, a cormorant is a plausible (but highly uncertain) interpretation due to their common presence on coastal structures and dark plumage.
+
+PHASE 2: CALIBRATED OUTPUT
+Double-crested Cormorant",Phalacrocorax,Phalacrocorax auritus,15,Brandt's Cormorant,Phalacrocorax,Phalacrocorax penicillatus,5
+234,4,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black or dark gray. Details are indiscernible. The provided crops are only marginally brighter and do not reveal significant detail for wildlife identification.
+    *   **Specific tokens:** No identifiable tokens for wildlife (e.g., ear shape, tail, fur texture, feather patterns, eye shine) are visible in either the main image or the crops. There are faint shapes resembling cylindrical objects (possibly rockets or pipes) and a wooden structure, with a dark, indistinct blob that *could* be a human figure on the structure. None of these are identifiable as wildlife.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, significant blur due to lack of detail, and image rotation. The image quality is too poor to identify any living organism, especially wildlife.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on visual perception, no wildlife species can be identified in the image. There are no discernible features of any animal.
+    *   **Path B (Contextual):** The location (Whidbey Island, Washington state, USA) and date/time (May, midday) indicate an environment where various wildlife species (e.g., birds like gulls, crows, eagles; marine mammals like seals, sea lions; terrestrial mammals like deer, rabbits) could be present. However, this metadata does not *suggest* any specific species *within the image* itself.
+    *   **Compare:** Path A provides no identifiable species, while Path B offers only general context. There is no agreement possible as no visual evidence exists. The clarity for wildlife identification is effectively zero. Therefore, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation is ""no animal"" or ""a dark, indistinct object."" The extreme underexposure prevents the identification of any animal features, making it impossible to confuse one animal species for another. The degradation is so severe that it obscures the presence of any wildlife entirely.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the inability to perceive any wildlife, the probability score must be very low (under 40). Since no wildlife is visually identifiable, and to adhere to the strict output format requiring specific species names, the lowest possible probability (1) will be assigned to represent the lack of visual evidence and the model's inability to identify any species. The species chosen are common to the geographical area, serving as placeholders to meet the format requirements, while the probability unequivocally conveys non-detection.
+
+American Crow",Corvus,brachyrhynchos,1,Harbor Seal,Phoca,vitulina,1
+252,5,362499770,California Sea Lion,Zalophus californianus,Big Brown Bat,Eptesicus,Eptesicus fuscus,5,Little Brown Bat,Myotis,Myotis lucifugus,2
+255,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black/dark grey, with negligible discernible detail. It appears to be severely underexposed or captured in complete darkness.
+    *   **Specific Tokens:** No identifiable tokens such as ear shape, tail, or fur/skin texture are present. There are vague outlines that might represent man-made structures (e.g., wooden siding, poles), but no animal features.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, extremely low contrast, and a complete absence of meaningful detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No animal or wildlife species can be identified from the visual data. The image shows no discernible animal features.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in the Puget Sound region, near Whidbey Island, Washington, USA. This area is home to diverse wildlife (e.g., deer, raccoons, various bird species, marine mammals in nearby waters). However, without any visual cues, this context cannot suggest a specific species.
+    *   **Compare:** Path A indicates no identifiable species. Path B provides geographical context but no visual confirmation of an animal. There is no conflict, but also no agreement on a specific species because the visual data is absent. Clarity is effectively zero.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this specific degradation is ""No Animal Present"" or ""Unidentifiable Object."" Given the extreme lack of visual information, it is impossible to distinguish an animal from an inanimate object, let alone identify a species. Any attempt at species identification would be speculative and inaccurate.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement between Visual Self-Check and Self-Consistency:** The visual self-check and Path A of the self-consistency audit both conclude that no animal is identifiable. Path B provides only general geographical context. The overall clarity is extremely low.
+*   **Probability:** Due to the extremely low clarity and the inability to identify any animal visually, the probability of correctly identifying a species is effectively zero.
+
+Unknown",Unknown,Unknown,1,Unknown,Unknown,Unknown,1
+256,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black or very dark grey. No distinct colors, patterns, or fine details are visible.
+    *   **Specific tokens identified:** No identifiable animal tokens (ear shape, tail, texture, eyes, limbs). There are faint, blurry dark shapes that appear to be man-made structures (e.g., wooden siding, beams, possibly pipes). In the right portion of the original image and crops, a very indistinct, dark, compact blob-like shape might be perceived, but it lacks any specific features to identify it as an animal.
+    *   **'Perceptual Barriers':** Extreme darkness/underexposure, very low contrast, significant blur, complete lack of discernible detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on the visual data, no wildlife species can be identified. The image primarily shows severely underexposed structural elements.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in the Puget Sound area of Washington State, USA. This is a region with diverse wildlife (birds, mammals, marine life). The date (May) and time (midday) are conducive to wildlife activity. However, the metadata itself does not suggest a specific species.
+    *   **Compare:** Path A yields no species identification due to the extreme lack of visual information. Path B provides geographical context but no species-specific hints. There is no conflict in species identification, but the complete absence of visual evidence for *any* animal results in extremely low clarity and thus requires a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and blur, the image does not resemble any specific animal. It is more akin to an abstract pattern or a very poorly captured photograph of an inanimate object (like a shadow or debris on a structure). Any attempt to identify a species would be purely speculative and not based on visual evidence. If forced to interpret the faint, dark blob on the right as an animal, it could be a small perching bird (e.g., a robin, starling, swallow) or possibly a bat, but this is entirely conjectural.
+
+PHASE 2: CALIBRATED OUTPUT
+American Robin",Turdus,Turdus migratorius,1,European Starling,Sturnus,Sturnus vulgaris,0.5
+258,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,0,North American Raccoon,Procyon,Procyon lotor,0
+261,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,5,Common Raven,Corvus,Corvus corax,2
+259,5,362499770,California Sea Lion,Zalophus californianus,Bat,Eptesicus,fuscus,35,Polyphemus Moth,Antheraea,polyphemus,5
+260,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,1,American Crow,Corvus,Corvus brachyrhynchos,1
+264,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,5,American Crow,Corvus,Corvus brachyrhynchos,1
+268,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,15,American Crow,Corvus,Corvus brachyrhynchos,5
+263,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and almost entirely black.
+    *   **Specific Tokens:** No discernible tokens. I can barely make out two extremely dark, indistinct shapes on what appears to be a dark, textured surface (possibly wooden siding or a deck). One shape (left-center) is slightly more defined, vaguely bird-like in silhouette (a body with a slightly raised head-like protrusion). The other shape (right) is even less distinct. No details like ear shape, tail, or texture can be identified.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), very low contrast, potential low resolution, and an unusual rotation (image is vertical, suggesting the surface might be a wall or a floor viewed from an angle).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is too ambiguous for a confident species identification. The faint shapes *could* be birds, specifically small to medium-sized birds, given their general form. This is a very weak inference.
+    *   **Path B (Contextual):** The location (Whidbey Island, Washington State, USA) is a populated area with a mix of natural and urban/suburban environments. Many common bird species, including those often found on buildings, inhabit this region. The date/time (midday in May) does not provide specific species clues beyond general activity patterns.
+    *   **Compare:** Visual Path A offers highly ambiguous shapes. Contextual Path B is broad and does not contradict the vague visual inference of ""bird,"" but also doesn't strongly support any specific species. Due to the extremely low visual clarity, there is almost no agreement between the visual data and any specific species, leading to very low confidence.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the shapes could be almost any small object or animal. If we assume they are living creatures, common urban/suburban birds like Rock Pigeons or European Starlings present similar compact silhouettes in poor lighting. However, the degradation is so severe that shadows, debris, or even inanimate objects could be look-alikes.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the highly ambiguous visual information, the probability score must be very low, well under 40. I will provide the most plausible, common bird species based on the faint outlines and context, acknowledging the profound uncertainty.
+
+Rock Pigeon",Columba,Columba livia,8,European Starling,Sturnus,Sturnus vulgaris,3
+262,5,362499770,California Sea Lion,Zalophus californianus,Bat,Myotis,Myotis lucifugus,5,Big Brown Bat,Eptesicus,Eptesicus fuscus,2
+266,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, making details virtually indistinguishable.
+    *   **Specific tokens:** No specific tokens (ear shape, tail, texture) are identifiable. There is a very faint, dark, indistinct blob-like shape in the upper central portion of the image, appearing to be under a horizontal structure. Vertical elements (posts/pillars) are visible in the lower part of the image, suggesting an under-structure environment (e.g., pier, bridge).
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, blur, lack of discernible features, and overall darkness are the primary barriers.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no reliable visual information to suggest any specific species. The faint dark shape is too ambiguous to interpret.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in coastal Washington State, near Puget Sound. This habitat supports a wide range of wildlife, including marine mammals, various bird species, and terrestrial mammals (e.g., bats, raccoons, small rodents). The presence of structures (implied by posts) could indicate roosting or sheltering animals. The time is midday.
+    *   **Compare:** Path A yields no identifiable visual cues, thus there is no direct conflict with Path B's broad possibilities. However, the extreme lack of visual clarity from Path A inherently leads to very low confidence in any specific identification.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation is ""any object or animal that appears as an indistinct, dark shape under severe underexposure."" Given the location and the vague shape's position under a structure, a bat hanging (e.g., Little Brown Bat, Big Brown Bat) or a small bird perching in deep shadow are highly speculative possibilities, but visually unsupported by actual features. The degradation is so extreme that no specific anatomical or behavioral tokens can be inferred.
+
+PHASE 2: CALIBRATED OUTPUT
+Little Brown Bat",Myotis,Myotis lucifugus,1,Big Brown Bat,Eptesicus,Eptesicus fuscus,1
+271,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,5,River Otter,Lontra,Lontra canadensis,2
+276,5,362499770,California Sea Lion,Zalophus californianus,Common Pigeon,Columba,Columba livia,5,Northwestern Crow,Corvus,Corvus caurinus,3
+267,5,362499770,California Sea Lion,Zalophus californianus,Little Brown Bat,Myotis,Myotis lucifugus,10,Norway Rat,Rattus,Rattus norvegicus,5
+272,5,362499770,California Sea Lion,Zalophus californianus,Virginia Opossum,Didelphis,Didelphis virginiana,5,Raccoon,Procyon,Procyon lotor,2
+270,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK**:
+    *   **Perceptual clarity**: Extremely low. The image is severely underexposed, appearing almost entirely as a dark grey rectangle. The crops provide slightly more localized contrast but no meaningful detail.
+    *   **Specific tokens**: No identifiable tokens for any animal (e.g., ear shape, tail, texture, beak, fur). A very faint, dark, indistinct blob is present on what appears to be a wooden structure in the right portion of the main image and its corresponding crop.
+    *   **Perceptual Barriers**: Extreme underexposure/darkness, severe lack of detail, blur, potential low resolution. The image is essentially uninterpretable for species identification.
+2.  **SELF-CONSISTENCY AUDIT**:
+    *   **Path A (Visual)**: The image does not visually suggest any specific animal species due to the extreme lack of clarity and detail. The faint dark blob could be a shadow, debris, or any number of unidentifiable objects, let alone an animal.
+    *   **Path B (Contextual)**:
+        *   Location: (48.1153861667, -122.7510083333) is Whidbey Island, Washington state, USA, a coastal area known for various birds (e.g., crows, gulls, starlings), marine mammals (seals, sea lions), and land mammals (deer, rodents). The apparent background of a wooden structure suggests an environment where animals might perch or rest on buildings/docks.
+        *   Date/Time: 2026-05-17 at 12:00 PM (midday in spring).
+    *   **Compare**: There is no agreement between Path A (no identifiable animal) and Path B (broad range of possible animals). The visual clarity is so low that no specific visual information can be used to narrow down the contextual possibilities.
+3.  **SELF-REFLECTION**:
+    *   The most likely 'Look-alike' species for this specific degradation is ""a dark shadow,"" ""a piece of debris,"" or ""an inanimate dark object."" If forced to consider an animal, given the extreme darkness and lack of any discernible features, any common dark-colored bird or small mammal that might be found on a wooden structure in coastal Washington could be a 'look-alike,' as no distinguishing characteristics are present to differentiate them. The primary degradation is the complete absence of visual information pertaining to an animal.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual information (effectively zero perception of an animal) and therefore no agreement between visual and contextual paths, the confidence in identifying any specific species is extremely low. However, to adhere to the output format, I must provide species names. The chosen species are common in the geographic area and could appear as a dark, indistinct blob on a structure, though this is based on conjecture rather than visual evidence. The probability reflects this near-zero confidence.
+
+American Crow",Corvus,brachyrhynchos,2,European Starling,Sturnus,vulgaris,1
+269,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image and all provided crops are extremely dark, low contrast, and heavily blurred. There is a faint, dark, indistinct shape visible under what appears to be a pier or dock structure.
+    *   **Tokens:** No identifiable tokens such as ear shape, tail, or texture are discernible. The overall shape is a vague, rounded, elongated silhouette.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, significant blur, and lack of fine detail. The object's orientation is also unclear, making interpretation highly speculative. It is impossible to confidently determine if the object is clinging, swimming, or merely debris.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the overwhelming perceptual barriers, no specific species can be visually identified with any confidence. The vague shape could be interpreted as a bird (e.g., an owl, a nighthawk, or even a bat clinging to the pier) or, if interpreted as being in the water, a marine mammal (e.g., a seal). However, these are highly speculative interpretations of an indistinct blob.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in the Puget Sound area of Washington, USA, a marine/coastal environment. Common wildlife in this area includes various seabirds (gulls, cormorants, eagles, owls), marine mammals (harbor seals, sea lions, otters), and bats. The presence of a pier suggests species that might perch, roost, or swim near such structures.
+    *   **Compare:** Path A yields no confident visual identification. Path B provides a broad list of possible species for the region. There is no conflict, but the extreme lack of visual clarity mandates a very low confidence score, as no visual evidence supports a specific species.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this degraded image is ""unidentifiable debris"" or ""shadow."" If forced to assume it's an animal, the vague, dark, somewhat compact shape under a pier could *generously* be interpreted as a large bird roosting (e.g., an owl given its habits of seeking sheltered, dark places) or, if in the water, a marine mammal. Given the visual ambiguity, any identification is highly speculative.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, and there is no agreement between visual perception and a specific species. Therefore, the probability must be very low, reflecting the unidentifiable nature of the object.
+
+Great Horned Owl",Bubo,Bubo virginianus,5,Harbor Seal,Phoca,Phoca vitulina,1
+273,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The images are severely underexposed, appearing almost entirely black or dark grey. There is virtually no discernible detail, color, or clear form.
+    *   **Specific Tokens:** A very faint, dark, indistinct shape is visible on what appears to be a vertical, textured surface (possibly siding or a wall). This shape *might* vaguely resemble the silhouette of a small to medium-sized bird, but no identifying features such as ear shape, tail morphology, feather texture, beak, or eye are visible. There are also faint linear patterns suggestive of a man-made structure.
+    *   **'Perceptual Barriers':** Extreme underexposure/darkness, very low contrast, blur due to lack of light information, significant image noise, and general obscurity. The image is also rotated.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests an extremely dark, ambiguous shape. If interpreted as a living creature, the vague silhouette *could* be a bird, but no species-specific features are present to make a confident identification. It could equally be a shadow, debris, or a non-animal object.
+    *   **Path B (Contextual):** The coordinates (48.1153861667, -122.7510083333) place the location near Coupeville, Whidbey Island, Washington, USA. This is an area with diverse wildlife, including common urban/suburban birds (e.g., Rock Pigeons, American Crows, various songbirds). The date/time (2026-05-17 at 12:00 PM) indicates midday, which strongly contradicts the extreme darkness of the image, implying a severe photographic issue rather than natural lighting conditions.
+    *   **Compare:** Path A provides almost no reliable visual data for species identification. Path B offers a geographical context that could host numerous species if the object were identifiable. Given the near-total absence of visual information, there is no meaningful agreement or conflict, simply a lack of visual input for identification. Clarity is critically low.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** It is impossible to identify any species with confidence from these images. The visual data is too degraded. Any identification would be a baseless guess.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, the ""look-alike"" is not a biologically similar species, but rather any dark, indistinct object or shadow that could vaguely form a 'bird-like' silhouette in an urban/suburban setting. If forced to assume it's a bird, common dark urban birds in the Pacific Northwest, like a Rock Pigeon or American Crow, represent the most generic possibilities for such an ambiguous shape.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the impossibility of making a confident identification from the visual data, the probability score must be very low, reflecting near-zero confidence.
+
+Rock Pigeon",Columba,Columba livia,1,American Crow,Corvus,Corvus brachyrhynchos,0
+265,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, making it almost entirely black. There is significant rotation (sideways image) and a complete lack of sharp detail or contrast. The provided crops offer no additional clarity.
+    *   **Specific Tokens:** None identifiable. No features such as ear shape, tail, fur texture, eye placement, or body proportions are discernible due to the extreme darkness and blur.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, blur, significant image rotation.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image presents a dark, indistinct, blob-like silhouette on what appears to be a light-colored wooden vertical surface (possibly a wall or fence). No specific animal characteristics can be identified.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in the Puget Sound area of Washington state, USA. This region supports a variety of wildlife, including small mammals (e.g., rats, squirrels, raccoons, opossums) and birds, particularly around man-made structures like the one depicted. The date/time (May 17, midday) is typical for animal activity.
+    *   **Compare:** There is virtually no visual information from Path A to compare meaningfully with the broad possibilities from Path B. The clarity is critically low. Therefore, confidence in any specific identification must be extremely low.
+3.  **SELF-REFLECTION:** The image degradation (extreme darkness, blur, rotation) is so severe that it is impossible to identify any species with confidence. Any attempt to name a species would be pure speculation based solely on the general context of ""small dark shape on a wall in the PNW."" The most likely 'look-alikes' for such a degraded image would be common synanthropic or peri-domestic animals that inhabit structures, such as a rat, squirrel, or even a bird, but there are zero visual cues to differentiate.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of discernible visual features, the agreement between visual perception and contextual possibilities is negligible for any specific species. The probability of correctly identifying any species is therefore minimal.
+
+Unidentifiable Animal",Unknown,sp.,1,Unidentifiable Animal,Unknown,sp.,0
+274,5,362499770,California Sea Lion,Zalophus californianus,,Black-tailed Deer,Odocoileus,Odocoileus hemionus,1,Raccoon,Procyon,Procyon lotor
+277,5,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,5,American Crow,Corvus,Corvus brachyrhynchos,2
+281,5,362499770,California Sea Lion,Zalophus californianus,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+278,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,12,European Starling,Sturnus,Sturnus vulgaris,5
+280,5,362499770,California Sea Lion,Zalophus californianus,Unidentifiable Animal,Unknown,Unknown,0,Unidentifiable Animal,Unknown,Unknown,0
+290,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,25,Mourning Dove,Zenaida,Zenaida macroura,8
+282,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  VISUAL SELF-CHECK: The image is extremely underexposed and dark, appearing almost entirely black or very dark grey. There are faint outlines of what appear to be man-made structures (e.g., building, pipes, roofline), but no discernible organic forms or features that could belong to a wildlife species.
+    *   Specific tokens: None identifiable. No ear shape, tail, fur/feather texture, eyes, or body outlines are visible.
+    *   Perceptual Barriers: Extreme underexposure/darkness, very low contrast, complete lack of detail, absence of any subject.
+2.  SELF-CONSISTENCY AUDIT:
+    *   Path A (Visual): The image does not suggest the presence of any wildlife species due to the absolute lack of visual information.
+    *   Path B (Contextual): The metadata (Location: Whidbey Island, WA; Date/Time: Midday) provides a geographical and temporal context where various wildlife species could be present. However, it does not suggest any particular species without visual cues.
+    *   Compare: Path A yields no species information. Path B yields no specific species information. There is no conflict, but there is also no basis for identification. Clarity for wildlife identification is effectively zero. Therefore, confidence in identifying any species must be extremely low, approaching zero.
+3.  SELF-REFLECTION: Given the complete absence of discernible features in the image, there are no 'look-alike' species as no species can be perceived in the first place. The degradation (extreme darkness/underexposure) entirely prevents any form of wildlife identification.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity (effectively zero for wildlife features) and the inability to visually identify any species, the probability for any species identification must be 0. To adhere to the output format, common species that *could* be in the specified location are listed, but with 0% probability, indicating no identification was made from the visual data.
+
+Unknown Species",Unknown,Unknown,0,Unknown Species,Unknown,Unknown,0
+279,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,1,Western Gray Squirrel,Sciurus,Sciurus griseus,1
+288,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,15,Violet-green Swallow,Tachycineta,Tachycineta thalassina,5
+291,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,1,European Starling,Sturnus,Sturnus vulgaris,1
+289,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,12,Common Raven,Corvus,Corvus corax,2
+287,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely dark grey. No distinct features, colors, or fine details are visible. The provided crops offer no additional clarity.
+    *   **Specific Tokens:** No specific tokens (ear shape, tail, texture) can be identified due to the extreme darkness and lack of detail.
+    *   **Perceptual Barriers:** Severe underexposure, extremely low contrast, general darkness. The image appears rotated.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any specific species. Vague, indistinct dark shapes might be interpreted as bird-like forms on a surface, but this is highly speculative given the severe perceptual barriers.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is near Port Townsend, Washington, USA, a coastal area. The time (2026-05-17 12:00) is midday. In this region, common urban/coastal birds include Rock Pigeons, American Crows, various gulls, and sparrows.
+    *   **Compare:** Path A provides no identifiable visual information. Path B suggests several possibilities based on geography and time. Due to the complete lack of visual data from Path A, there is no agreement possible between the visual and contextual information, and clarity is exceptionally low. Therefore, confidence must be significantly lowered.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, any small to medium-sized object or animal (e.g., a rock, a piece of debris, or various bird species like Rock Pigeon, American Crow, or a gull) could present a similar vague, dark silhouette. The degradation is so severe that definitive identification is impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Rock Pigeon",Columba,Columba livia,1,American Crow,Corvus,Corvus brachyrhynchos,0
+283,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,brachyrhynchos,5,Rock Pigeon,Columba,livia,2
+284,5,362499770,California Sea Lion,Zalophus californianus,Unknown,Incertae,sedis,1,Undetermined,Incertae,sedis,0
+294,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,15,Common Raven,Corvus,Corvus corax,10
+286,5,362499770,California Sea Lion,Zalophus californianus,No animal visible,Unknown,Unknown,0,Unidentifiable object,Unknown,Unknown,0
+285,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,1,Common Raven,Corvus,Corvus corax,1
+292,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,15,American Crow,Corvus,Corvus brachyrhynchos,8
+296,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,15,American Crow,Corvus,Corvus brachyrhynchos,5
+275,5,362499770,California Sea Lion,Zalophus californianus,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark, appearing as a very dark grey/black rectangle. Minimal discernible detail. The crops offer no additional clarity for identifying wildlife.
+    *   **Specific Tokens:** No specific biological tokens such as ear shape, tail, fur/feather texture, eye shine, or body outline of an animal are visible in any part of the image or its crops.
+    *   **Perceptual Barriers:** The primary barrier is severe underexposure/darkness, rendering the image virtually black. This results in an almost complete lack of contrast and detail, making any visual identification impossible.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any specific wildlife species. There is no discernible animal present in the visual data. The faint, indistinct dark shapes visible in the crops are too ambiguous to be reliably identified as any biological entity.
+    *   **Path B (Contextual):** The location (48.1153861667, -122.7510083333) is in Washington State, near Whidbey Island, a region with diverse wildlife including various mammals and birds. The date/time (2026-05-17 at 12:00 Military time) indicates midday, but the extreme darkness of the image suggests the subject is either indoors, in a deeply shaded area, or the image was severely underexposed.
+    *   **Compare:** Path A provides no visual evidence of a species. Path B provides a broad range of potential species for the region. There is no agreement between the visual and contextual data for any specific identification. The clarity is extremely low for any animal identification. This mandates a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and complete lack of discernible features, any indistinct dark shape could be interpreted as a wide array of things, including inanimate objects (e.g., a piece of wood, debris, shadow), or a highly underexposed part of an animal. If forced to speculate on the faint, dark, somewhat elongated, hanging shape barely visible in one crop, it could *very vaguely* be interpreted as a bat roosting (e.g., Big Brown Bat, Little Brown Bat) or a small bird roosting in a dark corner. However, this is based on pure conjecture and not on any identifiable features.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and lack of agreement between visual and contextual information for any specific species, the probability for any identification is virtually zero. However, to adhere to the output format requiring species names, and assuming a necessity to provide *something* if an animal *might* be present, the most tenuous, highly speculative guess for a dark, hanging, indistinct shape in this region would be a common bat.
+
+Big Brown Bat",Eptesicus,Eptesicus fuscus,1,Little Brown Bat,Myotis,Myotis lucifugus,0
+293,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,5,Common Raven,Corvus,Corvus corax,3
+297,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,15,American Crow,Corvus,Corvus brachyrhynchos,5
+298,5,362499770,California Sea Lion,Zalophus californianus,Unidentifiable,N/A,N/A,5,Unidentifiable,N/A,N/A,3
+295,5,362499770,California Sea Lion,Zalophus californianus,Unknown Species,Unknown,Unknown,0,Unknown Species,Unknown,Unknown,0
+299,5,362499770,California Sea Lion,Zalophus californianus,Unknown,Not applicable,Not applicable,0,Unknown,Not applicable,Not applicable,0
+300,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,15,California Sea Lion,Zalophus,Zalophus californianus,8

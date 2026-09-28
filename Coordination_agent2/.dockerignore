@@ -1,0 +1,8 @@
+*
+!Dockerfile
+!requirements-lifejacket-ui.txt
+!lifejacket_app.py
+!lifejacket_vertex.py
+!agent2_prompt_library.json
+!agent1_incident_database.csv
+!agent2_rescue_center_directory.csv

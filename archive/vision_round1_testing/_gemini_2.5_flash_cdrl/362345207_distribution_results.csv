@@ -1,0 +1,742 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+14,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+11,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,7
+2,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+9,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+6,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+13,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+4,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+1,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+3,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+8,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,8
+10,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,8
+5,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,8
+7,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+12,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+15,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+21,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+20,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+16,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+23,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,7
+18,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+22,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+19,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,97,Spotted Seal,Phoca,Phoca largha,15
+29,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,5
+17,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+26,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+27,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+24,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+28,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+25,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+32,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+30,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+33,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+36,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+31,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,93,Spotted Seal,Phoca,Phoca largha,10
+37,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+38,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+35,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+44,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Ringed Seal,Pusa,Pusa hispida,12
+42,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+43,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+34,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+39,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+41,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+40,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+45,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+48,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+46,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,35
+47,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+49,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+50,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+53,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,28
+52,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+56,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+55,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+51,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+60,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+54,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+59,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+57,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+58,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+63,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+64,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+61,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,25
+66,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+62,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+65,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,25
+67,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+70,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+73,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+72,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+68,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+69,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+75,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+74,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,7
+78,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+76,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+77,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+81,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+83,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+79,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+80,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+82,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+84,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+86,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+85,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+87,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,35
+88,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+89,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+90,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+91,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+95,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,15
+92,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+94,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+97,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+93,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,45
+96,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,8
+99,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+100,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+103,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+102,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+101,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+105,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+71,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,75,Harp Seal,Pagophilus,Pagophilus groenlandicus,15
+107,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+106,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,40
+108,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+111,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+104,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,55
+112,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+98,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Ringed Seal,Pusa,Pusa hispida,15
+110,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,5
+109,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,87,Spotted Seal,Phoca,Phoca largha,11
+114,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+115,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+116,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+113,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+117,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+118,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+122,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,10
+120,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+119,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+123,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+121,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+127,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+128,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,18
+126,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Ringed Seal,Pusa,Pusa hispida,15
+131,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+125,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+129,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+132,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+133,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+130,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+136,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+124,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+135,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+137,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+139,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+142,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+138,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+144,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,45
+140,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+141,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+147,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,40
+146,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,15
+143,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Largha Seal,Phoca,Phoca largha,20
+145,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+150,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,8
+134,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+149,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,8
+148,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,7
+151,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Pigeon Guillemot,Cepphus,Cepphus columba,1
+157,3,362345207,Harbor Seal,Phoca vitulina,No wildlife present,N/A,N/A,0,No wildlife present,N/A,N/A,0
+158,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+154,3,362345207,Harbor Seal,Phoca vitulina,No Animal Visible,N/A,N/A,1,No Animal Visible,N/A,N/A,1
+153,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,1,No animal detected,N/A,N/A,1
+156,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,5,Sea Otter,Enhydra,Enhydra lutris,2
+152,3,362345207,Harbor Seal,Phoca vitulina,River Otter,Lontra,Lontra canadensis,1,American Mink,Neovison,Neovison vison,1
+155,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is very dark, blurry, and appears to depict a rock wall next to water, possibly with distant mountains. No discernible animal features or shapes are visible. The crops offer no additional clarity, merely showing magnified versions of the same dark, ambiguous texture.
+    *   **Specific tokens:** No tokens such as ear shape, tail, fur texture, or any other anatomical features belonging to an animal can be identified.
+    *   **Perceptual Barriers:** Extreme darkness, low resolution/blurriness, lack of any identifiable animal form or characteristic. The image content is non-animal.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual evidence of any wildlife species. It appears to be an inanimate landscape (rocks, water).
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is in coastal Alaska, near Seward, a region known for diverse wildlife including marine mammals (e.g., seals, otters) and various terrestrial species. The date and time (May 17, 04:00 AM) are suitable for wildlife activity, but do not narrow down species without visual information.
+    *   **Compare:** Path A indicates no animal is visible, while Path B indicates a potential habitat for many animals. There is a fundamental conflict because the visual data required for identification is entirely absent. Clarity for species identification is effectively zero. This necessitates extremely low confidence.
+3.  **SELF-REFLECTION:** The image is severely degraded to the point of showing no identifiable wildlife. Any identification would be pure speculation based solely on the geographic context, rather than visual perception. The most likely 'look-alike' for any animal in this specific degradation is ""nothing,"" as there is no animal present to be mistaken for another. If forced to provide a species, it would be based on extreme inference from location alone, with near-zero confidence.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and complete lack of visual evidence for any animal, the probability for any species is extremely low. The output must reflect this absolute uncertainty, as no animal can be perceived.
+
+Harbor Seal",Phoca,Phoca vitulina,2,Sea Otter,Enhydra,Enhydra lutris,1
+168,3,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,Unidentifiable Object,N/A,N/A,0
+162,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,0
+163,3,362345207,Harbor Seal,Phoca vitulina,No animal identified,N/A,N/A,5,No animal identified,N/A,N/A,3
+164,3,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,Indet,Indet,5,No Animal Detected,Indet,Indet,3
+160,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,Unidentifiable,N/A,N/A,0
+159,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and underexposed, making any potential subject almost entirely obscured. It appears to show a wall of rocks or a textured surface on the right, and a dark, possibly watery or reflective, flat surface on the left. There are no discernible animal features, such as ear shape, tail, fur texture, or body outline.
+    *   **Specific tokens:** None identifiable as belonging to an animal. The visible tokens are dark rocks and a dark, flat plane.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness (primary barrier), lack of a discernible subject, slight image rotation, and potential grain or blur contributing to indistinctness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No animal species can be identified from the image due to the overwhelming darkness and lack of any discernible features.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is near Whittier, Alaska, in the Prince William Sound area. This region is rich in wildlife, including marine mammals (e.g., sea otters, harbor seals, whales) and terrestrial mammals (e.g., black bears, brown bears, moose, deer). The date (May 17) and time (04:00 military time, early morning) are consistent with animal activity in the region. However, the metadata alone does not suggest a *specific* species.
+    *   **Compare:** Path A yields no identification due to extreme perceptual barriers. Path B provides a broad range of plausible species for the geographic area. There is a strong conflict between the complete lack of visual evidence and the potential for wildlife in the metadata. The visual clarity is extremely low.
+
+3.  **SELF-REFLECTION:** The most significant degradation is the extreme underexposure, which renders any potential wildlife indistinguishable. The most likely 'Look-alike' for this degradation is an inanimate object such as a dark rock, a shadow, or simply an empty, very dark scene. There are no features to suggest a specific animal look-alike under these conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete inability to identify any animal species from the visual data (Path A yields no species, while Path B only offers potential candidates without visual confirmation), the agreement between the visual and contextual paths for any specific species is non-existent. Therefore, the probability for any identification must be extremely low, reflecting this complete lack of visual evidence and the inability to ""link perception directly to accuracy."" The probabilities assigned reflect that no animal is visually identifiable.
+
+Unknown Animal",Not applicable,Not applicable,1,Unknown Animal,Not applicable,Not applicable,1
+166,3,362345207,Harbor Seal,Phoca vitulina,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5,Harbor Seal,Phoca,Phoca vitulina,2
+161,3,362345207,Harbor Seal,Phoca vitulina,"**PHASE 1: MULTI-MODULE INTERNAL EVALUATION**
+
+**1. VISUAL SELF-CHECK:**
+*   **Perceptual clarity:** Extremely low. The image is severely underexposed and lacks contrast, making any discernible features of an animal impossible to identify. It appears to show a dark, textured surface (possibly rocks or rough terrain) on the right, and a darker, smoother area (possibly water or a wall) on the left.
+*   **Specific tokens identified:** None identifiable as belonging to a living organism. The perceived textures are ambiguous and could belong to inanimate objects.
+*   **Perceptual Barriers:** Extreme darkness/underexposure, low contrast, overall blurriness, and lack of subject definition. There is no animal shape, ear, tail, fur, or skin texture clearly visible.
+
+**2. SELF-CONSISTENCY AUDIT:**
+*   **Path A (Visual):** The image visually suggests an inanimate, textured surface, possibly rocks, next to a flat, dark surface. No animal can be visually identified.
+*   **Path B (Contextual):** The location (60.1156583333, -149.433045) is in coastal Alaska, near Prince William Sound. This area is known for diverse wildlife including marine mammals (e.g., whales, seals) and terrestrial mammals (e.g., bears, moose). The date/time (May 17, early morning) is plausible for animal activity. However, the metadata provides no visual hints for identification.
+*   **Compare:** Path A yields no animal identification due to extreme lack of visual data. Path B provides a broad geographical context where many species could exist but offers no specific cues for *this* image. There is no agreement between the paths, as visual identification is impossible. Clarity is extremely low. Therefore, confidence must be 0.
+
+**3. SELF-REFLECTION:**
+*   **Most likely 'Look-alike' for this specific degradation:** Due to the extreme darkness and lack of detail, the image most closely resembles a dark, rough texture like rocks, concrete, or a heavily shadowed wall. It does not resemble any specific animal. If forced to speculate about an animal that could appear as a large, dark, textured mass in extremely poor lighting, common Alaskan species like a Brown Bear (Ursus arctos) or an Orca (Orcinus orca) are plausible due to their size and dark coloration, but there is absolutely no visual evidence to support such an identification.
+
+**PHASE 2: CALIBRATED OUTPUT**
+Given the extreme lack of visual clarity and the inability to discern any animal features, the probability of identifying any species is 0. Any species mentioned here is purely to conform to the required output format, with no basis in visual perception.
+
+Orca",Orcinus,Orcinus orca,0,Brown Bear,Ursus,Ursus arctos,0
+170,3,362345207,Harbor Seal,Phoca vitulina,No species,No genus,No species,1,No species,No genus,No species,1
+176,3,362345207,Harbor Seal,Phoca vitulina,No Animal Present,N/A,N/A,0,Harbor Seal,Phoca,Phoca vitulina,1
+165,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and predominantly shows a rock structure next to a body of water. There are no discernible shapes, textures, or forms that resemble any wildlife species. Specific tokens (ear shape, tail, texture) are entirely absent for any animal. Perceptual Barriers include very low lighting, general blurriness/darkness, and the absence of any subject matter related to wildlife. The image also appears rotated.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any wildlife species. It appears to be a landscape or structure photo.
+    *   **Path B (Contextual):** The location (near Whittier, Alaska, Prince William Sound) is known for diverse wildlife, including marine mammals (seals, otters), birds (gulls, eagles), and terrestrial mammals (bears, deer). The date/time (May 17, 04:00) is consistent with animals being present in the environment, potentially resting.
+    *   **Compare:** Path A and Path B are in significant conflict regarding the *presence* of an animal in the image. While the context suggests wildlife *could* be present in the area, the visual data provides absolutely no evidence of any animal. Clarity for wildlife identification is 0. This conflict and lack of clarity necessitate a very low confidence score.
+3.  **SELF-REFLECTION:** As a critic, I must state that no identifiable animal is present in the image. Any identification would be pure speculation, completely unrelated to the visual data, and therefore inaccurate. The degradation is essentially total obscuration/absence of an animal. The most likely 'Look-alike' for this degradation would be inanimate objects like rocks, shadows, or water, as there is nothing remotely resembling an animal to be confused with another species.
+
+PHASE 2: CALIBRATED OUTPUT
+Agreement between Visual Self-Check and Self-Consistency is extremely low (no animal visually vs. expectation of identifying an animal). Clarity for any animal identification is 0. Therefore, the probability for any specific species being present and identifiable is effectively 0. However, to adhere to the output format requiring species names and a non-zero probability (as seen in the example's Top2), I will assign the minimum possible probability (1) to two plausible species for the given location, acknowledging that there is no visual evidence.
+
+Harbor Seal",Phoca,Phoca vitulina,1,River Otter,Lontra,Lontra canadensis,1
+169,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Common Murre,Uria,Uria aalge,1
+171,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,5,Sea Otter,Enhydra,Enhydra lutris,5
+167,3,362345207,Harbor Seal,Phoca vitulina,Glaucous-winged Gull,Larus,Larus glaucescens,1,Black-legged Kittiwake,Rissa,Rissa tridactyla,1
+173,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,5,Glaucous-winged Gull,Larus,Larus glaucescens,2
+174,3,362345207,Harbor Seal,Phoca vitulina,No animal identified,N/A,N/A,1,No animal identified,N/A,N/A,1
+175,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+178,3,362345207,Harbor Seal,Phoca vitulina,No Animal,N/A,N/A,0,No Animal,N/A,N/A,0
+172,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Steller Sea Lion,Eumetopias,Eumetopias jubatus,0
+190,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+177,3,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,No Animal Detected,N/A,N/A,0
+181,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1. VISUAL SELF-CHECK: The image is extremely dark and predominantly shows a pattern of dark rocks adjacent to a dark, reflective surface (likely water). There are no discernible features or forms that suggest the presence of any animal. Specific tokens such as ear shape, tail, or fur/feather texture are entirely absent. Perceptual Barriers: Extreme darkness, low contrast, absence of subject matter, and potential image rotation contribute to zero perceptual clarity for wildlife identification.
+2. SELF-CONSISTENCY AUDIT:
+   - Path A (Visual): No animal species is suggested by the visual content. The image appears to be an inanimate landscape feature.
+   - Path B (Contextual): The location (Alaska, near Turnagain Arm) and date (May) indicate a habitat where various marine mammals (e.g., Beluga Whales, Harbor Seals), terrestrial mammals (e.g., bears, moose), and birds could be present. However, this context does not provide any specific clues about an animal *in this image*.
+   - Compare: There is no conflict between Path A and Path B, as Path A yields no animal identification. However, the visual clarity is critically low (effectively zero for an animal). Therefore, confidence in identifying any species must be extremely low.
+3. SELF-REFLECTION: Act as a critic. The most likely 'Look-alike' for this specific degradation is an inanimate object (rocks, water, wall) because no animal features are present. The degradation (extreme darkness and lack of subject) makes any identification of a species impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information for any animal and extremely low clarity, the probability for any species identification is near zero. To fulfill the output format, arbitrary common species from the region are listed with minimal probability to reflect the inability to identify anything visually.
+
+No Animal Present",N/A,N/A,1,No Animal Present,N/A,N/A,1
+189,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,1,No animal detected,N/A,N/A,1
+183,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1. VISUAL SELF-CHECK: The image is extremely dark, rotated 90 degrees, and shows an indistinct view of rocks and water, with blurry mountains/sky in the background. There are no discernible shapes or features that can be identified as an animal. No specific tokens (ear shape, tail, texture) relating to wildlife are visible.
+Perceptual Barriers: Extreme underexposure/darkness, rotation, lack of clear subject matter.
+2. SELF-CONSISTENCY AUDIT:
+   - Path A (Visual): No animal is visually identifiable in the image.
+   - Path B (Contextual): The location (Prince William Sound, Alaska) is a known habitat for various wildlife species, including marine mammals (e.g., Sea Otters, Harbor Seals) and birds. The date (May) is during a period of active wildlife presence.
+   - Compare: Path A indicates no animal, while Path B suggests a potential for animals. There is a conflict because the visual data provides no evidence of wildlife despite the suitable habitat suggested by the metadata. Clarity is extremely low.
+3. SELF-REFLECTION: Due to the extreme darkness and lack of any discernible form, there is no 'look-alike' species. The degradation completely obscures any potential subject, making identification impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, and there is no visual agreement on the presence or identity of any animal. Therefore, the probability for any species identification must be at or near zero.
+
+No Animal Detected",Undetermined,Undetermined,0,Undetermined,Undetermined,Undetermined,0
+179,3,362345207,Harbor Seal,Phoca vitulina,Orca,Orcinus,Orcinus orca,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+186,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+185,3,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,N/A,N/A,2,Unidentifiable Animal,N/A,N/A,1
+182,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  VISUAL SELF-CHECK: The image is extremely dark, monochrome, and appears to be an upside-down photograph of rocks and water, possibly with distant mountains at the bottom (when upright). There are no discernible features, shapes, or textures that suggest the presence of any wildlife species. The ""crops"" provide closer views of the same dark, rocky, watery, inverted scene, also devoid of animal subjects.
+    *   Specific tokens: None. No ears, tails, fur/skin, eyes, or any other animal-specific characteristics are visible.
+    *   Perceptual Barriers: Extreme darkness, low contrast, monochrome, upside-down orientation, and the complete absence of any visible animal subject.
+2.  SELF-CONSISTENCY AUDIT:
+    *   Path A (Visual): The image does not suggest any wildlife species. It appears to be an abiotic landscape/seascape.
+    *   Path B (Contextual): The location (60.1156583333, -149.433045) is near Whittier, Alaska, a coastal and mountainous region known for various marine mammals (e.g., seals, otters, whales), birds (e.g., eagles), and terrestrial mammals (e.g., bears, moose). While this context indicates many species *could* be present, the metadata itself does not suggest a *specific* species for *this particular image*.
+    *   Compare: There is a significant conflict. Path A identifies no animal, while Path B indicates a region rich in wildlife. However, the lack of any visual evidence for an animal in the image overrides the contextual possibility. Clarity for species identification is extremely low (effectively zero).
+3.  SELF-REFLECTION: The most likely 'Look-alike' for this degradation (complete absence of an animal subject) is an inanimate object, specifically rocks and water. No animal-specific look-alikes can be identified because no animal features are present to be mistaken. The image simply does not contain a detectable wildlife species.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the fundamental lack of agreement (no animal visually vs. potential for animals geographically), the probability for any species identification must be very low, as per the rules (under 40). Since no animal is visible, I must assign the lowest possible non-zero probability to reflect zero visual confidence while still providing the required format. I will choose two common marine mammals found in the given Alaskan coastal location as placeholders, acknowledging that these choices are not based on any visual evidence from the image.
+
+Harbor Seal",Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+184,3,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,Unidentifiable Organism,N/A,N/A,0
+187,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,None,None,0,None,None,None,0
+188,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Moose,Alces,Alces alces,1
+192,3,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,Harbor Seal,Phoca,Phoca vitulina,1
+180,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, significantly rotated, and lacks any discernible subject. No clear features of an animal (ear shape, tail, texture, body outline, eyes) are present. There are some faint, indistinct light-colored patches within the rocky area, but these lack any definitive biological form or structure.
+    *   **Perceptual Barriers:** Extreme low light/darkness, rotation, severe blur/lack of focus on any potential subject, complete absence of identifiable animal tokens.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any animal species. No animal can be visually identified.
+    *   **Path B (Contextual):** The location (near Girdwood, Alaska) indicates a region rich in wildlife, including various birds, marine mammals, and land mammals adapted to mountainous and coastal environments. The date/time (May 17, early morning) is consistent with active wildlife.
+    *   **Compare:** Path A provides no visual evidence of a species. Path B provides a broad geographical context where many species *could* exist. There is a complete lack of agreement between visual data and the need to identify a specific species, as no species is visible. Clarity is extremely low. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for the indistinct shapes and general degradation is ""No Animal Present"" or ""Rocks/Environmental debris."" If forced to consider a biological entity for the faint light patches in the rocks, a highly camouflaged species like a Rock Ptarmigan (which can be white in winter/spring and blends into rocky terrain) or an American Pika (a small, rock-dwelling mammal) would be the most tenuous and speculative possibilities in this Alaskan habitat. However, there are no visual cues to support these beyond geographical plausibility for unseen animals.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual clarity and the inability to identify any animal in the image, the probability for any species must be profoundly low. The identification of any species would be pure speculation based on geographical context, with no perceptual grounding.
+
+Rock Ptarmigan",Lagopus,Lagopus muta,1,American Pika,Ochotona,Ochotona princeps,1
+198,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,35,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+195,3,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+197,3,362345207,Harbor Seal,Phoca vitulina,No wildlife,No,wildlife,1,No wildlife,No,wildlife,1
+193,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+196,3,362345207,Harbor Seal,Phoca vitulina,,Larus,Larus glaucescens,5,Black-legged Kittiwake,Rissa,Rissa tridactyla,2
+205,4,362345207,Harbor Seal,Phoca vitulina,No wildlife detected,Unknown,Unknown,0,No wildlife detected,Unknown,Unknown,0
+194,3,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,1,No Animal Detected,N/A,N/A,0
+191,3,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   The image primarily displays a dark, textured surface, resembling a rock wall or riprap, partially submerged in dark water. The image appears to be rotated 180 degrees, with what seems like a body of water at the top and distant, possibly snow-capped mountains or clouds at the bottom.
+    *   **Specific tokens:** No tokens indicative of any wildlife species (e.g., ear shape, tail, fur/skin texture, eye shine, body outline) are present anywhere in the image.
+    *   **Perceptual Barriers:** Extreme darkness, low clarity, apparent image rotation, and most significantly, the complete absence of any discernible animal subject.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence of any wildlife species.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is near Whittier, Alaska, in Prince William Sound, an area known for diverse wildlife including marine mammals (e.g., whales, seals, sea lions, otters) and terrestrial animals (e.g., bears, moose, various birds) in surrounding habitats. However, the metadata alone does not point to a specific species being present in *this particular image*.
+    *   **Compare:** There is a complete lack of visual evidence (Path A) for any species. While the context (Path B) indicates a wildlife-rich area, it does not confirm the presence of an animal in *this specific observation*. This results in extremely low agreement and clarity regarding any species identification from the image.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this degradation (i.e., no animal present, dark, rocky texture, low light) is *not applicable* as there is no animal to misidentify or confuse. The image is entirely devoid of an animal. The primary degradation is the *absence of the subject* and severe underexposure/darkness.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete absence of any discernible wildlife in the image, the visual clarity for species identification is zero, and there is no agreement between visual and contextual paths for a specific animal's presence. Therefore, the probability of identifying any species from this image is extremely low (effectively zero). The following output reflects the absence of an identifiable animal, using generic placeholders with zero probability as required by the format when no animal is perceived.
+
+No Animal Detected",Not Applicable,Not Applicable,0,No Animal Detected,Not Applicable,Not Applicable,0
+199,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,1,No animal detected,N/A,N/A,1
+202,4,362345207,Harbor Seal,Phoca vitulina,No Animal Visible,N/A,N/A,0,Unidentifiable Object,N/A,N/A,0
+201,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,Unidentifiable Object,N/A,N/A,0
+208,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable,Unknown,Unknown,0,Unidentifiable,Unknown,Unknown,0
+213,4,362345207,Harbor Seal,Phoca vitulina,No wildlife visible,Not applicable,Not applicable,1,No wildlife visible,Not applicable,Not applicable,1
+200,3,362345207,Harbor Seal,Phoca vitulina,No Animal,Unknown,Unknown,1,No Animal,Unknown,Unknown,0
+203,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed and almost entirely dark. No discernible features of any animal are present. The image appears to be a dark, textured surface, possibly a stone wall or similar background element. The provided crops offer no additional clarity for animal identification.
+    *   **Specific tokens:** No tokens (ear shape, tail, fur/feather texture, eyes, limbs, etc.) can be identified for any wildlife species.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, lack of light, complete obscuration of any potential subject, absence of an identifiable animal.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest the presence of any wildlife species. It depicts a dark, textured, inanimate surface.
+    *   **Path B (Contextual):** The location (Alaska, near Prince William Sound) and date/time (early morning, 04:00) indicate an environment where various wildlife species (e.g., bears, moose, deer, marine mammals) could be present. However, the metadata does not suggest a *specific* species.
+    *   **Compare:** Path A (no animal visible) is in direct conflict with the task of identifying a wildlife species. There is no visual evidence to support the presence of an animal. Therefore, the agreement is zero for any animal identification, and clarity is non-existent. Confidence must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' for this specific degradation:** Due to the extreme darkness and lack of any animal form, there is no discernable 'look-alike' animal. The image content is a dark, textured background, resembling a stone wall. Any identification of an animal would be purely speculative and not based on visual information.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information for an animal (zero clarity) and thus zero agreement between visual perception and the task of identifying a species, the probability for any species identification must be minimal. I am forced to provide species, so I will select plausible species for the geographic location, but assign them the lowest possible probabilities to reflect the absolute lack of visual evidence.
+
+Brown Bear",Ursus,Ursus arctos,1,Moose,Alces,Alces alces,1
+207,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Black Bear,Ursus,Ursus americanus,1
+204,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Moose,Alces,Alces alces,1
+212,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,Undetectable,Species,1,Unknown Mammal,Unknown,Unknown,0
+211,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  VISUAL SELF-CHECK: The image is extremely dark, appearing almost completely black. Faint, dark grey textures are visible, resembling a rock wall or a rough, dark surface. There are no discernible animal features, shapes, or forms. Perceptual Barriers: Severe underexposure/low light, complete lack of detail, absence of any recognizable tokens for wildlife identification.
+2.  SELF-CONSISTENCY AUDIT:
+    *   Path A (Visual): The image provides no visual information to suggest any wildlife species.
+    *   Path B (Contextual): The location (60.1156583333, -149.433045) is in Alaska, near Prince William Sound, an area known for diverse wildlife including bears, moose, marine mammals, and various birds. The date/time (May 17th, 04:00 military time) indicates early morning in spring. This context allows for many potential species but provides no specific suggestion without visual input.
+    *   Compare: There is no visual information to compare with the contextual data. Therefore, there is no agreement. The clarity for species identification is effectively zero.
+3.  SELF-REFLECTION: As a critic, the most likely 'Look-alike' for this degraded image is ""a dark, textured wall or surface"" or ""complete darkness."" There is no visual evidence of any animal.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of visual agreement with any potential species, the probability for any identification must be exceedingly low. The image contains no identifiable animal. The species listed are merely placeholders based on geographic likelihood if an animal *were* present and indistinguishable, assigned the lowest possible non-zero probability to conform to the output format.
+
+Brown Bear",Ursus,Ursus arctos,1,Black Bear,Ursus,Ursus americanus,1
+206,4,362345207,Harbor Seal,Phoca vitulina,Unknown Animal,Indet.,sp.,1,Unknown Animal,Indet.,sp.,1
+209,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, making any potential subject almost entirely obscured by darkness.
+    *   **Specific tokens:** No discernible animal tokens (ear shape, tail, texture, body outline) are visible. The primary visible texture is a dark, rocky surface.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness is the dominant barrier, rendering any potential wildlife indistinguishable. There might also be blur, but the lack of light is paramount. The image appears to be a rock wall or pile.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. It appears to be a dark image of rocks.
+    *   **Path B (Contextual):**
+        *   **Location (Prince William Sound, Alaska):** This area is rich in wildlife, including marine mammals (Harbor Seal, Sea Otter, various whales), birds, and land mammals (Black Bear, Moose, Wolverine). The rocky texture is consistent with coastal areas.
+        *   **Date/Time (May 17, 04:00 AM):** This time is before sunrise in mid-May in Alaska, which directly explains the extreme darkness/underexposure of the image.
+    *   **Compare:** Path A provides no visual evidence of a species. Path B provides a broad list of potential species for the region and time, but without any visual cues, there is no direct agreement possible. The extreme low clarity mandates very low confidence.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' for this specific degradation:** Due to the extreme darkness and lack of any discernible animal features, the image primarily 'looks like' a dark, rocky surface. There are no animal-specific features to be confused with a 'look-alike' species. Any animal, if present, is completely camouflaged by the darkness itself.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of visual information pertaining to any animal, identification is impossible. The probabilities assigned reflect this absolute lack of visual evidence, rather than a speculative guess. The species listed are merely common plausible inhabitants of the specified location and habitat (rocky coastal area in Alaska) if an animal were present but entirely invisible.
+
+No animal detected",N/A,N/A,0,No animal detected,N/A,N/A,0
+217,4,362345207,Harbor Seal,Phoca vitulina,Unknown Species,Unknown,Unknown,1,No Animal Detected,None,None,1
+219,4,362345207,Harbor Seal,Phoca vitulina,No animal detected,None,None,0,No animal detected,None,None,0
+221,4,362345207,Harbor Seal,Phoca vitulina,Unknown Animal,Unknown,Unknown,1,Unknown Animal,Unknown,Unknown,1
+210,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and appears to depict a wall of rocks or a rough, textured surface. There are no discernible animal features such as ear shape, tail, fur, or any biological form. The crops provided also show the same dark, rocky texture without any animal present.
+    *   **Specific tokens identified:** Dark, irregularly shaped objects resembling rocks/stones; textured surface.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, complete lack of recognizable animal forms. There is no animal visible.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. It appears to be an inanimate object (rock wall).
+    *   **Path B (Contextual):** The location (Whittier, Alaska) and time (early morning in May) indicate a region and period where various wildlife, including large mammals like bears and moose, could be present. However, this metadata does not *visually* confirm any species.
+    *   **Compare:** There is a complete lack of agreement between Path A (no animal visible) and the possibility of finding an animal suggested by the task itself. Clarity for any animal identification is zero. This necessitates extremely low confidence.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for the observed degradation (extreme darkness and lack of any animal features) is ""No Animal Present"" or ""Inanimate Rock Wall"". There are no visual cues to confidently distinguish any wildlife species from the background. Any identification would be pure speculation, completely unsupported by the visual data.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the absolute lack of visual evidence for any animal and the extreme perceptual barriers, the probability of correctly identifying any wildlife species is effectively zero. However, as the output format requires a species, genus, and probability, and dictates ""Low Probability (under 40)"" for low clarity/agreement, the lowest possible non-zero probability will be used to reflect this complete uncertainty. The choices of species are arbitrary, selected as common large mammals in the provided location, solely to adhere to the required output format.
+
+Brown Bear",Ursus,Ursus arctos,1,Moose,Alces,Alces alces,1
+220,4,362345207,Harbor Seal,Phoca vitulina,No identifiable species,None,None,1,No identifiable species,None,None,1
+215,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+229,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Brown Bear,Ursus,Ursus arctos,0
+218,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black. Only faint, dark grey, irregular shapes resembling a rough, textured surface (possibly rocks or a wall) are barely discernible.
+    *   **Specific tokens (ear shape, tail, texture):** No discernible animal tokens (ear shape, tail, fur/skin texture, eye, limb) are visible in the original image or any of the crops. The texture observed is inorganic (rock-like).
+    *   **'Perceptual Barriers':** Extreme darkness/underexposure, very low contrast, lack of any identifiable animal form or features.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any wildlife species. It appears to depict a dark, non-biological, textured surface.
+    *   **Path B (Contextual):** The location (near Prince William Sound, Alaska) and time (early morning in mid-May) are consistent with the presence of various Alaskan wildlife species (e.g., bears, moose, deer, marine mammals, birds). However, this context provides no visual evidence to link to a specific species in the image.
+    *   **Compare:** There is no agreement between Path A and Path B regarding a specific species because Path A yields no visual information about any animal. Clarity is extremely low. Therefore, confidence must be low, specifically 0, as no animal is perceivable.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of any discernible animal form, there are no 'look-alike' species that can be identified. The visual information is so degraded that it is impossible to distinguish any animal from the dark, textured background (which appears to be rocks or a wall). Any animal would be completely obscured, appearing as an unidentifiable dark mass, or not at all.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and the complete lack of visual information to identify any wildlife species, the probability of correctly identifying any species is 0. The image does not contain identifiable wildlife. The output fields are filled with ""Undetermined"" to signify that no animal could be identified.
+
+Undetermined",Undetermined,Undetermined,0,Undetermined,Undetermined,Undetermined,0
+224,4,362345207,Harbor Seal,Phoca vitulina,Unknown Animal,Indeterminable,Indeterminable,1,Unknown Animal,Indeterminable,Indeterminable,1
+214,4,362345207,Harbor Seal,Phoca vitulina,Grizzly Bear,Ursus,Ursus arctos,0,American Black Bear,Ursus,Ursus americanus,0
+223,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Wildlife,Unknown,Unknown,1,Unidentifiable Wildlife,Unknown,Unknown,1
+216,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is almost entirely black, with only extremely faint dark grey textures visible, resembling a rock wall or similar static surface. No discernible features of any wildlife species (e.g., ear shape, tail, texture, body outline) are present in either the original or cropped versions.
+    *   **Perceptual Tokens:** None identifiable.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low clarity, lack of detail, absence of any animal-specific visual information.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. It appears to be an inanimate, textured surface.
+    *   **Path B (Contextual):** The location (Girdwood, Alaska) and time (early morning in May) indicate that many species of Alaskan wildlife *could* be present, such as Moose, Black Bear, Brown Bear, various canids (Coyote, Wolf), or ungulates (Dall Sheep, Mountain Goat). However, the metadata alone does not suggest a specific species.
+    *   **Compare:** There is a complete lack of agreement between Path A and Path B regarding the *presence* of an animal, as no animal is visually identifiable. Clarity for species identification is effectively zero. Therefore, confidence in identifying any specific species based on this image must be extremely low, bordering on zero.
+
+3.  **SELF-REFLECTION:** As a critic, I identify ""Undiscernible object / Environmental feature (e.g., rock wall)"" as the most likely visual 'look-alike' due to the extreme darkness. For wildlife, there are no visual cues for any specific degradation. If an animal were present, it would be entirely obscured by the darkness, making any identification pure speculation.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Extremely low (no visual evidence to support contextual possibilities).
+*   **Clarity:** Extremely low (image is almost black, no animal features visible).
+*   **Probability:** Given the complete absence of visual information pertaining to an animal, any specific species identification is purely speculative based on metadata alone. To adhere to the format requiring probabilities and species names, and acknowledging the absolute lack of visual evidence, I assign the lowest possible non-zero probability to plausible species based on location, indicating extreme uncertainty and an identification driven by format constraints rather than perception.
+
+Moose",Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+225,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,Unknown,Unknown,1,Unidentifiable Animal,Unknown,Unknown,1
+230,4,362345207,Harbor Seal,Phoca vitulina,No animal detected,Undetected,Undetected,0,No animal detected,Undetected,Undetected,0
+226,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is predominantly dark, almost black. Faint textures suggest a wall of rough, dark stones or rocks on the right, and a darker, smoother surface (possibly water or a flat wall) on the left.
+    *   **Specific tokens:** No tokens identifiable for any wildlife species. No discernible shapes, features (ear, tail, fur, eyes, limbs), or textures belonging to an animal are present.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure. The subject (if any animal exists) is completely obscured.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence or identity of any wildlife species.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is coastal Alaska (Kenai Peninsula/Prince William Sound). This region is known for diverse wildlife, including marine mammals (e.g., seals, otters, whales), various seabirds, and land mammals (e.g., bears, moose). The date/time (May 17, 04:00 AM) is early morning, which could explain the darkness.
+    *   **Compare:** Path A yields no identifiable species. Path B provides a broad range of possibilities for the geographic location. There is no agreement between visual evidence (none for an animal) and contextual possibilities (many for an animal). The clarity of any potential animal in the image is effectively zero. This necessitates extremely low confidence.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' for this specific degradation:** Due to the extreme darkness and complete lack of discernible animal features, there are no specific 'look-alike' species as no actual species is visible to compare against. The image could be mistaken for an image containing nothing more than rocks and a dark, smooth surface. The degradation (extreme underexposure) renders any wildlife identification impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of clarity and the complete absence of any identifiable wildlife in the image, the probability of correctly identifying any species is virtually zero. However, adhering to the output format, I must provide species names. The chosen species are plausible for the given location, but the assigned probability reflects the absolute inability to identify them visually.
+
+Harbor Seal",Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+239,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+232,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable,N/A,N/A,0,Unidentifiable,N/A,N/A,0
+222,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, appearing almost completely black. There are no discernible shapes, colors, or textures that can be attributed to any wildlife species. Specific tokens such as ear shape, tail, or body texture are entirely absent. Perceptual Barriers include extreme underexposure/darkness, rendering the image effectively opaque for identification purposes.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence of any wildlife species.
+    *   **Path B (Contextual):** The location (Kenai Peninsula, Alaska) and time (May, 4 AM) suggest the potential presence of various large mammals common to the region, such as Brown Bear (Grizzly Bear), Black Bear, Moose, or Caribou.
+    *   **Compare:** Path A yields no visual identification, while Path B suggests a range of possibilities based purely on geographical context. There is no agreement between visual and contextual information regarding a specific species due to the complete lack of visual data. Clarity is extremely low. This necessitates a very low confidence score.
+3.  **SELF-REFLECTION:** The most likely 'look-alike' for this degradation (extreme darkness) is ""no animal present"" or ""an underexposed image of an inanimate object (e.g., a rock wall, which might be hinted at on the left side)"". There is no visual information to identify any animal or even suggest its presence.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information (effectively zero clarity) and thus zero agreement between visual and contextual paths for any specific species, the probability for any identification must be extremely low (well under 40). To comply with the output format requiring species names, the most plausible species based *solely* on the geographical context are provided, with a probability reflecting the absolute uncertainty due to the absent visual data.
+
+Brown Bear",Ursus,arctos,1,Moose,Alces,alces,1
+227,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,NotApplicable,NotApplicable,0,No Animal Detected,NotApplicable,NotApplicable,0
+234,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,Undetermined,Undetermined,1,No Animal Detected,Undetermined,Undetermined,1
+231,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Black Bear,Ursus,Ursus americanus,0.5
+228,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, almost entirely black. There are faint, very low-contrast shapes on the left side that resemble rocks or a textured wall. No discernible features of any animal (ear shape, tail, fur/skin texture, body outline) are visible.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, lack of any discernible subject or animal features.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence or identity of any wildlife species.
+    *   **Path B (Contextual):**
+        *   Location: (60.1156583333, -149.433045) points to the Prince William Sound area near Seward, Alaska, a region rich in diverse wildlife.
+        *   Date/Time: 2026-05-17 at 04:00 AM. This is very early morning, likely during civil twilight or still dark in mid-May at this latitude in Alaska.
+        *   The metadata suggests a high probability of *potential* wildlife in the area, but no specific species.
+    *   **Compare:** Path A yields no visual identification of an animal. Path B provides geographical and temporal context but no specific species identification. Due to the complete absence of visual information regarding an animal, there is no agreement possible between visual and contextual for species identification. Clarity is critically low. Confidence must be extremely low.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation (extreme darkness, no visible animal) is ""no animal present"" or ""an inanimate object (e.g., rock wall)."" Since no animal features are visible, there are no animal 'look-alikes' to consider for identification based on the image itself.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of visual information for any animal species, the probability of accurately identifying a wildlife species from this image is 0. While the location suggests *potential* for various wildlife, there is absolutely no visual perception to link to accuracy for identification. Therefore, any species assigned must have a 0% probability based on the visual evidence. I will select two common species for the specified location for format compliance, but their probability remains 0 due to non-perception.
+
+No animal visible",N/A,N/A,0,No animal visible,N/A,N/A,0
+236,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+235,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Moose,Alces,Alces alces,1
+238,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable,Undetermined,Undetermined,0,Unidentifiable,Undetermined,Undetermined,0
+241,4,362345207,Harbor Seal,Phoca vitulina,No animal visible,Unknown,Unknown,1,No animal visible,Unknown,Unknown,1
+240,4,362345207,Harbor Seal,Phoca vitulina,Undetermined Animal,Incertae,sedis,0,Undetermined Animal,Incertae,sedis,0
+252,5,362345207,Harbor Seal,Phoca vitulina,No Animal Visible,N/A,N/A,0,Unidentifiable Object,N/A,N/A,0
+237,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Organism,Unknown,unknown,0,Unidentifiable Organism,Unknown,unknown,0
+244,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Species,Unknown,Unknown,0,No Animal Visible,Unknown,Unknown,0
+243,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,0,Moose,Alces,Alces alces,0
+245,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Wildlife,Unknown,Unknown,0,No Animal Detected,None,None,0
+233,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is almost entirely dark grey/black. Faint textures resemble rocks in the mid and lower sections, and a dark, flat surface (possibly water) at the top.
+    *   **Specific tokens:** No discernible animal features (ear shape, tail, texture, body outline, eyes, etc.) are visible.
+    *   **Perceptual Barriers:** Severe underexposure/darkness, extremely low contrast, complete lack of detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence or identity of any wildlife species.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is near Whittier, Alaska, a coastal and mountainous region. This area is home to a wide variety of wildlife including marine mammals (e.g., seals, otters), bears, moose, and various bird species. The date/time (May 17, 04:00 AM) is consistent with active wildlife, but does not narrow down species without visual input.
+    *   **Compare:** Path A (no visual information) and Path B (broad regional context) show a complete lack of agreement regarding species identification. The clarity is extremely low. Therefore, confidence in any species identification must be very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of any discernible features, there are no visual cues to suggest an animal or even a ""look-alike"" for a degraded image. The image appears to be environmental features (rocks, water) in near-total darkness, not a degraded image *of* an animal.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement between Visual Self-Check and Self-Consistency:** Extremely low. No visual evidence of an animal.
+*   **Clarity:** Extremely low.
+
+Given the complete absence of visual information pertaining to any animal, and the direct instruction to ""link perception directly to accuracy,"" it is impossible to identify any species with any meaningful probability. The probability must be set to the lowest possible value to reflect this lack of identification, while still providing species names as required by the format. The chosen species are common to the region, but their assignment here is arbitrary due to the image's unidentifiable nature, hence the minimal probability.
+
+Harbor Seal",Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+246,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,0
+247,4,362345207,Harbor Seal,Phoca vitulina,No animal detected,Incertae,sedis,0,Undetermined,N/A,N/A,0
+250,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Grizzly Bear,Ursus,Ursus arctos,0
+256,5,362345207,Harbor Seal,Phoca vitulina,Unknown,N/A,N/A,0,Unknown,N/A,N/A,0
+253,5,362345207,Harbor Seal,Phoca vitulina,Not Applicable,Not Applicable,Not Applicable,0,Not Applicable,Not Applicable,Not Applicable,0
+248,4,362345207,Harbor Seal,Phoca vitulina,Undetermined Animal,Undetermined,Undetermined species,1,No Animal Visible,N/A,N/A,0
+255,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,Unknown,Unknown,1,Unidentifiable Animal,Unknown,Unknown,1
+242,4,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Wildlife,Incertae,sedis,1,Unidentifiable Wildlife,Incertae,sedis,1
+261,5,362345207,Harbor Seal,Phoca vitulina,N/A,N/A,N/A,0,N/A,N/A,N/A,0
+254,5,362345207,Harbor Seal,Phoca vitulina,Undetermined,Undetermined,Undetermined,0,Undetermined,Undetermined,Undetermined,0
+258,5,362345207,Harbor Seal,Phoca vitulina,,,,,,,,
+259,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+251,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Organism,Incertae,Sedis,1,No Animal Detected,Nomen,Dubium,1
+264,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,American Black Bear,Ursus,Ursus americanus,1
+249,4,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black due to severe underexposure or poor lighting conditions.
+    *   **Specific tokens (ear shape, tail, texture):** No discernible animal features (ears, tail, fur, body shape, eyes, etc.) are visible in the original image or the provided crops. The left side of the image shows dark, textured shapes that resemble rocks or a stone wall. The right side is uniformly black.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure is the dominant perceptual barrier, making any identification of an animal impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest the presence or identity of any species due to the complete lack of discernible animal features.
+    *   **Path B (Contextual):** The location (near Girdwood, Alaska) and time (04:00 AM) suggest species common to a subarctic/boreal environment, such as Moose, Brown Bear, Black Bear, Caribou, etc. The early morning time could contribute to the darkness.
+    *   **Compare:** Path A provides no information to compare against Path B. The clarity is essentially zero regarding any potential animal. Therefore, confidence in identifying any species from the image is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The most likely 'look-alike' species for this specific degradation (extreme darkness and lack of any animal features) is 'no animal present' or 'a shadowed inanimate object like a rock or wall'. There is no visual evidence to suggest an animal, let alone a look-alike for a degraded animal image.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** No agreement is possible as the visual information for an animal is entirely absent.
+*   **Clarity:** Extremely low.
+*   **Probability:** Given the complete lack of visual evidence for the presence of an animal, the probability of correctly identifying any species from this image is 0%. To adhere to the output format requiring specific species names, common Alaskan mammals are listed with a 0% probability to reflect the inability to identify anything from the image.
+
+Moose",Alces,Alces alces,0,Brown Bear,Ursus,Ursus arctos,0
+263,5,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+257,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and underexposed, appearing almost entirely black or a very dark grey. There are very faint, irregular textural variations visible, particularly in the lower half, which *could* suggest a rough surface like rocks, ground, or a highly obscured large object. However, no discernible animal shape, anatomical features (ear shape, tail), or distinct fur/skin texture are visible.
+    *   **Perceptual Barriers:** Extreme underexposure and darkness are overwhelming perceptual barriers. Lack of contrast, detail, and resolution due to darkness.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest any wildlife species. It lacks any identifiable features of an animal.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is in Southcentral Alaska, near the Chugach National Forest and Portage Glacier area. This region is known for a variety of large mammals including Brown Bears (Grizzlies), Black Bears, Moose, Dall Sheep, and Mountain Goats. The date (May 17) and time (04:00 military time, 4 AM) indicate early morning, potentially before or just around sunrise, when many large mammals might be active.
+    *   **Compare:** Path A provides no visual evidence for any species. Path B provides a list of plausible species based on geography and time. Due to the complete absence of visual information in Path A, there is a fundamental conflict and extremely low clarity. This necessitates a very low confidence score.
+
+3.  **SELF-REFLECTION:** As a critic, the primary issue is the complete lack of visual data. The image is effectively a dark void. No 'look-alike' species can be identified from this degradation because the degradation (extreme darkness) obscures *all* distinguishing features. Any attempt to identify a species would be based solely on the contextual metadata, with zero support from the visual input. Therefore, the probability assigned must reflect this extreme uncertainty. Given the requirement to provide species, the most common large mammals in the specified Alaskan habitat (Brown Bear, Black Bear) are chosen as placeholders for the context, but with probabilities reflecting the absolute lack of visual identification.
+
+PHASE 2: CALIBRATED OUTPUT
+Brown Bear",Ursus,Ursus arctos,5,Black Bear,Ursus,Ursus americanus,2
+260,5,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+269,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Wildlife,incertae,sedis,1,No Wildlife,incertae,sedis,0
+268,5,362345207,Harbor Seal,Phoca vitulina,Unknown Animal,Animalia,species_unknown,1,Undetermined Mammal,Mammalia,species_indet,1
+270,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+278,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+271,5,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,0,Moose,Alces,Alces alces,0
+262,5,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,1,Hoary Marmot,Marmota,caligata,0.5
+265,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is severely underexposed, appearing almost entirely black or very dark grey. There is a faint texture resembling a rock wall on the right side and a smoother, darker area on the left. No discernible features of any wildlife species (e.g., body shape, fur, eyes, limbs, tail, ear shape) are visible.
+    *   **Specific tokens identified:** None relating to an animal. Textural patterns (rock-like, smooth surface).
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, lack of contrast, complete absence of any subject matter related to wildlife.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest the presence or identity of any wildlife species.
+    *   **Path B (Contextual):**
+        *   Location: (60.1156583333, -149.433045) corresponds to the Prince William Sound area in Alaska, which is home to diverse wildlife (e.g., bears, moose, marine mammals, various birds).
+        *   Date/Time: 2026-05-17 at 04:00 (4 AM military time). This is early morning, when some crepuscular or nocturnal animals might be active, or diurnal animals are just beginning to stir.
+    *   **Compare:** Path A yields no information about a species. Path B provides geographical and temporal context but does not suggest any specific species without visual input. There is no visual information to agree or disagree with the contextual information regarding a specific species. Clarity is extremely low due to the image quality.
+
+3.  **SELF-REFLECTION:** Given the extreme degradation (near-total darkness), no animal features can be discerned. The most likely 'Look-alike' for this degradation is ""No Animal Present"" or an ""Indiscernible Object"". Any attempt to identify a specific species would be pure conjecture and entirely unsupported by visual evidence, directly violating the principle of linking perception to accuracy.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Low (no visual information to correlate with context).
+*   **Clarity:** Extremely Low (image is almost black, no subject visible).
+*   **Probability Calculation:** Due to extremely low clarity and no visual information about any animal, the probability of identifying any specific species is 0. To adhere to the output format, placeholder species from the region are chosen, but assigned a 0% probability to reflect the absolute lack of visual evidence and thus, the impossibility of identification.
+
+Moose",Alces,Alces alces,0,Brown Bear,Ursus,Ursus arctos,0
+273,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+267,5,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,arctos,0,Harbor Seal,Phoca,vitulina,0
+266,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, almost entirely black, with very poor contrast. There are no discernible features, shapes, colors, textures, or outlines that could be attributed to a wildlife species. What little detail is visible suggests a dark, possibly rocky or textured surface on the right side and a smoother, dark area on the left. Perceptual Barriers: Extreme low light (darkness), significant blur, very low contrast, complete lack of identifiable features. These barriers render any species identification impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual cues or suggestions for any specific wildlife species. There is no animal visible.
+    *   **Path B (Contextual):** The location (Alaska) is known for diverse wildlife, and the time (04:00 AM) is consistent with low light conditions before sunrise. However, the metadata does not provide any specific information suggesting the presence of an animal *in this particular image*.
+    *   **Compare:** There is a complete lack of agreement between the visual data (which shows no animal) and any potential species identification. The clarity of the image for identification purposes is effectively zero.
+3.  **SELF-REFLECTION:** As a critic, I conclude that the extreme degradation of the image (total darkness) prevents any form of species identification. There are no animal features (ear shape, tail, texture, body outline) to analyze or to be confused with a 'look-alike' species. The image essentially shows ""nothing identifiable"" in terms of wildlife.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual clarity and the complete absence of identifiable animal features, no wildlife species can be identified from this image. Therefore, the probability of correctly identifying any specific species is 0.
+
+Unidentifiable",Unknown,Unknown,0,Unidentifiable,Unknown,Unknown,0
+274,5,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,1,No Animal Detected,N/A,N/A,1
+275,5,362345207,Harbor Seal,Phoca vitulina,No Animal Visible,N/A,N/A,0,No Animal Visible,N/A,N/A,0
+279,5,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,Undetectable,Undetectable,0,No Animal Detected,Undetectable,Undetectable,0
+276,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey, appearing underexposed or completely black.
+    *   **Specific tokens (ear shape, tail, texture):** No discernible animal features (ears, tail, fur/skin texture, body shape, eyes, limbs) are visible. There is a faint, coarse, rocky texture visible in parts of the image, suggesting a background element rather than an animal.
+    *   **'Perceptual Barriers' (blur, rotation, fading):** Severe underexposure/darkness is the primary barrier, rendering the image content unidentifiable.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest any wildlife species. It shows only dark, undefined shapes and textures.
+    *   **Path B (Contextual):** The location (Whittier, Alaska) and date (May) indicate a region with diverse wildlife (e.g., marine mammals, various terrestrial mammals like bears, moose, deer, birds). However, without any visual information from the image, the metadata alone cannot suggest a *specific* species for identification.
+    *   **Compare:** There is a complete lack of visual information (Path A) to compare with the general contextual possibilities (Path B). Therefore, clarity is effectively zero, and no agreement can be established for identifying any specific species.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness, the image resembles a dark, textured wall or ground. It does not resemble any specific animal, but rather the absence of a discernible subject. Any animal could be ""look-alike"" in complete darkness, but this would be a misinterpretation of the degradation.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Probability Calculation:** Visual clarity is extremely low (effectively zero). There is no agreement between visual and contextual information regarding a specific species. Therefore, the probability of identifying any species is 0.
+
+Unidentifiable",Unknown,Unknown,0,Unidentifiable,Unknown,Unknown,0
+277,5,362345207,Harbor Seal,Phoca vitulina,Undetermined,N/A,N/A,0,Undetermined,N/A,N/A,0
+272,5,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Common Raven,Corvus,Corvus corax,0
+289,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,1,Unknown,Unknown,Unknown,1
+286,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,N/A,N/A,0,Unidentifiable Animal,N/A,N/A,0
+288,5,362345207,Harbor Seal,Phoca vitulina,No wildlife species identifiable,N/A,N/A,0,No wildlife species identifiable,N/A,N/A,0
+280,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey/black.
+    *   **Specific tokens:** No identifiable animal features (ear shape, tail, texture, eyes, fur, scales, etc.) are present. Faint texture resembling rocks or a wall is visible on the right side, but nothing suggests an animal.
+    *   **Perceptual Barriers:** Extreme underexposure, very low light, complete lack of animal subject visibility. The image is effectively a dark void with faint background texture.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual evidence of a wildlife species.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is in South-Central Alaska, a region rich in wildlife. The date and time (2026-05-17 at 04:00 AM) indicate pre-dawn or early dawn conditions, which is consistent with very low light.
+    *   **Compare:** Path A provides no identifiable animal, while Path B suggests a geographical possibility of wildlife. Given the absolute lack of visual data in Path A, there is no agreement possible regarding an animal's presence or identity. Clarity is virtually non-existent for species identification. This mandates extremely low confidence.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is unidentifiable as any wildlife species. The primary degradation is extreme underexposure leading to complete obscuration of any potential subject. There are no visual cues to differentiate between animal species or even confirm the presence of an animal.
+    *   **Most likely 'Look-alike' for this degradation:** A dark wall, rocks, or simply ""nothing visible.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete absence of visual information pertaining to a wildlife species, and thus extremely low clarity and no agreement on visual identification, the probability for any specific species must be near zero. As per instructions, low clarity results in low probability (under 40).
+
+Brown Bear",Ursus,Ursus arctos,1,Moose,Alces,Alces alces,1
+292,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+285,5,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,N/A,N/A,N/A,0
+281,5,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,0,Moose,Alces,alces,0
+282,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Animal,Incertae,Sedis,1,Unidentifiable Organism,Incertae,Sedis,0
+293,5,362345207,Harbor Seal,Phoca vitulina,Unknown Species,N/A,N/A,1,Unknown Species,N/A,N/A,0
+297,5,362345207,Harbor Seal,Phoca vitulina,No animal detected,Undetermined,Undetermined,0,No animal detected,Undetermined,Undetermined,0
+287,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark with almost no discernible features. There is a faint, indistinct pattern on the left side that *might* be a rocky texture, but it is too dark and low-contrast to confirm. No animal-specific tokens (ear shape, tail, fur/skin/feather texture, body outline) are visible.
+    *   'Perceptual Barriers': Extreme underexposure, very low contrast, complete lack of subject visibility, effectively a blank image.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No wildlife species can be identified or even suggested from the image due to the complete lack of visual information.
+    *   **Path B (Contextual):** The location (near Girdwood, Alaska) and date (May) suggest a region with various wildlife such as Moose, Brown Bear, Black Bear, various birds, etc.
+    *   **Compare:** Path A provides no visual input, therefore there is no agreement or conflict with Path B regarding a specific species. Clarity is critically low. This necessitates a very low confidence score.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this degradation is ""an underexposed photograph of a non-animal object"" or ""complete darkness."" No animal features are present, making any visual identification impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity (effectively zero) and the complete absence of visual information, no specific wildlife species can be identified from the image. Any assignment of a species name would be purely speculative and not linked to perception, thus violating the core instruction. However, to adhere to the output format which requires specific Genus and Species, two common species for the given location are listed as placeholders, with the lowest possible probability to accurately reflect the absolute lack of visual identification from the provided image.
+
+Moose",Alces,Alces alces,1,Brown Bear,Ursus,Ursus arctos,1
+300,5,362345207,Harbor Seal,Phoca vitulina,Undetectable,Undetectable,Undetectable,0,Undetectable,Undetectable,Undetectable,0
+284,5,362345207,Harbor Seal,Phoca vitulina,Unknown Animal,Unknown,Unknown,0,Unknown Animal,Unknown,Unknown,0
+291,5,362345207,Harbor Seal,Phoca vitulina,Unknown Species,Incertae,sedis,0,Unknown Species,Incertae,sedis,0
+290,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+283,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and appears almost entirely black. No discernible animal features (ear shape, tail, texture, body outline, fur, eyes, etc.) are visible in the original or cropped versions. The right side shows some very faint, dark texture, possibly rocks or a wall, but no animal form.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, complete lack of recognizable animal shape or features.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence or identity of any wildlife species. There are no visual cues.
+    *   **Path B (Contextual):**
+        *   **Location:** (60.1156583333, -149.433045) is near Whittier, Alaska, USA. This is a coastal region known for diverse wildlife including marine mammals (seals, sea lions, sea otters, whales) and terrestrial mammals (bears, moose, deer).
+        *   **Date/Time:** 2026-05-17 at 04:00 (4 AM). This is early morning, likely pre-dawn in May at this latitude, contributing to the extreme darkness seen in the image.
+    *   **Compare:** There is a complete lack of agreement between Path A and Path B regarding species identification. Path A provides no visual information for an animal, while Path B offers only potential species based on geography and time. Clarity for any animal identification is effectively zero. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:** For this specific degradation (extreme darkness and lack of any discernible animal features), it is impossible to identify any animal or even confirm its presence. There are no 'look-alikes' for a non-visible animal; the image degradation prevents any form from being confused with another.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the absolute lack of visual information for any wildlife species in the image, and thus zero clarity and agreement, no confident identification can be made. The probability of correctly identifying any species from this image is extremely low. However, to adhere to the output format requiring two species, I will list two plausible species for the given location, acknowledging the non-identifiability with the lowest possible probability (1) to indicate that this is purely speculative due to the image quality and not based on visual perception.
+
+Unidentifiable Wildlife",Unknown,Unknown,1,Unidentifiable Wildlife,Unknown,Unknown,1
+294,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image and its crops are uniformly dark, almost entirely black/grey. There are no discernible shapes, colors, textures, or features (e.g., ear shape, tail, fur, eyes) that could belong to any wildlife species. The patterns visible resemble dark, irregular rocks or a textured wall, but not an animal.
+    *   **Perceptual Barriers:** Extreme underexposure, complete lack of contrast, total absence of visual information pertaining to any animal.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual cues to suggest any specific wildlife species. It is impossible to identify any animal from the visual data.
+    *   **Path B (Contextual):** The location (near Anchorage, Alaska) indicates a region known for various wildlife, including large mammals like moose, bears, and caribou. However, the metadata provides no direct suggestion of a specific species present in *this observation*.
+    *   **Compare:** Path A provides zero information about a species. Path B provides geographical context but no species identification. There is no agreement possible between the visual data and any specific species identification because there is no visual data to identify. Clarity is critically low (effectively zero for wildlife identification). Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation (extreme darkness and lack of features) is a dark, undefined, textured surface such as rocks or a shadow, rather than any specific animal species. It is impossible to mistake this image for an actual animal given the complete lack of animal characteristics.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** No agreement between visual data and any species identification due to the complete absence of visual information.
+*   **Clarity:** Extremely low (effectively zero for wildlife).
+*   **Probability:** Given the total lack of visual evidence for any wildlife species, the probability of correctly identifying any species from this image is 0%. To adhere to the format, two plausible species for the Alaska region are listed as placeholders, each with a 0% probability to reflect the absolute lack of visual identification.
+
+Moose",Alces,Alces alces,0,Brown Bear,Ursus,Ursus arctos,0
+298,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Brown Bear,Ursus,Ursus arctos,0
+296,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is almost entirely dark, appearing as a very dark grey/black rectangle. There are some extremely faint, indistinct textural variations on the right side that resemble rocks or a generic rough surface. No discernible features of an animal are present.
+    *   **Specific tokens:** None identifiable. No ear shape, tail, fur/skin texture, eyes, limbs, body outline, or any other anatomical features of a living organism are visible.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness is the primary and overwhelming barrier. The image provides virtually no visual information about a potential subject. Blur, fading, or rotation cannot be assessed for an animal as no animal is visible.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. The visual information available indicates an extremely dark, textured, non-animal surface.
+    *   **Path B (Contextual):** The location (60.1156583333, -149.433045) is in Alaska, a region rich in diverse wildlife (e.g., bears, moose, marine mammals, various bird species). The date (May 17th) and time (04:00 AM) are within a period and time of day when many animals are active or could be present. However, the metadata provides no specific clues to narrow down potential species without visual input.
+    *   **Compare:** Path A (no animal visibly present) is in direct conflict with the general expectation of identifying an animal from the context provided by Path B. Since no animal is visually suggested, there is no agreement between the visual data and any potential species. The clarity for identifying *any* living organism is effectively zero. Therefore, confidence in identifying *any specific species* from this image is 0.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is severely degraded by extreme darkness, rendering any identification of wildlife impossible. There is no discernible subject that can be classified as an animal.
+    *   **Most likely 'Look-alike':** Due to the extreme degradation, the image most closely resembles an underexposed photograph of an inanimate object or a dark, textured surface (e.g., a pile of rocks, a dark wall). There are no visual characteristics to suggest an animal, even in a highly degraded state. Therefore, the most likely 'look-alike' is ""not an animal"" or ""an unidentified inanimate object."" Given the complete lack of animal features, any assignment of an animal species would be pure speculation, violating the principle of linking perception directly to accuracy.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Extremely low (0) between visual evidence (no animal) and contextual possibilities (any Alaskan animal).
+*   **Clarity:** Extremely low (0).
+*   **Probability:** Consequently, the probability for identifying any specific species is 0. As the format requires specific fields, and identification is impossible, ""Unknown"" is used for the common name, genus, and species to accurately reflect the lack of identifiable information.
+
+Unknown",Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+295,5,362345207,Harbor Seal,Phoca vitulina,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is almost entirely dark, appearing as a dark grey or black rectangle. Extremely faint, low-contrast patterns of irregular, overlapping shapes are barely discernible, particularly in the cropped versions, but these lack any clear definition or recognizable features of an animal. Specific tokens such as ear shape, tail, or distinct texture are completely absent. Perceptual Barriers include: Extreme darkness, very low contrast, complete lack of discernible anatomical features, and severe degradation preventing any visual identification.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the extreme darkness and lack of any discernible features, the image does not suggest any specific wildlife species. The faint patterns are too ambiguous to be interpreted as animal characteristics (e.g., scales, feathers, fur, skin).
+    *   **Path B (Contextual):** The location (Prince William Sound, Alaska) is a rich marine and coastal environment, home to numerous wildlife species including marine mammals (e.g., whales, seals, sea otters), various birds, and fish (e.g., salmon, halibut). The early morning time (4 AM) could explain low light but doesn't narrow down species. The metadata provides a broad list of possibilities but no specific suggestion without visual input.
+    *   **Compare:** Path A yields no identifiable species, while Path B provides a broad range of possibilities. There is a fundamental conflict due to the complete absence of visual information, meaning no visual data exists to confirm or deny any species from the contextual data. Clarity is extremely low. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this degradation (extreme darkness with indistinct texture) is an unidentifiable object, a highly blurred or abstract pattern, or simply an empty, dark space. No specific wildlife species can be reliably considered a 'look-alike' given the absolute lack of features. Any guess would be pure speculation, violating the principle of linking perception directly to accuracy.
+
+PHASE 2: CALIBRATED OUTPUT
+The agreement between the Visual Self-Check (no identifiable features) and Self-Consistency Audit (no visual information to match contextual information) is non-existent. The clarity is extremely low. As such, the probability of correctly identifying any species is 0.
+
+Unknown Species",Unknown,Unknown,0,Unknown Species,Unknown,Unknown,0
+299,5,362345207,Harbor Seal,Phoca vitulina,American Black Bear,Ursus,americanus,2,Moose,Alces,alces,1

@@ -1,0 +1,958 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+8,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+10,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+9,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+1,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Golden Jackal,Canis,Canis aureus,5
+15,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+14,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,7
+4,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+11,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+6,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+13,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+2,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,2
+7,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Indian Jackal,Canis,aureus,4
+19,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+5,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,1
+16,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+17,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,5
+3,0,362236437,Domestic Dog,Canis familiaris,Dog,Canis,Canis lupus familiaris,92,Dhole,Cuon,Cuon alpinus,3
+12,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+18,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,96,Golden Jackal,Canis,Canis aureus,8
+20,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+21,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+26,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+24,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+25,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,93,Indian Jackal,Canis,Canis aureus,7
+22,0,362236437,Domestic Dog,Canis familiaris,Dog,Canis,familiaris,95,Indian Wolf,Canis,lupus pallipes,5
+27,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+32,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+23,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+31,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Golden Jackal,Canis,Canis aureus indicus,2
+33,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,10
+30,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Indian Golden Jackal,Canis,Canis aureus indicus,3
+28,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,7
+29,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+34,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,1
+36,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,3
+38,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,1
+35,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Golden Jackal,Canis,Canis aureus indicus,2
+37,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+39,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+41,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Wolf,Canis,Canis lupus pallipes,5
+40,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,8
+46,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Indian Jackal,Canis,Canis aureus indicus,8
+45,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus indicus,2
+42,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+48,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+44,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,1
+50,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,5
+49,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+52,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+43,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+47,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Indian Golden Jackal,Canis,aureus,2
+51,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Indian Jackal,Canis,Canis aureus,5
+53,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+55,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Indian Golden Jackal,Canis,Canis aureus indicus,25
+54,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,15
+58,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+63,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Gray Wolf,Canis,Canis lupus,15
+60,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,95,Golden Jackal,Canis,Canis aureus,5
+62,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Indian Jackal,Canis,Canis aureus,6
+57,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Indian Golden Jackal,Canis,Canis aureus,8
+64,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+56,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,10
+65,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,5
+68,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,8
+61,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+66,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,10
+69,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+70,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,7
+74,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Indian Jackal,Canis,Canis aureus,8
+73,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Indian Jackal,Canis,Canis aureus indicus,8
+59,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,8
+77,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,8
+67,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Wolf,Canis,Canis lupus pallipes,1
+75,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+71,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+78,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+81,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+82,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+72,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,90,Golden Jackal,Canis,aureus,5
+80,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Indian Jackal,Canis,Canis aureus,10
+76,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,38,Golden Jackal,Canis,aureus,5
+79,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,1
+84,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Indian Jackal,Canis,Canis aureus,5
+85,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+88,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+89,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,8
+94,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,10
+91,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,8
+90,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+95,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,8
+87,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+86,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+96,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,1
+92,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+93,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,92,Golden Jackal,Canis,Canis aureus,5
+99,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,15
+100,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,8
+101,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+97,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,2
+104,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+109,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+102,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,90,Golden Jackal,Canis,aureus,8
+105,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Indian Golden Jackal,Canis,Canis aureus,15
+108,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,15
+83,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,95,Golden Jackal,Canis,Canis aureus,5
+111,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+106,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,80,Golden Jackal,Canis,Canis aureus,10
+103,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,5
+112,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,92,Golden Jackal,Canis,Canis aureus,5
+98,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,3
+114,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+113,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+110,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,5
+107,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+118,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,15
+117,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+122,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,8
+119,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,10
+123,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+121,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Indian Jackal,Canis,Canis aureus,12
+125,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,15
+120,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,5
+126,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+130,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,10
+127,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Indian Jackal,Canis,Canis aureus,5
+115,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,5
+134,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,92,Golden Jackal,Canis,Canis aureus,7
+128,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,5
+116,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,38,Golden Jackal,Canis,Canis aureus,5
+131,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+129,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Indian Wolf,Canis,Canis lupus,5
+135,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Dhole,Cuon,Cuon alpinus,5
+136,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+137,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Golden Jackal,Canis,Canis aureus,10
+133,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+140,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+124,2,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is significantly blurry, hazy, and has low contrast, making fine details difficult to discern.
+    *   **Specific Tokens:**
+        *   **Ear shape:** Medium-sized, floppy ears, rounded tips.
+        *   **Tail:** Partially visible, appears medium length and slightly bushy (though blur limits detail).
+        *   **Texture:** Short to medium fur, appearing bicoloured: lighter tan/brown on the head and front, darker grey/brown on the back.
+        *   **Body:** Medium-sized canine, robust build, lying down.
+        *   **Snout:** Medium length, black nose. Eyes appear closed or partially closed.
+    *   **Perceptual Barriers:** Significant blur, atmospheric haze, low contrast, dim lighting.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The animal's morphology (ear shape, snout, fur coloration, overall body structure) strongly suggests a Domestic Dog. It lacks the typical slender build, upright large ears, or more pointed snout often associated with wild canids in the region.
+    *   **Path B (Contextual):** The location (Delhi, India) and common presence of stray/street dogs (often Indian Pariah Dogs, a type of domestic dog) in such environments strongly support the identification of a Domestic Dog. The date/time does not provide additional species-specific information.
+    *   **Compare:** There is high agreement between the visual cues and the contextual information, both pointing towards a Domestic Dog.
+
+3.  **SELF-REFLECTION:**
+    *   **Most Likely 'Look-alike' species for this specific degradation:** Given the blurry nature and the geographic location, a **Golden Jackal (Canis aureus)** is the most plausible wild canid look-alike. However, even with the blur, the depicted animal's head shape, ear set, and relatively robust build are more consistent with a Domestic Dog than a typical Golden Jackal.
+
+PHASE 2: CALIBRATED OUTPUT
+Despite the high agreement between visual and contextual evidence for a Domestic Dog, the **low clarity** of the image (due to blur and haze) necessitates a low probability score as per the given rules (""Low Clarity = Low Probability (under 40)""). This prioritizes the quality of perception directly influencing the certainty of the output.
+
+Domestic Dog",Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+139,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,12
+141,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,88,Indian Golden Jackal,Canis,Canis aureus,8
+138,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,5
+143,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,88,Golden Jackal,Canis,Canis aureus,8
+146,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,10
+145,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+144,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+149,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,15
+150,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,5
+142,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,5
+148,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+132,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,lupus familiaris,38,Golden Jackal,Canis,aureus,5
+151,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+155,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+152,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,5
+163,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,35,Golden Jackal,Canis,Canis aureus,25
+153,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,38,Golden Jackal,Canis,Canis aureus,5
+154,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Indian Jackal,Canis,Canis aureus,15
+161,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,38,Golden Jackal,Canis,Canis aureus,25
+147,2,362236437,Domestic Dog,Canis familiaris,"1. VISUAL SELF-CHECK:
+    *   **Perceptual Clarity:** The image exhibits low overall clarity due to underexposure, haze, and muted colors. There is a general lack of sharp detail and contrast.
+    *   **Specific Tokens:**
+        *   **Ear shape:** Drooping, medium-sized, rounded tips. Highly characteristic of a domestic dog.
+        *   **Tail:** Not clearly visible.
+        *   **Texture:** Short to medium length fur, appears relatively smooth, but details are obscured by image quality.
+        *   **Body shape:** Robust, medium-sized canid body, consistent with a domestic dog resting.
+        *   **Muzzle:** Medium length, broad, with a visible black nose.
+        *   **Eyes:** Closed or squinting, not providing identifying detail.
+    *   **Perceptual Barriers:** Low light, haze/fog, low contrast, color desaturation.
+
+2. SELF-CONSISTENCY AUDIT:
+    *   **Path A (Visual):** The visual tokens (ear shape, muzzle, body proportion, overall appearance) strongly suggest a domestic dog.
+    *   **Path B (Contextual):** The location (Delhi, India) is an urban environment where free-ranging domestic dogs (often referred to as Indian Pariah Dogs or village dogs) are extremely common. The date/time is morning, a typical time for animals to be resting or active in such environments. This context highly supports the presence of a domestic dog.
+    *   **Compare:** Both visual and contextual paths converge on ""Domestic Dog"" with high consistency. Although the overall image clarity is low, the key identifying features for a domestic dog are sufficiently clear to make a confident identification.
+
+3. SELF-REFLECTION:
+    *   The most likely 'Look-alike' species for this specific degradation, if mistaken, would be another canid. Given the Indian context and general canid morphology, a Golden Jackal (Canis aureus) could be considered, as they are found in India and sometimes frequent human-modified environments. However, the characteristic drooping ears and broader muzzle in the image are distinctly more canine (dog) than jackal-like, even with the degradation. A wolf (Canis lupus) is unlikely due to typical size, build, and ear shape, and generally not found in dense urban centers.
+
+Harbor Seal",Phoca,Phoca vitulina,95,Grey Seal,Halichoerus,Halichoerus grypus,"12
+Domestic Dog"
+158,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,35,Golden Jackal,Canis,aureus,5
+162,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,15
+157,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,35,Golden Jackal,Canis,Canis aureus,15
+166,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,35,Golden Jackal,Canis,aureus,10
+156,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Asian Palm Civet,Paradoxurus,Paradoxurus hermaphroditus,18
+165,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,20
+160,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,15
+159,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,5
+164,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,38,Golden Jackal,Canis,Canis aureus,10
+168,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,80,Golden Jackal,Canis,Canis aureus,15
+167,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,10
+173,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+176,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+174,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,20
+172,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+177,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+178,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,5
+170,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,15,Feral Cat,Felis,Felis catus,8
+169,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+179,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,35,Indian Jackal,Canis,Canis aureus indicus,10
+175,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,15
+182,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,20
+181,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Indian Golden Jackal,Canis,Canis aureus,5
+183,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,15
+191,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+188,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,68,Golden Jackal,Canis,Canis aureus,25
+185,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,20,Golden Jackal,Canis,Canis aureus,15
+184,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,30
+171,3,362236437,Domestic Dog,Canis familiaris,Indian Hare,Lepus,Lepus nigricollis,20,Feral Cat,Felis,Felis catus,10
+186,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,18
+190,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,25
+187,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,68,Golden Jackal,Canis,Canis aureus,25
+189,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Golden Jackal,Canis,Canis aureus,20
+194,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Indian Golden Jackal,Canis,Canis aureus indicus,15
+192,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,15,Golden Jackal,Canis,Canis aureus,10
+199,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,65,Golden Jackal,Canis,Canis aureus,25
+195,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,35,Golden Jackal,Canis,aureus,15
+193,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,15,Golden Jackal,Canis,Canis aureus,8
+197,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,15
+180,3,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and has very low contrast, making it almost impossible to discern fine details. The crops do not improve clarity significantly.
+    *   **Specific tokens:**
+        *   **Ear shape:** Appears to be small and rounded, possibly upright, but highly obscured by darkness and lack of detail.
+        *   **Tail:** Not visible.
+        *   **Texture:** Suggests fur or hair due to the general soft outline, but specific texture is indistinguishable.
+        *   **Body shape:** Suggests a medium-sized mammal, possibly resting or curled up in dense vegetation. A distinct head shape is vaguely visible with what might be a snout or nose area.
+    *   **'Perceptual Barriers':** Extreme darkness/underexposure, very low contrast, lack of sharp focus, and overall poor resolution. The lighting conditions in the image are inconsistent with the provided 08:00 AM timestamp, suggesting either severe underexposure, a night-vision capture, or an incorrect timestamp.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image vaguely suggests a medium-sized mammal with a relatively broad head and small, rounded ears. The overall form could be consistent with a canid (dog, jackal) or potentially a suid (wild boar) resting in vegetation. Due to the extreme lack of clarity, no definitive visual identification can be made.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (08:00 AM) provide context. Common medium-sized mammals in Delhi include domestic dogs (feral populations), golden jackals, and wild boars (particularly in greener or less urbanized areas). The 08:00 AM timestamp significantly conflicts with the extreme darkness of the image, implying a strong environmental or camera-related perceptual barrier.
+    *   **Compare:** There is a significant conflict between the visual appearance (extreme darkness) and the stated time (08:00 AM). Visual clarity is extremely low, making any specific identification based on visual features highly speculative. The contextual information provides several plausible candidates, but cannot resolve the visual ambiguity. This indicates very low agreement and extremely low clarity.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of detail, many medium-sized mammals with a stocky build and rounded features could fit this vague outline. Domestic dogs, golden jackals, and wild boars are all strong look-alikes under such conditions, as their specific distinguishing features (muzzle length, ear size/shape, fur pattern) are completely obscured. The most challenging aspect is differentiating between common canids and suids or other stocky mammals.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity (visual self-check) and the low agreement between visual and contextual information (self-consistency audit), the probability score must be very low, well under 40. The identification is highly speculative.
+
+Domestic Dog",Canis,Canis familiaris,10,Golden Jackal,Canis,Canis aureus,5
+196,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,25
+200,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,38,Golden Jackal,Canis,Canis aureus,8
+205,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Stray Dog,Canis,Canis familiaris,0
+207,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,10
+212,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,15,Domestic Cat,Felis,Felis catus,5
+203,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and almost entirely dark.
+    *   **Specific tokens:** No discernible specific tokens like ear shape, tail, or distinct texture. A very faint, indistinct yellowish-brown mass is visible in the center, which *might* be an organic form, possibly curled. However, no defining features are present. The background appears to be dark, textured ground or vegetation, also with extremely low detail.
+    *   **Perceptual Barriers:** Extreme darkness/low light (severe underexposure), very poor contrast, lack of detail, potential blur. The entire image is dominated by deep shadows, obscuring any potential subject.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests an indeterminate, rounded, possibly organic shape. It is impossible to visually identify any specific species due to the extreme lack of clarity and detail. It could hypothetically be a small to medium-sized animal curled up, but this is a highly speculative interpretation of an almost invisible object.
+    *   **Path B (Contextual):**
+        *   Location: (28.62862059, 77.25930492) is in Delhi, India.
+        *   Date/Time: 2026-05-17 at 08:00 AM.
+        *   Common wildlife/animals in Delhi include street dogs, domestic cats, Rhesus Macaques, various birds, rodents, etc.
+    *   **Compare:** Path A provides no concrete visual information for species identification. Path B provides geographical and temporal context, but without visual input, it cannot be specifically linked to any visual cues. Therefore, agreement between visual and contextual paths for species identification is effectively non-existent. Clarity is extremely low. This necessitates a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of any discernible features, the faint blob could be virtually any small to medium-sized animal (e.g., a dog, cat, civet, mongoose, or even an inanimate object like a clump of leaves, a bag, or a rock) in very low light. The degradation is so severe that accurate identification is impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and the complete lack of agreement between visual (non-existent) and contextual information for specific species identification, the probability for any species will be extremely low. The choice of species below is based purely on commonality in the given location, *not* on any visual evidence from the image.
+
+Street Dog",Canis,Canis familiaris,1,Domestic Cat,Felis,Felis catus,1
+198,3,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Specific tokens identified:** The image displays the head and upper body of a mammal, oriented sideways (rotated 90 degrees clockwise). Visible tokens include a light-colored (possibly cream or yellowish) snout with a clear nostril, one discernible floppy ear, and the general rounded shape of a head and upper torso. The animal appears to be lying down amidst vegetation.
+    *   **Perceptual Barriers:** Extreme darkness and low contrast are the primary barriers, severely obscuring fine details and overall texture. The image is also rotated, requiring cognitive adjustment. Low resolution further contributes to poor clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visible features (floppy ear, robust snout, general cranial shape) are highly characteristic of a domestic dog, particularly a breed like a Labrador Retriever or a similar mixed breed.
+    *   **Path B (Contextual):** The location (Delhi, India) is an urban/peri-urban environment where domestic dogs (*Canis familiaris*) are extremely common, both as pets and free-ranging/feral animals. The date and time (morning) are consistent with a dog resting outdoors.
+    *   **Compare:** Path A and Path B are highly consistent, both pointing towards a domestic dog. The metadata does not introduce any conflicting information.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and low clarity, distinguishing between dog breeds is impossible. However, the visible features are strongly canine. If it were not a domestic dog, given the region and general appearance, a **Golden Jackal** (*Canis aureus*) might be a distant look-alike, as they are wild canids present in India. However, the visible ear in the image appears more floppy/rounded than the typically erect ears of a jackal, and the snout seems more robust. The degradation makes precise differentiation challenging, but the overall form strongly favors a domestic dog.
+
+PHASE 2: CALIBRATED OUTPUT
+Despite the strong visual and contextual evidence pointing to a domestic dog, the **extreme low clarity** of the image, as per the system's instruction (""Low Clarity = Low Probability (under 40)""), necessitates a low probability score.
+
+Domestic Dog",Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+209,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,2,Rhesus Macaque,Macaca,Macaca mulatta,1
+211,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,5,Domestic Cat,Felis,Felis catus,2
+201,4,362236437,Domestic Dog,Canis familiaris,Common Myna,Acridotheres,Acridotheres tristis,1,Rhesus Macaque,Macaca,Macaca mulatta,1
+202,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,catus,5,Rock Pigeon,Columba,livia,3
+204,4,362236437,Domestic Dog,Canis familiaris,Unidentifiable Wildlife,Incertae,Sedis,1,Unidentifiable Wildlife,Incertae,Sedis,1
+208,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,2,House Mouse,Mus,Mus musculus,1
+214,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,5,Domestic Cat,Felis,Felis catus,2
+206,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Domestic Dog,Canis,Canis familiaris,0.1
+218,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,5,Rhesus Macaque,Macaca,Macaca mulatta,3
+210,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, making details almost entirely indistinguishable.
+    *   **Specific tokens:** No discernable ear shape, tail, or distinct fur/skin texture. A vague, elongated, yellowish-brown shape is faintly visible in the central area, surrounded by darker, blurry patterns that could be vegetation.
+    *   **Perceptual Barriers:** Severe underexposure, very low contrast, complete lack of distinct features or clear edges, potential occlusion by surrounding darkness/vegetation.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is too degraded to confidently suggest any specific species. It vaguely presents a yellowish-brown, elongated object that *might* be an animal lying down, or simply a non-animal object (e.g., clump of dry grass, debris).
+    *   **Path B (Contextual):** The location (New Delhi, India, specifically near Parliament House) and time (morning) suggest species common to urban or semi-urban environments. This includes domestic animals (dogs, cats) and urban wildlife such as Indian Jackals, Indian Grey Mongooses, Rhesus Macaques, and various bird species.
+    *   **Compare:** Path A provides no specific visual cues to agree or conflict with Path B. The extreme lack of visual clarity prevents any meaningful comparison or identification. Therefore, agreement is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the profound underexposure and lack of detail, the vague yellowish shape could be misinterpreted as numerous objects or animals. Common look-alikes under such degradation include a sleeping domestic dog, a clump of dried vegetation, a rock, an Indian Jackal (due to potential color and resting posture), or an Indian Grey Mongoose. The primary degradation is the near-total absence of light information.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is extremely low, and there is virtually no agreement between visual and contextual information for any specific species. Therefore, the probability must be very low, reflecting extreme uncertainty. The following identification is highly speculative based on the faintest visual hint and regional plausibility.
+
+Indian Jackal",Canis,Canis aureus,5,Indian Grey Mongoose,Herpestes,Herpestes edwardsii,3
+219,4,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,0,Unidentifiable Animal,N/A,N/A,0
+213,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, rendering almost all features indiscernible.
+    *   **Specific tokens:** A very faint, yellowish-brown, rounded or oval shape is barely visible in the center, possibly suggesting an animal curled up or resting. There are no clear tokens of ear shape, tail, or fur texture. The background shows faint linear patterns, possibly indicating vegetation or ground cover.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, and lack of detail.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests an extremely vague, indistinct, small to medium-sized, possibly mammalian, form. No specific species can be visually identified.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) indicate an environment where various urban/suburban wildlife and domestic animals could be present (e.g., domestic cats, dogs, rodents, mongooses, civets, squirrels).
+    *   **Compare:** There is a significant conflict due to the almost complete lack of visual information. Path A offers no specific identification, while Path B offers a broad range of possibilities. This lack of agreement and extremely low clarity mandates a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and lack of discernible features, any small to medium-sized animal (e.g., a domestic cat, a small dog, a rat, a mongoose, or even an inanimate object like a clump of leaves or a rock) could appear as this vague, yellowish-brown blob. The degradation is so severe that no meaningful ""look-alike"" can be identified as there are no distinct features to compare.
+
+PHASE 2: CALIBRATED OUTPUT
+
+The clarity is extremely low, and there is no reliable visual agreement for any specific species. Therefore, the probability must be significantly under 40. The identification is based on statistical likelihood for the location rather than visual evidence.
+
+Domestic Cat",Felis,Felis catus,2,Indian Grey Mongoose,Herpestes,Herpestes edwardsii,1
+215,4,362236437,Domestic Dog,Canis familiaris,Rose-ringed Parakeet,Psittacula,Psittacula krameri,5,Common Myna,Acridotheres,Acridotheres tristis,2
+224,4,362236437,Domestic Dog,Canis familiaris,NOT IDENTIFIABLE,N/A,N/A,1,NOT IDENTIFIABLE,N/A,N/A,1
+221,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,10,Indian Grey Mongoose,Herpestes,edwardsii,5
+223,4,362236437,Domestic Dog,Canis familiaris,Common Palm Civet,Paradoxurus,Paradoxurus hermaphroditus,5,Small Indian Civet,Viverricula,Viverricula indica,5
+227,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,Felis catus,1,Domestic Dog,Canis,Canis familiaris,1
+217,4,362236437,Domestic Dog,Canis familiaris,Bengal Monitor,Varanus,Varanus bengalensis,5,Indian Rock Python,Python,Python molurus,2
+225,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark, almost black. A very faint, indistinct, yellowish-brownish, curved shape is barely discernible in the lower center. No specific tokens like ear shape, tail, or texture can be identified.
+    *   **Perceptual Barriers:** Extreme underexposure, severe lack of contrast, blur, and an almost complete absence of discernible features.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to suggest any specific species. The faint shape is too ambiguous to be reliably interpreted as an animal part, let alone a particular species.
+    *   **Path B (Contextual):** The location (New Delhi, India) indicates a region with various common wildlife, including Rhesus Macaques, Hanuman Langurs, domestic dogs, domestic cats, and various small mammals. The date and time (daytime) are generic.
+    *   **Compare:** Path A provides almost no information. Path B provides geographical context but no visual match. Due to the extreme lack of visual clarity and information, there is no agreement possible, and confidence is extremely low.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' species in this specific degradation is *any object or animal that could appear as an amorphous, dark, slightly yellowish-brown blob under extreme low-light conditions*. Given the complete lack of features, it is impossible to distinguish between a multitude of animals (e.g., a monkey's limb, a dog's back, a piece of wood, a rock) if they were photographed in such poor conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Extremely low.
+*   **Clarity:** Extremely low.
+*   **Probability:** Given the severe lack of visual information and clarity, the probability for any identification must be extremely low (under 40). Assigning a species is speculative, based solely on the very broad geographical context and the slight, unreliable color hint.
+
+Rhesus Macaque",Macaca,Macaca mulatta,1,Domestic Dog,Canis,Canis familiaris,0
+216,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,2,Domestic Cat,Felis,Felis catus,1
+228,4,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,1,Laughing Dove,Spilopelia,Spilopelia senegalensis,1
+220,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is predominantly black with severe underexposure.
+    *   **Specific Tokens:** No specific animal tokens (ear shape, tail, texture, eyes, limbs) are discernible in the image or its crops. There is a very faint, indistinct, slightly lighter rounded/oval shape in the lower central part of the main image, but it lacks any distinguishing features. The surrounding patterns are vague and could suggest ground cover or foliage, but are equally indistinct.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, making the image almost entirely black. High blur/lack of detail.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on the visual information alone, no identifiable species can be determined. The faint shape is too ambiguous to be reliably attributed to any animal.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest the potential presence of common urban/suburban wildlife such as rats, mongoose, squirrels, macaques, stray dogs, or cats.
+    *   **Compare:** There is no agreement between Path A and Path B because Path A yields no visual identification. The clarity is critically low. This necessitates an extremely low confidence score.
+3.  **SELF-REFLECTION:** Due to the extreme darkness and lack of any discernible features, there is no specific 'look-alike' species for this degradation; the image appears as an indistinct dark mass or blob. Any animal (or even inanimate object) could be obscured to this degree. It is impossible to confidently identify any species or even confirm the presence of an animal.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and complete lack of agreement between visual and contextual information for identification, the probability for any specific species is negligible. To adhere to the output format, plausible species for the geographic region are provided, but with the lowest possible probability reflecting unidentifiable status.
+
+Brown Rat",Rattus,Rattus norvegicus,1,Indian Grey Mongoose,Herpestes,Herpestes edwardsii,1
+222,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, rendering most details invisible. A faint, indistinct, yellowish, somewhat circular/oval shape is barely discernible in the center of the frame. The surrounding texture appears to be ground cover (e.g., grass or dry leaves), also highly indistinct. The cropped images offer no additional clarity.
+    *   **Specific tokens:** No discernible ear shape, tail, or specific texture of an animal is visible. The central shape lacks any defining features.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure is the dominant barrier. The image is effectively black, with only the faintest hint of a subject. Blur and low resolution also contribute.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is insufficient to identify any animal species. The faint yellowish blob could be part of an animal, an entire small animal curled up, or a non-animal object. No specific anatomical features or patterns are visible.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is Delhi, India. The date/time (2026-05-17, 08:00 AM) indicates daytime. Delhi hosts a variety of urban and peri-urban wildlife, including numerous bird species, small mammals (e.g., squirrels, mongooses, civets), reptiles, and potentially larger mammals in protected areas or zoos. This context provides a broad range of possibilities but no specific clues for the indistinct visual.
+    *   **Compare:** Path A provides no identifiable visual information. Path B provides a wide array of potential species. There is no agreement possible between visual data and contextual suggestions due to the complete lack of visual detail.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and indistinctness of the shape, the object could be almost anything. If forced to speculate about what a highly degraded, somewhat rounded, yellowish blob on the ground in Delhi might be, it could vaguely represent a curled-up small mammal (like an Indian Palm Squirrel or a small domestic cat) or a ground-dwelling bird (like a Common Myna or a Peafowl in partial view). However, this is pure conjecture, as no visual cues support it. The degradation makes accurate identification impossible, and any ""look-alike"" is a wild guess.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and the complete lack of agreement between visual data and specific species, the probability of any identification is extremely low. Any named species is a highly speculative guess based on geographical context only, not on visual evidence.
+
+Indian Palm Squirrel",Funambulus,Funambulus palmarum,1,Common Myna,Acridotheres,Acridotheres tristis,1
+226,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Stray Dog,Canis,Canis familiaris,1
+233,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,5,Rhesus Macaque,Macaca,Macaca mulatta,2
+229,4,362236437,Domestic Dog,Canis familiaris,Unknown Animal,Indet.,Indet.,1,Unidentifiable Organism,Indet.,Indet.,1
+239,4,362236437,Domestic Dog,Canis familiaris,"I cannot identify the species. The image is extremely dark, and there are no discernible features to evaluate. The crops provided also suffer from the same extreme underexposure and lack of clarity. Therefore, any identification would be pure speculation.
+
+The location (Delhi, India) suggests a range of common urban wildlife, including stray dogs, cats, rodents, and birds, but without visual evidence, I cannot assign any probability. The time of day (8 AM) typically has sufficient light, which suggests the extreme darkness is either an artifact of the image capture or the subject was in profound shadow.
+
+Given the almost complete lack of visual information, the agreement between visual and contextual information is critically low, resulting in a very low probability score for any species.
+
+Unidentifiable",N/A,N/A,0,Unidentifiable,N/A,N/A,0
+235,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,5,Golden Jackal,Canis,Canis aureus,2
+237,4,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+238,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,Felis catus,8,Domestic Dog,Canis,Canis familiaris,3
+230,4,362236437,Domestic Dog,Canis familiaris,Unidentifiable Small Animal,Unknown,Unknown,1,Unidentifiable Chick,Unknown,Unknown,1
+234,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black due to severe underexposure/darkness.
+    *   **Specific tokens:** No specific tokens (ear shape, tail, texture) can be identified. There is a very faint, indistinct, rounded, slightly yellowish shape visible in the center of the main image, but it lacks any discernible features. The provided crops offer no additional clarity; they are equally dark.
+    *   **'Perceptual Barriers':** Extreme darkness, severe underexposure, very low contrast, lack of any distinct anatomical or textural details.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The faint shape is too indistinct to suggest any specific species. It vaguely suggests an organic, rounded form, possibly part of an animal. No unique identifiers are present.
+    *   **Path B (Contextual):**
+        *   **Location:** (28.62862059, 77.25930492) corresponds to Delhi, India.
+        *   **Date/Time:** 2026-05-17 at 08:00 military time (morning).
+        *   This context places the observation in an urban or peri-urban environment in North India, where a wide range of common animals (domesticated and wild urban species like dogs, cats, rodents, squirrels, various birds, etc.) could be found.
+    *   **Compare:** Path A provides almost no specific visual information. Path B offers a broad geographical and temporal context. There is no conflict as the visual data is virtually absent. However, due to the extremely low visual clarity, confidence in any identification must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness and lack of features, almost any animal (especially a mammal with light-colored fur, or any animal seen in deep shadow) could appear as an indistinct, rounded shape. It could also easily be an inanimate object. This degradation makes definitive species identification impossible. Generic common urban animals are chosen below as placeholders with minimal probability.
+
+PHASE 2: CALIBRATED OUTPUT
+The extremely low clarity and complete lack of visual tokens result in virtually no agreement between visual perception and any specific species. Therefore, the probability score must be very low, indicating that no confident identification can be made. The species listed below are chosen purely based on commonality in the given location, not on visual evidence.
+
+Domestic Dog",Canis,Canis familiaris,1,Domestic Cat,Felis,Felis catus,1
+240,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Domestic Dog,Canis,Canis familiaris,1
+232,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed and lacks discernible detail. The object in question is a very faint, light-colored, indistinct blob against an equally dark and featureless background that vaguely resembles ground cover or foliage.
+    *   **Specific tokens:**
+        *   **Ear shape:** Undeterminable.
+        *   **Tail:** Undeterminable.
+        *   **Texture:** Appears somewhat smooth, but impossible to confirm due to extreme darkness and blur.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, lack of focus/detail, indistinct background, severe digital degradation (appears pixelated/noisy upon close inspection of faint object). The provided crops offer no significant improvement in clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests an extremely vague, light-colored, rounded object on a dark surface. It *might* be an animal's head or body part, but no specific features allow for species identification. It could also be a non-animal object (rock, debris).
+    *   **Path B (Contextual):**
+        *   **Location:** (28.62862059, 77.25930492) corresponds to New Delhi, India.
+        *   **Date/Time:** 2026-05-17 at 08:00 (8 AM).
+        *   **Local wildlife in New Delhi (urban/suburban):** Common species include Domestic Cat (Felis catus), Domestic Dog (Canis familiaris), Rhesus Macaque (Macaca mulatta), Indian Palm Squirrel (Funambulus palmarum), various birds.
+    *   **Compare:** Path A provides almost no information. Path B gives a list of plausible species for the location, but there is no visual data from Path A to match against this list. The clarity is so low that no agreement between visual and contextual information can be established for a specific species.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of clarity and detail, the faint, light-colored blob could be interpreted as a highly degraded image of:
+        *   A domestic cat or small dog (head or curled body) lying on the ground.
+        *   Part of a Rhesus Macaque (e.g., a poorly lit face or limb).
+        *   A light-colored rock or piece of trash.
+        *   A poorly illuminated patch of ground or vegetation.
+        Given the requirement for species identification, the most plausible animal interpretations for such a vague shape in this urban location would be common domestic or urban wildlife.
+
+PHASE 2: CALIBRATED OUTPUT
+Domestic Cat",Felis,Felis catus,5,Domestic Dog,Canis,Canis familiaris,3
+231,4,362236437,Domestic Dog,Canis familiaris,Indeterminate Species,Indeterminate,Indeterminate,1,Indeterminate Species,Indeterminate,Indeterminate,0
+242,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,Felis catus,5,Domestic Dog,Canis,Canis familiaris,2
+236,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black, with minimal contrast.
+    *   **Specific tokens:**
+        *   **Ear shape:** Indiscernible. A vague rounded shape might suggest an ear, but no distinct features.
+        *   **Tail:** Indiscernible.
+        *   **Texture:** A hint of fur or hair is vaguely present within a barely discernible lighter patch, but specific texture details are lost due to darkness and blur.
+        *   **Overall shape:** A very faint, rounded, amorphous shape suggests a small to medium-sized animal, possibly lying down or curled.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, lack of sharp focus/blurriness, and low resolution. These barriers make definitive visual identification impossible.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image vaguely suggests a furry mammal of small to medium size. Specific features are entirely absent, preventing identification of species, genus, or even definitive family.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is in Delhi, India. Common mammals in urban/suburban Delhi include stray (feral) dogs, domestic cats, various rodents, and monkeys (e.g., Rhesus Macaque).
+    *   **Compare:** Path A offers an extremely vague ""furry mammal."" Path B suggests several common mammals for the region. There is no conflict, as the visual data is too poor to contradict any mammal, but there is also no specific agreement. The overwhelming factor is the extremely low clarity, which significantly reduces confidence in any identification.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the severe darkness and lack of detail, almost any small to medium-sized furry mammal (e.g., small dog, cat, fox, civet, jackal) could be a 'look-alike' for the vague, dark shape. The degradation renders unique species characteristics invisible.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity of the image is extremely low, making accurate visual identification impossible. Therefore, the probability of any specific identification must be very low, as per the instructions (under 40). The identification below is a speculative inference based on the minimal visual cues and the high prevalence of the species in the given location.
+
+Domestic Dog",Canis,Canis familiaris,15,Domestic Cat,Felis,Felis catus,5
+247,4,362236437,Domestic Dog,Canis familiaris,Unidentifiable Object,None,None,1,Unidentifiable Object,None,None,1
+250,4,362236437,Domestic Dog,Canis familiaris,Feral Cat,Felis,Felis catus,5,Stray Dog,Canis,Canis lupus familiaris,2
+243,4,362236437,Domestic Dog,Canis familiaris,Unknown Species,Not applicable,Not applicable,0,Unknown Species,Not applicable,Not applicable,0
+248,4,362236437,Domestic Dog,Canis familiaris,Common Mongoose,Herpestes,Herpestes edwardsii,1,Domestic Cat,Felis,Felis catus,1
+241,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black. There are faint, dark grey/yellowish textures in the background, possibly indicating foliage or ground cover. A very subtle, lighter, indistinct yellowish circular/oval shape is visible in the center-right of the main image and second crop. No discernible features such as eyes, ears, limbs, or body patterns are visible.
+    *   **Specific tokens:** No specific tokens relevant for species identification (e.g., ear shape, tail, specific texture, color patterns) can be identified. The faint textures are too vague to be useful.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, blur, lack of discernible detail, and overall poor image quality.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not visually suggest any particular species. The faint shape is too indistinct to be identified as any animal or even definitively as organic matter.
+    *   **Path B (Contextual):**
+        *   Location: (28.62862059, 77.25930492) corresponds to New Delhi, India.
+        *   Date/Time: 2026-05-17 at 08:00 Military time (8 AM).
+        *   This context suggests common urban/suburban wildlife in New Delhi, active in the morning, such as various birds (e.g., Common Myna, House Crow), small mammals (e.g., Indian Palm Squirrel, rodents), or reptiles.
+    *   **Compare:** Path A provides no identifiable visual information. Path B provides a broad geographical and temporal context for potential species. There is no conflict, but also no agreement, as the visual data is effectively absent for identification purposes. The clarity is extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and complete lack of identifiable features, the faint light spot could be almost any small, light-colored object or animal part. It could be a reflection, a piece of trash, a stone, or any small animal (a curled-up rodent, a resting bird, a lizard) if only a highly blurred and underexposed part of its body is visible. Given the complete absence of distinguishing marks, all small, potential species in the region are equally ""look-alikes"" in this degraded image.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of specific visual information, no reliable species identification is possible. The probability assigned to any specific species must therefore be extremely low, reflecting the absence of perceptual evidence. The choices below are based solely on contextual likelihood in the given location, *not* on any visual identification.
+
+Indian Palm Squirrel",Funambulus,Funambulus palmarum,1,Common Myna,Acridotheres,Acridotheres tristis,0
+245,4,362236437,Domestic Dog,Canis familiaris,Indian Hare,Lepus,Lepus nigricollis,5,Small Indian Mongoose,Herpestes,Herpestes javanicus,2
+246,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Common Palm Civet,Paradoxurus,Paradoxurus hermaphroditus,1
+252,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,1,Street Dog,Canis,Canis familiaris,1
+249,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is severely underexposed, appearing almost entirely black. There are no discernible visual tokens such as ear shape, tail, or specific fur texture. A faint, extremely dark, roundish shape with minimal yellowish-brown tint is barely perceptible in the center of the main image and the second crop, but it lacks any distinguishing features. Perceptual Barriers include extreme darkness, very low contrast, and severe blurring/lack of detail.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the overwhelming darkness and complete lack of identifiable features, no species can be identified from the visual data. The faint central shape is too ambiguous to suggest any animal or even an object with certainty.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is in Delhi, India. The date/time (2026-05-17 at 08:00 AM) indicates morning in late spring. This context suggests a wide range of common urban and semi-urban wildlife that could be active, such as various birds, rodents, monkeys (e.g., Rhesus Macaque), civets, mongooses, and feral domestic animals (dogs, cats).
+    *   **Compare:** Path A yields no visual identification, while Path B provides a broad geographical and temporal context. There is no agreement between the visual and contextual paths regarding a specific species, as the visual information is absent. Clarity is extremely low. Therefore, confidence in any species identification is effectively zero.
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation (extreme darkness) is ""any dark, indistinct blob or shadow,"" or simply ""nothing recognizable."" No specific animal look-alike can be identified as there are no features to compare.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of identifiable visual features, any species identification would be purely speculative and based solely on the general location context. The probability score must reflect this absolute lack of visual evidence.
+
+Rhesus Macaque",Macaca,Macaca mulatta,1,Feral Dog,Canis,Canis familiaris,1
+251,5,362236437,Domestic Dog,Canis familiaris,Unknown,Unknown,Unknown,1,Unknown,Unknown,Unknown,0
+256,5,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,0,House Crow,Corvus,Corvus splendens,0
+255,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,Unknown,Unknown,1,Unidentifiable Animal,Unknown,Unknown,1
+253,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1,Common Mongoose,Herpestes,Herpestes edwardsii,0.5
+258,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Object,N/A,N/A,1,Domestic Dog,Canis,Canis familiaris,1
+244,4,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making it nearly impossible to discern any distinct features. There is a very faint, indistinct, yellowish, roughly circular blob visible in the center of the main image and one of the crops.
+    *   **Specific tokens:** No discernible ear shape, tail, fur/feather texture, limb, eye, or other anatomical tokens can be identified. The yellowish blob lacks any defining characteristics.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, potential blur, and overall lack of detail significantly hinder any identification. The provided crops do not improve clarity.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is insufficient to suggest any specific species. It merely shows a faint, indistinct yellowish shape against a dark, textured background, which could be anything from a small animal to litter or a plant part.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest an urban/suburban environment where common wildlife such as various bird species (sparrows, mynas), rodents (rats, squirrels), or reptiles/amphibians could be present. However, this context does not provide specific visual cues.
+    *   **Compare:** There is no agreement between Path A and Path B because Path A provides no identifiable visual information. Clarity is practically zero. Therefore, confidence in any identification is extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of clarity, the faint yellowish blob could be mistaken for a wide range of objects, both biotic and abiotic. This includes a crumpled piece of plastic, a fallen leaf, a piece of fruit, a rock, or a highly obscured part of a small animal (e.g., a chick, a rodent pup). Given the task is wildlife identification, if it were an animal, a small, yellowish chick or rodent under extremely poor lighting would be the most abstract ""look-alikes,"" but with zero visual support for species-specific features.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of identifiable visual features, any species identification is purely speculative and unsupported by the image data. The probability reflects this absolute lack of confidence, meaning there is virtually no agreement between the non-existent visual data and any potential contextual guess.
+
+House Sparrow",Passer,Passer domesticus,1,Common Myna,Acridotheres,Acridotheres tristis,1
+261,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is predominantly a very dark grey/black. There are faint, indistinct lighter areas that appear as smudges or minimal texture variations, but no clear forms, shapes, or details are discernible.
+    *   **Specific Tokens:** None identifiable. There are no discernible ear shapes, tail features, fur textures, eye glints, or body outlines that could belong to any specific animal.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, complete lack of distinct features, rendering any visual information effectively absent for identification purposes.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no specific visual cues to suggest any wildlife species. It is indistinguishable from a blank dark surface.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest a region where various urban and wild species could potentially be present (e.g., street dogs, cats, rodents, various bird species, monkeys). However, without visual input, this context cannot narrow down to a single species or even a type of animal.
+    *   **Compare:** Path A yields no information for species identification. Path B provides geographical context but no species-specific information in the absence of visual data. There is no conflict, but also no agreement, as no species can be suggested from either path. Clarity is exceptionally low, therefore confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete absence of discernible features, any animal, or even an inanimate object, could appear as this dark, featureless image under extreme underexposure. The degradation is so severe that it obliterates all identifying characteristics, making the concept of ""look-alike"" inapplicable here as there is nothing to ""look like.""
+
+PHASE 2: CALIBRATED OUTPUT
+Unknown Animal",Undetermined,Undetermined,1,Undetermined Creature,Unknown,Unknown,1
+254,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey. There are very faint, abstract, indistinct patterns/textures, but no discernible animal shape, features, or details in any of the provided images. It appears to be a heavily underexposed or completely dark image.
+    *   **Specific Tokens:** None identifiable. No ear shape, tail, fur texture, eye, snout, or body outline can be seen.
+    *   **Perceptual Barriers:** Extreme underexposure, complete lack of subject visibility, severe blur/darkness rendering any potential subject imperceptible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any wildlife species. It lacks any visual information that could be attributed to an animal.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest that common urban/peri-urban wildlife such as Rhesus Macaques, various bird species, street dogs, or civets could potentially be present. However, this contextual information provides no specific visual cues for identification.
+    *   **Compare:** There is a complete lack of agreement between Path A and Path B, as Path A yields no identifiable information whatsoever. Visual clarity is at its absolute minimum. Consequently, confidence in identifying any specific species is effectively zero.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of visual information, no specific animal 'look-alike' can be identified. The image appears as ""random dark texture"" or ""an underexposed photograph of nothing discernible.""
+
+PHASE 2: CALIBRATED OUTPUT
+No species can be identified from the provided images due to extreme lack of visual data and clarity. Therefore, the probability for any specific species being present and identifiable is 0.
+
+No species found",N/A,N/A,0,No species found,N/A,N/A,0
+257,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray with minimal contrast. There are some very faint, irregular, slightly lighter shapes discernible in the main image and crops, but they lack any distinct features.
+    *   **Specific Tokens:** None identifiable. No discernable ear shape, tail, texture, eyes, or body outlines of an animal are present.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, blur (or complete lack of detail), and obfuscation. The image effectively represents an absence of visual information for species identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to suggest any specific wildlife species. There are no identifiable characteristics.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is Delhi, India. The time is 08:00 (morning). This context indicates that common urban/suburban species of Delhi are possible if an animal were present and identifiable.
+    *   **Compare:** There is a complete lack of agreement between Path A and Path B in terms of identifying a specific species. Path A provides zero actionable information. Clarity is virtually non-existent. This comparison leads to an extremely low confidence in any species identification.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this image degradation is ""no animal"" or ""an indistinguishable dark object/shadow"". Given the absolute lack of visual data, any species identification would be purely speculative and not based on visual perception. Therefore, the accuracy of identification from perception is effectively zero.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement from visual cues, the probability for any identification must be exceedingly low (under 40). Assigning a probability reflects the certainty of identification *from the provided image*. Since no animal is visually identifiable, the probability of correctly identifying any species is near zero. Based purely on geographical context for common species, and to adhere to the output format requiring species names, extremely common urban animals in Delhi are listed, but with a nominal, near-zero probability to reflect the total absence of visual evidence.
+
+Street Dog",Canis,Canis familiaris,0.1,House Crow,Corvus,Corvus splendens,0.1
+259,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,2,House Rat,Rattus,Rattus rattus,1
+264,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,5,Indian Palm Squirrel,Funambulus,Funambulus palmarum,3
+265,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, low contrast, and lacks any discernible detail. It appears as a dark grey field with faint, indeterminate shapes.
+    *   **Specific tokens:** No identifiable tokens such as ear shape, tail, fur texture, or body parts are visible. There is a very faint, rounded, lighter area in the lower-middle portion of the image, and some linear, indistinct textures (possibly grass or debris) in the background, but these are too vague to be species-specific.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, complete lack of distinct features, heavy blur/obscurity. The image quality makes visual identification impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no specific species due to the profound lack of visual information. It is impossible to extract any meaningful visual cues for identification.
+    *   **Path B (Contextual):** The location (New Delhi, India) suggests common urban and semi-urban wildlife such as Rhesus Macaques, Indian Palm Squirrels, stray dogs, cats, mongooses, etc. The date/time (morning) is suitable for activity for many of these species.
+    *   **Compare:** Path A offers no visual information for comparison. Path B provides potential species for the region, but there is no agreement or disagreement as there is no visual data to link. Clarity is virtually non-existent. Therefore, confidence in any identification based on the image must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of clarity, the faint rounded shape could be a rock, a pile of earth, debris, or any small to medium-sized object or animal (e.g., a curled-up cat, dog, monkey, or even a large rat) completely obscured by darkness and blur. The degradation is so severe that identification is rendered impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the near-zero perceptual clarity and the inability to establish any visual agreement with contextual data, the probability of correctly identifying any species is extremely low. The output species are purely speculative guesses based on the geographic location, with no visual support.
+
+Rhesus Macaque",Macaca,Macaca mulatta,2,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+260,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+263,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable,Unidentifiable,Unidentifiable,1,No Animal Detected,No Animal Detected,No Animal Detected,0
+270,5,362236437,Domestic Dog,Canis familiaris,No animal,Unidentifiable,Unidentifiable,1,No animal,Unidentifiable,Unidentifiable,1
+262,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Critically low. The image is severely underexposed, monochromatic (dark grey), and extremely blurry.
+    *   **Specific Tokens:** No identifiable tokens are present. There is a faint, indistinct, rounded dark shape in the lower central part, surrounded by equally blurry and dark textures that might be vegetation. No ear shape, tail, specific fur/skin texture, eyes, or other diagnostic features can be discerned.
+    *   **Perceptual Barriers:** Extreme underexposure, severe blur, very low contrast, complete lack of distinct features, absence of color information.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Based on the visual data alone, no species can be suggested. The image is an unrecognizable blur.
+    *   **Path B (Contextual):**
+        *   **Location:** (28.62862059, 77.25930492) corresponds to Delhi, India. This is a highly urbanized area with parks, green spaces, and associated wildlife.
+        *   **Date/Time:** 2026-05-17 at 08:00 AM. This is early morning, a time when many diurnal or crepuscular animals might be active or resting.
+        *   **Common Wildlife in Delhi:** Includes Indian Palm Squirrels, various rodents (e.g., House Rats), Rhesus Macaques, domestic animals (feral cats/dogs), various birds, and sometimes mongooses.
+    *   **Compare:** There is no agreement between Path A and Path B, as Path A provides no visual cues. The clarity is essentially zero. Consequently, confidence in any identification must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation, the indistinct, dark, rounded shape could be almost anything – a rock, a lump of dirt, a shadow, or a heavily underexposed, small, curled-up animal. Given the context of wildlife identification, common small mammals of Delhi such as an Indian Palm Squirrel or a House Rat, if captured in such poor conditions, *could* theoretically appear as such a blurry blob. However, this is pure speculation due to the complete absence of visual evidence.
+
+PHASE 2: CALIBRATED OUTPUT
+The agreement between visual data and contextual data is non-existent due to the absence of visual information. The perceptual clarity is critically low. Therefore, the probability assigned to any species must be extremely low, reflecting no confidence in the identification based on the image. While I am forced to provide species, these are speculative based solely on common presence in the location, with no visual support.
+
+Indian Palm Squirrel",Funambulus,Funambulus palmarum,1,House Rat,Rattus,Rattus rattus,1
+267,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,mulatta,0,Domestic Dog,Canis,familiaris,0
+268,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, low contrast, and blurry. The original image and its crops are almost entirely dark grey, rendering most details invisible.
+    *   **Specific tokens:** No discernible ear shape, tail, or specific fur/skin texture. There is a very faint, rounded, slightly lighter grey blob in the approximate center, surrounded by darker, subtly textured (possibly foliage or shadowed ground) areas. No defining anatomical features are visible.
+    *   **Perceptual Barriers:** Severe underexposure, extreme low contrast, significant blur, complete lack of detail, and visual fading. The image essentially presents as a dark grey field.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information is insufficient to suggest any specific species. The faint shapes are too ambiguous to identify any characteristic features of an animal. It merely suggests a vague, medium-sized, rounded object or form.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning in May) indicate an urban/suburban environment. Common mammals in such an area include domestic cats, domestic dogs, various rodents, mongooses, and civets.
+    *   **Compare:** There is a fundamental conflict due to the complete absence of visual data that could support or contradict any species suggested by the contextual metadata. The clarity is profoundly low, necessitating a significantly reduced confidence score.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme lack of clarity, any medium-sized animal or even an inanimate object with a rounded, indistinct shape could appear similar under these conditions. Common ""look-alikes"" given the context and perceived (though non-specific) shape include a domestic cat (Felis catus), a domestic dog (Canis familiaris), or an Indian grey mongoose (Herpestes edwardsii) resting in deep shadow or obscured by foliage. The degradation makes any differentiation impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+The agreement between the visual evaluation (no discernible features) and the contextual information (possible species in Delhi) is effectively zero due to the profound lack of visual clarity. The clarity itself is critically low. Therefore, the probability assigned to any specific species identification must be extremely low, reflecting pure guesswork based on context rather than visual evidence.
+
+Domestic Cat",Felis,Felis catus,1,Domestic Dog,Canis,Canis familiaris,0
+271,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is almost entirely black/dark grey, with extremely low contrast and no discernible features. There are no identifiable tokens such as ear shape, tail, or specific texture (fur, scales, feathers). The image lacks any visual information that could be associated with a wildlife species. Perceptual Barriers: Extreme underexposure, complete lack of detail, heavy blurring, and pixelation when attempting to enhance. The 'crops' are identical to the original image in their lack of visual content.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any particular species due to the absence of visual data. It is unidentifiable.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) corresponds to Delhi, India. The date/time (2026-05-17 at 08:00 AM) suggests diurnal or crepuscular urban wildlife. Common species in Delhi include Domestic Dogs, Domestic Cats, Rhesus Macaques, various bird species, and rodents. This context provides a list of *possible* species that *could* be present, but without visual evidence, it's pure speculation.
+    *   **Compare:** There is no agreement between Path A and Path B, as Path A provides no visual cues for identification. Clarity is extremely low, effectively zero.
+3.  **SELF-REFLECTION:** The most likely 'look-alike' species for this degradation is ""an obscured, dark, underexposed, and unidentifiable object"" or simply ""nothing discernible."" Any actual species would be a guess unsupported by evidence.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information, no confident identification can be made. The probability for any specific species is effectively zero, but to adhere to the output format requiring two species with probabilities, I will list the most common plausible urban species for the given location, assigned an extremely low probability reflecting the absolute uncertainty.
+
+Domestic Dog",Canis,Canis lupus familiaris,1,Domestic Cat,Felis,Felis catus,1
+274,5,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+273,5,362236437,Domestic Dog,Canis familiaris,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+266,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray, severely underexposed, and appears very blurry. No distinct features or details are visible.
+    *   **Specific tokens:** No discernible ear shape, tail, fur texture, eye, or limb details. There is a very faint, lighter, irregular circular area in the center which is too indistinct to identify as a biological feature. The surrounding areas contain faint, blurry, irregular patterns that could be environmental textures but lack definition.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, severe blur, very low contrast, lack of any identifiable shapes or forms. The image essentially presents as a dark, featureless void.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no specific visual cues to suggest any particular species. The extreme lack of detail makes visual identification impossible.
+    *   **Path B (Contextual):**
+        *   **Location:** (28.62862059, 77.25930492) corresponds to Delhi, India.
+        *   **Date/Time:** 2026-05-17 at 08:00 (8 AM). This indicates daylight hours in an urban/suburban environment.
+        *   Species common in Delhi include Rhesus Macaques, Feral Dogs, Indian Palm Squirrels, various bird species (e.g., Rock Pigeons, House Crows), and other urban wildlife.
+    *   **Compare:** Path A (no visual information) and Path B (geographic and temporal context) are in complete conflict regarding species identification from the image itself. The clarity is critically low, bordering on non-existent for identification purposes. This leads to a very low confidence assessment.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation, the image does not clearly resemble any animal. The faint, central blurry shape could *theoretically* be an extremely out-of-focus mammal's head or body, but this is pure speculation. Given the image quality, a ""look-alike"" could be a dark, blurry rock, a shadow, an inanimate object, or simply image noise, as no distinguishing animal characteristics are present. No specific animal look-alike can be confidently identified under these conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Probability Calculation:** Agreement between Visual Self-Check (no identifiable features) and Self-Consistency (no visual suggestion, only contextual possibilities) is effectively zero. Clarity is extremely low. Following the rule ""Low Agreement OR Low Clarity = Low Probability (under 40)"", the probability must be very low, approaching the minimum non-zero value, as no identification can be made from visual input. The probability reflects the *accuracy of identification from the visual data provided*.
+
+Rhesus Macaque",Macaca,Macaca mulatta,1,Feral Dog,Canis,Canis familiaris,1
+272,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,0,Feral Pigeon,Columba,Columba livia domestica,0
+278,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+275,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+276,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is extremely dark and severely underexposed, making almost all features imperceptible. I can faintly discern a central, slightly less dark, rounded mass, surrounded by darker, blurry linear textures which *might* be vegetation (e.g., grass or reeds). No specific tokens like ear shape, tail, fur texture, or eye details are visible.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, very low contrast, heavy blur, complete lack of discernible features. The image is largely a dark grey rectangle.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides virtually no visual information to suggest any specific species. It is impossible to identify an animal from the visual data.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is in Delhi, India. The date/time is May 17, 08:00 AM. This context suggests common urban or suburban wildlife found in Delhi, which could include stray dogs, domestic cats, Indian palm squirrels, various bird species, rodents, etc.
+    *   **Compare:** Path A yields no recognizable visual features, making a direct comparison or agreement with species suggested by Path B impossible. The clarity is extremely low, and there is no visual agreement. This necessitates a very low confidence score.
+
+3.  **SELF-REFLECTION:** The most likely 'look-alike' for this specific degradation (extreme darkness and indistinctness) is *any* dark, roughly spherical or lumpy object of indeterminate size that might be found in a natural or semi-natural setting. This could be a rock, a discarded piece of fabric, a patch of dirt, or indeed, any animal curled up and completely obscured by darkness. There are no visual cues to differentiate an animal from inanimate objects.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement between visual data (which is non-existent) and contextual possibilities, the probability score for any species identification must be exceptionally low, reflecting the absolute uncertainty. The visual information is insufficient to make any identification. However, as the format requires an output, I must provide placeholder species that are common to the location, with probabilities reflecting zero confidence from visual input.
+
+Street Dog",Canis,Canis familiaris,5,Domestic Cat,Felis,Felis catus,2
+280,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,1,Unidentifiable Animal,N/A,N/A,1
+277,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is almost entirely a uniform dark grey color. There are some very faint, indistinct patterns resembling noise or highly degraded textures, but no discernible object, shape, or animal features.
+    *   **Specific tokens:** None identifiable. There are no clear ear shapes, tails, fur, feathers, or any other anatomical tokens.
+    *   **Perceptual Barriers:** Extreme blur, severe low contrast, and underexposure/fading to the point where all visual information is obscured. The image provides no useful visual data for identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual evidence to suggest any species. It appears blank.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is near Delhi, India. The date/time is 2026-05-17 at 08:00 AM. This metadata suggests a geographical context where various urban and suburban wildlife might be present (e.g., crows, pigeons, squirrels, street dogs, monkeys). However, it does not suggest a specific species without visual input.
+    *   **Compare:** Path A yields no identifiable species, and thus there is no agreement or conflict with Path B regarding a specific animal. However, the clarity from Path A is critically low, rendering visual identification impossible.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation is ""nothing,"" as the image lacks any discernible features belonging to any animal. The degradation (extreme blur, lack of contrast, apparent underexposure) is so severe that it prevents any visual identification or even the hint of an animal form. Therefore, assigning any specific look-alike is not possible, as there's no visual basis for comparison. Any species listed will be a guess based on context only, with extremely low confidence due to the complete lack of perceptual information.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity (no visual information) and the resulting lack of agreement between visual input and contextual data for a specific species, the probability must be very low, reflecting that no identification could be made from the image. The species listed are arbitrary choices of common urban animals in Delhi, used to fulfill the output format, but with a probability that signifies non-identifiability.
+
+Common House Crow",Corvus,Corvus splendens,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+269,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely a uniform dark grey. There are no clear features, shapes, or colors to distinguish any object or animal.
+    *   **Specific Tokens:** None reliably identifiable. A very faint, slightly lighter, circular/oval patch is barely discernible in the center, with two even fainter, darker spots that *could* be interpreted as highly blurred facial features (e.g., eyes or nostrils), but this is highly speculative due to extreme degradation. The surrounding areas show extremely faint, non-distinctive textural variations.
+    *   **Perceptual Barriers:** Extreme blur, extremely low contrast, severe underexposure/darkness, fading, complete lack of detail. The provided ""crops"" do not improve clarity as they only magnify the existing ambiguity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no sufficient visual information to suggest any specific species. The faint, ambiguous shapes are not diagnostic of any animal features (ear shape, tail, fur texture, etc.).
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is in Delhi, India. The date/time (2026-05-17 at 08:00) indicates morning. This context suggests a wide range of potential urban or peri-urban wildlife, including various birds, small mammals (e.g., squirrels, rats, macaques, mongoose, owlets), and domestic animals. However, without any visual cues, the context alone cannot narrow down to a specific species.
+    *   **Compare:** There is no agreement between Path A (which yields no specific identification) and Path B (which provides a broad range of possibilities). Clarity is critically low, leading to extremely low confidence in any visual interpretation or potential species identification.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' species for this specific degradation is *any object or animal that could appear as a very dark, highly blurred, ambiguous circular or oval shape*. Due to the complete absence of distinct features or diagnostic tokens, it is impossible to narrow down the possibilities beyond a highly generic, unidentifiable form. It could be a blurred rock, a shadow, a stain, or a highly underexposed/blurred image of any animal (e.g., a mammal's head, an owl's face) or even a non-animal object. Given the near-total lack of visual information, any species listed would be a pure guess, not linked to perception.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of agreement between visual (non-existent) and contextual (too broad) information, the probability for any species identification must be exceptionally low, approaching zero. The output will reflect this extreme uncertainty by assigning the lowest possible non-zero probability. The species listed are merely placeholders to fit the output format, acknowledging the complete absence of visual evidence.
+
+Unidentifiable Wildlife",Unknown,Unknown,1,Unidentifiable Wildlife,Unknown,Unknown,1
+279,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is almost entirely dark gray, exhibiting extremely low brightness and contrast. No discernible features, shapes, or textures identifiable as belonging to a wildlife species are present. There are some very faint, almost imperceptible tonal variations which suggest a crumpled or textured surface, but these do not form any recognizable biological structure.
+    *   **Specific tokens (ear shape, tail, texture):** None are identifiable.
+    *   **'Perceptual Barriers':** Extreme underexposure/darkness, complete lack of contrast, and total absence of any animal-related visual information. The image is effectively a blank dark canvas for species identification purposes.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. There is no visible animal.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) corresponds to New Delhi, India. The date is 2026-05-17. This metadata suggests a wide range of potential urban and semi-urban wildlife species for this region.
+    *   **Compare:** There is a complete lack of agreement between Path A (no visual information about an animal) and Path B (context suggests potential animals). The visual clarity for species identification is critically low (essentially zero). This mandates a very low confidence score.
+
+3.  **SELF-REFLECTION:** As a critic, I identify the most significant degradation as extreme darkness/underexposure, leading to a total absence of visual information about any subject. Consequently, there are no 'look-alike' species as no subject is perceivable in the image. Any identification would be arbitrary guesswork, directly violating the principle of linking perception to accuracy.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information for any wildlife species, the agreement between visual assessment and any potential species identification is zero. The clarity is also zero for identification purposes. Therefore, the probability assigned to any species must be 0%. To adhere to the output format while reflecting this lack of visual evidence, I will list two very common species found in New Delhi, acknowledging that this selection is based *solely* on location metadata and has 0% probability from visual perception.
+
+Rhesus Macaque",Macaca,Macaca mulatta,0,House Crow,Corvus,Corvus splendens,0
+281,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,0,Indian House Crow,Corvus,Corvus splendens,0
+285,5,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+283,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, rendering almost all details invisible. The ""crops"" provided are identical in their extreme darkness and offer no additional clarity.
+    *   **Specific Tokens:** No discernible specific tokens such as ear shape, tail, fur texture, or distinct body parts are visible. There is a very faint, slightly lighter, rounded shape in the central area of the main image, but it lacks any distinguishing features.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, extremely low contrast, and blur (or lack of focus/detail due to darkness). The image appears almost entirely black/dark grey.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is insufficient to suggest any specific species. The extremely vague central shape could theoretically be a rock, a shadow, a lump of material, or any animal completely obscured by darkness. There are no visual cues to identify a species.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest a temperate, urban/suburban environment where various wildlife (birds, rodents, mongoose, stray dogs, cats, squirrels, etc.) might be present. This context provides a general pool of possibilities but no specific indication for a species *without* visual data.
+    *   **Compare:** Path A provides no specific visual information. Path B provides geographical context but cannot narrow down to a species without visual input. Therefore, there is no agreement possible on a species, and clarity is extremely low. This necessitates a very low confidence score.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and total lack of detail, any object of a somewhat rounded or irregular shape could be a ""look-alike."" This includes inanimate objects like rocks, shadows, or debris. If forced to consider an animal, the vague central shape, if interpreted as an animal, could be a medium-sized mammal (like a dog or cat) curled up, but this is pure speculation without any supporting visual features. The most accurate look-alike is ""unidentifiable object.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and complete absence of visual tokens for identification, any species assignment is purely speculative and not grounded in visual evidence. The probability must be extremely low, reflecting no agreement between visual ""data"" (which is null) and contextual possibility. The assigned probabilities are the lowest possible non-zero values to indicate the inability to identify.
+
+Unidentifiable Object",N/A,N/A,1,Unidentifiable Object,N/A,N/A,1
+282,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is predominantly dark grey with almost no discernible detail or contrast.
+    *   **Specific tokens:** No identifiable tokens such as ear shape, tail, fur texture, or body contours are visible. A very faint, light grey, irregular, somewhat rounded shape is barely perceptible in the central area, but it lacks any specific features. The cropped images do not improve clarity.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), extremely low contrast, severe blur/lack of focus, and potentially very low resolution.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image suggests no identifiable species. The faint shape is too indistinct to be attributed to any known animal.
+    *   **Path B (Contextual):**
+        *   Location: (28.62862059, 77.25930492) corresponds to Delhi, India. This is an urban environment with various common urban wildlife (e.g., feral dogs, domestic cats, palm squirrels, common mynas, small mammals like mongooses/civets).
+        *   Date/Time: 2026-05-17 at 08:00 (8 Military time).
+    *   **Compare:** Path A provides no visual evidence for identification. Path B provides a geographical context where many species exist. There is a complete lack of agreement between the visual data and the possibility of identifying any specific species from the context. The clarity is critically low. Therefore, confidence in identification must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the severe degradation (near-total darkness, blur, low contrast), the faint central blob could be almost anything indistinctly shaped and obscured. It does not possess any unique features to distinguish it from a rock, a piece of trash, or a heavily obscured/out-of-focus animal. If forced to speculate on an animal look-alike, any common, medium-sized mammal found in Delhi (e.g., Feral Dog, Domestic Cat, Mongoose, Civet) could theoretically appear as such a featureless blob under these extreme viewing conditions, as could a heavily obscured bird. However, there is no visual basis to prefer one over the other.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete inability to identify any specific features, the probability of correctly identifying a species is negligible. Both visual analysis paths confirm a lack of discernible information.
+
+Feral Dog",Canis,Canis familiaris,1,Domestic Cat,Felis,Felis catus,1
+284,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,Unknown,Indeterminate,1,Unidentifiable Animal,Unknown,Indeterminate,0.5
+287,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely a uniform dark grey, with extremely faint, non-distinct textural variations or smudges. No discernible shapes, features, or forms of an animal are present.
+    *   **Specific tokens (ear shape, tail, texture):** None are visible. There are no identifiable tokens related to an animal.
+    *   **Perceptual Barriers:** Severe underexposure, complete lack of distinct features, or the image content is simply blank. This constitutes an absolute perceptual barrier to species identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest any specific wildlife species.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (08:00) suggest that various common urban/peri-urban species (e.g., Rhesus Macaque, House Crow, feral dog, Indian Palm Squirrel) *could* be present. However, this metadata does not confirm the presence of *any* species in the image.
+    *   **Compare:** There is no visual content to compare with contextual possibilities, nor is there any visual content to conflict with itself. The clarity is at its absolute minimum. Due to the complete absence of visual information, confidence must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'look-alike' for this degradation (a blank, dark image) is ""no visible animal"" or ""underexposed photographic error"". Since the task requires naming a species, any selection is arbitrary and entirely unsubstantiated by the visual input. The probability assigned must reflect this total lack of visual evidence. Given the requirement to output a species, the choice of species is based solely on common presence in the specified geographic location, but with the lowest possible confidence.
+
+PHASE 2: CALIBRATED OUTPUT
+The agreement between visual and contextual data is non-existent due to the lack of visual information. Clarity is extremely low. Therefore, the probability score for any identified species must be very low (under 40). I will assign the lowest non-zero probability to reflect the complete lack of visual evidence while adhering to the output format.
+
+Rhesus Macaque",Macaca,Macaca mulatta,1,House Crow,Corvus,Corvus splendens,1
+290,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The primary image and its crops are almost entirely dark grey, with minimal discernible light variations.
+    *   **Specific tokens:** No distinct ear shape, tail, fur texture, or other species-specific tokens are visible. There is a faint, rounded lighter area in the center-left of the main image, but its features are too ambiguous to be interpreted reliably. The background has a faint linear texture that might suggest dry grass or debris, but it is also very unclear.
+    *   **Perceptual Barriers:** Severe underexposure/darkness, extremely low contrast, and apparent blur significantly obscure any potential subject. The image is effectively unidentifiable.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** No species can be confidently suggested from the visual information due to extreme lack of clarity. The faint, ambiguous shapes do not provide enough data to infer any particular animal.
+    *   **Path B (Contextual):**
+        *   **Location:** (28.62862059, 77.25930492) is in Delhi, India. This is an urban/peri-urban environment.
+        *   **Date/Time:** 2026-05-17 at 08:00.
+        *   Common wildlife/domestic animals in this region include domestic cats, domestic dogs, various rodents, squirrels, civets, mongooses, etc.
+    *   **Compare:** Path A provides no concrete visual data for comparison. Therefore, there is no agreement between visual and contextual paths. The clarity is critically low. This mandates a very low confidence score.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the severe underexposure and lack of detail, any small to medium-sized mammal, or even an inanimate object, could appear as the faint shapes present. Given the ambiguity, it is impossible to distinguish between look-alikes. If forced to speculate based on the *most tenuous* interpretation of a vague, curled form and the contextual location, a small domestic animal like a cat or dog might be considered, but this is entirely without visual support.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the inability to discern any specific features, the probability of correct identification is minimal. The species chosen are based purely on common domestic animals in the location and the complete lack of visual counter-evidence, not on identifiable features.
+
+Domestic Cat",Felis,Felis catus,1,Domestic Dog,Canis,Canis familiaris,1
+288,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and lacks contrast, making all visual tokens indistinct.
+    *   **Specific tokens:**
+        *   **Ear shape:** Cannot be discerned.
+        *   **Tail:** Cannot be discerned.
+        *   **Texture:** A very faint, blurry background texture resembling dry grass or leaves is present. A central, slightly lighter, indistinct, rounded shape is visible but devoid of specific texture or features.
+    *   **Perceptual Barriers:** Severe underexposure, extremely low contrast, blur, lack of discernible anatomical features, and overall poor image quality. The provided crops do not improve clarity beyond simple magnification of the same degraded pixels.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image visually suggests an indistinct, light-colored, vaguely rounded or oval shape against a dark, blurry background. There are no identifiable species-specific features (e.g., eyes, nose, fur pattern, limb structure, species-characteristic body outline). It is impossible to confirm if the object is even an animal.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (08:00 AM) suggest the presence of common urban/peri-urban wildlife such as stray dogs, domestic cats, Rhesus Macaques, Indian Grey Mongooses, squirrels, and various birds.
+    *   **Compare:** Path A provides no identifiable visual cues for a specific species. Path B provides a broad list of potential species common to the area. Due to the extreme lack of visual information from Path A, there is no agreement possible between visual and contextual data, and clarity is exceptionally low. Therefore, confidence in any specific identification must be very low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme degradation, the central indistinct light shape could visually resemble an undifferentiated blob, a rock, a crumpled piece of debris, or a shadow. If interpreted as an animal, it could be a small to medium-sized animal curled up or partially obscured. The lack of any diagnostic features means there are no specific 'look-alikes' in terms of distinct species, rather, it looks like ""an unidentifiable object.""
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and lack of identifiable features, assigning a high probability to any species is impossible and inaccurate. The probability must be very low, reflecting the almost complete absence of visual evidence. I will list two common species found in the specified location as purely speculative options, with probabilities reflecting the unidentifiable nature of the image.
+
+Unidentifiable Object",Unknown,Unknown,1,Unidentifiable Object,Unknown,Unknown,1
+286,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual clarity:** Extremely low. The image is almost entirely a uniform dark grey. There are some very faint, slightly lighter, and vaguely textured areas, but they do not form any discernible shape, pattern, or feature recognizable as an animal. The provided crops do not enhance clarity or reveal any additional features.
+    *   **Specific tokens:** No identifiable tokens such as ear shape, tail, fur texture, eye, limb, or any other anatomical characteristic are present.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, severe lack of contrast, complete absence of identifiable detail, and potentially the absence of an animal within the frame.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The images suggest no identifiable animal or object. No visual information supports any species identification.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) is in Delhi, India. The date/time is 2026-05-17 at 08:00 AM. This context suggests potential common urban wildlife for Delhi (e.g., pigeons, crows, squirrels, dogs, cats, rats). However, this contextual information cannot be applied to refine an identification due to the complete lack of visual input.
+    *   **Compare:** Path A provides zero specific visual information for identification. Path B provides only general environmental context. There is a complete lack of agreement between visual data and the ability to identify a species. The perceptual clarity is effectively zero. Therefore, confidence in identifying any specific species must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the severe degradation (near-total darkness and absence of features), any object or animal, or even simply the absence of an animal, would appear identical to the content of this image. There are no visual features to derive a meaningful 'look-alike' for this specific degradation. The image appears to be a dark, uniform surface.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the complete lack of visual information, the probability of correctly identifying any specific wildlife species is 0. Any species listed would be a placeholder, as no identification can be made.
+
+Rock Pigeon",Columba,Columba livia,0,Indian Palm Squirrel,Funambulus,Funambulus palmarum,0
+289,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark grey/black.
+    *   **Specific Tokens:** No discernible tokens (ear shape, tail, texture, eyes, limbs, etc.) can be identified. There is a very faint, indistinct, slightly lighter, rounded-to-oval shape in the central-lower portion of the main image, but it lacks any specific features to identify it as an animal or any particular object.
+    *   **Perceptual Barriers:** Severe underexposure/darkness, extremely low contrast, lack of detail, heavy noise/artifacting. The images are essentially blank. The crops offer no additional clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any specific species. It is impossible to identify any animal from the visual data provided.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) corresponds to Delhi, India. The date/time (2026-05-17 at 8:00 AM) indicates daytime. This context allows for a wide variety of urban and semi-urban wildlife found in Delhi, including birds (e.g., crows, mynas), small mammals (e.g., squirrels), reptiles, or even common feral animals like dogs and cats.
+    *   **Compare:** Path A provides no identifiable visual information, while Path B offers a broad range of possibilities without any specific lead. There is a complete lack of agreement between the visual data and any potential species, as the visual data is effectively null. Clarity is extremely low. Therefore, confidence in identifying any specific species is critically low.
+
+3.  **SELF-REFLECTION:** The most likely 'Look-alike' for this specific degradation is ""nothing identifiable"" or ""a dark, indistinct blob."" The image quality is so poor that no animal features are visible, making a ""look-alike"" scenario irrelevant. The primary issue is the complete absence of visual information required for identification.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete absence of visual features for identification, coupled with the lack of agreement between visual and contextual information, the probability for any specific species must be exceedingly low. The choice of species below is arbitrary, as no visual evidence supports any identification; they are selected solely as plausible species for the given location, with the probability reflecting the absolute uncertainty.
+
+House Crow",Corvus,Corvus splendens,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+297,5,362236437,Domestic Dog,Canis familiaris,Undetermined,N/A,N/A,0,Undetermined,N/A,N/A,0
+292,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,Canis,Canis familiaris,2,Unidentifiable Animal,Corvus,Corvus splendens,1
+298,5,362236437,Domestic Dog,Canis familiaris,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+295,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and lacks any discernible contrast or detail.
+    *   **Specific Tokens:** No identifiable tokens such as ear shape, tail, fur texture, eye, or limb structure are visible. There is a faint, amorphous, slightly lighter area in the center of the main image, but it lacks any form or characteristic features of an animal. The surrounding areas appear to have some faint, linear textures, possibly suggesting foliage, but again, with no clarity.
+    *   **Perceptual Barriers:** Extreme underexposure, very low contrast, absence of detail, potential blur/artifacting, and complete lack of identifiable features. The provided crops offer no additional clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest any particular species due to the complete lack of visual information. It is impossible to determine if the image even contains an animal.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (morning) suggest a range of common urban or suburban wildlife, such as various birds (e.g., House Crow, Indian Peafowl), primates (e.g., Rhesus Macaque), small mammals (e.g., Indian Grey Mongoose), or domestic animals. However, this contextual information cannot be linked to any visual cues from the image.
+    *   **Compare:** Path A provides no visual input, therefore there is no agreement or disagreement with Path B. The clarity is essentially zero.
+
+3.  **SELF-REFLECTION:**
+    *   The most likely 'Look-alike' for this specific degradation is 'nothing identifiable' or 'an abstract dark pattern.' There are no features present to compare to any known species. Any identification would be a pure guess without any visual basis.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Probability Calculation:** Agreement between Visual Self-Check and Self-Consistency is non-existent due to the complete lack of visual information. Clarity is extremely low (effectively zero). Therefore, the probability for any specific species identification must be 0. I will select two common species found in the Delhi region to fulfill the format requirements, assigning a 0% probability to each to reflect the absolute lack of visual evidence.
+
+Rhesus Macaque",Macaca,Macaca mulatta,0,Indian Peafowl,Pavo,Pavo cristatus,0
+291,5,362236437,Domestic Dog,Canis familiaris,Snail,Ariophanta,Ariophanta interrupta,5,Common Asian Toad,Duttaphrynus,Duttaphrynus melanostictus,2
+300,5,362236437,Domestic Dog,Canis familiaris,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+294,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray with only very faint, indistinct texture variations. There are no discernible shapes, forms, colors, or features that could belong to a wildlife species. The cropped hints provide no additional clarity or detail.
+    *   **Specific Tokens:** No specific tokens (ear shape, tail, texture, fur, feathers, scales, eyes, etc.) of an animal can be identified. The textures visible are abstract and not indicative of biological forms.
+    *   **Perceptual Barriers:** Severe underexposure, extreme darkness, lack of discernible detail, complete absence of visual information pertaining to an animal.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image does not suggest the presence of any wildlife species. It's impossible to infer any animal characteristics from the visual data.
+    *   **Path B (Contextual):** The location (Delhi, India) and time (08:00 AM) indicate an urban environment where various common species (e.g., crows, pigeons, stray dogs, cats, rodents) might be present. However, this contextual information cannot be linked to any visual evidence from the image.
+    *   **Compare:** There is no agreement or conflict because Path A provides no identifiable visual information. The clarity is effectively zero. Therefore, confidence in identifying any specific species must be extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete lack of visual information, the most accurate 'look-alike' is ""an obscured object,"" ""darkness,"" or ""nothing discernible."" No wildlife species can be credibly suggested as a 'look-alike' given the input.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity (effectively zero) and the complete absence of any visual information to identify a species, the probability of correctly identifying any specific wildlife species is 0. Adhering to the rule ""Low Clarity = Low Probability (under 40)"", a probability of 0 is appropriate as no identification can be made. The Common Name, Genus, and Species must reflect this inability to identify.
+
+Unknown",Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+296,5,362236437,Domestic Dog,Canis familiaris,Unidentifiable Animal,N/A,N/A,1,Undetermined Mammal,N/A,N/A,1
+293,5,362236437,Domestic Dog,Canis familiaris,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is entirely dark gray/black, providing no discernible visual information. There are no tokens (ear shape, tail, texture, body form, color patterns) related to any wildlife species. The primary perceptual barrier is the complete absence of light or image content, resulting in zero clarity.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual cues to suggest any specific species.
+    *   **Path B (Contextual):** The location (28.62862059, 77.25930492) corresponds to Delhi, India. The date/time (2026-05-17 at 08:00) is a typical morning in an urban environment. This context suggests that common urban or peri-urban species could be present (e.g., domestic animals, common birds, rodents).
+    *   **Compare:** There is no visual information to compare with the contextual data. Therefore, there is no agreement or disagreement. The clarity is effectively zero.
+3.  **SELF-REFLECTION:** Given the complete lack of visual information, identifying any species from the image is impossible. The most likely 'look-alike' for this degradation is ""no animal visible"" or ""an empty, dark space."" Any species identification would be purely speculative, based solely on the geographical metadata and not on visual perception, thus violating the ""link perception directly to accuracy"" principle. However, to adhere to the output format, a nominal identification with the absolute lowest possible probability is required.
+
+PHASE 2: CALIBRATED OUTPUT
+Due to the complete absence of visual information (zero clarity), the probability of identifying any species from the image is extremely low. Following the rule ""Low Clarity = Low Probability (under 40)"", and in the spirit of providing an output while acknowledging zero visual data, the lowest plausible non-zero probability is assigned to common species found in the specified urban location, reflecting identification based purely on context rather than visual perception.
+
+Domestic Dog",Canis,Canis familiaris,1,House Crow,Corvus,Corvus splendens,1
+299,5,362236437,Domestic Dog,Canis familiaris,No Animal Visible,N/A,N/A,0,No Animal Visible,N/A,N/A,0

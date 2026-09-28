@@ -1,0 +1,667 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+1,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+2,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+10,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+7,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+15,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+11,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+13,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+9,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+6,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+3,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,93,Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+12,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+5,0,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,15
+14,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+4,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Common Dolphin,Delphinus,Delphinus delphis,15
+8,0,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,5
+17,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+18,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+27,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+19,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+24,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+26,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,10
+30,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+28,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+20,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+22,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,15
+25,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,18
+16,0,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+29,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,15
+23,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+21,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+31,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+34,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+32,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+35,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,98,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+39,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+33,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+41,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+42,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,93,Striped Dolphin,Stenella,Stenella coeruleoalba,12
+43,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+38,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+45,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+40,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,12
+36,0,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75
+37,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+47,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+44,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,12
+46,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,18
+48,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+50,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+49,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+55,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+51,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Harbour Porpoise,Phocoena,Phocoena phocoena,15
+57,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+54,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,97,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+53,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+60,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+59,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+56,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+58,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+65,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+64,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+63,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+62,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,18
+67,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+66,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,delphis,95,Common Bottlenose Dolphin,Tursiops,truncatus,10
+72,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+61,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,88,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+68,1,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Common Dolphin,Delphinus,Delphinus delphis,15
+52,1,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1. VISUAL SELF-CHECK: The image displays multiple cetaceans partially submerged in water.
+   - Specific tokens:
+     - Body Shape: Torpedo-shaped, elongated bodies.
+     - Dorsal Fin: Prominent, falcate (sickle-shaped) dorsal fins are visible on several individuals.
+     - Coloration: Appears dark grey/black dorsally, lighter ventrally, though precise patterns are obscured by water and light. Some individuals show hints of lighter flanks.
+     - Size: Medium-sized cetaceans, consistent with dolphins.
+     - Group behavior: Several individuals are present, indicating a pod.
+   - Perceptual Barriers: Partial submersion obscures the full body, head shape (especially the rostrum/snout), and fine details of coloration/markings which are crucial for species-level identification within dolphins. Water reflections and resolution further limit clarity on specific patterns.
+
+2. SELF-CONSISTENCY AUDIT:
+   - Path A (Visual): The visual characteristics (falcate dorsal fin, two-tone coloration, size, group behavior) strongly suggest the animals are dolphins. The overall morphology is consistent with commonly sighted dolphin species in coastal European waters. Some individuals appear relatively robust, while others are more slender, but all fit within the general dolphin morphology.
+   - Path B (Contextual): The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel. This area is known habitat for several cetacean species, including Common Bottlenose Dolphins (Tursiops truncatus) and Short-beaked Common Dolphins (Delphinus delphis). The habitat, appearing as a coastal inlet or estuary, is particularly well-suited for species like the Common Bottlenose Dolphin, which frequently inhabit such environments.
+   - Compare: Both visual and contextual data align well for ""dolphin."" Distinguishing between *Tursiops truncatus* and *Delphinus delphis* visually is challenging without clearer views of the head/snout or the distinct hourglass coloration pattern of the Short-beaked Common Dolphin. However, the relatively robust appearance of some individuals and the coastal/estuarine-like environment slightly favor Common Bottlenose Dolphin.
+
+3. SELF-REFLECTION: The most likely 'Look-alike' species for this specific degradation (partial submersion, lack of clear head/marking details) are other dolphin species, primarily the Short-beaked Common Dolphin (*Delphinus delphis*). While Harbour Porpoises (*Phocoena phocoena*) are present in the region, their smaller size, typically more triangular dorsal fin, and often more robust body (compared to a common dolphin) make them less likely given the visible forms. Larger whales or pilot whales are ruled out by the visible size and fin shapes. The primary ambiguity lies between Common Bottlenose and Short-beaked Common Dolphins due to similar overall shapes when partially submerged and shared habitat.
+
+PHASE 2: CALIBRATED OUTPUT
+The clarity is moderate, as key diagnostic features (rostrum, distinct body patterns) are obscured. The agreement between visual and contextual cues is high for the general category of ""dolphin."" For the specific species, there is moderate agreement leaning towards Bottlenose Dolphin due to the habitat and apparent robustness of some individuals, but with acknowledged ambiguity with Common Dolphin. This leads to a moderate-to-high probability for the top choice and a lower probability for the look-alike.
+
+Common Bottlenose Dolphin",Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,25
+71,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+70,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+69,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+75,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,15
+76,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+78,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+73,1,361654652,Common Dolphin,Delphinus delphis,Striped Dolphin,Stenella,Stenella coeruleoalba,90,Common Dolphin,Delphinus,Delphinus delphis,25
+79,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+77,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+80,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Striped Dolphin,Stenella,Stenella coeruleoalba,15
+82,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+81,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+83,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+85,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+84,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+87,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,93,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+86,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,28
+90,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+91,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+88,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+89,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,14
+74,1,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Good for the most prominent individuals, fair for those further away. The lighting is clear, highlighting body patterns.
+    *   **Specific Tokens:**
+        *   **Body Shape:** Streamlined, torpedo-shaped bodies, characteristic of dolphins.
+        *   **Dorsal Fin:** Tall, falcate (recurved) dorsal fins are clearly visible on several individuals.
+        *   **Coloration:** Distinct two-tone pattern with a dark dorsal side and a lighter ventral side. Crucially, the clearest individual on the left exhibits a very distinct 'hourglass' pattern on its flank, characterized by a yellowish-tan patch anteriorly and a grey patch posteriorly, narrowing in the middle. This is a key diagnostic feature.
+        *   **Size:** Appears to be medium-sized cetaceans, consistent with common dolphin species.
+    *   **Perceptual Barriers:** Partial submersion of animals, distance for some individuals, and water surface reflections create minor barriers but do not obscure the key diagnostic features on the clearest animal.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The distinct 'hourglass' coloration pattern (dark back, white belly, yellowish-tan patch on the flank), combined with the body shape and dorsal fin, strongly suggests the Common Dolphin (Delphinus delphis).
+    *   **Path B (Contextual):** The coordinates (49.5885118048, -1.2445617067) place the observation in the English Channel, off the coast of Normandy, France. Common Dolphins (Delphinus delphis) are abundant and widely distributed in this region, inhabiting both coastal and offshore waters. The date (May) is within their active period.
+    *   **Compare:** There is very high agreement between the visual cues (diagnostic coloration) and the contextual information (species known to inhabit the area).
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** The Common Bottlenose Dolphin (Tursiops truncatus) is the most common look-alike. While it shares a general dolphin shape and is present in the same region, its typical coloration is a more uniform grey, lacking the specific 'hourglass' pattern and yellowish flank patches seen on the individuals in the image. If the diagnostic patterns were less clear due to greater degradation (e.g., blur, extreme distance), misidentification with a Bottlenose Dolphin would be plausible.
+
+PHASE 2: CALIBRATED OUTPUT
+Common Dolphin",Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+93,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,98,Long-beaked Common Dolphin,Delphinus,Delphinus capensis,5
+92,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,15
+94,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,96,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+98,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+96,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+97,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,88,Striped Dolphin,Stenella,Stenella coeruleoalba,18
+100,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+95,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Harbor Porpoise,Phocoena,Phocoena phocoena,10
+99,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,10
+102,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,25
+103,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+104,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+107,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+105,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,82,Bottlenose Dolphin,Tursiops,Tursiops truncatus,16
+106,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,65
+101,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,18
+110,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+109,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,15
+111,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,12
+108,2,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,45
+115,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+116,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,18
+117,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,15
+112,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+114,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+123,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,7
+119,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Striped Dolphin,Stenella,Stenella coeruleoalba,15
+120,2,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,95,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+118,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+113,2,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+122,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+124,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+125,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+127,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+130,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+128,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,80
+129,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,88,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,45
+126,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,12
+133,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+134,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,45
+138,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+132,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,25
+136,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphis delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+141,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+140,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,Striped Dolphin,Stenella,Stenella coeruleoalba,25
+131,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,78,Common Dolphin,Delphinus,Delphinus delphis,20
+121,2,361654652,Common Dolphin,Delphinus delphis,Risso's Dolphin,Grampus,Grampus griseus,35,Killer Whale,Orcinus,Orcinus orca,30
+135,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Common Dolphin,Delphinus,Delphinus delphis,18
+143,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,88,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,45
+139,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,88,Common Dolphin,Delphinus,Delphinus delphis,15
+144,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,93,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+137,2,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,92,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,15
+146,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+147,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,Striped Dolphin,Stenella,Stenella coeruleoalba,45
+148,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+149,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,88,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+150,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+154,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,65,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+156,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,78,Basking Shark,Cetorhinus,Cetorhinus maximus,8
+142,2,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,8
+152,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+151,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image exhibits extremely low perceptual clarity. It is severely underexposed, rotated 180 degrees, and appears to be a reflection on water, giving the impression that the animals are upside down or distorted. Specific tokens visible include several dark, somewhat streamlined shapes resembling marine mammals or large fish. One particular, large shape in the center-left stands out with a very deep, compressed body and an indistinct caudal fin, characteristic of an ocean sunfish. Other shapes have more typical dolphin-like dorsal fins and body outlines. Perceptual Barriers are extreme: severe darkness, upside-down rotation, significant reflection artifact, and overall blur/low detail.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual information suggests marine animals, specifically cetaceans (dolphins/porpoises) and at least one large, unusually shaped fish, strongly resembling an Ocean Sunfish.
+    *   **Path B (Contextual):** The coordinates (49.5885118048, -1.2445617067) place the observation in the English Channel. The date (May 15) is within the period when both Common Dolphins (and other cetaceans like Bottlenose Dolphins, Harbour Porpoises) and Ocean Sunfish are known to occur in these waters.
+    *   **Compare:** There is high agreement between the visual suggestions and the contextual information; the species visually identified are plausible for the given location and time. However, the *clarity* of the visual information is profoundly low, making definitive identification challenging despite the consistency.
+3.  **SELF-REFLECTION:** The most significant critic is the image quality itself. The extreme darkness, rotation, and reflection make it incredibly difficult to discern fine details.
+    *   **Most likely 'Look-alike' species for this specific degradation:**
+        *   For the Mola mola (Ocean Sunfish) shape: While its outline is quite distinct, in such poor clarity, one *might* confuse it with other large, unusually shaped pelagic fish if the characteristic truncated tail isn't clearly visible (which it isn't here, only inferred from the overall shape). However, Mola mola remains the strongest candidate for that specific outline.
+        *   For the dolphin-like shapes: Other cetaceans such as Bottlenose Dolphin, Harbour Porpoise, or other dolphin species that inhabit the English Channel. Without clear size reference, coloration, or specific fin shapes, distinguishing between these is impossible.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the high agreement between visual and contextual data, but extremely low clarity due to the severe perceptual barriers, the probability must be low (under 40). The distinct shape of the Ocean Sunfish makes it slightly more identifiable than the generic dolphin shapes, even in poor conditions.
+
+Ocean Sunfish",Mola,Mola mola,35,Common Dolphin,Delphinus,Delphinus delphis,25
+157,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+158,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Bottlenose Dolphin,Tursiops,Tursiops truncatus,2
+160,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30,Common Dolphin,Delphinus,Delphinus delphis,15
+159,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,25,Basking Shark,Cetorhinus,Cetorhinus maximus,15
+145,2,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** The image has low clarity for fine details due to muted lighting, reflections and distortion from the water, partial submersion of the animals, and varying distances to the camera. The overall scene is recognizable, but specific species-identifying marks are difficult to discern.
+    *   **Specific Tokens:**
+        *   **Dorsal fins:** Visible on multiple individuals, appearing falcate to somewhat triangular-falcate.
+        *   **Body shape:** Streamlined, torpedo-like bodies, characteristic of cetaceans. Appears to be medium-sized.
+        *   **Coloration:** Appears to be countershaded with darker dorsal sides and lighter ventral or flank areas, but precise patterns are not clear.
+        *   **Group behavior:** A pod of several individuals is visible, suggesting a social species.
+    *   **Perceptual Barriers:** Muted lighting, water surface reflections/distortion, partial submersion, distance, and lack of clear diagnostic coloration patterns or head/beak details.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual tokens strongly indicate cetaceans, specifically dolphins, due to their body shape, dorsal fin morphology (falcate), and group behavior. Differentiation between specific dolphin species is challenging due to the perceptual barriers.
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel. This area is known habitat for several cetacean species, including Short-beaked Common Dolphins (Delphinus delphis), Common Bottlenose Dolphins (Tursiops truncatus), and Harbor Porpoises (Phocoena phocoena). The date (May) is within their active season.
+    *   **Compare:** Both paths consistently point to marine cetaceans, specifically dolphins. There is no conflict in the general identification. However, the low visual clarity for species-specific features (e.g., specific color patterns, precise head shape, beak length) lowers the confidence for a definitive species identification from visual cues alone.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic's analysis:** The image clearly shows dolphins. The most significant degradation is the lack of sharp detail on body markings and facial features, which are critical for distinguishing between similar dolphin species. The dorsal fins appear more falcate than the typically more triangular fin of a Harbor Porpoise, and the animals appear larger than typical porpoises.
+    *   **Most likely 'Look-alike' species for this specific degradation:**
+        *   **Common Bottlenose Dolphin (Tursiops truncatus):** These are also very common in the English Channel and have similar general body and dorsal fin shapes. They tend to be more robust than Short-beaked Common Dolphins, which isn't definitively ruled out or confirmed by the image.
+        *   **Harbor Porpoise (Phocoena phocoena):** While present in the area, their smaller size and typically triangular dorsal fin make them less likely given the visual evidence, but the clarity could obscure these differences.
+
+PHASE 2: CALIBRATED OUTPUT
+Short-beaked Common Dolphin",Delphinus,Delphinus delphis,35,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+155,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is severely underexposed and dark, making details very difficult to discern. It is also rotated 90 degrees.
+    *   **Specific tokens:** Several dark, elongated shapes are visible in the water. At least three, possibly more, show a distinct dorsal fin that is curved/falcate. The overall body outline, where visible, appears sleek and torpedo-shaped, consistent with marine mammals. There are ripples on the water surface indicating movement.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, low contrast, image rotation, lack of fine detail (coloration, precise fin or head shape) due to poor lighting and distance.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visible shapes, particularly the prominent, curved dorsal fins and streamlined bodies, are highly suggestive of cetaceans, specifically dolphins. The presence of multiple individuals further supports a social species like dolphins.
+    *   **Path B (Contextual):**
+        *   **Location:** (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel. This is a known habitat for several cetacean species.
+        *   **Date/Time:** May is a period when marine wildlife, including dolphins, are active in these waters.
+        *   **Common Species:** Common Dolphins (Delphinus delphis) and Bottlenose Dolphins (Tursiops truncatus) are frequently observed in the English Channel. Harbour Porpoises (Phocoena phocoena) are also present, but their dorsal fins are typically more triangular and less falcate than what is vaguely perceived here.
+    *   **Compare:** There is high agreement that the animals are dolphins, based on visual morphology (dorsal fin, body shape) and geographic context. However, the low visual clarity prevents a confident distinction between specific dolphin species.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The overwhelming darkness and lack of detail are the primary challenges. While the general form points strongly to dolphins, features critical for species-level identification (e.g., color patterns, specific fin/head morphology) are completely obscured.
+    *   **Look-alike species:** Given the poor degradation, the most likely look-alikes are other dolphin species found in the region, such as Bottlenose Dolphins. Harbour Porpoises are less likely due to the perceived falcate nature of the dorsal fins, but cannot be entirely ruled out without better clarity.
+
+PHASE 2: CALIBRATED OUTPUT
+Low clarity (due to darkness) mandates a low probability score for specific species identification, as per the instructions (""Low Agreement OR Low Clarity = Low Probability (under 40)""). However, the agreement that these are *dolphins* is high. Due to the lack of detail, distinguishing between common dolphin species found in the area is very difficult. Based on the relatively slender appearance and falcate fins, Common Dolphin is a slightly more plausible first choice, with Bottlenose Dolphin as a very close second due to similar distribution and general appearance under poor conditions.
+
+Common Dolphin",Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,28
+161,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,10,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+168,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,20,Harbour Porpoise,Phocoena,Phocoena phocoena,10
+169,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+170,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,15,Basking Shark,Cetorhinus,Cetorhinus maximus,10
+165,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25,Common Dolphin,Delphinus,Delphinus delphis,10
+164,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  VISUAL SELF-CHECK: The image is extremely dark, rotated 90 degrees, and generally low resolution/blurry. Specific tokens like ear shape, texture, and fine tail details are entirely indiscernible. The most prominent tokens are several dark, elongated shapes in the water, some exhibiting distinct dorsal fins. There appear to be multiple individuals.
+    *   Perceptual Barriers: Extreme darkness (low light), significant rotation, blurriness/low resolution, and distance from subjects.
+2.  SELF-CONSISTENCY AUDIT:
+    *   Path A (Visual): The shapes, particularly the presence of multiple individuals with clear dorsal fins swimming in a group, are highly suggestive of cetaceans, most likely dolphins. The general body form is fusiform, and the dorsal fins appear falcate on the larger individuals.
+    *   Path B (Contextual): The location (49.5885118048, -1.2445617067) is in marine waters off the coast of France (English Channel/Atlantic Ocean). This is a known habitat for various dolphin species, including Common Dolphins and Bottlenose Dolphins. The date/time (May, noon) is suitable for sighting marine mammals.
+    *   Compare: Both visual and contextual paths strongly indicate the presence of dolphins. However, the extremely low visual clarity makes it impossible to distinguish between specific dolphin species or to identify finer anatomical details. Therefore, the confidence in *species-level* identification is low due due to clarity despite general agreement on the animal group.
+3.  SELF-REFLECTION: Act as a critic. Given the extreme darkness and blur, the most likely 'look-alike' species would be other common cetaceans in the region, such as different species of dolphins (e.g., Bottlenose Dolphin, White-beaked Dolphin) or even Harbor Porpoises (though their fin shape is typically more triangular and they are smaller). In extremely degraded images, it's also possible to mistake marine debris or unusually shaped waves for animals, but the consistent animal-like shapes and multiple individuals make this less likely here. The primary challenge is differentiating *which* dolphin species.
+
+PHASE 2: CALIBRATED OUTPUT
+Common Dolphin",Delphinus,Delphinus delphis,30,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+172,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+153,3,361654652,Common Dolphin,Delphinus delphis,Manta Ray,Mobula,Mobula birostris,10,Giant Devil Ray,Mobula,Mobula mobular,5
+163,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Very low. The image is extremely dark, has very low contrast, and appears blurry. It is also rotated 90 degrees clockwise, making interpretation initially difficult.
+    *   **Specific Tokens:** Multiple dark, fusiform shapes are visible in the water, breaking the surface. Several distinct dorsal fins are apparent. The shapes suggest marine mammals. There are at least 3-4 individuals visible in a group.
+    *   **Perceptual Barriers:** Extreme darkness, blur, low contrast, image rotation, and distance to subjects significantly hinder clear identification of species-specific features (e.g., rostrum shape, fin detail, coloration, size cues).
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The general body shapes, presence of dorsal fins, and group behavior in an aquatic environment strongly suggest cetaceans, specifically dolphins or porpoises. The forms are too large and streamlined for most fish and too numerous/shaped for seals in this context.
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is in the English Channel. This area is well-known for the presence of several cetacean species, including Common Dolphins (Delphinus delphis), Bottlenose Dolphins (Tursiops truncatus), and Harbour Porpoises (Phocoena phocoena). The date (May) and time (midday) are suitable for observing these species. The sighting of multiple individuals is consistent with dolphin group behavior.
+    *   **Compare:** There is high agreement that the animals are cetaceans (dolphins/porpoises). Both visual cues (general shape, dorsal fins, group) and contextual information (location, known species) strongly support this. However, the extreme lack of visual clarity prevents specific diagnostic features from being observed, making precise species identification difficult.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The most significant limitation is the overwhelming darkness and blur, making it impossible to discern fine details necessary for species differentiation among cetaceans. While the general ""dolphin-like"" form is evident, specific features like head shape, fin shape nuances, or body markings are entirely obscured.
+    *   **Most likely 'Look-alike' species for this specific degradation:**
+        *   **Other dolphin species:** Distinguishing between Common Dolphins, Bottlenose Dolphins, or even Risso's Dolphins is impossible with this clarity.
+        *   **Harbour Porpoise:** While typically smaller and with a more triangular dorsal fin, extreme blur and distance could potentially obscure these differences. However, the shapes here lean slightly more towards the more falcate fin and slender body of a dolphin.
+        *   **Large schooling fish (e.g., Tuna):** Less likely, as the shapes breaking the surface appear to have more distinct dorsal fins and body mass consistent with cetaceans, and their ""porpoising"" like movement is characteristic of dolphins.
+
+PHASE 2: CALIBRATED OUTPUT
+Common Dolphin",Delphinus,delphis,35,Bottlenose Dolphin,Tursiops,truncatus,15
+167,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Common Dolphin,Delphinus,Delphinus delphis,20
+162,3,361654652,Common Dolphin,Delphinus delphis,Smooth Hammerhead,Sphyrna,Sphyrna zygaena,8,Porbeagle,Lamna,Lamna nasus,5
+175,3,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,35,Ocean Sunfish,Mola,Mola mola,15
+174,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+171,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30,Minke Whale,Balaenoptera,Balaenoptera acutorostrata,15
+173,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,truncatus,35,Common Dolphin,Delphinus,delphis,15
+179,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15,Common Dolphin,Delphinus,Delphinus delphis,8
+178,3,361654652,Common Dolphin,Delphinus delphis,Long-finned Pilot Whale,Globicephala,Globicephala melas,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+177,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+182,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,15,Harbor Porpoise,Phocoena,Phocoena phocoena,8
+180,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,truncatus,35,Common Dolphin,Delphinus,delphis,30
+183,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+166,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,38,Basking Shark,Cetorhinus,Cetorhinus maximus,5
+184,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,32,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+189,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15,Common Dolphin,Delphinus,Delphinus delphis,5
+181,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+188,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,75,Basking Shark,Cetorhinus,Cetorhinus maximus,15
+185,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+176,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:** The image is severely underexposed, extremely dark, and exhibits very low contrast, making detailed observation exceptionally difficult. It appears to be an image of marine animals in water, possibly with a reflection below.
+    *   **Specific Tokens:** Several indistinct dark shapes are visible in the water. One shape, roughly in the middle-left of the image, presents a relatively tall, compressed body profile with a prominent dorsal fin, which is a weak visual token for an Ocean Sunfish (Mola mola). Other shapes are even more ambiguous, appearing as generic large marine animal silhouettes (e.g., streamlined bodies with dorsal fins). No clear ear shapes, specific tail flukes, or surface textures are discernible.
+    *   **Perceptual Barriers:** Extreme darkness/underexposure, very low contrast, blurriness/lack of sharp detail, possible reflection/inversion artifact, and distance. The provided crops do not significantly improve clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Due to the overwhelming perceptual barriers, visual identification is highly speculative. However, the most distinctive shape (middle-left) vaguely suggests an Ocean Sunfish (Mola mola) given its tall, somewhat truncated body outline. The other shapes are too generic to suggest a specific species beyond ""large marine animal.""
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel/Atlantic Ocean. The date (May) is within the period when various large marine species are present. Species commonly found in this area include various dolphins (e.g., Common Dolphin, Bottlenose Dolphin), porpoises, Basking Sharks, and Ocean Sunfish.
+    *   **Compare:** There is a low level of agreement. While one vague visual token *could* align with an Ocean Sunfish, the overall clarity is so poor that this alignment is weak. The context supports the presence of Ocean Sunfish, as well as many other large marine species. The extreme lack of visual clarity significantly lowers confidence.
+
+3.  **SELF-REFLECTION:** As a critic, the image quality is the primary impediment to accurate identification. Any species suggested would be based on minimal and ambiguous visual information.
+    *   **Most likely 'Look-alike' species for this specific degradation:** For a dark, large, surfacing marine animal in this region under such poor lighting conditions, a Basking Shark (Cetorhinus maximus) could present a similar dark fin and body outline when surfacing to feed. Various dolphin species (e.g., Common Dolphin, Delphinus delphis) are also abundant in the area and would appear as dark, streamlined shapes with dorsal fins. Given the prominent dorsal fin and somewhat less-elongated body of the most distinctive shape, a Basking Shark offers a plausible alternative if the Sunfish identification is incorrect.
+
+PHASE 2: CALIBRATED OUTPUT
+Ocean Sunfish",Mola,Mola mola,25,Basking Shark,Cetorhinus,Cetorhinus maximus,10
+194,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,75,Basking Shark,Cetorhinus,Cetorhinus maximus,15
+187,3,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,30,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+192,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,8,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+198,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Common Dolphin,Delphinus,Delphinus delphis,10
+191,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,18,Common Dolphin,Delphinus,Delphinus delphis,12
+195,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Common Dolphin,Delphinus,Delphinus delphis,15
+197,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,20
+199,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,18
+196,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,28,Bottlenose Dolphin,Tursiops,Tursiops truncatus,12
+200,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,30,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+190,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,15,Common Dolphin,Delphinus,Delphinus delphis,8
+201,4,361654652,Common Dolphin,Delphinus delphis,Unknown,N/A,N/A,5,Unknown,N/A,N/A,3
+186,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, and has very low contrast. It is also rotated 90 degrees clockwise.
+    *   **Specific Tokens:**
+        *   **Shape:** Multiple dark, broad, flattened, somewhat diamond-shaped or kite-shaped objects are visible in the water. The largest individual in the foreground (bottom-right of the original image, or foreground-left after mental rotation) clearly shows extended, wing-like pectoral fins. Other smaller, similarly shaped objects are further back.
+        *   **Texture/Color:** Almost entirely dark silhouettes against slightly lighter, dark-grey water. No discernible texture or color detail.
+    *   **Perceptual Barriers:** Severe underexposure, low contrast, image rotation, lack of resolution/sharpness. These barriers obscure almost all specific identifying features.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The broad, flat, and somewhat diamond-shaped bodies with prominent ""wing-like"" fins strongly suggest large batoids (rays or skates). The presence of multiple individuals points to a group of similar animals.
+    *   **Path B (Contextual):**
+        *   **Location:** (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel/Atlantic Ocean. This region is home to various species of rays and skates, such as Thornback Ray (Raja clavata), Undulate Ray (Raja undulata), Blonde Ray (Raja brachyura), and historically, Common Skate (Dipturus batis). Ocean Sunfish (Mola mola) are also known to frequent these waters.
+        *   **Date/Time:** May 15th, midday. Consistent with marine activity.
+    *   **Compare:** The visual cues (general shape, ""wing-like"" fins, multiple individuals) are consistent with the presence of large rays or skates in the specified geographical location. However, the extreme lack of clarity makes definitive species identification very difficult. The shapes are inconsistent with common marine mammals (dolphins, seals) or sharks in the region. Ocean Sunfish remains a distant possibility due to its large, flat-ish appearance, but the visible fin structures on the primary object lean more towards a ray.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The most significant limitation is the severe image degradation (darkness, low contrast, rotation). This renders most typical diagnostic features (color patterns, precise fin shapes, eye position, body markings) invisible.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the broad, dark shapes in the water:
+        *   **Ocean Sunfish (Mola mola):** Could be mistaken in poor light for a large, somewhat amorphous, flat-bodied object. However, the visible ""wings"" on the largest individual are more characteristic of a ray.
+        *   **Large debris/flotsam:** Unlikely for multiple similarly shaped, organic-looking objects.
+        *   **Marine Mammals (Dolphins/Porpoises):** Inconsistent body shape (too broad, not streamlined).
+        *   **Large Sharks (e.g., Basking Shark):** Inconsistent body shape (not torpedo-like, no prominent dorsal fin).
+    The strongest visual evidence points to a ray or skate.
+
+PHASE 2: CALIBRATED OUTPUT
+Thornback Ray",Raja,Raja clavata,35,Ocean Sunfish,Mola,Mola mola,15
+193,3,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, dark, blurry, and appears to be an inverted reflection (or inverted image) of marine animals in water. Details are almost completely obscured.
+    *   **Specific tokens:** Faint, dark outlines of multiple large marine animals are visible. The largest animal, positioned slightly right of center (after mentally inverting the image to right-side up), shows a relatively deep body profile with a tall, somewhat triangular dorsal fin and a corresponding tall anal fin. A short, rudder-like caudal fin is suggested. Other, smaller, less distinct dark shapes are also present.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, significant blur, image inversion/reflection ambiguity, and overall very poor image quality.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** Despite the profound visual degradation, the most prominent shape, with its deep body and prominent dorsal and anal fins, bears a *vague* resemblance to an Ocean Sunfish (Mola mola). The lack of a distinct caudal peduncle or long tail also aligns with this. However, this interpretation relies heavily on inferring shape from extremely limited data.
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is in the English Channel, off the coast of France. Ocean Sunfish (Mola mola) are known to inhabit these temperate waters, particularly during warmer months. May is within the period they might be sighted.
+    *   **Compare:** There is a weak agreement between the highly speculative visual interpretation and the contextual information. The visual evidence is insufficient for high confidence. Therefore, confidence must be low due to very low clarity.
+
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme blur and darkness, misidentification is highly probable. If the perceived deep body and prominent fins are distorted, other large marine animals found in the English Channel could be considered. A Basking Shark (Cetorhinus maximus) is a large shark found in the area, often near the surface, and its large dorsal fin might be visible, though its overall body shape is much more elongated than what is faintly suggested in the image. Other large fish or even cetaceans could appear as indistinct dark shapes under these conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+Ocean Sunfish",Mola,Mola mola,25,Basking Shark,Cetorhinus,Cetorhinus maximus,10
+208,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,3
+207,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,15,Common Dolphin,Delphinus,Delphinus delphis,5
+212,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+211,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,78,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+213,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+210,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+206,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+205,4,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  VISUAL SELF-CHECK: The image is extremely dark and appears to be heavily underexposed or a low-light rendering, making it very difficult to discern specific features. Several dark, silhouetted shapes of aquatic mammals are visible in the upper half, with reflections below. Specific tokens identifiable include robust, torpedo-shaped bodies, varying sizes suggesting adults and potentially juveniles, and distinct dorsal fins. The dorsal fin of the largest individual is prominently triangular, characteristic of an Orca (Killer Whale). However, no color patterns (e.g., black and white markings of Orcas) are visible due to the severe darkness. Perceptual Barriers include extreme darkness, low contrast, and potential low resolution/blur.
+2.  SELF-CONSISTENCY AUDIT:
+    *   Path A (Visual): The shapes of the animals, particularly the large, robust bodies and the distinct dorsal fin morphology (especially the triangular fin on the largest individual), strongly suggest Orcas (Killer Whales). The presence of multiple individuals of varying sizes also aligns with Orca pod structure.
+    *   Path B (Contextual): The location (49.5885118048, -1.2445617067) is in the English Channel. Orcas are known to occur in the English Channel, though they are not as common as other dolphin species. Other large, dark cetaceans such as Long-finned Pilot Whales (Globicephala melas) are also found in this region and could appear as dark silhouettes.
+    *   Compare: There is no direct conflict between the visual suggestion and the contextual information; Orcas are known to inhabit the specified region. However, the extreme lack of visual detail (specifically, the absence of crucial distinguishing coloration) significantly lowers the confidence in a definitive identification based solely on shape. The agreement is primarily on the general *type* of animal (large oceanic dolphin/whale) rather than specific species with high certainty.
+3.  SELF-REFLECTION: The most likely 'Look-alike' species for this specific degradation, where only silhouette and general shape are visible due to extreme darkness, include:
+    *   Long-finned Pilot Whale (Globicephala melas): These are large, robust, entirely dark (or very dark grey) oceanic dolphins that form pods. Their general body shape and dorsal fin could be confused with a dark Orca in such conditions. They are also present in the English Channel.
+    *   False Killer Whale (Pseudorca crassidens): Another large, all-dark oceanic dolphin species, though less common in the English Channel.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity (due to darkness) and the resulting low agreement on specific diagnostic features (lack of coloration), the probability score must be low (under 40). While the shapes are suggestive of Orcas, the absence of critical visual identifiers makes a high-confidence identification impossible.
+
+Orca",Orcinus,Orcinus orca,28,Long-finned Pilot Whale,Globicephala,Globicephala melas,22
+202,4,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Very low overall due to extreme darkness/underexposure and low contrast.
+    *   **Specific Tokens:** Several dark, streamlined shapes are visible in water. On at least two of these shapes, distinctive black and white coloration patterns are discernible, particularly a prominent lighter 'saddle patch' on the back, characteristic of Orcas. The overall body shape and presumed dorsal fin structure are consistent with large cetaceans.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, overall underexposure of the image.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visible black and white patterns, especially the saddle patch, strongly suggest Orca (Killer Whale).
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is in the English Channel off the coast of Normandy, France. Orcas are distributed globally and, while not common, are known to pass through or be sighted in the English Channel and surrounding North Atlantic waters. The date/time is plausible.
+    *   **Compare:** Path A provides strong visual cues for Orca. Path B does not contradict the visual identification, as Orcas are plausible in this region, although not a primary habitat. The agreement is high between the discernible visual evidence and the contextual possibility. Despite the overall low clarity of the image, the *key identifying tokens* (saddle patch) are sufficiently clear to make a strong visual identification.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the extreme darkness, other large, dark-bodied cetaceans that form pods and could be found in the English Channel might be considered. The most prominent look-alike, lacking the distinct black and white markings but having a similar overall dark body shape and social behavior, would be the Long-finned Pilot Whale (Globicephala melas). However, the visible black and white patterns on the observed animals strongly differentiate them from pilot whales.
+
+PHASE 2: CALIBRATED OUTPUT
+Orca",Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+214,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Harbour Porpoise,Phocoena,Phocoena phocoena,3
+203,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+209,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+215,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+204,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+216,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+221,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,False Killer Whale,Pseudorca,Pseudorca crassidens,5
+219,4,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,25,Basking Shark,Cetorhinus,Cetorhinus maximus,10
+220,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,15,Harbour Porpoise,Phocoena,Phocoena phocoena,10
+218,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Long-finned Pilot Whale,Globicephala,Globicephala melas,2
+217,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Harbour Porpoise,Phocoena,Phocoena phocoena,2
+222,4,361654652,Common Dolphin,Delphinus delphis,Porbeagle Shark,Lamna,Lamna nasus,1,Ocean Sunfish,Mola,Mola mola,1
+224,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+228,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Bottlenose Dolphin,Tursiops,Tursiops truncatus,3
+227,4,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,15,Ocean Sunfish,Mola,Mola mola,8
+223,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Ocean Sunfish,Mola,Mola mola,1
+230,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,12
+231,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,8,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+225,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,10,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+233,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Long-finned Pilot Whale,Globicephala,Globicephala melas,2
+226,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+237,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+232,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+229,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+235,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,30,False Killer Whale,Pseudorca,Pseudorca crassidens,10
+236,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+239,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,25,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+245,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+243,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,78,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+240,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Bottlenose Dolphin,Tursiops,Tursiops truncatus,2
+242,4,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Basking Shark,Cetorhinus,Cetorhinus maximus,1
+241,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,10,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+234,4,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely Low. The image is severely underexposed, making most details indiscernible. It appears to be a vertical shot of water with some very dark, low-contrast shapes.
+    *   **Specific tokens:** Faint, dark, elongated shapes are visible against an equally dark background. Some shapes have a somewhat triangular projection that *could* be interpreted as a dorsal fin, particularly one larger shape near the bottom left. No other definitive tokens (ear shape, tail, texture, distinctive markings) are discernible.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), very low contrast, potential blur, and an unusual vertical orientation.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The extremely faint shapes, if generously interpreted, *might* suggest large marine mammals (cetaceans) with dorsal fins. The perceived prominent, dark, somewhat triangular fins could vaguely align with Orcas (Killer Whales). However, this is highly speculative due to the abysmal image quality.
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel. Orcas are rare but occasionally sighted in the English Channel and more commonly in the wider North Atlantic/Bay of Biscay. Other large cetaceans like Long-finned Pilot Whales or various dolphin species (e.g., Bottlenose Dolphins) are also present in these waters.
+    *   **Compare:** The visual evidence is insufficient to confidently support any specific species. While Orcas are a *possibility* given the location and a highly interpretive view of the shapes, the lack of visual clarity leads to extremely low agreement and confidence.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image quality is so poor that any species identification is essentially a guess. The shapes are too indistinct to rely on for accurate token identification.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the extreme darkness and blur, any large, dark-bodied marine mammal with a dorsal fin could appear similar. This includes other large cetaceans like Long-finned Pilot Whales (Globicephala melas) which also have prominent dorsal fins and dark bodies, or even large dolphin species (e.g., Bottlenose Dolphin, Tursiops truncatus) common in the area, whose fins could appear similar in such low light/resolution. Inanimate objects or debris are also plausible interpretations of such ambiguous shapes.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low perceptual clarity and the resulting very low agreement between visual and contextual cues, the probability for any identification must be very low (significantly under 40).
+
+Orca",Orcinus,Orcinus orca,5,Long-finned Pilot Whale,Globicephala,Globicephala melas,2
+246,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,25,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+238,4,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed and dark, making details virtually indistinguishable. The image is also rotated.
+    *   **Specific tokens:** Faint, dark silhouettes of several objects in water. Some objects appear to have a prominent dorsal fin shape and a robust body outline, consistent with a large cetacean. No discernible ear shape, tail flukes, or texture can be identified due to the profound lack of illumination and contrast.
+    *   **Perceptual Barriers:** Extreme darkness (underexposure), low contrast, significant image rotation, potential blur. These barriers severely impede any reliable visual identification.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The extremely dark shapes, with hints of dorsal fins, *could tentatively* suggest large marine mammals such as killer whales or pilot whales. However, due to the severe visual degradation, this is highly speculative.
+    *   **Path B (Contextual):**
+        *   **Location:** (49.5885118048, -1.2445617067) places the observation in the English Channel, off the coast of France.
+        *   **Date/Time:** 2026-05-15 at 12:00.
+        *   **Species in English Channel:** Various cetacean species are known to inhabit or pass through the English Channel, including common dolphins, bottlenose dolphins, harbour porpoises, minke whales, long-finned pilot whales, and occasionally killer whales.
+    *   **Compare:** The visual cues, though minimal, point towards cetaceans, which is consistent with the geographical context. However, the extreme lack of clarity prevents any specific species identification from the visual data. The visual ""evidence"" is so weak that it conflicts with the need for high confidence.
+
+3.  **SELF-REFLECTION (Critic):**
+    *   The primary degradation is extreme underexposure and low contrast, making the subjects almost entirely dark silhouettes.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the severe darkness, any large, dark object in the water could appear similar. This includes various species of dark-bodied cetaceans (e.g., Killer Whale, Long-finned Pilot Whale, Bottlenose Dolphin, Minke Whale), large fish (e.g., basking shark), or even inanimate objects (e.g., buoys, floating debris, small boats, or unusual wave patterns/shadows). Differentiating between specific cetacean species (e.g., Killer Whale vs. Pilot Whale vs. large Dolphin) is impossible without color, clearer body shape, or size reference. The visual prominence of the dorsal fin, even in darkness, slightly suggests larger cetaceans.
+
+PHASE 2: CALIBRATED OUTPUT
+The extreme lack of perceptual clarity means that any identification must have a very low probability score, well below 40. While the shapes *could* be interpreted as large cetaceans with prominent dorsal fins, it's impossible to confirm species with any confidence. Killer Whales and Long-finned Pilot Whales are large, dark cetaceans with distinct dorsal fins that could fit the extremely vague silhouette, with Killer Whale having a typically taller and more triangular fin.
+
+Killer Whale",Orcinus,Orcinus orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+252,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,60,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+249,4,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15,Common Dolphin,Delphinus,Delphinus delphis,10
+248,4,361654652,Common Dolphin,Delphinus delphis,Unidentifiable,N/A,N/A,5,Unidentifiable,N/A,N/A,2
+247,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,15,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+250,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+251,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,15,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+244,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,False Killer Whale,Pseudorca,Pseudorca crassidens,10
+254,5,361654652,Common Dolphin,Delphinus delphis,Unknown,Incertae,sedis,8,Unidentifiable Marine Organism,Incertae,sedis,5
+255,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,25,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+260,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+256,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,15,Porbeagle Shark,Lamna,Lamna nasus,5
+261,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Harbour Porpoise,Phocoena,Phocoena phocoena,3
+266,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Harbour Porpoise,Phocoena,Phocoena phocoena,15
+257,5,361654652,Common Dolphin,Delphinus delphis,Blue Shark,Prionace,Prionace glauca,15,Porbeagle Shark,Lamna,Lamna nasus,10
+267,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+253,5,361654652,Common Dolphin,Delphinus delphis,Unidentifiable Animal,N/A,N/A,0,Unidentifiable Animal,N/A,N/A,0
+263,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Basking Shark,Cetorhinus,Cetorhinus maximus,2
+262,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,False Killer Whale,Pseudorca,Pseudorca crassidens,10
+268,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Harbour Porpoise,Phocoena,Phocoena phocoena,2
+265,5,361654652,Common Dolphin,Delphinus delphis,Great White Shark,Carcharodon,Carcharodon carcharias,1,Orca,Orcinus,Orcinus orca,1
+269,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Long-finned Pilot Whale,Globicephala,Globicephala melas,2
+258,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Image Analysis:** The image is extremely dark and low-contrast, appearing to be an aerial or satellite view of an aquatic environment. Several distinct, dark, streamlined shapes are visible. These shapes are elongated, possess clear dorsal fin-like protrusions, and appear to have horizontal tail flukes. They are grouped, suggesting social animals.
+    *   **Specific tokens:**
+        *   **Body shape:** Torpedo-like, robust, dark silhouette.
+        *   **Dorsal fin:** Prominent, tall, and somewhat triangular in shape, characteristic of some large cetaceans.
+        *   **Tail:** Appears to be horizontal flukes (distinguishable from a vertical shark tail, though highly blurry).
+        *   **Texture:** Uniform dark grey, lacking surface detail.
+        *   **Grouping:** Multiple individuals moving in what seems to be formation.
+    *   **Perceptual Barriers:**
+        *   **Extreme Low Clarity/Contrast:** The most significant barrier, making detailed feature identification almost impossible.
+        *   **Low Resolution/Blur:** Shapes are indistinct and fuzzy.
+        *   **Poor Lighting:** Very dark image overall.
+        *   **Overhead Perspective:** Limits depth perception and certain diagnostic features.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The observed shapes (large, streamlined body, tall dorsal fin, horizontal flukes, social grouping) are highly consistent with cetaceans, particularly large dolphins or small whales. Among these, the prominent, somewhat triangular dorsal fins strongly suggest Killer Whales (Orcas).
+    *   **Path B (Contextual):**
+        *   **Location:** (49.5885118048, -1.2445617067) places the observation in the English Channel, off the coast of Normandy, France. This is within the known range of Killer Whales, although they might be more common in the wider North Atlantic.
+        *   **Date/Time:** May 15, 2026, midday. This is a plausible time for marine mammal activity.
+    *   **Compare:** There is no direct conflict between the visual evidence (suggesting large cetaceans like Orcas) and the geographical context. Killer Whales are found in these waters. However, the extreme lack of visual clarity significantly limits definitive identification.
+
+3.  **SELF-REFLECTION:**
+    *   **Criticism:** The image quality is severely degraded, making any species identification speculative. While the shapes *align* with Orcas, the absence of clear distinguishing marks (e.g., color patterns, clear fin morphology, or size reference) prevents high-confidence identification.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Other large, dark cetaceans with prominent dorsal fins that inhabit the North Atlantic, such as the Long-finned Pilot Whale (Globicephala melas). While their dorsal fins are typically more falcate and less triangular than an Orca's, the extreme blur and overhead angle could make differentiation difficult.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and contrast, a high probability is not warranted. However, the discernible shapes, despite their blurriness, are consistently suggestive of Killer Whales more than any other single species, and the location is plausible. Therefore, the probability must be within the ""low"" range (under 40), reflecting the significant uncertainty from visual degradation.
+
+Killer Whale",Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+259,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+271,5,361654652,Common Dolphin,Delphinus delphis,UNIDENTIFIABLE,Unknown,Unknown,0,UNIDENTIFIABLE,Unknown,Unknown,0
+270,5,361654652,Common Dolphin,Delphinus delphis,Unknown,Incertae,species,1,Unknown,Incertae,species,1
+272,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Basking Shark,Cetorhinus,Cetorhinus maximus,2
+276,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,2
+274,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,15,Basking Shark,Cetorhinus,Cetorhinus maximus,5
+280,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,18
+264,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely dark gray with very faint vertical streaks and indistinct, darker patches. There are no discernible shapes, colors, textures, or features of any animal in the original or cropped images. It appears to be severely underexposed or a blank surface.
+    *   **Specific tokens (ear shape, tail, texture):** None visible.
+    *   **Perceptual Barriers:** Extreme underexposure, critically low contrast, and complete absence of any identifiable subject matter.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no visual information to suggest any specific species or even the presence of an animal.
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel/Atlantic Ocean. This suggests potential marine species such as cetaceans (dolphins, porpoises), seals, or seabirds.
+    *   **Compare:** Path A yields no identifiable information. Path B suggests a broad range of marine species. There is zero agreement between the visual data (absence of subject) and the possibility of specific species from context. Clarity is critically low. Therefore, confidence must be extremely low.
+3.  **SELF-REFLECTION:**
+    *   **Most likely 'Look-alike' species for this specific degradation:** Due to the complete absence of any discernible animal features or shapes, there is no 'animal' to have a look-alike. The image's degradation makes it resemble a plain dark grey wall or a photographic error rather than any specific animal. If forced to select a potential species based on location (due to output constraints), then other common marine mammals in the area would be considered ""look-alikes"" in the sense of being plausible alternatives for a completely unseen animal.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extreme lack of visual information (clarity effectively zero) and the resulting lack of agreement between visual and contextual analysis, the probability of identifying any specific species is extremely low. To adhere to the output format that requires specific species names, the choice is based purely on the contextual location, with probabilities reflecting the absolute absence of visual evidence.
+
+Common Dolphin",Delphinus,Delphinus delphis,1,Harbor Porpoise,Phocoena,Phocoena phocoena,0.1
+278,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+273,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+279,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,8,Great White Shark,Carcharodon,Carcharodon carcharias,3
+281,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,8,Long-finned Pilot Whale,Globicephala,Globicephala melas,2
+283,5,361654652,Common Dolphin,Delphinus delphis,Blue Shark,Prionace,Prionace glauca,10,Porbeagle,Lamna,Lamna nasus,5
+275,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed/dark, with very low contrast. It is a grayscale image.
+    *   **Specific Tokens:** Faint, dark grey shapes resembling marine mammals are visible against a slightly lighter dark grey background. These shapes exhibit characteristics consistent with cetaceans, particularly the distinct, relatively tall dorsal fins and robust body outlines. Some subtle lighter grey patches are discernible, suggestive of the white markings found on some marine mammals. Specifically, the shapes (at least three or four) have triangular-to-slightly-recurved dorsal fins and body contours highly suggestive of Killer Whales (Orcas), including what appear to be subtle hints of the post-dorsal saddle patch and eye patch outlines.
+    *   **Perceptual Barriers:** Extreme darkness and low contrast are the primary barriers. Lack of color information, overall blurriness, and faintness contribute to poor clarity.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visible, albeit faint, shapes strongly suggest Killer Whales (Orcinus orca) due to their characteristic dorsal fin morphology, robust body shape, and hinted black-and-white patterning (seen as dark gray and slightly lighter gray).
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is in the English Channel, off the coast of France. Killer Whales are known to occur in the English Channel, though they are not resident and sightings are less common than in other regions. Their presence is plausible but not frequent.
+    *   **Compare:** Path A strongly suggests Killer Whales based on specific, iconic visual tokens, even in degraded form. Path B confirms their plausible presence in the given location. While there is agreement on the species' identity based on the *discernible* visual tokens and their potential presence in the area, the *clarity* of those visual tokens is extremely low.
+
+3.  **SELF-REFLECTION:**
+    *   **Criticism:** The extremely poor image clarity is the overriding factor limiting definitive identification and high confidence. The shapes are suggestive, but the degradation makes them ambiguous without careful discernment.
+    *   **Most likely 'Look-alike' species for this specific degradation:** Given the dark, robust outlines and prominent dorsal fins in a low-clarity, grayscale image, other large, dark-bodied cetaceans with prominent dorsal fins could be mistaken. Long-finned Pilot Whales (Globicephala melas) are a strong candidate as they are dark, robust, possess a prominent dorsal fin, and are found in the North Atlantic, including occasionally in the English Channel. False Killer Whales (Pseudorca crassidens) also have a robust dark body, but their dorsal fin shape is generally more falcate.
+
+PHASE 2: CALIBRATED OUTPUT
+Killer Whale",Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,12
+277,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is severely underexposed, appearing almost entirely black. Faint, dark silhouettes are barely discernible against an even darker background.
+    *   **Specific tokens:** I can vaguely discern several dark, elongated, fusiform (torpedo-like) shapes, consistent with fish or other marine organisms. One shape in the mid-right area is slightly more distinct, showing a possible dorsal fin-like projection and a tapering body. However, no specific details like fin structure, texture, eyes, or distinct tail shapes are visible.
+    *   **Perceptual Barriers:** Extreme low light (severe underexposure), very low contrast, significant blur, and overall lack of detail. The image's darkness makes precise identification impossible.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The faint, dark, torpedo-like shapes suggest the presence of marine organisms, likely fish, due to their general silhouette. No specific species can be identified visually.
+    *   **Path B (Contextual):** The coordinates (49.5885118048, -1.2445617067) place the observation in the English Channel, a marine environment. The date and time (May 15, 12:00 PM) indicate midday, which makes the extreme darkness of the image unusual, suggesting it was taken underwater, in deep or murky water, or there was a technical issue with the camera/lighting.
+    *   **Compare:** The extremely vague visual impression of marine life is consistent with the marine context provided by the metadata. However, the visual clarity is so profoundly low that it prohibits any confident or specific species identification. This severe lack of clarity *mandates* a very low confidence score.
+3.  **SELF-REFLECTION:** The extreme degradation (darkness, blur, lack of contrast) means that almost any medium-sized, pelagic marine creature with a fusiform body shape could be a 'look-alike' if only vague silhouettes are considered. Common fish species found in the English Channel, such as various types of mackerel, herring, or even small sharks, could present similar indistinct dark shapes under these conditions.
+
+PHASE 2: CALIBRATED OUTPUT
+*   **Agreement:** Low agreement in specificity due to extreme lack of visual detail, but general agreement on marine context.
+*   **Clarity:** Extremely low.
+*   **Probability:** Given the extremely low clarity, the probability of correct identification for any specific species is very low.
+
+Atlantic Mackerel",Scomber,Scomber scombrus,5,European Pilchard,Sardina,Sardina pilchardus,2
+287,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,25,Long-finned Pilot Whale,Globicephala,Globicephala melas,12
+286,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,15,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+292,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+293,5,361654652,Common Dolphin,Delphinus delphis,Unidentifiable Species,N/A,N/A,5,Unidentifiable Species,N/A,N/A,2
+291,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+296,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+290,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,1,Great White Shark,Carcharodon,Carcharodon carcharias,0
+288,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+282,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Low. The image is extremely dark and has very low contrast, making detailed features difficult to discern at first glance. The 'crops' slightly enhance visibility of shapes but do not significantly improve overall clarity or contrast.
+    *   **Specific tokens:** Despite the darkness, several elongated, torpedo-shaped dark forms are visible in what appears to be water. On closer inspection, particularly with the aid of the crops, one can faintly distinguish characteristic white markings (post-ocular patch and a saddle patch behind the dorsal fin) against the dark bodies of at least two individuals. The dorsal fins appear tall and triangular/rounded.
+    *   **Perceptual Barriers:** Extreme darkness, low contrast, potential motion blur or water obscuration, aerial perspective.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The observed body shape, tall dorsal fin, and most importantly, the faint but distinctive black and white coloration pattern (white post-ocular and saddle patches on a dark body) are highly characteristic of Killer Whales (Orcas).
+    *   **Path B (Contextual):** The location (49.5885118048, -1.2445617067) is off the coast of Normandy, France, in the English Channel. Orcas (Orcinus orca) are widely distributed and can occasionally be found in the English Channel, although it's not their primary habitat. The date/time metadata doesn't preclude their presence.
+    *   **Compare:** There is high agreement. The visual evidence strongly points to Orcas, and their presence in the general region, though less common, is plausible.
+
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The primary challenge is the extreme darkness and low contrast of the image, which significantly reduces clarity. While the diagnostic white markings are faintly visible, they require close scrutiny and could be missed, leading to misidentification.
+    *   **Most likely 'Look-alike' species for this specific degradation:** If the white markings were completely indiscernible, other large, dark-bodied cetaceans in the region could be considered. The Long-finned Pilot Whale (Globicephala melas) is a plausible look-alike due to its similar dark coloration and general body shape, and its presence in the North Atlantic, including occasionally into the English Channel. False Killer Whale (Pseudorca crassidens) is another dark-bodied oceanic dolphin with a similar overall form.
+
+PHASE 2: CALIBRATED OUTPUT
+Low Clarity OR Low Agreement = Low Probability (under 40).
+Given the extremely low clarity of the image due to darkness, despite the discernible visual cues pointing strongly to Killer Whales, the probability must be under 40 as per the system instructions.
+
+Killer Whale",Orcinus,Orcinus orca,39,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+284,5,361654652,Common Dolphin,Delphinus delphis,Porbeagle Shark,Lamna,Lamna nasus,15,Blue Shark,Prionace,Prionace glauca,10
+289,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,38,Long-finned Pilot Whale,Globicephala,Globicephala melas,7
+285,5,361654652,Common Dolphin,Delphinus delphis,"1.  **VISUAL SELF-CHECK:** The image exhibits extremely low perceptual clarity. It is predominantly dark gray with very faint, indistinct variations in shade. Specific tokens such as ear shape, tail, or texture are completely indiscernible. The most prominent feature is a vertical, slightly lighter band down the middle, resembling a structural element rather than an animal. Other dark, amorphous smudges lack any identifiable biological form.
+    *   **Perceptual Barriers:** Extreme darkness, very low contrast, complete lack of detail, potential motion blur or underexposure. The image essentially appears as visual noise or a dark, featureless surface.
+
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The image provides no identifiable visual cues for any wildlife species. The faint patterns are too abstract and degraded to assign to an animal.
+    *   **Path B (Contextual):** The metadata (Location: (49.5885118048, -1.2445617067) off the coast of France in the English Channel, Date/Time: May 15, 12:00 PM) suggests a marine or coastal environment where various marine wildlife could be present.
+    *   **Compare:** Path A offers no species identification. Path B suggests a marine habitat but no specific species. There is a complete lack of agreement between the visual data and any potential species identification. The clarity is critically low. Therefore, confidence in identifying any species is extremely low.
+
+3.  **SELF-REFLECTION:** As a critic, I observe that the degradation is so severe that no animal features are visible. The image does not allow for differentiation between species, or even the definitive presence of an animal.
+    *   **Most likely 'Look-alike':** Given the extreme lack of detail, the image more closely resembles a dark, abstract pattern, environmental artifact (e.g., murky water, a distant, underexposed object, or photographic error), or simply an image containing no discernible animal. There are no specific ""look-alike"" *species* as no animal is perceivable. Any assignment of a species would be speculative and not based on visual evidence.
+
+**PHASE 2: CALIBRATED OUTPUT**
+Due to the extreme lack of visual clarity and the complete absence of agreement between visual data and any potential species identification, the probability for any specific species is critically low. The visual input does not support identifying any animal. However, to adhere to the output format, I will assign a minimal probability to common marine species plausible for the given location, strictly reflecting the non-identifiable nature of the image.
+
+Common Dolphin",Delphinus,Delphinus delphis,1,Harbour Porpoise,Phocoena,Phocoena phocoena,1
+294,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,1,Long-finned Pilot Whale,Globicephala,Globicephala melas,1
+299,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,20,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+295,5,361654652,Common Dolphin,Delphinus delphis,"PHASE 1: MULTI-MODULE INTERNAL EVALUATION
+1.  **VISUAL SELF-CHECK:**
+    *   **Perceptual Clarity:** Extremely low. The image is almost entirely black with very faint, indistinct grey variations. It is severely underexposed or poorly lit.
+    *   **Specific Tokens:** No discernible tokens such as ear shape, tail, fur/skin texture, or body outline are identifiable. There are some faint, vertical streaks and a few extremely dark, unidentifiable blotches that could be anything from artifacts to highly degraded animal outlines. One slightly angular, darker shape against a vertical streak in the original and cropped images (e.g., third and fourth crops) is the only element that *might* be interpreted as part of an organism, but it lacks any specific features.
+    *   **Perceptual Barriers:** Extreme underexposure/darkness, extremely low contrast, blur, complete lack of detail, possible image artifacts.
+2.  **SELF-CONSISTENCY AUDIT:**
+    *   **Path A (Visual):** The visual data is insufficient to suggest any specific species or even confirm the presence of an animal.
+    *   **Path B (Contextual):** The coordinates (49.5885118048, -1.2445617067) place the location in the English Channel, a marine environment, off the coast of France. The date/time is 2026-05-15 at 12:00 PM, suggesting mid-day. This context implies marine wildlife.
+    *   **Compare:** Path A provides no identifiable visual information. Path B indicates a marine environment. The lack of visual data from Path A means there is no agreement with the contextual information regarding species identification. Clarity is extremely low. Therefore, confidence must be very low.
+3.  **SELF-REFLECTION:**
+    *   **Critic:** The image is essentially unreadable for wildlife identification. Any identification would be arbitrary guesswork due to the complete absence of visual cues. The most likely 'look-alike' for this degradation is ""no discernible animal"" or ""an artifact of darkness."" Given the requirement to name a species, any choice would be entirely speculative and unsupported by visual evidence.
+
+PHASE 2: CALIBRATED OUTPUT
+Given the extremely low clarity and the complete lack of identifiable visual features, the agreement between visual and contextual information for *specific species identification* is practically zero. Therefore, the probability score for any identified species must be very low (under 40), reflecting the model's inability to make an informed identification based on the provided image. The selected species are common marine fish found in the English Channel, chosen as generic placeholders to adhere to the output format, with probabilities reflecting the absolute lack of visual evidence.
+
+Sprat",Sprattus,Sprattus sprattus,1,European Pilchard,Sardina,Sardina pilchardus,0.5
+298,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+297,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,8,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+300,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,5,Great White Shark,Carcharodon,Carcharodon carcharias,2

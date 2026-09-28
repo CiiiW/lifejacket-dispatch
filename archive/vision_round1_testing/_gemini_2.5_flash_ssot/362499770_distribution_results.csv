@@ -1,0 +1,301 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+10,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+9,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+1,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+5,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+12,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+8,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+11,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+14,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+7,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+3,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+13,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+6,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+4,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+2,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,40
+15,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+20,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+29,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+24,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+26,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,55
+18,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+19,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,90,Steller Sea Lion,Eumetopias,jubatus,50
+17,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+30,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+27,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+28,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+16,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+23,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+25,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+21,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+22,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+31,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+32,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+36,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+40,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+39,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+42,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+34,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+43,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+35,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+38,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+37,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+44,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+45,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+41,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+33,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+47,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+46,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,40
+48,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+50,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+49,0,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+53,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+59,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+52,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+51,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+56,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+57,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,65
+55,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+54,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+58,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+60,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,60
+61,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,55
+62,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+66,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+64,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+63,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+68,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+70,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+67,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+65,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,65
+72,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+69,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+74,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+73,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,60
+71,1,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,85,California Sea Lion,Zalophus,Zalophus californianus,70
+75,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,55
+77,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+79,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+81,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+76,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+78,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+82,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+80,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+84,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+87,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+83,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+86,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+85,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+90,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+88,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+89,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+92,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+94,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+91,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+93,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+99,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+97,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+98,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+96,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+95,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+100,1,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+102,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+103,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,40
+101,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,90,Steller Sea Lion,Eumetopias,jubatus,40
+104,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+105,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+106,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+107,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+109,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+108,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+111,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+110,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+114,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+115,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+113,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,92,Steller Sea Lion,Eumetopias,Eumetopias jubatus,12
+117,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+118,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+112,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Harbor Seal,Phoca,Phoca vitulina,40
+120,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,95,Steller Sea Lion,Eumetopias,jubatus,10
+121,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,95,Steller Sea Lion,Eumetopias,jubatus,10
+119,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+116,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+126,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,98,Steller Sea Lion,Eumetopias,Eumetopias jubatus,5
+122,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+123,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+125,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,californianus,95,Steller Sea Lion,Eumetopias,jubatus,40
+124,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+127,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+128,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+132,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+131,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopius jubatus,15
+129,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,85,California Sea Lion,Zalophus,Zalophus californianus,75
+130,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+134,2,362499770,California Sea Lion,Zalophus californianus,Steller Sea Lion,Eumetopias,Eumetopias jubatus,90,California Sea Lion,Zalophus,Zalophus californianus,25
+137,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+133,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+136,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+138,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+135,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+140,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+142,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+141,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+143,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,20
+144,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+145,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+148,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+146,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+139,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+147,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+149,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+150,2,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+152,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,75,California Sea Lion,Zalophus,Zalophus californianus,25
+151,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,60
+153,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,30
+154,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,70,California Sea Lion,Zalophus,Zalophus californianus,35
+155,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,80,California Sea Lion,Zalophus,Zalophus californianus,25
+156,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,95,California Sea Lion,Zalophus,Zalophus californianus,5
+158,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,30
+157,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,40
+160,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,15
+162,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,25
+161,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,80,California Sea Lion,Zalophus,Zalophus californianus,15
+159,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,30
+163,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,80,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+168,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,95,Steller Sea Lion,Eumetopias,Eumetopias jubatus,15
+165,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,60,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+164,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+166,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,40,Harbor Seal,Phoca,Phoca vitulina,30
+167,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,92,California Sea Lion,Zalophus,Zalophus californianus,8
+170,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+169,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,75,Harbor Seal,Phoca,Phoca vitulina,40
+171,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,88,California Sea Lion,Zalophus,Zalophus californianus,35
+173,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,35
+174,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+176,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,20
+175,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,30
+179,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,95,California Sea Lion,Zalophus,Zalophus californianus,12
+177,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,25
+180,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Harbor Seal,Phoca,Phoca vitulina,40
+172,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,15
+183,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,25
+181,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,60,California Sea Lion,Zalophus,Zalophus californianus,30
+185,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,25
+182,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,65,California Sea Lion,Zalophus,Zalophus californianus,25
+178,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,80,California Sea Lion,Zalophus,Zalophus californianus,60
+184,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,80,Harbor Seal,Phoca,Phoca vitulina,50
+187,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+188,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+186,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,80,California Sea Lion,Zalophus,Zalophus californianus,15
+190,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,20
+193,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,35
+194,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Harbor Seal,Phoca,Phoca vitulina,25
+192,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,85,California Sea Lion,Zalophus,Zalophus californianus,25
+195,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,88,California Sea Lion,Zalophus,Zalophus californianus,25
+197,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,88,Steller Sea Lion,Eumetopias,Eumetopias jubatus,35
+191,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,85,Steller Sea Lion,Eumetopias,Eumetopias jubatus,40
+200,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,20
+189,3,362499770,California Sea Lion,Zalophus californianus,California Sea Lion,Zalophus,Zalophus californianus,90,Harbor Seal,Phoca,Phoca vitulina,50
+203,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,40,California Sea Lion,Zalophus,Zalophus californianus,20
+199,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,90,California Sea Lion,Zalophus,Zalophus californianus,15
+201,4,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,60,Common Raven,Corvus,Corvus corax,30
+202,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,30,California Sea Lion,Zalophus,Zalophus californianus,20
+198,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,95,California Sea Lion,Zalophus,Zalophus californianus,5
+196,3,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,98,Spotted Seal,Phoca,Phoca largha,2
+205,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,1,California Sea Lion,Zalophus,Zalophus californianus,1
+207,4,362499770,California Sea Lion,Zalophus californianus,Glaucous-winged Gull,Larus,Larus glaucescens,1,Harbor Seal,Phoca,Phoca vitulina,1
+204,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,5,River Otter,Lontra,Lontra canadensis,2
+208,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,10,California Sea Lion,Zalophus,Zalophus californianus,5
+210,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,25,California Sea Lion,Zalophus,Zalophus californianus,10
+206,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,8,Virginia Opossum,Didelphis,Didelphis virginiana,5
+211,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,30,River Otter,Lontra,Lontra canadensis,20
+209,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,1,North American River Otter,Lontra,Lontra canadensis,1
+212,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,5,Domestic Cat,Felis,Felis catus,3
+213,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,25
+216,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,30,American Crow,Corvus,Corvus brachyrhynchos,10
+217,4,362499770,California Sea Lion,Zalophus californianus,Glaucous-winged Gull,Larus,Larus glaucescens,0,Harbor Seal,Phoca,Phoca vitulina,0
+214,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,1,North American River Otter,Lontra,Lontra canadensis,1
+215,4,362499770,California Sea Lion,Zalophus californianus,Northwestern Crow,Corvus,Corvus caurinus,30,American Crow,Corvus,Corvus brachyrhynchos,25
+222,4,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,35,American Crow,Corvus,Corvus brachyrhynchos,30
+218,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,20,Fisher,Pekania,Pekania pennanti,8
+221,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,California Sea Lion,Zalophus,Zalophus californianus,20
+228,4,362499770,California Sea Lion,Zalophus californianus,Glaucous-winged Gull,Larus,Larus glaucescens,0,American Crow,Corvus,Corvus brachyrhynchos,0
+220,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,1,American Crow,Corvus,Corvus brachyrhynchos,1
+223,4,362499770,California Sea Lion,Zalophus californianus,River Otter,Lontra,Lontra canadensis,15,American Mink,Neovison,Neovison vison,10
+226,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,1,River Otter,Lontra,Lontra canadensis,1
+225,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,20,American Mink,Neovison,Neovison vison,15
+224,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,10,River Otter,Lontra,Lontra canadensis,8
+219,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,8,River Otter,Lontra,Lontra canadensis,6
+230,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,35,North American River Otter,Lontra,Lontra canadensis,25
+227,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,25,California Sea Lion,Zalophus,Zalophus californianus,15
+231,4,362499770,California Sea Lion,Zalophus californianus,Cormorant,Phalacrocorax,Phalacrocorax auritus,85,Harbor Seal,Phoca,Phoca vitulina,15
+236,4,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,5,American Crow,Corvus,Corvus brachyrhynchos,4
+237,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,70,California Sea Lion,Zalophus,Zalophus californianus,25
+229,4,362499770,California Sea Lion,Zalophus californianus,Big Brown Bat,Eptesicus,Eptesicus fuscus,5,Little Brown Bat,Myotis,Myotis lucifugus,3
+240,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,30,River Otter,Lontra,Lontra canadensis,15
+234,4,362499770,California Sea Lion,Zalophus californianus,Common Raven,Corvus,Corvus corax,20,American Crow,Corvus,Corvus brachyrhynchos,15
+235,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,12,River Otter,Lontra,Lontra canadensis,6
+232,4,362499770,California Sea Lion,Zalophus californianus,North American River Otter,Lontra,Lontra canadensis,5,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,3
+238,4,362499770,California Sea Lion,Zalophus californianus,Mallard,Anas,Anas platyrhynchos,10,Canada Goose,Branta,Branta canadensis,8
+243,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,80,California Sea Lion,Zalophus,Zalophus californianus,35
+239,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Nannopterum,Nannopterum auritum,15,Glaucous-winged Gull,Larus,Larus glaucescens,5
+233,4,362499770,California Sea Lion,Zalophus californianus,Northwestern Crow,Corvus,caurinus,55,Brewer's Blackbird,Euphagus,cyanocephalus,20
+242,4,362499770,California Sea Lion,Zalophus californianus,European Starling,Sturnus,Sturnus vulgaris,30,Rock Dove,Columba,Columba livia,25
+245,4,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,55,California Sea Lion,Zalophus,Zalophus californianus,35
+246,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,65,Pelagic Cormorant,Phalacrocorax,Phalacrocorax pelagicus,45
+251,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,10,American Crow,Corvus,Corvus brachyrhynchos,5
+247,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,1,Northwestern Crow,Corvus,Corvus caurinus,1
+252,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,15,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,10
+249,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,80,Brandt's Cormorant,Phalacrocorax,Phalacrocorax penicillatus,35
+241,4,362499770,California Sea Lion,Zalophus californianus,Brown Creeper,Certhia,Certhia americana,8,Red-breasted Nuthatch,Sitta,Sitta canadensis,6
+248,4,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,30,Common Raven,Corvus,Corvus corax,15
+250,4,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,5,Domestic Cat,Felis,Felis catus,2
+253,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,8,Common Raven,Corvus,Corvus corax,7
+244,4,362499770,California Sea Lion,Zalophus californianus,River Otter,Lontra,Lontra canadensis,5,Raccoon,Procyon,Procyon lotor,2
+255,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,70,Mourning Dove,Zenaida,Zenaida macroura,15
+254,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,50,North American River Otter,Lontra,Lontra canadensis,35
+256,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+261,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,30,Common Raven,Corvus,Corvus corax,25
+263,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,0,American Robin,Turdus,Turdus migratorius,0
+264,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,40,North American River Otter,Lontra,Lontra canadensis,25
+260,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,0,European Starling,Sturnus,Sturnus vulgaris,0
+259,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,1,European Starling,Sturnus,Sturnus vulgaris,1
+257,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,1,European Starling,Sturnus,Sturnus vulgaris,1
+266,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,10,Northern River Otter,Lontra,Lontra canadensis,8
+265,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,10,Broadnose Sevengill Shark,Notorynchus,Notorynchus cepedianus,7
+258,5,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,25,Domestic Cat,Felis,Felis catus,10
+268,5,362499770,California Sea Lion,Zalophus californianus,No animal visible,N/A,N/A,0,No animal visible,N/A,N/A,0
+272,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,70,Mourning Dove,Zenaida,Zenaida macroura,15
+269,5,362499770,California Sea Lion,Zalophus californianus,Barn Swallow,Hirundo,rustica,30,Cliff Swallow,Petrochelidon,pyrrhonota,25
+274,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,0,Black-tailed Deer,Odocoileus,Odocoileus hemionus columbianus,0
+262,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Nannopterum,Nannopterum auritum,75,Brown Pelican,Pelecanus,Pelecanus occidentalis,20
+271,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,40,American Crow,Corvus,Corvus brachyrhynchos,35
+277,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,30,Mourning Dove,Zenaida,Zenaida macroura,15
+267,5,362499770,California Sea Lion,Zalophus californianus,European Starling,Sturnus,Sturnus vulgaris,2,Norway Rat,Rattus,Rattus norvegicus,1
+279,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,30,Mourning Dove,Zenaida,Zenaida macroura,10
+270,5,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,1,North American River Otter,Lontra,Lontra canadensis,1
+282,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,3,European Starling,Sturnus,Sturnus vulgaris,2
+273,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,30,Double-crested Cormorant,Nannopterum,Nannopterum auritum,15
+275,5,362499770,California Sea Lion,Zalophus californianus,Rock Dove,Columba,Columba livia,25,American Crow,Corvus,Corvus brachyrhynchos,15
+283,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,0,Raccoon,Procyon,Procyon lotor,0
+281,5,362499770,California Sea Lion,Zalophus californianus,Northwestern Crow,Corvus,Corvus caurinus,10,American Crow,Corvus,Corvus brachyrhynchos,5
+276,5,362499770,California Sea Lion,Zalophus californianus,House Mouse,Mus,Mus musculus,1,Deer Mouse,Peromyscus,Peromyscus maniculatus,1
+285,5,362499770,California Sea Lion,Zalophus californianus,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Black-tailed Deer,Odocoileus,Odocoileus hemionus,0
+287,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Nannopterum,Nannopterum auritum,35,Gull species,Larus,sp.,20
+278,5,362499770,California Sea Lion,Zalophus californianus,Domestic Cat,Felis,Felis catus,2,Brown Rat,Rattus,Rattus norvegicus,1
+286,5,362499770,California Sea Lion,Zalophus californianus,House Sparrow,Passer,Passer domesticus,10,Dark-eyed Junco,Junco,Junco hyemalis,7
+280,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+284,5,362499770,California Sea Lion,Zalophus californianus,Harbor Seal,Phoca,Phoca vitulina,2,River Otter,Lontra,Lontra canadensis,1
+288,5,362499770,California Sea Lion,Zalophus californianus,Bat,Myotis,Myotis lucifugus,35,Barn Swallow,Hirundo,Hirundo rustica,20
+293,5,362499770,California Sea Lion,Zalophus californianus,Cormorant,Phalacrocorax,Phalacrocorax spp.,35,Great Blue Heron,Ardea,Ardea herodias,15
+289,5,362499770,California Sea Lion,Zalophus californianus,American Robin,Turdus,Turdus migratorius,2,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+294,5,362499770,California Sea Lion,Zalophus californianus,Rock Pigeon,Columba,Columba livia,25,European Starling,Sturnus,Sturnus vulgaris,15
+290,5,362499770,California Sea Lion,Zalophus californianus,Raccoon,Procyon,Procyon lotor,2,Black-tailed Deer,Odocoileus,Odocoileus hemionus,1
+292,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Nannopterum,Nannopterum auritum,1,American Crow,Corvus,Corvus brachyrhynchos,1
+296,5,362499770,California Sea Lion,Zalophus californianus,European Starling,Sturnus,Sturnus vulgaris,0,American Robin,Turdus,Turdus migratorius,0
+295,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,30,Brandt's Cormorant,Urile,Urile penicillatus,20
+300,5,362499770,California Sea Lion,Zalophus californianus,House Sparrow,Passer,Passer domesticus,8,European Starling,Sturnus,Sturnus vulgaris,6
+297,5,362499770,California Sea Lion,Zalophus californianus,Barn Swallow,Hirundo,Hirundo rustica,60,Cliff Swallow,Petrochelidon,Petrochelidon pyrrhonota,35
+291,5,362499770,California Sea Lion,Zalophus californianus,Big Brown Bat,Eptesicus,Eptesicus fuscus,12,European Starling,Sturnus,Sturnus vulgaris,7
+299,5,362499770,California Sea Lion,Zalophus californianus,American Crow,Corvus,Corvus brachyrhynchos,2,Glaucous-winged Gull,Larus,Larus glaucescens,2
+298,5,362499770,California Sea Lion,Zalophus californianus,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,35,Pelagic Cormorant,Phalacrocorax,Phalacrocorax pelagicus,30

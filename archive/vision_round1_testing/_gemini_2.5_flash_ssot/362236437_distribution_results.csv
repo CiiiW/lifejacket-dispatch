@@ -1,0 +1,333 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+14,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Jackal,Canis,Canis aureus,5
+8,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+15,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+12,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+6,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Indian Jackal,Canis,Canis aureus,5
+7,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+3,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+9,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Jackal,Canis,Canis aureus,5
+1,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,8
+2,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+11,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+13,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+5,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+10,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+16,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Jackal,Canis,Canis aureus,10
+17,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+18,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+21,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+24,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+19,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+28,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+22,0,362236437,Domestic Dog,Canis familiaris,Common Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+20,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+26,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+23,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+27,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+4,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+25,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+29,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+30,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,5
+35,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+32,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+34,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+31,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,2
+36,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+33,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+39,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Golden Jackal,Canis,Canis aureus,10
+38,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Indian Jackal,Canis,Canis aureus,3
+37,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+40,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+43,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+44,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Indian Jackal,Canis,aureus,8
+41,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,1
+45,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+47,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+42,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,5
+46,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+49,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+48,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+53,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,3
+51,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+54,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+50,0,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+52,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+58,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+57,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Indian Jackal,Canis,aureus,5
+56,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+55,1,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,familiaris,98,Indian Jackal,Canis,aureus,5
+62,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+59,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Indian Jackal,Canis,Canis aureus,1
+60,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,10
+61,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+64,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+65,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,1
+63,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,5
+66,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+67,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+72,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+69,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Indian Jackal,Canis,Canis aureus,5
+74,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+70,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+73,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+76,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+75,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,5
+71,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+78,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+81,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,1
+80,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Golden Jackal,Canis,Canis aureus,5
+79,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+77,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,8
+68,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Indian Jackal,Canis,aureus,5
+82,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,5
+85,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+83,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Indian Jackal,Canis,aureus,5
+89,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,2
+84,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+87,1,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis lupus familiaris,98,Indian Jackal,Canis,Canis aureus,5
+92,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+95,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,8
+86,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+90,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+91,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+88,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,8
+93,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+97,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+96,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,1
+94,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+99,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+100,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,10
+101,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,10
+98,1,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,5
+103,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,2
+105,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,5
+102,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+106,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,10
+109,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+111,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus indicus,5
+108,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+107,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,8
+104,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+110,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,95,Golden Jackal,Canis,Canis aureus,10
+112,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,2
+118,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,2
+114,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+115,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+113,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,95,Golden Jackal,Canis,Canis aureus,1
+116,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,2
+117,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,7
+122,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,5
+123,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,5
+125,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+120,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+119,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+121,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,lupus familiaris,99,Golden Jackal,Canis,aureus,1
+124,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+127,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+126,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+129,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+128,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+131,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+130,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,5
+132,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+135,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,10
+134,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Jackal,Canis,Canis aureus,15
+141,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,5
+140,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,10
+139,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+133,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,1
+136,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,99,Golden Jackal,Canis,aureus,1
+138,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+137,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+144,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,99,Golden Jackal,Canis,Canis aureus,5
+146,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,99,Golden Jackal,Canis,Canis aureus,1
+143,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,8
+147,2,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,8
+149,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,98,Golden Jackal,Canis,aureus,5
+150,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,5
+142,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Indian Golden Jackal,Canis,Canis aureus,5
+148,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+145,2,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,98,Golden Jackal,Canis,Canis aureus,5
+154,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,15
+153,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,15
+152,3,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,15
+151,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,15
+155,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,60,Golden Jackal,Canis,Canis aureus,20
+156,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,85,Golden Jackal,Canis,Canis aureus,15
+159,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,90,Golden Jackal,Canis,aureus,10
+158,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,85,Indian Golden Jackal,Canis,aureus,15
+161,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,15
+160,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,90,Golden Jackal,Canis,aureus,15
+157,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,25
+162,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,35
+166,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+164,3,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,65,Indian Golden Jackal,Canis,Canis aureus,30
+163,3,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis familiaris,75,Indian Golden Jackal,Canis,Canis aureus,25
+168,3,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,30
+165,3,362236437,Domestic Dog,Canis familiaris,Golden Jackal,Canis,Canis aureus,85,Domestic Dog,Canis,Canis familiaris,80
+167,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,65,Golden Jackal,Canis,Canis aureus,55
+171,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,80,Golden Jackal,Canis,Canis aureus,25
+169,3,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,10
+174,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,35
+173,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,75,Indian Golden Jackal,Canis,Canis aureus,35
+175,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,60,Golden Jackal,Canis,Canis aureus,40
+172,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,15
+170,3,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,familiaris,95,Golden Jackal,Canis,aureus,8
+180,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,95,Golden Jackal,Canis,Canis aureus,10
+178,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Indian Jackal,Canis,Canis aureus,20
+176,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,85,Golden Jackal,Canis,Canis aureus,10
+179,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,15
+177,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,85,Golden Jackal,Canis,Canis aureus,25
+183,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+182,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,35
+181,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,45
+184,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,85,Golden Jackal,Canis,Canis aureus,15
+191,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,10
+187,3,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,25
+193,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,10
+194,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,10
+188,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,60,Indian Golden Jackal,Canis,Canis aureus,20
+189,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,35
+192,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,15
+196,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,98,Golden Jackal,Canis,Canis aureus,10
+185,3,362236437,Domestic Dog,Canis familiaris,Dog,Canis,Canis familiaris,25,Wild Boar,Sus,Sus scrofa,8
+198,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,90,Golden Jackal,Canis,Canis aureus,15
+186,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Golden Jackal,Canis,Canis aureus,10
+200,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,95,Golden Jackal,Canis,Canis aureus,10
+197,3,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,familiaris,55,Golden Jackal,Canis,aureus,45
+195,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,85,Golden Jackal,Canis,aureus,45
+190,3,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,95,Bengal Fox,Vulpes,bengalensis,12
+199,3,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,40
+202,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,15,Domestic Dog,Canis,Canis familiaris,10
+207,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,2,Rhesus Macaque,Macaca,Macaca mulatta,1
+209,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Domestic Cat,Felis,Felis catus,20
+210,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,35,Domestic Cat,Felis,Felis catus,20
+203,4,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,5,Rhesus Macaque,Macaca,Macaca mulatta,2
+213,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,30,Rhesus Macaque,Macaca,Macaca mulatta,25
+211,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,10,Rhesus Macaque,Macaca,Macaca mulatta,8
+201,4,362236437,Domestic Dog,Canis familiaris,Indian Bullfrog,Hoplobatrachus,Hoplobatrachus tigerinus,10,Common Indian Toad,Duttaphrynus,Duttaphrynus melanostictus,7
+204,4,362236437,Domestic Dog,Canis familiaris,Common Toad,Duttaphrynus,Duttaphrynus melanostictus,5,Indian Garden Lizard,Calotes,Calotes versicolor,3
+212,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,15,Roof Rat,Rattus,Rattus rattus,10
+205,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,Felis catus,12,Indian Mongoose,Herpestes,Herpestes edwardsii,8
+216,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,40,Domestic Cat,Felis,catus,35
+214,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,15,Domestic Cat,Felis,catus,12
+208,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+215,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,15,Common Indian Mongoose,Herpestes,Herpestes edwardsii,8
+206,4,362236437,Domestic Dog,Canis familiaris,Common Rat Snake,Ptyas,Ptyas mucosa,10,Common Indian Toad,Duttaphrynus,Duttaphrynus melanostictus,8
+217,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,15,Stray Cat,Felis,Felis catus,10
+220,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,40,Golden Jackal,Canis,aureus,30
+226,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,90,Golden Jackal,Canis,Canis aureus,8
+222,4,362236437,Domestic Dog,Canis familiaris,Common Myna,Acridotheres,Acridotheres tristis,5,Oriental Garden Lizard,Calotes,Calotes versicolor,4
+224,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,8,Indian Grey Mongoose,Herpestes,Herpestes edwardsii,5
+221,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,mulatta,1,Common Myna,Acridotheres,tristis,1
+223,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,30,Domestic Cat,Felis,Felis catus,25
+219,4,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,8,Rhesus Macaque,Macaca,Macaca mulatta,7
+228,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,15,Domestic Cat,Felis,Felis catus,12
+229,4,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis lupus familiaris,40,Golden Jackal,Canis,Canis aureus,15
+230,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,mulatta,25,Feral Dog,Canis,familiaris,20
+225,4,362236437,Domestic Dog,Canis familiaris,Common Indian Toad,Duttaphrynus,melanostictus,15,Common Myna,Acridotheres,tristis,10
+232,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,60,Domestic Cat,Felis,Felis catus,35
+231,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,5,Rhesus Macaque,Macaca,Macaca mulatta,3
+233,4,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis familiaris,85,Golden Jackal,Canis,Canis aureus,30
+218,4,362236437,Domestic Dog,Canis familiaris,Feral Pigeon,Columba,livia domestica,5,Indian Palm Squirrel,Funambulus,palmarum,3
+227,4,362236437,Domestic Dog,Canis familiaris,Dog,Canis,Canis familiaris,35,Golden Jackal,Canis,Canis aureus,10
+238,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,7,Feral Cat,Felis,Felis catus,5
+236,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,5,Domestic Dog,Canis,Canis familiaris,3
+235,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,1,Rhesus Macaque,Macaca,Macaca mulatta,1
+239,4,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis lupus familiaris,2,Rhesus Macaque,Macaca,Macaca mulatta,1
+234,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis lupus familiaris,60,Domestic Cat,Felis,Felis catus,40
+240,4,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,familiaris,35,Golden Jackal,Canis,aureus,15
+245,4,362236437,Domestic Dog,Canis familiaris,House Rat,Rattus,Rattus rattus,10,Asian House Shrew,Suncus,Suncus murinus,8
+243,4,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,65,Golden Jackal,Canis,Canis aureus,30
+247,4,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis familiaris,25,Golden Jackal,Canis,Canis aureus,15
+242,4,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis lupus familiaris,15,Feral Cat,Felis,Felis catus,10
+254,5,362236437,Domestic Dog,Canis familiaris,Common Myna,Acridotheres,Acridotheres tristis,0,House Crow,Corvus,Corvus splendens,0
+237,4,362236437,Domestic Dog,Canis familiaris,Spotted Owlet,Athene,Athene brama,10,Common House Rat,Rattus,Rattus rattus,8
+241,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,5,Common Mongoose,Herpestes,Herpestes edwardsii,3
+246,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,15,Indian Grey Mongoose,Herpestes,Herpestes edwardsii,10
+244,4,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,2,Feral Dog,Canis,Canis familiaris,2
+253,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1,House Sparrow,Passer,Passer domesticus,1
+252,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,mulatta,0,Rock Dove,Columba,livia,0
+251,5,362236437,Domestic Dog,Canis familiaris,Dog,Canis,Canis familiaris,5,Rhesus Macaque,Macaca,Macaca mulatta,3
+249,4,362236437,Domestic Dog,Canis familiaris,Domestic Cat,Felis,Felis catus,8,Domestic Dog,Canis,Canis familiaris,5
+248,4,362236437,Domestic Dog,Canis familiaris,Indian Gray Mongoose,Herpestes,Herpestes edwardsii,15,Common Rat,Rattus,Rattus rattus,10
+256,5,362236437,Domestic Dog,Canis familiaris,Common Myna,Acridotheres,Acridotheres tristis,0,House Crow,Corvus,Corvus splendens,0
+250,4,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,15,Common Rat,Rattus,Rattus rattus,10
+255,5,362236437,Domestic Dog,Canis familiaris,Rock Dove,Columba,Columba livia,5,House Sparrow,Passer,Passer domesticus,3
+266,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1,Rock Dove,Columba,Columba livia,1
+257,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,1,Rhesus Macaque,Macaca,Macaca mulatta,1
+263,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,1,Rock Pigeon,Columba,Columba livia,1
+260,5,362236437,Domestic Dog,Canis familiaris,Feral Dog,Canis,Canis lupus familiaris,1,House Crow,Corvus,Corvus splendens,1
+259,5,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,3,Rhesus Macaque,Macaca,Macaca mulatta,3
+258,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,splendens,0,Rock Pigeon,Columba,livia,0
+268,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,0,Rock Pigeon,Columba,Columba livia,0
+264,5,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,8,Rhesus Macaque,Macaca,Macaca mulatta,6
+261,5,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,familiaris,5,Rhesus Macaque,Macaca,mulatta,3
+267,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,2,Rhesus Macaque,Macaca,Macaca mulatta,1
+262,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,1,Rock Pigeon,Columba,Columba livia,1
+269,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,1,House Crow,Corvus,Corvus splendens,1
+270,5,362236437,Domestic Dog,Canis familiaris,Rock Dove,Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+277,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,0,Indian Palm Squirrel,Funambulus,Funambulus palmarum,0
+265,5,362236437,Domestic Dog,Canis familiaris,House Rat,Rattus,Rattus rattus,1,Feral Pigeon,Columba,Columba livia,1
+278,5,362236437,Domestic Dog,Canis familiaris,Rock Pigeon,Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+272,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,8,Domestic Cat,Felis,Felis catus,6
+273,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Domestic Dog,Canis,Canis familiaris,1
+281,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+274,5,362236437,Domestic Dog,Canis familiaris,"REASONING PROCESS:
+The provided image is uniformly dark grey/black, lacking any discernible features, shapes, textures, or colors that would indicate the presence of an animal. The cropped images also show the same lack of visual information. Therefore, no animal can be identified from the visual input.
+
+Visual cues (body shape, fur/feather/skin texture, coloration and markings, pose and silhouette) are entirely absent.
+Given the complete absence of visual information, the confidence in identifying any specific species is 0.
+The observation metadata (Location: Delhi, India; Date/Time: May 17, 08:00) provides context for what *could* be present in the region, but this information cannot be used to identify an animal that is not visually apparent.
+
+Since the task requires returning two species predictions with probabilities, and no animal is visible, the most accurate representation is to assign a probability of 0 to any named species. For the purpose of fulfilling the format, two common species known to inhabit urban environments in Delhi (the provided location) are chosen as placeholders, but with the explicit understanding that they are not identified from the image itself. The SSOT randomness step is not applicable here as there are no visually plausible species to differentiate or tie-break.
+
+TOP 2 most likely species predictions (based on regional plausibility, with 0 probability due to lack of visual evidence):
+
+Rock Dove",Columba,Columba livia,0,House Crow,Corvus,Corvus splendens,0
+276,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Domestic Dog,Canis,Canis lupus familiaris,1
+279,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Civet,Paradoxurus,Paradoxurus hermaphroditus,5,Domestic Dog,Canis,Canis familiaris,3
+282,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Indian House Crow,Corvus,Corvus splendens,1
+275,5,362236437,Domestic Dog,Canis familiaris,Indian House Crow,Corvus,Corvus splendens,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+280,5,362236437,Domestic Dog,Canis familiaris,Undetermined Animal,Indet.,species,0,Undetermined Animal,Indet.,species,0
+284,5,362236437,Domestic Dog,Canis familiaris,Stray Dog,Canis,Canis familiaris,15,Golden Jackal,Canis,Canis aureus,8
+271,5,362236437,Domestic Dog,Canis familiaris,House Rat,Rattus,Rattus rattus,15,Common Myna,Acridotheres,Acridotheres tristis,12
+286,5,362236437,Domestic Dog,Canis familiaris,Harbor Seal,Phoca,Phoca vitulina,95,Grey Seal,Halichoerus,Halichoerus grypus,"12
+House Crow"
+283,5,362236437,Domestic Dog,Canis familiaris,Error,Error,Error,0,Error,Error,Error,0
+285,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,0,Domestic Cat,Felis,Felis catus,0
+289,5,362236437,Domestic Dog,Canis familiaris,Rock Dove,Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+288,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,splendens,10,Rock Pigeon,Columba,livia,8
+294,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,0,Rock Dove,Columba,Columba livia,0
+290,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,1,Indian Palm Squirrel,Funambulus,Funambulus palmarum,1
+287,5,362236437,Domestic Dog,Canis familiaris,"REASONING PROCESS:
+The provided image is almost entirely black/dark grey, with no discernible features, body shape, texture, coloration, or markings of any animal. The various crops also reveal no identifiable visual information. Therefore, visual identification of any species is impossible.
+
+Given the complete lack of visual data, the identification relies solely on the observation metadata:
+-   **Location:** (28.62862059, 77.25930492) corresponds to Delhi, India. This is a highly urbanized region.
+-   **Date/Time:** 2026-05-17 at 08:00 AM. This is early morning in mid-May.
+
+Since no visual information is available, assigning a probability of identification based on the image is effectively 0 for any specific species. However, the task requires returning two predictions with integer probabilities. To comply with this, and to reflect the extreme uncertainty and lack of visual evidence while acknowledging the geographic and temporal plausibility of common species, very low probabilities are assigned.
+
+SSOT RANDOMNESS STEP: **7YJ9X3B2** (Used for tie-breaking among equally plausible common species in the absence of visual data).
+
+Based on geographic plausibility (Delhi, India) and temporal likelihood (early morning in May), the most common urban animals are considered. Among these, birds like Rock Doves and House Crows are ubiquitous in Delhi and are active at 8:00 AM. Without any visual cues, they are equally plausible if an animal were present but unseen.
+
+Candidate species are ranked primarily by their prevalence in urban Delhi at that time, as visual identification is impossible.
+1.  Rock Dove / Feral Pigeon (*Columba livia*): Extremely common in all urban areas of Delhi.
+2.  House Crow (*Corvus splendens*): Also extremely common in Delhi, often seen alongside pigeons.
+Other common species like Indian Myna, Indian Palm Squirrel, or Domestic Dog are also plausible, but Rock Dove and House Crow are arguably the most ubiquitous and readily active in the immediate urban environment at 8 AM.
+
+Due to the complete absence of visual information for identification, the confidence in *identifying* any species is zero. However, to meet the output format requirements of providing species and positive integer probabilities, a minimal probability (1%) is assigned to reflect the mere geographic and temporal possibility of their *presence* rather than actual identification from the image. This choice aligns with the rules of lower confidence leading to lower probabilities and honest reflection of uncertainty.
+
+Rock Dove",Columba,Columba livia,1,House Crow,Corvus,Corvus splendens,1
+295,5,362236437,Domestic Dog,Canis familiaris,Indian Palm Squirrel,Funambulus,Funambulus palmarum,3,Black Rat,Rattus,Rattus rattus,2
+293,5,362236437,Domestic Dog,Canis familiaris,Indian House Rat,Rattus,Rattus rattus,1,Common Myna,Acridotheres,Acridotheres tristis,1
+291,5,362236437,Domestic Dog,Canis familiaris,Domestic Dog,Canis,Canis familiaris,5,Domestic Cat,Felis,Felis catus,5
+299,5,362236437,Domestic Dog,Canis familiaris,Indian House Crow,Corvus,Corvus splendens,1,Rock Pigeon,Columba,Columba livia,1
+297,5,362236437,Domestic Dog,Canis familiaris,House Crow,Corvus,Corvus splendens,0,Common Myna,Acridotheres,Acridotheres tristis,0
+292,5,362236437,Domestic Dog,Canis familiaris,Common Myna,Acridotheres,Acridotheres tristis,2,House Crow,Corvus,Corvus splendens,1
+300,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis lupus familiaris,1,Rhesus Macaque,Macaca,Macaca mulatta,1
+296,5,362236437,Domestic Dog,Canis familiaris,Street Dog,Canis,Canis familiaris,2,Feral Cat,Felis,Felis catus,1
+298,5,362236437,Domestic Dog,Canis familiaris,Rhesus Macaque,Macaca,Macaca mulatta,15,Spotted Owlet,Athene,Athene brama,8

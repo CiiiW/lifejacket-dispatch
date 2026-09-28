@@ -1,0 +1,312 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+11,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+6,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,70
+12,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+1,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+14,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,97,Bottlenose Dolphin,Tursiops,Tursiops truncatus,7
+10,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+7,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+5,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,20
+13,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+8,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,15
+15,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+3,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+4,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,92,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,18
+16,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+2,0,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Harbour Porpoise,Phocoena,Phocoena phocoena,15
+17,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+9,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,65
+20,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+26,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+24,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+21,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+29,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+27,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+22,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+25,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+19,0,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,45
+18,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,97,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+30,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+23,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+31,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+32,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+28,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,12
+35,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+33,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,12
+38,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+34,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+39,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,15
+40,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+37,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,50
+45,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+47,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+48,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+51,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+42,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Harbour Porpoise,Phocoena,Phocoena phocoena,85
+52,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+50,0,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+54,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+41,0,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,88,Common Dolphin,Delphinus,Delphinus delphis,25
+46,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+53,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+43,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+56,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+36,0,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,15
+57,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+49,0,361654652,Common Dolphin,Delphinus delphis,Striped Dolphin,Stenella,Stenella coeruleoalba,85,Common Dolphin,Delphinus,Delphinus delphis,40
+59,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+60,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+55,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+62,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+58,1,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,25
+64,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,65
+70,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,15
+65,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+71,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,30
+66,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+44,0,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,75,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+61,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+68,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+72,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+73,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+74,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+63,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+75,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+67,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,10
+69,1,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,85,Common Dolphin,Delphinus,Delphinus delphis,30
+76,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+81,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+77,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+82,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+79,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,40
+80,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+87,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+83,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+84,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+89,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,15
+88,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+86,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,10
+90,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+91,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+78,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,8
+94,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+93,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,30
+85,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,12
+92,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+96,1,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,92,Common Dolphin,Delphinus,Delphinus delphis,18
+98,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+95,1,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+102,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+100,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,98,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+104,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Common Dolphin,Delphinus,Delphinus delphis,15
+103,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+106,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+105,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Harbor Porpoise,Phocoena,Phocoena phocoena,15
+99,1,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,8
+101,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,40
+108,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,40
+107,2,361654652,Common Dolphin,Delphinus delphis,Risso's Dolphin,Grampus,Grampus griseus,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+109,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,88,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,65
+97,1,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,15
+113,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+111,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,88,Bottlenose Dolphin,Tursiops,Tursiops truncatus,45
+110,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,35
+114,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,40
+115,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+116,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,35
+119,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+112,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+118,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+123,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+126,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+122,2,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,15
+120,2,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,85,Common Dolphin,Delphinus,Delphinus delphis,25
+125,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Common Dolphin,Delphinus,Delphinus delphis,30
+130,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,95,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,30
+127,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,5
+131,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Common Dolphin,Delphinus,Delphinus delphis,30
+121,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,70
+117,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,10
+129,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,20
+134,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+128,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,15
+137,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+132,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+136,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+135,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,70
+133,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+124,2,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,20
+142,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+138,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Striped Dolphin,Stenella,Stenella coeruleoalba,10
+139,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,95,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+144,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,40
+143,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Common Dolphin,Delphinus,Delphinus delphis,15
+148,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,90,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+149,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,Common Dolphin,Delphinus,Delphinus delphis,15
+146,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,50
+147,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+151,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,60,Common Dolphin,Delphinus,Delphinus delphis,55
+145,2,361654652,Common Dolphin,Delphinus delphis,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,95,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+150,2,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,92,Atlantic White-sided Dolphin,Lagenorhynchus,Lagenorhynchus acutus,15
+155,3,361654652,Common Dolphin,Delphinus delphis,Harbor Seal,Phoca,Phoca vitulina,80,Grey Seal,Halichoerus,Halichoerus grypus,25
+156,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+152,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,55,Common Dolphin,Delphinus,Delphinus delphis,45
+140,2,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,90,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,10
+157,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,70,Common Dolphin,Delphinus,Delphinus delphis,60
+160,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,60
+153,3,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orca,55,Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+154,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+159,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,60
+158,3,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,60,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+162,3,361654652,Common Dolphin,Delphinus delphis,Porbeagle Shark,Lamna,Lamna nasus,70,Bluefin Tuna,Thunnus,Thunnus thynnus,40
+161,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,70,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,60
+165,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,80,Bottlenose Dolphin,Tursiops,Tursiops truncatus,70
+168,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,65,Common Dolphin,Delphinus,Delphinus delphis,45
+171,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,50
+141,2,361654652,Common Dolphin,Delphinus delphis,White-beaked Dolphin,Lagenorhynchus,Lagenorhynchus albirostris,90,Killer Whale,Orcinus,Orcinus orca,20
+164,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,85,Sharp-tailed Sunfish,Masturus,Masturus lanceolatus,15
+172,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+167,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,80,Common Dolphin,Delphinus,Delphinus delphis,40
+169,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,75,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+170,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30,Common Dolphin,Delphinus,Delphinus delphis,25
+163,3,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,50,Porbeagle Shark,Lamna,Lamna nasus,20
+176,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,60
+177,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+175,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Common Dolphin,Delphinus,Delphinus delphis,55
+180,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,40
+178,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,75,Harbour Porpoise,Phocoena,Phocoena phocoena,35
+179,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,80,Bottlenose Dolphin,Tursiops,Tursiops truncatus,65
+166,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,95,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+181,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,40,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+174,3,361654652,Common Dolphin,Delphinus delphis,Long-finned Pilot Whale,Globicephala,Globicephala melas,40,Bottlenose Dolphin,Tursiops,Tursiops truncatus,30
+183,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,70,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+182,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,70
+185,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,75
+187,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Short-beaked Common Dolphin,Delphinus,Delphinus delphis,70
+186,3,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,70,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+188,3,361654652,Common Dolphin,Delphinus delphis,Common bottlenose dolphin,Tursiops,Tursiops truncatus,75,Common dolphin,Delphinus,Delphinus delphis,60
+190,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,65,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+189,3,361654652,Common Dolphin,Delphinus delphis,Harbor Seal,Phoca,Phoca vitulina,85,Grey Seal,Halichoerus,Halichoerus grypus,65
+173,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,20,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+191,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,75,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+193,3,361654652,Common Dolphin,Delphinus delphis,Grey Seal,Halichoerus,Halichoerus grypus,65,Harbor Seal,Phoca,Phoca vitulina,45
+198,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,85,Common Dolphin,Delphinus,Delphinus delphis,60
+194,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,65,Bottlenose Dolphin,Tursiops,Tursiops truncatus,55
+195,3,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+196,3,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,80,Common Dolphin,Delphinus,Delphinus delphis,65
+197,3,361654652,Common Dolphin,Delphinus delphis,Thornback Ray,Raja,Raja clavata,60,Blonde Ray,Rostroraja,Rostroraja brachyura,50
+202,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,70,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+207,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+206,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+200,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,65,Bottlenose Dolphin,Tursiops,Tursiops truncatus,55
+203,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,55,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+192,3,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+201,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,20,Harbor Porpoise,Phocoena,Phocoena phocoena,10
+184,3,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,50,Harbour Porpoise,Phocoena,Phocoena phocoena,40
+205,4,361654652,Common Dolphin,Delphinus delphis,Thornback Ray,Raja,Raja clavata,30,Undulate Ray,Raja,Raja undulata,20
+204,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+209,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,40,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+199,3,361654652,Common Dolphin,Delphinus delphis,Ocean Sunfish,Mola,Mola mola,88,Basking Shark,Cetorhinus,Cetorhinus maximus,18
+210,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Bottlenose Dolphin,Tursiops,Tursiops truncatus,3
+211,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,80
+215,4,361654652,Common Dolphin,Delphinus delphis,Harbor Seal,Phoca,Phoca vitulina,15,Grey Seal,Halichoerus,Halichoerus grypus,5
+216,4,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,10,Blue Shark,Prionace,Prionace glauca,8
+214,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,45
+213,4,361654652,Common Dolphin,Delphinus delphis,Thornback Ray,Raja,Raja clavata,30,Tope Shark,Galeorhinus,Galeorhinus galeus,20
+220,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+212,4,361654652,Common Dolphin,Delphinus delphis,Common Eagle Ray,Myliobatis,Myliobatis aquila,10,Common Dolphin,Delphinus,Delphinus delphis,5
+221,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+208,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,80,Common Dolphin,Delphinus,Delphinus delphis,20
+224,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+219,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+225,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+228,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+217,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Blue Shark,Prionace,Prionace glauca,15
+222,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+231,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,92,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+218,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+223,4,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,75,Orca,Orcinus,Orcinus orca,10
+229,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,65,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+232,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,55,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+226,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,55,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+233,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,50
+237,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,65,Bottlenose Dolphin,Tursiops,Tursiops truncatus,60
+227,4,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,35,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+230,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+234,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+235,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+239,4,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,60,Orca,Orcinus,Orcinus orca,30
+241,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+238,4,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,45,Common Dolphin,Delphinus,Delphinus delphis,40
+242,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,8
+243,4,361654652,Common Dolphin,Delphinus delphis,Bottlenose Dolphin,Tursiops,Tursiops truncatus,25,Common Dolphin,Delphinus,Delphinus delphis,20
+245,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+244,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,45
+240,4,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,95,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+251,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,75,Long-finned Pilot Whale,Globicephala,Globicephala melas,30
+236,4,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,35,Common Dolphin,Delphinus,Delphinus delphis,25
+249,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,45,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+252,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,45,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+248,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,1,Harbour Porpoise,Phocoena,Phocoena phocoena,1
+256,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+254,5,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25,Common Dolphin,Delphinus,Delphinus delphis,20
+255,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,25
+250,4,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,35,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+258,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,65
+257,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+246,4,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,40
+253,5,361654652,Common Dolphin,Delphinus delphis,Small-spotted Catshark,Scyliorhinus,Scyliorhinus canicula,15,European Sea Bass,Dicentrarchus,Dicentrarchus labrax,10
+247,4,361654652,Common Dolphin,Delphinus delphis,,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+259,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,12,Blue Shark,Prionace,Prionace glauca,8
+264,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,10,Porbeagle Shark,Lamna,Lamna nasus,8
+260,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orca orcinus,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,10
+261,5,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,15,Basking Shark,Cetorhinus,Cetorhinus maximus,10
+271,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,40,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+270,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,95,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+268,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,25,Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+263,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,30,Blue Shark,Prionace,Prionace glauca,20
+262,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,8,Blue Shark,Prionace,Prionace glauca,6
+266,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,35,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,20
+273,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,15,Minke Whale,Balaenoptera,Balaenoptera acutorostrata,8
+267,5,361654652,Common Dolphin,Delphinus delphis,Herring Gull,Larus,Larus argentatus,5,Northern Gannet,Morus,Morus bassanus,2
+269,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,40,Blue Shark,Prionace,Prionace glauca,30
+265,5,361654652,Common Dolphin,Delphinus delphis,Harbour Porpoise,Phocoena,Phocoena phocoena,35,Common Dolphin,Delphinus,Delphinus delphis,20
+275,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,85,Bottlenose Dolphin,Tursiops,Tursiops truncatus,15
+280,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,25
+272,5,361654652,Common Dolphin,Delphinus delphis,"REASONING PROCESS:
+The provided images are extremely dark and unclear, showing only ambiguous, faint, dark shapes against a slightly lighter grey background. There are no discernible features such as body shape, fur/feather/skin texture, coloration, markings, pose, or silhouette that would allow for the visual identification of any animal species. The image quality is too poor to extract any relevant visual information.
+
+The observation metadata places the location in the English Channel (approximately 49.5885118048, -1.2445617067), which is a marine environment. The date and time (May 15th, midday) are consistent with marine wildlife activity.
+
+Given the complete lack of visual evidence, it is impossible to confidently identify any animal from the images. The task requires two species predictions with probabilities. To fulfill this, and in the absence of any visual cues, I must rely solely on geographic plausibility. I will select two common marine species known to inhabit the English Channel. Since there is no visual basis for distinguishing between any potential species, or even confirming the presence of an animal, the probability assigned to any prediction must be extremely low, reflecting this profound uncertainty.
+
+I am unable to use the SSOT randomness step for tie-breaking, as there are no visually plausible options to compare or rank. All potential species are equally unidentifiable based on the image.
+
+Therefore, I will select two very common marine mammals found in the English Channel, and assign a minimal probability to reflect the near-zero confidence due to the lack of visual information.
+
+Harbour Porpoise",Phocoena,Phocoena phocoena,1,Common Dolphin,Delphinus,Delphinus delphis,1
+278,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,85,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+283,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,40,Bottlenose Dolphin,Tursiops,Tursiops truncatus,35
+274,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,15,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+282,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,30,Long-finned Pilot Whale,Globicephala,Globicephala melas,15
+279,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,18
+276,5,361654652,Common Dolphin,Delphinus delphis,Thornback Ray,Raja,Raja clavata,25,Cuckoo Ray,Leucoraja,Leucoraja naevus,15
+287,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,5,Harbor Porpoise,Phocoena,Phocoena phocoena,3
+281,5,361654652,Common Dolphin,Delphinus delphis,Grey Seal,Halichoerus,Halichoerus grypus,1,Harbour Porpoise,Phocoena,Phocoena phocoena,1
+284,5,361654652,Common Dolphin,Delphinus delphis,Small-spotted Catshark,Scyliorhinus,Scyliorhinus canicula,1,European Bass,Dicentrarchus,Dicentrarchus labrax,1
+288,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,1,Harbor Porpoise,Phocoena,Phocoena phocoena,1
+277,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,15,Long-finned Pilot Whale,Globicephala,Globicephala melas,5
+286,5,361654652,Common Dolphin,Delphinus delphis,Tope Shark,Galeorhinus,Galeorhinus galeus,35,Common Smooth-hound,Mustelus,Mustelus mustelus,25
+285,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,15,Bottlenose Dolphin,Tursiops,Tursiops truncatus,10
+292,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,88,Long-finned Pilot Whale,Globicephala,Globicephala melas,18
+291,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,80,Long-finned Pilot Whale,Globicephala,Globicephala melas,35
+293,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,18,Blue Shark,Prionace,Prionace glauca,8
+296,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,60,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+294,5,361654652,Common Dolphin,Delphinus delphis,European Herring Gull,Larus,Larus argentatus,1,Northern Gannet,Morus,Morus bassanus,1
+290,5,361654652,Common Dolphin,Delphinus delphis,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,40,Common Dolphin,Delphinus,Delphinus delphis,35
+289,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,70,Long-finned Pilot Whale,Globicephala,Globicephala melas,30
+298,5,361654652,Common Dolphin,Delphinus delphis,Common Dolphin,Delphinus,Delphinus delphis,50,Bottlenose Dolphin,Tursiops,Tursiops truncatus,40
+300,5,361654652,Common Dolphin,Delphinus delphis,Orca,Orcinus,Orcinus orca,90,Long-finned Pilot Whale,Globicephala,Globicephala melas,20
+299,5,361654652,Common Dolphin,Delphinus delphis,Harbour Porpoise,Phocoena,Phocoena phocoena,10,Common Dolphin,Delphinus,Delphinus delphis,8
+295,5,361654652,Common Dolphin,Delphinus delphis,Basking Shark,Cetorhinus,Cetorhinus maximus,40,Blue Shark,Prionace,Prionace glauca,30
+297,5,361654652,Common Dolphin,Delphinus delphis,Killer Whale,Orcinus,Orcinus orca,65,Long-finned Pilot Whale,Globicephala,Globicephala melas,25

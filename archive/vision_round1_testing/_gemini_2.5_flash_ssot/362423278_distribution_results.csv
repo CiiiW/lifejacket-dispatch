@@ -1,0 +1,322 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+14,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+3,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+15,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+2,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+12,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+7,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+8,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+4,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+10,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+1,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+6,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,12
+11,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+13,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+9,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+5,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+21,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+22,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+16,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+23,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+18,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,95,Green Sea Turtle,Chelonia,mydas,10
+26,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+20,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+24,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+25,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+27,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+28,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+29,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+17,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+31,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+19,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,20
+32,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+33,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+37,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+30,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+36,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+34,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,10
+35,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+38,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+40,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+41,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+39,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+43,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,10
+42,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+45,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+47,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+44,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+51,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,35
+50,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+48,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+52,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+55,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,92,Green Sea Turtle,Chelonia,Chelonia mydas,15
+49,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+58,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+57,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Green Sea Turtle,Chelonia,Chelonia mydas,88,Loggerhead Sea Turtle,Caretta,Caretta caretta,45
+53,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+54,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+46,0,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,12
+56,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+62,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+59,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+61,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+63,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+60,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+66,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+69,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+68,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+71,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+65,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,88,Green Sea Turtle,Chelonia,mydas,25
+72,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+67,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+74,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+64,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Green Sea Turtle,Chelonia,Chelonia mydas,85,Loggerhead Sea Turtle,Caretta,Caretta caretta,25
+73,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+75,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+76,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,12
+77,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+78,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+83,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+81,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,90,Green Sea Turtle,Chelonia,mydas,15
+79,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+82,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,88,Green Sea Turtle,Chelonia,Chelonia mydas,15
+86,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+85,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+89,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+87,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,88,Green Sea Turtle,Chelonia,mydas,25
+84,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+92,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+90,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+91,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,15
+80,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+94,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+95,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+93,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,90,Green Sea Turtle,Chelonia,mydas,30
+96,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+88,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Hawksbill Sea Turtle,Eretmochelys,Eretmochelys imbricata,65,Loggerhead Sea Turtle,Caretta,Caretta caretta,30
+100,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,90,Green Sea Turtle,Chelonia,mydas,15
+103,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+99,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+97,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,98,Green Sea Turtle,Chelonia,Chelonia mydas,15
+98,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+104,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+107,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+101,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+108,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+70,1,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,95,Green Sea Turtle,Chelonia,mydas,15
+109,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+102,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+105,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,92,Green Sea Turtle,Chelonia,Chelonia mydas,18
+106,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+110,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+113,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,85,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+112,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,30
+116,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+120,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+111,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,15
+118,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,3
+114,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+119,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,99,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+122,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,20
+124,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+121,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+125,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+123,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,35
+117,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,30
+127,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,coriacea,98,Loggerhead Sea Turtle,Caretta,caretta,5
+126,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Green Sea Turtle,Chelonia,Chelonia mydas,10
+115,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,10
+129,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,88,Green Sea Turtle,Chelonia,Chelonia mydas,15
+130,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+133,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,40
+136,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+134,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+135,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Green Sea Turtle,Chelonia,Chelonia mydas,10
+131,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,7
+138,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+140,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+132,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+137,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Green Sea Turtle,Chelonia,mydas,90,Loggerhead Sea Turtle,Caretta,caretta,20
+141,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,25
+142,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,88,Green Sea Turtle,Chelonia,Chelonia mydas,12
+143,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+139,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,20
+144,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,95,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+147,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+145,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+149,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,40
+146,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,20
+148,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+128,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,35
+153,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,kempii,40
+154,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+156,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+150,2,362423278,Loggerhead Sea Turtle,Caretta caretta,Green Sea Turtle,Chelonia,Chelonia mydas,80,Loggerhead Sea Turtle,Caretta,Caretta caretta,60
+155,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,65,Green Sea Turtle,Chelonia,Chelonia mydas,50
+158,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,85,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+151,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,40
+157,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,40
+159,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+152,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,35
+161,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,40
+162,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,80,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+160,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,85,Green Sea Turtle,Chelonia,mydas,60
+164,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,25
+165,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,25
+168,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+163,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,45
+167,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,40
+170,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,35
+172,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+173,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,85,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+169,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,30
+174,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+166,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+171,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,8
+175,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,70,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+176,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,70,Green Sea Turtle,Chelonia,Chelonia mydas,30
+180,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,35
+177,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Green Sea Turtle,Chelonia,Chelonia mydas,60,Loggerhead Sea Turtle,Caretta,Caretta caretta,50
+181,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+179,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,30
+182,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,90,Loggerhead Sea Turtle,Caretta,Caretta caretta,10
+178,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,65,Green Sea Turtle,Chelonia,Chelonia mydas,35
+183,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,95,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+184,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,25
+186,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,30
+185,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,80,Green Sea Turtle,Chelonia,Chelonia mydas,45
+189,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,2
+187,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,20
+188,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,35
+193,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,20
+190,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,90,Green Sea Turtle,Chelonia,Chelonia mydas,15
+191,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,98,Loggerhead Sea Turtle,Caretta,Caretta caretta,2
+192,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,88,Green Sea Turtle,Chelonia,mydas,15
+196,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,20
+198,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,25
+194,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,85,Green Sea Turtle,Chelonia,Chelonia mydas,30
+199,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,88,Loggerhead Sea Turtle,Caretta,Caretta caretta,25
+197,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,coriacea,85,Loggerhead Sea Turtle,Caretta,caretta,45
+195,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,80,Green Sea Turtle,Chelonia,Chelonia mydas,30
+203,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Green Sea Turtle,Chelonia,Chelonia mydas,30
+200,3,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,65,Green Sea Turtle,Chelonia,Chelonia mydas,40
+201,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,25,Green Sea Turtle,Chelonia,Chelonia mydas,15
+207,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,65,Loggerhead Sea Turtle,Caretta,Caretta caretta,25
+206,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,30
+202,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,2,Green Sea Turtle,Chelonia,Chelonia mydas,1
+204,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,5,Kemp's Ridley Sea Turtle,Lepidochelys,kempii,3
+212,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,85,Loggerhead Sea Turtle,Caretta,Caretta caretta,30
+210,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,30,Green Sea Turtle,Chelonia,Chelonia mydas,20
+211,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,35,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,25
+208,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,10,Ocean Sunfish,Mola,Mola mola,3
+205,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,30,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,20
+216,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Green Sea Turtle,Chelonia,Chelonia mydas,25
+214,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,30,Green Sea Turtle,Chelonia,mydas,20
+213,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,35,Loggerhead Sea Turtle,Caretta,Caretta caretta,30
+209,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,30,Green Sea Turtle,Chelonia,Chelonia mydas,15
+217,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,25
+222,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Ocean Sunfish,Mola,Mola mola,85,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,15
+215,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,15
+219,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,45,Kemp's Ridley Sea Turtle,Lepidochelys,Lepidochelys kempii,35
+221,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,coriacea,5,Minke Whale,Balaenoptera,acutorostrata,3
+224,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,60,Green Sea Turtle,Chelonia,Chelonia mydas,20
+220,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,20,Green Sea Turtle,Chelonia,mydas,10
+225,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,60,Green Sea Turtle,Chelonia,Chelonia mydas,45
+228,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,75,Green Sea Turtle,Chelonia,Chelonia mydas,50
+218,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,40,Ocean Sunfish,Mola,Mola mola,25
+227,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,10,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,8
+226,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,15,Green Sea Turtle,Chelonia,Chelonia mydas,10
+231,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,35,Green Sea Turtle,Chelonia,Chelonia mydas,20
+230,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,60,Green Sea Turtle,Chelonia,Chelonia mydas,30
+229,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,25,Green Sea Turtle,Chelonia,mydas,15
+223,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,40,Loggerhead Sea Turtle,Caretta,Caretta caretta,15
+232,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,45,Green Sea Turtle,Chelonia,Chelonia mydas,25
+234,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,35,Green Sea Turtle,Chelonia,Chelonia mydas,25
+235,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,2,Bottlenose Dolphin,Tursiops,Tursiops truncatus,1
+233,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Ocean Sunfish,Mola,Mola mola,25,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,15
+236,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,35,Green Sea Turtle,Chelonia,Chelonia mydas,20
+241,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,15,Ocean Sunfish,Mola,Mola mola,6
+239,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,55,Green Sea Turtle,Chelonia,Chelonia mydas,40
+238,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,5,Ocean Sunfish,Mola,Mola mola,3
+237,4,362423278,Loggerhead Sea Turtle,Caretta caretta,"SSOT RANDOMNESS STEP: f2a8h1b3
+
+REASONING PROCESS:
+The provided image is extremely underexposed and appears almost entirely black. Despite examining the original and cropped versions, no discernible features of an animal (body shape, fur/feather/skin texture, coloration, markings, pose, or silhouette) are visible. The faint, dark shapes present are too indistinct to allow for any visual identification.
+
+*   **Visual appearance:** No identifiable features. The image is too dark.
+*   **Observation metadata:**
+    *   **Location:** (38.8365735029, -74.8569779674) places the observation in the Atlantic Ocean, off the coast of New Jersey. This indicates a marine environment.
+    *   **Date/Time:** 2026-05-17 at 12:00 (midday in mid-May) is a period of high activity for many marine species in this region.
+*   **Geographic plausibility:** Given the marine location, species commonly found off the coast of New Jersey are geographically plausible.
+*   **Seasonal and temporal likelihood:** Mid-May is suitable for many marine species.
+
+Due to the complete lack of visual information, it is impossible to identify any species with confidence. Any prediction would be speculative, based solely on the location and time, without any supporting visual evidence. Therefore, the confidence in identifying any specific species is extremely low. I am required to provide two predictions with probabilities. To reflect the utter lack of visual evidence, these probabilities will be set to the lowest possible non-zero integer (1%), indicating that while species are geographically and temporally plausible in general, there is no visual basis for their identification in this specific image.
+
+I will select two common marine species found off the New Jersey coast that could, in theory, appear as dark, indistinct shapes if poorly lit or partially submerged.
+
+1.  **Bottlenose Dolphin (Tursiops truncatus):** These dolphins are common inhabitants of the coastal waters off New Jersey, especially during warmer months.
+2.  **Loggerhead Sea Turtle (Caretta caretta):** Loggerhead sea turtles are also found in these waters, particularly in May as they migrate and prepare for nesting. A dark, rounded shape could potentially represent a sea turtle.
+
+Both are equally unidentifiable from the image, leading to equally low probabilities.
+
+Bottlenose Dolphin",Tursiops,Tursiops truncatus,1,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+248,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Green Sea Turtle,Chelonia,Chelonia mydas,20
+245,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,30,Green Sea Turtle,Chelonia,Chelonia mydas,15
+243,4,362423278,Loggerhead Sea Turtle,Caretta caretta,awb0v4q3,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Green Sea Turtle,Chelonia,Chelonia mydas
+242,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,3,Leatherback Sea Turtle,Dermochelys,coriacea,2
+249,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,40,Green Sea Turtle,Chelonia,Chelonia mydas,25
+240,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,25,Green Sea Turtle,Chelonia,Chelonia mydas,20
+244,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,caretta,15,Green Sea Turtle,Chelonia,mydas,8
+246,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,30,Green Sea Turtle,Chelonia,Chelonia mydas,20
+251,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Laughing Gull,Leucophaeus,Leucophaeus atricilla,0
+247,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,25,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,20
+250,4,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,25,Green Sea Turtle,Chelonia,Chelonia mydas,10
+259,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Atlantic Bottlenose Dolphin,Tursiops,truncatus,0,Common Dolphin,Delphinus,delphis,0
+255,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Herring Gull,Larus,Larus argentatus,1
+252,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Harbor Seal,Phoca,Phoca vitulina,0
+261,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Striped Bass,Morone,Morone saxatilis,0
+254,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,0,Atlantic Menhaden,Brevoortia,tyrannus,0
+260,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,5,Harbor Seal,Phoca,Phoca vitulina,3
+253,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,8,Loggerhead Sea Turtle,Caretta,Caretta caretta,4
+262,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Laughing Gull,Leucophaeus,atricilla,1
+258,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,8,Loggerhead Sea Turtle,Caretta,Caretta caretta,5
+257,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Atlantic Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Bluefish,Pomatomus,Pomatomus saltatrix,1
+256,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Dolphin,Delphinus,Delphinus delphis,1,Herring Gull,Larus,Larus argentatus,1
+263,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+265,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+269,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,15,Loggerhead Sea Turtle,Caretta,Caretta caretta,10
+264,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Humpback Whale,Megaptera,Megaptera novaeangliae,5,Loggerhead Sea Turtle,Caretta,Caretta caretta,3
+267,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Laughing Gull,Leucophaeus,Leucophaeus atricilla,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+272,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Laughing Gull,Leucophaeus,Leucophaeus atricilla,0
+270,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+271,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Harbor Seal,Phoca,Phoca vitulina,0
+276,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Harbor Seal,Phoca,Phoca vitulina,0
+266,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Loggerhead Sea Turtle,Caretta,Caretta caretta,1
+273,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Atlantic Bottlenose Dolphin,Tursiops,truncatus,1,Humpback Whale,Megaptera,novaeangliae,1
+268,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Loggerhead Sea Turtle,Caretta,caretta,1
+280,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Dolphin,Delphinus,delphis,0,Loggerhead Sea Turtle,Caretta,caretta,0
+275,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Humpback Whale,Megaptera,novaeangliae,1
+277,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Common Dolphin,Delphinus,Delphinus delphis,0
+274,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Harbor Seal,Phoca,vitulina,1
+278,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Humpback Whale,Megaptera,novaeangliae,1,Fin Whale,Balaenoptera,physalus,1
+286,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Unidentifiable Animal,Unknown,Undetermined,0,Unidentifiable Animal,Unknown,Undetermined,0
+283,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Striped Bass,Morone,Morone saxatilis,1
+287,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Humpback Whale,Megaptera,novaeangliae,1
+279,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Humpback Whale,Megaptera,Megaptera novaeangliae,1
+288,5,362423278,Loggerhead Sea Turtle,Caretta caretta,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+281,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,25,Loggerhead Sea Turtle,Caretta,Caretta caretta,20
+284,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Loggerhead Sea Turtle,Caretta,caretta,1
+282,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Laughing Gull,Leucophaeus,Leucophaeus atricilla,0
+294,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Laughing Gull,Leucophaeus,Leucophaeus atricilla,1
+285,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Black Sea Bass,Centropristis,Centropristis striata,1
+292,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Loggerhead Sea Turtle,Caretta,Caretta caretta,5,Ocean Sunfish,Mola,Mola mola,3
+289,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,8,Loggerhead Sea Turtle,Caretta,caretta,7
+291,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Leatherback Sea Turtle,Dermochelys,Dermochelys coriacea,5,Humpback Whale,Megaptera,Megaptera novaeangliae,2
+298,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Laughing Gull,Leucophaeus,Leucophaeus atricilla,0,Atlantic Bottlenose Dolphin,Tursiops,Tursiops truncatus,0
+297,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Striped Bass,Morone,Morone saxatilis,0
+293,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Bottlenose Dolphin,Tursiops,Tursiops truncatus,1,Laughing Gull,Leucophaeus,Leucophaeus atricilla,1
+295,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Loggerhead Sea Turtle,Caretta,caretta,1
+296,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Loggerhead Sea Turtle,Caretta,caretta,1
+299,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,Tursiops truncatus,0,Striped Bass,Morone,Morone saxatilis,0
+300,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Common Bottlenose Dolphin,Tursiops,truncatus,1,Loggerhead Sea Turtle,Caretta,caretta,1
+290,5,362423278,Loggerhead Sea Turtle,Caretta caretta,Indian Rhinoceros,Rhinoceros,Rhinoceros unicornis,10,Humpback Whale,Megaptera,Megaptera novaeangliae,5

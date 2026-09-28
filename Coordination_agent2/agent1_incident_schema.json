@@ -1,0 +1,292 @@
+{
+  "schema_name": "agent1_incident_database",
+  "version": 1,
+  "updated": "2026-09-28",
+  "purpose": "Handoff contract between Agent 1 (Chatbox/ChatBox_V8.ipynb) and Agent 2 (Coordination_agent2/agent2.ipynb, lifejacket_app.py). One row per completed intake conversation.",
+  "storage_notes": [
+    "TEMPORARY STORAGE: this CSV is a prototype store only, chosen for simplicity while the pipeline is being connected.",
+    "No concurrent writes: two intake sessions saving at the same moment can corrupt or interleave rows. There is no file locking.",
+    "Not durable on Cloud Run: the container filesystem is reset on every deploy or restart, so rows written by the deployed app are lost.",
+    "No updates or deletes: rows are append-only. Corrections must be made by hand.",
+    "Planned replacement: a real database (for example SQLite for local work, then Firestore or Cloud SQL for the deployed app) using these same column names.",
+    "Column order matters for the CSV. Add new columns only at the end and bump the version number."
+  ],
+  "value_conventions": {
+    "booleans": "True / False",
+    "missing": "empty cell",
+    "confidences": "0.0 to 1.0 (Agent 1 CV returns 0 to 100 and is divided by 100 on save)",
+    "timestamps": "ISO 8601, local time, seconds precision"
+  },
+  "columns": [
+    {
+      "name": "incident_id",
+      "type": "string",
+      "source": "generated",
+      "description": "Unique incident ID, INC_ + 8 hex chars"
+    },
+    {
+      "name": "photo_id",
+      "type": "string",
+      "source": "generated",
+      "description": "Unique photo ID, PHOTO_ + 8 hex chars"
+    },
+    {
+      "name": "animal_id",
+      "type": "string",
+      "source": "generated",
+      "description": "Animal ID, ANIMAL_ + 8 hex chars. New per incident until re-identification exists"
+    },
+    {
+      "name": "report_timestamp",
+      "type": "string",
+      "source": "generated",
+      "description": "Time the row was saved"
+    },
+    {
+      "name": "latitude",
+      "type": "float",
+      "source": "location_output",
+      "description": "Empty when location unavailable"
+    },
+    {
+      "name": "longitude",
+      "type": "float",
+      "source": "location_output",
+      "description": "Empty when location unavailable"
+    },
+    {
+      "name": "place_name",
+      "type": "string",
+      "source": "location_output",
+      "description": ""
+    },
+    {
+      "name": "location_source",
+      "type": "string",
+      "source": "location_output",
+      "description": "e.g. device_gps, photo_exif, mock_location_for_testing"
+    },
+    {
+      "name": "cv_top1_species",
+      "type": "string",
+      "source": "cv_output",
+      "description": "Common name of CV top candidate"
+    },
+    {
+      "name": "cv_top1_confidence",
+      "type": "float",
+      "source": "cv_output",
+      "description": "0 to 1"
+    },
+    {
+      "name": "cv_top2_species",
+      "type": "string",
+      "source": "cv_output",
+      "description": ""
+    },
+    {
+      "name": "cv_top2_confidence",
+      "type": "float",
+      "source": "cv_output",
+      "description": "0 to 1"
+    },
+    {
+      "name": "cv_top3_species",
+      "type": "string",
+      "source": "cv_output",
+      "description": "Empty: V8 CV prompt returns top 2 only"
+    },
+    {
+      "name": "cv_top3_confidence",
+      "type": "float",
+      "source": "cv_output",
+      "description": "Empty: V8 CV prompt returns top 2 only"
+    },
+    {
+      "name": "cv_possible_wound",
+      "type": "bool",
+      "source": "cv_output",
+      "description": ""
+    },
+    {
+      "name": "cv_visible_blood",
+      "type": "bool",
+      "source": "cv_output",
+      "description": ""
+    },
+    {
+      "name": "reported_size",
+      "type": "string",
+      "source": "user_fixed_answers",
+      "description": ""
+    },
+    {
+      "name": "reported_color",
+      "type": "string",
+      "source": "not_collected",
+      "description": "Empty: V8 asks body covering instead (kept in incident_package_json)"
+    },
+    {
+      "name": "reported_mobility",
+      "type": "string",
+      "source": "user_fixed_answers",
+      "description": ""
+    },
+    {
+      "name": "reported_visible_wound",
+      "type": "string",
+      "source": "user_fixed_answers",
+      "description": "True / False / not_sure"
+    },
+    {
+      "name": "reported_bleeding",
+      "type": "string",
+      "source": "not_collected",
+      "description": "Empty: V8 collects bleeding inside free-text reported_extra_condition"
+    },
+    {
+      "name": "llm_likely_species",
+      "type": "string",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_species_confidence",
+      "type": "float",
+      "source": "llm_output",
+      "description": "0 to 1, after follow-ups"
+    },
+    {
+      "name": "species_verification_status",
+      "type": "string",
+      "source": "derived",
+      "description": "verified if llm_species_confidence >= 0.90, else unverified"
+    },
+    {
+      "name": "llm_needs_followup",
+      "type": "bool",
+      "source": "derived",
+      "description": "True when the conversation ended unverified"
+    },
+    {
+      "name": "llm_followup_type",
+      "type": "string",
+      "source": "followup_history",
+      "description": "Type of the last follow-up asked"
+    },
+    {
+      "name": "llm_followup_reason",
+      "type": "string",
+      "source": "llm_output",
+      "description": "confidence_evidence_summary when unverified"
+    },
+    {
+      "name": "llm_followup_question",
+      "type": "string",
+      "source": "llm_output",
+      "description": "suggested_followup_question when unverified"
+    },
+    {
+      "name": "new_photo_requested",
+      "type": "bool",
+      "source": "followup_history",
+      "description": "True if a retake was requested at any point"
+    },
+    {
+      "name": "llm_injury_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": "True if any injury or distress flag is true"
+    },
+    {
+      "name": "llm_injury_confidence",
+      "type": "float",
+      "source": "llm_output",
+      "description": "0 to 1"
+    },
+    {
+      "name": "llm_wound_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_bleeding_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_entanglement_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_swelling_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_abnormal_posture_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_respiratory_distress_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_unresponsive_present",
+      "type": "bool",
+      "source": "llm_output",
+      "description": ""
+    },
+    {
+      "name": "llm_mobility_concern",
+      "type": "string",
+      "source": "llm_output",
+      "description": "none / limited / immobile / unknown"
+    },
+    {
+      "name": "llm_injury_summary",
+      "type": "string",
+      "source": "llm_output",
+      "description": "injury_summary"
+    },
+    {
+      "name": "guidance_message",
+      "type": "string",
+      "source": "llm_output",
+      "description": "safety_guidance shown to the reporter"
+    },
+    {
+      "name": "followup_count",
+      "type": "int",
+      "source": "followup_history",
+      "description": ""
+    },
+    {
+      "name": "followup_history_json",
+      "type": "json",
+      "source": "followup_history",
+      "description": "Full Q and A history"
+    },
+    {
+      "name": "incident_package_json",
+      "type": "json",
+      "source": "incident_package",
+      "description": "Full CV output, location, and all fixed answers"
+    },
+    {
+      "name": "final_llm_output_json",
+      "type": "json",
+      "source": "llm_output",
+      "description": "Full final assessment"
+    }
+  ]
+}

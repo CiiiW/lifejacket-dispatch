@@ -1,0 +1,305 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+11,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+2,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+7,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+13,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+9,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+14,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+12,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+6,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,70
+3,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,15
+10,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+15,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+4,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,40
+8,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+1,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,8
+5,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+16,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+22,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+18,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+21,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+23,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+27,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+25,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,12
+28,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+19,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+20,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,40
+29,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+26,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+30,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+24,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+32,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,12
+31,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+17,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+38,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+34,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,60
+33,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+36,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+40,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+37,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+39,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,30
+35,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,30
+43,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+41,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+42,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+44,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+49,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+45,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+47,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,25
+54,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+46,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+53,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+52,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+58,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+50,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+56,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+51,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,8
+57,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+48,0,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+59,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+55,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+61,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+62,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+64,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,12
+65,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+63,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,25
+71,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+60,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+68,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+67,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+70,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+69,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,25
+73,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+72,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+66,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+74,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+77,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+76,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+84,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+80,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+78,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,50
+75,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+81,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+86,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+79,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+83,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+88,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+87,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+82,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,10
+91,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+90,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+94,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,25
+89,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+93,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+92,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+95,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+96,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+85,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+100,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,40
+102,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,25
+97,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+98,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,30
+99,1,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+107,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,20
+108,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+109,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+103,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,5
+104,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,10
+106,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+101,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+105,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+111,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+112,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+110,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,88,Spotted Seal,Phoca,Phoca largha,18
+113,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+117,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,35
+114,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+116,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+118,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+120,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,40
+123,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+121,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,40
+122,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,30
+127,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+126,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+119,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,10
+128,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,30
+124,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,88,Spotted Seal,Phoca,Phoca largha,15
+129,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,92,Spotted Seal,Phoca,Phoca largha,10
+130,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+115,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,75,Ringed Seal,Pusa,Pusa hispida,10
+132,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,12
+137,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,12
+131,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,15
+133,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,30
+134,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+138,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+141,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,10
+135,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+136,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,80,Spotted Seal,Phoca,Phoca largha,30
+144,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,12
+139,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+125,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,40
+140,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+147,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,15
+148,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,20
+149,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,30
+150,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+143,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,95,Spotted Seal,Phoca,Phoca largha,5
+152,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+142,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,85,Spotted Seal,Phoca,Phoca largha,45
+146,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,15
+154,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+155,3,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+145,2,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,90,Spotted Seal,Phoca,Phoca largha,5
+151,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+158,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Black Rockfish,Sebastes,Sebastes melanops,0
+160,3,362345207,Harbor Seal,Phoca vitulina,Glaucous-winged Gull,Larus,Larus glaucescens,35,Mew Gull,Larus,Larus canus,25
+162,3,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Black Bear,Ursus,Ursus americanus,0
+169,3,362345207,Harbor Seal,Phoca vitulina,No animal visible,N/A,N/A,0,No animal visible,N/A,N/A,0
+166,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+168,3,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+153,3,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+157,3,362345207,Harbor Seal,Phoca vitulina,Blue Mussel,Mytilus,Mytilus trossulus,1,Pacific Herring,Clupea,Clupea pallasii,1
+159,3,362345207,Harbor Seal,Phoca vitulina,Steller Sea Lion,Eumetopias,Eumetopias jubatus,0,Harbor Seal,Phoca,Phoca vitulina,0
+167,3,362345207,Harbor Seal,Phoca vitulina,No identifiable species,None,None,0,No identifiable species,None,None,0
+161,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Black Oystercatcher,Haematopus,Haematopus bachmani,1
+163,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+174,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Glaucous-winged Gull,Larus,Larus glaucescens,0
+156,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+173,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,River Otter,Lontra,Lontra canadensis,0
+172,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+165,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+181,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Glaucous-winged Gull,Larus,Larus glaucescens,0
+175,3,362345207,Harbor Seal,Phoca vitulina,No species identified,N/A,N/A,0,No species identified,N/A,N/A,0
+182,3,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+164,3,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaecephalus,1,Harbor Seal,Phoca,Phoca vitulina,1
+178,3,362345207,Harbor Seal,Phoca vitulina,No identifiable species,No identifiable genus,No identifiable species,0,No identifiable species,No identifiable genus,No identifiable species,0
+176,3,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+171,3,362345207,Harbor Seal,Phoca vitulina,Acorn Barnacle,Balanus,Balanus glandula,15,Ribbed Limpet,Lottia,Lottia digitalis,8
+189,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+170,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+183,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,vitulina,0,Bald Eagle,Haliaeetus,leucocephalus,0
+179,3,362345207,Harbor Seal,Phoca vitulina,Common Eider,Somateria,Somateria mollissima,30,Glaucous-winged Gull,Larus,Larus glaucescens,25
+184,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Glaucous-winged Gull,Larus,Larus glaucescens,0
+186,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Glaucous-winged Gull,Larus,Larus glaucescens,1
+190,3,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+192,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+177,3,362345207,Harbor Seal,Phoca vitulina,"No animals are visible in the provided image. Therefore, identification based on visual traits is impossible. The probabilities assigned reflect the complete absence of visual evidence for identification from the image, while still providing the two most likely species to be found in this specific location and habitat, given the observation data.
+
+Harbor Seal",Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+185,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+187,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+191,3,362345207,Harbor Seal,Phoca vitulina,Black-legged Kittiwake,Rissa,Rissa tridactyla,15,Glaucous-winged Gull,Larus,Larus glaucescens,10
+188,3,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+180,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+194,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+199,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+193,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,20,Steller Sea Lion,Eumetopias,Eumetopias jubatus,10
+203,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+198,3,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Harbor Seal,Phoca,Phoca vitulina,0
+196,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+204,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+195,3,362345207,Harbor Seal,Phoca vitulina,Glaucous-winged Gull,Larus,Larus glaucescens,5,Black-legged Kittiwake,Rissa,Rissa tridactyla,3
+208,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+214,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+200,3,362345207,Harbor Seal,Phoca vitulina,Black-legged Kittiwake,Rissa,Rissa tridactyla,25,Glaucous-winged Gull,Larus,Larus glaucescens,20
+212,4,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+211,4,362345207,Harbor Seal,Phoca vitulina,No wildlife visible,Unknown,Unknown,0,No wildlife visible,Unknown,Unknown,0
+216,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+197,3,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+205,4,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Harbor Seal,Phoca,Phoca vitulina,0
+201,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+202,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,0,Moose,Alces,Alces alces,0
+210,4,362345207,Harbor Seal,Phoca vitulina,Unknown Species,Unknown,Unknown,0,Unknown Species,Unknown,Unknown,0
+217,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,No Animal Detected,N/A,N/A,0
+218,4,362345207,Harbor Seal,Phoca vitulina,No Species Found,Unknown,Unknown,0,No Species Found,Unknown,Unknown,0
+222,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+207,4,362345207,Harbor Seal,Phoca vitulina,Unknown Organism,Organism,Undetermined,0,Unknown Organism,Organism,Undetermined,0
+206,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,1,Common Raven,Corvus,corax,1
+223,4,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+220,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,0,Moose,Alces,alces,0
+215,4,362345207,Harbor Seal,Phoca vitulina,Yelloweye Rockfish,Sebastes,Sebastes ruberrimus,1,Lingcod,Ophiodon,Ophiodon elongatus,1
+219,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Glaucous-winged Gull,Larus,Larus glaucescens,0
+213,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,2,Glaucous-winged Gull,Larus,Larus glaucescens,1
+233,4,362345207,Harbor Seal,Phoca vitulina,No species,Unknown,Unknown,0,No species,Unknown,Unknown,0
+236,4,362345207,Harbor Seal,Phoca vitulina,No Animal Detected,N/A,N/A,0,No Animal Detected,N/A,N/A,0
+221,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Black Bear,Ursus,Ursus americanus,1
+225,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+224,4,362345207,Harbor Seal,Phoca vitulina,Hoary Marmot,Marmota,Marmota caligata,0,American Robin,Turdus,Turdus migratorius,0
+231,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,0,Bald Eagle,Haliaeetus,leucocephalus,0
+209,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+227,4,362345207,Harbor Seal,Phoca vitulina,Brown Bear,Ursus,Ursus arctos,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+232,4,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Black Bear,Ursus,Ursus americanus,0
+226,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+230,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,1,Moose,Alces,Alces alces,1
+237,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Brown Bear,Ursus,Ursus arctos,1
+229,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,5,Black Bear,Ursus,Ursus americanus,5
+235,4,362345207,Harbor Seal,Phoca vitulina,Mountain Goat,Oreamnos,Oreamnos americanus,0,American Black Bear,Ursus,Ursus americanus,0
+228,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+240,4,362345207,Harbor Seal,Phoca vitulina,Common Raven,Corvus,Corvus corax,0,Black Bear,Ursus,Ursus americanus,0
+243,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Pacific Halibut,Hippoglossus,Hippoglossus stenolepis,0
+238,4,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Black Bear,Ursus,Ursus americanus,0
+251,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Black Bear,Ursus,Ursus americanus,0
+241,4,362345207,Harbor Seal,Phoca vitulina,Giant Pacific Octopus,Enteroctopus,Enteroctopus dofleini,1,Lingcod,Ophiodon,Ophiodon elongatus,1
+254,5,362345207,Harbor Seal,Phoca vitulina,No animal detected,N/A,N/A,0,No animal detected,N/A,N/A,0
+242,4,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,0,Harbor Seal,Phoca,Phoca vitulina,0
+245,4,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Harbor Seal,Phoca,Phoca vitulina,0
+239,4,362345207,Harbor Seal,Phoca vitulina,Mountain Goat,Oreamnos,Oreamnos americanus,0,Great Horned Owl,Bubo,Bubo virginianus,0
+244,4,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Harbor Seal,Phoca,Phoca vitulina,0
+234,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+249,4,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Black Bear,Ursus,Ursus americanus,0
+255,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+261,5,362345207,Harbor Seal,Phoca vitulina,None,None,None,0,None,None,None,0
+258,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Orca,Orcinus,Orcinus orca,0
+246,4,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+247,4,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,americanus,0,Moose,Alces,alces,0
+263,5,362345207,Harbor Seal,Phoca vitulina,American Robin,Turdus,Turdus migratorius,0,Black Bear,Ursus,Ursus americanus,0
+257,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,American Black Bear,Ursus,Ursus americanus,0
+253,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+248,4,362345207,Harbor Seal,Phoca vitulina,Dall Sheep,Ovis,Ovis dalli,1,Mountain Goat,Oreamnos,Oreamnos americanus,1
+262,5,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+250,4,362345207,Harbor Seal,Phoca vitulina,No discernible species,N/A,N/A,0,No discernible species,N/A,N/A,0
+252,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Black Bear,Ursus,Ursus americanus,0
+260,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+256,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Black Bear,Ursus,Ursus americanus,0
+267,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+268,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+269,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+265,5,362345207,Harbor Seal,Phoca vitulina,Dall Sheep,Ovis,Ovis dalli,0,Mountain Goat,Oreamnos,Oreamnos americanus,0
+264,5,362345207,Harbor Seal,Phoca vitulina,American Robin,Turdus,Turdus migratorius,0,Harbor Seal,Phoca,Phoca vitulina,0
+274,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable,Unknown,Unknown,0,Unidentifiable,Unknown,Unknown,0
+259,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Black Bear,Ursus,Ursus americanus,0
+275,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Black Bear,Ursus,Ursus americanus,0
+276,5,362345207,Harbor Seal,Phoca vitulina,No identifiable species,None,None,0,No identifiable species,None,None,0
+270,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Harbor Seal,Phoca,Phoca vitulina,0
+279,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Black Bear,Ursus,Ursus americanus,0
+285,5,362345207,Harbor Seal,Phoca vitulina,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+272,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Black Bear,Ursus,Ursus americanus,0
+266,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Sea Otter,Enhydra,Enhydra lutris,1
+283,5,362345207,Harbor Seal,Phoca vitulina,No species,None,None,0,No species,None,None,0
+273,5,362345207,Harbor Seal,Phoca vitulina,Common Raven,Corvus,Corvus corax,0,American Robin,Turdus,Turdus migratorius,0
+271,5,362345207,Harbor Seal,Phoca vitulina,"Due to the extreme darkness and lack of discernible features in the image, it is impossible to identify any wildlife species with confidence based on visual traits. The image appears to be a textured, dark surface, potentially rocks or an obscured part of an animal. Therefore, any identification is highly speculative and based solely on the statistical likelihood of common species in the specified location (Prince William Sound, Alaska) rather than visual evidence.
+
+Harbor Seal",Phoca,Phoca vitulina,2,Black Bear,Ursus,Ursus americanus,1
+282,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,American Black Bear,Ursus,Ursus americanus,0
+284,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,American Black Bear,Ursus,Ursus americanus,0
+287,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Sea Otter,Enhydra,Enhydra lutris,0
+277,5,362345207,Harbor Seal,Phoca vitulina,Black Bear,Ursus,Ursus americanus,1,Mountain Goat,Oreamnos,Oreamnos americanus,1
+286,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+280,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Moose,Alces,Alces alces,0
+291,5,362345207,Harbor Seal,Phoca vitulina,No visible species,N/A,N/A,0,No visible species,N/A,N/A,0
+281,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,1,Black Bear,Ursus,Ursus americanus,1
+278,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+293,5,362345207,Harbor Seal,Phoca vitulina,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0,Black Bear,Ursus,Ursus americanus,0
+288,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,1,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,1
+299,5,362345207,Harbor Seal,Phoca vitulina,American Black Bear,Ursus,Ursus americanus,0,Moose,Alces,Alces alces,0
+296,5,362345207,Harbor Seal,Phoca vitulina,No identifiable species,None,None,0,No identifiable species,None,None,0
+290,5,362345207,Harbor Seal,Phoca vitulina,Common Raven,Corvus,Corvus corax,0,Moose,Alces,Alces alces,0
+300,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+297,5,362345207,Harbor Seal,Phoca vitulina,Moose,Alces,Alces alces,0,Black Bear,Ursus,Ursus americanus,0
+292,5,362345207,Harbor Seal,Phoca vitulina,Unidentifiable Wildlife,Nodata,unavailable,0,Unidentifiable Wildlife,Nodata,unavailable,0
+298,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+289,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Sea Otter,Enhydra,Enhydra lutris,0
+294,5,362345207,Harbor Seal,Phoca vitulina,Harbor Seal,Phoca,Phoca vitulina,0,Bald Eagle,Haliaeetus,Haliaeetus leucocephalus,0
+295,5,362345207,Harbor Seal,Phoca vitulina,Sea Otter,Enhydra,Enhydra lutris,1,Harbor Seal,Phoca,Phoca vitulina,1

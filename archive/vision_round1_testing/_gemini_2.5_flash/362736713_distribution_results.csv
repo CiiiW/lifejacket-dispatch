@@ -1,0 +1,301 @@
+trial,distortion_level,observation_id,actual_name,actual_species,top1_common_name,top1_genus,top1_species,top1_prob,top2_common_name,top2_genus,top2_species,top2_prob
+2,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+13,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+11,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+3,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+8,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+7,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+6,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+9,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+15,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+4,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+14,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+1,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+10,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+18,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+20,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+12,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,98,Cackling Goose,Branta,hutchinsii,5
+17,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,10
+5,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+23,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+24,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+21,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+26,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+25,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+28,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+22,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+27,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+19,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,15
+33,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+29,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+32,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+31,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+34,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+36,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+35,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+37,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+16,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+38,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+30,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+39,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+43,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+41,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+42,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+40,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+44,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+45,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+50,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Domestic Goose,Anser,Anser anser domesticus,5
+47,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+46,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+48,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+52,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+54,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+51,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,12
+49,0,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+53,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+56,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+57,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+58,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+62,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+60,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+67,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+63,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+69,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+59,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+61,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+65,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+55,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+64,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+66,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+72,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+74,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+70,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+68,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+73,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+75,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+71,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+76,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+78,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+80,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+82,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+84,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+83,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+79,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+85,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+87,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+81,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+92,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,2
+91,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+86,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+88,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+93,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,10
+90,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+94,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+95,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+96,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+99,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+97,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+98,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+107,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+102,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+101,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+103,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+100,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+104,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+89,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+106,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+105,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+109,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+77,1,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,1
+108,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,5
+110,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,8
+113,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+111,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+116,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+117,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+114,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+118,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,12
+120,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+115,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,5
+119,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+124,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+121,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+123,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+122,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,5
+128,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+127,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+126,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,2
+125,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+130,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+133,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+135,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+112,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+134,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,8
+131,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+132,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,5
+138,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+136,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+129,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+139,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+142,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+141,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+144,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+147,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,10
+140,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,15
+137,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,1
+143,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,99,Cackling Goose,Branta,hutchinsii,5
+149,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,8
+150,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+145,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+151,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,10
+146,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,5
+155,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+156,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,12
+148,2,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,99,Cackling Goose,Branta,Branta hutchinsii,5
+152,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+153,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+157,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,95,Cackling Goose,Branta,hutchinsii,15
+159,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+158,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+165,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+163,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+160,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+161,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+154,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,85,Cackling Goose,Branta,Branta hutchinsii,8
+166,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+168,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+170,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,10
+172,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+169,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+177,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+167,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,15
+175,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+173,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+164,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+171,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,88,Cackling Goose,Branta,hutchinsii,15
+178,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,10
+162,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,75,Cackling Goose,Branta,Branta hutchinsii,15
+179,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+176,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,8
+180,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+174,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+183,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+186,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,20
+185,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+190,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+189,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+187,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,10
+184,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+188,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,75,Cackling Goose,Branta,hutchinsii,15
+191,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,75,Cackling Goose,Branta,Branta hutchinsii,20
+195,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+197,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,98,Cackling Goose,Branta,Branta hutchinsii,10
+194,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,2
+193,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,10
+192,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,15
+196,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+182,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Domestic Goose,Anser,Anser anser domesticus,5
+199,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,95,Cackling Goose,Branta,Branta hutchinsii,5
+201,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+181,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,90,Cackling Goose,Branta,Branta hutchinsii,5
+198,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,35,Domestic Goose,Anser,Anser anser domesticus,25
+203,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,Northern Cardinal,Cardinalis,Cardinalis cardinalis,0
+204,4,362736713,Canada Goose,Branta canadensis,No discernible species,N/A,N/A,0,No discernible species,N/A,N/A,0
+211,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,15,Mallard,Anas,Anas platyrhynchos,12
+208,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Raccoon,Procyon,Procyon lotor,0
+200,3,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,75,Domestic Goose,Anser,Anser anser,25
+210,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,platyrhynchos,1,Canada Goose,Branta,canadensis,1
+212,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,1,Mallard,Anas,Anas platyrhynchos,1
+207,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,2,Mallard,Anas,platyrhynchos,1
+202,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,10,Feral Pig,Sus,Sus scrofa,5
+205,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,2,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+217,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,1,Raccoon,Procyon,lotor,1
+218,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,20,Mallard,Anas,Anas platyrhynchos,15
+215,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,1,Raccoon,Procyon,Procyon lotor,1
+209,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+213,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,15,Domestic Cat,Felis,Felis catus,10
+214,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,15,Mallard,Anas,Anas platyrhynchos,10
+216,4,362736713,Canada Goose,Branta canadensis,North American Raccoon,Procyon,Procyon lotor,40,Virginia Opossum,Didelphis,Didelphis virginiana,15
+220,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,1,Virginia Opossum,Didelphis,Didelphis virginiana,1
+219,4,362736713,Canada Goose,Branta canadensis,Great Blue Heron,Ardea,Ardea herodias,15,Double-crested Cormorant,Phalacrocorax,Phalacrocorax auritus,10
+225,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+221,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,20,Feral Hog,Sus,Sus scrofa,15
+206,4,362736713,Canada Goose,Branta canadensis,Domestic Goat,Capra,Capra aegagrus hircus,15,Domestic Sheep,Ovis,Ovis aries,10
+222,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,15,Muscovy Duck,Cairina,Cairina moschata,10
+223,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,3,Virginia Opossum,Didelphis,Didelphis virginiana,2
+228,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Black Bear,Ursus,Ursus americanus,3
+229,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Raccoon,Procyon,Procyon lotor,0
+226,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,carolinensis,0,Virginia Opossum,Didelphis,virginiana,0
+227,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+224,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,50,Muscovy Duck,Cairina,moschata,5
+231,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+233,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,2,Canada Goose,Branta,Branta canadensis,1
+235,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+234,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+237,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,2,Virginia Opossum,Didelphis,Didelphis virginiana,1
+238,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Wild Turkey,Meleagris,Meleagris gallopavo,1
+245,4,362736713,Canada Goose,Branta canadensis,African Bush Elephant,Loxodonta,Loxodonta africana,75,Asian Elephant,Elephas,Elephas maximus,60
+242,4,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+246,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,5,Virginia Opossum,Didelphis,Didelphis virginiana,5
+232,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,15,Muscovy Duck,Cairina,moschata,10
+241,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,2,Raccoon,Procyon,Procyon lotor,1
+240,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,2,Raccoon,Procyon,Procyon lotor,1
+236,4,362736713,Canada Goose,Branta canadensis,American Black Bear,Ursus,Ursus americanus,2,Feral Hog,Sus,Sus scrofa,1
+243,4,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,Procyon lotor,1,Virginia Opossum,Didelphis,Didelphis virginiana,1
+256,5,362736713,Canada Goose,Branta canadensis,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+251,5,362736713,Canada Goose,Branta canadensis,Yellow-bellied Slider,Trachemys,Trachemys scripta,5,American Bullfrog,Lithobates,Lithobates catesbeianus,5
+230,4,362736713,Canada Goose,Branta canadensis,Muscovy Duck,Cairina,Cairina moschata,25,Bufflehead,Bucephala,Bucephala albeola,10
+253,5,362736713,Canada Goose,Branta canadensis,American Robin,Turdus,Turdus migratorius,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+244,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,American Black Bear,Ursus,Ursus americanus,0
+248,4,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Wild Pig,Sus,Sus scrofa,2
+239,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,Branta canadensis,65,Cackling Goose,Branta,Branta hutchinsii,10
+252,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,carolinensis,0,American Robin,Turdus,migratorius,0
+255,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+250,4,362736713,Canada Goose,Branta canadensis,Mallard,Anas,Anas platyrhynchos,1,Canada Goose,Branta,Branta canadensis,1
+258,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,American Crow,Corvus,Corvus brachyrhynchos,0
+260,5,362736713,Canada Goose,Branta canadensis,Unidentifiable Animal,Unknown,Unknown,0,Unidentifiable Animal,Unknown,Unknown,0
+249,4,362736713,Canada Goose,Branta canadensis,Common Snapping Turtle,Chelydra,Chelydra serpentina,10,American Beaver,Castor,Castor canadensis,5
+257,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+263,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+247,4,362736713,Canada Goose,Branta canadensis,Canada Goose,Branta,canadensis,20,Greylag Goose,Anser,anser,10
+259,5,362736713,Canada Goose,Branta canadensis,Eastern Grey Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+262,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+265,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,American Black Bear,Ursus,Ursus americanus,1
+254,5,362736713,Canada Goose,Branta canadensis,American Alligator,Alligator,mississippiensis,10,Common Snapping Turtle,Chelydra,serpentina,5
+277,5,362736713,Canada Goose,Branta canadensis,Unidentifiable,Unidentifiable,Unidentifiable,0,Unidentifiable,Unidentifiable,Unidentifiable,0
+264,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+268,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+269,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+267,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+261,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,0,Eastern Gray Squirrel,Sciurus,carolinensis,0
+274,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Raccoon,Procyon,Procyon lotor,0
+266,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,2,American Robin,Turdus,Turdus migratorius,1
+271,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,0,Eastern Gray Squirrel,Sciurus,carolinensis,0
+279,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+270,5,362736713,Canada Goose,Branta canadensis,American Robin,Turdus,Turdus migratorius,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+275,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+284,5,362736713,Canada Goose,Branta canadensis,Unknown,Unknown,Unknown,0,Unknown,Unknown,Unknown,0
+276,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+273,5,362736713,Canada Goose,Branta canadensis,Crayfish,Cambarus,Cambarus acuminatus,1,Southern Leopard Frog,Lithobates,Lithobates sphenocephalus,1
+272,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Coyote,Canis,Canis latrans,1
+278,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+289,5,362736713,Canada Goose,Branta canadensis,No identifiable species,No identifiable genus,No identifiable species,0,No identifiable species,No identifiable genus,No identifiable species,0
+285,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1
+283,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,5,Coyote,Canis,Canis latrans,3
+288,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+280,5,362736713,Canada Goose,Branta canadensis,Unidentifiable Organism,Indet.,Indet.,0,Unidentifiable Organism,Indet.,Indet.,0
+293,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,0,American Robin,Turdus,Turdus migratorius,0
+286,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,carolinensis,0,American Robin,Turdus,migratorius,0
+282,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,1,Raccoon,Procyon,lotor,1
+287,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+296,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,White-tailed Deer,Odocoileus,Odocoileus virginianus,1
+281,5,362736713,Canada Goose,Branta canadensis,American Robin,Turdus,Turdus migratorius,0,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0
+295,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,1,Raccoon,Procyon,lotor,1
+292,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,virginianus,1,Eastern Gray Squirrel,Sciurus,carolinensis,1
+290,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,carolinensis,0,American Robin,Turdus,migratorius,0
+291,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1
+294,5,362736713,Canada Goose,Branta canadensis,Raccoon,Procyon,lotor,1,Virginia Opossum,Didelphis,virginiana,1
+298,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,American Robin,Turdus,Turdus migratorius,0
+300,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,0,Northern Cardinal,Cardinalis,Cardinalis cardinalis,0
+297,5,362736713,Canada Goose,Branta canadensis,White-tailed Deer,Odocoileus,Odocoileus virginianus,1,Raccoon,Procyon,Procyon lotor,1
+299,5,362736713,Canada Goose,Branta canadensis,Eastern Gray Squirrel,Sciurus,Sciurus carolinensis,1,American Robin,Turdus,Turdus migratorius,1

@@ -1,0 +1,28 @@
+# LifeJacket repo lives in the JupyterLab home folder, so ignore everything
+# by default and allow only project folders (keeps .bashrc, .config, .local etc. out).
+/*
+!/.gitignore
+!/README.md
+!/PROJECT_NOTES.md
+!/Chatbox/
+!/Coordination_agent2/
+!/Gemini Confidence Testing/
+!/archive/
+
+# Exact duplicates, safe to delete, never committed
+/archive/_duplicates/
+
+# Raw photos (about 1.1 GB). See README "Data Not In This Repo".
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.zip
+
+# Jupyter and Python clutter
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# Local scratch
+_claude_*

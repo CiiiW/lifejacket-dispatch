@@ -1,0 +1,39 @@
+{
+  "report_date": "2026-05-20",
+  "total_cases_documented": 5,
+  "severity_counts": {
+    "0_info": 1,
+    "1_monitor": 1,
+    "2_respond": 0,
+    "3_critical": 3
+  },
+  "critical_incidents": [
+    "DEMO_002_DUPLICATE_CRITICAL",
+    "DEMO_003_CETACEAN_MOBILITY",
+    "DEMO_005_TURTLE_ENTANGLEMENT"
+  ],
+  "dispatches_recorded": [
+    {
+      "incident_id": "DEMO_002_DUPLICATE_CRITICAL",
+      "center": "Channel Islands Marine & Wildlife Institute (CIMWI)"
+    },
+    {
+      "incident_id": "DEMO_003_CETACEAN_MOBILITY",
+      "center": "Channel Islands Marine & Wildlife Institute (CIMWI)"
+    },
+    {
+      "incident_id": "DEMO_005_TURTLE_ENTANGLEMENT",
+      "center": "Pacific Marine Mammal Center (PMMC)"
+    }
+  ],
+  "unresolved_or_followup_cases": [
+    "DEMO_004_INCOMPLETE_UNKNOWN"
+  ],
+  "duplicate_incident_notes": [
+    "DEMO_002_DUPLICATE_CRITICAL is recorded as a probable duplicate."
+  ],
+  "next_shift_attention_items": [
+    "Obtain missing location and condition details for DEMO_004_INCOMPLETE_UNKNOWN."
+  ],
+  "audit_statement": "Summary derived only from approved demo case records; no outcomes are inferred."
+}
