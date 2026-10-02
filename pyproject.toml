@@ -1,0 +1,40 @@
+[project]
+name = "lifejacket-dispatch"
+version = "2.0.0"
+description = "Agentic AI dispatch for stranded and injured wild animal rescue"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+# `backend` on the path means tests import `lifejacket.*` exactly as the
+# application does, with no `sys.path` manipulation in conftest.
+pythonpath = ["backend"]
+testpaths = ["backend/tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "live: hits a real external API or the LLM. Deselect with `-m 'not live'`.",
+]
+
+[tool.ruff]
+line-length = 95
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+    # Assertions in the pipeline document invariants the type checker cannot see.
+    "B011",
+    # `Depends(...)` and `File(...)` in argument defaults IS the FastAPI idiom.
+    # There is no alternative spelling that FastAPI understands.
+    "B008",
+    # `class Foo(str, Enum)` is deliberate over `StrEnum`: Pydantic and
+    # SQLAlchemy both serialise it predictably, and it reads clearly for
+    # anyone who has not met StrEnum.
+    "UP042",
+    # Nested `if`s are sometimes kept separate because each guard has its own
+    # explanatory comment.
+    "SIM102",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests assert on private helpers and use long descriptive names.
+"backend/tests/*" = ["E501"]

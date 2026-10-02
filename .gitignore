@@ -1,28 +1,72 @@
-# LifeJacket repo lives in the JupyterLab home folder, so ignore everything
-# by default and allow only project folders (keeps .bashrc, .config, .local etc. out).
-/*
-!/.gitignore
-!/README.md
-!/PROJECT_NOTES.md
-!/Chatbox/
-!/Coordination_agent2/
-!/Gemini Confidence Testing/
-!/archive/
+# Note: this file previously ignored `/*` and allow-listed individual folders,
+# because the repo root doubled as a JupyterLab home directory and needed to
+# keep .bashrc, .config and friends out. It no longer does, and that pattern
+# silently excluded every new top-level folder. This is a normal ignore list.
 
-# Exact duplicates, safe to delete, never committed
-/archive/_duplicates/
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.local
+*-service-account*.json
+credentials.json
 
-# Raw photos (about 1.1 GB). See README "Data Not In This Repo".
+# --- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# --- Jupyter ---------------------------------------------------------------
+.ipynb_checkpoints/
+
+# --- Local data ------------------------------------------------------------
+# SQLite databases are per-developer state, not shared source.
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded photos. Kept out of git: they are large, and a stranding location
+# can be personally identifying.
+/var/
+/backend/var/
+
+# --- Research photo sets ---------------------------------------------------
+# About 1.1 GB. Originally rebuildable from iNaturalist by scraping cells in
+# research/vision_confidence/, which was itself removed from this repo for
+# disk space (2026-10-01) -- these patterns are kept in case that research
+# folder (or its subfolder names) comes back. See README's "Data notes".
 *.jpg
 *.jpeg
 *.JPG
 *.JPEG
 *.zip
+research/**/animal_dataset_images/
+research/**/hurt_animal_dataset_images/
+research/**/hurt_animal_dataset_images_filtered/
+research/**/distortion_images/
 
-# Jupyter and Python clutter
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
+# Charts committed by the research notebooks are wanted, so PNGs are NOT
+# ignored. Add specific paths here if that changes.
 
-# Local scratch
+# --- Node / Expo clients ---------------------------------------------------
+node_modules/
+.expo/
+dist/
+web-build/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# --- Editors and OS --------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# --- Local scratch ---------------------------------------------------------
 _claude_*
+scratch/

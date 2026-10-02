@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "LifeJacket",
+    "slug": "lifejacket-reporter",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "edu.uchicago.lifejacket.reporter",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Used to photograph the animal you have found so it can be identified.",
+        "NSLocationWhenInUseUsageDescription": "Used to check the tide and weather where the animal is, and to find the nearest rescue team."
+      }
+    },
+    "android": {
+      "package": "edu.uchicago.lifejacket.reporter",
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION"]
+    },
+    "plugins": ["expo-location", "expo-image-picker"]
+  }
+}
