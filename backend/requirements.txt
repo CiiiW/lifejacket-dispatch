@@ -1,0 +1,48 @@
+# LifeJacket backend dependencies.
+#
+# Install with:
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r backend/requirements.txt
+#
+# Python 3.11 or newer is required. The project notes flag that Google stopped
+# shipping Vertex AI updates for Python 3.10 after 2026-10-04, and this code
+# uses `match` statements and PEP 604 unions throughout.
+
+# --- API ---
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.9          # multipart form parsing for photo uploads
+
+# --- Configuration and validation ---
+pydantic>=2.9.0
+pydantic-settings>=2.6.0
+
+# --- Database ---
+SQLAlchemy>=2.0.35
+
+# --- LLM ---
+# The unified Google Gen AI SDK. The prototype used two different SDKs
+# (`vertexai` for Agent 1, `google-genai` for Agent 2) on two different model
+# versions; this is the one both agents now share.
+google-genai>=1.38.0
+
+# google-genai pulls this in transitively for Application Default Credentials,
+# but the notebooks also `import google.auth` directly (to check "am I logged
+# in?" before making a real call) -- pinned explicitly so that import never
+# breaks just because google-genai's own dependency list changes.
+google-auth>=2.35.0
+
+# --- External context APIs ---
+httpx>=0.27.0                    # weather, tides, reverse geocoding
+
+# --- Photo handling ---
+Pillow>=10.4.0                   # EXIF extraction and image validation
+
+# --- Research and evaluation ---
+pandas>=2.2.0
+matplotlib>=3.9.0                # photo previews in the chatbot notebooks, research charts
+
+# --- Notebooks ---
+jupyterlab>=4.2.0
+ipykernel>=6.29.0                 # lets this venv be registered as a Jupyter/VS Code kernel
+nbconvert>=7.16.0                 # needed to run a notebook headless, e.g. in CI

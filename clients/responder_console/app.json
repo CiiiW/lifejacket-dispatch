@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "LifeJacket Responder",
+    "slug": "lifejacket-responder-console",
+    "version": "1.0.0",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.uchicago.lifejacket.responder",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Shares your position with the reporter so they can see you approaching."
+      }
+    },
+    "android": {
+      "package": "edu.uchicago.lifejacket.responder",
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-location"
+    ]
+  }
+}
