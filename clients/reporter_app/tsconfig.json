@@ -2,6 +2,18 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "paths": { "@shared/*": ["../shared/*"] }
+    // `expo/tsconfig.base` sets moduleResolution to "node" (node10), which
+    // TypeScript now reports as deprecated and drops in 7.0. "bundler" is
+    // both current and an accurate description of how Metro resolves.
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@shared/*": ["../shared/*"],
+      // `../shared/theme.ts` imports react-native, but it sits outside this
+      // app, so the usual node_modules walk-up from its own folder misses
+      // this app's copy. Metro already resolves it (see metro.config.js);
+      // this is the same mapping for tsc.
+      "react-native": ["./node_modules/react-native"]
+    }
   }
 }

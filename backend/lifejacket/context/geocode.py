@@ -18,6 +18,7 @@ User-Agent. We cache aggressively to stay well inside that.
 from __future__ import annotations
 
 import logging
+import time
 from dataclasses import dataclass, field
 from functools import lru_cache
 
@@ -81,6 +82,98 @@ def reverse_geocode(latitude: float, longitude: float) -> PlaceInfo | None:
         return None
 
     return _parse_place(payload)
+
+
+#: Leading words that describe part of a region rather than naming one.
+#: "Northern Mendocino" is not a place Nominatim knows; "Mendocino" is.
+_DIRECTIONS = frozenset(
+    {
+        "northern", "southern", "eastern", "western", "central",
+        "north", "south", "east", "west", "greater",
+    }
+)
+
+
+@lru_cache(maxsize=512)
+def forward_geocode(query: str) -> tuple[float, float] | None:
+    """Resolve a place description to coordinates. None if it cannot be found.
+
+    Used to put rescue centres on the map. The directory gives their coverage
+    as prose ("Del Norte and Humboldt Counties, California") and no street
+    address, so what comes back is the centroid of a *service area*, not a
+    building. Callers must present it as approximate -- a pin in the middle of
+    a county is not where the team parks.
+
+    Sleeps after each live request to honour Nominatim's one-per-second usage
+    policy. Cached repeats do not sleep, which is why the pause lives here
+    rather than in the caller's loop.
+    """
+    if not query.strip():
+        return None
+
+    try:
+        with httpx.Client(timeout=settings.http_timeout_seconds) as client:
+            response = client.get(
+                settings.nominatim_search_url,
+                params={"q": query, "format": "jsonv2", "limit": "1"},
+                headers={"User-Agent": settings.http_user_agent},
+            )
+            response.raise_for_status()
+            payload = response.json()
+    except (httpx.HTTPError, ValueError) as exc:
+        logger.warning("Forward geocode failed for %r: %s", query, exc)
+        return None
+    finally:
+        time.sleep(1.1)
+
+    if not payload:
+        return None
+    try:
+        return float(payload[0]["lat"]), float(payload[0]["lon"])
+    except (KeyError, IndexError, TypeError, ValueError):
+        logger.warning("Unexpected Nominatim search payload for %r", query)
+        return None
+
+
+def service_area_queries(response_area: str | None, name: str = "") -> list[str]:
+    """Geocodable guesses for a rescue centre, most specific first.
+
+    The directory writes coverage as prose, and Nominatim cannot resolve a
+    list ("Del Norte and Humboldt Counties, California"). So this peels it
+    back: the whole string, then the first named county with its state, then
+    that county alone, then the state, then the organisation's own name.
+    """
+    queries: list[str] = []
+    text = (response_area or "").strip().rstrip(".")
+
+    if text:
+        queries.append(text)
+
+        # Drop a regional prefix such as "San Francisco Bay:" and flatten the
+        # county list so "A and B, C" and "A, B, C" parse the same way.
+        body = text.split(":", 1)[-1]
+        parts = [p.strip() for p in body.replace(" and ", ",").split(",") if p.strip()]
+
+        state = parts[-1] if len(parts) > 1 else None
+        if parts:
+            first = parts[0]
+            words = first.split()
+            if words and words[0].lower() in _DIRECTIONS:
+                first = " ".join(words[1:])
+            first = first.replace("Counties", "").replace("County", "")
+            first = first.replace("Co.", "").strip()
+            if first:
+                if state and state.lower() != first.lower():
+                    queries.append(f"{first} County, {state}")
+                    queries.append(f"{first}, {state}")
+                queries.append(first)
+        if state:
+            queries.append(state)
+
+    if name:
+        queries.append(name)
+
+    return list(dict.fromkeys(queries))
 
 
 def _parse_place(payload: dict) -> PlaceInfo:

@@ -15,8 +15,15 @@
     },
     "android": {
       "package": "edu.uchicago.lifejacket.reporter",
-      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
-    "plugins": ["expo-location", "expo-image-picker"]
+    "plugins": [
+      "expo-location",
+      "expo-image-picker",
+      "expo-asset"
+    ]
   }
 }

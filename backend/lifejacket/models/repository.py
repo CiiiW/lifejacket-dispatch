@@ -342,18 +342,25 @@ def find_open_incidents(
     latitude: float | None = None,
     longitude: float | None = None,
     radius_km: float = 50.0,
+    include_closed: bool = False,
 ) -> list[IncidentRow]:
     """Incidents still needing attention, for the responder map.
 
     Optionally restricted to a radius, which is how the responder app shows
     "incidents near me" without downloading the whole table.
+
+    `include_closed` also returns incidents that reached an ending -- resolved
+    (a responder logged an outcome) and guidance-only (a healthy animal that
+    needed no dispatch). Cancelled incidents stay hidden either way: those are
+    duplicate reports of an animal already in the list, and false reports.
     """
-    closed = {
-        IncidentStatus.RESOLVED.value,
-        IncidentStatus.CANCELLED.value,
-        IncidentStatus.GUIDANCE_ONLY.value,
-    }
-    statement = select(IncidentRow).where(IncidentRow.status.not_in(closed))
+    hidden = {IncidentStatus.CANCELLED.value}
+    if not include_closed:
+        hidden |= {
+            IncidentStatus.RESOLVED.value,
+            IncidentStatus.GUIDANCE_ONLY.value,
+        }
+    statement = select(IncidentRow).where(IncidentRow.status.not_in(hidden))
 
     if latitude is not None and longitude is not None:
         # Cheap rectangular pre-filter in SQL, then exact distance in Python.

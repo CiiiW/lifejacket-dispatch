@@ -10,10 +10,13 @@ For the repository tour and design rationale, see [README.md](README.md).
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 120 tests. No API key or network needed |
+| `backend/tests/` | 125 tests. No API key or network needed |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
+| `clients/shared/theme.ts` | One design system (navy/seafoam), shared by both apps |
+| `scripts/seed_demo_incidents.py` | `make demo`: real incidents from `demo/` photos + CSV |
+| `demo/` | Demo photos and `incidents.csv`. See its README |
 | `prompts/` | Prompts as Markdown. `system_principles.md` ships with every call |
 | `config/scoring.json` | Severity weights, dispatch weights, species groups |
 | `data/` | Rescue centre directory, the legacy CSV schema, seed rows |
@@ -25,6 +28,84 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-03** Upgraded both clients from Expo SDK 52 to 57 (React Native
+  0.86, React 19.2, TypeScript 6). Forced rather than chosen: Expo Go only
+  ever supports the current SDK, so on an iPhone there was no way to run the
+  reporter app at all -- and a custom dev build needs either Xcode (not
+  installed here) or a paid Apple Developer account. `npx expo install --fix`
+  could not resolve incrementally; what worked was writing the SDK 57
+  versions into both `package.json` files and reinstalling from scratch.
+  Two fallout fixes: TypeScript 6 rejects MapLibre's side-effect CSS import
+  without a `declare module '*.css'`, and `make run` now binds `0.0.0.0`
+  because uvicorn's default `127.0.0.1` is unreachable from a phone.
+  Verified after upgrading: console renders with map, markers, and photos;
+  reporter app's iOS bundle builds; both typecheck.
+- **2026-10-03** The console can finally show the reporter's photo. It could
+  not before: the agents read the image bytes off the upload request, so
+  nothing ever read them back, and neither `IncidentDetail` nor any endpoint
+  exposed them. Added `photos` to the incident detail (beside the species and
+  severity derived *from* those photos, so evidence and conclusion arrive in
+  one response), `photo_url` to the map feed for list thumbnails, and
+  `GET /incidents/{id}/photos/{photo_id}` to serve the bytes. Bytes still
+  live on disk, not in the database -- the reason in `PhotoRow`'s docstring
+  still holds: a stranding photo can identify the reporter and must stay
+  independently deletable. The endpoint is unauthenticated like everything
+  else here, which is fine on localhost and is not fine deployed.
+- **2026-10-03** Web map is MapLibre GL (`TriageMap.web.tsx`), replacing the
+  placeholder. Tiles from MapTiler/Stadia when a key is set, keyless OSM
+  raster otherwise, with a badge saying which. Routes come from
+  OpenRouteService *through the backend* (`GET /incidents/{id}/route`) so the
+  routing key is never in the web bundle; with no key it returns a straight
+  line flagged `source: "straight_line"` and the map dashes it, because a
+  straight line must never read as a drive time. Native stays on
+  `react-native-maps`: MapLibre's RN binding needs a custom dev client and
+  would break Expo Go. `maplibre-gl` is pinned to v4 -- v6 uses
+  `import.meta`, which Metro cannot bundle -- and `babel.config.js` exists
+  only to enable the static-class-block transform MapLibre needs.
+- **2026-10-03** Rescue centres had no coordinates at all, so there was
+  nothing to plot: the 2026 directory lists coverage as prose ("Del Norte and
+  Humboldt Counties, California") and no addresses. `POST /responders/geocode`
+  forward-geocodes that prose through Nominatim, peeling it back to the first
+  county plus state when the whole string fails. 29 of 33 resolve. These are
+  **service-area centroids, not addresses** -- fine for seeing which stretch
+  of coast a centre covers, wrong for navigating to. Replace with real
+  addresses before anyone relies on the pins.
+- **2026-10-02** Added `scripts/seed_demo_incidents.py` (`make demo`) to build
+  demo incidents from `demo/` -- photos plus a CSV of coordinates, a
+  `condition` sentence, and the true species. It drives the real intake API
+  rather than inserting rows, so the demo shows real reports; the alternative
+  (writing incident rows directly) would have meant hand-faking report text,
+  which is the one thing a demo must not do. The CSV's `species` column is
+  ground truth, not an override -- the agent still identifies from the photo,
+  and the script prints an agent-vs-truth table. Two incidents get closed with
+  a responder log entry so the demo has both open and resolved states. The
+  script refuses to run if two rows are within the 1 km duplicate radius,
+  because the backend would mark the later ones `cancelled` and silently drop
+  them from the console (this happened while seeding by hand).
+- **2026-10-02** `GET /incidents` grew an `include_closed` flag, and the
+  console's triage panel a "Show closed" toggle. Logging an outcome resolves
+  an incident, and the list only ever returned open ones -- so closing an
+  incident made it vanish with no way to see it again. Cancelled duplicates
+  stay hidden either way: those are noise, not history.
+- **2026-10-02** Gave both clients a shared design system
+  (`clients/shared/theme.ts`): navy `#0B132B` ground, seafoam `#48CAE4`
+  accent, glass cards at 12px radius, one type scale. Screens import tokens
+  instead of hardcoding hex, and `severityColour` was re-tuned because the
+  old white-background values went muddy on navy. Also replaced the
+  console's three-state view switch with a tab bar (Triage / Incident / Log
+  outcome): previously the only route to the detail and log screens was
+  clicking a list row, so with an empty incident list two of the three
+  screens were unreachable.
+- **2026-10-02** Three things were blocking the clients from running at all,
+  all now fixed: (1) no `metro.config.js`, so Metro could not resolve
+  `clients/shared/*` from either app (the re-export in `src/lib/api.ts` did
+  not help -- it reaches outside the app directory too, which is the thing
+  Metro refuses); (2) `expo-asset` was missing from both apps'
+  dependencies; (3) `expo/tsconfig.base` sets `moduleResolution: node10`,
+  which current TypeScript errors on -- both tsconfigs now override it with
+  `bundler`. Node itself was not installed on this machine; `brew install
+  node` tries to build LLVM from source here (Homebrew reports the setup as
+  Tier 3), so install Node from nodejs.org or via nvm instead.
 - **2026-10-01** Fixed a real bug: identification could settle on a guess at
   0.30 confidence having asked 0 of its 5 questions, because
   `identification_stop_reason` (chatbot/session.py) accepted the agent's

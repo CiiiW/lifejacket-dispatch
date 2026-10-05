@@ -2,6 +2,7 @@
 
     GET  /responders                       -> the directory
     POST /responders/seed                  -> load rescue_centers.csv into the DB
+    POST /responders/geocode               -> approximate coordinates for the map
     POST /responders/{id}/location         -> live position for the reporter's map
     POST /responders/{id}/duty             -> volunteer availability toggle
     POST /responders/assign                -> coordinator approves a dispatch
@@ -21,6 +22,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from lifejacket.context.geocode import forward_geocode, service_area_queries
 from lifejacket.dispatch.matching import center_id, load_rescue_centers
 from lifejacket.geo import estimate_drive_minutes, haversine_km
 from lifejacket.models.db import get_session
@@ -40,6 +42,11 @@ class ResponderOut(BaseModel):
     response_area: str | None = None
     response_type: str | None = None
     is_on_duty: bool = False
+    #: Where the centre is based. Needed to plot it on the console's map, and
+    #: distinct from `last_latitude` below, which is where a responder
+    #: currently *is* after checking in from the field.
+    latitude: float | None = None
+    longitude: float | None = None
     last_latitude: float | None = None
     last_longitude: float | None = None
     last_seen_at: datetime | None = None
@@ -101,12 +108,66 @@ def list_responders(
             response_area=row.response_area,
             response_type=row.response_type,
             is_on_duty=row.is_on_duty,
+            latitude=row.latitude,
+            longitude=row.longitude,
             last_latitude=row.last_latitude,
             last_longitude=row.last_longitude,
             last_seen_at=row.last_seen_at,
         )
         for row in session.scalars(statement).all()
     ]
+
+
+@router.post("/geocode", response_model=dict)
+def geocode_responders(
+    overwrite: bool = False, session: Session = Depends(get_session)
+) -> dict:
+    """Give rescue centres approximate coordinates so the map can plot them.
+
+    The 2026 stranding directory lists coverage as prose ("Del Norte and
+    Humboldt Counties, California") and no street address, so there is nothing
+    exact to geocode. This resolves the *service area* instead, which puts a
+    centre somewhere inside the region it covers.
+
+    That is good enough to see which part of the coast is served and to draw a
+    rough route, and not good enough to drive to. Replace it with real
+    addresses before anyone relies on these pins.
+
+    Nominatim's usage policy allows one request a second, so the full
+    directory takes a couple of minutes. Idempotent: centres that already have
+    coordinates are skipped unless `overwrite` is set.
+    """
+    statement = select(ResponderRow).where(ResponderRow.is_active.is_(True))
+    located = skipped = failed = 0
+    unresolved: list[str] = []
+
+    for row in session.scalars(statement).all():
+        if row.latitude is not None and row.longitude is not None and not overwrite:
+            skipped += 1
+            continue
+
+        coordinates = None
+        for query in service_area_queries(row.response_area, row.name):
+            coordinates = forward_geocode(query)
+            if coordinates is not None:
+                break
+
+        if coordinates is None:
+            failed += 1
+            unresolved.append(row.name)
+            continue
+
+        row.latitude, row.longitude = coordinates
+        located += 1
+
+    session.commit()
+    return {
+        "located": located,
+        "skipped": skipped,
+        "failed": failed,
+        "unresolved": unresolved,
+        "precision": "service_area_centroid",
+    }
 
 
 @router.post("/seed", response_model=dict)

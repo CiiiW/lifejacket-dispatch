@@ -99,6 +99,7 @@ class Settings(BaseSettings):
         default="https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json"
     )
     nominatim_api_url: str = Field(default="https://nominatim.openstreetmap.org/reverse")
+    nominatim_search_url: str = Field(default="https://nominatim.openstreetmap.org/search")
 
     # Nominatim's usage policy requires a contact in the User-Agent header.
     http_user_agent: str = Field(default="LifeJacketDispatch/1.0 (capstone project)")
@@ -107,6 +108,17 @@ class Settings(BaseSettings):
     # Google Maps powers turn-by-turn navigation in the responder app. Without
     # a key the app still renders the map, it just cannot compute driving ETAs.
     google_maps_api_key: str = Field(default="")
+
+    # OpenRouteService draws the driving route from a rescue centre to an
+    # incident. The key is read here, server-side, and the console asks the
+    # backend for routes -- deliberately, so the key never ships in the web
+    # bundle where anyone could lift it. Free keys: openrouteservice.org/dev.
+    # Without one, routing degrades to the straight-line estimate and the
+    # console simply draws no road route.
+    ors_api_key: str = Field(default="")
+    ors_api_url: str = Field(
+        default="https://api.openrouteservice.org/v2/directions/driving-car/geojson"
+    )
 
     # --- Conversation limits ---------------------------------------------
     # Hard product requirement: the identification agent may ask at most five
