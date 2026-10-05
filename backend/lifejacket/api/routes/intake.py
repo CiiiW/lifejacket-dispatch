@@ -6,6 +6,7 @@ The flow a phone client follows:
     POST /intake/{id}/photo            -> upload a photo (repeatable)
     POST /intake/{id}/location         -> share GPS; triggers tide/weather
     POST /intake/{id}/reply            -> answer a question; returns the next one
+    POST /intake/{id}/retry            -> try the last step again after a failure
     GET  /intake/{id}                  -> current state, for resuming
 
 Every mutating endpoint returns the same `TurnResponse` shape, so the client
@@ -20,13 +21,15 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from lifejacket.chatbot.session import StepAction
 from lifejacket.config import settings
 from lifejacket.llm.client import ImageInput
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import GeoPoint
 from lifejacket.models.tables import PhotoRow
-from lifejacket.services.pipeline import IntakePipeline, TurnResult
+from lifejacket.services import health
+from lifejacket.services.pipeline import SERVICE_RETRY_MESSAGE, IntakePipeline, TurnResult
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/intake", tags=["intake (reporter)"])
@@ -76,6 +79,10 @@ class TurnResponse(BaseModel):
     #: Present once intake finishes, so the app can show the outcome.
     severity_level: str | None = None
     report_headline: str | None = None
+    #: True when this turn is an apology for a model failure rather than a
+    #: real step (`action` is then "service_retry"). The client should offer
+    #: "Try again", which calls POST /intake/{id}/retry.
+    service_error: bool = False
 
 
 @router.post("/start", response_model=TurnResponse)
@@ -190,6 +197,26 @@ def submit_reply(
     return _to_response(incident_id, turn, state)
 
 
+@router.post("/{incident_id}/retry", response_model=TurnResponse)
+def retry_step(incident_id: str, session: Session = Depends(get_session)) -> TurnResponse:
+    """Run the pending step again, without adding anything to the conversation.
+
+    For the "Try again" button shown after a `service_error` turn. The
+    conversation state was saved untouched when the step failed, so this simply
+    re-runs it. Safe to call at any time: with nothing to retry it returns the
+    outstanding question again.
+    """
+    incident, state, pipeline = _load(session, incident_id)
+
+    if state.pending_question is not None and not health.is_awaiting_retry(incident.metrics):
+        # Nothing failed; re-asking would spend a question from the budget.
+        return get_state(incident_id, session)
+
+    turn = pipeline.advance(incident, state, images=_load_images(session, incident_id))
+    _persist(session, pipeline, incident, state)
+    return _to_response(incident_id, turn, state)
+
+
 @router.get("/{incident_id}", response_model=TurnResponse)
 def get_state(
     incident_id: str, session: Session = Depends(get_session)
@@ -200,6 +227,19 @@ def get_state(
     than restarting the conversation or asking something already answered.
     """
     incident, state, _ = _load(session, incident_id)
+
+    if health.is_awaiting_retry(incident.metrics):
+        # The last step failed and the reporter has not retried yet: show the
+        # "Try again" turn rather than an empty screen.
+        return _to_response(
+            incident_id,
+            TurnResult(
+                message=SERVICE_RETRY_MESSAGE,
+                awaiting_reply=True,
+                action=StepAction.SERVICE_RETRY,
+            ),
+            state,
+        )
 
     pending = state.pending_question
     turn = TurnResult(
@@ -293,4 +333,5 @@ def _to_response(incident_id: str, turn: TurnResult, state) -> TurnResponse:
             assessment.severity_level.value if assessment and turn.complete else None
         ),
         report_headline=None,
+        service_error=turn.action is StepAction.SERVICE_RETRY,
     )

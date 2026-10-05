@@ -31,6 +31,7 @@ from lifejacket.models.schemas import (
     IncidentStatus,
 )
 from lifejacket.models.tables import IncidentLogRow, IncidentRow, ResponderRow
+from lifejacket.services import health as pipeline_health
 
 router = APIRouter(prefix="/incidents", tags=["incidents (responder)"])
 
@@ -118,6 +119,10 @@ class IncidentDetail(BaseModel):
     #: the console can mark it as needing a coordinator's eyes.
     requires_human_review: bool = False
     guardrail: dict | None = None
+    #: Retries, failed model calls, and fail-safes used while building this
+    #: incident. None for incidents created before this was recorded. See
+    #: `services/health.py` for the shape.
+    health: dict | None = None
 
 
 class StatusUpdate(BaseModel):
@@ -214,6 +219,10 @@ def get_incident(
     requires_review = bool(assessment.get("requires_human_review"))
     if guardrail and not (guardrail.get("is_grounded") and guardrail.get("is_safe")):
         requires_review = True
+    # Or if a model failure was not recovered from: a fail-safe result was
+    # used, or intake is stalled waiting for the reporter to try again.
+    if pipeline_health.needs_review(metrics):
+        requires_review = True
 
     return IncidentDetail(
         incident_id=row.incident_id,
@@ -262,6 +271,7 @@ def get_incident(
         assigned_responder_id=row.assigned_responder_id,
         requires_human_review=requires_review,
         guardrail=guardrail,
+        health=metrics.get(pipeline_health.HEALTH_KEY),
     )
 
 

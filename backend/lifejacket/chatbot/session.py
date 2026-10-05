@@ -45,6 +45,10 @@ class StepAction(str, Enum):
     RUN_IDENTIFICATION = "run_identification"
     RUN_ASSESSMENT = "run_assessment"
     FINALISE = "finalise"
+    #: A model call failed even after retries; the reporter is asked to try
+    #: again. Never returned by `decide_next_step` -- the pipeline uses it to
+    #: label the turn so the client can show a "Try again" button.
+    SERVICE_RETRY = "service_retry"
 
 
 @dataclass

@@ -10,7 +10,7 @@ For the repository tour and design rationale, see [README.md](README.md).
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 125 tests. No API key or network needed |
+| `backend/tests/` | 143 tests. No API key or network needed |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
@@ -28,6 +28,20 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-05** A failed model call must never lose a report. After
+  `LLMClient`'s retries are exhausted, each pipeline step now has a fail-safe
+  instead of raising (which was a 500 for the reporter and nothing recorded):
+  identification/assessment ask the reporter to try again with nothing lost; a
+  failed report writer still sends the incident to coordinators, without the
+  prose, held for review; a failed guardrail check holds the report (this one
+  already existed). Every outcome ends with a human seeing the incident.
+- **2026-10-05** Pipeline health is recorded per incident, in
+  `incident.metrics["health"]` (`services/health.py`), not in a separate
+  table or service. It needs no migration, travels with the incident to the
+  console, and is the per-incident data any later trend monitoring would be
+  built from. Only *unrecovered* failures hold an incident for review; a retry
+  that succeeded is recorded and shown as a quiet note, because holding every
+  retried incident would train coordinators to ignore the banner.
 - **2026-10-03** Upgraded both clients from Expo SDK 52 to 57 (React Native
   0.86, React 19.2, TypeScript 6). Forced rather than chosen: Expo Go only
   ever supports the current SDK, so on an iPhone there was no way to run the
@@ -251,6 +265,30 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Change Log
 
+### 2026-10-05 — Model-failure handling and per-incident health
+
+Ports PR #3 (built against the archived prototype) onto the backend. Retries
+and the guardrail fail-safe already existed here; this adds what was missing.
+
+- **`llm/client.py`**: `LLMError` now has two subclasses, `LLMCallError`
+  (call failed) and `LLMResponseError` (unusable reply), and carries
+  `.attempts`. Existing `except LLMError` code is unaffected.
+- **`agents/base.py`**: `AgentError` carries `.agent`, `.kind`, `.attempts`;
+  attempts are recorded in metrics even when the call fails.
+- **New `services/health.py`**: the per-incident health record.
+- **`services/pipeline.py`**: every agent runs through `_call_agent`;
+  fail-safes for identification, assessment, and report (see Decisions). The
+  guardrail agent's latency and tokens are now recorded too (they were not).
+  `GuardrailVerdict.check_failed` separates "the check found a problem" from
+  "the check could not run", for the false-positive measurement in Open Work.
+- **API**: `POST /intake/{id}/retry`; `service_error` on every turn;
+  `health` on `GET /incidents/{id}`, which also feeds `requires_human_review`.
+- **Clients**: reporter app shows "Try again" on a `service_retry` turn;
+  responder console explains health-related holds in the review banner and
+  shows a one-line note when calls were retried.
+- **`llm/fake.py`**: queue an exception to script a model failure.
+- **New `tests/test_health.py`** (15 tests). 143 tests total.
+
 ### 2026-10-01 — Identification and triage work for any animal
 
 - **New** `AnimalGroup.DOMESTIC_ANIMAL`; broadened `TERRESTRIAL` to mean any
@@ -372,3 +410,7 @@ previous notebook-based pipeline is in `archive/prototypes/`.
 8. Re-run the vision strategy comparison on more than 5 photos.
 9. Measure the guardrail false-positive rate. If coordinators see warnings on
    reports they then approve unchanged, they will stop reading them.
+10. Health trends across incidents (follow-up to the 2026-10-05 work): failure
+    and retry rates per agent, an alert when they climb, and a way to
+    regenerate a report that fell back to `report_unavailable`. The
+    per-incident records are already being written.

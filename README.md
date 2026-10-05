@@ -59,12 +59,12 @@ lifejacket-dispatch/
 │   │   ├── dispatch/         severity, duplicates, responder matching (no LLM)
 │   │   ├── llm/              the one place we call a model
 │   │   ├── models/           schemas, database tables, repository
-│   │   ├── services/         pipeline.py — the end-to-end workflow
+│   │   ├── services/         pipeline.py — the end-to-end workflow; health.py
 │   │   ├── api/              FastAPI routes (thin: no business logic)
 │   │   ├── config.py         every setting, in one file
 │   │   ├── taxonomy.py       pools species probabilities into genus/family
 │   │   └── geo.py            haversine, ETA, bounding boxes
-│   ├── tests/                120 tests, no API key needed
+│   ├── tests/                143 tests, no API key needed
 │   └── requirements.txt
 │
 ├── clients/
@@ -105,6 +105,7 @@ lifejacket-dispatch/
 | Add a weather or tide signal | [`backend/lifejacket/context/`](backend/lifejacket/context/) |
 | Add an endpoint | [`backend/lifejacket/api/routes/`](backend/lifejacket/api/routes/) |
 | Add a safety rule | [`prompts/system_principles.md`](prompts/system_principles.md) |
+| Change what happens when a model call fails | `_call_agent` and the fail-safes in [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py); what gets recorded in [`services/health.py`](backend/lifejacket/services/health.py) |
 
 ---
 
@@ -143,7 +144,7 @@ curl -X POST localhost:8000/intake/start -H 'Content-Type: application/json' -d 
 ### Tests
 
 ```bash
-pytest                 # 120 tests, no API key or network required
+pytest                 # 143 tests, no API key or network required
 ```
 
 The deterministic logic — severity, duplicates, matching, taxonomy, the

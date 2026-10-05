@@ -15,6 +15,11 @@ What it is for:
 What it is NOT for: judging answer quality. The replies are written by hand.
 Use the real client (`LLMClient()`) for that.
 
+Failures can be scripted too, to test what the pipeline does when the model is
+down. Queue an exception instead of a reply and it is raised on that call:
+
+    client.queue("identification", LLMCallError("Vertex unavailable", attempts=3))
+
 Three built-in scenarios cover the three ways identification can stop:
 
     ScriptedLLMClient.scenario("sea_lion")  # confident species, zero questions
@@ -53,7 +58,7 @@ class ScriptedLLMClient:
     question more than the script anticipated.
     """
 
-    script: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
+    script: dict[str, list[dict[str, Any] | Exception]] = field(default_factory=dict)
     model: str = "scripted-offline"
     max_retries: int = 1
     #: Every request received, so a notebook can print the rendered prompts.
@@ -62,8 +67,14 @@ class ScriptedLLMClient:
         default_factory=lambda: defaultdict(int), init=False, repr=False
     )
 
-    def queue(self, agent: str, *responses: dict[str, Any]) -> ScriptedLLMClient:
-        """Append replies for an agent: identification, assessment, report, guardrail."""
+    def queue(
+        self, agent: str, *responses: dict[str, Any] | Exception
+    ) -> ScriptedLLMClient:
+        """Append replies for an agent: identification, assessment, report, guardrail.
+
+        An exception in the queue is raised instead of returned, which is how
+        tests simulate the model being unavailable for one call.
+        """
         self.script.setdefault(agent, []).extend(responses)
         return self
 
@@ -95,7 +106,11 @@ class ScriptedLLMClient:
             index = len(replies) - 1
         self._served[agent] += 1
 
-        data = copy.deepcopy(replies[index])
+        reply = replies[index]
+        if isinstance(reply, Exception):
+            raise reply
+
+        data = copy.deepcopy(reply)
         return LLMResponse(
             data=data, raw_text=str(data), model=self.model, latency_seconds=0.0
         )

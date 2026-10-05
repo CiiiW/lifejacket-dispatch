@@ -34,6 +34,29 @@ export interface Turn {
   taxon_rank: string | null;
   severity_level: string | null;
   report_headline: string | null;
+  /**
+   * True when this turn is an apology for a model failure rather than a real
+   * step (`action` is then `service_retry`). Offer "Try again", which calls
+   * `reporter.retry`.
+   */
+  service_error: boolean;
+}
+
+/**
+ * What went wrong while this incident was being built. Mirrors the record in
+ * `backend/lifejacket/services/health.py`.
+ */
+export interface IncidentHealth {
+  llm_calls: number;
+  /** Extra attempts beyond the first, including ones that then succeeded. */
+  llm_retries: number;
+  /** Model calls that failed even after retries. */
+  failed_calls: number;
+  failures: { agent: string; kind: string; attempts: number; detail: string; at: string }[];
+  /** Fail-safes used: `guardrail_check_failed`, `report_unavailable`. */
+  fallbacks: string[];
+  /** The reporter was asked to try again and has not yet. */
+  awaiting_retry: boolean;
 }
 
 /** An incident as a map pin. Mirrors `incidents.MapPin`. */
@@ -146,6 +169,8 @@ export interface IncidentDetail extends MapPin {
   /** True when the guardrail check failed or triage confidence was low. */
   requires_human_review: boolean;
   guardrail: Record<string, unknown> | null;
+  /** Null for incidents created before health was recorded. */
+  health: IncidentHealth | null;
 }
 
 export interface ResponderEta {
@@ -231,6 +256,13 @@ export const reporter = {
       method: 'POST',
       body: JSON.stringify({ text }),
     }),
+
+  /**
+   * Run the last step again after a `service_error` turn. Adds nothing to the
+   * conversation, unlike `reply`.
+   */
+  retry: (incidentId: string) =>
+    request<Turn>(`/intake/${incidentId}/retry`, { method: 'POST' }),
 
   /** Current state without advancing it -- used when the app reopens. */
   getState: (incidentId: string) => request<Turn>(`/intake/${incidentId}`),
