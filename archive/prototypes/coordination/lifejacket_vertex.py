@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import contextvars
 import json
+import logging
 import os
+import time
 from pathlib import Path
 from typing import Any, Callable
 
@@ -12,6 +15,20 @@ import pandas as pd
 
 DEFAULT_PROMPT_LIBRARY = Path(__file__).with_name("agent2_prompt_library.json")
 DEFAULT_MODEL = "publishers/google/models/gemini-3.5-flash"
+
+logger = logging.getLogger(__name__)
+
+_current_health: contextvars.ContextVar[dict[str, Any] | None] = contextvars.ContextVar(
+    "_current_health", default=None
+)
+
+
+class ModelCallError(RuntimeError):
+    """Raised when the Vertex AI API call itself fails after retries."""
+
+
+class ModelResponseError(RuntimeError):
+    """Raised when the model response cannot be parsed as the expected JSON schema."""
 
 STRING = {"type": "string"}
 STRING_LIST = {"type": "array", "items": {"type": "string"}}
@@ -198,17 +215,60 @@ class VertexPromptChain:
     def render(self, prompt_id: str, **values: Any) -> str:
         return self.prompts[prompt_id].format(**values)
 
-    def call(self, prompt: str, schema: dict[str, Any]) -> dict[str, Any]:
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt,
-            config={
-                "temperature": 0.1,
-                "response_mime_type": "application/json",
-                "response_json_schema": schema,
-            },
-        )
-        return json.loads(response.text)
+    def call(
+        self,
+        prompt: str,
+        schema: dict[str, Any],
+        max_retries: int = 3,
+        backoff_seconds: float = 1.5,
+    ) -> dict[str, Any]:
+        last_exc: Exception | None = None
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=prompt,
+                    config={
+                        "temperature": 0.1,
+                        "response_mime_type": "application/json",
+                        "response_json_schema": schema,
+                    },
+                )
+            except Exception as exc:  # network errors, rate limits, API errors
+                last_exc = exc
+                logger.warning(
+                    "Vertex AI call failed (attempt %d/%d): %s",
+                    attempt,
+                    max_retries,
+                    exc,
+                )
+                health = _current_health.get()
+                if health is not None:
+                    health["retry_count"] += 1
+                if attempt < max_retries:
+                    time.sleep(backoff_seconds * attempt)
+                    continue
+                if health is not None:
+                    health["failed_calls"] += 1
+                raise ModelCallError(
+                    f"Vertex AI call failed after {max_retries} attempts: {exc}"
+                ) from exc
+
+            try:
+                return json.loads(response.text)
+            except (json.JSONDecodeError, TypeError, AttributeError) as exc:
+                logger.error(
+                    "Vertex AI returned a response that could not be parsed as JSON: %r",
+                    getattr(response, "text", None),
+                )
+                health = _current_health.get()
+                if health is not None:
+                    health["failed_calls"] += 1
+                raise ModelResponseError(
+                    f"Model response was not valid JSON: {exc}"
+                ) from exc
+
+        raise ModelCallError(f"Vertex AI call failed: {last_exc}")
 
     def run_case(
         self,
@@ -219,6 +279,14 @@ class VertexPromptChain:
     ) -> dict[str, Any]:
         incident = clean_record(row.to_dict())
         outputs: dict[str, Any] = {}
+        health: dict[str, Any] = {
+            "retry_count": 0,
+            "failed_calls": 0,
+            "guardrail_fallback": False,
+            "grounding_fallback": False,
+            "audit_fallback": False,
+        }
+        _current_health.set(health)
 
         def stage(name: str) -> None:
             if on_stage:
@@ -305,28 +373,71 @@ class VertexPromptChain:
         )
 
         stage("Guardrail Checks")
-        outputs["guardrail_output"] = self.call(
-            self.render(
-                "alert_card_guardrail_critic",
-                agent2_record_json=to_json(record),
-                generated_alert_json=to_json(outputs["alert_card_output"]),
-            ),
-            SCHEMAS["guardrail"],
-        )
-        outputs["grounding_output"] = self.call(
-            self.render(
-                "claim_grounding_auditor",
-                incident_packet_json=to_json(record),
-                generated_text=to_json(outputs["alert_card_output"]),
-            ),
-            SCHEMAS["grounding"],
-        )
+        try:
+            outputs["guardrail_output"] = self.call(
+                self.render(
+                    "alert_card_guardrail_critic",
+                    agent2_record_json=to_json(record),
+                    generated_alert_json=to_json(outputs["alert_card_output"]),
+                ),
+                SCHEMAS["guardrail"],
+            )
+        except (ModelCallError, ModelResponseError) as exc:
+            logger.error(
+                "Guardrail critic failed for this case; defaulting to held-for-review: %s",
+                exc,
+            )
+            health["guardrail_fallback"] = True
+            outputs["guardrail_output"] = {
+                "pass_guardrails": False,
+                "violations": ["guardrail_check_failed"],
+                "missing_required_content": [],
+                "invented_or_unsupported_claims": [],
+                "corrected_copy_if_needed": "",
+            }
+
+        try:
+            outputs["grounding_output"] = self.call(
+                self.render(
+                    "claim_grounding_auditor",
+                    incident_packet_json=to_json(record),
+                    generated_text=to_json(outputs["alert_card_output"]),
+                ),
+                SCHEMAS["grounding"],
+            )
+        except (ModelCallError, ModelResponseError) as exc:
+            logger.error(
+                "Grounding auditor failed for this case; defaulting to held-for-review: %s",
+                exc,
+            )
+            health["grounding_fallback"] = True
+            outputs["grounding_output"] = {
+                "grounded": False,
+                "unsupported_claims": [],
+                "changed_decisions": [],
+                "unsafe_language": [],
+                "recommended_action": "",
+            }
 
         stage("Audit Narrative")
-        outputs["audit_output"] = self.call(
-            self.render("audit_log_narrator", agent2_record_json=to_json({**record, **outputs})),
-            SCHEMAS["audit"],
-        )
+        try:
+            outputs["audit_output"] = self.call(
+                self.render("audit_log_narrator", agent2_record_json=to_json({**record, **outputs})),
+                SCHEMAS["audit"],
+            )
+        except (ModelCallError, ModelResponseError) as exc:
+            logger.error(
+                "Audit narrator failed for this case; continuing without narrative: %s",
+                exc,
+            )
+            health["audit_fallback"] = True
+            outputs["audit_output"] = {
+                "audit_summary": "Audit narrative generation failed; see logs.",
+                "inputs_used": [],
+                "rules_triggered": [],
+                "outputs_generated": [],
+                "residual_risks": ["audit_narrative_failed"],
+            }
         outputs["display_approved"] = bool(
             outputs["guardrail_output"]["pass_guardrails"]
             and outputs["grounding_output"]["grounded"]
@@ -335,6 +446,16 @@ class VertexPromptChain:
             "approved_for_display" if outputs["display_approved"] else "held_for_coordinator_review"
         )
         outputs["decision_record"] = record
+        outputs["health"] = health
+        logger.info(
+            "Case %s health summary: retries=%d failed_calls=%d guardrail_fallback=%s grounding_fallback=%s audit_fallback=%s",
+            incident.get("incident_id", "unknown"),
+            health["retry_count"],
+            health["failed_calls"],
+            health["guardrail_fallback"],
+            health["grounding_fallback"],
+            health["audit_fallback"],
+        )
         return outputs
 
     def document_day(self, case_records: list[dict[str, Any]]) -> dict[str, Any]:

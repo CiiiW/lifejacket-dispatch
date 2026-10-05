@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,8 @@ DEFAULT_INPUT = APP_DIR / "agent1_incident_database.csv"
 DEFAULT_RESCUE_CENTERS = APP_DIR / "agent2_rescue_center_directory.csv"
 PROMPT_LIBRARY = APP_DIR / "agent2_prompt_library.json"
 FEATURED_DEMO_CASE_ID = "INC_80ca122f"
+
+logger = logging.getLogger(__name__)
 LEVEL_LABELS = {0: "Info", 1: "Monitor", 2: "Respond", 3: "Critical"}
 
 
@@ -265,6 +268,10 @@ def main() -> None:
                 selected_result = result
                 st.success("Decision output generated. Open the Decision Output tab to present the result.")
             except Exception as exc:
+                logger.exception(
+                    "Vertex AI call failed while processing case %s",
+                    source_record.get("incident_id"),
+                )
                 st.error(f"Vertex AI call failed: {exc}")
         with st.expander("Agent 1 JSON sent into the chain"):
             st.json(clean_record(source_record.to_dict()))
@@ -284,6 +291,21 @@ def main() -> None:
                 render_generated_alert(selected_result)
             else:
                 st.error("Generated alert card is held for coordinator review and is not displayed.")
+            health = selected_result.get("health") or {}
+            if (
+                health.get("retry_count")
+                or health.get("failed_calls")
+                or health.get("guardrail_fallback")
+                or health.get("grounding_fallback")
+                or health.get("audit_fallback")
+            ):
+                st.warning(
+                    f"Monitoring: {health.get('retry_count', 0)} retried call(s), "
+                    f"{health.get('failed_calls', 0)} failed call(s); fallbacks used -> "
+                    f"guardrail: {health.get('guardrail_fallback', False)}, "
+                    f"grounding: {health.get('grounding_fallback', False)}, "
+                    f"audit: {health.get('audit_fallback', False)}"
+                )
             left, right = st.columns(2)
             with left:
                 st.markdown("#### Triage Decision")
@@ -328,6 +350,7 @@ def main() -> None:
                     report = chain.document_day(documented.to_dict(orient="records"))
                     st.session_state["daily_report"] = report
                 except Exception as exc:
+                    logger.exception("Daily documentation call failed")
                     st.error(f"Daily documentation call failed: {exc}")
             if "daily_report" in st.session_state:
                 report = st.session_state["daily_report"]
