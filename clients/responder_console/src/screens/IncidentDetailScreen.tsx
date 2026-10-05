@@ -16,6 +16,7 @@
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   Linking,
   Platform,
   Pressable,
@@ -26,11 +27,13 @@ import {
 } from 'react-native';
 
 import {
+  absoluteUrl,
   responder,
   severityColour,
   severityLabel,
   type IncidentDetail,
 } from '../lib/api';
+import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 export default function IncidentDetailScreen({
   incidentId,
@@ -44,24 +47,31 @@ export default function IncidentDetailScreen({
   onBack: () => void;
 }) {
   const [incident, setIncident] = useState<IncidentDetail | null>(null);
+  const [expandedPhoto, setExpandedPhoto] = useState<string | null>(null);
 
   useEffect(() => {
     void responder.getIncident(incidentId).then(setIncident).catch(() => setIncident(null));
   }, [incidentId]);
 
-  if (!incident) return <ActivityIndicator style={styles.loading} size="large" />;
+  if (!incident) {
+    return <ActivityIndicator style={styles.loading} size="large" color={colors.accent} />;
+  }
 
   const { report } = incident;
-  const hasCoordinates = incident.latitude !== null && incident.longitude !== null;
+  // Resolved out here rather than inside `navigate`, because TypeScript cannot
+  // carry the null check above into a closure.
+  const coordinates =
+    incident.latitude !== null && incident.longitude !== null
+      ? `${incident.latitude},${incident.longitude}`
+      : null;
 
   /** Open the incident in the platform's native map app for driving directions. */
   function navigate() {
-    if (!hasCoordinates) return;
-    const coords = `${incident.latitude},${incident.longitude}`;
+    if (!coordinates) return;
     const url =
       Platform.OS === 'ios'
-        ? `http://maps.apple.com/?daddr=${coords}&dirflg=d`
-        : `https://www.google.com/maps/dir/?api=1&destination=${coords}&travelmode=driving`;
+        ? `http://maps.apple.com/?daddr=${coordinates}&dirflg=d`
+        : `https://www.google.com/maps/dir/?api=1&destination=${coordinates}&travelmode=driving`;
     void Linking.openURL(url);
   }
 
@@ -124,6 +134,53 @@ export default function IncidentDetailScreen({
         </View>
       )}
 
+      {/* The evidence, next to the conclusions drawn from it. A responder
+          deciding whether to drive two hours wants to judge the animal
+          themselves, not only read what the agent made of it. */}
+      {incident.photos.length > 0 && (
+        <Section title={incident.photos.length === 1 ? 'Photo' : 'Photos'}>
+          <Pressable
+            onPress={() =>
+              setExpandedPhoto((current) =>
+                current === incident.photos[0].photo_id
+                  ? null
+                  : incident.photos[0].photo_id,
+              )
+            }
+          >
+            <Image
+              source={{ uri: absoluteUrl(expandedUrl(incident, expandedPhoto)) as string }}
+              style={styles.photo}
+              resizeMode="cover"
+            />
+          </Pressable>
+
+          {incident.photos.length > 1 && (
+            <View style={styles.photoStrip}>
+              {incident.photos.map((photo) => (
+                <Pressable
+                  key={photo.photo_id}
+                  onPress={() => setExpandedPhoto(photo.photo_id)}
+                >
+                  <Image
+                    source={{ uri: absoluteUrl(photo.url) as string }}
+                    style={[
+                      styles.photoThumb,
+                      photo.photo_id === (expandedPhoto ?? incident.photos[0].photo_id) &&
+                        styles.photoThumbActive,
+                    ]}
+                  />
+                </Pressable>
+              ))}
+            </View>
+          )}
+
+          <Text style={styles.photoNote}>
+            Sent by the reporter. This is what the identification agent saw.
+          </Text>
+        </Section>
+      )}
+
       {incident.duplicate_of && (
         <Text style={styles.duplicate}>
           Possible duplicate of {incident.duplicate_of}.
@@ -131,7 +188,7 @@ export default function IncidentDetailScreen({
       )}
 
       <View style={styles.buttonRow}>
-        {hasCoordinates && (
+        {coordinates && (
           <Pressable style={styles.primary} onPress={navigate}>
             <Text style={styles.primaryText}>Navigate</Text>
           </Pressable>
@@ -246,6 +303,12 @@ export default function IncidentDetailScreen({
   );
 }
 
+/** URL of the photo currently shown large: the chosen one, else the first. */
+function expandedUrl(incident: IncidentDetail, expandedId: string | null): string {
+  const chosen = incident.photos.find((p) => p.photo_id === expandedId);
+  return (chosen ?? incident.photos[0]).url;
+}
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <View style={styles.section}>
@@ -278,60 +341,101 @@ function renderGuardrail(guardrail: Record<string, unknown> | null) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#fff' },
-  inner: { padding: 16, gap: 12, maxWidth: 760, alignSelf: 'center', width: '100%' },
+  screen: { flex: 1, backgroundColor: colors.background },
+  inner: {
+    padding: spacing.lg,
+    gap: spacing.md,
+    maxWidth: 780,
+    alignSelf: 'center',
+    width: '100%',
+  },
   loading: { flex: 1 },
-  back: { color: '#0b57d0', fontSize: 15, fontWeight: '500' },
+  back: { ...type.label, color: colors.accent },
+
   reviewBanner: {
-    backgroundColor: '#fef7e0',
-    borderLeftWidth: 4,
-    borderLeftColor: '#f9ab00',
-    padding: 12,
-    borderRadius: 6,
+    ...glass,
+    ...shadow.soft,
+    backgroundColor: 'rgba(255, 192, 67, 0.10)',
+    borderColor: 'rgba(255, 192, 67, 0.35)',
+    borderLeftWidth: 3,
+    borderLeftColor: colors.warning,
+    padding: spacing.md,
   },
-  reviewTitle: { fontWeight: '700', fontSize: 15, marginBottom: 4 },
-  reviewBody: { fontSize: 14, lineHeight: 20, color: '#3c4043' },
-  findings: { marginTop: 8, gap: 3 },
-  finding: { fontSize: 13, color: '#8a5600', lineHeight: 18 },
-  severity: { alignSelf: 'flex-start', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 6 },
-  severityText: { color: '#fff', fontWeight: '700', fontSize: 13 },
-  headline: { fontSize: 22, fontWeight: '700', lineHeight: 28 },
-  meta: { fontSize: 14, color: '#5f6368' },
-  duplicate: { fontSize: 14, color: '#8a5600', fontStyle: 'italic' },
-  rank: { fontSize: 14, color: '#8a5600' },
-  probabilities: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
-  probability: { fontSize: 14, color: '#3c4043' },
-  buttonRow: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', marginVertical: 4 },
+  reviewTitle: { ...type.label, color: colors.warning, marginBottom: spacing.xs },
+  reviewBody: { ...type.meta, color: colors.textMuted, lineHeight: 19 },
+  findings: { marginTop: spacing.sm, gap: 3 },
+  finding: { ...type.meta, fontSize: 12.5, color: colors.warning, lineHeight: 18 },
+
+  severity: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: spacing.md,
+    paddingVertical: 5,
+    borderRadius: radius.pill,
+  },
+  severityText: { ...type.eyebrow, fontSize: 11, color: colors.onAccent },
+  headline: { ...type.display, color: colors.text, lineHeight: 32 },
+  meta: { ...type.meta, color: colors.textMuted },
+  duplicate: { ...type.meta, color: colors.warning, fontStyle: 'italic' },
+  rank: { ...type.meta, color: colors.warning },
+  probabilities: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md },
+  probability: { ...type.meta, color: colors.textMuted },
+
+  photo: {
+    width: '100%',
+    height: 340,
+    borderRadius: radius.sm,
+    backgroundColor: colors.glassFill,
+  },
+  photoStrip: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.sm },
+  photoThumb: {
+    width: 56,
+    height: 56,
+    borderRadius: radius.sm,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    backgroundColor: colors.glassFill,
+  },
+  photoThumbActive: { borderColor: colors.accent },
+  photoNote: { ...type.meta, fontSize: 12, color: colors.textFaint, marginTop: spacing.xs },
+
+  buttonRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    flexWrap: 'wrap',
+    marginVertical: spacing.xs,
+  },
   primary: {
-    backgroundColor: '#0b57d0',
-    paddingVertical: 12,
+    ...shadow.soft,
+    backgroundColor: colors.accent,
+    paddingVertical: spacing.md,
     paddingHorizontal: 18,
-    borderRadius: 10,
+    borderRadius: radius.card,
   },
-  primaryText: { color: '#fff', fontWeight: '600', fontSize: 15 },
+  primaryText: { ...type.label, color: colors.onAccent, fontSize: 15 },
   secondary: {
-    borderWidth: 1.5,
-    borderColor: '#0b57d0',
-    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: colors.borderStrong,
+    backgroundColor: colors.glassFill,
+    paddingVertical: spacing.md,
     paddingHorizontal: 18,
-    borderRadius: 10,
+    borderRadius: radius.card,
   },
-  secondaryText: { color: '#0b57d0', fontWeight: '600', fontSize: 15 },
-  section: { gap: 5, marginTop: 8 },
-  sectionTitle: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#5f6368',
-    letterSpacing: 0.8,
-    textTransform: 'uppercase',
+  secondaryText: { ...type.label, color: colors.text, fontSize: 15 },
+
+  section: {
+    ...glass,
+    gap: spacing.xs + 1,
+    marginTop: spacing.sm,
+    padding: spacing.md,
   },
-  body: { fontSize: 15, lineHeight: 22 },
-  bullet: { fontSize: 15, lineHeight: 22 },
-  hazard: { color: '#b3261e' },
-  unknown: { color: '#5f6368', fontStyle: 'italic' },
-  transcriptLine: { fontSize: 14, lineHeight: 20, color: '#3c4043' },
-  transcriptRole: { fontWeight: '700', textTransform: 'capitalize' },
-  candidate: { paddingVertical: 6 },
-  candidateName: { fontSize: 15, fontWeight: '600' },
-  candidateWhy: { fontSize: 13, color: '#5f6368', lineHeight: 18 },
+  sectionTitle: { ...type.eyebrow, color: colors.accent },
+  body: { ...type.body, color: colors.text, lineHeight: 22 },
+  bullet: { ...type.body, color: colors.text, lineHeight: 22 },
+  hazard: { color: colors.danger },
+  unknown: { color: colors.textFaint, fontStyle: 'italic' },
+  transcriptLine: { ...type.meta, color: colors.textMuted, lineHeight: 20 },
+  transcriptRole: { fontWeight: '700', color: colors.text, textTransform: 'capitalize' },
+  candidate: { paddingVertical: spacing.xs + 2 },
+  candidateName: { ...type.label, color: colors.text, fontSize: 15 },
+  candidateWhy: { ...type.meta, fontSize: 12.5, color: colors.textFaint, lineHeight: 18 },
 });

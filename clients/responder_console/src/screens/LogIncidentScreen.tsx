@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 
 import { responder } from '../lib/api';
+import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 const OUTCOMES = [
   'rescued',
@@ -87,6 +88,7 @@ export default function LogIncidentScreen({
           value={confirmedSpecies}
           onChangeText={setConfirmedSpecies}
           placeholder="e.g. Northern elephant seal, weaned pup"
+          placeholderTextColor={colors.textFaint}
         />
       </Field>
 
@@ -112,6 +114,7 @@ export default function LogIncidentScreen({
           value={actionsTaken}
           onChangeText={setActionsTaken}
           placeholder="Actions taken on scene"
+          placeholderTextColor={colors.textFaint}
           multiline
         />
       </Field>
@@ -149,6 +152,7 @@ export default function LogIncidentScreen({
           value={notes}
           onChangeText={setNotes}
           placeholder="Notes for the record"
+          placeholderTextColor={colors.textFaint}
           multiline
         />
       </Field>
@@ -181,39 +185,46 @@ function Field({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#fff' },
-  inner: { padding: 16, gap: 18, maxWidth: 640, alignSelf: 'center', width: '100%' },
-  title: { fontSize: 22, fontWeight: '700' },
-  subtitle: { fontSize: 13, color: '#5f6368', marginTop: -14 },
-  field: { gap: 6 },
-  label: { fontSize: 15, fontWeight: '600' },
-  hint: { fontSize: 13, color: '#5f6368', lineHeight: 18 },
+  screen: { flex: 1, backgroundColor: colors.background },
+  inner: {
+    padding: spacing.lg,
+    gap: spacing.xl,
+    maxWidth: 660,
+    alignSelf: 'center',
+    width: '100%',
+  },
+  title: { ...type.display, color: colors.text },
+  subtitle: { ...type.meta, color: colors.textFaint, marginTop: -spacing.lg - 2 },
+  field: { gap: spacing.sm },
+  label: { ...type.label, color: colors.text, fontSize: 15 },
+  hint: { ...type.meta, fontSize: 12.5, color: colors.textFaint, lineHeight: 18 },
   input: {
-    borderWidth: 1,
-    borderColor: '#c4c7c5',
-    borderRadius: 10,
-    paddingHorizontal: 12,
+    ...type.body,
+    ...glass,
+    color: colors.text,
+    paddingHorizontal: spacing.md,
     paddingVertical: 11,
-    fontSize: 15,
   },
-  multiline: { minHeight: 80, textAlignVertical: 'top' },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  multiline: { minHeight: 88, textAlignVertical: 'top' },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   chip: {
-    borderWidth: 1.5,
-    borderColor: '#c4c7c5',
-    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.glassFill,
+    borderRadius: radius.pill,
     paddingVertical: 9,
-    paddingHorizontal: 14,
+    paddingHorizontal: spacing.lg,
   },
-  chipActive: { borderColor: '#0b57d0', backgroundColor: '#e8f0fe' },
-  chipText: { fontSize: 14, color: '#3c4043' },
-  chipTextActive: { color: '#0b57d0', fontWeight: '600' },
+  chipActive: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
+  chipText: { ...type.meta, fontSize: 14, color: colors.textMuted },
+  chipTextActive: { color: colors.accent, fontWeight: '700' },
   submit: {
-    backgroundColor: '#0b57d0',
+    ...shadow.soft,
+    backgroundColor: colors.accent,
     paddingVertical: 15,
-    borderRadius: 12,
+    borderRadius: radius.card,
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: spacing.xs,
   },
-  submitText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  submitText: { ...type.label, color: colors.onAccent, fontSize: 16 },
 });

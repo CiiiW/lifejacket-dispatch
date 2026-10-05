@@ -31,6 +31,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 
 import { ApiError, reporter, type Turn } from '../lib/api';
+import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 interface Bubble {
   from: 'agent' | 'me';
@@ -167,7 +168,7 @@ export default function ReportScreen({
             </Text>
           </View>
         ))}
-        {busy && <ActivityIndicator style={styles.spinner} />}
+        {busy && <ActivityIndicator style={styles.spinner} color={colors.accent} />}
       </ScrollView>
 
       <View style={styles.actions}>
@@ -207,6 +208,7 @@ export default function ReportScreen({
               value={draft}
               onChangeText={setDraft}
               placeholder="Or type your answer"
+              placeholderTextColor={colors.textFaint}
               editable={!busy}
               onSubmitEditing={() => void send(draft)}
               returnKeyType="send"
@@ -222,49 +224,61 @@ export default function ReportScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#fff' },
-  header: { paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
-  title: { fontSize: 22, fontWeight: '700' },
-  progress: { fontSize: 13, color: '#5f6368', marginTop: 2 },
+  screen: { flex: 1, backgroundColor: colors.background },
+  header: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.md,
+  },
+  title: { ...type.display, color: colors.text },
+  progress: { ...type.meta, color: colors.accent, marginTop: 2 },
   transcript: { flex: 1 },
-  transcriptInner: { padding: 16, gap: 8 },
-  bubble: { maxWidth: '85%', padding: 12, borderRadius: 16 },
-  theirs: { alignSelf: 'flex-start', backgroundColor: '#eef1f5' },
-  mine: { alignSelf: 'flex-end', backgroundColor: '#0b57d0' },
-  theirsText: { fontSize: 16, color: '#1f1f1f', lineHeight: 22 },
-  mineText: { fontSize: 16, color: '#fff', lineHeight: 22 },
-  spinner: { marginTop: 12 },
-  actions: { padding: 16, gap: 12, borderTopWidth: 1, borderTopColor: '#e3e3e3' },
+  transcriptInner: { padding: spacing.lg, gap: spacing.sm },
+  bubble: { maxWidth: '85%', padding: spacing.md, borderRadius: radius.lg },
+  theirs: { ...glass, alignSelf: 'flex-start' },
+  mine: { ...shadow.soft, alignSelf: 'flex-end', backgroundColor: colors.accent },
+  theirsText: { ...type.body, fontSize: 16, color: colors.text, lineHeight: 22 },
+  mineText: { ...type.body, fontSize: 16, color: colors.onAccent, lineHeight: 22 },
+  spinner: { marginTop: spacing.md },
+  actions: {
+    padding: spacing.lg,
+    gap: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    backgroundColor: colors.backgroundElevated,
+  },
   primary: {
-    backgroundColor: '#0b57d0',
-    paddingVertical: 16,
-    borderRadius: 12,
+    ...shadow.soft,
+    backgroundColor: colors.accent,
+    paddingVertical: spacing.lg,
+    borderRadius: radius.card,
     alignItems: 'center',
   },
-  primaryText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  options: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  primaryText: { ...type.label, fontSize: 16, color: colors.onAccent },
+  options: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
   option: {
-    borderWidth: 1.5,
-    borderColor: '#0b57d0',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-  },
-  optionText: { color: '#0b57d0', fontSize: 15, fontWeight: '500' },
-  composer: { flexDirection: 'row', gap: 8, alignItems: 'center' },
-  input: {
-    flex: 1,
     borderWidth: 1,
-    borderColor: '#c4c7c5',
-    borderRadius: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    borderColor: colors.accent,
+    backgroundColor: colors.accentSoft,
+    borderRadius: radius.pill,
+    paddingVertical: 10,
+    paddingHorizontal: spacing.lg,
+  },
+  optionText: { ...type.label, color: colors.accent, fontSize: 15 },
+  composer: { flexDirection: 'row', gap: spacing.sm, alignItems: 'center' },
+  input: {
+    ...type.body,
+    ...glass,
+    flex: 1,
+    color: colors.text,
     fontSize: 16,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
   },
   send: {
-    backgroundColor: '#0b57d0',
-    paddingVertical: 12,
+    backgroundColor: colors.accent,
+    paddingVertical: spacing.md,
     paddingHorizontal: 18,
-    borderRadius: 12,
+    borderRadius: radius.card,
   },
 });

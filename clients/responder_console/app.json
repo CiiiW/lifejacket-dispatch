@@ -23,7 +23,8 @@
       "output": "single"
     },
     "plugins": [
-      "expo-location"
+      "expo-location",
+      "expo-asset"
     ]
   }
 }

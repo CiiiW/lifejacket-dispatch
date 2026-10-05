@@ -1,30 +1,35 @@
 /**
- * The triage map: every open incident, colour-coded by severity.
+ * Web build of the triage map.
  *
- * This is the responder console's home screen, for iOS/Android via
- * `react-native-maps`. That library has no web renderer, so the web build
- * uses `IncidentMapScreen.web.tsx` instead (a placeholder in place of the
- * map; everything else is identical) -- Metro picks it automatically.
- *
- * Note what the client does *not* do: it never computes a severity colour from
- * condition flags. It reads `severity_level`, which the backend's
- * `dispatch/severity.py` already decided. One implementation, one source of
- * truth, and a scoring change needs no app release.
+ * The native file (`IncidentMapScreen.tsx`) uses `react-native-maps`, which
+ * is iOS/Android only. On web this renders MapLibre GL instead -- see
+ * `components/TriageMap.web.tsx` -- so the console gets a real map in a
+ * browser. Metro picks this `.web.tsx` file automatically when bundling for
+ * web. The two files share the list panel but not the map.
  */
 
 import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   Pressable,
   RefreshControl,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
 
-import { responder, severityColour, severityLabel, type MapPin } from '../lib/api';
+import TriageMap from '../components/TriageMap.web';
+import {
+  absoluteUrl,
+  responder,
+  severityColour,
+  severityLabel,
+  type MapPin,
+  type ResponderOrg,
+  type RouteLine,
+} from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 const REFRESH_INTERVAL_MS = 30_000;
@@ -41,6 +46,9 @@ export default function IncidentMapScreen({
   const [pins, setPins] = useState<MapPin[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showClosed, setShowClosed] = useState(false);
+  const [centres, setCentres] = useState<ResponderOrg[]>([]);
+  const [highlighted, setHighlighted] = useState<string | null>(null);
+  const [route, setRoute] = useState<RouteLine | null>(null);
 
   const load = useCallback(async () => {
     try {
@@ -58,7 +66,45 @@ export default function IncidentMapScreen({
     return () => clearInterval(timer);
   }, [load]);
 
-  const located = pins?.filter((p) => p.latitude !== null && p.longitude !== null) ?? [];
+  // The rescue-centre directory changes rarely, so it is fetched once rather
+  // than on the incident refresh timer.
+  useEffect(() => {
+    responder
+      .list()
+      .then(setCentres)
+      .catch(() => setCentres([]));
+  }, []);
+
+  /**
+   * Clicking a pin or row highlights it and asks the backend to route the
+   * nearest-by-straight-line centre to it, which is a reasonable stand-in
+   * until a coordinator has actually assigned someone.
+   */
+  const highlight = useCallback(
+    (incidentId: string) => {
+      setHighlighted(incidentId);
+      setRoute(null);
+
+      const pin = (pins ?? []).find((p) => p.incident_id === incidentId);
+      const located = centres.filter((c) => c.latitude !== null && c.longitude !== null);
+      if (!pin || pin.latitude === null || pin.longitude === null || located.length === 0) {
+        return;
+      }
+
+      const nearest = located.reduce((best, candidate) => {
+        const distance = (c: ResponderOrg) =>
+          ((c.latitude as number) - (pin.latitude as number)) ** 2 +
+          ((c.longitude as number) - (pin.longitude as number)) ** 2;
+        return distance(candidate) < distance(best) ? candidate : best;
+      });
+
+      responder
+        .getRoute(incidentId, nearest.responder_id)
+        .then(setRoute)
+        .catch(() => setRoute(null));
+    },
+    [pins, centres],
+  );
 
   // Sort the list by urgency rather than by time: a coordinator opening the
   // console needs the worst case first, not the newest.
@@ -75,26 +121,15 @@ export default function IncidentMapScreen({
 
   return (
     <View style={styles.screen}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: located[0]?.latitude ?? 36.8,
-          longitude: located[0]?.longitude ?? -121.79,
-          latitudeDelta: 2,
-          longitudeDelta: 2,
-        }}
-      >
-        {located.map((pin) => (
-          <Marker
-            key={pin.incident_id}
-            coordinate={{ latitude: pin.latitude!, longitude: pin.longitude! }}
-            pinColor={severityColour(pin.severity_level)}
-            title={pin.species_common_name ?? 'Unidentified animal'}
-            description={pin.headline ?? pin.place_name ?? undefined}
-            onCalloutPress={() => onSelect(pin.incident_id)}
-          />
-        ))}
-      </MapView>
+      <View style={styles.mapWrap}>
+        <TriageMap
+          pins={pins}
+          centres={centres}
+          route={route}
+          selectedId={highlighted}
+          onSelect={highlight}
+        />
+      </View>
 
       <View style={styles.panel}>
         <View style={styles.panelHeader}>
@@ -126,15 +161,35 @@ export default function IncidentMapScreen({
               }}
             />
           }
-          ListEmptyComponent={<Text style={styles.empty}>Nothing open right now.</Text>}
+          ListEmptyComponent={
+            <Text style={styles.empty}>
+              Nothing open right now. Reports arrive here as the intake agent
+              finishes them.
+            </Text>
+          }
           renderItem={({ item }) => (
             <Pressable
-              style={[styles.row, isClosed(item.status) && styles.rowClosed]}
-              onPress={() => onSelect(item.incident_id)}
+              style={[
+                styles.row,
+                isClosed(item.status) && styles.rowClosed,
+                item.incident_id === highlighted && styles.rowHighlighted,
+              ]}
+              // One tap highlights on the map and routes to it; the chevron
+              // opens the full report. Opening a report is a bigger move than
+              // glancing at where the animal is.
+              onPress={() => highlight(item.incident_id)}
             >
               <View
                 style={[styles.stripe, { backgroundColor: severityColour(item.severity_level) }]}
               />
+              {item.photo_url ? (
+                <Image
+                  source={{ uri: absoluteUrl(item.photo_url) as string }}
+                  style={styles.thumb}
+                />
+              ) : (
+                <View style={[styles.thumb, styles.thumbEmpty]} />
+              )}
               <View style={styles.rowBody}>
                 <Text style={styles.rowTitle} numberOfLines={1}>
                   {item.headline ?? item.species_common_name ?? 'Unidentified animal'}
@@ -150,6 +205,13 @@ export default function IncidentMapScreen({
               {/* Entanglement is called out separately because it needs a team
                   with cutting authorisation, which not every centre has. */}
               {item.entanglement && <Text style={styles.tag}>ENTANGLED</Text>}
+
+              <Pressable
+                style={styles.open}
+                onPress={() => onSelect(item.incident_id)}
+              >
+                <Text style={styles.openText}>Open</Text>
+              </Pressable>
             </Pressable>
           )}
         />
@@ -161,10 +223,12 @@ export default function IncidentMapScreen({
 const styles = StyleSheet.create({
   screen: { flex: 1, flexDirection: 'row', backgroundColor: colors.background },
   loading: { flex: 1 },
-  map: { flex: 2 },
+
+  mapWrap: { flex: 2, padding: spacing.lg },
+
   panel: {
     flex: 1,
-    minWidth: 320,
+    minWidth: 340,
     backgroundColor: colors.backgroundElevated,
     borderLeftWidth: 1,
     borderLeftColor: colors.border,
@@ -190,7 +254,8 @@ const styles = StyleSheet.create({
   filterText: { ...type.meta, fontSize: 12, color: colors.textMuted },
   filterTextActive: { color: colors.accent, fontWeight: '700' },
   list: { gap: spacing.sm, paddingBottom: spacing.xl },
-  empty: { ...type.meta, color: colors.textFaint },
+  empty: { ...type.meta, color: colors.textFaint, lineHeight: 19 },
+
   row: {
     ...glass,
     ...shadow.soft,
@@ -200,6 +265,17 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   rowClosed: { opacity: 0.55 },
+  rowHighlighted: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
+  thumb: { width: 46, height: 46, borderRadius: radius.sm, backgroundColor: colors.glassFill },
+  thumbEmpty: { borderWidth: 1, borderColor: colors.border },
+  open: {
+    borderWidth: 1,
+    borderColor: colors.borderStrong,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 5,
+  },
+  openText: { ...type.meta, fontSize: 11.5, color: colors.text },
   stripe: { width: 4, alignSelf: 'stretch', minHeight: 34, borderRadius: radius.pill },
   rowBody: { flex: 1, gap: 3 },
   rowTitle: { ...type.label, color: colors.text, fontSize: 15 },

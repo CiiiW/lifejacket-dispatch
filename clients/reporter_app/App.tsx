@@ -13,13 +13,14 @@ import { StatusBar } from 'expo-status-bar';
 
 import ReportScreen from './src/screens/ReportScreen';
 import TrackScreen from './src/screens/TrackScreen';
+import { colors } from './src/lib/theme';
 
 export default function App() {
   const [filedIncidentId, setFiledIncidentId] = useState<string | null>(null);
 
   return (
     <SafeAreaView style={styles.root}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       {filedIncidentId === null ? (
         <ReportScreen onComplete={setFiledIncidentId} />
       ) : (
@@ -37,5 +38,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: '#fff' },
+  root: { flex: 1, backgroundColor: colors.background },
 });

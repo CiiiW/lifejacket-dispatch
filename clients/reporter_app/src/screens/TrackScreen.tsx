@@ -15,6 +15,7 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-nativ
 import MapView, { Marker } from 'react-native-maps';
 
 import { reporter, type ResponderEta } from '../lib/api';
+import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 /** How often to re-check. Frequent enough to feel live, gentle on battery. */
 const POLL_INTERVAL_MS = 15_000;
@@ -66,7 +67,7 @@ export default function TrackScreen({
         <Marker
           coordinate={{ latitude: incidentLatitude, longitude: incidentLongitude }}
           title="The animal"
-          pinColor="#b3261e"
+          pinColor={colors.danger}
         />
 
         {etas
@@ -79,7 +80,7 @@ export default function TrackScreen({
               description={
                 eta.eta_minutes !== null ? `about ${eta.eta_minutes} min away` : eta.status
               }
-              pinColor="#1e8e3e"
+              pinColor={colors.accent}
             />
           ))}
       </MapView>
@@ -87,7 +88,7 @@ export default function TrackScreen({
       <View style={styles.panel}>
         <Text style={styles.heading}>Who is coming</Text>
 
-        {etas === null && <ActivityIndicator style={styles.spinner} />}
+        {etas === null && <ActivityIndicator style={styles.spinner} color={colors.accent} />}
 
         {etas?.length === 0 && (
           <Text style={styles.waiting}>
@@ -128,30 +129,33 @@ export default function TrackScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
+  screen: { flex: 1, backgroundColor: colors.background },
   map: { flex: 1 },
   panel: {
+    ...shadow.soft,
     maxHeight: '45%',
-    padding: 16,
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    padding: spacing.lg,
+    backgroundColor: colors.backgroundElevated,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
   },
-  heading: { fontSize: 18, fontWeight: '700', marginBottom: 10 },
-  spinner: { marginVertical: 12 },
-  waiting: { fontSize: 15, color: '#5f6368', lineHeight: 21 },
+  heading: { ...type.heading, color: colors.text, marginBottom: spacing.md },
+  spinner: { marginVertical: spacing.md },
+  waiting: { ...type.body, color: colors.textMuted, lineHeight: 21 },
   row: {
+    ...glass,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    padding: spacing.md,
+    marginBottom: spacing.sm,
   },
   rowMain: { flex: 1 },
   rowEnd: { alignItems: 'flex-end' },
-  name: { fontSize: 16, fontWeight: '600' },
-  status: { fontSize: 13, color: '#5f6368', marginTop: 2 },
-  eta: { fontSize: 16, fontWeight: '700', color: '#1e8e3e' },
-  distance: { fontSize: 13, color: '#5f6368', marginTop: 2 },
-  disclaimer: { fontSize: 12, color: '#80868b', marginTop: 10 },
+  name: { ...type.label, fontSize: 16, color: colors.text },
+  status: { ...type.meta, color: colors.textFaint, marginTop: 2 },
+  eta: { ...type.heading, fontSize: 16, color: colors.accent },
+  distance: { ...type.meta, color: colors.textFaint, marginTop: 2 },
+  disclaimer: { ...type.meta, fontSize: 12, color: colors.textFaint, marginTop: spacing.md },
 });

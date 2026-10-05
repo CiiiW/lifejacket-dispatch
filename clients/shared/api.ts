@@ -51,6 +51,53 @@ export interface MapPin {
   entanglement: boolean | null;
   created_at: string;
   assigned_responder_id: string | null;
+  /** First photo, relative to the API root. Use `absoluteUrl` to display it. */
+  photo_url: string | null;
+}
+
+export interface PhotoRef {
+  photo_id: string;
+  /** Relative to the API root -- pass through `absoluteUrl` before display. */
+  url: string;
+  content_type: string | null;
+  uploaded_at: string;
+}
+
+/**
+ * A driving route for the map to draw.
+ *
+ * `source` distinguishes a real road route from the straight-line fallback
+ * used when OpenRouteService is not configured. The console labels which,
+ * because a straight line must never be read as a drive.
+ */
+export interface RouteLine {
+  /** [[longitude, latitude], ...] -- GeoJSON order, as MapLibre expects. */
+  coordinates: [number, number][];
+  distance_km: number | null;
+  duration_minutes: number | null;
+  source: 'openrouteservice' | 'straight_line';
+  from_name: string | null;
+}
+
+export interface ResponderOrg {
+  responder_id: string;
+  name: string;
+  kind: string;
+  phone: string | null;
+  hotline: string | null;
+  response_area: string | null;
+  is_on_duty: boolean;
+  /** Approximate: the centre of the area it covers, not a street address. */
+  latitude: number | null;
+  longitude: number | null;
+  last_latitude: number | null;
+  last_longitude: number | null;
+}
+
+/** Turn an API-relative path (`/incidents/x/photos/y`) into a usable URL. */
+export function absoluteUrl(path: string | null): string | null {
+  if (!path) return null;
+  return path.startsWith('http') ? path : `${API_BASE}${path}`;
 }
 
 export interface IncidentReport {
@@ -81,6 +128,8 @@ export interface DispatchCandidate {
 export interface IncidentDetail extends MapPin {
   updated_at: string;
   species_confidence: number | null;
+  /** What the reporter photographed, beside the species derived from it. */
+  photos: PhotoRef[];
   /**
    * Per-species probabilities inside the identified taxon. For an "Oceanic
    * dolphins" answer: common 0.50, bottlenose 0.44.
@@ -194,11 +243,20 @@ export const reporter = {
 // --- Responder endpoints --------------------------------------------------
 
 export const responder = {
-  listIncidents: (near?: { latitude: number; longitude: number; radiusKm?: number }) => {
-    const query = near
-      ? `?latitude=${near.latitude}&longitude=${near.longitude}&radius_km=${near.radiusKm ?? 50}`
-      : '';
-    return request<MapPin[]>(`/incidents${query}`);
+  listIncidents: (options?: {
+    near?: { latitude: number; longitude: number; radiusKm?: number };
+    /** Also return resolved and guidance-only incidents, for a history view. */
+    includeClosed?: boolean;
+  }) => {
+    const params = new URLSearchParams();
+    if (options?.near) {
+      params.set('latitude', String(options.near.latitude));
+      params.set('longitude', String(options.near.longitude));
+      params.set('radius_km', String(options.near.radiusKm ?? 50));
+    }
+    if (options?.includeClosed) params.set('include_closed', 'true');
+    const query = params.toString();
+    return request<MapPin[]>(`/incidents${query ? `?${query}` : ''}`);
   },
 
   getIncident: (incidentId: string) => request<IncidentDetail>(`/incidents/${incidentId}`),
@@ -239,7 +297,19 @@ export const responder = {
       { method: 'POST', body: JSON.stringify({ is_on_duty: isOnDuty }) },
     ),
 
-  list: (onDutyOnly = false) => request<unknown[]>(`/responders?on_duty_only=${onDutyOnly}`),
+  list: (onDutyOnly = false) =>
+    request<ResponderOrg[]>(`/responders?on_duty_only=${onDutyOnly}`),
+
+  /**
+   * Driving route from a rescue centre to an incident.
+   *
+   * Routed through the backend rather than calling OpenRouteService here, so
+   * the routing key is never shipped to a browser.
+   */
+  getRoute: (incidentId: string, responderId: string) =>
+    request<RouteLine>(
+      `/incidents/${incidentId}/route?responder_id=${encodeURIComponent(responderId)}`,
+    ),
 };
 
 // --- Display helpers ------------------------------------------------------
@@ -250,19 +320,23 @@ export const responder = {
  * The only place a client is allowed to map a backend value to presentation.
  * Note it switches on `severity_level`, which the backend computed -- the
  * client never derives severity from condition flags itself.
+ *
+ * Tuned for the navy ground in `theme.ts`: the earlier set was picked against
+ * white and went muddy on a dark background, which matters when the colour is
+ * the only thing separating "critical" from "monitor" at a glance.
  */
 export function severityColour(level: string | null): string {
   switch (level) {
     case 'critical':
-      return '#b3261e';
+      return '#FF6B6B';
     case 'respond':
-      return '#e8710a';
+      return '#FF9F45';
     case 'monitor':
-      return '#f9ab00';
+      return '#FFC043';
     case 'guidance':
-      return '#1e8e3e';
+      return '#5BD99A';
     default:
-      return '#5f6368';
+      return '#8D99AE';
   }
 }
 
