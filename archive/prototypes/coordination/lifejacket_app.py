@@ -291,6 +291,21 @@ def main() -> None:
                 render_generated_alert(selected_result)
             else:
                 st.error("Generated alert card is held for coordinator review and is not displayed.")
+            health = selected_result.get("health") or {}
+            if (
+                health.get("retry_count")
+                or health.get("failed_calls")
+                or health.get("guardrail_fallback")
+                or health.get("grounding_fallback")
+                or health.get("audit_fallback")
+            ):
+                st.warning(
+                    f"Monitoring: {health.get('retry_count', 0)} retried call(s), "
+                    f"{health.get('failed_calls', 0)} failed call(s); fallbacks used -> "
+                    f"guardrail: {health.get('guardrail_fallback', False)}, "
+                    f"grounding: {health.get('grounding_fallback', False)}, "
+                    f"audit: {health.get('audit_fallback', False)}"
+                )
             left, right = st.columns(2)
             with left:
                 st.markdown("#### Triage Decision")
