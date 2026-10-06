@@ -105,9 +105,25 @@ When `duplicates.find_duplicate` scores a match above the threshold,
 cancelled.
 
 The row is kept because two independent reports corroborate that something is
-really there, and the second reporter may have sent a better photo. A row that
-is already a duplicate is excluded from future matching, so duplicates do not
-chain into speculative clusters.
+really there, and the second reporter may have sent a better photo.
+
+Cancelling a report is the one place the system withholds a response, so two
+rules limit when it may:
+
+- **Only an incident someone is actively handling can be a duplicate target**:
+  `awaiting_dispatch` through `on_scene`
+  (`duplicates.ACTIVE_DUPLICATE_TARGET_STATUSES`). A case that ended is a new
+  event if the animal is reported again. An intake nobody finished was never
+  sent to anyone. A row that is itself a cancelled duplicate is excluded too,
+  so duplicates do not chain into speculative clusters.
+- **Reports that disagree on the animal group are never cancelled.** Distance
+  and time alone can clear the threshold (a dolphin 200 m from a seal an hour
+  later scores 0.765 against 0.70). Such a report is dispatched normally and
+  the incident detail carries `possible_duplicate`, which the console shows as
+  "Possible duplicate of ...", so a person decides. An *unknown* group is not a
+  disagreement.
+
+Weaker matches stay in `metrics_json["duplicate_match"]` and are not shown.
 
 ## Ground truth
 

@@ -336,7 +336,10 @@ otherwise surface a seal centre for a reported coyote.
 
 **`duplicates.py`** — Is this the same animal someone already reported?
 Weighted distance (0.45), time (0.35), and species agreement (0.20), inside a
-hard 1 km / 24 h window. Duplicates are linked, never deleted.
+hard 1 km / 24 h window. Duplicates are linked, never deleted. Only an
+incident someone is actively handling can be matched against, and reports that
+disagree on the animal group are flagged for the coordinator rather than
+cancelled (`is_probable_duplicate` / `is_possible_duplicate`).
 
 **`species.py`** — Maps free-text names ("Guadalupe fur seal") to an animal
 group. Not on the live path; used to compare responders' typed species with the
@@ -394,7 +397,8 @@ decline, and ETAs for the reporter's map.
 | `test_severity.py` | Triage: hard rules, weights, weather guard, tide, confidence. The clearest spec of triage behaviour |
 | `test_taxonomy.py` | Pooling: species → genus → family → group, rescaling, descriptions |
 | `test_session.py` | Stopping rules, question budget, stale-rerun, retakes |
-| `test_dispatch.py` | Distance, duplicates, centre ranking, species grouping |
+| `test_dispatch.py` | Distance, duplicate scoring, centre ranking, species grouping |
+| `test_duplicates.py` | Which incidents a report may be cancelled against, and when it is flagged instead. Database and HTTP |
 | `test_prompts.py` | Every prompt renders with its agent's real values; safety rules still present |
 | `test_pipeline.py` | Whole conversations in memory with the scripted model |
 | `test_api.py` | A whole conversation over HTTP with a real (temporary) database |

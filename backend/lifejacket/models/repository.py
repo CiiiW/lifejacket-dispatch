@@ -15,7 +15,10 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from lifejacket.chatbot.session import ConversationState
-from lifejacket.dispatch.duplicates import CandidateIncident
+from lifejacket.dispatch.duplicates import (
+    ACTIVE_DUPLICATE_TARGET_STATUSES,
+    CandidateIncident,
+)
 from lifejacket.geo import bounding_box, haversine_km
 from lifejacket.models.schemas import (
     AnimalGroup,
@@ -398,6 +401,10 @@ def find_duplicate_candidates(
     The windows here are slightly wider than the duplicate scorer's own
     thresholds, so that borderline cases are still scored rather than excluded
     by the query before `duplicates.find_duplicate` ever sees them.
+
+    Only incidents someone is actively handling are returned. A case that has
+    ended, or an intake that was never finished, is not something a new report
+    can be a duplicate of; see `ACTIVE_DUPLICATE_TARGET_STATUSES`.
     """
     since = datetime.now() - timedelta(hours=within_hours)
     min_lat, max_lat, min_lon, max_lon = bounding_box(latitude, longitude, within_km)
@@ -405,6 +412,7 @@ def find_duplicate_candidates(
     rows = session.scalars(
         select(IncidentRow).where(
             IncidentRow.incident_id != incident_id,
+            IncidentRow.status.in_([s.value for s in ACTIVE_DUPLICATE_TARGET_STATUSES]),
             IncidentRow.created_at >= since,
             IncidentRow.latitude.between(min_lat, max_lat),
             IncidentRow.longitude.between(min_lon, max_lon),

@@ -22,11 +22,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from lifejacket.context.routing import driving_route
+from lifejacket.dispatch.duplicates import is_possible_duplicate
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import (
     AnimalGroup,
     DispatchCandidate,
+    DuplicateMatch,
     IncidentReport,
     IncidentStatus,
 )
@@ -113,6 +115,13 @@ class IncidentDetail(BaseModel):
 
     reporter_phone: str | None = None
     duplicate_of: str | None = None
+    #: A nearby recent incident that MAY be the same animal: close enough in
+    #: place and time to be a duplicate, but the two reports disagree on the
+    #: animal group, so this one was NOT suppressed. It was dispatched
+    #: normally; the coordinator decides. Has the `DuplicateMatch` shape:
+    #: incident_id, confidence, distance_km, hours_apart, same_species,
+    #: reason. None when `duplicate_of` is set or the match was weak.
+    possible_duplicate: dict | None = None
     assigned_responder_id: str | None = None
 
     #: True when the guardrail check failed or triage confidence was low, so
@@ -268,6 +277,7 @@ def get_incident(
         environment=row.environment_json,
         reporter_phone=row.reporter_phone,
         duplicate_of=row.duplicate_of,
+        possible_duplicate=_possible_duplicate(row, metrics),
         assigned_responder_id=row.assigned_responder_id,
         requires_human_review=requires_review,
         guardrail=guardrail,
@@ -436,6 +446,22 @@ def get_route(
         source=route.source,
         from_name=responder.name,
     )
+
+
+def _possible_duplicate(row: IncidentRow, metrics: dict) -> dict | None:
+    """The recorded match, if it is one a coordinator should look at.
+
+    Nothing for an incident that was linked (the link says it already), and
+    nothing for a weak match. See `duplicates.is_possible_duplicate`.
+    """
+    raw = metrics.get("duplicate_match")
+    if row.duplicate_of is not None or not raw:
+        return None
+    try:
+        match = DuplicateMatch.model_validate(raw)
+    except ValueError:
+        return None
+    return raw if is_possible_duplicate(match) else None
 
 
 def _species_breakdown(identification_json: dict | None) -> list[dict]:

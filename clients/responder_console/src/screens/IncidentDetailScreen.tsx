@@ -191,7 +191,17 @@ export default function IncidentDetailScreen({
 
       {incident.duplicate_of && (
         <Text style={styles.duplicate}>
-          Possible duplicate of {incident.duplicate_of}.
+          Linked as a duplicate of {incident.duplicate_of}. Not dispatched separately.
+        </Text>
+      )}
+
+      {/* Same place and time as another report, different animal group. The
+          system will not merge those, so this was dispatched normally and a
+          person decides. */}
+      {incident.possible_duplicate && (
+        <Text style={styles.duplicate}>
+          Possible duplicate of {incident.possible_duplicate.incident_id} (
+          {incident.possible_duplicate.reason}). Check before sending a second team.
         </Text>
       )}
 

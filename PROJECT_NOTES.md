@@ -10,7 +10,7 @@ For the repository tour and design rationale, see [README.md](README.md).
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 143 tests. No API key or network needed |
+| `backend/tests/` | 165 tests. No API key or network needed |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
@@ -28,6 +28,22 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-05** A duplicate may only cancel a report in the narrow case it
+  was built for: the same animal, reported again, while someone is already
+  handling it. Two rules follow. (1) Only an incident in an active status
+  (`awaiting_dispatch` through `on_scene`) can be a duplicate target. Before,
+  any incident within 1 km and 24 h counted, including resolved cases and
+  intakes nobody finished, so a re-stranded animal or a report made next to an
+  abandoned one was cancelled with no responder offered. (2) Reports that
+  disagree on the animal group are never cancelled. Distance and time alone
+  could clear the 0.70 threshold, so a dolphin 200 m from a seal an hour later
+  was cancelled as the seal. Those are now dispatched normally and flagged for
+  the coordinator as a possible duplicate. **This changes an earlier intent**:
+  the scorer treats a group mismatch as "a partial penalty, not a veto",
+  because reporters describe the same animal inconsistently. The score still
+  works that way. What changed is that the score alone no longer withholds a
+  response; the cost of the new rule is an occasional second look by a
+  coordinator, and the cost of the old one was an animal nobody was sent to.
 - **2026-10-05** A failed model call must never lose a report. After
   `LLMClient`'s retries are exhausted, each pipeline step now has a fail-safe
   instead of raising (which was a 500 for the reporter and nothing recorded):
@@ -265,6 +281,22 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Change Log
 
+### 2026-10-05 — Duplicate reports can no longer cancel the wrong incident
+
+- **`dispatch/duplicates.py`**: `ACTIVE_DUPLICATE_TARGET_STATUSES`;
+  `is_probable_duplicate` also requires the animal groups not to disagree;
+  new `is_possible_duplicate` (score at the threshold, groups disagree);
+  `find_duplicate` prefers a match that can be linked over a closer one that
+  cannot.
+- **`models/repository.py`**: `find_duplicate_candidates` filters on status.
+- **API**: `possible_duplicate` on `GET /incidents/{id}`.
+- **Console**: the linked case now reads "Linked as a duplicate of ..."; the
+  new "Possible duplicate of ..." line is for the flagged, still-dispatched
+  case. (The old text said "Possible duplicate" about incidents that had
+  already been cancelled.)
+- **New `tests/test_duplicates.py`** (17 tests) and 5 more in
+  `test_dispatch.py`. 165 tests total.
+
 ### 2026-10-05 — Model-failure handling and per-incident health
 
 Ports PR #3 (built against the archived prototype) onto the backend. Retries
@@ -359,6 +391,12 @@ previous notebook-based pipeline is in `archive/prototypes/`.
 
 ## Known Issues
 
+- **Duplicate detection runs only at the end of intake.** The second reporter
+  answers every question before the system notices the animal is already
+  reported, and their photo and answers are not attached to the original
+  incident. There is no count of how many people reported the same animal, no
+  photo comparison, and no notion of several animals at one place (a mass
+  stranding reads as one animal plus duplicates if the groups match).
 - **The dynamic-question prompt has not been run against real Gemini.** All
   end-to-end testing used scripted replies; no GCP credentials were available
   while it was built.

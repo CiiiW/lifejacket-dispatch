@@ -166,6 +166,20 @@ export interface IncidentDetail extends MapPin {
   environment: Record<string, unknown> | null;
   reporter_phone: string | null;
   duplicate_of: string | null;
+  /**
+   * A nearby recent incident that may be the same animal: close in place and
+   * time, but the two reports disagree on the animal group, so this one was
+   * not suppressed. Dispatched normally; the coordinator decides. Null when
+   * `duplicate_of` is set or the match was weak.
+   */
+  possible_duplicate: {
+    incident_id: string;
+    confidence: number;
+    distance_km: number;
+    hours_apart: number;
+    same_species: boolean;
+    reason: string;
+  } | null;
   /** True when the guardrail check failed or triage confidence was low. */
   requires_human_review: boolean;
   guardrail: Record<string, unknown> | null;

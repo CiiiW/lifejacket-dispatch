@@ -64,7 +64,7 @@ lifejacket-dispatch/
 │   │   ├── config.py         every setting, in one file
 │   │   ├── taxonomy.py       pools species probabilities into genus/family
 │   │   └── geo.py            haversine, ETA, bounding boxes
-│   ├── tests/                143 tests, no API key needed
+│   ├── tests/                165 tests, no API key needed
 │   └── requirements.txt
 │
 ├── clients/
@@ -144,7 +144,7 @@ curl -X POST localhost:8000/intake/start -H 'Content-Type: application/json' -d 
 ### Tests
 
 ```bash
-pytest                 # 143 tests, no API key or network required
+pytest                 # 165 tests, no API key or network required
 ```
 
 The deterministic logic — severity, duplicates, matching, taxonomy, the
