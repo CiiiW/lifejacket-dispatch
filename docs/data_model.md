@@ -123,6 +123,36 @@ rules limit when it may:
   "Possible duplicate of ...", so a person decides. An *unknown* group is not a
   disagreement.
 
+## Mass strandings are worked out, not stored
+
+NOAA's definition: two or more cetaceans, same or mixed species, stranded at
+the same time and place, other than a cow-calf pair. It needs a larger
+response than one animal, and no single report shows it.
+
+Two facts feed it. `assessment_json["animal_count"]` is how many animals one
+report says are in trouble (1 unless the photos or the reporter indicate
+more). And two incidents that were *not* linked as duplicates are, by the
+system's own judgement, different animals.
+
+`mass_stranding.find_mass_strandings` puts them together over the incidents
+open right now:
+
+- An incident and its linked duplicates are one scene. Its count is the
+  **largest** any of those reports gave, never the sum, because the same
+  animals are in several people's photos.
+- Separate incidents within 2 km and 24 hours are one event, chained along the
+  coast, and their counts are **added**.
+- Two or more is a mass stranding. Cetaceans only: several seals on a beach is
+  a haul-out.
+
+There is no event table and no column for it. A report arriving now changes
+the answer for an incident filed an hour ago, so `GET /incidents/{id}`
+(`mass_stranding`, `animal_count`) and `GET /incidents` (`in_mass_stranding`)
+compute it per request. Resolving an incident removes it from the event.
+
+It does not change severity (a stranded cetacean is already critical) or who
+is offered the dispatch. It tells the coordinator the scale.
+
 Weaker matches stay in `metrics_json["duplicate_match"]` and are not shown.
 
 ## Ground truth

@@ -23,6 +23,7 @@ from sqlalchemy.orm import Session
 
 from lifejacket.context.routing import driving_route
 from lifejacket.dispatch.duplicates import is_possible_duplicate
+from lifejacket.dispatch.mass_stranding import find_mass_strandings
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import (
@@ -31,6 +32,7 @@ from lifejacket.models.schemas import (
     DuplicateMatch,
     IncidentReport,
     IncidentStatus,
+    MassStranding,
 )
 from lifejacket.models.tables import IncidentLogRow, IncidentRow, ResponderRow
 from lifejacket.services import health as pipeline_health
@@ -67,6 +69,9 @@ class MapPin(BaseModel):
     animal_group: str | None
     headline: str | None
     entanglement: bool | None
+    #: Part of a possible mass stranding. The detail response says how many
+    #: animals and which other incidents (`IncidentDetail.mass_stranding`).
+    in_mass_stranding: bool = False
     created_at: datetime
     assigned_responder_id: str | None
     #: First photo, so a list row can show a thumbnail without a second
@@ -104,6 +109,17 @@ class IncidentDetail(BaseModel):
     severity_level: str | None
     severity_score: float | None
     severity_reasons: list[str] = Field(default_factory=list)
+
+    #: How many animals this report says are in trouble. 1 unless the photos
+    #: or the reporter indicated more.
+    animal_count: int = 1
+    #: Set when this incident is part of a possible mass stranding: several
+    #: cetaceans at one place and time, from this report alone or from
+    #: separate incidents nearby. Worked out from the incidents open right
+    #: now on every request, so it changes as further reports arrive. A linked
+    #: duplicate shows the event of the incident it was linked to. See
+    #: `dispatch/mass_stranding.py`.
+    mass_stranding: MassStranding | None = None
 
     report: IncidentReport | None = None
     dispatch_candidates: list[DispatchCandidate] = Field(default_factory=list)
@@ -182,6 +198,9 @@ def list_incidents(
     rows = repository.find_open_incidents(
         session, latitude, longitude, radius_km, include_closed=include_closed
     )
+    # Worked out over every open incident, not only the ones in this radius,
+    # so an event straddling the edge of the map is not cut in half.
+    events = find_mass_strandings(repository.find_stranding_reports(session))
 
     return [
         MapPin(
@@ -196,6 +215,7 @@ def list_incidents(
             animal_group=row.animal_group,
             headline=row.report_headline,
             entanglement=row.entanglement_present,
+            in_mass_stranding=row.incident_id in events,
             created_at=row.created_at,
             assigned_responder_id=row.assigned_responder_id,
             photo_url=next(
@@ -258,6 +278,10 @@ def get_incident(
         severity_level=row.severity_level,
         severity_score=row.severity_score,
         severity_reasons=metrics.get("severity_reasons", []),
+        animal_count=repository.animal_count(assessment),
+        mass_stranding=find_mass_strandings(
+            repository.find_stranding_reports(session)
+        ).get(row.incident_id),
         report=(
             IncidentReport.model_validate(row.report_json) if row.report_json else None
         ),

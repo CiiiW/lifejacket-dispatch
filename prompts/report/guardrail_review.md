@@ -18,7 +18,8 @@ asserted that is not supported there. Common, consequential examples:
   flag means **not observed**, so stating "no injuries present" when flags are
   merely false is itself an overstatement
 - Inventing access details, parking, or landmarks
-- Asserting how many animals there are when only one was assessed
+- Asserting a number of animals that differs from the animal count in the
+  source data, or implying others are present when the count is 1
 - Predicting survival or outcome
 
 A report **stating an unknown** is correct, not a defect ("tide state

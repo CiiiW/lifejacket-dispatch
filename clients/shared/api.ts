@@ -72,6 +72,8 @@ export interface MapPin {
   animal_group: string | null;
   headline: string | null;
   entanglement: boolean | null;
+  /** Part of a possible mass stranding. The detail has the numbers. */
+  in_mass_stranding: boolean;
   created_at: string;
   assigned_responder_id: string | null;
   /** First photo, relative to the API root. Use `absoluteUrl` to display it. */
@@ -147,8 +149,24 @@ export interface DispatchCandidate {
   contact_email: string | null;
 }
 
+/**
+ * Several cetaceans stranded at one place and time. Mirrors
+ * `schemas.MassStranding`. Worked out from the incidents open at the moment
+ * of the request, so it can appear on an incident after it was first shown.
+ */
+export interface MassStranding {
+  /** A lower bound: reports of the same incident are not added together. */
+  animal_count: number;
+  animal_group: string;
+  /** The separate incidents in the event, oldest first. */
+  incident_ids: string[];
+  /** Every report behind it, linked duplicates included. */
+  report_count: number;
+  reason: string;
+}
+
 /** Full incident detail. Mirrors `incidents.IncidentDetail`. */
-export interface IncidentDetail extends MapPin {
+export interface IncidentDetail extends Omit<MapPin, 'in_mass_stranding'> {
   updated_at: string;
   species_confidence: number | null;
   /** What the reporter photographed, beside the species derived from it. */
@@ -160,6 +178,9 @@ export interface IncidentDetail extends MapPin {
   species_candidates: { common_name: string; scientific_name: string | null; confidence: number }[];
   severity_score: number | null;
   severity_reasons: string[];
+  /** How many animals this report says are in trouble. 1 unless told otherwise. */
+  animal_count: number;
+  mass_stranding: MassStranding | null;
   report: IncidentReport | null;
   dispatch_candidates: DispatchCandidate[];
   transcript: { role: string; content: string; agent_name: string | null; created_at: string }[];

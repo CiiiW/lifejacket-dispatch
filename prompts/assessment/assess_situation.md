@@ -64,6 +64,14 @@ tightens as the animal moves. Look for it specifically.
 Then the surroundings: `near_people`, `near_dogs`, `near_road`, `in_surf`,
 `risk_of_being_stranded_further`, and `hazard_notes` (<=15 words).
 
+Then the scale: `animal_count` — how many animals of this kind are in
+trouble here. Use 1 unless the photos show more, or the reporter says there
+are more. Count only animals that are stranded, injured, or in distress:
+healthy animals resting nearby (a seal haul-out, a flock) do not count. If
+the reporter mentions more without a number, use the lowest number that fits
+what they said. When there is more than one, set the condition flags for the
+animal in the worst visible condition and say so in `injury_summary`.
+
 ## What to recommend
 
 - `recommended_action`: one sentence, naming who acts — the reporter, a
@@ -83,7 +91,9 @@ Then the surroundings: `near_people`, `near_dogs`, `near_road`, `in_surf`,
 
 Only ask if the answer would **change the recommendation** — not out of
 curiosity. Worth asking: something wrapped around the animal, laboured
-breathing, a loose dog nearby, distance above the waterline.
+breathing, a loose dog nearby, distance above the waterline. For a whale,
+dolphin, or porpoise, also whether any others are stranded nearby: several
+at once needs a much larger response.
 
 If nothing would change the outcome, set `is_confident` to true and return an
 empty `next_question`.

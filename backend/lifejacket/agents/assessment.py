@@ -26,6 +26,7 @@ from typing import Any
 from lifejacket.agents.base import Agent
 from lifejacket.llm.schema import (
     BOOLEAN,
+    INTEGER,
     NUMBER,
     STRING,
     STRING_LIST,
@@ -69,6 +70,8 @@ _SCHEMA = object_schema(
         "in_surf": BOOLEAN,
         "risk_of_being_stranded_further": BOOLEAN,
         "hazard_notes": STRING,
+        # --- Scale: one animal or several. Feeds mass-stranding detection. ---
+        "animal_count": {**INTEGER, "minimum": 1},
         # --- Guidance ---
         "recommended_action": STRING,
         "reporter_instructions": STRING_LIST,
@@ -174,6 +177,7 @@ class AssessmentAgent(Agent[AssessmentResult]):
             )
 
         return AssessmentResult(
+            animal_count=_safe_count(data.get("animal_count")),
             injury=injury,
             hazards=hazards,
             recommended_action=(data.get("recommended_action") or "").strip(),
@@ -187,6 +191,18 @@ class AssessmentAgent(Agent[AssessmentResult]):
             is_confident=bool(data.get("is_confident")),
             next_question=next_question,
         )
+
+
+def _safe_count(value: Any) -> int:
+    """How many animals, defaulting to one.
+
+    A missing, zero, or nonsense count means "one": there is a report, so
+    there is at least one animal, and anything above one has to be claimed
+    rather than assumed. A bool is rejected because `True` is an int in Python.
+    """
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return 1
+    return max(1, int(value))
 
 
 def _safe_mobility(value: str | None) -> MobilityConcern:

@@ -10,7 +10,7 @@ For the repository tour and design rationale, see [README.md](README.md).
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 165 tests. No API key or network needed |
+| `backend/tests/` | 203 tests. No API key or network needed |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
@@ -28,6 +28,18 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-05** Mass strandings are detected by counting, and the count is
+  derived on every request instead of stored. A new report changes the answer
+  for incidents filed earlier (the second reporter is often the one who sees
+  the other animals), so anything written at intake time would be stale by
+  the time a coordinator opened it. Counting rule: the largest `animal_count`
+  within one incident and its duplicates (same animals, several photos),
+  summed across separate incidents within 2 km and 24 h (the system already
+  judged those to be different animals). Cetaceans only, following NOAA's
+  definition, because several pinnipeds on one beach is normal. It is a flag
+  for the coordinator and changes neither severity nor dispatch ranking: a
+  stranded cetacean is already critical, and how many teams to send is a
+  human decision.
 - **2026-10-05** A duplicate may only cancel a report in the narrow case it
   was built for: the same animal, reported again, while someone is already
   handling it. Two rules follow. (1) Only an incident in an active status
@@ -281,6 +293,25 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Change Log
 
+### 2026-10-05 — Mass stranding detection
+
+- **`models/schemas.py`**: `AssessmentResult.animal_count` (default 1) and
+  `MassStranding`.
+- **Assessment agent and prompt**: record `animal_count`; healthy animals
+  nearby do not count; with several, flags describe the worst-off one; for a
+  cetacean, "are others stranded nearby" is listed as a question worth asking.
+- **Report and guardrail agents and prompts**: both are given the count. The
+  guardrail used to treat any stated number of animals as invented; it now
+  checks the number against the count.
+- **New `dispatch/mass_stranding.py`** and `mass_stranding` in
+  `config/scoring.json` (groups, minimum animals, distance, time).
+- **`models/repository.py`**: `find_stranding_reports`.
+- **API**: `animal_count` and `mass_stranding` on `GET /incidents/{id}`;
+  `in_mass_stranding` on each row of `GET /incidents`.
+- **Console**: "Possible mass stranding" banner on the incident, naming the
+  other incidents in the event; MASS STRANDING tag in the list.
+- **New `tests/test_mass_stranding.py`** (38 tests). 203 tests total.
+
 ### 2026-10-05 — Duplicate reports can no longer cancel the wrong incident
 
 - **`dispatch/duplicates.py`**: `ACTIVE_DUPLICATE_TARGET_STATUSES`;
@@ -391,12 +422,21 @@ previous notebook-based pipeline is in `archive/prototypes/`.
 
 ## Known Issues
 
+- **The three prompt changes for `animal_count` have not been run against
+  real Gemini.** Tested with scripted replies only, like the rest of the
+  prompts. Whether the model counts animals well from a photo is unmeasured.
+- **A mass stranding is missed when nobody mentions the other animals.** Two
+  people each photograph a different single dolphin 100 m apart: the second
+  report is linked as a duplicate, both say one animal, and the count stays
+  at one. Fixing it needs the photos compared.
+- **The mass stranding distance and time (2 km, 24 h) are starting values**,
+  not checked against real events. A mother and calf cannot be told from two
+  unrelated animals; the banner says so when the count is exactly two.
 - **Duplicate detection runs only at the end of intake.** The second reporter
   answers every question before the system notices the animal is already
   reported, and their photo and answers are not attached to the original
-  incident. There is no count of how many people reported the same animal, no
-  photo comparison, and no notion of several animals at one place (a mass
-  stranding reads as one animal plus duplicates if the groups match).
+  incident. There is no count of how many people reported the same animal and
+  no photo comparison.
 - **The dynamic-question prompt has not been run against real Gemini.** All
   end-to-end testing used scripted replies; no GCP credentials were available
   while it was built.
