@@ -101,6 +101,23 @@ export default function IncidentDetailScreen({
         </View>
       )}
 
+      {/* 2. Scale. One animal and several need different responses, and this
+          can become true after the incident was first opened, when someone
+          else reports. Other incidents are listed so they are handled as one. */}
+      {incident.mass_stranding && (
+        <View style={styles.massBanner}>
+          <Text style={styles.massTitle}>
+            Possible mass stranding · at least {incident.mass_stranding.animal_count} animals
+          </Text>
+          <Text style={styles.reviewBody}>{incident.mass_stranding.reason}</Text>
+          {otherIncidents(incident).length > 0 && (
+            <Text style={styles.reviewBody}>
+              Same event: {otherIncidents(incident).join(', ')}
+            </Text>
+          )}
+        </View>
+      )}
+
       {/* Retries that recovered need no action, but should not be invisible. */}
       {healthNote(incident.health) && (
         <Text style={styles.healthNote}>{healthNote(incident.health)}</Text>
@@ -191,7 +208,17 @@ export default function IncidentDetailScreen({
 
       {incident.duplicate_of && (
         <Text style={styles.duplicate}>
-          Possible duplicate of {incident.duplicate_of}.
+          Linked as a duplicate of {incident.duplicate_of}. Not dispatched separately.
+        </Text>
+      )}
+
+      {/* Same place and time as another report, different animal group. The
+          system will not merge those, so this was dispatched normally and a
+          person decides. */}
+      {incident.possible_duplicate && (
+        <Text style={styles.duplicate}>
+          Possible duplicate of {incident.possible_duplicate.incident_id} (
+          {incident.possible_duplicate.reason}). Check before sending a second team.
         </Text>
       )}
 
@@ -326,6 +353,13 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+/** The other incidents in this one's mass stranding, if it is part of one. */
+function otherIncidents(incident: IncidentDetail): string[] {
+  return (incident.mass_stranding?.incident_ids ?? []).filter(
+    (id) => id !== incident.incident_id,
+  );
+}
+
 /**
  * Model failures that were NOT recovered from, in a coordinator's words.
  *
@@ -419,6 +453,15 @@ const styles = StyleSheet.create({
     borderLeftColor: colors.warning,
     padding: spacing.md,
   },
+  massBanner: {
+    ...glass,
+    ...shadow.soft,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.danger,
+    padding: spacing.md,
+    gap: spacing.xs,
+  },
+  massTitle: { ...type.label, color: colors.danger },
   reviewTitle: { ...type.label, color: colors.warning, marginBottom: spacing.xs },
   reviewBody: { ...type.meta, color: colors.textMuted, lineHeight: 19 },
   findings: { marginTop: spacing.sm, gap: 3 },

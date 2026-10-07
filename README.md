@@ -56,7 +56,7 @@ lifejacket-dispatch/
 │   │   ├── agents/           LLM agents: identify, assess, report, guardrail
 │   │   ├── chatbot/          when to ask / when to stop + notebook playground
 │   │   ├── context/          weather, tides, reverse geocoding
-│   │   ├── dispatch/         severity, duplicates, responder matching (no LLM)
+│   │   ├── dispatch/         severity, duplicates, mass strandings, responder matching (no LLM)
 │   │   ├── llm/              the one place we call a model
 │   │   ├── models/           schemas, database tables, repository
 │   │   ├── services/         pipeline.py — the end-to-end workflow; health.py
@@ -64,7 +64,7 @@ lifejacket-dispatch/
 │   │   ├── config.py         every setting, in one file
 │   │   ├── taxonomy.py       pools species probabilities into genus/family
 │   │   └── geo.py            haversine, ETA, bounding boxes
-│   ├── tests/                143 tests, no API key needed
+│   ├── tests/                203 tests, no API key needed
 │   └── requirements.txt
 │
 ├── clients/
@@ -101,6 +101,7 @@ lifejacket-dispatch/
 | Allow stopping at family level, or move the 0.90 threshold | `CONFIDENT_TAXON_RANKS`, `IDENTIFICATION_CONFIDENCE_THRESHOLD` in `.env` |
 | Change how species pool into genus/family | [`backend/lifejacket/taxonomy.py`](backend/lifejacket/taxonomy.py) |
 | Re-tune triage urgency | [`config/scoring.json`](config/scoring.json) |
+| Change what counts as a mass stranding | `mass_stranding` in [`config/scoring.json`](config/scoring.json); the rule is in [`backend/lifejacket/dispatch/mass_stranding.py`](backend/lifejacket/dispatch/mass_stranding.py) |
 | Change how responders are ranked | [`backend/lifejacket/dispatch/matching.py`](backend/lifejacket/dispatch/matching.py) |
 | Add a weather or tide signal | [`backend/lifejacket/context/`](backend/lifejacket/context/) |
 | Add an endpoint | [`backend/lifejacket/api/routes/`](backend/lifejacket/api/routes/) |
@@ -144,7 +145,7 @@ curl -X POST localhost:8000/intake/start -H 'Content-Type: application/json' -d 
 ### Tests
 
 ```bash
-pytest                 # 143 tests, no API key or network required
+pytest                 # 203 tests, no API key or network required
 ```
 
 The deterministic logic — severity, duplicates, matching, taxonomy, the

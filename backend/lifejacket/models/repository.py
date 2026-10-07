@@ -15,7 +15,11 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from lifejacket.chatbot.session import ConversationState
-from lifejacket.dispatch.duplicates import CandidateIncident
+from lifejacket.dispatch.duplicates import (
+    ACTIVE_DUPLICATE_TARGET_STATUSES,
+    CandidateIncident,
+)
+from lifejacket.dispatch.mass_stranding import StrandingReport
 from lifejacket.geo import bounding_box, haversine_km
 from lifejacket.models.schemas import (
     AnimalGroup,
@@ -398,6 +402,10 @@ def find_duplicate_candidates(
     The windows here are slightly wider than the duplicate scorer's own
     thresholds, so that borderline cases are still scored rather than excluded
     by the query before `duplicates.find_duplicate` ever sees them.
+
+    Only incidents someone is actively handling are returned. A case that has
+    ended, or an intake that was never finished, is not something a new report
+    can be a duplicate of; see `ACTIVE_DUPLICATE_TARGET_STATUSES`.
     """
     since = datetime.now() - timedelta(hours=within_hours)
     min_lat, max_lat, min_lon, max_lon = bounding_box(latitude, longitude, within_km)
@@ -405,6 +413,7 @@ def find_duplicate_candidates(
     rows = session.scalars(
         select(IncidentRow).where(
             IncidentRow.incident_id != incident_id,
+            IncidentRow.status.in_([s.value for s in ACTIVE_DUPLICATE_TARGET_STATUSES]),
             IncidentRow.created_at >= since,
             IncidentRow.latitude.between(min_lat, max_lat),
             IncidentRow.longitude.between(min_lon, max_lon),
@@ -427,3 +436,60 @@ def find_duplicate_candidates(
         )
         for row in rows
     ]
+
+
+def find_stranding_reports(session: Session) -> list[StrandingReport]:
+    """Every incident being handled now, plus the duplicates linked to them.
+
+    The input to `mass_stranding.find_mass_strandings`. Not limited by
+    distance: an event is found by chaining from incident to incident, so any
+    radius drawn around one of them could cut the event in half. The set of
+    incidents open at once is small.
+    """
+    active_statuses = [s.value for s in ACTIVE_DUPLICATE_TARGET_STATUSES]
+    active = session.scalars(
+        select(IncidentRow).where(
+            IncidentRow.status.in_(active_statuses),
+            IncidentRow.duplicate_of.is_(None),
+        )
+    ).all()
+
+    linked = []
+    if active:
+        linked = session.scalars(
+            select(IncidentRow).where(
+                IncidentRow.duplicate_of.in_([row.incident_id for row in active])
+            )
+        ).all()
+
+    return [_stranding_report(row, is_active=True) for row in active] + [
+        _stranding_report(row, is_active=False) for row in linked
+    ]
+
+
+def _stranding_report(row: IncidentRow, *, is_active: bool) -> StrandingReport:
+    return StrandingReport(
+        incident_id=row.incident_id,
+        latitude=row.latitude,
+        longitude=row.longitude,
+        reported_at=row.created_at,
+        animal_group=_animal_group(row.animal_group),
+        animal_count=animal_count(row.assessment_json),
+        duplicate_of=row.duplicate_of,
+        is_active=is_active,
+    )
+
+
+def _animal_group(value: str | None) -> AnimalGroup:
+    try:
+        return AnimalGroup(value) if value else AnimalGroup.UNKNOWN
+    except ValueError:
+        return AnimalGroup.UNKNOWN
+
+
+def animal_count(assessment_json: dict | None) -> int:
+    """The recorded count, or 1 for rows saved before it was recorded."""
+    try:
+        return max(1, int((assessment_json or {}).get("animal_count", 1)))
+    except (TypeError, ValueError):
+        return 1

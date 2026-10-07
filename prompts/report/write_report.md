@@ -14,6 +14,7 @@ already in the structured fields. Assume competence.
 
 - Animal: **{species}** ({scientific_name}), identification confidence {species_confidence}
 - Animal group: {animal_group}
+- Animals in trouble: {animal_count}
 - Identification detail: {identification_summary}
 - Location: **{place_name}** — {coordinates}
 - Triage: **{severity_level}** (score {severity_score})
@@ -42,7 +43,9 @@ Condition and situation:
 ## Output
 
 - **`headline`** — under 100 characters, standing alone (often the whole
-  notification). Pack in animal, place, single most urgent fact.
+  notification). Pack in animal, place, single most urgent fact. If more
+  than one animal is in trouble, the number goes first: it changes how many
+  people and how much equipment to send.
   Good: `Entangled sea lion, Moss Landing, falling tide — 2h window`
   Good: `Beached harbour porpoise, Drakes Beach, alive, immobile`
   Bad: `Animal incident report` / `Urgent: please read`

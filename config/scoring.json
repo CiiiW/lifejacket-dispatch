@@ -12,6 +12,13 @@
     },
     "probable_duplicate_threshold": 0.7
   },
+  "mass_stranding": {
+    "_comment": "NOAA's definition: two or more cetaceans, same or mixed species, stranded at the same time and place, other than a cow-calf pair. Limited to cetaceans on purpose: several seals or sea lions on one beach is a normal haul-out. distance_km and time_hours are how close two separate incidents must be to count as one event; both are starting values and have not been checked against real strandings.",
+    "animal_groups": ["cetacean"],
+    "min_animals": 2,
+    "distance_km": 2.0,
+    "time_hours": 24.0
+  },
   "species_groups": {
     "pinniped": [
       "seal",
