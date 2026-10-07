@@ -78,6 +78,10 @@ class Settings(BaseSettings):
     llm_max_output_tokens: int = Field(default=6144)
     llm_max_retries: int = Field(default=3)
 
+    # Coordination chooses read-only tools; bounds apply to each request.
+    coordination_max_rounds: int = Field(default=6, ge=4, le=12)
+    coordination_max_evidence_chars: int = Field(default=60000, ge=1000, le=200000)
+
     # --- Storage ---------------------------------------------------------
     # SQLite by default so the repo runs with no setup. Point this at Postgres
     # or Cloud SQL in deployment; the ORM models do not change.

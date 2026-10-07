@@ -35,6 +35,7 @@ import {
   type IncidentHealth,
 } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
+import CoordinationPanel from '../components/CoordinationPanel';
 
 export default function IncidentDetailScreen({
   incidentId,
@@ -237,6 +238,11 @@ export default function IncidentDetailScreen({
           </Pressable>
         )}
       </View>
+
+      <CoordinationPanel
+        key={`${incident.incident_id}:${incident.updated_at}`}
+        incidentId={incident.incident_id}
+      />
 
       {report && (
         <>

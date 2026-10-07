@@ -8,6 +8,7 @@ everywhere else works with `Incident` objects and never sees the split.
 
 from __future__ import annotations
 
+import copy
 import uuid
 from datetime import datetime, timedelta
 
@@ -36,6 +37,7 @@ from lifejacket.models.schemas import (
     IncidentStatus,
 )
 from lifejacket.models.tables import ChatMessageRow, IncidentRow, PhotoRow
+from lifejacket.services.events import incident_state, record_incident_change
 
 
 def new_incident_id() -> str:
@@ -64,6 +66,7 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
     they cannot drift out of sync with the JSON they are derived from.
     """
     row = session.get(IncidentRow, incident.incident_id)
+    before = incident_state(row) if row is not None else None
     if row is None:
         row = IncidentRow(incident_id=incident.incident_id)
         session.add(row)
@@ -115,6 +118,8 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
     row.assigned_responder_id = incident.assigned_responder_id
     row.duplicate_of = incident.duplicate_of
 
+    session.flush()
+    record_incident_change(session, row, before)
     session.flush()
     return row
 
@@ -316,7 +321,7 @@ def row_to_incident(row: IncidentRow) -> Incident:
         ),
         assigned_responder_id=row.assigned_responder_id,
         duplicate_of=row.duplicate_of,
-        metrics=row.metrics_json or {},
+        metrics=copy.deepcopy(row.metrics_json or {}),
     )
 
 

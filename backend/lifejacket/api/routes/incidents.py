@@ -36,6 +36,7 @@ from lifejacket.models.schemas import (
 )
 from lifejacket.models.tables import IncidentLogRow, IncidentRow, ResponderRow
 from lifejacket.services import health as pipeline_health
+from lifejacket.services.events import incident_state, record_event, record_incident_change
 
 router = APIRouter(prefix="/incidents", tags=["incidents (responder)"])
 
@@ -231,9 +232,7 @@ def list_incidents(
 
 
 @router.get("/{incident_id}", response_model=IncidentDetail)
-def get_incident(
-    incident_id: str, session: Session = Depends(get_session)
-) -> IncidentDetail:
+def get_incident(incident_id: str, session: Session = Depends(get_session)) -> IncidentDetail:
     """Full detail for one incident."""
     row = session.get(IncidentRow, incident_id)
     if row is None:
@@ -279,15 +278,12 @@ def get_incident(
         severity_score=row.severity_score,
         severity_reasons=metrics.get("severity_reasons", []),
         animal_count=repository.animal_count(assessment),
-        mass_stranding=find_mass_strandings(
-            repository.find_stranding_reports(session)
-        ).get(row.incident_id),
-        report=(
-            IncidentReport.model_validate(row.report_json) if row.report_json else None
+        mass_stranding=find_mass_strandings(repository.find_stranding_reports(session)).get(
+            row.incident_id
         ),
+        report=(IncidentReport.model_validate(row.report_json) if row.report_json else None),
         dispatch_candidates=[
-            DispatchCandidate.model_validate(c)
-            for c in (row.dispatch_candidates_json or [])
+            DispatchCandidate.model_validate(c) for c in (row.dispatch_candidates_json or [])
         ],
         transcript=[
             {
@@ -322,10 +318,13 @@ def update_status(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
+    before = incident_state(row)
     row.status = body.status.value
     row.updated_at = datetime.now()
     if body.responder_id:
         row.assigned_responder_id = body.responder_id
+
+    record_incident_change(session, row, before, body.responder_id)
 
     session.commit()
     return {"incident_id": incident_id, "status": row.status}
@@ -345,25 +344,37 @@ def log_incident(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
-    session.add(
-        IncidentLogRow(
-            incident_id=incident_id,
-            responder_id=body.responder_id,
-            confirmed_species=body.confirmed_species,
-            confirmed_animal_group=(
-                body.confirmed_animal_group.value if body.confirmed_animal_group else None
-            ),
-            outcome=body.outcome,
-            actions_taken=body.actions_taken,
-            notes=body.notes,
-            report_was_accurate=body.report_was_accurate,
-            arrival_time=body.arrival_time,
-            departure_time=body.departure_time,
-        )
+    before = incident_state(row)
+    log = IncidentLogRow(
+        incident_id=incident_id,
+        responder_id=body.responder_id,
+        confirmed_species=body.confirmed_species,
+        confirmed_animal_group=(
+            body.confirmed_animal_group.value if body.confirmed_animal_group else None
+        ),
+        outcome=body.outcome,
+        actions_taken=body.actions_taken,
+        notes=body.notes,
+        report_was_accurate=body.report_was_accurate,
+        arrival_time=body.arrival_time,
+        departure_time=body.departure_time,
+    )
+    session.add(log)
+    session.flush()
+    record_event(
+        session,
+        incident_id,
+        "outcome_logged",
+        {
+            "log_id": log.id,
+            "outcome": log.outcome,
+        },
+        body.responder_id,
     )
 
     row.status = IncidentStatus.RESOLVED.value
     row.updated_at = datetime.now()
+    record_incident_change(session, row, before, body.responder_id)
     session.commit()
 
     return {"incident_id": incident_id, "status": row.status, "logged": True}
@@ -456,9 +467,7 @@ def get_route(
     start_latitude = responder.last_latitude or responder.latitude
     start_longitude = responder.last_longitude or responder.longitude
     if start_latitude is None or start_longitude is None:
-        raise HTTPException(
-            status_code=409, detail=f"{responder.name} has no known location"
-        )
+        raise HTTPException(status_code=409, detail=f"{responder.name} has no known location")
 
     route = driving_route(
         start_latitude, start_longitude, incident.latitude, incident.longitude

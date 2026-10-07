@@ -379,6 +379,76 @@ export const responder = {
     ),
 };
 
+// --- Coordination ---------------------------------------------------------
+
+export interface CoordinationCheck {
+  incident_id: string;
+  status: 'completed' | 'held_for_review';
+  attention_items: {
+    task: {
+      incident_id: string;
+      kind: 'needs_assignment' | 'awaiting_response' | 'human_review';
+      reason: string;
+      source_refs: string[];
+      derived: boolean;
+    };
+    proposed_next_step: string;
+  }[];
+  responders_for_review: {
+    responder_id: string;
+    name: string;
+    kind: string;
+    response_area: string | null;
+    response_type: string | null;
+    active_assignment_ids: number[];
+    source_ref: string;
+    availability_basis: string;
+  }[];
+  tool_calls: string[];
+  limitations: string[];
+  failure_reason: string | null;
+  human_approval_required: boolean;
+}
+
+export const coordination = {
+  handover: (start: string, end: string, signal?: AbortSignal) =>
+    request<ShiftHandover>(`/coordination/handover?${new URLSearchParams({ start, end })}`, { signal }),
+  /** Makes live model calls; retrieves records and proposes review, never dispatches. */
+  checkCase: (incidentId: string, signal?: AbortSignal) =>
+    request<CoordinationCheck>(
+      `/coordination/incidents/${encodeURIComponent(incidentId)}/check`,
+      { method: 'POST', signal },
+    ),
+};
+
+export interface ShiftHandover {
+  start: string;
+  end: string;
+  generated_at: string;
+  scope: string;
+  changes: {
+    event_id: number;
+    incident_id: string;
+    recorded_at: string;
+    kind: string;
+    actor_ref: string | null;
+    details: Record<string, unknown>;
+    source_ref: string;
+  }[];
+  current_carryover: {
+    incident_id: string;
+    headline: string | null;
+    status: string;
+    severity_level: string | null;
+    assigned_responder_id: string | null;
+    tasks: CoordinationCheck['attention_items'][number]['task'][];
+    source_ref: string;
+  }[];
+  changes_truncated: boolean;
+  carryover_truncated: boolean;
+  limitations: string[];
+}
+
 // --- Display helpers ------------------------------------------------------
 
 /**

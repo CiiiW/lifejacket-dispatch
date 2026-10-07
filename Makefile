@@ -13,7 +13,7 @@ PY   := $(VENV)/bin/python
 PIP  := $(VENV)/bin/pip
 
 .DEFAULT_GOAL := help
-.PHONY: help setup kernel run test lint notebooks seed demo clean
+.PHONY: help setup kernel run test lint notebooks seed demo coordination-eval clean
 
 help:  ## Show this help
 	@grep -E '^[a-z-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -54,6 +54,9 @@ seed:  ## Load the 33 real rescue centres into the database
 
 demo:  ## Create demo incidents from demo/incidents.csv (needs 'make run' and ADC)
 	$(PY) scripts/seed_demo_incidents.py $(ARGS)
+
+coordination-eval:  ## Evaluate 5 fictional cases; pass --live through ARGS for Gemini
+	PYTHONPATH=backend $(PY) scripts/evaluate_coordination.py $(ARGS)
 
 clean:  ## Remove the local database, uploaded photos, and caches
 	rm -rf lifejacket.db var/ .pytest_cache .ruff_cache

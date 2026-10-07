@@ -126,6 +126,8 @@ class ScriptedLLMClient:
 def agent_for_schema(schema: dict[str, Any]) -> str:
     """Work out which agent is calling from a field unique to its schema."""
     properties = schema.get("properties", {})
+    if "coordination_action" in properties:
+        return "coordination"
     if "species_distinguishable" in properties:
         return "identification"
     if "injury_present" in properties:

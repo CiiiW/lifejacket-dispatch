@@ -45,6 +45,13 @@ nearest rescue organisation permitted to respond.
 Read [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py)
 for this flow as actual code. It is the single best entry point to the codebase.
 
+Read-only incident history, assignment history, pending coordination checks,
+and responder availability are available through Python and HTTP. See
+[`docs/coordination_tools.md`](docs/coordination_tools.md) for usage and evidence limits.
+The coordination agent can choose these tools to check one case through
+`POST /coordination/incidents/{incident_id}/check`. It proposes attention items
+for human review without changing the case or dispatching anyone.
+
 ---
 
 ## Repository layout
