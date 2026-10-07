@@ -9,7 +9,7 @@ iPhone without a paid Apple Developer account.
 | App | Audience | Platforms | Entry point |
 |---|---|---|---|
 | [`reporter_app/`](reporter_app/) | The public | iOS, Android | Report an animal, chat with the agent, watch help arrive |
-| [`responder_console/`](responder_console/) | Rescue organisations | iOS, Android, **web** | Triage map, navigate to incidents, log outcomes |
+| [`responder_console/`](responder_console/) | Rescue organisations | iOS, Android, **web** | Triage, case coordination review, outcomes, shift handover |
 
 ## Why Expo for both
 
@@ -77,6 +77,13 @@ These are working scaffolds, not finished apps: the screens and API wiring are
 real and styled to the design system above, but there is no authentication yet
 (`RESPONDER_ID` is hardcoded in the console's `App.tsx`). See the repository
 README's "Where to pick up" section.
+
+Incident detail includes an explicit Check Coordination action: it makes live
+model calls and shows record-backed review proposals, never dispatches.
+Handover retrieves recorded changes and current open cases without model
+calls. See the [workflow map](../docs/rescue_workflows.md) and
+[connected demo](../demo/connected_workflow.md). These new views typecheck,
+but mobile/desktop visual QA is still outstanding.
 
 ## Maps
 
