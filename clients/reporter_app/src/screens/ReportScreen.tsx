@@ -147,6 +147,9 @@ export default function ReportScreen({
   const needsPhoto = action === 'request_photo' || action === 'request_better_photo';
   const needsLocation = action === 'request_location';
   const isQuestion = action === 'ask_clarifying_question';
+  // The backend could not run a step (model failure). Nothing was lost; the
+  // same step runs again when the reporter taps the button.
+  const needsRetry = action === 'service_retry';
 
   return (
     <View style={styles.screen}>
@@ -181,6 +184,16 @@ export default function ReportScreen({
         {needsLocation && (
           <Pressable style={styles.primary} onPress={shareLocation} disabled={busy}>
             <Text style={styles.primaryText}>Share my location</Text>
+          </Pressable>
+        )}
+
+        {needsRetry && turn && (
+          <Pressable
+            style={styles.primary}
+            onPress={() => void run(() => reporter.retry(turn.incident_id))}
+            disabled={busy}
+          >
+            <Text style={styles.primaryText}>Try again</Text>
           </Pressable>
         )}
 

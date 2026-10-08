@@ -205,6 +205,8 @@ export default function IncidentMapScreen({
               {/* Entanglement is called out separately because it needs a team
                   with cutting authorisation, which not every centre has. */}
               {item.entanglement && <Text style={styles.tag}>ENTANGLED</Text>}
+              {/* Several animals, possibly across several rows of this list. */}
+              {item.in_mass_stranding && <Text style={styles.tag}>MASS STRANDING</Text>}
 
               <Pressable
                 style={styles.open}

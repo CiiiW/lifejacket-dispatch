@@ -22,15 +22,21 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from lifejacket.context.routing import driving_route
+from lifejacket.dispatch.duplicates import is_possible_duplicate
+from lifejacket.dispatch.mass_stranding import find_mass_strandings
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import (
     AnimalGroup,
     DispatchCandidate,
+    DuplicateMatch,
     IncidentReport,
     IncidentStatus,
+    MassStranding,
 )
 from lifejacket.models.tables import IncidentLogRow, IncidentRow, ResponderRow
+from lifejacket.services import health as pipeline_health
+from lifejacket.services.events import incident_state, record_event, record_incident_change
 
 router = APIRouter(prefix="/incidents", tags=["incidents (responder)"])
 
@@ -64,6 +70,9 @@ class MapPin(BaseModel):
     animal_group: str | None
     headline: str | None
     entanglement: bool | None
+    #: Part of a possible mass stranding. The detail response says how many
+    #: animals and which other incidents (`IncidentDetail.mass_stranding`).
+    in_mass_stranding: bool = False
     created_at: datetime
     assigned_responder_id: str | None
     #: First photo, so a list row can show a thumbnail without a second
@@ -102,6 +111,17 @@ class IncidentDetail(BaseModel):
     severity_score: float | None
     severity_reasons: list[str] = Field(default_factory=list)
 
+    #: How many animals this report says are in trouble. 1 unless the photos
+    #: or the reporter indicated more.
+    animal_count: int = 1
+    #: Set when this incident is part of a possible mass stranding: several
+    #: cetaceans at one place and time, from this report alone or from
+    #: separate incidents nearby. Worked out from the incidents open right
+    #: now on every request, so it changes as further reports arrive. A linked
+    #: duplicate shows the event of the incident it was linked to. See
+    #: `dispatch/mass_stranding.py`.
+    mass_stranding: MassStranding | None = None
+
     report: IncidentReport | None = None
     dispatch_candidates: list[DispatchCandidate] = Field(default_factory=list)
 
@@ -112,12 +132,23 @@ class IncidentDetail(BaseModel):
 
     reporter_phone: str | None = None
     duplicate_of: str | None = None
+    #: A nearby recent incident that MAY be the same animal: close enough in
+    #: place and time to be a duplicate, but the two reports disagree on the
+    #: animal group, so this one was NOT suppressed. It was dispatched
+    #: normally; the coordinator decides. Has the `DuplicateMatch` shape:
+    #: incident_id, confidence, distance_km, hours_apart, same_species,
+    #: reason. None when `duplicate_of` is set or the match was weak.
+    possible_duplicate: dict | None = None
     assigned_responder_id: str | None = None
 
     #: True when the guardrail check failed or triage confidence was low, so
     #: the console can mark it as needing a coordinator's eyes.
     requires_human_review: bool = False
     guardrail: dict | None = None
+    #: Retries, failed model calls, and fail-safes used while building this
+    #: incident. None for incidents created before this was recorded. See
+    #: `services/health.py` for the shape.
+    health: dict | None = None
 
 
 class StatusUpdate(BaseModel):
@@ -168,6 +199,9 @@ def list_incidents(
     rows = repository.find_open_incidents(
         session, latitude, longitude, radius_km, include_closed=include_closed
     )
+    # Worked out over every open incident, not only the ones in this radius,
+    # so an event straddling the edge of the map is not cut in half.
+    events = find_mass_strandings(repository.find_stranding_reports(session))
 
     return [
         MapPin(
@@ -182,6 +216,7 @@ def list_incidents(
             animal_group=row.animal_group,
             headline=row.report_headline,
             entanglement=row.entanglement_present,
+            in_mass_stranding=row.incident_id in events,
             created_at=row.created_at,
             assigned_responder_id=row.assigned_responder_id,
             photo_url=next(
@@ -197,9 +232,7 @@ def list_incidents(
 
 
 @router.get("/{incident_id}", response_model=IncidentDetail)
-def get_incident(
-    incident_id: str, session: Session = Depends(get_session)
-) -> IncidentDetail:
+def get_incident(incident_id: str, session: Session = Depends(get_session)) -> IncidentDetail:
     """Full detail for one incident."""
     row = session.get(IncidentRow, incident_id)
     if row is None:
@@ -213,6 +246,10 @@ def get_incident(
     # itself asked for human eyes.
     requires_review = bool(assessment.get("requires_human_review"))
     if guardrail and not (guardrail.get("is_grounded") and guardrail.get("is_safe")):
+        requires_review = True
+    # Or if a model failure was not recovered from: a fail-safe result was
+    # used, or intake is stalled waiting for the reporter to try again.
+    if pipeline_health.needs_review(metrics):
         requires_review = True
 
     return IncidentDetail(
@@ -240,12 +277,13 @@ def get_incident(
         severity_level=row.severity_level,
         severity_score=row.severity_score,
         severity_reasons=metrics.get("severity_reasons", []),
-        report=(
-            IncidentReport.model_validate(row.report_json) if row.report_json else None
+        animal_count=repository.animal_count(assessment),
+        mass_stranding=find_mass_strandings(repository.find_stranding_reports(session)).get(
+            row.incident_id
         ),
+        report=(IncidentReport.model_validate(row.report_json) if row.report_json else None),
         dispatch_candidates=[
-            DispatchCandidate.model_validate(c)
-            for c in (row.dispatch_candidates_json or [])
+            DispatchCandidate.model_validate(c) for c in (row.dispatch_candidates_json or [])
         ],
         transcript=[
             {
@@ -259,9 +297,11 @@ def get_incident(
         environment=row.environment_json,
         reporter_phone=row.reporter_phone,
         duplicate_of=row.duplicate_of,
+        possible_duplicate=_possible_duplicate(row, metrics),
         assigned_responder_id=row.assigned_responder_id,
         requires_human_review=requires_review,
         guardrail=guardrail,
+        health=metrics.get(pipeline_health.HEALTH_KEY),
     )
 
 
@@ -278,10 +318,13 @@ def update_status(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
+    before = incident_state(row)
     row.status = body.status.value
     row.updated_at = datetime.now()
     if body.responder_id:
         row.assigned_responder_id = body.responder_id
+
+    record_incident_change(session, row, before, body.responder_id)
 
     session.commit()
     return {"incident_id": incident_id, "status": row.status}
@@ -301,25 +344,37 @@ def log_incident(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
-    session.add(
-        IncidentLogRow(
-            incident_id=incident_id,
-            responder_id=body.responder_id,
-            confirmed_species=body.confirmed_species,
-            confirmed_animal_group=(
-                body.confirmed_animal_group.value if body.confirmed_animal_group else None
-            ),
-            outcome=body.outcome,
-            actions_taken=body.actions_taken,
-            notes=body.notes,
-            report_was_accurate=body.report_was_accurate,
-            arrival_time=body.arrival_time,
-            departure_time=body.departure_time,
-        )
+    before = incident_state(row)
+    log = IncidentLogRow(
+        incident_id=incident_id,
+        responder_id=body.responder_id,
+        confirmed_species=body.confirmed_species,
+        confirmed_animal_group=(
+            body.confirmed_animal_group.value if body.confirmed_animal_group else None
+        ),
+        outcome=body.outcome,
+        actions_taken=body.actions_taken,
+        notes=body.notes,
+        report_was_accurate=body.report_was_accurate,
+        arrival_time=body.arrival_time,
+        departure_time=body.departure_time,
+    )
+    session.add(log)
+    session.flush()
+    record_event(
+        session,
+        incident_id,
+        "outcome_logged",
+        {
+            "log_id": log.id,
+            "outcome": log.outcome,
+        },
+        body.responder_id,
     )
 
     row.status = IncidentStatus.RESOLVED.value
     row.updated_at = datetime.now()
+    record_incident_change(session, row, before, body.responder_id)
     session.commit()
 
     return {"incident_id": incident_id, "status": row.status, "logged": True}
@@ -412,9 +467,7 @@ def get_route(
     start_latitude = responder.last_latitude or responder.latitude
     start_longitude = responder.last_longitude or responder.longitude
     if start_latitude is None or start_longitude is None:
-        raise HTTPException(
-            status_code=409, detail=f"{responder.name} has no known location"
-        )
+        raise HTTPException(status_code=409, detail=f"{responder.name} has no known location")
 
     route = driving_route(
         start_latitude, start_longitude, incident.latitude, incident.longitude
@@ -426,6 +479,22 @@ def get_route(
         source=route.source,
         from_name=responder.name,
     )
+
+
+def _possible_duplicate(row: IncidentRow, metrics: dict) -> dict | None:
+    """The recorded match, if it is one a coordinator should look at.
+
+    Nothing for an incident that was linked (the link says it already), and
+    nothing for a weak match. See `duplicates.is_possible_duplicate`.
+    """
+    raw = metrics.get("duplicate_match")
+    if row.duplicate_of is not None or not raw:
+        return None
+    try:
+        match = DuplicateMatch.model_validate(raw)
+    except ValueError:
+        return None
+    return raw if is_possible_duplicate(match) else None
 
 
 def _species_breakdown(identification_json: dict | None) -> list[dict]:

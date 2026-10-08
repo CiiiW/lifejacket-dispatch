@@ -28,6 +28,7 @@ from lifejacket.geo import estimate_drive_minutes, haversine_km
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import AssignmentStatus, ResponderKind
 from lifejacket.models.tables import AssignmentRow, IncidentRow, ResponderRow
+from lifejacket.services.events import incident_state, record_event, record_incident_change
 
 router = APIRouter(prefix="/responders", tags=["responders"])
 
@@ -247,9 +248,7 @@ def set_duty(
 
 
 @router.post("/assign", response_model=dict)
-def assign_responder(
-    body: AssignRequest, session: Session = Depends(get_session)
-) -> dict:
+def assign_responder(body: AssignRequest, session: Session = Depends(get_session)) -> dict:
     """A coordinator approves offering an incident to a responder.
 
     Creates an `OFFERED` assignment. The responder then accepts or declines --
@@ -261,9 +260,7 @@ def assign_responder(
 
     responder = session.get(ResponderRow, body.responder_id)
     if responder is None:
-        raise HTTPException(
-            status_code=404, detail=f"Unknown responder: {body.responder_id}"
-        )
+        raise HTTPException(status_code=404, detail=f"Unknown responder: {body.responder_id}")
 
     distance_km = eta_minutes = None
     incident_located = None not in (incident.latitude, incident.longitude)
@@ -289,9 +286,23 @@ def assign_responder(
         eta_minutes=eta_minutes,
     )
     session.add(assignment)
+    before = incident_state(incident)
+    session.flush()
+    record_event(
+        session,
+        incident.incident_id,
+        "assignment_offered",
+        {
+            "assignment_id": assignment.id,
+            "responder_id": assignment.responder_id,
+            "status": assignment.status,
+        },
+        body.approved_by,
+    )
 
     incident.status = "dispatched"
     incident.updated_at = datetime.now()
+    record_incident_change(session, incident, before, body.approved_by)
     session.commit()
 
     return {
@@ -317,13 +328,28 @@ def respond_to_assignment(
     if assignment is None:
         raise HTTPException(status_code=404, detail=f"Unknown assignment: {assignment_id}")
 
+    previous_status = assignment.status
     assignment.status = (
         AssignmentStatus.ACCEPTED.value if body.accept else AssignmentStatus.DECLINED.value
     )
     assignment.responded_at = datetime.now()
 
     incident = session.get(IncidentRow, assignment.incident_id)
+    record_event(
+        session,
+        assignment.incident_id,
+        "assignment_response",
+        {
+            "assignment_id": assignment.id,
+            "responder_id": assignment.responder_id,
+            "before": previous_status,
+            "after": assignment.status,
+            "note": body.note,
+        },
+        assignment.responder_id,
+    )
     if incident is not None:
+        before = incident_state(incident)
         if body.accept:
             incident.status = "accepted"
             incident.assigned_responder_id = assignment.responder_id
@@ -331,6 +357,7 @@ def respond_to_assignment(
             incident.status = "awaiting_dispatch"
             incident.assigned_responder_id = None
         incident.updated_at = datetime.now()
+        record_incident_change(session, incident, before, assignment.responder_id)
 
     session.commit()
     return {"assignment_id": assignment_id, "status": assignment.status}

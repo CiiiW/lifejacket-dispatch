@@ -347,6 +347,13 @@ class AssessmentResult(BaseModel):
     """Output of Agent 2 (assessment): what is wrong and what should happen."""
 
     animal_group: AnimalGroup = AnimalGroup.UNKNOWN
+    #: How many animals of this kind are in trouble here, from the photos and
+    #: what the reporter said. 1 unless there is evidence of more. Healthy
+    #: animals nearby (a seal colony) do not count. When above 1, the injury
+    #: flags describe the animal in the worst visible condition. This is the
+    #: input to `dispatch.mass_stranding`, and what entitles the report to
+    #: say "three dolphins".
+    animal_count: int = Field(default=1, ge=1)
     injury: InjuryAssessment = Field(default_factory=InjuryAssessment)
     hazards: SituationHazards = Field(default_factory=SituationHazards)
 
@@ -437,6 +444,26 @@ class DuplicateMatch(BaseModel):
     distance_km: float
     hours_apart: float
     same_species: bool
+    reason: str = ""
+
+
+class MassStranding(BaseModel):
+    """Several animals stranded at one place and time, across one or more reports.
+
+    Worked out by `lifejacket.dispatch.mass_stranding` from the incidents that
+    are open right now. It is never stored: a new report changes the answer for
+    every incident in the event, so it is computed whenever it is asked for.
+    """
+
+    #: A lower bound. Reporters photograph overlapping sets of animals, so
+    #: reports of the same incident are not added together.
+    animal_count: int = Field(ge=2)
+    animal_group: AnimalGroup
+    #: The separate incidents that make up the event, oldest first. Linked
+    #: duplicates are not listed; they count towards `report_count`.
+    incident_ids: list[str] = Field(default_factory=list)
+    #: Every report behind the event, linked duplicates included.
+    report_count: int = Field(ge=1)
     reason: str = ""
 
 

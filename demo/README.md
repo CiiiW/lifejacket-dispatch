@@ -1,5 +1,9 @@
 # Demo incidents
 
+For the intake-to-coordination-to-handover story, start with the
+[connected workflow](connected_workflow.md). The instructions below are the
+separate live photo-intake seeder, not the offline workflow check.
+
 Drop animal photos in this folder, describe them in `incidents.csv`, and run:
 
 ```bash

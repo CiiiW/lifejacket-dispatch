@@ -34,6 +34,29 @@ export interface Turn {
   taxon_rank: string | null;
   severity_level: string | null;
   report_headline: string | null;
+  /**
+   * True when this turn is an apology for a model failure rather than a real
+   * step (`action` is then `service_retry`). Offer "Try again", which calls
+   * `reporter.retry`.
+   */
+  service_error: boolean;
+}
+
+/**
+ * What went wrong while this incident was being built. Mirrors the record in
+ * `backend/lifejacket/services/health.py`.
+ */
+export interface IncidentHealth {
+  llm_calls: number;
+  /** Extra attempts beyond the first, including ones that then succeeded. */
+  llm_retries: number;
+  /** Model calls that failed even after retries. */
+  failed_calls: number;
+  failures: { agent: string; kind: string; attempts: number; detail: string; at: string }[];
+  /** Fail-safes used: `guardrail_check_failed`, `report_unavailable`. */
+  fallbacks: string[];
+  /** The reporter was asked to try again and has not yet. */
+  awaiting_retry: boolean;
 }
 
 /** An incident as a map pin. Mirrors `incidents.MapPin`. */
@@ -49,6 +72,8 @@ export interface MapPin {
   animal_group: string | null;
   headline: string | null;
   entanglement: boolean | null;
+  /** Part of a possible mass stranding. The detail has the numbers. */
+  in_mass_stranding: boolean;
   created_at: string;
   assigned_responder_id: string | null;
   /** First photo, relative to the API root. Use `absoluteUrl` to display it. */
@@ -124,8 +149,24 @@ export interface DispatchCandidate {
   contact_email: string | null;
 }
 
+/**
+ * Several cetaceans stranded at one place and time. Mirrors
+ * `schemas.MassStranding`. Worked out from the incidents open at the moment
+ * of the request, so it can appear on an incident after it was first shown.
+ */
+export interface MassStranding {
+  /** A lower bound: reports of the same incident are not added together. */
+  animal_count: number;
+  animal_group: string;
+  /** The separate incidents in the event, oldest first. */
+  incident_ids: string[];
+  /** Every report behind it, linked duplicates included. */
+  report_count: number;
+  reason: string;
+}
+
 /** Full incident detail. Mirrors `incidents.IncidentDetail`. */
-export interface IncidentDetail extends MapPin {
+export interface IncidentDetail extends Omit<MapPin, 'in_mass_stranding'> {
   updated_at: string;
   species_confidence: number | null;
   /** What the reporter photographed, beside the species derived from it. */
@@ -137,15 +178,34 @@ export interface IncidentDetail extends MapPin {
   species_candidates: { common_name: string; scientific_name: string | null; confidence: number }[];
   severity_score: number | null;
   severity_reasons: string[];
+  /** How many animals this report says are in trouble. 1 unless told otherwise. */
+  animal_count: number;
+  mass_stranding: MassStranding | null;
   report: IncidentReport | null;
   dispatch_candidates: DispatchCandidate[];
   transcript: { role: string; content: string; agent_name: string | null; created_at: string }[];
   environment: Record<string, unknown> | null;
   reporter_phone: string | null;
   duplicate_of: string | null;
+  /**
+   * A nearby recent incident that may be the same animal: close in place and
+   * time, but the two reports disagree on the animal group, so this one was
+   * not suppressed. Dispatched normally; the coordinator decides. Null when
+   * `duplicate_of` is set or the match was weak.
+   */
+  possible_duplicate: {
+    incident_id: string;
+    confidence: number;
+    distance_km: number;
+    hours_apart: number;
+    same_species: boolean;
+    reason: string;
+  } | null;
   /** True when the guardrail check failed or triage confidence was low. */
   requires_human_review: boolean;
   guardrail: Record<string, unknown> | null;
+  /** Null for incidents created before health was recorded. */
+  health: IncidentHealth | null;
 }
 
 export interface ResponderEta {
@@ -232,6 +292,13 @@ export const reporter = {
       body: JSON.stringify({ text }),
     }),
 
+  /**
+   * Run the last step again after a `service_error` turn. Adds nothing to the
+   * conversation, unlike `reply`.
+   */
+  retry: (incidentId: string) =>
+    request<Turn>(`/intake/${incidentId}/retry`, { method: 'POST' }),
+
   /** Current state without advancing it -- used when the app reopens. */
   getState: (incidentId: string) => request<Turn>(`/intake/${incidentId}`),
 
@@ -311,6 +378,76 @@ export const responder = {
       `/incidents/${incidentId}/route?responder_id=${encodeURIComponent(responderId)}`,
     ),
 };
+
+// --- Coordination ---------------------------------------------------------
+
+export interface CoordinationCheck {
+  incident_id: string;
+  status: 'completed' | 'held_for_review';
+  attention_items: {
+    task: {
+      incident_id: string;
+      kind: 'needs_assignment' | 'awaiting_response' | 'human_review';
+      reason: string;
+      source_refs: string[];
+      derived: boolean;
+    };
+    proposed_next_step: string;
+  }[];
+  responders_for_review: {
+    responder_id: string;
+    name: string;
+    kind: string;
+    response_area: string | null;
+    response_type: string | null;
+    active_assignment_ids: number[];
+    source_ref: string;
+    availability_basis: string;
+  }[];
+  tool_calls: string[];
+  limitations: string[];
+  failure_reason: string | null;
+  human_approval_required: boolean;
+}
+
+export const coordination = {
+  handover: (start: string, end: string, signal?: AbortSignal) =>
+    request<ShiftHandover>(`/coordination/handover?${new URLSearchParams({ start, end })}`, { signal }),
+  /** Makes live model calls; retrieves records and proposes review, never dispatches. */
+  checkCase: (incidentId: string, signal?: AbortSignal) =>
+    request<CoordinationCheck>(
+      `/coordination/incidents/${encodeURIComponent(incidentId)}/check`,
+      { method: 'POST', signal },
+    ),
+};
+
+export interface ShiftHandover {
+  start: string;
+  end: string;
+  generated_at: string;
+  scope: string;
+  changes: {
+    event_id: number;
+    incident_id: string;
+    recorded_at: string;
+    kind: string;
+    actor_ref: string | null;
+    details: Record<string, unknown>;
+    source_ref: string;
+  }[];
+  current_carryover: {
+    incident_id: string;
+    headline: string | null;
+    status: string;
+    severity_level: string | null;
+    assigned_responder_id: string | null;
+    tasks: CoordinationCheck['attention_items'][number]['task'][];
+    source_ref: string;
+  }[];
+  changes_truncated: boolean;
+  carryover_truncated: boolean;
+  limitations: string[];
+}
 
 // --- Display helpers ------------------------------------------------------
 

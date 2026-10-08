@@ -1,0 +1,421 @@
+{
+  "mode": "scripted_offline",
+  "generated_at_utc": "2026-10-07T19:31:44.270758+00:00",
+  "model": "scripted-offline",
+  "status": "completed",
+  "cases_passed": 5,
+  "total_cases": 5,
+  "cases": [
+    {
+      "case": "declined_assignment",
+      "expected_task_kinds": [
+        "needs_assignment"
+      ],
+      "actual_task_kinds": [
+        "needs_assignment"
+      ],
+      "checks": {
+        "completed": true,
+        "expected_attention_items": true,
+        "required_tools_retrieved": true,
+        "no_repeated_tools": true,
+        "within_decision_budget": true,
+        "no_state_changes": true,
+        "human_approval_preserved": true
+      },
+      "passed": true,
+      "elapsed_seconds": 0.0102,
+      "model_calls": [
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "result": {
+        "incident_id": "declined_assignment",
+        "status": "completed",
+        "attention_items": [
+          {
+            "task": {
+              "incident_id": "declined_assignment",
+              "kind": "needs_assignment",
+              "reason": "No offered or accepted assignment is recorded for this active case.",
+              "source_refs": [
+                "incidents:declined_assignment"
+              ],
+              "derived": true
+            },
+            "proposed_next_step": "Ask the coordinator to review eligible responders and approve an offer."
+          }
+        ],
+        "responders_for_review": [
+          {
+            "responder_id": "demo_ready",
+            "name": "Fictional Demo Team",
+            "kind": "volunteer",
+            "response_area": "Fictional demo area",
+            "response_type": "Capabilities not validated for this simulation",
+            "active_assignment_ids": [],
+            "source_ref": "responders:demo_ready",
+            "availability_basis": "Recorded active and on-duty flags; capacity is not recorded."
+          }
+        ],
+        "tool_calls": [
+          "get_assignments",
+          "get_incident_history",
+          "get_pending_tasks",
+          "get_available_responders"
+        ],
+        "limitations": [
+          "Read-only check: no assignments, notifications, or case changes were made.",
+          "On-duty status does not establish incident eligibility or spare capacity.",
+          "Pending items are derived checks, not stored tasks or acknowledgments.",
+          "Status transitions are not recorded as events; status is the current snapshot.",
+          "Assignment responses contain the latest response, not every transition.",
+          "Recorded timestamps are not necessarily animal observation times."
+        ],
+        "failure_reason": null,
+        "human_approval_required": true
+      }
+    },
+    {
+      "case": "unanswered_offer",
+      "expected_task_kinds": [
+        "awaiting_response"
+      ],
+      "actual_task_kinds": [
+        "awaiting_response"
+      ],
+      "checks": {
+        "completed": true,
+        "expected_attention_items": true,
+        "required_tools_retrieved": true,
+        "no_repeated_tools": true,
+        "within_decision_budget": true,
+        "no_state_changes": true,
+        "human_approval_preserved": true
+      },
+      "passed": true,
+      "elapsed_seconds": 0.0045,
+      "model_calls": [
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "result": {
+        "incident_id": "unanswered_offer",
+        "status": "completed",
+        "attention_items": [
+          {
+            "task": {
+              "incident_id": "unanswered_offer",
+              "kind": "awaiting_response",
+              "reason": "An assignment was offered; no accepted assignment is recorded.",
+              "source_refs": [
+                "assignments:1"
+              ],
+              "derived": true
+            },
+            "proposed_next_step": "Ask the coordinator to check the outstanding offer's response."
+          }
+        ],
+        "responders_for_review": [],
+        "tool_calls": [
+          "get_assignments",
+          "get_incident_history",
+          "get_pending_tasks"
+        ],
+        "limitations": [
+          "Read-only check: no assignments, notifications, or case changes were made.",
+          "On-duty status does not establish incident eligibility or spare capacity.",
+          "Pending items are derived checks, not stored tasks or acknowledgments.",
+          "Status transitions are not recorded as events; status is the current snapshot.",
+          "Assignment responses contain the latest response, not every transition.",
+          "Recorded timestamps are not necessarily animal observation times."
+        ],
+        "failure_reason": null,
+        "human_approval_required": true
+      }
+    },
+    {
+      "case": "accepted_assignment",
+      "expected_task_kinds": [],
+      "actual_task_kinds": [],
+      "checks": {
+        "completed": true,
+        "expected_attention_items": true,
+        "required_tools_retrieved": true,
+        "no_repeated_tools": true,
+        "within_decision_budget": true,
+        "no_state_changes": true,
+        "human_approval_preserved": true
+      },
+      "passed": true,
+      "elapsed_seconds": 0.0035,
+      "model_calls": [
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "result": {
+        "incident_id": "accepted_assignment",
+        "status": "completed",
+        "attention_items": [],
+        "responders_for_review": [],
+        "tool_calls": [
+          "get_assignments",
+          "get_incident_history",
+          "get_pending_tasks"
+        ],
+        "limitations": [
+          "Read-only check: no assignments, notifications, or case changes were made.",
+          "On-duty status does not establish incident eligibility or spare capacity.",
+          "Pending items are derived checks, not stored tasks or acknowledgments.",
+          "Status transitions are not recorded as events; status is the current snapshot.",
+          "Assignment responses contain the latest response, not every transition.",
+          "Recorded timestamps are not necessarily animal observation times."
+        ],
+        "failure_reason": null,
+        "human_approval_required": true
+      }
+    },
+    {
+      "case": "human_review",
+      "expected_task_kinds": [
+        "human_review"
+      ],
+      "actual_task_kinds": [
+        "human_review"
+      ],
+      "checks": {
+        "completed": true,
+        "expected_attention_items": true,
+        "required_tools_retrieved": true,
+        "no_repeated_tools": true,
+        "within_decision_budget": true,
+        "no_state_changes": true,
+        "human_approval_preserved": true
+      },
+      "passed": true,
+      "elapsed_seconds": 0.0035,
+      "model_calls": [
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "result": {
+        "incident_id": "human_review",
+        "status": "completed",
+        "attention_items": [
+          {
+            "task": {
+              "incident_id": "human_review",
+              "kind": "human_review",
+              "reason": "The assessment or guardrail record requires human review; acknowledgment is not recorded.",
+              "source_refs": [
+                "incidents:human_review"
+              ],
+              "derived": true
+            },
+            "proposed_next_step": "Ask the coordinator to review the assessment and guardrail findings."
+          }
+        ],
+        "responders_for_review": [],
+        "tool_calls": [
+          "get_assignments",
+          "get_incident_history",
+          "get_pending_tasks"
+        ],
+        "limitations": [
+          "Read-only check: no assignments, notifications, or case changes were made.",
+          "On-duty status does not establish incident eligibility or spare capacity.",
+          "Pending items are derived checks, not stored tasks or acknowledgments.",
+          "Status transitions are not recorded as events; status is the current snapshot.",
+          "Assignment responses contain the latest response, not every transition.",
+          "Recorded timestamps are not necessarily animal observation times."
+        ],
+        "failure_reason": null,
+        "human_approval_required": true
+      }
+    },
+    {
+      "case": "closed_case",
+      "expected_task_kinds": [],
+      "actual_task_kinds": [],
+      "checks": {
+        "completed": true,
+        "expected_attention_items": true,
+        "required_tools_retrieved": true,
+        "no_repeated_tools": true,
+        "within_decision_budget": true,
+        "no_state_changes": true,
+        "human_approval_preserved": true
+      },
+      "passed": true,
+      "elapsed_seconds": 0.0031,
+      "model_calls": [
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "status": "completed",
+          "latency_seconds": 0.0,
+          "attempts": 1,
+          "prompt_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "result": {
+        "incident_id": "closed_case",
+        "status": "completed",
+        "attention_items": [],
+        "responders_for_review": [],
+        "tool_calls": [
+          "get_assignments",
+          "get_incident_history",
+          "get_pending_tasks"
+        ],
+        "limitations": [
+          "Read-only check: no assignments, notifications, or case changes were made.",
+          "On-duty status does not establish incident eligibility or spare capacity.",
+          "Pending items are derived checks, not stored tasks or acknowledgments.",
+          "Status transitions are not recorded as events; status is the current snapshot.",
+          "Assignment responses contain the latest response, not every transition.",
+          "Recorded timestamps are not necessarily animal observation times."
+        ],
+        "failure_reason": null,
+        "human_approval_required": true
+      }
+    }
+  ],
+  "limitations": [
+    "Fictional fixtures test coordination behavior, not rescue policy or clinical judgment.",
+    "Offline results validate execution only; they do not measure Gemini decision quality.",
+    "Token usage is null when not reported, including failed requests; no billing estimate is inferred.",
+    "Elapsed time includes tool execution; model call latency is recorded separately."
+  ]
+}

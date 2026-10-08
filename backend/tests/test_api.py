@@ -99,6 +99,110 @@ def test_full_conversation_over_http(api):
     ]
 
 
+def test_connected_rescue_workflow(api, monkeypatch):
+    """Offline demo: intake, coordinator review, responses, handover, closure."""
+    from datetime import UTC, datetime, timedelta
+
+    from lifejacket.models.tables import ResponderRow
+
+    client, scripted = api
+    monkeypatch.setattr("lifejacket.api.routes.coordination.get_client", lambda: scripted)
+    start = datetime.now(UTC) - timedelta(seconds=1)
+
+    def post(path, **kwargs):
+        response = client.post(path, **kwargs)
+        assert response.status_code == 200, response.text
+        return response.json()
+
+    incident_id = post("/intake/start", json={})["incident_id"]
+    post(
+        f"/intake/{incident_id}/photo",
+        files={"file": ("fictional.jpg", b"\xff\xd8\xff fake jpeg", "image/jpeg")},
+    )
+    post(f"/intake/{incident_id}/location", json={"latitude": 36.8, "longitude": -121.79})
+    post(f"/intake/{incident_id}/reply", json={"text": "long beak"})
+    assert post(f"/intake/{incident_id}/reply", json={"text": "yes"})["complete"]
+
+    # Seed only a fictional responder in the fixture's disposable database.
+    sessions = app.dependency_overrides[get_session]()
+    session = next(sessions)
+    try:
+        session.add(ResponderRow(
+            responder_id="demo_team", name="Fictional Demo Team", kind="organisation",
+            is_active=True, is_on_duty=True,
+        ))
+        session.commit()
+    finally:
+        sessions.close()
+
+    def check(expected):
+        pending = client.get(f"/coordination/incidents/{incident_id}/pending-tasks").json()
+        assert [task["kind"] for task in pending] == expected, pending
+        for tool in ("get_incident_history", "get_assignments", "get_pending_tasks"):
+            scripted.queue("coordination", {
+                "coordination_action": "tool", "tool_name": tool,
+                "task_kinds": [], "responder_ids": [],
+            })
+        scripted.queue("coordination", {
+            "coordination_action": "finish", "tool_name": "",
+            "task_kinds": expected, "responder_ids": [],
+        })
+        before = client.get(f"/incidents/{incident_id}").json()
+        result = post(f"/coordination/incidents/{incident_id}/check")
+        assert result["status"] == "completed", result["failure_reason"]
+        assert result["human_approval_required"]
+        assert [item["task"]["kind"] for item in result["attention_items"]] == expected
+        after = client.get(f"/incidents/{incident_id}").json()
+        assert (after["status"], after["assigned_responder_id"], after["updated_at"]) == (
+            before["status"], before["assigned_responder_id"], before["updated_at"],
+        )
+
+    def offer():
+        return post("/responders/assign", json={
+            "incident_id": incident_id, "responder_id": "demo_team",
+            "approved_by": "fictional_coordinator",
+        })["assignment_id"]
+
+    check(["needs_assignment", "human_review"])
+    first_offer = offer()
+    check(["awaiting_response", "human_review"])
+    post(f"/responders/assignments/{first_offer}/respond", json={
+        "accept": False, "note": "Fictional exercise: team unavailable",
+    })
+    check(["needs_assignment", "human_review"])
+    second_offer = offer()
+    post(f"/responders/assignments/{second_offer}/respond", json={"accept": True})
+    check(["human_review"])
+
+    def handover():
+        response = client.get("/coordination/handover", params={
+            "start": start.isoformat(),
+            "end": (datetime.now(UTC) + timedelta(seconds=1)).isoformat(),
+        })
+        assert response.status_code == 200, response.text
+        return response.json()
+
+    report = handover()
+    assert report["current_carryover"][0]["incident_id"] == incident_id
+    assert report["current_carryover"][0]["assigned_responder_id"] == "demo_team"
+    responses = [event for event in report["changes"] if event["kind"] == "assignment_response"]
+    assert [event["details"]["after"] for event in responses] == ["declined", "accepted"]
+    assert responses[0]["details"]["note"] == "Fictional exercise: team unavailable"
+    offers = [event for event in report["changes"] if event["kind"] == "assignment_offered"]
+    assert all(event["actor_ref"] == "fictional_coordinator" for event in offers)
+
+    post(f"/incidents/{incident_id}/log", json={
+        "responder_id": "demo_team", "outcome": "rescued",
+        "notes": "Fictional exercise only; no animal was rescued.",
+    })
+    check([])
+    report = handover()
+    assert report["current_carryover"] == []
+    assert any(event["kind"] == "outcome_logged" for event in report["changes"])
+    history = client.get(f"/coordination/incidents/{incident_id}/history").json()
+    assert any(entry["kind"] == "recorded_event" for entry in history["entries"])
+
+
 def test_photo_is_reachable_from_the_incident(api):
     """A responder must be able to see what the reporter actually sent.
 

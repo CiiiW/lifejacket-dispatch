@@ -19,17 +19,19 @@ import { StatusBar } from 'expo-status-bar';
 import IncidentDetailScreen from './src/screens/IncidentDetailScreen';
 import IncidentMapScreen from './src/screens/IncidentMapScreen';
 import LogIncidentScreen from './src/screens/LogIncidentScreen';
+import HandoverScreen from './src/screens/HandoverScreen';
 import { colors, glass, radius, shadow, spacing, type } from './src/lib/theme';
 
 // TODO: replace with the signed-in responder once auth is in place.
 const RESPONDER_ID = 'org_the_marine_mammal_center_monterey_bay_operat';
 
-type TabName = 'triage' | 'incident' | 'log';
+type TabName = 'triage' | 'incident' | 'log' | 'handover';
 
 const TABS: { name: TabName; label: string }[] = [
   { name: 'triage', label: 'Triage' },
   { name: 'incident', label: 'Incident' },
   { name: 'log', label: 'Log outcome' },
+  { name: 'handover', label: 'Handover' },
 ];
 
 export default function App() {
@@ -69,11 +71,13 @@ export default function App() {
       </View>
 
       <View style={styles.body}>
+        {tab === 'handover' && <HandoverScreen onSelect={select} />}
         {tab === 'triage' && <IncidentMapScreen onSelect={select} />}
 
         {tab === 'incident' &&
           (selectedId ? (
             <IncidentDetailScreen
+              key={selectedId}
               incidentId={selectedId}
               responderId={RESPONDER_ID}
               onLog={() => setTab('log')}
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
   brand: { ...type.heading, color: colors.text },
   brandMeta: { ...type.meta, color: colors.textFaint },
 
-  tabs: { flexDirection: 'row', gap: spacing.xs },
+  tabs: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.xs },
   tab: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm + 2,

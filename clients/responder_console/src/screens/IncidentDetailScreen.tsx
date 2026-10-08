@@ -32,8 +32,10 @@ import {
   severityColour,
   severityLabel,
   type IncidentDetail,
+  type IncidentHealth,
 } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
+import CoordinationPanel from '../components/CoordinationPanel';
 
 export default function IncidentDetailScreen({
   incidentId,
@@ -91,11 +93,35 @@ export default function IncidentDetailScreen({
         <View style={styles.reviewBanner}>
           <Text style={styles.reviewTitle}>Held for coordinator review</Text>
           <Text style={styles.reviewBody}>
-            An automated check flagged this report. Read it against the transcript
-            below before acting on it.
+            {healthFindings(incident.health).length > 0
+              ? 'Part of the automated intake did not complete. Check the findings and the transcript below before acting.'
+              : 'An automated check flagged this report. Read it against the transcript below before acting on it.'}
           </Text>
+          {renderFindings(healthFindings(incident.health))}
           {renderGuardrail(incident.guardrail)}
         </View>
+      )}
+
+      {/* 2. Scale. One animal and several need different responses, and this
+          can become true after the incident was first opened, when someone
+          else reports. Other incidents are listed so they are handled as one. */}
+      {incident.mass_stranding && (
+        <View style={styles.massBanner}>
+          <Text style={styles.massTitle}>
+            Possible mass stranding · at least {incident.mass_stranding.animal_count} animals
+          </Text>
+          <Text style={styles.reviewBody}>{incident.mass_stranding.reason}</Text>
+          {otherIncidents(incident).length > 0 && (
+            <Text style={styles.reviewBody}>
+              Same event: {otherIncidents(incident).join(', ')}
+            </Text>
+          )}
+        </View>
+      )}
+
+      {/* Retries that recovered need no action, but should not be invisible. */}
+      {healthNote(incident.health) && (
+        <Text style={styles.healthNote}>{healthNote(incident.health)}</Text>
       )}
 
       <View style={[styles.severity, { backgroundColor: severityColour(incident.severity_level) }]}>
@@ -183,7 +209,17 @@ export default function IncidentDetailScreen({
 
       {incident.duplicate_of && (
         <Text style={styles.duplicate}>
-          Possible duplicate of {incident.duplicate_of}.
+          Linked as a duplicate of {incident.duplicate_of}. Not dispatched separately.
+        </Text>
+      )}
+
+      {/* Same place and time as another report, different animal group. The
+          system will not merge those, so this was dispatched normally and a
+          person decides. */}
+      {incident.possible_duplicate && (
+        <Text style={styles.duplicate}>
+          Possible duplicate of {incident.possible_duplicate.incident_id} (
+          {incident.possible_duplicate.reason}). Check before sending a second team.
         </Text>
       )}
 
@@ -202,6 +238,11 @@ export default function IncidentDetailScreen({
           </Pressable>
         )}
       </View>
+
+      <CoordinationPanel
+        key={`${incident.incident_id}:${incident.updated_at}`}
+        incidentId={incident.incident_id}
+      />
 
       {report && (
         <>
@@ -318,6 +359,63 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+/** The other incidents in this one's mass stranding, if it is part of one. */
+function otherIncidents(incident: IncidentDetail): string[] {
+  return (incident.mass_stranding?.incident_ids ?? []).filter(
+    (id) => id !== incident.incident_id,
+  );
+}
+
+/**
+ * Model failures that were NOT recovered from, in a coordinator's words.
+ *
+ * These are why an incident can be held for review with no guardrail findings:
+ * the check never ran, the report was never written, or intake stalled.
+ */
+function healthFindings(health: IncidentHealth | null): string[] {
+  if (!health) return [];
+
+  const findings: string[] = [];
+  if (health.fallbacks.includes('report_unavailable')) {
+    findings.push(
+      'The written report could not be generated. Severity and findings below come from the assessment.',
+    );
+  }
+  if (health.fallbacks.includes('guardrail_check_failed')) {
+    findings.push('The safety check on this report could not run, so it is unverified.');
+  }
+  if (health.awaiting_retry) {
+    const last = health.failures[health.failures.length - 1];
+    findings.push(
+      `Intake stalled${last ? ` at ${last.agent}` : ''}: the reporter was asked to try again and has not yet. Consider calling them.`,
+    );
+  }
+  return findings;
+}
+
+/** One quiet line when model calls were retried or failed, e.g. for a slow day on Vertex. */
+function healthNote(health: IncidentHealth | null): string | null {
+  if (!health || (health.llm_retries === 0 && health.failed_calls === 0)) return null;
+  return (
+    `Model calls: ${health.llm_calls} · retried ${health.llm_retries}` +
+    (health.failed_calls > 0 ? ` · failed ${health.failed_calls}` : '')
+  );
+}
+
+function renderFindings(findings: string[]) {
+  if (findings.length === 0) return null;
+
+  return (
+    <View style={styles.findings}>
+      {findings.map((finding, i) => (
+        <Text key={i} style={styles.finding}>
+          {'•'} {finding}
+        </Text>
+      ))}
+    </View>
+  );
+}
+
 /** Show what the guardrail check actually objected to, not just that it failed. */
 function renderGuardrail(guardrail: Record<string, unknown> | null) {
   if (!guardrail) return null;
@@ -361,10 +459,20 @@ const styles = StyleSheet.create({
     borderLeftColor: colors.warning,
     padding: spacing.md,
   },
+  massBanner: {
+    ...glass,
+    ...shadow.soft,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.danger,
+    padding: spacing.md,
+    gap: spacing.xs,
+  },
+  massTitle: { ...type.label, color: colors.danger },
   reviewTitle: { ...type.label, color: colors.warning, marginBottom: spacing.xs },
   reviewBody: { ...type.meta, color: colors.textMuted, lineHeight: 19 },
   findings: { marginTop: spacing.sm, gap: 3 },
   finding: { ...type.meta, fontSize: 12.5, color: colors.warning, lineHeight: 18 },
+  healthNote: { ...type.meta, fontSize: 12.5, color: colors.textMuted },
 
   severity: {
     alignSelf: 'flex-start',

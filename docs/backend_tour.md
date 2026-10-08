@@ -198,6 +198,11 @@ return JSON matching a schema, rather than asked politely and parsed with brace
 slicing. Retries with exponential backoff, and records latency and token counts
 for cost tracking. Auth is Application Default Credentials; no API key.
 
+When every retry fails it raises `LLMError`, in one of two flavours so the
+failure can be diagnosed: `LLMCallError` (the call itself failed: network,
+quota, auth) or `LLMResponseError` (the model replied with something unusable).
+Both carry `.attempts`. Catch `LLMError` unless you care which.
+
 Caps `thinking_config.thinking_budget` (`settings.llm_thinking_budget`,
 default 1280). Gemini 2.5 Flash spends part of `max_output_tokens` on internal
 reasoning before writing the JSON reply, and that length varies call to call
@@ -225,7 +230,8 @@ replies from a queue. Ships four scenarios — `sea_lion`, `seal`, `dolphin` (on
 per way identification can stop) and `raccoon` (a non-marine animal, proving
 identification/triage are not marine-only even though dispatch currently is).
 Used by the tests and by the notebooks' offline mode. Records every prompt it
-receives (`client.calls`).
+receives (`client.calls`). Queue an exception instead of a reply to simulate
+the model being down for one call (`test_health.py` does this throughout).
 
 ### `agents/` — the four model calls
 
@@ -330,7 +336,16 @@ otherwise surface a seal centre for a reported coyote.
 
 **`duplicates.py`** — Is this the same animal someone already reported?
 Weighted distance (0.45), time (0.35), and species agreement (0.20), inside a
-hard 1 km / 24 h window. Duplicates are linked, never deleted.
+hard 1 km / 24 h window. Duplicates are linked, never deleted. Only an
+incident someone is actively handling can be matched against, and reports that
+disagree on the animal group are flagged for the coordinator rather than
+cancelled (`is_probable_duplicate` / `is_possible_duplicate`).
+
+**`mass_stranding.py`** — Is this one animal or several? Adds up
+`animal_count` across the incidents open now: the largest count within one
+incident and its duplicates, summed across separate incidents nearby. Two or
+more cetaceans is flagged. Computed per request by the incident routes, never
+stored. See `docs/data_model.md`.
 
 **`species.py`** — Maps free-text names ("Guadalupe fur seal") to an animal
 group. Not on the live path; used to compare responders' typed species with the
@@ -345,6 +360,21 @@ is where severity is computed; `_finalise` writes the report, runs the
 guardrail, checks duplicates, and ranks responders. Accepts `session=None` (in
 memory), `client=` (swap the model), and `stop_at=` (halt before a step).
 
+A failed model call never escapes `advance()` as an exception. Every agent is
+called through `_call_agent`, which records the outcome and lets the step pick
+its fail-safe: identification and assessment ask the reporter to try again
+(`StepAction.SERVICE_RETRY`, nothing lost); a failed report still sends the
+incident to coordinators without one; a failed guardrail check holds the
+report. All three end in "a human looks at it", never in a lost report.
+
+**`health.py`** — The per-incident health record: model calls, retries,
+failures (which agent, which kind), fail-safes used, and whether the reporter
+is waiting to retry. Stored in `incident.metrics["health"]`, returned by
+`GET /incidents/{id}` as `health`, and logged as one summary line when intake
+finishes (WARNING if anything went wrong). `needs_review()` is what makes an
+unrecovered failure show up as "held for coordinator review" on the console;
+a retry that succeeded is recorded but does not hold anything.
+
 ### `api/`
 
 **`main.py`** — Creates the FastAPI app, CORS, routers, and creates tables at
@@ -352,14 +382,15 @@ startup. Run with `uvicorn lifejacket.api.main:app --reload --app-dir backend`;
 interactive docs at `/docs`.
 
 **`routes/intake.py`** — The reporter's endpoints: `start`, `photo`,
-`location`, `reply`, and `GET` to resume. Each loads state, calls the
+`location`, `reply`, `retry`, and `GET` to resume. Each loads state, calls the
 pipeline, saves, and returns one `TurnResponse` shape — so the phone has a
-single rendering path.
+single rendering path. `retry` re-runs a step that failed on a model error
+(`service_error: true` on the turn) without adding to the conversation.
 
 **`routes/incidents.py`** — The responder console: the map feed (small
 payloads), full incident detail (report, species probabilities, transcript,
-guardrail findings), status changes, and the closing **log** — the only ground
-truth the project ever gets.
+guardrail findings, pipeline `health`), status changes, and the closing
+**log** — the only ground truth the project ever gets.
 
 **`routes/responders.py`** — The directory, seeding it from the CSV, live
 responder positions, volunteer duty toggle, coordinator **assign**, accept /
@@ -372,10 +403,13 @@ decline, and ETAs for the reporter's map.
 | `test_severity.py` | Triage: hard rules, weights, weather guard, tide, confidence. The clearest spec of triage behaviour |
 | `test_taxonomy.py` | Pooling: species → genus → family → group, rescaling, descriptions |
 | `test_session.py` | Stopping rules, question budget, stale-rerun, retakes |
-| `test_dispatch.py` | Distance, duplicates, centre ranking, species grouping |
+| `test_dispatch.py` | Distance, duplicate scoring, centre ranking, species grouping |
+| `test_duplicates.py` | Which incidents a report may be cancelled against, and when it is flagged instead. Database and HTTP |
+| `test_mass_stranding.py` | The counting rule, the animal count reaching the report and guardrail prompts, and events forming and ending over HTTP |
 | `test_prompts.py` | Every prompt renders with its agent's real values; safety rules still present |
 | `test_pipeline.py` | Whole conversations in memory with the scripted model |
 | `test_api.py` | A whole conversation over HTTP with a real (temporary) database |
+| `test_health.py` | Model failures: error types, each step's fail-safe, the retry endpoint, and the health record surviving save and reload |
 
 ---
 
