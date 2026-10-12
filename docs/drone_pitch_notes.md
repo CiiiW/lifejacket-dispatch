@@ -1,6 +1,6 @@
 # Drone Integration — Pitch Notes
 
-For the professor check-in. Talking points, not a script — adapt per slide.
+Talking points, not a script — adapt per slide.
 
 ## Slide: The gap drones close
 
