@@ -145,6 +145,14 @@ class IncidentDetail(BaseModel):
     #: the console can mark it as needing a coordinator's eyes.
     requires_human_review: bool = False
     guardrail: dict | None = None
+
+    #: Contradictions the consistency check found between the record and the
+    #: photo/conditions, and could not resolve with the reporter. A
+    #: coordinator should read these before acting on the report.
+    conflicts: list[dict] = Field(default_factory=list)
+    #: Everything it ever flagged, including conflicts since resolved.
+    conflicts_raised: list[dict] = Field(default_factory=list)
+    validation_notes: str | None = None
     #: Retries, failed model calls, and fail-safes used while building this
     #: incident. None for incidents created before this was recorded. See
     #: `services/health.py` for the shape.
@@ -301,6 +309,9 @@ def get_incident(incident_id: str, session: Session = Depends(get_session)) -> I
         assigned_responder_id=row.assigned_responder_id,
         requires_human_review=requires_review,
         guardrail=guardrail,
+        conflicts=metrics.get("validation_conflicts", []),
+        conflicts_raised=metrics.get("validation_conflicts_raised", []),
+        validation_notes=metrics.get("validation_notes"),
         health=metrics.get(pipeline_health.HEALTH_KEY),
     )
 

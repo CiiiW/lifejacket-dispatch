@@ -72,7 +72,7 @@ def fetch_weather(latitude: float, longitude: float) -> WeatherConditions | None
             "wind_speed_10m,wind_gusts_10m,visibility"
         ),
         "hourly": "precipitation_probability",
-        "daily": "sunset",
+        "daily": "sunrise,sunset",
         "wind_speed_unit": "mph",
         "timezone": "auto",
         "forecast_days": "1",
@@ -109,14 +109,17 @@ def _parse_weather(payload: dict[str, Any]) -> WeatherConditions:
     visibility_m = current.get("visibility")
     visibility_miles = visibility_m / 1609.344 if visibility_m is not None else None
 
+    daily = payload.get("daily", {}) or {}
     return WeatherConditions(
         temperature_c=current.get("temperature_2m"),
         wind_speed_mph=current.get("wind_speed_10m"),
         wind_gust_mph=current.get("wind_gusts_10m"),
         precipitation_probability=_next_hour_precip_probability(payload),
+        precipitation_mm=current.get("precipitation"),
         visibility_miles=visibility_miles,
         condition=condition,
-        sunset_local=_first_datetime(payload.get("daily", {}).get("sunset")),
+        sunrise_local=_first_datetime(daily.get("sunrise")),
+        sunset_local=_first_datetime(daily.get("sunset")),
         retrieved_at=datetime.now(),
     )
 
@@ -156,6 +159,43 @@ def _first_datetime(values: list[str] | None) -> datetime | None:
         return datetime.fromisoformat(values[0])
     except (ValueError, TypeError):
         return None
+
+
+def minutes_to_sunset(
+    weather: WeatherConditions | None, now: datetime | None = None
+) -> int | None:
+    """Usable daylight left, in minutes. **0 means it is already dark.**
+
+    Computed rather than stored, because a stored countdown would be wrong the
+    moment it was read back out of the database.
+
+    Zero covers both ends of the night: after sunset, and before sunrise. Both
+    mean a team would be working in the dark, which is the thing the triage
+    model needs to know -- not the arithmetic sign of the difference.
+
+    Returns None when sunset is unknown, which must not be read as "plenty of
+    daylight".
+    """
+    if weather is None or weather.sunset_local is None:
+        return None
+
+    moment = now or datetime.now()
+
+    # Open-Meteo returns local wall-clock times with `timezone=auto`. Compare
+    # like with like: a naive `now` against a tz-aware sunset raises.
+    sunset = weather.sunset_local
+    if sunset.tzinfo is not None and moment.tzinfo is None:
+        sunset = sunset.replace(tzinfo=None)
+
+    sunrise = weather.sunrise_local
+    if sunrise is not None and sunrise.tzinfo is not None and moment.tzinfo is None:
+        sunrise = sunrise.replace(tzinfo=None)
+
+    if sunrise is not None and moment < sunrise:
+        return 0  # before dawn
+
+    remaining = (sunset - moment).total_seconds() / 60
+    return max(0, int(remaining))
 
 
 def weather_risk_score(weather: WeatherConditions | None) -> float:

@@ -95,7 +95,11 @@ def test_full_conversation_over_http(api):
     ]
     assert detail["report"]["headline"]
     assert [c.agent for c in scripted.calls] == [
-        "identification", "identification", "assessment", "assessment", "report", "guardrail",
+        "identification", "identification", "assessment", "assessment",
+        # The consistency check sits between the assessment and the report:
+        # late enough that the record has settled, early enough to still ask
+        # the reporter about a contradiction.
+        "validation", "report", "guardrail",
     ]
 
 

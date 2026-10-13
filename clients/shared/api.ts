@@ -17,6 +17,61 @@ export const API_BASE = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:800
 // --- Response types -------------------------------------------------------
 
 /** One turn of the intake conversation. Mirrors `intake.TurnResponse`. */
+/**
+ * Weather, tide, and daylight at the incident. Mirrors `api/conditions.py`.
+ *
+ * Both apps show this. The reporter is standing in these conditions; the
+ * coordinator is deciding whether to send someone into them.
+ *
+ * Note `minutes_to_sunset`: `0` means it is already dark, `null` means sunset
+ * is unknown. Do not render them the same way.
+ */
+export interface Conditions {
+  place_name: string | null;
+  local_time: string | null;
+
+  temperature_c: number | null;
+  wind_speed_mph: number | null;
+  wind_gust_mph: number | null;
+  precipitation_mm: number | null;
+  precipitation_probability: number | null;
+  visibility_miles: number | null;
+  condition: string | null;
+
+  minutes_to_sunset: number | null;
+  sunset_local: string | null;
+
+  tide_trend: string | null;
+  tide_summary: string | null;
+  water_level_m: number | null;
+  wave_height_m: number | null;
+  sea_temperature_c: number | null;
+  tide_station_name: string | null;
+  next_high_tide: string | null;
+  next_low_tide: string | null;
+
+  is_coastal: boolean;
+  /** Lookups that failed. Show these as gaps, not as calm conditions. */
+  unavailable: string[];
+}
+
+/** One contradiction found between the record and the evidence. */
+export interface Conflict {
+  /**
+   * photo_vs_flags | flags_vs_flags | species_vs_scene |
+   * conclusion_vs_conditions
+   */
+  kind: string;
+  /** What the record says, e.g. "wound: false". */
+  recorded: string;
+  /** What the evidence shows instead. */
+  observed: string;
+  /** How sure the checker is this is a real conflict, not a judgement call. */
+  confidence: number;
+  /** The recorded field in doubt, e.g. "wound". */
+  field: string;
+}
+
 export interface Turn {
   incident_id: string;
   message: string | null;
@@ -32,8 +87,45 @@ export interface Turn {
   identified_as: string | null;
   /** species | genus | family | group -- how specific `identified_as` is. */
   taxon_rank: string | null;
+  /** Pooled confidence in `identified_as`, 0-1. */
+  species_confidence: number | null;
+
+  /**
+   * Triage band, available as soon as the assessment agent has run -- not
+   * only at the end. It can still change while questions continue, so show
+   * it as provisional until `complete`.
+   */
   severity_level: string | null;
+  /**
+   * Why triage landed where it did -- one plain sentence per rule that fired.
+   * These come from the deterministic scorer, not from a model describing its
+   * own reasoning, which is what makes them safe to show a reporter.
+   */
+  severity_reasons: string[];
+  /** How tide, weather and daylight shaped the recommendation. */
+  environmental_rationale: string | null;
+  /** One line on the animal's physical condition. */
+  injury_summary: string | null;
+  /** What the system recommends: dispatch, monitor, guidance only. */
+  recommended_action: string | null;
+  /** The safety line to show the reporter. Always present once assessed. */
+  safety_guidance: string | null;
+  /** Short imperative steps the reporter can take right now. */
+  reporter_instructions: string[];
+  /** How the report ends, separate from the advice so it can be its own card. */
+  closing_note: string | null;
+
+  /**
+   * Teams whose coverage matched this incident, once intake completes.
+   *
+   * These have NOT been contacted. The report goes to the area's
+   * coordinators, who decide who attends -- do not imply otherwise in the UI.
+   */
+  matched_teams: { name: string; distance_km: number | null; eta_minutes: number | null }[];
+
   report_headline: string | null;
+  /** Weather, tide and daylight. Null until a location is shared. */
+  conditions: Conditions | null;
   /**
    * True when this turn is an apology for a model failure rather than a real
    * step (`action` is then `service_retry`). Offer "Try again", which calls
@@ -204,6 +296,16 @@ export interface IncidentDetail extends Omit<MapPin, 'in_mass_stranding'> {
   /** True when the guardrail check failed or triage confidence was low. */
   requires_human_review: boolean;
   guardrail: Record<string, unknown> | null;
+
+  /**
+   * Contradictions between the record and the photo/conditions that the
+   * consistency check could not resolve with the reporter. Read these before
+   * acting on the report.
+   */
+  conflicts: Conflict[];
+  /** Everything it flagged, including conflicts since resolved. */
+  conflicts_raised: Conflict[];
+  validation_notes: string | null;
   /** Null for incidents created before health was recorded. */
   health: IncidentHealth | null;
 }
@@ -274,17 +376,59 @@ export const reporter = {
    * React Native's `fetch` accepts `{uri, name, type}` as a FormData file,
    * which is not valid DOM typing -- hence the cast. On web, pass a real Blob.
    */
-  uploadPhoto: (incidentId: string, uri: string, mimeType = 'image/jpeg') => {
+  /**
+   * Send a photo. Takes a `Blob`, not a file path.
+   *
+   * React Native used to accept a `{ uri, name, type }` object as a form part
+   * and build the multipart body natively. React Native 0.86 rejects that
+   * with "Unsupported FormDataPart implementation", so the caller turns the
+   * path into a real Blob first -- on the phone that is `new File(uri)` from
+   * `expo-file-system`, whose `File` implements `Blob`. Keeping the
+   * conversion out here means this module stays free of Expo-specific
+   * imports, which matters because the web console bundles it.
+   */
+  uploadPhoto: (incidentId: string, file: Blob, filename = 'photo.jpg') => {
     const form = new FormData();
-    form.append('file', { uri, name: 'photo.jpg', type: mimeType } as unknown as Blob);
+    form.append('file', file, filename);
     return request<Turn>(`/intake/${incidentId}/photo`, { method: 'POST', body: form });
   },
 
-  setLocation: (incidentId: string, latitude: number, longitude: number, accuracy?: number) =>
+  /**
+   * Where the animal is.
+   *
+   * `source` is recorded and shown to responders: a hand-placed pin is a
+   * different kind of claim from a GPS fix, and a responder searching a beach
+   * should know which they are working from.
+   */
+  setLocation: (
+    incidentId: string,
+    latitude: number,
+    longitude: number,
+    accuracy?: number,
+    source: 'device_gps' | 'map_pin' = 'device_gps',
+  ) =>
     request<Turn>(`/intake/${incidentId}/location`, {
       method: 'POST',
-      body: JSON.stringify({ latitude, longitude, accuracy_meters: accuracy ?? null }),
+      body: JSON.stringify({
+        latitude,
+        longitude,
+        accuracy_meters: accuracy ?? null,
+        source,
+      }),
     }),
+
+  /**
+   * Attach a phone number so a rescue team can call back.
+   *
+   * Separate from `start` because intake begins as soon as the app opens --
+   * nobody should be typing their number while standing over a hurt animal.
+   * Send an empty string to withdraw it.
+   */
+  setContact: (incidentId: string, phone: string) =>
+    request<{ incident_id: string; reporter_phone: string | null }>(
+      `/intake/${incidentId}/contact`,
+      { method: 'POST', body: JSON.stringify({ phone }) },
+    ),
 
   reply: (incidentId: string, text: string) =>
     request<Turn>(`/intake/${incidentId}/reply`, {

@@ -130,6 +130,12 @@ class Settings(BaseSettings):
     max_identification_questions: int = Field(default=5)
     max_assessment_questions: int = Field(default=5)
 
+    # The consistency check gets a much smaller budget than the agents it
+    # checks. Each question it asks re-runs assessment and then re-checks, so
+    # the loop has to be short -- and a reporter who has already answered ten
+    # questions will not thank anyone for five more about contradictions.
+    max_validation_questions: int = Field(default=2)
+
     # Pooled probability at which a taxon counts as identified. Applied at
     # every rank by `taxonomy.resolve_taxon`: 0.90 for one species, or 0.90
     # summed across the species in a genus or family.
