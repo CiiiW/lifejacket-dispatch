@@ -18,7 +18,11 @@ from datetime import datetime
 
 from lifejacket.context.geocode import reverse_geocode
 from lifejacket.context.tides import describe_tide, fetch_tides
-from lifejacket.context.weather import fetch_weather, weather_risk_score
+from lifejacket.context.weather import (
+    fetch_weather,
+    minutes_to_sunset,
+    weather_risk_score,
+)
 from lifejacket.models.schemas import EnvironmentalContext, GeoPoint
 
 logger = logging.getLogger(__name__)
@@ -112,8 +116,16 @@ def summarise_for_prompt(context: EnvironmentalContext) -> str:
                 else ""
             )
             bits.append(f"wind {weather.wind_speed_mph:.0f} mph{gust}")
+        if weather.precipitation_mm is not None:
+            # Quantity, not just chance: drizzle and a downpour score the same
+            # on probability but are different rescues.
+            bits.append(
+                f"{weather.precipitation_mm:.1f} mm precipitation falling now"
+                if weather.precipitation_mm > 0
+                else "no precipitation falling now"
+            )
         if weather.precipitation_probability is not None:
-            bits.append(f"{weather.precipitation_probability:.0%} chance of precipitation")
+            bits.append(f"{weather.precipitation_probability:.0%} chance in the next hour")
         if weather.visibility_miles is not None:
             bits.append(f"visibility {weather.visibility_miles:.1f} miles")
         lines.append("WEATHER: " + ", ".join(bits))
@@ -124,14 +136,22 @@ def summarise_for_prompt(context: EnvironmentalContext) -> str:
             "(0 = straightforward, 1.5 = hazardous for responders)"
         )
 
-        if weather.sunset_local:
-            remaining = weather.sunset_local - (context.local_time or datetime.now())
-            hours_left = remaining.total_seconds() / 3600
-            if 0 < hours_left < 3:
-                lines.append(
-                    f"DAYLIGHT: sunset at {weather.sunset_local:%H:%M}, "
-                    f"only {hours_left:.1f} hours of light left."
-                )
+        # Always stated, not only when sunset is close. "Six hours of light"
+        # is as useful to triage as "twenty minutes", and silence previously
+        # left the model to infer daylight from the timestamp.
+        remaining = minutes_to_sunset(weather, context.local_time)
+        if remaining is None:
+            lines.append("DAYLIGHT: sunset time unknown -- do not assume daylight.")
+        elif remaining == 0:
+            lines.append(
+                "DAYLIGHT: 0 minutes -- it is already dark. Any response happens "
+                "at night, with the visibility and safety limits that implies."
+            )
+        else:
+            lines.append(
+                f"DAYLIGHT: {remaining} minutes until sunset "
+                f"({weather.sunset_local:%H:%M} local)."
+            )
 
     if not context.is_coastal:
         lines.append(

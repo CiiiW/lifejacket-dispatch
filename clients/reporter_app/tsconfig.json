@@ -13,7 +13,11 @@
       // app, so the usual node_modules walk-up from its own folder misses
       // this app's copy. Metro already resolves it (see metro.config.js);
       // this is the same mapping for tsc.
-      "react-native": ["./node_modules/react-native"]
+      "react-native": ["./node_modules/react-native"],
+      // `../shared/ConditionsPanel.tsx` is JSX living outside the app, so the
+      // JSX runtime's types are not on its resolution path either. Map it to
+      // the type definitions, not to react's JS, which would shadow @types.
+      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"]
     }
   }
 }

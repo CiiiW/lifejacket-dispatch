@@ -124,9 +124,16 @@ class WeatherConditions(BaseModel):
     wind_speed_mph: float | None = None
     wind_gust_mph: float | None = None
     precipitation_probability: float | None = Field(default=None, ge=0, le=1)
+    #: How much is falling right now, in millimetres for the current hour.
+    #: Distinct from the probability above: a 90% chance of 0.1 mm drizzle and
+    #: a 40% chance of 15 mm of rain are different problems for a beach rescue.
+    precipitation_mm: float | None = Field(default=None, ge=0)
     visibility_miles: float | None = None
     condition: str | None = None  # free text, e.g. "fog", "light rain"
-    sunset_local: datetime | None = None  # responders need daylight
+    #: Both ends of the day, so "is it dark now" can be answered rather than
+    #: only "when does the sun set". Daylight decides whether a team can work.
+    sunrise_local: datetime | None = None
+    sunset_local: datetime | None = None
     retrieved_at: datetime | None = None
 
 
@@ -496,6 +503,8 @@ class ConversationStage(str, Enum):
     AWAITING_LOCATION = "awaiting_location"
     IDENTIFYING = "identifying"
     ASSESSING = "assessing"
+    #: Checking the record against the photo and the conditions.
+    VALIDATING = "validating"
     COMPLETE = "complete"
 
 

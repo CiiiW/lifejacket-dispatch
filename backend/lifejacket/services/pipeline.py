@@ -53,6 +53,7 @@ from lifejacket.agents.base import Agent, AgentError
 from lifejacket.agents.guardrail import GuardrailAgent, GuardrailVerdict
 from lifejacket.agents.identification import IdentificationAgent
 from lifejacket.agents.report import ReportAgent
+from lifejacket.agents.validation import ValidationAgent, ValidationResult
 from lifejacket.chatbot.session import (
     ConversationState,
     Decision,
@@ -130,6 +131,7 @@ class IntakePipeline:
         self.stop_at = stop_at or set()
         self.identification_agent = IdentificationAgent(client)
         self.assessment_agent = AssessmentAgent(client)
+        self.validation_agent = ValidationAgent(client)
         self.report_agent = ReportAgent(client)
         self.guardrail_agent = GuardrailAgent(client)
 
@@ -250,6 +252,10 @@ class IntakePipeline:
                     return self._ask_reporter_to_retry(incident, exc)
                 return self.advance(incident, state, images)
 
+            case StepAction.RUN_VALIDATION:
+                self._run_validation(incident, state, images)
+                return self.advance(incident, state, images)
+
             case StepAction.ASK_CLARIFYING_QUESTION:
                 return self._ask_clarifying_question(state, decision)
 
@@ -328,11 +334,14 @@ class IntakePipeline:
         question = decision.question
         assert question is not None
 
-        # Assessment only runs after identification is settled, so whether it
-        # has started tells us whose budget this question spends.
+        # Each stage runs only once the previous has settled, so how far the
+        # conversation has got tells us whose budget this question spends.
         if state.assessment is None:
             state.identification_questions_asked += 1
             agent_name = "identification"
+        elif state.stage is ConversationStage.VALIDATING:
+            state.validation_questions_asked += 1
+            agent_name = "validation"
         else:
             state.assessment_questions_asked += 1
             agent_name = "assessment"
@@ -440,6 +449,77 @@ class IntakePipeline:
         incident.metrics["severity_reasons"] = severity.reasons
         incident.metrics["severity_triggered_rules"] = severity.triggered_rules
         incident.metrics["severity_contributions"] = severity.contributions
+        # The record just changed, so whatever the checker concluded about the
+        # previous version no longer applies.
+        state.validation_stale = True
+        self._save(incident)
+
+    def _run_validation(
+        self,
+        incident: Incident,
+        state: ConversationState,
+        images: list[ImageInput] | None,
+    ) -> None:
+        """Check the record against the photo and the conditions.
+
+        Runs once identification and assessment have both settled. Failure is
+        **not** fatal: a check that cannot run leaves the record as it was and
+        notes the gap, because a broken consistency check must not block a
+        real emergency. Same reasoning as the guardrail agent.
+        """
+        state.stage = ConversationStage.VALIDATING
+
+        try:
+            result = self.validation_agent.run(
+                images=images,
+                identification=state.identification,
+                assessment=state.assessment,
+                environment_summary=self._environment_summary(incident),
+                identification_summary=(
+                    describe_resolution(state.identification.resolution)
+                    if state.identification and state.identification.resolution
+                    else "Not recorded."
+                ),
+                photo_count=len(state.photo_ids) or 1,
+                transcript=state.transcript,
+            )
+        except Exception:
+            logger.exception(
+                "Consistency check failed for %s; continuing unchecked",
+                incident.incident_id,
+            )
+            result = ValidationResult(
+                notes="Consistency check could not run; record not verified."
+            )
+
+        state.validation = result
+        state.validation_stale = False
+        incident.metrics.update(self.validation_agent.last_metrics)
+
+        current = [c.model_dump(mode="json") for c in result.conflicts]
+        #: What is still wrong as of the latest check -- what a coordinator
+        #: has to look at.
+        incident.metrics["validation_conflicts"] = current
+        #: Everything ever flagged, including conflicts since resolved by
+        #: asking the reporter. Kept because "the photo seemed to contradict
+        #: the record and the reporter confirmed a wound" is worth knowing
+        #: later, and the final check only reports what is left.
+        raised = list(incident.metrics.get("validation_conflicts_raised") or [])
+        seen = {(c.get("field"), c.get("recorded")) for c in raised}
+        raised.extend(
+            c for c in current if (c.get("field"), c.get("recorded")) not in seen
+        )
+        incident.metrics["validation_conflicts_raised"] = raised
+
+        incident.metrics["validation_notes"] = result.notes
+        incident.metrics["validation_questions_asked"] = state.validation_questions_asked
+
+        # A conflict the reporter cannot settle still belongs in front of a
+        # human. Unresolved contradictions are exactly what coordinator review
+        # exists for.
+        if result.blocking_conflicts and incident.assessment is not None:
+            incident.assessment.requires_human_review = True
+
         self._save(incident)
 
     def _finalise(self, incident: Incident, state: ConversationState) -> None:
@@ -627,22 +707,32 @@ class IntakePipeline:
             lines.append("What you can do now:")
             lines.extend(f"• {step}" for step in assessment.reporter_instructions)
 
-        if incident.status is IncidentStatus.GUIDANCE_ONLY:
-            lines.append(
-                "Based on what you have described, this animal does not appear to "
-                "need rescue. Please keep your distance and let it be."
-            )
-        elif incident.duplicate_of:
-            lines.append(
-                "Someone has already reported this animal, so a team is aware of it. "
-                "Thank you for checking."
-            )
-        else:
-            lines.append(
-                "Your report has been sent to the rescue coordinators for this area. "
-                "You can follow its progress on the map."
-            )
+        lines.append(reporter_closing_note(incident))
         return "\n".join(lines)
+
+
+def reporter_closing_note(incident: Incident) -> str:
+    """How the report ends, as one sentence.
+
+    Split out of the closing paragraph so a client can render it on its own
+    rather than as the tail of a wall of text. Never promises a response or an
+    arrival time: no coordinator has approved anything yet, and an unmet
+    promise is worse than none.
+    """
+    if incident.status is IncidentStatus.GUIDANCE_ONLY:
+        return (
+            "Based on what you have described, this animal does not appear to "
+            "need rescue. Please keep your distance and let it be."
+        )
+    if incident.duplicate_of:
+        return (
+            "Someone has already reported this animal, so a team is aware of it. "
+            "Thank you for checking."
+        )
+    return (
+        "Your report has been sent to the rescue coordinators for this area. "
+        "You can follow its progress on the map."
+    )
 
 
 def _turn(decision: Decision, message: str) -> TurnResult:

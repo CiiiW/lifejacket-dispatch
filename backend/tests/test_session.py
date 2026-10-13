@@ -6,6 +6,7 @@ testable with no API key and no network.
 
 from __future__ import annotations
 
+from lifejacket.agents.validation import Conflict, ValidationResult
 from lifejacket.chatbot.session import (
     ConversationState,
     StepAction,
@@ -312,9 +313,149 @@ class TestPhotoRetake:
         assert decide_next_step(state).action is StepAction.RUN_ASSESSMENT
 
 
+class TestConsistencyCheck:
+    """When a contradiction is worth interrupting the reporter for.
+
+    Three things have to line up: a conflict solid enough to act on, a
+    question a reporter standing on a beach could answer, and budget left.
+    """
+
+    def _checked(self, **validation) -> ConversationState:
+        state = _ready_state()
+        state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
+        state.assessment = AssessmentResult(is_confident=True)
+        state.assessment_questions_asked = 1
+        state.validation = ValidationResult(**validation)
+        return state
+
+    def _conflict(self, confidence: float) -> Conflict:
+        return Conflict(
+            kind="photo_vs_flags",
+            recorded="wound: false",
+            observed="an open wound is visible on the left flank",
+            confidence=confidence,
+            field="wound",
+        )
+
+    def test_a_solid_conflict_asks_the_reporter(self):
+        state = self._checked(
+            has_conflict=True,
+            conflicts=[self._conflict(0.9)],
+            next_question=ClarifyingQuestion(
+                question="Is that an open wound or wet fur?", feature="wound_check"
+            ),
+        )
+        decision = decide_next_step(state)
+        assert decision.action is StepAction.ASK_CLARIFYING_QUESTION
+        assert "wound: false" in decision.reason
+
+    def test_a_low_confidence_hunch_does_not_interrupt(self):
+        """A 0.4 guess that a shadow might be a wound is not worth a question."""
+        state = self._checked(
+            has_conflict=True,
+            conflicts=[self._conflict(0.4)],
+            next_question=ClarifyingQuestion(question="Is that a wound?", feature="w"),
+        )
+        assert decide_next_step(state).action is StepAction.FINALISE
+
+    def test_a_conflict_the_reporter_cannot_settle_does_not_ask(self):
+        """Two flags contradicting each other is not theirs to resolve."""
+        state = self._checked(
+            has_conflict=True,
+            conflicts=[
+                Conflict(
+                    kind="flags_vs_flags",
+                    recorded="bleeding: true, wound: false",
+                    observed="bleeding implies a wound",
+                    confidence=0.95,
+                    field="wound",
+                )
+            ],
+        )
+        assert decide_next_step(state).action is StepAction.FINALISE
+
+    def test_no_conflict_finalises(self):
+        state = self._checked(has_conflict=False, notes="No conflicts found.")
+        assert decide_next_step(state).action is StepAction.FINALISE
+
+    def test_budget_stops_the_loop(self):
+        """Each answer re-runs assessment and re-checks, so this must terminate."""
+        state = self._checked(
+            has_conflict=True,
+            conflicts=[self._conflict(0.9)],
+            next_question=ClarifyingQuestion(question="Wound?", feature="wound_check"),
+        )
+        state.validation_questions_asked = settings.max_validation_questions
+        assert decide_next_step(state).action is StepAction.FINALISE
+
+    def test_a_changed_record_is_rechecked(self):
+        """Answering re-runs assessment, which invalidates the previous check."""
+        state = self._checked(has_conflict=False)
+        state.validation_stale = True
+        assert decide_next_step(state).action is StepAction.RUN_VALIDATION
+
+    def test_an_answer_to_a_conflict_goes_to_the_assessment_agent(self):
+        """The reporter is correcting a flag, and assessment owns the flags."""
+        state = self._checked(has_conflict=False)
+        state.stage = ConversationStage.VALIDATING
+        question = ClarifyingQuestion(question="Wound or wet fur?", feature="wound_check")
+        state.add_agent_message(question.question, "validation", question)
+        state.add_reporter_message("it is an open wound")
+
+        assert state.assessment_stale
+        assert state.validation_stale
+
+
 class TestFinalisation:
+    def test_confident_assessment_runs_the_consistency_check_first(self):
+        """Nothing finalises before the record is checked against the photo."""
+        state = _ready_state()
+        state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
+        state.assessment = AssessmentResult(is_confident=True)
+        state.assessment_questions_asked = 1
+        assert decide_next_step(state).action is StepAction.RUN_VALIDATION
+
     def test_confident_assessment_finalises(self):
         state = _ready_state()
         state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
         state.assessment = AssessmentResult(is_confident=True)
+        # One assessment question is mandatory, so confidence only ends the
+        # conversation once something has actually been asked.
+        state.assessment_questions_asked = 1
+        state.validation = ValidationResult(has_conflict=False)
+        assert decide_next_step(state).action is StepAction.FINALISE
+
+    def test_confident_assessment_still_asks_one_question_first(self):
+        """A photo shows a moment; breathing and entanglement do not.
+
+        Confidence on the first pass is confidence about the image, so triage
+        never runs on zero answers.
+        """
+        state = _ready_state()
+        state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
+        state.assessment = AssessmentResult(is_confident=True)
+
+        decision = decide_next_step(state)
+        assert decision.action is StepAction.ASK_CLARIFYING_QUESTION
+        assert decision.question is not None
+        assert "one question is required" in decision.reason
+
+    def test_mandatory_question_uses_the_agent_s_own_when_offered(self):
+        state = _ready_state()
+        state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
+        state.assessment = AssessmentResult(
+            is_confident=True,
+            next_question=ClarifyingQuestion(
+                question="Is it bleeding?", feature="bleeding"
+            ),
+        )
+        assert decide_next_step(state).question.question == "Is it bleeding?"
+
+    def test_mandatory_question_gives_up_when_every_fallback_is_used(self):
+        """The rule cannot invent a question that does not exist."""
+        state = _ready_state()
+        state.probed_features = ["breathing", "entanglement_check", "movement_since_arrival"]
+        state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
+        state.assessment = AssessmentResult(is_confident=True)
+        state.validation = ValidationResult(has_conflict=False)
         assert decide_next_step(state).action is StepAction.FINALISE
