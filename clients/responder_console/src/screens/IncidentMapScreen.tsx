@@ -1,8 +1,10 @@
 /**
  * The triage map: every open incident, colour-coded by severity.
  *
- * This is the responder console's home screen and it runs on phone and web
- * from the same code, via `react-native-maps` and `react-native-web`.
+ * This is the responder console's home screen, for iOS/Android via
+ * `react-native-maps`. That library has no web renderer, so the web build
+ * uses `IncidentMapScreen.web.tsx` instead (a placeholder in place of the
+ * map; everything else is identical) -- Metro picks it automatically.
  *
  * Note what the client does *not* do: it never computes a severity colour from
  * condition flags. It reads `severity_level`, which the backend's
@@ -23,8 +25,13 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 
 import { responder, severityColour, severityLabel, type MapPin } from '../lib/api';
+import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 const REFRESH_INTERVAL_MS = 30_000;
+
+/** Statuses that mean the incident already ended, so its row reads as done. */
+const CLOSED_STATUSES = new Set(['resolved', 'guidance_only']);
+const isClosed = (status: string) => CLOSED_STATUSES.has(status);
 
 export default function IncidentMapScreen({
   onSelect,
@@ -33,16 +40,17 @@ export default function IncidentMapScreen({
 }) {
   const [pins, setPins] = useState<MapPin[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [showClosed, setShowClosed] = useState(false);
 
   const load = useCallback(async () => {
     try {
-      setPins(await responder.listIncidents());
+      setPins(await responder.listIncidents({ includeClosed: showClosed }));
     } catch {
       // Keep the previous list rather than blanking the map on a flaky signal.
     } finally {
       setRefreshing(false);
     }
-  }, []);
+  }, [showClosed]);
 
   useEffect(() => {
     void load();
@@ -62,7 +70,7 @@ export default function IncidentMapScreen({
   );
 
   if (pins === null) {
-    return <ActivityIndicator style={styles.loading} size="large" />;
+    return <ActivityIndicator style={styles.loading} size="large" color={colors.accent} />;
   }
 
   return (
@@ -89,16 +97,29 @@ export default function IncidentMapScreen({
       </MapView>
 
       <View style={styles.panel}>
-        <Text style={styles.heading}>
-          {pins.length} open {pins.length === 1 ? 'incident' : 'incidents'}
-        </Text>
+        <View style={styles.panelHeader}>
+          <Text style={styles.heading}>
+            {pins.length} {showClosed ? '' : 'open '}
+            {pins.length === 1 ? 'incident' : 'incidents'}
+          </Text>
+          <Pressable
+            style={[styles.filter, showClosed && styles.filterActive]}
+            onPress={() => setShowClosed((previous) => !previous)}
+          >
+            <Text style={[styles.filterText, showClosed && styles.filterTextActive]}>
+              {showClosed ? 'Open only' : 'Show closed'}
+            </Text>
+          </Pressable>
+        </View>
 
         <FlatList
           data={sorted}
           keyExtractor={(item) => item.incident_id}
+          contentContainerStyle={styles.list}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
+              tintColor={colors.accent}
               onRefresh={() => {
                 setRefreshing(true);
                 void load();
@@ -107,7 +128,10 @@ export default function IncidentMapScreen({
           }
           ListEmptyComponent={<Text style={styles.empty}>Nothing open right now.</Text>}
           renderItem={({ item }) => (
-            <Pressable style={styles.row} onPress={() => onSelect(item.incident_id)}>
+            <Pressable
+              style={[styles.row, isClosed(item.status) && styles.rowClosed]}
+              onPress={() => onSelect(item.incident_id)}
+            >
               <View
                 style={[styles.stripe, { backgroundColor: severityColour(item.severity_level) }]}
               />
@@ -116,7 +140,9 @@ export default function IncidentMapScreen({
                   {item.headline ?? item.species_common_name ?? 'Unidentified animal'}
                 </Text>
                 <Text style={styles.rowMeta} numberOfLines={1}>
-                  {severityLabel(item.severity_level)}
+                  <Text style={{ color: severityColour(item.severity_level) }}>
+                    {severityLabel(item.severity_level)}
+                  </Text>
                   {item.place_name ? ` · ${item.place_name}` : ''}
                   {` · ${item.status.replace(/_/g, ' ')}`}
                 </Text>
@@ -124,6 +150,8 @@ export default function IncidentMapScreen({
               {/* Entanglement is called out separately because it needs a team
                   with cutting authorisation, which not every centre has. */}
               {item.entanglement && <Text style={styles.tag}>ENTANGLED</Text>}
+              {/* Several animals, possibly across several rows of this list. */}
+              {item.in_mass_stranding && <Text style={styles.tag}>MASS STRANDING</Text>}
             </Pressable>
           )}
         />
@@ -133,32 +161,60 @@ export default function IncidentMapScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, flexDirection: 'row' },
+  screen: { flex: 1, flexDirection: 'row', backgroundColor: colors.background },
   loading: { flex: 1 },
   map: { flex: 2 },
-  panel: { flex: 1, minWidth: 320, backgroundColor: '#fff', padding: 16 },
-  heading: { fontSize: 18, fontWeight: '700', marginBottom: 12 },
-  empty: { color: '#5f6368', fontSize: 15 },
-  row: {
+  panel: {
+    flex: 1,
+    minWidth: 320,
+    backgroundColor: colors.backgroundElevated,
+    borderLeftWidth: 1,
+    borderLeftColor: colors.border,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+  },
+  panelHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+    marginBottom: spacing.md,
   },
-  stripe: { width: 4, alignSelf: 'stretch', borderRadius: 2 },
-  rowBody: { flex: 1 },
-  rowTitle: { fontSize: 15, fontWeight: '600' },
-  rowMeta: { fontSize: 13, color: '#5f6368', marginTop: 2 },
-  tag: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: '#b3261e',
+  heading: { ...type.title, color: colors.text },
+  filter: {
     borderWidth: 1,
-    borderColor: '#b3261e',
-    borderRadius: 4,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
+    borderColor: colors.border,
+    borderRadius: radius.pill,
+    paddingVertical: 5,
+    paddingHorizontal: spacing.md,
+  },
+  filterActive: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
+  filterText: { ...type.meta, fontSize: 12, color: colors.textMuted },
+  filterTextActive: { color: colors.accent, fontWeight: '700' },
+  list: { gap: spacing.sm, paddingBottom: spacing.xl },
+  empty: { ...type.meta, color: colors.textFaint },
+  row: {
+    ...glass,
+    ...shadow.soft,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    padding: spacing.md,
+  },
+  rowClosed: { opacity: 0.55 },
+  stripe: { width: 4, alignSelf: 'stretch', minHeight: 34, borderRadius: radius.pill },
+  rowBody: { flex: 1, gap: 3 },
+  rowTitle: { ...type.label, color: colors.text, fontSize: 15 },
+  rowMeta: { ...type.meta, color: colors.textMuted, fontSize: 12.5 },
+  tag: {
+    ...type.eyebrow,
+    fontSize: 9,
+    color: colors.danger,
+    borderWidth: 1,
+    borderColor: colors.danger,
+    borderRadius: radius.sm,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    overflow: 'hidden',
   },
 });

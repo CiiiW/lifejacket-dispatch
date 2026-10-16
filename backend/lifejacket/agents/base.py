@@ -30,7 +30,30 @@ ResultT = TypeVar("ResultT", bound=BaseModel)
 
 
 class AgentError(RuntimeError):
-    """Raised when an agent could not produce a usable result."""
+    """Raised when an agent could not produce a usable result.
+
+    Carries enough for the pipeline to record the failure on the incident
+    (see `services/health.py`) without parsing the message:
+
+    Attributes:
+        agent: Which agent failed, e.g. "identification".
+        kind: "call_failed" (model unreachable), "bad_response" (reply was not
+            usable JSON), or "invalid_output" (JSON did not fit our model).
+        attempts: How many model calls were made before giving up.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        agent: str = "unknown",
+        kind: str = "call_failed",
+        attempts: int = 1,
+    ) -> None:
+        super().__init__(message)
+        self.agent = agent
+        self.kind = kind
+        self.attempts = attempts
 
 
 class Agent(ABC, Generic[ResultT]):
@@ -95,7 +118,15 @@ class Agent(ABC, Generic[ResultT]):
                 system_instruction=system_principles(),
             )
         except LLMError as exc:
-            raise AgentError(f"{self.name}: model call failed: {exc}") from exc
+            # Keep the attempt count even though the call failed, so retries
+            # that ended in failure are still visible in the incident metrics.
+            self.last_metrics = {f"{self.name}_attempts": exc.attempts}
+            raise AgentError(
+                f"{self.name}: model call failed: {exc}",
+                agent=self.name,
+                kind=exc.kind,
+                attempts=exc.attempts,
+            ) from exc
 
         self.last_response = response.data
         self.last_metrics = {
@@ -112,4 +143,9 @@ class Agent(ABC, Generic[ResultT]):
             # model and our JSON Schema have drifted apart -- a bug in our
             # code, not a model failure. Log the payload to make it findable.
             logger.error("%s returned unparseable data: %s", self.name, response.raw_text)
-            raise AgentError(f"{self.name}: could not parse model output: {exc}") from exc
+            raise AgentError(
+                f"{self.name}: could not parse model output: {exc}",
+                agent=self.name,
+                kind="invalid_output",
+                attempts=response.attempts,
+            ) from exc

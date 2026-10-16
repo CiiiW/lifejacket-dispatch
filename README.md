@@ -1,15 +1,29 @@
 # LifeJacket Dispatch
 
-Agentic AI dispatch for stranded and injured wild animals.
+AI-assisted intake and human-approved coordination for wildlife rescue.
 
 Someone finds an animal on a beach and photographs it. LifeJacket identifies
 the species by asking a few questions, works out what should happen using the
 tide and weather at that spot, and sends a concise incident report to the
-nearest rescue organisation permitted to respond.
+rescue console with ranked responder candidates for coordinator review.
+The prototype does not verify permits or automatically dispatch responders.
+
+## Three rescue workflows
+
+| Workflow | What happens | Primary code |
+|---|---|---|
+| Public intake | Photo and location, clarification, assessment, triage, report, duplicate checks | [`services/pipeline.py`](backend/lifejacket/services/pipeline.py), reporter app |
+| Coordinator review | Case evidence, pending checks, responder review, human-approved offers and responses | [`services/coordination.py`](backend/lifejacket/services/coordination.py), [`agents/coordination.py`](backend/lifejacket/agents/coordination.py), responder console |
+| Shift handover | Recorded changes during a window and current open cases | [`services/events.py`](backend/lifejacket/services/events.py), [`services/handover.py`](backend/lifejacket/services/handover.py), Handover tab |
+
+Start with the [workflow ownership map](docs/rescue_workflows.md) and the
+[connected demo](demo/connected_workflow.md). Model calls, read-only tools,
+deterministic rules, and human actions have different responsibilities;
+they are not interchangeable agents.
 
 ---
 
-## How it works
+## Intake implementation
 
 ```
                     REPORTER'S PHONE                      RESCUE ORGANISATION
@@ -45,6 +59,13 @@ nearest rescue organisation permitted to respond.
 Read [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py)
 for this flow as actual code. It is the single best entry point to the codebase.
 
+Read-only incident history, assignment history, pending coordination checks,
+and responder availability are available through Python and HTTP. See
+[`docs/coordination_tools.md`](docs/coordination_tools.md) for usage and evidence limits.
+The coordination agent can choose these tools to check one case through
+`POST /coordination/incidents/{incident_id}/check`. It proposes attention items
+for human review without changing the case or dispatching anyone.
+
 ---
 
 ## Repository layout
@@ -53,18 +74,18 @@ for this flow as actual code. It is the single best entry point to the codebase.
 lifejacket-dispatch/
 ├── backend/                  ← all the logic lives here (Python)
 │   ├── lifejacket/
-│   │   ├── agents/           LLM agents: identify, assess, report, guardrail
+│   │   ├── agents/           model stages + bounded coordination tool-selection loop
 │   │   ├── chatbot/          when to ask / when to stop + notebook playground
 │   │   ├── context/          weather, tides, reverse geocoding
-│   │   ├── dispatch/         severity, duplicates, responder matching (no LLM)
+│   │   ├── dispatch/         severity, duplicates, mass strandings, responder matching (no LLM)
 │   │   ├── llm/              the one place we call a model
 │   │   ├── models/           schemas, database tables, repository
-│   │   ├── services/         pipeline.py — the end-to-end workflow
+│   │   ├── services/         intake pipeline, health, coordination tools, events, handover
 │   │   ├── api/              FastAPI routes (thin: no business logic)
 │   │   ├── config.py         every setting, in one file
 │   │   ├── taxonomy.py       pools species probabilities into genus/family
 │   │   └── geo.py            haversine, ETA, bounding boxes
-│   ├── tests/                120 tests, no API key needed
+│   ├── tests/                offline unit and HTTP workflow tests
 │   └── requirements.txt
 │
 ├── clients/
@@ -77,6 +98,7 @@ lifejacket-dispatch/
 │   ├── identification/
 │   ├── assessment/
 │   ├── report/
+│   ├── coordination/        tool-selection instructions
 │   └── legacy/               the prototype's 29-prompt library, for reference
 │
 ├── config/scoring.json       severity weights, dispatch weights, species groups
@@ -87,6 +109,7 @@ lifejacket-dispatch/
 │
 ├── notebooks/                walkthrough, evaluation, and a chatbot playground
 ├── research/
+│   ├── coordination_evaluation/ scripted and five-case live evaluation reports
 │   └── dispatch_benchmark/   directory vs. online search (built, never run)
 ├── archive/prototypes/       the previous ChatBox / agent2 notebooks
 └── docs/                     backend_tour.md — every backend file explained
@@ -101,24 +124,29 @@ lifejacket-dispatch/
 | Allow stopping at family level, or move the 0.90 threshold | `CONFIDENT_TAXON_RANKS`, `IDENTIFICATION_CONFIDENCE_THRESHOLD` in `.env` |
 | Change how species pool into genus/family | [`backend/lifejacket/taxonomy.py`](backend/lifejacket/taxonomy.py) |
 | Re-tune triage urgency | [`config/scoring.json`](config/scoring.json) |
+| Change what counts as a mass stranding | `mass_stranding` in [`config/scoring.json`](config/scoring.json); the rule is in [`backend/lifejacket/dispatch/mass_stranding.py`](backend/lifejacket/dispatch/mass_stranding.py) |
 | Change how responders are ranked | [`backend/lifejacket/dispatch/matching.py`](backend/lifejacket/dispatch/matching.py) |
+| Change derived pending checks or availability retrieval | [`backend/lifejacket/services/coordination.py`](backend/lifejacket/services/coordination.py) |
+| Change the bounded coordination tool-selection loop | [`backend/lifejacket/agents/coordination.py`](backend/lifejacket/agents/coordination.py) and [`prompts/coordination/check_case.md`](prompts/coordination/check_case.md) |
+| Change which application transitions are recorded | [`backend/lifejacket/services/events.py`](backend/lifejacket/services/events.py) and its repository/route call sites |
+| Change handover retrieval or limits | [`backend/lifejacket/services/handover.py`](backend/lifejacket/services/handover.py) |
 | Add a weather or tide signal | [`backend/lifejacket/context/`](backend/lifejacket/context/) |
 | Add an endpoint | [`backend/lifejacket/api/routes/`](backend/lifejacket/api/routes/) |
 | Add a safety rule | [`prompts/system_principles.md`](prompts/system_principles.md) |
+| Change what happens when a model call fails | `_call_agent` and the fail-safes in [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py); what gets recorded in [`services/health.py`](backend/lifejacket/services/health.py) |
 
 ---
 
 ## Running it
 
-Requires **Python 3.11+**. (Google stopped shipping Vertex AI updates for 3.10
-after 2026-10-04, and the code uses `match` statements.)
+Requires **Python 3.11+**.
 
 ```bash
 # 1. Dependencies
 python3.13 -m venv .venv && source .venv/bin/activate
 pip install -r backend/requirements.txt
 
-# 2. Credentials for the LLM agents (steps 2, 3, 5, 6 above).
+# 2. Credentials for intake model calls and live coordination checks.
 #    No API key — this uses Application Default Credentials.
 gcloud auth application-default login
 
@@ -143,7 +171,7 @@ curl -X POST localhost:8000/intake/start -H 'Content-Type: application/json' -d 
 ### Tests
 
 ```bash
-pytest                 # 120 tests, no API key or network required
+pytest                 # offline tests, no API key or network required
 ```
 
 The deterministic logic — severity, duplicates, matching, taxonomy, the
@@ -152,6 +180,10 @@ conversations are tested too, in memory (`test_pipeline.py`) and over HTTP
 (`test_api.py`), using a scripted stand-in for Gemini. Start with
 [`backend/tests/test_severity.py`](backend/tests/test_severity.py): it is the
 clearest specification of how triage actually behaves.
+
+The [connected demo](demo/connected_workflow.md) has an HTTP test covering
+intake, read-only coordination checks, an offer/decline/re-offer/accept cycle,
+handover, and outcome logging. It uses scripted model replies, not live AI.
 
 ### Notebooks
 
@@ -313,11 +345,13 @@ Be honest about these in any write-up.
 | Limitation | Detail |
 |---|---|
 | **Species accuracy is ~54%** | Best prompt strategy, from the team's vision research. Animal-*group* accuracy is much better, and group is what routes the incident. The research notebook itself (`research/vision_confidence/`) was removed from this repo for disk space -- this number is what remains of it. |
-| **Never run against the real model** | The new dynamic-question prompt and taxonomy pooling are tested end to end only with scripted replies. How often Gemini asks good questions, splits look-alikes honestly, and correctly flags species as indistinguishable is unmeasured. Notebook 3 in live mode is the place to start. |
+| **Intake model quality remains unmeasured** | Scripted intake tests validate execution, not identification, question quality, or injury accuracy. Coordination has a separate five-case live Gemini evaluation (5/5 after a prompt fix); this does not validate intake or establish reliability. See [`docs/coordination_tools.md`](docs/coordination_tools.md). |
 | **The 0.90 confidence threshold is unvalidated** | 50 of 485 answers at 90%+ confidence were wrong in the research data. Every stop decision is logged so this can be calibrated. See notebook 2. |
 | **Vision research used 5 photos** | One was a dog control. Treat the strategy comparison as indicative only. |
 | **Injury flags have never been evaluated** | And they feed severity scoring. This is the highest-value gap. |
 | **No authentication** | `RESPONDER_ID` is hardcoded in the console. Must be fixed before more than one person uses it. |
+| **Coordination and handover are review aids** | Pending checks are derived, not owned tasks. Availability is not eligibility. Handover is installation-wide and shows current carryover, not historical state at shift end; events have no backfill and actor references are unauthenticated. Do not expose these endpoints publicly. |
+| **New console views need visual QA** | Coordination and Handover typecheck, but mobile/desktop visual verification was blocked by macOS native CSS-library loading policy. |
 | **Tides are US-only** | NOAA CO-OPS covers US coasts. Weather and geocoding are global. |
 | **Rescue centres have no coordinates** | `data/rescue_centers.csv` has no latitude/longitude or street address, so organisation distance and ETA are always null. Area matching (by county) works fine; only distance is affected. |
 | **Dispatch only has data for marine animals** | Identification and assessment work for any animal (`AnimalGroup.TERRESTRIAL`, `DOMESTIC_ANIMAL`, `OTHER_MARINE` are real, supported groups — see the `raccoon` scenario in `llm/fake.py`). But `data/rescue_centers.csv` is a *West Coast Marine Mammal Stranding Network* directory, so a coyote or pet dog correctly gets no suggested responder rather than a misleading one. Adding a wildlife-rehab directory needs no change to identification or triage, only a second data file and a merge in `dispatch/matching.py`. |

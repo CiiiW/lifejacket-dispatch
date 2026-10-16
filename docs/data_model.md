@@ -105,9 +105,55 @@ When `duplicates.find_duplicate` scores a match above the threshold,
 cancelled.
 
 The row is kept because two independent reports corroborate that something is
-really there, and the second reporter may have sent a better photo. A row that
-is already a duplicate is excluded from future matching, so duplicates do not
-chain into speculative clusters.
+really there, and the second reporter may have sent a better photo.
+
+Cancelling a report is the one place the system withholds a response, so two
+rules limit when it may:
+
+- **Only an incident someone is actively handling can be a duplicate target**:
+  `awaiting_dispatch` through `on_scene`
+  (`duplicates.ACTIVE_DUPLICATE_TARGET_STATUSES`). A case that ended is a new
+  event if the animal is reported again. An intake nobody finished was never
+  sent to anyone. A row that is itself a cancelled duplicate is excluded too,
+  so duplicates do not chain into speculative clusters.
+- **Reports that disagree on the animal group are never cancelled.** Distance
+  and time alone can clear the threshold (a dolphin 200 m from a seal an hour
+  later scores 0.765 against 0.70). Such a report is dispatched normally and
+  the incident detail carries `possible_duplicate`, which the console shows as
+  "Possible duplicate of ...", so a person decides. An *unknown* group is not a
+  disagreement.
+
+## Mass strandings are worked out, not stored
+
+NOAA's definition: two or more cetaceans, same or mixed species, stranded at
+the same time and place, other than a cow-calf pair. It needs a larger
+response than one animal, and no single report shows it.
+
+Two facts feed it. `assessment_json["animal_count"]` is how many animals one
+report says are in trouble (1 unless the photos or the reporter indicate
+more). And two incidents that were *not* linked as duplicates are, by the
+system's own judgement, different animals.
+
+`mass_stranding.find_mass_strandings` puts them together over the incidents
+open right now:
+
+- An incident and its linked duplicates are one scene. Its count is the
+  **largest** any of those reports gave, never the sum, because the same
+  animals are in several people's photos.
+- Separate incidents within 2 km and 24 hours are one event, chained along the
+  coast, and their counts are **added**.
+- Two or more is a mass stranding. Cetaceans only: several seals on a beach is
+  a haul-out.
+
+There is no event table and no column for it. A report arriving now changes
+the answer for an incident filed an hour ago, so `GET /incidents/{id}`
+(`mass_stranding`, `animal_count`) and `GET /incidents` (`in_mass_stranding`)
+compute it per request. Resolving an incident removes it from the event.
+
+It does not change severity (a stranded cetacean is already critical) or who
+is offered the dispatch. It tells the coordinator the scale.
+
+Weaker matches stay in `metrics_json["duplicate_match"]` and are not shown.
 
 ## Ground truth
 

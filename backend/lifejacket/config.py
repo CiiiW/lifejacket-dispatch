@@ -78,6 +78,10 @@ class Settings(BaseSettings):
     llm_max_output_tokens: int = Field(default=6144)
     llm_max_retries: int = Field(default=3)
 
+    # Coordination chooses read-only tools; bounds apply to each request.
+    coordination_max_rounds: int = Field(default=6, ge=4, le=12)
+    coordination_max_evidence_chars: int = Field(default=60000, ge=1000, le=200000)
+
     # --- Storage ---------------------------------------------------------
     # SQLite by default so the repo runs with no setup. Point this at Postgres
     # or Cloud SQL in deployment; the ORM models do not change.
@@ -99,6 +103,7 @@ class Settings(BaseSettings):
         default="https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json"
     )
     nominatim_api_url: str = Field(default="https://nominatim.openstreetmap.org/reverse")
+    nominatim_search_url: str = Field(default="https://nominatim.openstreetmap.org/search")
 
     # Nominatim's usage policy requires a contact in the User-Agent header.
     http_user_agent: str = Field(default="LifeJacketDispatch/1.0 (capstone project)")
@@ -108,11 +113,28 @@ class Settings(BaseSettings):
     # a key the app still renders the map, it just cannot compute driving ETAs.
     google_maps_api_key: str = Field(default="")
 
+    # OpenRouteService draws the driving route from a rescue centre to an
+    # incident. The key is read here, server-side, and the console asks the
+    # backend for routes -- deliberately, so the key never ships in the web
+    # bundle where anyone could lift it. Free keys: openrouteservice.org/dev.
+    # Without one, routing degrades to the straight-line estimate and the
+    # console simply draws no road route.
+    ors_api_key: str = Field(default="")
+    ors_api_url: str = Field(
+        default="https://api.openrouteservice.org/v2/directions/driving-car/geojson"
+    )
+
     # --- Conversation limits ---------------------------------------------
     # Hard product requirement: the identification agent may ask at most five
     # questions before it has to commit to an answer.
     max_identification_questions: int = Field(default=5)
     max_assessment_questions: int = Field(default=5)
+
+    # The consistency check gets a much smaller budget than the agents it
+    # checks. Each question it asks re-runs assessment and then re-checks, so
+    # the loop has to be short -- and a reporter who has already answered ten
+    # questions will not thank anyone for five more about contradictions.
+    max_validation_questions: int = Field(default=2)
 
     # Pooled probability at which a taxon counts as identified. Applied at
     # every rank by `taxonomy.resolve_taxon`: 0.90 for one species, or 0.90

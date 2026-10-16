@@ -9,6 +9,7 @@ from lifejacket.dispatch.duplicates import (
     CandidateIncident,
     duplicate_confidence,
     find_duplicate,
+    is_possible_duplicate,
     is_probable_duplicate,
 )
 from lifejacket.dispatch.matching import (
@@ -193,6 +194,122 @@ class TestDuplicateDetection:
         )
         assert match is not None
         assert match.same_species
+
+    def test_different_animal_groups_are_flagged_but_never_suppressed(self):
+        """A dolphin 200 m from a seal, an hour later, is not the same animal.
+
+        Distance and time alone clear the 0.70 threshold here, so without the
+        group check the second animal's report would be cancelled.
+        """
+        now = datetime.now()
+        match = find_duplicate(
+            latitude=36.8000,
+            longitude=-121.7900,
+            reported_at=now,
+            animal_group=AnimalGroup.CETACEAN,
+            candidates=[
+                CandidateIncident(
+                    incident_id="INC_seal",
+                    latitude=36.8018,  # ~200 m north
+                    longitude=-121.7900,
+                    reported_at=now - timedelta(hours=1),
+                    animal_group=AnimalGroup.PINNIPED,
+                )
+            ],
+        )
+        assert match is not None  # still recorded, for the coordinator
+        assert not match.same_species
+        assert match.confidence >= 0.70  # the score alone would have suppressed it
+        assert not is_probable_duplicate(match)
+        assert is_possible_duplicate(match)  # shown to the coordinator instead
+
+    def test_unknown_group_does_not_block_suppression(self):
+        """Unknown is not a disagreement: a close, recent match still suppresses."""
+        now = datetime.now()
+        match = find_duplicate(
+            latitude=36.80,
+            longitude=-121.79,
+            reported_at=now,
+            animal_group=AnimalGroup.UNKNOWN,
+            candidates=[
+                CandidateIncident(
+                    incident_id="INC_a",
+                    latitude=36.8001,
+                    longitude=-121.7901,
+                    reported_at=now - timedelta(minutes=10),
+                    animal_group=AnimalGroup.CETACEAN,
+                )
+            ],
+        )
+        assert is_probable_duplicate(match)
+
+    def test_a_linkable_match_outranks_a_closer_one_that_cannot_be_linked(self):
+        """A dolphin right here and the same seal a little further off.
+
+        The dolphin scores higher on distance, but it can never be linked to a
+        seal report. Picking it would dispatch a second team to the seal.
+        """
+        now = datetime.now()
+        match = find_duplicate(
+            latitude=36.8000,
+            longitude=-121.7900,
+            reported_at=now,
+            animal_group=AnimalGroup.PINNIPED,
+            candidates=[
+                CandidateIncident(
+                    incident_id="INC_dolphin",
+                    latitude=36.8000,
+                    longitude=-121.7900,
+                    reported_at=now - timedelta(minutes=5),
+                    animal_group=AnimalGroup.CETACEAN,
+                ),
+                CandidateIncident(
+                    incident_id="INC_seal",
+                    latitude=36.8027,  # ~300 m north
+                    longitude=-121.7900,
+                    reported_at=now - timedelta(hours=1),
+                    animal_group=AnimalGroup.PINNIPED,
+                ),
+            ],
+        )
+        assert match.incident_id == "INC_seal"
+        assert is_probable_duplicate(match)
+
+    def test_weak_match_is_neither_linked_nor_shown(self):
+        """Same beach, most of a day apart: recorded, but not worth a banner."""
+        now = datetime.now()
+        match = find_duplicate(
+            latitude=36.8000,
+            longitude=-121.7900,
+            reported_at=now,
+            animal_group=AnimalGroup.PINNIPED,
+            candidates=[
+                CandidateIncident(
+                    incident_id="INC_yesterday",
+                    latitude=36.8063,  # ~700 m north
+                    longitude=-121.7900,
+                    reported_at=now - timedelta(hours=20),
+                    animal_group=AnimalGroup.PINNIPED,
+                )
+            ],
+        )
+        assert match is not None
+        assert not is_probable_duplicate(match)
+        assert not is_possible_duplicate(match)
+
+    def test_a_linked_match_is_not_also_a_possible_one(self):
+        now = datetime.now()
+        candidate = CandidateIncident(
+            incident_id="INC_a",
+            latitude=36.80,
+            longitude=-121.79,
+            reported_at=now - timedelta(minutes=10),
+            animal_group=AnimalGroup.PINNIPED,
+        )
+        match = find_duplicate(36.80, -121.79, now, AnimalGroup.PINNIPED, [candidate])
+        assert is_probable_duplicate(match)
+        assert not is_possible_duplicate(match)
+        assert not is_possible_duplicate(None)
 
     def test_missing_location_declines_to_guess(self):
         assert (

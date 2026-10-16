@@ -259,3 +259,18 @@ class IncidentLogRow(Base):
     departure_time: Mapped[datetime | None] = mapped_column(DateTime)
 
     incident: Mapped[IncidentRow] = relationship(back_populates="logs")
+
+
+class IncidentEventRow(Base):
+    """Recorded application changes, not reconstructed historical transitions."""
+
+    __tablename__ = "incident_events"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), index=True
+    )
+    recorded_at: Mapped[datetime] = mapped_column(DateTime, index=True)
+    kind: Mapped[str] = mapped_column(String(32))
+    actor_ref: Mapped[str | None] = mapped_column(String(128))
+    details: Mapped[dict] = mapped_column(JSON)

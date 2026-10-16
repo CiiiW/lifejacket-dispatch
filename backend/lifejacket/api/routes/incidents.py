@@ -2,6 +2,8 @@
 
     GET   /incidents                 -> open incidents, optionally near a point
     GET   /incidents/{id}            -> full detail, including the report
+    GET   /incidents/{id}/photo/{n}  -> the image bytes the reporter sent
+    GET   /incidents/{id}/route      -> driving route from a rescue centre
     PATCH /incidents/{id}/status     -> coordinator or responder status changes
     POST  /incidents/{id}/log        -> the responder's closing write-up
 
@@ -12,22 +14,46 @@ should not download full reports for fifty incidents to draw fifty pins.
 from __future__ import annotations
 
 from datetime import datetime
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from lifejacket.context.routing import driving_route
+from lifejacket.dispatch.duplicates import is_possible_duplicate
+from lifejacket.dispatch.mass_stranding import find_mass_strandings
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import (
     AnimalGroup,
     DispatchCandidate,
+    DuplicateMatch,
     IncidentReport,
     IncidentStatus,
+    MassStranding,
 )
-from lifejacket.models.tables import IncidentLogRow, IncidentRow
+from lifejacket.models.tables import IncidentLogRow, IncidentRow, ResponderRow
+from lifejacket.services import health as pipeline_health
+from lifejacket.services.events import incident_state, record_event, record_incident_change
 
 router = APIRouter(prefix="/incidents", tags=["incidents (responder)"])
+
+
+class PhotoRef(BaseModel):
+    """A photo the reporter sent, and where to fetch it.
+
+    The bytes are not inlined. A responder console showing a list of incidents
+    would otherwise download several megabytes of base64 it may never display,
+    and the image URL can be handed straight to an `<img>`.
+    """
+
+    photo_id: str
+    #: Path on this API, ready to use as an image source.
+    url: str
+    content_type: str | None = None
+    uploaded_at: datetime
 
 
 class MapPin(BaseModel):
@@ -44,8 +70,14 @@ class MapPin(BaseModel):
     animal_group: str | None
     headline: str | None
     entanglement: bool | None
+    #: Part of a possible mass stranding. The detail response says how many
+    #: animals and which other incidents (`IncidentDetail.mass_stranding`).
+    in_mass_stranding: bool = False
     created_at: datetime
     assigned_responder_id: str | None
+    #: First photo, so a list row can show a thumbnail without a second
+    #: request per incident. The rest are on the detail response.
+    photo_url: str | None = None
 
 
 class IncidentDetail(BaseModel):
@@ -69,9 +101,26 @@ class IncidentDetail(BaseModel):
     species_candidates: list[dict] = Field(default_factory=list)
     animal_group: str | None
 
+    #: What the reporter actually photographed. Sits here beside the species
+    #: and severity the agents derived *from* it, so a responder assessing the
+    #: animal from fifty miles away has the evidence and the conclusion in one
+    #: response rather than having to go looking for the image.
+    photos: list[PhotoRef] = Field(default_factory=list)
+
     severity_level: str | None
     severity_score: float | None
     severity_reasons: list[str] = Field(default_factory=list)
+
+    #: How many animals this report says are in trouble. 1 unless the photos
+    #: or the reporter indicated more.
+    animal_count: int = 1
+    #: Set when this incident is part of a possible mass stranding: several
+    #: cetaceans at one place and time, from this report alone or from
+    #: separate incidents nearby. Worked out from the incidents open right
+    #: now on every request, so it changes as further reports arrive. A linked
+    #: duplicate shows the event of the incident it was linked to. See
+    #: `dispatch/mass_stranding.py`.
+    mass_stranding: MassStranding | None = None
 
     report: IncidentReport | None = None
     dispatch_candidates: list[DispatchCandidate] = Field(default_factory=list)
@@ -83,12 +132,31 @@ class IncidentDetail(BaseModel):
 
     reporter_phone: str | None = None
     duplicate_of: str | None = None
+    #: A nearby recent incident that MAY be the same animal: close enough in
+    #: place and time to be a duplicate, but the two reports disagree on the
+    #: animal group, so this one was NOT suppressed. It was dispatched
+    #: normally; the coordinator decides. Has the `DuplicateMatch` shape:
+    #: incident_id, confidence, distance_km, hours_apart, same_species,
+    #: reason. None when `duplicate_of` is set or the match was weak.
+    possible_duplicate: dict | None = None
     assigned_responder_id: str | None = None
 
     #: True when the guardrail check failed or triage confidence was low, so
     #: the console can mark it as needing a coordinator's eyes.
     requires_human_review: bool = False
     guardrail: dict | None = None
+
+    #: Contradictions the consistency check found between the record and the
+    #: photo/conditions, and could not resolve with the reporter. A
+    #: coordinator should read these before acting on the report.
+    conflicts: list[dict] = Field(default_factory=list)
+    #: Everything it ever flagged, including conflicts since resolved.
+    conflicts_raised: list[dict] = Field(default_factory=list)
+    validation_notes: str | None = None
+    #: Retries, failed model calls, and fail-safes used while building this
+    #: incident. None for incidents created before this was recorded. See
+    #: `services/health.py` for the shape.
+    health: dict | None = None
 
 
 class StatusUpdate(BaseModel):
@@ -123,14 +191,25 @@ def list_incidents(
     latitude: float | None = Query(default=None, ge=-90, le=90),
     longitude: float | None = Query(default=None, ge=-180, le=180),
     radius_km: float = Query(default=50.0, gt=0, le=500),
+    include_closed: bool = Query(
+        default=False,
+        description="Also return resolved and guidance-only incidents. "
+        "Cancelled duplicates stay hidden.",
+    ),
     session: Session = Depends(get_session),
 ) -> list[MapPin]:
     """Open incidents, newest first, optionally within a radius.
 
     Supply `latitude` and `longitude` to get only nearby incidents; omit them
-    and a coordinator sees everything still open.
+    and a coordinator sees everything still open. Pass `include_closed` to see
+    incidents that already ended, which is how the console shows history.
     """
-    rows = repository.find_open_incidents(session, latitude, longitude, radius_km)
+    rows = repository.find_open_incidents(
+        session, latitude, longitude, radius_km, include_closed=include_closed
+    )
+    # Worked out over every open incident, not only the ones in this radius,
+    # so an event straddling the edge of the map is not cut in half.
+    events = find_mass_strandings(repository.find_stranding_reports(session))
 
     return [
         MapPin(
@@ -145,17 +224,23 @@ def list_incidents(
             animal_group=row.animal_group,
             headline=row.report_headline,
             entanglement=row.entanglement_present,
+            in_mass_stranding=row.incident_id in events,
             created_at=row.created_at,
             assigned_responder_id=row.assigned_responder_id,
+            photo_url=next(
+                (
+                    _photo_url(row.incident_id, photo.photo_id)
+                    for photo in _ordered_photos(row)
+                ),
+                None,
+            ),
         )
         for row in rows
     ]
 
 
 @router.get("/{incident_id}", response_model=IncidentDetail)
-def get_incident(
-    incident_id: str, session: Session = Depends(get_session)
-) -> IncidentDetail:
+def get_incident(incident_id: str, session: Session = Depends(get_session)) -> IncidentDetail:
     """Full detail for one incident."""
     row = session.get(IncidentRow, incident_id)
     if row is None:
@@ -169,6 +254,10 @@ def get_incident(
     # itself asked for human eyes.
     requires_review = bool(assessment.get("requires_human_review"))
     if guardrail and not (guardrail.get("is_grounded") and guardrail.get("is_safe")):
+        requires_review = True
+    # Or if a model failure was not recovered from: a fail-safe result was
+    # used, or intake is stalled waiting for the reporter to try again.
+    if pipeline_health.needs_review(metrics):
         requires_review = True
 
     return IncidentDetail(
@@ -184,15 +273,25 @@ def get_incident(
         taxon_rank=row.taxon_rank,
         species_candidates=_species_breakdown(row.identification_json),
         animal_group=row.animal_group,
+        photos=[
+            PhotoRef(
+                photo_id=photo.photo_id,
+                url=_photo_url(row.incident_id, photo.photo_id),
+                content_type=photo.content_type,
+                uploaded_at=photo.uploaded_at,
+            )
+            for photo in _ordered_photos(row)
+        ],
         severity_level=row.severity_level,
         severity_score=row.severity_score,
         severity_reasons=metrics.get("severity_reasons", []),
-        report=(
-            IncidentReport.model_validate(row.report_json) if row.report_json else None
+        animal_count=repository.animal_count(assessment),
+        mass_stranding=find_mass_strandings(repository.find_stranding_reports(session)).get(
+            row.incident_id
         ),
+        report=(IncidentReport.model_validate(row.report_json) if row.report_json else None),
         dispatch_candidates=[
-            DispatchCandidate.model_validate(c)
-            for c in (row.dispatch_candidates_json or [])
+            DispatchCandidate.model_validate(c) for c in (row.dispatch_candidates_json or [])
         ],
         transcript=[
             {
@@ -206,9 +305,14 @@ def get_incident(
         environment=row.environment_json,
         reporter_phone=row.reporter_phone,
         duplicate_of=row.duplicate_of,
+        possible_duplicate=_possible_duplicate(row, metrics),
         assigned_responder_id=row.assigned_responder_id,
         requires_human_review=requires_review,
         guardrail=guardrail,
+        conflicts=metrics.get("validation_conflicts", []),
+        conflicts_raised=metrics.get("validation_conflicts_raised", []),
+        validation_notes=metrics.get("validation_notes"),
+        health=metrics.get(pipeline_health.HEALTH_KEY),
     )
 
 
@@ -225,10 +329,13 @@ def update_status(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
+    before = incident_state(row)
     row.status = body.status.value
     row.updated_at = datetime.now()
     if body.responder_id:
         row.assigned_responder_id = body.responder_id
+
+    record_incident_change(session, row, before, body.responder_id)
 
     session.commit()
     return {"incident_id": incident_id, "status": row.status}
@@ -248,28 +355,157 @@ def log_incident(
     if row is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
 
-    session.add(
-        IncidentLogRow(
-            incident_id=incident_id,
-            responder_id=body.responder_id,
-            confirmed_species=body.confirmed_species,
-            confirmed_animal_group=(
-                body.confirmed_animal_group.value if body.confirmed_animal_group else None
-            ),
-            outcome=body.outcome,
-            actions_taken=body.actions_taken,
-            notes=body.notes,
-            report_was_accurate=body.report_was_accurate,
-            arrival_time=body.arrival_time,
-            departure_time=body.departure_time,
-        )
+    before = incident_state(row)
+    log = IncidentLogRow(
+        incident_id=incident_id,
+        responder_id=body.responder_id,
+        confirmed_species=body.confirmed_species,
+        confirmed_animal_group=(
+            body.confirmed_animal_group.value if body.confirmed_animal_group else None
+        ),
+        outcome=body.outcome,
+        actions_taken=body.actions_taken,
+        notes=body.notes,
+        report_was_accurate=body.report_was_accurate,
+        arrival_time=body.arrival_time,
+        departure_time=body.departure_time,
+    )
+    session.add(log)
+    session.flush()
+    record_event(
+        session,
+        incident_id,
+        "outcome_logged",
+        {
+            "log_id": log.id,
+            "outcome": log.outcome,
+        },
+        body.responder_id,
     )
 
     row.status = IncidentStatus.RESOLVED.value
     row.updated_at = datetime.now()
+    record_incident_change(session, row, before, body.responder_id)
     session.commit()
 
     return {"incident_id": incident_id, "status": row.status, "logged": True}
+
+
+def _ordered_photos(row: IncidentRow) -> list:
+    """This incident's photos, oldest first, so ordering is stable."""
+    return sorted(row.photos, key=lambda photo: photo.uploaded_at)
+
+
+def _photo_url(incident_id: str, photo_id: str) -> str:
+    return f"/incidents/{incident_id}/photos/{photo_id}"
+
+
+@router.get("/{incident_id}/photos/{photo_id}")
+def get_photo(
+    incident_id: str, photo_id: str, session: Session = Depends(get_session)
+) -> FileResponse:
+    """The image bytes the reporter sent.
+
+    Served from disk rather than the database (see `PhotoRow`: a stranding
+    photo can identify the person who took it, and must stay independently
+    deletable). The incident id is part of the path so a photo cannot be
+    fetched without knowing which incident it belongs to.
+
+    NOTE: unauthenticated, like every other endpoint here. That is fine for a
+    prototype on localhost and is not fine in deployment -- see the README's
+    "Where to pick up" on responder authentication.
+    """
+    incident = session.get(IncidentRow, incident_id)
+    photo = (
+        next((p for p in incident.photos if p.photo_id == photo_id), None)
+        if incident
+        else None
+    )
+    if photo is None:
+        raise HTTPException(
+            status_code=404, detail=f"No photo {photo_id} on incident {incident_id}"
+        )
+
+    path = Path(photo.storage_path)
+    if not path.is_file():
+        # The row outliving the file is normal after `make clean`, and a
+        # coordinator needs to know the photo is gone rather than see a
+        # broken image with no explanation.
+        raise HTTPException(
+            status_code=410, detail=f"Photo {photo_id} is no longer stored on this server"
+        )
+
+    return FileResponse(path, media_type=photo.content_type or "image/jpeg")
+
+
+class RouteResponse(BaseModel):
+    """A driving route for the console to draw."""
+
+    #: [[longitude, latitude], ...], GeoJSON order, ready for MapLibre.
+    coordinates: list[list[float]] = Field(default_factory=list)
+    distance_km: float | None = None
+    duration_minutes: float | None = None
+    #: "openrouteservice" or "straight_line" -- the console says which, so a
+    #: straight line is never mistaken for a drive.
+    source: str = "straight_line"
+    from_name: str | None = None
+
+
+@router.get("/{incident_id}/route", response_model=RouteResponse)
+def get_route(
+    incident_id: str,
+    responder_id: str = Query(description="Rescue centre the route starts from"),
+    session: Session = Depends(get_session),
+) -> RouteResponse:
+    """Driving route from a rescue centre to this incident.
+
+    Proxied through this API so the OpenRouteService key stays server-side.
+    Falls back to a straight line when no key is configured, flagged as such
+    in `source`.
+    """
+    incident = session.get(IncidentRow, incident_id)
+    if incident is None:
+        raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
+    if incident.latitude is None or incident.longitude is None:
+        raise HTTPException(status_code=409, detail="Incident has no location yet")
+
+    responder = session.get(ResponderRow, responder_id)
+    if responder is None:
+        raise HTTPException(status_code=404, detail=f"Unknown responder: {responder_id}")
+
+    # Prefer a live position over the registered base, matching the ETA
+    # endpoint: a team already on the road is not starting from the office.
+    start_latitude = responder.last_latitude or responder.latitude
+    start_longitude = responder.last_longitude or responder.longitude
+    if start_latitude is None or start_longitude is None:
+        raise HTTPException(status_code=409, detail=f"{responder.name} has no known location")
+
+    route = driving_route(
+        start_latitude, start_longitude, incident.latitude, incident.longitude
+    )
+    return RouteResponse(
+        coordinates=route.coordinates,
+        distance_km=route.distance_km,
+        duration_minutes=route.duration_minutes,
+        source=route.source,
+        from_name=responder.name,
+    )
+
+
+def _possible_duplicate(row: IncidentRow, metrics: dict) -> dict | None:
+    """The recorded match, if it is one a coordinator should look at.
+
+    Nothing for an incident that was linked (the link says it already), and
+    nothing for a weak match. See `duplicates.is_possible_duplicate`.
+    """
+    raw = metrics.get("duplicate_match")
+    if row.duplicate_of is not None or not raw:
+        return None
+    try:
+        match = DuplicateMatch.model_validate(raw)
+    except ValueError:
+        return None
+    return raw if is_possible_duplicate(match) else None
 
 
 def _species_breakdown(identification_json: dict | None) -> list[dict]:

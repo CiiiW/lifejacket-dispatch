@@ -124,9 +124,16 @@ class WeatherConditions(BaseModel):
     wind_speed_mph: float | None = None
     wind_gust_mph: float | None = None
     precipitation_probability: float | None = Field(default=None, ge=0, le=1)
+    #: How much is falling right now, in millimetres for the current hour.
+    #: Distinct from the probability above: a 90% chance of 0.1 mm drizzle and
+    #: a 40% chance of 15 mm of rain are different problems for a beach rescue.
+    precipitation_mm: float | None = Field(default=None, ge=0)
     visibility_miles: float | None = None
     condition: str | None = None  # free text, e.g. "fog", "light rain"
-    sunset_local: datetime | None = None  # responders need daylight
+    #: Both ends of the day, so "is it dark now" can be answered rather than
+    #: only "when does the sun set". Daylight decides whether a team can work.
+    sunrise_local: datetime | None = None
+    sunset_local: datetime | None = None
     retrieved_at: datetime | None = None
 
 
@@ -347,6 +354,13 @@ class AssessmentResult(BaseModel):
     """Output of Agent 2 (assessment): what is wrong and what should happen."""
 
     animal_group: AnimalGroup = AnimalGroup.UNKNOWN
+    #: How many animals of this kind are in trouble here, from the photos and
+    #: what the reporter said. 1 unless there is evidence of more. Healthy
+    #: animals nearby (a seal colony) do not count. When above 1, the injury
+    #: flags describe the animal in the worst visible condition. This is the
+    #: input to `dispatch.mass_stranding`, and what entitles the report to
+    #: say "three dolphins".
+    animal_count: int = Field(default=1, ge=1)
     injury: InjuryAssessment = Field(default_factory=InjuryAssessment)
     hazards: SituationHazards = Field(default_factory=SituationHazards)
 
@@ -440,6 +454,26 @@ class DuplicateMatch(BaseModel):
     reason: str = ""
 
 
+class MassStranding(BaseModel):
+    """Several animals stranded at one place and time, across one or more reports.
+
+    Worked out by `lifejacket.dispatch.mass_stranding` from the incidents that
+    are open right now. It is never stored: a new report changes the answer for
+    every incident in the event, so it is computed whenever it is asked for.
+    """
+
+    #: A lower bound. Reporters photograph overlapping sets of animals, so
+    #: reports of the same incident are not added together.
+    animal_count: int = Field(ge=2)
+    animal_group: AnimalGroup
+    #: The separate incidents that make up the event, oldest first. Linked
+    #: duplicates are not listed; they count towards `report_count`.
+    incident_ids: list[str] = Field(default_factory=list)
+    #: Every report behind the event, linked duplicates included.
+    report_count: int = Field(ge=1)
+    reason: str = ""
+
+
 # ---------------------------------------------------------------------------
 # Conversation
 # ---------------------------------------------------------------------------
@@ -496,6 +530,8 @@ class ConversationStage(str, Enum):
     SELECTING_ANIMAL = "selecting_animal"
     IDENTIFYING = "identifying"
     ASSESSING = "assessing"
+    #: Checking the record against the photo and the conditions.
+    VALIDATING = "validating"
     COMPLETE = "complete"
 
 

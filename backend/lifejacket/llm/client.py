@@ -9,7 +9,9 @@ prototypes lacked:
    brace-slicing failure mode disappears.
 2. **Retries.** Network blips and occasional schema violations are retried with
    exponential backoff. The prototype had none, so one bad reply ended the
-   conversation.
+   conversation. When every attempt fails, the error says *which kind* of
+   failure it was (`LLMCallError` vs. `LLMResponseError`) and how many attempts
+   were made, so `services/health.py` can record it on the incident.
 3. **Telemetry.** Token counts and latency are recorded per call, which is how
    we answer "what does one incident cost?".
 
@@ -62,7 +64,38 @@ class ImageInput:
 
 
 class LLMError(RuntimeError):
-    """Raised when the model could not be reached or produced unusable output."""
+    """Raised when the model could not be reached or produced unusable output.
+
+    Catch this base class to handle any model failure. The two subclasses say
+    which kind it was, for diagnosis:
+
+    - `LLMCallError`: the call itself failed (network, quota, auth, API error).
+    - `LLMResponseError`: the model answered, but with nothing we can use
+      (empty reply, invalid JSON, or JSON that is not an object).
+
+    Attributes:
+        kind: "call_failed" or "bad_response". A plain string so it can be
+            stored in an incident's `metrics` without importing this module.
+        attempts: How many attempts were made before giving up.
+    """
+
+    kind: str = "call_failed"
+
+    def __init__(self, message: str, *, attempts: int = 1) -> None:
+        super().__init__(message)
+        self.attempts = attempts
+
+
+class LLMCallError(LLMError):
+    """The request never produced a reply: network, quota, auth, or API error."""
+
+    kind = "call_failed"
+
+
+class LLMResponseError(LLMError):
+    """The model replied, but the reply was empty or not a JSON object."""
+
+    kind = "bad_response"
 
 
 @dataclass
@@ -91,7 +124,7 @@ class LLMClient:
             try:
                 from google import genai
             except ImportError as exc:  # pragma: no cover
-                raise LLMError(
+                raise LLMCallError(
                     "google-genai is not installed. "
                     "Run: pip install -r backend/requirements.txt"
                 ) from exc
@@ -126,7 +159,9 @@ class LLMClient:
             An `LLMResponse` whose `.data` is the parsed object.
 
         Raises:
-            LLMError: After `max_retries` failed attempts.
+            LLMCallError: The call itself kept failing for `max_retries` attempts.
+            LLMResponseError: The last attempt got a reply we could not use.
+            Both are `LLMError`, which is what most callers should catch.
         """
         client = self._ensure_client()
         contents = self._build_contents(prompt, images or [])
@@ -155,11 +190,13 @@ class LLMClient:
                 )
                 text = (response.text or "").strip()
                 if not text:
-                    raise LLMError("Model returned an empty response")
+                    raise LLMResponseError("Model returned an empty response")
 
                 data = json.loads(text)
                 if not isinstance(data, dict):
-                    raise LLMError(f"Expected a JSON object, got {type(data).__name__}")
+                    raise LLMResponseError(
+                        f"Expected a JSON object, got {type(data).__name__}"
+                    )
 
                 prompt_tokens, output_tokens = _read_usage(response)
                 return LLMResponse(
@@ -174,8 +211,8 @@ class LLMClient:
 
             except Exception as exc:  # noqa: BLE001 - deliberately broad
                 # Transport errors, quota errors, and malformed JSON all get the
-                # same treatment: wait and try again. Distinguishing them adds
-                # branching without changing what we would do about it.
+                # same treatment while retrying: wait and try again. They are
+                # only told apart once we give up (below), for diagnosis.
                 last_error = exc
                 logger.warning(
                     "LLM call failed (attempt %d/%d): %s", attempt, self.max_retries, exc
@@ -185,8 +222,22 @@ class LLMClient:
                     # sessions do not retry in lockstep.
                     time.sleep((2 ** (attempt - 1)) + random.uniform(0, 0.5))
 
-        raise LLMError(
-            f"LLM call failed after {self.max_retries} attempts: {last_error}"
+        # Classified by the LAST failure: that is the one still standing after
+        # the retries, and so the one worth diagnosing.
+        error_type = (
+            LLMResponseError
+            if isinstance(last_error, (LLMResponseError, json.JSONDecodeError))
+            else LLMCallError
+        )
+        logger.error(
+            "LLM call gave up after %d attempts (%s): %s",
+            self.max_retries,
+            error_type.kind,
+            last_error,
+        )
+        raise error_type(
+            f"LLM call failed after {self.max_retries} attempts: {last_error}",
+            attempts=self.max_retries,
         ) from last_error
 
     @staticmethod

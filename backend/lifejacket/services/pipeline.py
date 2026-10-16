@@ -19,6 +19,18 @@ The pipeline is **step-driven, not a loop.** Each call to `advance` performs
 at most one reporter-facing step and returns, because every reporter answer
 arrives as a separate HTTP request. State lives in `ConversationState`.
 
+**When a model call fails** (after `LLMClient`'s own retries), the pipeline
+does not raise. What it does instead depends on the step:
+
+- Identification or assessment: the reporter is asked to try again; nothing
+  they have said is lost, and the next request re-runs the same step.
+- Report: the incident still goes to coordinators, with the assessment
+  findings but no written report, held for human review.
+- Guardrail: the report is held for human review, as if the check had failed.
+
+Every retry, failure, and fail-safe is recorded on the incident by
+`services/health.py`, so a coordinator can see that it happened.
+
 Two constructor options exist mainly for the notebooks:
 
 - `session=None` runs fully in memory: nothing is saved, and duplicate
@@ -32,15 +44,17 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
+from typing import Any
 
 from sqlalchemy.orm import Session
 
 from lifejacket.agents.assessment import AssessmentAgent
-from lifejacket.agents.base import AgentError
+from lifejacket.agents.base import Agent, AgentError
 from lifejacket.agents.detection import DetectionAgent, crop_to_detection
 from lifejacket.agents.guardrail import GuardrailAgent, GuardrailVerdict
 from lifejacket.agents.identification import IdentificationAgent
 from lifejacket.agents.report import ReportAgent
+from lifejacket.agents.validation import ValidationAgent, ValidationResult
 from lifejacket.chatbot.session import (
     ConversationState,
     Decision,
@@ -66,9 +80,19 @@ from lifejacket.models.schemas import (
     IncidentStatus,
     SeverityLevel,
 )
+from lifejacket.services import health
 from lifejacket.taxonomy import describe_resolution
 
 logger = logging.getLogger(__name__)
+
+#: Shown to the reporter when identification or assessment could not run.
+#: Promises nothing about a response, and repeats the one instruction that
+#: matters while they wait.
+SERVICE_RETRY_MESSAGE = (
+    "Sorry, we could not process that just now. Everything you have sent so far "
+    "is saved. Please try again in a moment, and keep your distance from the "
+    "animal while you wait."
+)
 
 
 @dataclass
@@ -110,6 +134,7 @@ class IntakePipeline:
         self.detection_agent = DetectionAgent(client)
         self.identification_agent = IdentificationAgent(client)
         self.assessment_agent = AssessmentAgent(client)
+        self.validation_agent = ValidationAgent(client)
         self.report_agent = ReportAgent(client)
         self.guardrail_agent = GuardrailAgent(client)
 
@@ -238,13 +263,23 @@ class IntakePipeline:
                 return self._ask_which_animal(state, decision)
 
             case StepAction.RUN_IDENTIFICATION:
-                self._run_identification(
-                    incident, state, self._images_of_chosen_animal(state, images)
-                )
+                try:
+                    self._run_identification(
+                        incident, state, self._images_of_chosen_animal(state, images)
+                    )
+                except AgentError as exc:
+                    return self._ask_reporter_to_retry(incident, exc)
                 return self.advance(incident, state, images)
 
             case StepAction.RUN_ASSESSMENT:
-                self._run_assessment(incident, state, images)
+                try:
+                    self._run_assessment(incident, state, images)
+                except AgentError as exc:
+                    return self._ask_reporter_to_retry(incident, exc)
+                return self.advance(incident, state, images)
+
+            case StepAction.RUN_VALIDATION:
+                self._run_validation(incident, state, images)
                 return self.advance(incident, state, images)
 
             case StepAction.ASK_CLARIFYING_QUESTION:
@@ -263,6 +298,61 @@ class IntakePipeline:
 
     # -- Steps --------------------------------------------------------------
 
+    def _call_agent(self, agent: Agent, incident: Incident, **kwargs: Any) -> Any:
+        """Run one agent and record how the call went on the incident.
+
+        Every model call the pipeline makes goes through here, so the health
+        record cannot miss one. Latency, tokens, and attempts land in
+        `incident.metrics` whether the call succeeded or not.
+
+        Raises:
+            AgentError: Re-raised after being recorded; the caller decides
+                what the fail-safe for its step is.
+        """
+        try:
+            result = agent.run(**kwargs)
+        except AgentError as exc:
+            incident.metrics.update(agent.last_metrics)
+            health.record_failure(
+                incident.metrics,
+                agent=agent.name,
+                kind=exc.kind,
+                attempts=exc.attempts,
+                detail=str(exc),
+            )
+            raise
+
+        incident.metrics.update(agent.last_metrics)
+        health.record_success(
+            incident.metrics, attempts=agent.last_metrics.get(f"{agent.name}_attempts") or 1
+        )
+        return result
+
+    def _ask_reporter_to_retry(self, incident: Incident, error: AgentError) -> TurnResult:
+        """Fail-safe for identification and assessment: ask the reporter to try again.
+
+        Nothing is lost: the conversation state is unchanged, so the next
+        request (a tap on "Try again", or any new message) re-runs the same
+        step. The incident stays open on the responder console, flagged for
+        review, so a stalled intake is visible to a coordinator.
+        """
+        health.set_awaiting_retry(incident.metrics, True)
+        logger.error(
+            "Incident %s: %s agent failed (%s, %d attempt(s)); reporter asked to retry. %s",
+            incident.incident_id,
+            error.agent,
+            error.kind,
+            error.attempts,
+            health.summary(incident.metrics),
+        )
+        self._save(incident)
+        return TurnResult(
+            message=SERVICE_RETRY_MESSAGE,
+            awaiting_reply=True,
+            action=StepAction.SERVICE_RETRY,
+            reason=f"{error.agent} agent unavailable ({error.kind}).",
+        )
+
     def _ask_clarifying_question(
         self, state: ConversationState, decision: Decision
     ) -> TurnResult:
@@ -270,11 +360,14 @@ class IntakePipeline:
         question = decision.question
         assert question is not None
 
-        # Assessment only runs after identification is settled, so whether it
-        # has started tells us whose budget this question spends.
+        # Each stage runs only once the previous has settled, so how far the
+        # conversation has got tells us whose budget this question spends.
         if state.assessment is None:
             state.identification_questions_asked += 1
             agent_name = "identification"
+        elif state.stage is ConversationStage.VALIDATING:
+            state.validation_questions_asked += 1
+            agent_name = "validation"
         else:
             state.assessment_questions_asked += 1
             agent_name = "assessment"
@@ -367,7 +460,9 @@ class IntakePipeline:
         state.stage = ConversationStage.IDENTIFYING
         incident.status = IncidentStatus.IDENTIFYING
 
-        result = self.identification_agent.run(
+        result = self._call_agent(
+            self.identification_agent,
+            incident,
             images=images,
             location_summary=self._environment_summary(incident),
             transcript=state.transcript,
@@ -384,7 +479,6 @@ class IntakePipeline:
         state.identification = result
         state.identification_stale = False
         incident.identification = result
-        incident.metrics.update(self.identification_agent.last_metrics)
 
         # Record why identification stopped, if it has. This is the number the
         # evaluation notebook compares against what the responder found.
@@ -406,7 +500,9 @@ class IntakePipeline:
         state.stage = ConversationStage.ASSESSING
         incident.status = IncidentStatus.ASSESSING
 
-        result = self.assessment_agent.run(
+        result = self._call_agent(
+            self.assessment_agent,
+            incident,
             images=images,
             identification=state.identification,
             context=incident.environment,
@@ -445,10 +541,80 @@ class IntakePipeline:
         state.assessment = result
         state.assessment_stale = False
         incident.assessment = result
-        incident.metrics.update(self.assessment_agent.last_metrics)
         incident.metrics["severity_reasons"] = severity.reasons
         incident.metrics["severity_triggered_rules"] = severity.triggered_rules
         incident.metrics["severity_contributions"] = severity.contributions
+        # The record just changed, so whatever the checker concluded about the
+        # previous version no longer applies.
+        state.validation_stale = True
+        self._save(incident)
+
+    def _run_validation(
+        self,
+        incident: Incident,
+        state: ConversationState,
+        images: list[ImageInput] | None,
+    ) -> None:
+        """Check the record against the photo and the conditions.
+
+        Runs once identification and assessment have both settled. Failure is
+        **not** fatal: a check that cannot run leaves the record as it was and
+        notes the gap, because a broken consistency check must not block a
+        real emergency. Same reasoning as the guardrail agent.
+        """
+        state.stage = ConversationStage.VALIDATING
+
+        try:
+            result = self.validation_agent.run(
+                images=images,
+                identification=state.identification,
+                assessment=state.assessment,
+                environment_summary=self._environment_summary(incident),
+                identification_summary=(
+                    describe_resolution(state.identification.resolution)
+                    if state.identification and state.identification.resolution
+                    else "Not recorded."
+                ),
+                photo_count=len(state.photo_ids) or 1,
+                transcript=state.transcript,
+            )
+        except Exception:
+            logger.exception(
+                "Consistency check failed for %s; continuing unchecked",
+                incident.incident_id,
+            )
+            result = ValidationResult(
+                notes="Consistency check could not run; record not verified."
+            )
+
+        state.validation = result
+        state.validation_stale = False
+        incident.metrics.update(self.validation_agent.last_metrics)
+
+        current = [c.model_dump(mode="json") for c in result.conflicts]
+        #: What is still wrong as of the latest check -- what a coordinator
+        #: has to look at.
+        incident.metrics["validation_conflicts"] = current
+        #: Everything ever flagged, including conflicts since resolved by
+        #: asking the reporter. Kept because "the photo seemed to contradict
+        #: the record and the reporter confirmed a wound" is worth knowing
+        #: later, and the final check only reports what is left.
+        raised = list(incident.metrics.get("validation_conflicts_raised") or [])
+        seen = {(c.get("field"), c.get("recorded")) for c in raised}
+        raised.extend(
+            c for c in current if (c.get("field"), c.get("recorded")) not in seen
+        )
+        incident.metrics["validation_conflicts_raised"] = raised
+
+        incident.metrics["validation_notes"] = result.notes
+        incident.metrics["validation_questions_asked"] = state.validation_questions_asked
+
+        # A conflict the reporter cannot settle still belongs in front of a
+        # human. Unresolved contradictions are exactly what coordinator review
+        # exists for.
+        if result.blocking_conflicts and incident.assessment is not None:
+            incident.assessment.requires_human_review = True
+
         self._save(incident)
 
     def _finalise(self, incident: Incident, state: ConversationState) -> None:
@@ -458,30 +624,47 @@ class IntakePipeline:
         environment_summary = self._environment_summary(incident)
 
         # --- 1. Write the report ---
-        report = self.report_agent.run(
-            identification=incident.identification,
-            assessment=incident.assessment,
-            context=incident.environment,
-            environment_summary=environment_summary,
-            transcript=state.transcript,
-            severity_reasons=incident.metrics.get("severity_reasons", []),
-        )
+        report: IncidentReport | None
+        try:
+            report = self._call_agent(
+                self.report_agent,
+                incident,
+                identification=incident.identification,
+                assessment=incident.assessment,
+                context=incident.environment,
+                environment_summary=environment_summary,
+                transcript=state.transcript,
+                severity_reasons=incident.metrics.get("severity_reasons", []),
+            )
+        except AgentError as exc:
+            # Fail-safe: no written report, but the incident still reaches a
+            # coordinator with the assessment findings, severity, and the
+            # transcript. Losing the prose must not lose the emergency.
+            report = None
+            health.record_fallback(incident.metrics, health.FALLBACK_REPORT_UNAVAILABLE)
+            incident.assessment.requires_human_review = True
+            logger.error(
+                "Incident %s: report could not be written (%s); sending to "
+                "coordinators without one, held for review.",
+                incident.incident_id,
+                exc.kind,
+            )
         incident.report = report
-        incident.metrics.update(self.report_agent.last_metrics)
 
         # --- 2. Check it before anyone sees it ---
-        verdict = self.review_report(incident, report, environment_summary)
-        incident.metrics["guardrail"] = verdict.model_dump(mode="json")
-        if not verdict.approved:
-            # Held, not discarded: a guardrail false positive must not bury a
-            # real emergency. A coordinator reads it alongside the findings.
-            incident.assessment.requires_human_review = True
-            logger.warning(
-                "Incident %s held for review: grounded=%s safe=%s",
-                incident.incident_id,
-                verdict.is_grounded,
-                verdict.is_safe,
-            )
+        if report is not None:
+            verdict = self.review_report(incident, report, environment_summary)
+            incident.metrics["guardrail"] = verdict.model_dump(mode="json")
+            if not verdict.approved:
+                # Held, not discarded: a guardrail false positive must not bury
+                # a real emergency. A coordinator reads it alongside the findings.
+                incident.assessment.requires_human_review = True
+                logger.warning(
+                    "Incident %s held for review: grounded=%s safe=%s",
+                    incident.incident_id,
+                    verdict.is_grounded,
+                    verdict.is_safe,
+                )
 
         # --- 3. Duplicate detection (needs the database) ---
         if self.session is not None and incident.location:
@@ -515,6 +698,7 @@ class IntakePipeline:
                 else IncidentStatus.AWAITING_DISPATCH
             )
 
+        health.log_summary(incident.incident_id, incident.metrics)
         self._save(incident)
         if self.session is not None:
             repository.save_messages(self.session, incident.incident_id, state.transcript)
@@ -528,10 +712,15 @@ class IntakePipeline:
 
         An exception here must not block a real emergency, so a failed check is
         recorded as "not verified" and the incident is held for a human -- the
-        same outcome as a check that found problems.
+        same outcome as a check that found problems. The verdict is marked
+        `check_failed` and the incident's health record notes the fail-safe, so
+        "the check found a problem" and "the check could not run" stay
+        distinguishable (which matters when measuring guardrail false positives).
         """
         try:
-            return self.guardrail_agent.run(
+            return self._call_agent(
+                self.guardrail_agent,
+                incident,
                 report=report,
                 assessment=incident.assessment,
                 environment_summary=environment_summary,
@@ -544,9 +733,21 @@ class IntakePipeline:
             )
         except Exception as exc:  # noqa: BLE001
             logger.error("Guardrail check failed for %s: %s", incident.incident_id, exc)
+            if not isinstance(exc, AgentError):
+                # `_call_agent` records model failures; this is anything else
+                # (a prompt that would not render, say). Record it too.
+                health.record_failure(
+                    incident.metrics,
+                    agent=self.guardrail_agent.name,
+                    kind="internal_error",
+                    attempts=1,
+                    detail=str(exc),
+                )
+            health.record_fallback(incident.metrics, health.FALLBACK_GUARDRAIL_CHECK_FAILED)
             return GuardrailVerdict(
                 is_grounded=False,
                 is_safe=False,
+                check_failed=True,
                 notes=f"Guardrail check could not be completed: {exc}",
             )
 
@@ -601,22 +802,32 @@ class IntakePipeline:
             lines.append("What you can do now:")
             lines.extend(f"• {step}" for step in assessment.reporter_instructions)
 
-        if incident.status is IncidentStatus.GUIDANCE_ONLY:
-            lines.append(
-                "Based on what you have described, this animal does not appear to "
-                "need rescue. Please keep your distance and let it be."
-            )
-        elif incident.duplicate_of:
-            lines.append(
-                "Someone has already reported this animal, so a team is aware of it. "
-                "Thank you for checking."
-            )
-        else:
-            lines.append(
-                "Your report has been sent to the rescue coordinators for this area. "
-                "You can follow its progress on the map."
-            )
+        lines.append(reporter_closing_note(incident))
         return "\n".join(lines)
+
+
+def reporter_closing_note(incident: Incident) -> str:
+    """How the report ends, as one sentence.
+
+    Split out of the closing paragraph so a client can render it on its own
+    rather than as the tail of a wall of text. Never promises a response or an
+    arrival time: no coordinator has approved anything yet, and an unmet
+    promise is worse than none.
+    """
+    if incident.status is IncidentStatus.GUIDANCE_ONLY:
+        return (
+            "Based on what you have described, this animal does not appear to "
+            "need rescue. Please keep your distance and let it be."
+        )
+    if incident.duplicate_of:
+        return (
+            "Someone has already reported this animal, so a team is aware of it. "
+            "Thank you for checking."
+        )
+    return (
+        "Your report has been sent to the rescue coordinators for this area. "
+        "You can follow its progress on the map."
+    )
 
 
 def _turn(decision: Decision, message: str) -> TurnResult:

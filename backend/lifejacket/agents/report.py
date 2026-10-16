@@ -81,6 +81,7 @@ class ReportAgent(Agent[IncidentReport]):
             "species_confidence": f"{identification.confidence:.2f}",
             "identification_summary": describe_resolution(resolution),
             "animal_group": identification.animal_group.value,
+            "animal_count": _format_count(assessment.animal_count),
             "place_name": (
                 context.location.place_name if context and context.location else None
             )
@@ -112,6 +113,13 @@ class ReportAgent(Agent[IncidentReport]):
                 else "yes -- a trained volunteer may attend"
             ),
         }
+
+
+def _format_count(count: int) -> str:
+    """The count, with what it does and does not license the writer to say."""
+    if count <= 1:
+        return "1 (do not state or imply there are others)"
+    return f"{count} (reported or visible; the condition flags describe the worst-off one)"
 
 
 def _format_flags(assessment: AssessmentResult) -> str:

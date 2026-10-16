@@ -15,6 +15,11 @@ What it is for:
 What it is NOT for: judging answer quality. The replies are written by hand.
 Use the real client (`LLMClient()`) for that.
 
+Failures can be scripted too, to test what the pipeline does when the model is
+down. Queue an exception instead of a reply and it is raised on that call:
+
+    client.queue("identification", LLMCallError("Vertex unavailable", attempts=3))
+
 Three built-in scenarios cover the three ways identification can stop:
 
     ScriptedLLMClient.scenario("sea_lion")  # confident species, zero questions
@@ -53,7 +58,7 @@ class ScriptedLLMClient:
     question more than the script anticipated.
     """
 
-    script: dict[str, list[dict[str, Any]]] = field(default_factory=dict)
+    script: dict[str, list[dict[str, Any] | Exception]] = field(default_factory=dict)
     model: str = "scripted-offline"
     max_retries: int = 1
     #: Every request received, so a notebook can print the rendered prompts.
@@ -62,8 +67,14 @@ class ScriptedLLMClient:
         default_factory=lambda: defaultdict(int), init=False, repr=False
     )
 
-    def queue(self, agent: str, *responses: dict[str, Any]) -> ScriptedLLMClient:
-        """Append replies for an agent: identification, assessment, report, guardrail."""
+    def queue(
+        self, agent: str, *responses: dict[str, Any] | Exception
+    ) -> ScriptedLLMClient:
+        """Append replies for an agent: identification, assessment, report, guardrail.
+
+        An exception in the queue is raised instead of returned, which is how
+        tests simulate the model being unavailable for one call.
+        """
         self.script.setdefault(agent, []).extend(responses)
         return self
 
@@ -97,7 +108,11 @@ class ScriptedLLMClient:
             index = len(replies) - 1
         self._served[agent] += 1
 
-        data = copy.deepcopy(replies[index])
+        reply = replies[index]
+        if isinstance(reply, Exception):
+            raise reply
+
+        data = copy.deepcopy(reply)
         return LLMResponse(
             data=data, raw_text=str(data), model=self.model, latency_seconds=0.0
         )
@@ -115,6 +130,8 @@ def agent_for_schema(schema: dict[str, Any]) -> str:
     properties = schema.get("properties", {})
     if "animals" in properties:
         return "detection"
+    if "coordination_action" in properties:
+        return "coordination"
     if "species_distinguishable" in properties:
         return "identification"
     if "injury_present" in properties:
@@ -123,6 +140,8 @@ def agent_for_schema(schema: dict[str, Any]) -> str:
         return "report"
     if "is_grounded" in properties:
         return "guardrail"
+    if "has_conflict" in properties:
+        return "validation"
     return "unknown"
 
 
@@ -220,6 +239,19 @@ _APPROVED = {
     "notes": "",
 }
 
+#: The consistency check finding nothing wrong. Every scenario gets this by
+#: default so existing tests describe the same conversations they always did;
+#: a scenario that wants a contradiction queues its own (see `conflict`).
+_CONSISTENT = {
+    "has_conflict": False,
+    "conflicts": [],
+    "next_question": "",
+    "next_question_rationale": "",
+    "next_question_options": [],
+    "next_question_feature": "",
+    "notes": "No conflicts found.",
+}
+
 _C_DOLPHIN = ("Common dolphin", "Delphinus delphis")
 _B_DOLPHIN = ("Bottlenose dolphin", "Tursiops truncatus")
 _PORPOISE = ("Harbour porpoise", "Phocoena phocoena")
@@ -292,6 +324,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 2. One question separates two look-alikes at species level. ---------
     "seal": {
@@ -345,6 +378,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 3. Species cannot be separated from a distance: settle at family. ---
     "dolphin": {
@@ -423,6 +457,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 4. Not a marine mammal at all: this system still identifies it
     # correctly (TERRESTRIAL), but the rescue directory is marine-only, so
@@ -483,5 +518,6 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
 }

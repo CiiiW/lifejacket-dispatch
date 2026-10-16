@@ -42,6 +42,9 @@ class GuardrailVerdict(BaseModel):
     #: Things a responder needs that the report omitted.
     missing_critical_content: list[str] = Field(default_factory=list)
     notes: str | None = None
+    #: True when the check itself could not run (model failure), as opposed to
+    #: running and finding a problem. Set by the pipeline, never by the model.
+    check_failed: bool = False
 
     @property
     def approved(self) -> bool:
@@ -131,6 +134,9 @@ def _render_source(
         [
             "IDENTIFICATION (authoritative, including species probabilities):",
             f"  {identification_summary}",
+            "",
+            "ANIMAL COUNT (authoritative):",
+            f"  animals in trouble: {assessment.animal_count}",
             "",
             "CONDITION FLAGS (authoritative):",
             f"  injury_present: {injury.injury_present}",

@@ -10,10 +10,13 @@ For the repository tour and design rationale, see [README.md](README.md).
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 120 tests. No API key or network needed |
+| `backend/tests/` | 203 tests. No API key or network needed |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
+| `clients/shared/theme.ts` | One design system (navy/seafoam), shared by both apps |
+| `scripts/seed_demo_incidents.py` | `make demo`: real incidents from `demo/` photos + CSV |
+| `demo/` | Demo photos and `incidents.csv`. See its README |
 | `prompts/` | Prompts as Markdown. `system_principles.md` ships with every call |
 | `config/scoring.json` | Severity weights, dispatch weights, species groups |
 | `data/` | Rescue centre directory, the legacy CSV schema, seed rows |
@@ -25,6 +28,26 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-13** Sharing a location is one button, then a map. Previously two
+  buttons ("Share my location" and "Pick the spot on a map instead"), which
+  made the reporter choose a mechanism before they had seen where the pin
+  would land. Now the button gets a fix and opens `LocationPicker` centred on
+  it with the pin already placed -- one glance and "Share location" for the
+  common case, drag or tap first if the animal is elsewhere. Whether the pin
+  moved decides `source`: `device_gps` if untouched, `map_pin` if placed, and
+  a moved pin drops the GPS accuracy figure because it no longer applies.
+- **2026-10-13** The closing advice is cards, not a paragraph. The agent's
+  final message was one block of prose containing a safety sentence, "What you
+  can do now:", four bullets and a sign-off -- which someone standing over a
+  hurt animal skims rather than acts on. Now rendered from the structured
+  fields: an amber safety card, each instruction as its own numbered card
+  tinted from a four-colour palette, then the closing note and the matched
+  teams. The prose `message` is suppressed on the final turn so it is not
+  duplicated. Required splitting `reporter_closing_note` out of
+  `_reporter_closing_message` in the pipeline and sending it as its own
+  `closing_note` field, since the sign-off is not in the assessment's
+  structured output. Step tints avoid red and amber deliberately: those mean
+  danger elsewhere in the app, and "keep dogs away" is not a hazard warning.
 - **2026-10-12** Added an animal-detection step before identification, for photos
   that hold more than one animal. `agents/detection.py` asks Gemini for a box
   and a short description per animal (`prompts/identification/detect_animals.md`);
@@ -39,6 +62,126 @@ For the repository tour and design rationale, see [README.md](README.md).
   runs (one run drew two boxes on empty sky; another boxed a seal's whole left
   two-thirds), so the boxes are fixed per conversation in `ConversationState`
   rather than re-detected each turn. Needs a larger check before trusting it.
+- **2026-10-05** Mass strandings are detected by counting, and the count is
+  derived on every request instead of stored. A new report changes the answer
+  for incidents filed earlier (the second reporter is often the one who sees
+  the other animals), so anything written at intake time would be stale by
+  the time a coordinator opened it. Counting rule: the largest `animal_count`
+  within one incident and its duplicates (same animals, several photos),
+  summed across separate incidents within 2 km and 24 h (the system already
+  judged those to be different animals). Cetaceans only, following NOAA's
+  definition, because several pinnipeds on one beach is normal. It is a flag
+  for the coordinator and changes neither severity nor dispatch ranking: a
+  stranded cetacean is already critical, and how many teams to send is a
+  human decision.
+- **2026-10-05** A duplicate may only cancel a report in the narrow case it
+  was built for: the same animal, reported again, while someone is already
+  handling it. Two rules follow. (1) Only an incident in an active status
+  (`awaiting_dispatch` through `on_scene`) can be a duplicate target. Before,
+  any incident within 1 km and 24 h counted, including resolved cases and
+  intakes nobody finished, so a re-stranded animal or a report made next to an
+  abandoned one was cancelled with no responder offered. (2) Reports that
+  disagree on the animal group are never cancelled. Distance and time alone
+  could clear the 0.70 threshold, so a dolphin 200 m from a seal an hour later
+  was cancelled as the seal. Those are now dispatched normally and flagged for
+  the coordinator as a possible duplicate. **This changes an earlier intent**:
+  the scorer treats a group mismatch as "a partial penalty, not a veto",
+  because reporters describe the same animal inconsistently. The score still
+  works that way. What changed is that the score alone no longer withholds a
+  response; the cost of the new rule is an occasional second look by a
+  coordinator, and the cost of the old one was an animal nobody was sent to.
+- **2026-10-05** A failed model call must never lose a report. After
+  `LLMClient`'s retries are exhausted, each pipeline step now has a fail-safe
+  instead of raising (which was a 500 for the reporter and nothing recorded):
+  identification/assessment ask the reporter to try again with nothing lost; a
+  failed report writer still sends the incident to coordinators, without the
+  prose, held for review; a failed guardrail check holds the report (this one
+  already existed). Every outcome ends with a human seeing the incident.
+- **2026-10-05** Pipeline health is recorded per incident, in
+  `incident.metrics["health"]` (`services/health.py`), not in a separate
+  table or service. It needs no migration, travels with the incident to the
+  console, and is the per-incident data any later trend monitoring would be
+  built from. Only *unrecovered* failures hold an incident for review; a retry
+  that succeeded is recorded and shown as a quiet note, because holding every
+  retried incident would train coordinators to ignore the banner.
+- **2026-10-03** Upgraded both clients from Expo SDK 52 to 57 (React Native
+  0.86, React 19.2, TypeScript 6). Forced rather than chosen: Expo Go only
+  ever supports the current SDK, so on an iPhone there was no way to run the
+  reporter app at all -- and a custom dev build needs either Xcode (not
+  installed here) or a paid Apple Developer account. `npx expo install --fix`
+  could not resolve incrementally; what worked was writing the SDK 57
+  versions into both `package.json` files and reinstalling from scratch.
+  Two fallout fixes: TypeScript 6 rejects MapLibre's side-effect CSS import
+  without a `declare module '*.css'`, and `make run` now binds `0.0.0.0`
+  because uvicorn's default `127.0.0.1` is unreachable from a phone.
+  Verified after upgrading: console renders with map, markers, and photos;
+  reporter app's iOS bundle builds; both typecheck.
+- **2026-10-03** The console can finally show the reporter's photo. It could
+  not before: the agents read the image bytes off the upload request, so
+  nothing ever read them back, and neither `IncidentDetail` nor any endpoint
+  exposed them. Added `photos` to the incident detail (beside the species and
+  severity derived *from* those photos, so evidence and conclusion arrive in
+  one response), `photo_url` to the map feed for list thumbnails, and
+  `GET /incidents/{id}/photos/{photo_id}` to serve the bytes. Bytes still
+  live on disk, not in the database -- the reason in `PhotoRow`'s docstring
+  still holds: a stranding photo can identify the reporter and must stay
+  independently deletable. The endpoint is unauthenticated like everything
+  else here, which is fine on localhost and is not fine deployed.
+- **2026-10-03** Web map is MapLibre GL (`TriageMap.web.tsx`), replacing the
+  placeholder. Tiles from MapTiler/Stadia when a key is set, keyless OSM
+  raster otherwise, with a badge saying which. Routes come from
+  OpenRouteService *through the backend* (`GET /incidents/{id}/route`) so the
+  routing key is never in the web bundle; with no key it returns a straight
+  line flagged `source: "straight_line"` and the map dashes it, because a
+  straight line must never read as a drive time. Native stays on
+  `react-native-maps`: MapLibre's RN binding needs a custom dev client and
+  would break Expo Go. `maplibre-gl` is pinned to v4 -- v6 uses
+  `import.meta`, which Metro cannot bundle -- and `babel.config.js` exists
+  only to enable the static-class-block transform MapLibre needs.
+- **2026-10-03** Rescue centres had no coordinates at all, so there was
+  nothing to plot: the 2026 directory lists coverage as prose ("Del Norte and
+  Humboldt Counties, California") and no addresses. `POST /responders/geocode`
+  forward-geocodes that prose through Nominatim, peeling it back to the first
+  county plus state when the whole string fails. 29 of 33 resolve. These are
+  **service-area centroids, not addresses** -- fine for seeing which stretch
+  of coast a centre covers, wrong for navigating to. Replace with real
+  addresses before anyone relies on the pins.
+- **2026-10-02** Added `scripts/seed_demo_incidents.py` (`make demo`) to build
+  demo incidents from `demo/` -- photos plus a CSV of coordinates, a
+  `condition` sentence, and the true species. It drives the real intake API
+  rather than inserting rows, so the demo shows real reports; the alternative
+  (writing incident rows directly) would have meant hand-faking report text,
+  which is the one thing a demo must not do. The CSV's `species` column is
+  ground truth, not an override -- the agent still identifies from the photo,
+  and the script prints an agent-vs-truth table. Two incidents get closed with
+  a responder log entry so the demo has both open and resolved states. The
+  script refuses to run if two rows are within the 1 km duplicate radius,
+  because the backend would mark the later ones `cancelled` and silently drop
+  them from the console (this happened while seeding by hand).
+- **2026-10-02** `GET /incidents` grew an `include_closed` flag, and the
+  console's triage panel a "Show closed" toggle. Logging an outcome resolves
+  an incident, and the list only ever returned open ones -- so closing an
+  incident made it vanish with no way to see it again. Cancelled duplicates
+  stay hidden either way: those are noise, not history.
+- **2026-10-02** Gave both clients a shared design system
+  (`clients/shared/theme.ts`): navy `#0B132B` ground, seafoam `#48CAE4`
+  accent, glass cards at 12px radius, one type scale. Screens import tokens
+  instead of hardcoding hex, and `severityColour` was re-tuned because the
+  old white-background values went muddy on navy. Also replaced the
+  console's three-state view switch with a tab bar (Triage / Incident / Log
+  outcome): previously the only route to the detail and log screens was
+  clicking a list row, so with an empty incident list two of the three
+  screens were unreachable.
+- **2026-10-02** Three things were blocking the clients from running at all,
+  all now fixed: (1) no `metro.config.js`, so Metro could not resolve
+  `clients/shared/*` from either app (the re-export in `src/lib/api.ts` did
+  not help -- it reaches outside the app directory too, which is the thing
+  Metro refuses); (2) `expo-asset` was missing from both apps'
+  dependencies; (3) `expo/tsconfig.base` sets `moduleResolution: node10`,
+  which current TypeScript errors on -- both tsconfigs now override it with
+  `bundler`. Node itself was not installed on this machine; `brew install
+  node` tries to build LLVM from source here (Homebrew reports the setup as
+  Tier 3), so install Node from nodejs.org or via nvm instead.
 - **2026-10-01** Fixed a real bug: identification could settle on a guess at
   0.30 confidence having asked 0 of its 5 questions, because
   `identification_stop_reason` (chatbot/session.py) accepted the agent's
@@ -184,6 +327,65 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Change Log
 
+### 2026-10-05 — Mass stranding detection
+
+- **`models/schemas.py`**: `AssessmentResult.animal_count` (default 1) and
+  `MassStranding`.
+- **Assessment agent and prompt**: record `animal_count`; healthy animals
+  nearby do not count; with several, flags describe the worst-off one; for a
+  cetacean, "are others stranded nearby" is listed as a question worth asking.
+- **Report and guardrail agents and prompts**: both are given the count. The
+  guardrail used to treat any stated number of animals as invented; it now
+  checks the number against the count.
+- **New `dispatch/mass_stranding.py`** and `mass_stranding` in
+  `config/scoring.json` (groups, minimum animals, distance, time).
+- **`models/repository.py`**: `find_stranding_reports`.
+- **API**: `animal_count` and `mass_stranding` on `GET /incidents/{id}`;
+  `in_mass_stranding` on each row of `GET /incidents`.
+- **Console**: "Possible mass stranding" banner on the incident, naming the
+  other incidents in the event; MASS STRANDING tag in the list.
+- **New `tests/test_mass_stranding.py`** (38 tests). 203 tests total.
+
+### 2026-10-05 — Duplicate reports can no longer cancel the wrong incident
+
+- **`dispatch/duplicates.py`**: `ACTIVE_DUPLICATE_TARGET_STATUSES`;
+  `is_probable_duplicate` also requires the animal groups not to disagree;
+  new `is_possible_duplicate` (score at the threshold, groups disagree);
+  `find_duplicate` prefers a match that can be linked over a closer one that
+  cannot.
+- **`models/repository.py`**: `find_duplicate_candidates` filters on status.
+- **API**: `possible_duplicate` on `GET /incidents/{id}`.
+- **Console**: the linked case now reads "Linked as a duplicate of ..."; the
+  new "Possible duplicate of ..." line is for the flagged, still-dispatched
+  case. (The old text said "Possible duplicate" about incidents that had
+  already been cancelled.)
+- **New `tests/test_duplicates.py`** (17 tests) and 5 more in
+  `test_dispatch.py`. 165 tests total.
+
+### 2026-10-05 — Model-failure handling and per-incident health
+
+Ports PR #3 (built against the archived prototype) onto the backend. Retries
+and the guardrail fail-safe already existed here; this adds what was missing.
+
+- **`llm/client.py`**: `LLMError` now has two subclasses, `LLMCallError`
+  (call failed) and `LLMResponseError` (unusable reply), and carries
+  `.attempts`. Existing `except LLMError` code is unaffected.
+- **`agents/base.py`**: `AgentError` carries `.agent`, `.kind`, `.attempts`;
+  attempts are recorded in metrics even when the call fails.
+- **New `services/health.py`**: the per-incident health record.
+- **`services/pipeline.py`**: every agent runs through `_call_agent`;
+  fail-safes for identification, assessment, and report (see Decisions). The
+  guardrail agent's latency and tokens are now recorded too (they were not).
+  `GuardrailVerdict.check_failed` separates "the check found a problem" from
+  "the check could not run", for the false-positive measurement in Open Work.
+- **API**: `POST /intake/{id}/retry`; `service_error` on every turn;
+  `health` on `GET /incidents/{id}`, which also feeds `requires_human_review`.
+- **Clients**: reporter app shows "Try again" on a `service_retry` turn;
+  responder console explains health-related holds in the review banner and
+  shows a one-line note when calls were retried.
+- **`llm/fake.py`**: queue an exception to script a model failure.
+- **New `tests/test_health.py`** (15 tests). 143 tests total.
+
 ### 2026-10-01 — Identification and triage work for any animal
 
 - **New** `AnimalGroup.DOMESTIC_ANIMAL`; broadened `TERRESTRIAL` to mean any
@@ -254,6 +456,21 @@ previous notebook-based pipeline is in `archive/prototypes/`.
 
 ## Known Issues
 
+- **The three prompt changes for `animal_count` have not been run against
+  real Gemini.** Tested with scripted replies only, like the rest of the
+  prompts. Whether the model counts animals well from a photo is unmeasured.
+- **A mass stranding is missed when nobody mentions the other animals.** Two
+  people each photograph a different single dolphin 100 m apart: the second
+  report is linked as a duplicate, both say one animal, and the count stays
+  at one. Fixing it needs the photos compared.
+- **The mass stranding distance and time (2 km, 24 h) are starting values**,
+  not checked against real events. A mother and calf cannot be told from two
+  unrelated animals; the banner says so when the count is exactly two.
+- **Duplicate detection runs only at the end of intake.** The second reporter
+  answers every question before the system notices the animal is already
+  reported, and their photo and answers are not attached to the original
+  incident. There is no count of how many people reported the same animal and
+  no photo comparison.
 - **The dynamic-question prompt has not been run against real Gemini.** All
   end-to-end testing used scripted replies; no GCP credentials were available
   while it was built.
@@ -305,3 +522,7 @@ previous notebook-based pipeline is in `archive/prototypes/`.
 8. Re-run the vision strategy comparison on more than 5 photos.
 9. Measure the guardrail false-positive rate. If coordinators see warnings on
    reports they then approve unchanged, they will stop reading them.
+10. Health trends across incidents (follow-up to the 2026-10-05 work): failure
+    and retry rates per agent, an alert when they climb, and a way to
+    regenerate a report that fell back to `report_unavailable`. The
+    per-incident records are already being written.
