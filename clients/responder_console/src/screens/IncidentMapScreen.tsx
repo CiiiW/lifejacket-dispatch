@@ -22,9 +22,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Circle, Marker } from 'react-native-maps';
 
-import { responder, severityColour, severityLabel, type MapPin } from '../lib/api';
+import { responder, severityColour, severityLabel, type HistoricalDensity, type MapPin } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 const REFRESH_INTERVAL_MS = 30_000;
@@ -41,6 +41,12 @@ export default function IncidentMapScreen({
   const [pins, setPins] = useState<MapPin[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showClosed, setShowClosed] = useState(false);
+  const [density, setDensity] = useState<HistoricalDensity | null>(null);
+  const [showDensity, setShowDensity] = useState(false);
+
+  useEffect(() => {
+    responder.historicalDensity().then(setDensity).catch(() => setDensity(null));
+  }, []);
 
   const load = useCallback(async () => {
     try {
@@ -84,6 +90,16 @@ export default function IncidentMapScreen({
           longitudeDelta: 2,
         }}
       >
+        {showDensity && density?.cells.map((cell) => (
+          <Circle
+            key={`${cell.latitude}:${cell.longitude}`}
+            center={{ latitude: cell.latitude, longitude: cell.longitude }}
+            radius={5000}
+            fillColor={cell.band === '100+' ? 'rgba(255,112,79,0.42)' :
+              cell.band === '25-99' ? 'rgba(255,203,91,0.36)' : 'rgba(72,202,228,0.30)'}
+            strokeColor="transparent"
+          />
+        ))}
         {located.map((pin) => (
           <Marker
             key={pin.incident_id}
@@ -97,6 +113,18 @@ export default function IncidentMapScreen({
       </MapView>
 
       <View style={styles.panel}>
+        <Pressable
+          style={[styles.filter, { alignSelf: 'flex-start', marginBottom: spacing.sm }, showDensity && styles.filterActive]}
+          disabled={!density?.available || density.cells.length === 0}
+          onPress={() => setShowDensity((current) => !current)}
+        >
+          <Text style={[styles.filterText, showDensity && styles.filterTextActive]}>
+            {showDensity ? 'Hide historical reports' : 'Show historical reports'}
+          </Text>
+        </Pressable>
+        <Text style={styles.densityNote}>
+          {density?.available ? density.caveat : 'Historical data has not been imported here.'}
+        </Text>
         <View style={styles.panelHeader}>
           <Text style={styles.heading}>
             {pins.length} {showClosed ? '' : 'open '}
@@ -163,6 +191,7 @@ export default function IncidentMapScreen({
 const styles = StyleSheet.create({
   screen: { flex: 1, flexDirection: 'row', backgroundColor: colors.background },
   loading: { flex: 1 },
+  densityNote: { ...type.meta, color: colors.textMuted, fontSize: 11, marginBottom: spacing.md },
   map: { flex: 2 },
   panel: {
     flex: 1,
