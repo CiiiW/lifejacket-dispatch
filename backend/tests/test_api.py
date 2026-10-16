@@ -8,11 +8,16 @@ serialisation would silently break the conversation.
 
 from __future__ import annotations
 
+import json
+
 import pytest
 from fastapi.testclient import TestClient
+from lifejacket.agents.validation import Conflict, ValidationResult
 from lifejacket.api.main import app
+from lifejacket.chatbot.session import ConversationState
 from lifejacket.config import settings
 from lifejacket.llm.fake import ScriptedLLMClient
+from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import EnvironmentalContext
 from lifejacket.models.tables import Base
@@ -54,6 +59,31 @@ def api(tmp_path, monkeypatch):
     # create the real lifejacket.db) does not run.
     yield TestClient(app), scripted
     app.dependency_overrides.clear()
+
+
+def test_validation_state_round_trip_and_old_incident_defaults():
+    state = ConversationState(incident_id="INC_test")
+    state.validation = ValidationResult(
+        has_conflict=True,
+        conflicts=[Conflict(field="wound", recorded="false", observed="visible wound")],
+    )
+    state.validation_questions_asked = 2
+    state.validation_stale = True
+
+    saved = json.loads(json.dumps(repository._state_to_json(state)))
+    restored = repository._state_from_json(saved)
+    assert isinstance(restored.validation, ValidationResult)
+    assert restored.validation.conflicts[0].field == "wound"
+    assert restored.validation_questions_asked == 2
+    assert restored.validation_stale is True
+
+    # Older rows lacked these keys; they should still reopen safely.
+    for key in ("validation", "validation_questions_asked", "validation_stale"):
+        saved.pop(key)
+    previous = repository._state_from_json(saved)
+    assert previous.validation is None
+    assert previous.validation_questions_asked == 0
+    assert previous.validation_stale is False
 
 
 def test_full_conversation_over_http(api):
@@ -101,6 +131,55 @@ def test_full_conversation_over_http(api):
         # the reporter about a contradiction.
         "validation", "report", "guardrail",
     ]
+
+
+def test_validation_question_budget_survives_each_http_request(api):
+    """Repeated contradictions cannot reset the two-question limit on reload."""
+    client, scripted = api
+    conflict = {
+        "kind": "photo_vs_flags",
+        "recorded": "wound: false",
+        "observed": "a visible wound",
+        "confidence": 0.9,
+        "field": "wound",
+    }
+    scripted.script["validation"] = [
+        {
+            "has_conflict": True,
+            "conflicts": [conflict],
+            "next_question": f"Can you confirm the wound ({number})?",
+            "next_question_rationale": "Check the photograph.",
+            "next_question_options": ["yes", "no"],
+            "next_question_feature": f"wound_check_{number}",
+            "notes": "Unresolved wound.",
+        }
+        for number in range(1, 4)
+    ]
+
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(
+        f"/intake/{incident_id}/photo",
+        files={"file": ("animal.jpg", b"\xff\xd8\xff fake jpeg", "image/jpeg")},
+    )
+    client.post(
+        f"/intake/{incident_id}/location", json={"latitude": 36.8, "longitude": -121.79}
+    )
+    client.post(f"/intake/{incident_id}/reply", json={"text": "long beak"})
+    first = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert first["message"] == "Can you confirm the wound (1)?"
+    assert client.get(f"/intake/{incident_id}").json()["message"] == first["message"]
+
+    second = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert second["message"] == "Can you confirm the wound (2)?"
+
+    last = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert last["complete"] is True
+    assert [call.agent for call in scripted.calls].count("validation") == 3
+
+    detail = client.get(f"/incidents/{incident_id}").json()
+    assert len([m for m in detail["transcript"] if m["agent_name"] == "validation"]) == 2
+    assert detail["conflicts"][0]["field"] == "wound"
+    assert detail["requires_human_review"] is True
 
 
 def test_connected_rescue_workflow(api, monkeypatch):
