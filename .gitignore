@@ -28,6 +28,8 @@ env/
 *.db
 *.sqlite
 *.sqlite3
+*.xlsx
+*.xls
 
 # Uploaded photos. Kept out of git: they are large, and a stranding location
 # can be personally identifying.
