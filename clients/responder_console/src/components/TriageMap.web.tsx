@@ -23,23 +23,29 @@ import { StyleSheet, Text, View } from 'react-native';
 import maplibre, { type Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { severityColour, type MapPin, type ResponderOrg, type RouteLine } from '../lib/api';
+import { severityColour, type HistoricalDensity, type MapPin, type ResponderOrg, type RouteLine } from '../lib/api';
 import { basemap } from '../lib/basemap';
 import { colors, radius, spacing, type } from '../lib/theme';
 
 const ROUTE_SOURCE = 'route';
+const DENSITY_SOURCE = 'historical-density';
+const DENSITY_LAYER = 'historical-heatmap';
 const DEFAULT_CENTRE: [number, number] = [-121.9, 36.8]; // Monterey Bay
 
 export default function TriageMap({
   pins,
   centres,
   route,
+  density,
+  showDensity,
   selectedId,
   onSelect,
 }: {
   pins: MapPin[];
   centres: ResponderOrg[];
   route: RouteLine | null;
+  density: HistoricalDensity | null;
+  showDensity: boolean;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
 }) {
@@ -65,6 +71,24 @@ export default function TriageMap({
     map.current.on('load', () => {
       ready.current = true;
       if (!map.current) return;
+      map.current.addSource(DENSITY_SOURCE, {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      });
+      map.current.addLayer({
+        id: DENSITY_LAYER,
+        type: 'heatmap',
+        source: DENSITY_SOURCE,
+        layout: { visibility: 'none' },
+        paint: {
+          'heatmap-weight': ['get', 'weight'],
+          'heatmap-intensity': 0.7,
+          'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 4, 12, 9, 36],
+          'heatmap-opacity': 0.68,
+          'heatmap-color': ['interpolate', ['linear'], ['heatmap-density'],
+            0, 'rgba(0,0,0,0)', 0.25, '#48CAE4', 0.55, '#FFCB5B', 1, '#FF704F'],
+        },
+      });
       map.current.addSource(ROUTE_SOURCE, {
         type: 'geojson',
         data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } },
@@ -88,6 +112,24 @@ export default function TriageMap({
       ready.current = false;
     };
   }, [tiles.style]);
+
+  useEffect(() => {
+    const draw = () => {
+      const source = map.current?.getSource(DENSITY_SOURCE) as maplibre.GeoJSONSource | undefined;
+      if (!source) return;
+      source.setData({
+        type: 'FeatureCollection',
+        features: (density?.cells ?? []).map((cell) => ({
+          type: 'Feature' as const,
+          geometry: { type: 'Point' as const, coordinates: [cell.longitude, cell.latitude] },
+          properties: { weight: cell.band === '100+' ? 1 : cell.band === '25-99' ? 0.65 : 0.35 },
+        })),
+      });
+      map.current?.setLayoutProperty(DENSITY_LAYER, 'visibility', showDensity ? 'visible' : 'none');
+    };
+    if (ready.current) draw();
+    else map.current?.once('load', draw);
+  }, [density, showDensity]);
 
   // Redraw markers whenever the data or the selection changes. Markers are
   // DOM elements, so they are torn down and rebuilt rather than diffed.
@@ -179,6 +221,9 @@ export default function TriageMap({
 
       <View style={styles.badge} pointerEvents="none">
         <Text style={styles.badgeText}>{tiles.label}</Text>
+        {showDensity && density && <Text style={styles.badgeText}>
+          Historical reports · 10–24 / 25–99 / 100+ per ~11 km cell
+        </Text>}
         {route && (
           <Text style={styles.badgeText}>
             {route.source === 'straight_line'
