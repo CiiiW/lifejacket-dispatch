@@ -128,13 +128,55 @@ class ConversationState:
     #: the evaluation notebook.
     identification_stop_reason: str | None = None
 
-    #: Animals found in the photo. None means detection has not run yet; an
-    #: empty list means it ran and found nothing (or could not run), in which
-    #: case identification looks at the whole photo.
+    #: Animals found in the active photo. None means detection has not run yet.
     detections: list[AnimalDetection] | None = None
+    detection_photo_id: str | None = None
+    #: pending, found, no_animals, or failed. An empty detection result is not
+    #: the same as a model failure, even though both use the full photo.
+    detection_status: str = "pending"
     #: Index into `detections` of the animal the reporter chose. Only used
     #: when more than one animal was found.
     selected_detection: int | None = None
+    #: Keep the full transcript for audit, but never feed answers about an old
+    #: photo or animal to an agent analysing the new one.
+    active_transcript_start: int = 0
+
+    @property
+    def active_transcript(self) -> list[ChatMessage]:
+        return self.transcript[self.active_transcript_start :]
+
+    def reset_analysis(self) -> None:
+        """Start fresh conclusions and question budgets for a different subject."""
+        self.identification = None
+        self.assessment = None
+        self.validation = None
+        self.identification_questions_asked = 0
+        self.assessment_questions_asked = 0
+        self.validation_questions_asked = 0
+        self.probed_features = []
+        self.identification_stop_reason = None
+        self.identification_stale = False
+        self.assessment_stale = False
+        self.validation_stale = False
+        self.pending_question = None
+        self.pending_agent = None
+        self.active_transcript_start = len(self.transcript)
+
+    def attach_photo(self, photo_id: str) -> None:
+        """A new image needs its own detections and fresh conclusions."""
+        if photo_id in self.photo_ids:
+            return
+        if self.photo_ids:
+            self.reset_analysis()
+        self.photo_ids.append(photo_id)
+        self.detections = None
+        self.detection_photo_id = None
+        self.detection_status = "pending"
+        self.selected_detection = None
+        self.stage = (
+            ConversationStage.IDENTIFYING
+            if self.has_location else ConversationStage.AWAITING_LOCATION
+        )
 
     # --- Transcript helpers ------------------------------------------------
 
@@ -172,16 +214,13 @@ class ConversationState:
             )
         )
 
-        if self.pending_agent == "detection":
-            self._apply_selection_reply(content)
-
         recipient = self.pending_agent or {
             ConversationStage.IDENTIFYING: "identification",
             ConversationStage.ASSESSING: "assessment",
             ConversationStage.VALIDATING: "validation",
         }.get(self.stage)
         if recipient == "detection":
-            pass  # a selection is applied above; no agent needs to re-run
+            self._apply_selection_reply(content)
         elif recipient == "identification":
             self.identification_stale = True
         elif recipient == "assessment":
@@ -237,16 +276,9 @@ class ConversationState:
         self.pending_question = None
         self.pending_agent = None
         if changed or self.identification is not None:
-            self.identification = None
-            self.assessment = None
-            self.identification_questions_asked = 0
-            self.assessment_questions_asked = 0
+            self.reset_analysis()
             self.better_photo_requested = False
-            self.probed_features = []
-            self.identification_stop_reason = None
-            self.identification_stale = False
-            self.assessment_stale = False
-            self.transcript = []
+            self.stage = ConversationStage.IDENTIFYING
 
     def _apply_selection_reply(self, text: str) -> None:
         """Read a reply to "which animal?". An unreadable one leaves the choice
@@ -255,7 +287,7 @@ class ConversationState:
         if match and self.detections:
             number = int(match.group(1))
             if 1 <= number <= len(self.detections):
-                self.selected_detection = number - 1
+                self.select_animal(number - 1)
 
     @property
     def awaiting_answer(self) -> bool:
