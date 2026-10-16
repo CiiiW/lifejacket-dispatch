@@ -48,6 +48,10 @@ research/**/animal_dataset_images/
 research/**/hurt_animal_dataset_images/
 research/**/hurt_animal_dataset_images_filtered/
 research/**/distortion_images/
+# Identification test set: manifest.csv and the two scripts are committed;
+# photos/ is re-downloaded from manifest.csv, variants/ is regenerated.
+research/identification_eval/photos/
+research/identification_eval/variants/
 
 # Charts committed by the research notebooks are wanted, so PNGs are NOT
 # ignored. Add specific paths here if that changes.

@@ -90,6 +90,8 @@ class ScriptedLLMClient:
         self.calls.append(RecordedCall(agent, prompt, len(images or [])))
 
         replies = self.script.get(agent)
+        if not replies and agent == "detection":
+            replies = [{"animals": []}]  # offline: no boxes, identify the whole photo
         if not replies:
             raise RuntimeError(
                 f"ScriptedLLMClient has no replies queued for the '{agent}' agent. "
@@ -126,6 +128,8 @@ class ScriptedLLMClient:
 def agent_for_schema(schema: dict[str, Any]) -> str:
     """Work out which agent is calling from a field unique to its schema."""
     properties = schema.get("properties", {})
+    if "animals" in properties:
+        return "detection"
     if "coordination_action" in properties:
         return "coordination"
     if "species_distinguishable" in properties:
@@ -136,6 +140,8 @@ def agent_for_schema(schema: dict[str, Any]) -> str:
         return "report"
     if "is_grounded" in properties:
         return "guardrail"
+    if "has_conflict" in properties:
+        return "validation"
     return "unknown"
 
 
@@ -233,6 +239,19 @@ _APPROVED = {
     "notes": "",
 }
 
+#: The consistency check finding nothing wrong. Every scenario gets this by
+#: default so existing tests describe the same conversations they always did;
+#: a scenario that wants a contradiction queues its own (see `conflict`).
+_CONSISTENT = {
+    "has_conflict": False,
+    "conflicts": [],
+    "next_question": "",
+    "next_question_rationale": "",
+    "next_question_options": [],
+    "next_question_feature": "",
+    "notes": "No conflicts found.",
+}
+
 _C_DOLPHIN = ("Common dolphin", "Delphinus delphis")
 _B_DOLPHIN = ("Bottlenose dolphin", "Tursiops truncatus")
 _PORPOISE = ("Harbour porpoise", "Phocoena phocoena")
@@ -305,6 +324,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 2. One question separates two look-alikes at species level. ---------
     "seal": {
@@ -358,6 +378,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 3. Species cannot be separated from a distance: settle at family. ---
     "dolphin": {
@@ -436,6 +457,7 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
     # -- 4. Not a marine mammal at all: this system still identifies it
     # correctly (TERRESTRIAL), but the rescue directory is marine-only, so
@@ -496,5 +518,6 @@ SCENARIOS: dict[str, dict[str, list[dict[str, Any]]]] = {
             }
         ],
         "guardrail": [_APPROVED],
+        "validation": [_CONSISTENT],
     },
 }

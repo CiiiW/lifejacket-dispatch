@@ -1,0 +1,205 @@
+image,variant,truth,model_says,result,next_step
+zalophus_californianus_01,original,California Sea Lion,California Sea Lion 0.40; Harbor Seal 0.30; Northern Elephant Seal 0.20; Guadalupe Fur Seal 0.10,species correct,"asks: Can you see small flaps over its ears, or just small holes?"
+zalophus_californianus_02,original,California Sea Lion,Harbor Seal 0.40; California Sea Lion 0.30; Northern Elephant Seal 0.20,animal group correct only (truth got 0.30),asks: Roughly how long is the animal from head to tail?
+zalophus_californianus_03,original,California Sea Lion,California Sea Lion 0.85; Northern Fur Seal 0.10; Steller Sea Lion 0.05,species correct,settles at family: Eared Seals 1.00 (right)
+zalophus_californianus_04,original,California Sea Lion,Harbor seal 0.50; California sea lion 0.40; Northern elephant seal 0.10,animal group correct only (truth got 0.40),"asks: Can you see small flaps over its ears, or just small holes?"
+eumetopias_jubatus_01,original,Steller Sea Lion,Harbor seal 0.90; California sea lion 0.08,animal group correct only (truth got 0.00),settles at species: Harbor seal 0.90 (WRONG)
+eumetopias_jubatus_02,original,Steller Sea Lion,Brown bear 0.45; Polar bear 0.45,wrong animal group (truth got 0.00),settles at genus: Bears 0.90 (WRONG)
+eumetopias_jubatus_03,original,Steller Sea Lion,California sea lion 0.80; Steller sea lion 0.15; Northern fur seal 0.05,family correct only (truth got 0.15),settles at family: Eared seals 1.00 (right)
+phoca_vitulina_01,original,Harbor Seal,Harbor Seal 0.95,species correct,settles at species: Harbor Seal 0.95 (right)
+phoca_vitulina_02,original,Harbor Seal,Harbour seal 0.60; California sea lion 0.20; Steller sea lion 0.10,species correct,settles at group: Seal or sea lion 0.90 (right)
+phoca_vitulina_03,original,Harbor Seal,Harbor Seal 0.95; Western Gull 0.80,species correct,asks: 
+phoca_vitulina_04,original,Harbor Seal,Gray whale 0.95,wrong animal group (truth got 0.00),settles at species: Gray whale 0.95 (WRONG)
+mirounga_angustirostris_01,original,Northern Elephant Seal,Northern Elephant Seal 0.95; Harbor Seal 0.05,species correct,settles at species: Northern Elephant Seal 0.95 (right)
+mirounga_angustirostris_02,original,Northern Elephant Seal,Northern Elephant Seal 0.90; Harbor Seal 0.08,species correct,settles at species: Northern Elephant Seal 0.90 (right)
+mirounga_angustirostris_03,original,Northern Elephant Seal,Northern Elephant Seal 0.95; Harbor Seal 0.05,species correct,settles at species: Northern Elephant Seal 0.95 (right)
+mirounga_angustirostris_04,original,Northern Elephant Seal,Northern elephant seal 0.98; Harbor seal 0.02,species correct,settles at species: Northern elephant seal 0.98 (right)
+callorhinus_ursinus_01,original,Northern Fur Seal,Northern Fur Seal 0.85; California Sea Lion 0.10,species correct,settles at family: Eared Seals 0.95 (right)
+callorhinus_ursinus_02,original,Northern Fur Seal,Northern Fur Seal 0.95,species correct,settles at species: Northern Fur Seal 0.95 (right)
+arctocephalus_townsendi_01,original,Guadalupe Fur Seal,Harbor seal 0.60; California sea lion 0.30; Northern elephant seal 0.05,animal group correct only (truth got 0.00),"asks: Can you see small flaps over its ears, or just small holes?"
+arctocephalus_townsendi_02,original,Guadalupe Fur Seal,California Sea Lion 0.45; Harbor Seal 0.45; Northern Fur Seal 0.05,family correct only (truth got 0.00),"asks: Can you see small ear flaps on the side of its head, or just small holes?"
+halichoerus_grypus_01,original,Grey Seal,Grey seal 0.80; Harbor seal 0.15,species correct,asks: Can you describe the shape of its head?
+halichoerus_grypus_02,original,Grey Seal,Grey seal 0.60; Harbor seal 0.35,species correct,asks: Can you see its nostrils? Are they parallel (like two slits) or do they form a 'V' shape?
+halichoerus_grypus_03,original,Grey Seal,Harbor seal 0.60; Grey seal 0.30,family correct only (truth got 0.30),"asks: Does the animal have a short, rounded snout, or a longer, straighter snout?"
+neomonachus_schauinslandi_01,original,Hawaiian Monk Seal,Hawaiian monk seal 0.95; Northern elephant seal 0.04,species correct,settles at species: Hawaiian monk seal 0.95 (right)
+neomonachus_schauinslandi_02,original,Hawaiian Monk Seal,Hawaiian Monk Seal 0.98,species correct,settles at species: Hawaiian Monk Seal 0.98 (right)
+neomonachus_schauinslandi_03,original,Hawaiian Monk Seal,Hawaiian Monk Seal 0.98,species correct,settles at species: Hawaiian Monk Seal 0.98 (right)
+phoca_largha_01,original,Spotted Seal,Ringed seal 0.50; Spotted seal 0.40; Bearded seal 0.10,family correct only (truth got 0.40),settles at family: True seals 1.00 (right)
+phoca_largha_02,original,Spotted Seal,Harbor Seal 0.45; Spotted Seal 0.45; Ringed Seal 0.05,"genus correct, species wrong (truth got 0.45)",settles at genus: Earless seals 0.90 (right)
+odobenus_rosmarus_01,original,Walrus,Grey whale 0.80; Bowhead whale 0.15,wrong animal group (truth got 0.00),"settles at group: Whale, dolphin, or porpoise 0.95 (WRONG)"
+odobenus_rosmarus_02,original,Walrus,Walrus 1.00,species correct,settles at species: Walrus 1.00 (right)
+tursiops_truncatus_01,original,Common Bottlenose Dolphin,Bottlenose dolphin 0.45; Common dolphin 0.40; Pacific white-sided dolphin 0.10,species correct,settles at family: Oceanic dolphins 0.95 (right)
+tursiops_truncatus_02,original,Common Bottlenose Dolphin,Common dolphin 0.45; Bottlenose dolphin 0.45; Risso's dolphin 0.05,family correct only (truth got 0.45),settles at family: Oceanic dolphins 0.95 (right)
+tursiops_truncatus_03,original,Common Bottlenose Dolphin,Bottlenose dolphin 0.55; Short-beaked common dolphin 0.40,species correct,settles at family: Oceanic dolphins 0.95 (right)
+tursiops_truncatus_04,original,Common Bottlenose Dolphin,Common Bottlenose Dolphin 0.45; Short-beaked Common Dolphin 0.25; Long-beaked Common Dolphin 0.25,species correct,settles at family: Oceanic dolphins 0.95 (right)
+delphinus_delphis_01,original,Common Dolphin,Long-beaked Common Dolphin 0.60; Short-beaked Common Dolphin 0.30; Striped Dolphin 0.08,"genus correct, species wrong (truth got 0.30)","asks: Can you see any distinct patterns or stripes on its side, especially near the dorsal fin?"
+delphinus_delphis_02,original,Common Dolphin,Harbor Porpoise 0.70; Dall's Porpoise 0.20,animal group correct only (truth got 0.00),"asks: Can you see any white patches on its sides, especially near the tail or dorsal fin?"
+delphinus_delphis_03,original,Common Dolphin,Short-beaked Common Dolphin 0.50; Long-beaked Common Dolphin 0.50,species correct,settles at genus: Common dolphins 1.00 (right)
+aethalodelphis_obliquidens_01,original,Pacific White-sided Dolphin,Common bottlenose dolphin 0.50; Short-beaked common dolphin 0.30; Long-beaked common dolphin 0.10; Risso's dolphin 0.05,family correct only (truth got 0.00),"asks: Can you see any distinct patterns or colors on its side, or is it mostly a uniform grey?"
+aethalodelphis_obliquidens_02,original,Pacific White-sided Dolphin,Pacific White-Sided Dolphin 0.95,species correct,settles at species: Pacific White-Sided Dolphin 0.95 (right)
+phocoena_phocoena_01,original,Harbour Porpoise,Harbour porpoise 0.70; Dall's porpoise 0.25,species correct,settles at family: Porpoises 0.95 (right)
+phocoena_phocoena_02,original,Harbour Porpoise,Harbour Porpoise 0.95,species correct,settles at species: Harbour Porpoise 0.95 (right)
+eschrichtius_robustus_01,original,Grey Whale,Whale 0.95,animal group correct only (truth got 0.00),settles at species: Whale 0.95 (WRONG)
+eschrichtius_robustus_02,original,Grey Whale,Grey Whale 0.95; Humpback Whale 0.03,species correct,settles at species: Grey Whale 0.95 (right)
+eschrichtius_robustus_03,original,Grey Whale,Fin Whale 0.60; Blue Whale 0.30,animal group correct only (truth got 0.00),asks: 
+megaptera_novaeangliae_01,original,Humpback Whale,Humpback whale 0.60; Minke whale 0.30,species correct,asks: Can you see any part of its pectoral fins (side fins)?
+megaptera_novaeangliae_02,original,Humpback Whale,Humpback Whale 1.00,species correct,settles at species: Humpback Whale 1.00 (right)
+megaptera_novaeangliae_03,original,Humpback Whale,Humpback Whale 1.00,species correct,settles at species: Humpback Whale 1.00 (right)
+orcinus_orca_01,original,Orca,Gray whale 0.30; Humpback whale 0.25; Fin whale 0.20; Blue whale 0.15,animal group correct only (truth got 0.00),"settles at group: Whale, dolphin, or porpoise 0.90 (right)"
+orcinus_orca_02,original,Orca,Killer Whale 1.00,species correct,settles at species: Killer Whale 1.00 (right)
+orcinus_orca_03,original,Orca,Killer Whale 1.00,species correct,settles at species: Killer Whale 1.00 (right)
+balaenoptera_acutorostrata_01,original,Common Minke Whale,Fin Whale 0.95; Sei Whale 0.04,"genus correct, species wrong (truth got 0.00)",settles at species: Fin Whale 0.95 (WRONG)
+balaenoptera_acutorostrata_02,original,Common Minke Whale,Harbor porpoise 0.85; Minke whale 0.10,animal group correct only (truth got 0.10),"asks: Can you see a distinct beak, or does its head slope smoothly into its body?"
+phocoenoides_dalli_01,original,Dall's Porpoise,Dall's Porpoise 0.95,species correct,settles at species: Dall's Porpoise 0.95 (right)
+phocoenoides_dalli_02,original,Dall's Porpoise,Orca 0.98,animal group correct only (truth got 0.00),settles at species: Orca 0.98 (WRONG)
+globicephala_macrorhynchus_01,original,Short-finned Pilot Whale,Short-finned Pilot Whale 0.45; Long-finned Pilot Whale 0.45,species correct,settles at genus: Pilot Whales 0.90 (right)
+globicephala_macrorhynchus_02,original,Short-finned Pilot Whale,Short-finned pilot whale 0.85; False killer whale 0.10,species correct,asks: Can you describe the shape of its head?
+stenella_longirostris_01,original,Spinner Dolphin,Spinner dolphin 0.95; Striped dolphin 0.04,species correct,settles at species: Spinner dolphin 0.95 (right)
+stenella_longirostris_02,original,Spinner Dolphin,Spinner Dolphin 0.45; Pantropical Spotted Dolphin 0.45; Common Bottlenose Dolphin 0.08,species correct,settles at genus: Stenella dolphins 0.90 (right)
+physeter_macrocephalus_01,original,Sperm Whale,North Atlantic right whale 0.45; Humpback whale 0.35; Fin whale 0.10,animal group correct only (truth got 0.00),"settles at group: Whale, dolphin, or porpoise 0.90 (right)"
+grampus_griseus_01,original,Risso's Dolphin,Risso's Dolphin 0.95,species correct,settles at species: Risso's Dolphin 0.95 (right)
+grampus_griseus_02,original,Risso's Dolphin,Risso's Dolphin 0.95,species correct,settles at species: Risso's Dolphin 0.95 (right)
+delphinapterus_leucas_01,original,Beluga,Beluga Whale 0.95; Narwhal 0.04,species correct,settles at species: Beluga Whale 0.95 (right)
+chelonia_mydas_01,original,Green Sea Turtle,Green Sea Turtle 0.95,species correct,settles at species: Green Sea Turtle 0.95 (right)
+chelonia_mydas_02,original,Green Sea Turtle,Green sea turtle 0.85; Hawksbill sea turtle 0.15,species correct,"asks: Can you see if the scutes (plates) on its shell overlap like roof tiles, or if they lie side-by-side?"
+chelonia_mydas_03,original,Green Sea Turtle,Green Sea Turtle 0.98,species correct,settles at species: Green Sea Turtle 0.98 (right)
+chelonia_mydas_04,original,Green Sea Turtle,Hawksbill sea turtle 0.90; Green sea turtle 0.05; Loggerhead sea turtle 0.03,family correct only (truth got 0.05),settles at species: Hawksbill sea turtle 0.90 (WRONG)
+caretta_caretta_01,original,Loggerhead Sea Turtle,Loggerhead sea turtle 0.50; Green sea turtle 0.25; Kemp's ridley sea turtle 0.15; Hawksbill sea turtle 0.05,species correct,"asks: Roughly how long is the shell, from the front to the back?"
+caretta_caretta_02,original,Loggerhead Sea Turtle,Kemp's Ridley Sea Turtle 0.60; Loggerhead Sea Turtle 0.30; Green Sea Turtle 0.05,family correct only (truth got 0.30),"asks: Can you see any distinct scutes (plates) on the top of its head, between its eyes?"
+caretta_caretta_03,original,Loggerhead Sea Turtle,Loggerhead sea turtle 0.80; Green sea turtle 0.10; Kemp's ridley sea turtle 0.05,species correct,settles at family: Sea turtles 0.95 (right)
+dermochelys_coriacea_01,original,Leatherback Sea Turtle,Leatherback Sea Turtle 1.00,species correct,settles at species: Leatherback Sea Turtle 1.00 (right)
+dermochelys_coriacea_02,original,Leatherback Sea Turtle,Leatherback sea turtle 0.95; Green sea turtle 0.03; Loggerhead sea turtle 0.02,species correct,settles at species: Leatherback sea turtle 0.95 (right)
+lepidochelys_kempii_01,original,Kemp's Ridley Sea Turtle,Loggerhead sea turtle 0.50; Kemp's ridley sea turtle 0.40; Green sea turtle 0.10,family correct only (truth got 0.40),asks: Roughly how long is the turtle from its head to its tail?
+lepidochelys_kempii_02,original,Kemp's Ridley Sea Turtle,Kemp's Ridley Sea Turtle 0.95; Olive Ridley Sea Turtle 0.04,species correct,settles at species: Kemp's Ridley Sea Turtle 0.95 (right)
+pelecanus_occidentalis_01,original,Brown Pelican,Brown Pelican 0.90; American White Pelican 0.05,species correct,settles at species: Brown Pelican 0.90 (right)
+pelecanus_occidentalis_02,original,Brown Pelican,Brown Pelican 0.85; Double-crested Cormorant 0.10,species correct,asks: Can you see a large pouch under their beak?
+pelecanus_occidentalis_03,original,Brown Pelican,Brown Pelican 1.00,species correct,settles at species: Brown Pelican 1.00 (right)
+larus_occidentalis_01,original,Western Gull,Western Gull 0.60; California Gull 0.30; Ring-billed Gull 0.10,species correct,settles at genus: Gulls 1.00 (right)
+larus_occidentalis_02,original,Western Gull,Western Gull 0.90; Glaucous-winged Gull x Western Gull (hybrid) 0.08,species correct,settles at species: Western Gull 0.90 (right)
+uria_aalge_01,original,Common Murre,Common Tern 0.45; Forster's Tern 0.45; Least Tern 0.05,animal group correct only (truth got 0.00),settles at genus: Typical terns 0.90 (WRONG)
+uria_aalge_02,original,Common Murre,Ancient Murrelet 0.40; Marbled Murrelet 0.30; Craveri's Murrelet 0.20,family correct only (truth got 0.00),"settles at family: Auks, Murres, and Puffins 0.90 (right)"
+nannopterum_auritum_01,original,Double-crested Cormorant,Double-crested Cormorant 0.95,species correct,settles at species: Double-crested Cormorant 0.95 (right)
+nannopterum_auritum_02,original,Double-crested Cormorant,Double-crested Cormorant 1.00,species correct,settles at species: Double-crested Cormorant 1.00 (right)
+morus_bassanus_01,original,Northern Gannet,Brown Booby 0.95; Masked Booby 0.04,family correct only (truth got 0.00),settles at species: Brown Booby 0.95 (WRONG)
+morus_bassanus_02,original,Northern Gannet,Northern Gannet 0.98,species correct,settles at species: Northern Gannet 0.98 (right)
+gavia_immer_01,original,Common Loon,Common Loon 1.00,species correct,settles at species: Common Loon 1.00 (right)
+enhydra_lutris_01,original,Sea Otter,Sea Otter 0.95,species correct,settles at species: Sea Otter 0.95 (right)
+enhydra_lutris_02,original,Sea Otter,Coyote 0.50; Domestic dog 0.40; Red fox 0.05,wrong animal group (truth got 0.00),settles at genus: Canids 0.90 (WRONG)
+enhydra_lutris_03,original,Sea Otter,Sea Otter 0.99,species correct,settles at species: Sea Otter 0.99 (right)
+trichechus_manatus_01,original,West Indian Manatee,American Alligator 0.85; American Crocodile 0.10,wrong animal group (truth got 0.00),asks: Can you see the shape of its snout?
+trichechus_manatus_02,original,West Indian Manatee,West Indian Manatee 0.99,species correct,settles at species: West Indian Manatee 0.99 (right)
+trichechus_manatus_03,original,West Indian Manatee,West Indian Manatee 1.00,species correct,settles at species: West Indian Manatee 1.00 (right)
+mola_mola_01,original,Common Mola,Ocean sunfish 0.90; Southern ocean sunfish 0.10,species correct,settles at species: Ocean sunfish 0.90 (right)
+physalia_physalis_01,original,Portuguese Man o' War,Portuguese Man o' War 1.00,species correct,settles at species: Portuguese Man o' War 1.00 (right)
+physalia_physalis_02,original,Portuguese Man o' War,Portuguese Man o' War 1.00,species correct,settles at species: Portuguese Man o' War 1.00 (right)
+canis_latrans_01,original,Coyote,Coyote 0.90; Red Fox 0.05; Domestic Dog 0.05,species correct,settles at species: Coyote 0.90 (right)
+canis_latrans_02,original,Coyote,Coyote 0.99,species correct,settles at species: Coyote 0.99 (right)
+canis_latrans_03,original,Coyote,Coyote 0.95,species correct,settles at species: Coyote 0.95 (right)
+gopherus_agassizii_01,original,Mojave Desert Tortoise,Mojave Desert Tortoise 0.95; Sonoran Desert Tortoise 0.04; African Spurred Tortoise 0.01,species correct,settles at species: Mojave Desert Tortoise 0.95 (right)
+buteo_jamaicensis_01,original,Red-tailed Hawk,Red-tailed Hawk 0.95,species correct,settles at species: Red-tailed Hawk 0.95 (right)
+buteo_jamaicensis_02,original,Red-tailed Hawk,Red-tailed Hawk 0.70; Ferruginous Hawk 0.20,species correct,asks: Can you see the color of its tail feathers?
+canis_familiaris_01,original,Domestic Dog,Dog 1.00,species correct,settles at species: Dog 1.00 (right)
+canis_familiaris_02,original,Domestic Dog,Dog 1.00,species correct,settles at species: Dog 1.00 (right)
+felis_catus_01,original,Domestic Cat,Domestic Cat 1.00,species correct,settles at species: Domestic Cat 1.00 (right)
+zalophus_californianus_01,low_light 2,California Sea Lion,California Sea Lion 0.35; Harbor Seal 0.35; Common Dolphin 0.15; Bottlenose Dolphin 0.10,species correct,asks for a new photo: Photo is too dark to see details.
+zalophus_californianus_02,occlude 1,California Sea Lion,Coyote 0.80; Domestic dog 0.15,wrong animal group (truth got 0.00),settles at genus: Canids 0.95 (WRONG)
+zalophus_californianus_03,motion 2,California Sea Lion,Dolphin 0.60; Cormorant 0.30,wrong animal group (truth got 0.00),asks for a new photo: Photo is very blurry due to motion; a clearer photo is needed.
+zalophus_californianus_04,rotate 2,California Sea Lion,California Sea Lion 0.95; Steller Sea Lion 0.04,species correct,settles at species: California Sea Lion 0.95 (right)
+eumetopias_jubatus_01,low_res 2,Steller Sea Lion,Unknown 0.50; California sea lion 0.20; Harbor seal 0.15; Domestic dog 0.10,wrong animal group (truth got 0.00),asks for a new photo: A clear photo showing the animal's shape and features is needed.
+eumetopias_jubatus_02,rotate 1,Steller Sea Lion,Brown bear 0.45; Polar bear 0.45; Steller sea lion 0.10,wrong animal group (truth got 0.10),settles at genus: Bears 0.90 (WRONG)
+eumetopias_jubatus_03,far 2,Steller Sea Lion,California sea lion 0.70; Northern fur seal 0.20; Pacific harbor seal 0.05,family correct only (truth got 0.00),settles at group: Seal or sea lion 0.95 (right)
+phoca_vitulina_01,blur 1,Harbor Seal,Harbor Seal 0.80; Grey Seal 0.15,species correct,settles at family: True Seals 0.95 (right)
+phoca_vitulina_02,blur 2,Harbor Seal,Unknown animal 0.90,wrong animal group (truth got 0.00),settles at species: Unknown animal 0.90 (WRONG)
+phoca_vitulina_03,motion 1,Harbor Seal,Harbor Seal 0.95,species correct,settles at species: Harbor Seal 0.95 (right)
+phoca_vitulina_04,far 1,Harbor Seal,Gray Whale 0.95,wrong animal group (truth got 0.00),settles at species: Gray Whale 0.95 (WRONG)
+mirounga_angustirostris_01,occlude 2,Northern Elephant Seal,Northern elephant seal 0.85; Harbor seal 0.10,species correct,asks: Can you see its head or face?
+mirounga_angustirostris_02,low_res 1,Northern Elephant Seal,Northern Elephant Seal 0.40; California Sea Lion 0.30; Harbor Seal 0.20; Steller Sea Lion 0.10,species correct,"asks: Can you see small flaps over its ears, or just small holes?"
+mirounga_angustirostris_03,low_light 1,Northern Elephant Seal,Northern Elephant Seal 0.95; Harbor Seal 0.05,species correct,settles at species: Northern Elephant Seal 0.95 (right)
+mirounga_angustirostris_04,low_light 2,Northern Elephant Seal,Northern elephant seal 0.60; Harbor seal 0.30; California sea lion 0.05,species correct,"asks: Can you see small flaps over their ears, or just small holes?"
+callorhinus_ursinus_01,occlude 1,Northern Fur Seal,Harbor Seal 0.60; Northern Elephant Seal 0.30,animal group correct only (truth got 0.00),asks: Can you describe the shape of its nose or snout?
+callorhinus_ursinus_02,motion 2,Northern Fur Seal,Northern Fur Seal 0.60; Steller Sea Lion 0.20; Harbor Seal 0.10,species correct,settles at group: Seal or sea lion 0.90 (right)
+arctocephalus_townsendi_01,rotate 2,Guadalupe Fur Seal,Harbor seal 0.60; California sea lion 0.20; Northern elephant seal 0.10; Northern fur seal 0.05,animal group correct only (truth got 0.00),"asks: Can you see small flaps over its ears, or just small holes?"
+arctocephalus_townsendi_02,low_res 2,Guadalupe Fur Seal,Unknown animal 0.00,wrong animal group (truth got 0.00),asks for a new photo: The image is too pixelated to see any details.
+halichoerus_grypus_01,rotate 1,Grey Seal,West Indian manatee 0.90; Harbor seal 0.08,wrong animal group (truth got 0.00),settles at species: West Indian manatee 0.90 (WRONG)
+halichoerus_grypus_02,far 2,Grey Seal,Harbor seal 0.75; Grey seal 0.25,family correct only (truth got 0.25),asks: Can you see the shape of its nostrils?
+halichoerus_grypus_03,blur 1,Grey Seal,Harbor Seal 0.35; Grey Seal 0.30; Harbor Porpoise 0.20,family correct only (truth got 0.30),"asks for a new photo: Photo is very blurry, details are unclear."
+neomonachus_schauinslandi_01,blur 2,Hawaiian Monk Seal,Hawaiian monk seal 0.60; California sea lion 0.20; Northern elephant seal 0.10,species correct,"asks: Can you see small ear flaps on the side of its head, or just small holes?"
+neomonachus_schauinslandi_02,motion 1,Hawaiian Monk Seal,Hawaiian monk seal 0.85,species correct,asks for a new photo: No question can separate the remaining candidates from a safe distance; settling at species level.
+neomonachus_schauinslandi_03,far 1,Hawaiian Monk Seal,Hawaiian monk seal 0.98,species correct,settles at species: Hawaiian monk seal 0.98 (right)
+phoca_largha_01,occlude 2,Spotted Seal,Lion's Mane Jellyfish 0.80; Siphonophore 0.15,wrong animal group (truth got 0.00),"asks: Can you describe the main body of the animal, if visible?"
+phoca_largha_02,low_res 1,Spotted Seal,Harbor Seal 0.40; Spotted Seal 0.35; Ringed Seal 0.25,"genus correct, species wrong (truth got 0.35)",asks: Can you describe the pattern on its fur?
+odobenus_rosmarus_01,low_light 1,Walrus,Grey whale 0.40; Humpback whale 0.30; Bowhead whale 0.20,wrong animal group (truth got 0.00),"settles at group: Whale, dolphin, or porpoise 0.90 (WRONG)"
+odobenus_rosmarus_02,low_light 2,Walrus,Walrus 0.95,species correct,settles at species: Walrus 0.95 (right)
+tursiops_truncatus_01,occlude 1,Common Bottlenose Dolphin,Common dolphin 0.25; Bottlenose dolphin 0.25; California sea lion 0.25; Harbor seal 0.25,family correct only (truth got 0.25),"asks for a new photo: Animal is distant and blurry; a closer, clearer photo would help."
+tursiops_truncatus_02,motion 2,Common Bottlenose Dolphin,Common dolphin 0.40; Bottlenose dolphin 0.40; Shark 0.20,family correct only (truth got 0.40),"asks: Can you see any other part of the animal's body, like a blowhole or tail?"
+tursiops_truncatus_03,rotate 2,Common Bottlenose Dolphin,Bottlenose dolphin 0.60; Common dolphin 0.30,species correct,asks for a new photo: A photo showing the full side of the animal would help.
+tursiops_truncatus_04,low_res 2,Common Bottlenose Dolphin,Unknown animal 0.01,wrong animal group (truth got 0.00),asks for a new photo: A clear photo showing the whole animal is needed.
+delphinus_delphis_01,rotate 1,Common Dolphin,Short-beaked common dolphin 0.45; Long-beaked common dolphin 0.45; Bottlenose dolphin 0.05; Striped dolphin 0.03,species correct,settles at genus: Common dolphins 0.90 (right)
+delphinus_delphis_02,far 2,Common Dolphin,Harbor seal 0.70; Northern elephant seal 0.20; California sea lion 0.10,wrong animal group (truth got 0.00),settles at group: Seal or sea lion 1.00 (WRONG)
+delphinus_delphis_03,blur 1,Common Dolphin,Short-beaked Common Dolphin 0.45; Long-beaked Common Dolphin 0.45,species correct,settles at genus: Common Dolphins 0.90 (right)
+aethalodelphis_obliquidens_01,blur 2,Pacific White-sided Dolphin,Orca 0.85; False Killer Whale 0.10,family correct only (truth got 0.00),settles at family: Oceanic Dolphins 0.95 (right)
+aethalodelphis_obliquidens_02,motion 1,Pacific White-sided Dolphin,Common dolphin 0.90; Pacific white-sided dolphin 0.08,family correct only (truth got 0.08),settles at species: Common dolphin 0.90 (WRONG)
+phocoena_phocoena_01,far 1,Harbour Porpoise,Risso's dolphin 0.95,animal group correct only (truth got 0.00),settles at species: Risso's dolphin 0.95 (WRONG)
+phocoena_phocoena_02,occlude 2,Harbour Porpoise,Harbor porpoise 0.45; Atlantic white-sided dolphin 0.25; Common dolphin 0.20,species correct,"asks: Roughly how long is the animal, from end to end, compared to a person lying down?"
+eschrichtius_robustus_01,low_res 1,Grey Whale,Whale 0.95,animal group correct only (truth got 0.00),settles at species: Whale 0.95 (WRONG)
+eschrichtius_robustus_02,low_light 1,Grey Whale,Gray Whale 0.95; Humpback Whale 0.04,species correct,settles at species: Gray Whale 0.95 (right)
+eschrichtius_robustus_03,low_light 2,Grey Whale,Gray whale 0.40; Fin whale 0.20; Humpback whale 0.20,species correct,asks for a new photo: Photo is too dark to see identifying features.
+megaptera_novaeangliae_01,occlude 1,Humpback Whale,Harp seal 0.40; Grey seal 0.30; Harbour seal 0.15; Unknown marine mammal 0.10,wrong animal group (truth got 0.00),asks for a new photo: The animal is largely obscured and blurry.
+megaptera_novaeangliae_02,motion 2,Humpback Whale,Humpback whale 0.80; Blue whale 0.10; Fin whale 0.05; Gray whale 0.05,species correct,asks: Can you see any bumps or knobs on the top of its head?
+megaptera_novaeangliae_03,rotate 2,Humpback Whale,Humpback Whale 1.00,species correct,settles at species: Humpback Whale 1.00 (right)
+orcinus_orca_01,low_res 2,Orca,Pinniped 0.50; Cetacean 0.20; Sea Otter 0.10,wrong animal group (truth got 0.00),asks for a new photo: A clearer photo showing the whole animal would help.
+orcinus_orca_02,rotate 1,Orca,Orca 1.00,species correct,settles at species: Orca 1.00 (right)
+orcinus_orca_03,far 2,Orca,Orca 1.00,species correct,settles at species: Orca 1.00 (right)
+balaenoptera_acutorostrata_01,blur 1,Common Minke Whale,Fin Whale 0.55; Sei Whale 0.35; Minke Whale 0.05,"genus correct, species wrong (truth got 0.05)",settles at genus: Rorquals 0.95 (right)
+balaenoptera_acutorostrata_02,blur 2,Common Minke Whale,Common dolphin 0.30; Harbor porpoise 0.30; Harbor seal 0.20; Grey seal 0.20,animal group correct only (truth got 0.00),asks for a new photo: The animal is very blurry and distant.
+phocoenoides_dalli_01,motion 1,Dall's Porpoise,Dall's porpoise 0.90,species correct,settles at species: Dall's porpoise 0.90 (right)
+phocoenoides_dalli_02,far 1,Dall's Porpoise,Orca 0.99,animal group correct only (truth got 0.00),settles at species: Orca 0.99 (WRONG)
+globicephala_macrorhynchus_01,occlude 2,Short-finned Pilot Whale,Short-finned pilot whale 0.70; False killer whale 0.20; Melon-headed whale 0.10,species correct,asks: Can you describe the shape of the fin on its back?
+globicephala_macrorhynchus_02,low_res 1,Short-finned Pilot Whale,Short-finned pilot whale 0.85; Melon-headed whale 0.10; Pygmy killer whale 0.05,species correct,settles at family: Oceanic dolphins 1.00 (right)
+stenella_longirostris_01,low_light 1,Spinner Dolphin,Spinner Dolphin 0.85; Pantropical Spotted Dolphin 0.10; Striped Dolphin 0.05,species correct,settles at genus: Stenella dolphins 1.00 (right)
+stenella_longirostris_02,low_light 2,Spinner Dolphin,Bottlenose dolphin 0.40; Spinner dolphin 0.30; Common dolphin 0.20,family correct only (truth got 0.30),settles at family: Oceanic dolphins 0.90 (right)
+physeter_macrocephalus_01,occlude 1,Sperm Whale,Fin whale 0.30; Humpback whale 0.30; Sperm whale 0.30,animal group correct only (truth got 0.30),"asks for a new photo: A photo showing the entire animal, especially the head or tail."
+grampus_griseus_01,motion 2,Risso's Dolphin,Harbor seal 0.25; Grey seal 0.20; Common dolphin 0.15; Harbor porpoise 0.10,wrong animal group (truth got 0.00),asks for a new photo: Photo is too blurry to identify any features.
+grampus_griseus_02,rotate 2,Risso's Dolphin,harbor porpoise 0.65; Dall's porpoise 0.25; Pacific white-sided dolphin 0.05,animal group correct only (truth got 0.00),asks: Can you see any distinct white patches on its sides or a white tip on its fin?
+delphinapterus_leucas_01,low_res 2,Beluga,Unknown 0.00,wrong animal group (truth got 0.00),asks for a new photo: The image is too pixelated and dark to see any animal.
+chelonia_mydas_01,rotate 1,Green Sea Turtle,Green Sea Turtle 0.90; Kemp's Ridley Sea Turtle 0.08,species correct,settles at species: Green Sea Turtle 0.90 (right)
+chelonia_mydas_02,far 2,Green Sea Turtle,Green sea turtle 0.85; Loggerhead sea turtle 0.05; Olive ridley sea turtle 0.05,species correct,"asks: Can you see if its beak is sharply pointed, or more rounded?"
+chelonia_mydas_03,blur 1,Green Sea Turtle,Green Sea Turtle 0.60; Hawksbill Sea Turtle 0.30,species correct,asks for a new photo: Image is blurry; clearer photo needed for species ID.
+chelonia_mydas_04,blur 2,Green Sea Turtle,Nutria 0.50; American beaver 0.30; North American river otter 0.10,wrong animal group (truth got 0.00),"asks: Can you see its tail? Is it round and rat-like, or flat and paddle-shaped?"
+caretta_caretta_01,motion 1,Loggerhead Sea Turtle,Loggerhead Sea Turtle 0.30; Green Sea Turtle 0.30; Kemp's Ridley Sea Turtle 0.30,species correct,asks for a new photo: A clearer photo showing the carapace scutes would help.
+caretta_caretta_02,far 1,Loggerhead Sea Turtle,Loggerhead sea turtle 0.70; Kemp's ridley sea turtle 0.20; Green sea turtle 0.10,species correct,"asks: Can you see how many large scales are on top of its head, between its eyes?"
+caretta_caretta_03,occlude 2,Loggerhead Sea Turtle,sea turtle 0.95,family correct only (truth got 0.00),settles at species: Sea turtle 0.95 (WRONG)
+dermochelys_coriacea_01,low_res 1,Leatherback Sea Turtle,Leatherback Sea Turtle 0.99,species correct,settles at species: Leatherback Sea Turtle 0.99 (right)
+dermochelys_coriacea_02,low_light 1,Leatherback Sea Turtle,Leatherback Sea Turtle 0.95; Green Sea Turtle 0.02; Loggerhead Sea Turtle 0.02,species correct,settles at species: Leatherback Sea Turtle 0.95 (right)
+lepidochelys_kempii_01,low_light 2,Kemp's Ridley Sea Turtle,Loggerhead sea turtle 0.35; Kemp's ridley sea turtle 0.30; Green sea turtle 0.25; Leatherback sea turtle 0.05,family correct only (truth got 0.30),settles at group: Sea turtle 0.95 (right)
+lepidochelys_kempii_02,occlude 1,Kemp's Ridley Sea Turtle,Loggerhead sea turtle 0.45; Kemp's ridley sea turtle 0.40; Green sea turtle 0.10,family correct only (truth got 0.40),settles at family: Sea turtles 0.95 (right)
+pelecanus_occidentalis_01,motion 2,Brown Pelican,Unknown animal 1.00,wrong animal group (truth got 0.00),settles at species: Unknown animal 1.00 (WRONG)
+pelecanus_occidentalis_02,rotate 2,Brown Pelican,Brown Pelican 0.90; American White Pelican 0.08,species correct,settles at species: Brown Pelican 0.90 (right)
+pelecanus_occidentalis_03,low_res 2,Brown Pelican,Unknown animal 0.05,wrong animal group (truth got 0.00),asks for a new photo: The image is too pixelated to see any details.
+larus_occidentalis_01,rotate 1,Western Gull,Western Gull 0.40; California Gull 0.30; Ring-billed Gull 0.20,species correct,settles at genus: Gulls 0.90 (right)
+larus_occidentalis_02,far 2,Western Gull,Western Gull 0.95; Glaucous-winged Gull 0.05,species correct,settles at species: Western Gull 0.95 (right)
+uria_aalge_01,blur 1,Common Murre,Harbour seal 0.40; California sea lion 0.30; Common dolphin 0.20,wrong animal group (truth got 0.00),asks for a new photo: Too blurry to identify features.
+uria_aalge_02,blur 2,Common Murre,Unknown 1.00,wrong animal group (truth got 0.00),settles at species: Unknown 1.00 (WRONG)
+nannopterum_auritum_01,motion 1,Double-crested Cormorant,Double-crested Cormorant 0.33; Brandt's Cormorant 0.33; Pelagic Cormorant 0.33,species correct,settles at family: Cormorants and Shags 0.99 (right)
+nannopterum_auritum_02,far 1,Double-crested Cormorant,Double-crested Cormorant 1.00,species correct,settles at species: Double-crested Cormorant 1.00 (right)
+morus_bassanus_01,occlude 2,Northern Gannet,Common Loon 0.40; Pacific Loon 0.30; Red-throated Loon 0.20,animal group correct only (truth got 0.00),settles at genus: Loons 0.90 (WRONG)
+morus_bassanus_02,low_res 1,Northern Gannet,Northern Gannet 0.90; Great Black-backed Gull 0.08,species correct,settles at species: Northern Gannet 0.90 (right)
+gavia_immer_01,low_light 1,Common Loon,Common Loon 0.95,species correct,settles at species: Common Loon 0.95 (right)
+enhydra_lutris_01,low_light 2,Sea Otter,Sea otter 0.50; Harbor seal 0.30; River otter 0.10,species correct,asks for a new photo: Photo is too dark to see details.
+enhydra_lutris_02,occlude 1,Sea Otter,California sea lion 0.85; Northern fur seal 0.10; Harbor seal 0.05,wrong animal group (truth got 0.00),settles at family: Eared seals 0.95 (WRONG)
+enhydra_lutris_03,motion 2,Sea Otter,Horned Puffin 0.45; Tufted Puffin 0.45,wrong animal group (truth got 0.00),settles at genus: Puffins 0.90 (WRONG)
+trichechus_manatus_01,rotate 2,West Indian Manatee,American Alligator 0.70; American Crocodile 0.20,animal group correct only (truth got 0.00),"asks: When its head is visible, does its snout look wide and rounded, or narrow and pointed?"
+trichechus_manatus_02,low_res 2,West Indian Manatee,Harp seal 0.40; Hooded seal 0.30; Harbor seal 0.20; Domestic dog 0.05,wrong animal group (truth got 0.00),"asks: Can you see any external ear flaps, or just small holes on the side of its head?"
+trichechus_manatus_03,rotate 1,West Indian Manatee,West Indian Manatee 0.99,species correct,settles at species: West Indian Manatee 0.99 (right)
+mola_mola_01,far 2,Common Mola,Ocean Sunfish 0.95,species correct,settles at species: Ocean Sunfish 0.95 (right)
+physalia_physalis_01,blur 1,Portuguese Man o' War,Portuguese Man o' War 0.60; Bluebottle 0.30,species correct,"asks for a new photo: Photo is blurry, making details hard to see."
+physalia_physalis_02,blur 2,Portuguese Man o' War,Portuguese Man o' War 0.95,species correct,settles at species: Portuguese Man o' War 0.95 (right)
+canis_latrans_01,motion 1,Coyote,Coyote 0.60; Kit Fox 0.20; Gray Fox 0.10; Domestic Dog 0.05,species correct,settles at family: Dogs 0.95 (right)
+canis_latrans_02,far 1,Coyote,Coyote 0.98,species correct,settles at species: Coyote 0.98 (right)
+canis_latrans_03,occlude 2,Coyote,Coyote 0.40; Red Fox 0.40,species correct,asks for a new photo: A clearer photo showing the whole animal would help.
+gopherus_agassizii_01,low_res 1,Mojave Desert Tortoise,Desert Tortoise 0.95,species correct,settles at species: Desert Tortoise 0.95 (right)
+buteo_jamaicensis_01,low_light 1,Red-tailed Hawk,Red-tailed Hawk 0.80; Swainson's Hawk 0.10; Ferruginous Hawk 0.05,species correct,settles at genus: Buzzard Hawks 0.95 (right)
+buteo_jamaicensis_02,low_light 2,Red-tailed Hawk,Unknown bird 0.50; Unknown bat 0.40,animal group correct only (truth got 0.00),settles at genus: Unknown 0.90 (WRONG)
+canis_familiaris_01,occlude 1,Domestic Dog,Dog 1.00,species correct,settles at species: Dog 1.00 (right)
+canis_familiaris_02,motion 2,Domestic Dog,Dog 0.95,species correct,settles at species: Dog 0.95 (right)
+felis_catus_01,rotate 2,Domestic Cat,Domestic Cat 1.00,species correct,settles at species: Domestic Cat 1.00 (right)

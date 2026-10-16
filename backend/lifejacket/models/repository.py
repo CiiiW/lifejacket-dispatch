@@ -23,6 +23,7 @@ from lifejacket.dispatch.duplicates import (
 from lifejacket.dispatch.mass_stranding import StrandingReport
 from lifejacket.geo import bounding_box, haversine_km
 from lifejacket.models.schemas import (
+    AnimalDetection,
     AnimalGroup,
     AssessmentResult,
     ChatMessage,
@@ -226,6 +227,12 @@ def _state_to_json(state: ConversationState) -> dict:
         "better_photo_requested": state.better_photo_requested,
         "probed_features": state.probed_features,
         "identification_stop_reason": state.identification_stop_reason,
+        "detections": (
+            [d.model_dump(mode="json") for d in state.detections]
+            if state.detections is not None
+            else None
+        ),
+        "selected_detection": state.selected_detection,
         "pending_agent": state.pending_agent,
         "identification_stale": state.identification_stale,
         "assessment_stale": state.assessment_stale,
@@ -260,6 +267,12 @@ def _state_from_json(data: dict) -> ConversationState:
         better_photo_requested=data.get("better_photo_requested", False),
         probed_features=data.get("probed_features", []),
         identification_stop_reason=data.get("identification_stop_reason"),
+        detections=(
+            [AnimalDetection.model_validate(d) for d in data["detections"]]
+            if data.get("detections") is not None
+            else None
+        ),
+        selected_detection=data.get("selected_detection"),
         pending_agent=data.get("pending_agent"),
         identification_stale=data.get("identification_stale", False),
         assessment_stale=data.get("assessment_stale", False),

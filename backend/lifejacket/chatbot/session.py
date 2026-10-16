@@ -21,11 +21,14 @@ question comes from an agent and is chosen for that photo.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 from lifejacket.config import settings
 from lifejacket.models.schemas import (
+    AnimalDetection,
     AssessmentResult,
     ChatMessage,
     ChatRole,
@@ -42,8 +45,11 @@ class StepAction(str, Enum):
     REQUEST_LOCATION = "request_location"
     ASK_CLARIFYING_QUESTION = "ask_clarifying_question"
     REQUEST_BETTER_PHOTO = "request_better_photo"
+    RUN_DETECTION = "run_detection"
+    ASK_WHICH_ANIMAL = "ask_which_animal"
     RUN_IDENTIFICATION = "run_identification"
     RUN_ASSESSMENT = "run_assessment"
+    RUN_VALIDATION = "run_validation"
     FINALISE = "finalise"
     #: A model call failed even after retries; the reporter is asked to try
     #: again. Never returned by `decide_next_step` -- the pipeline uses it to
@@ -87,9 +93,14 @@ class ConversationState:
 
     identification: IdentificationResult | None = None
     assessment: AssessmentResult | None = None
+    #: The consistency check's findings, once identification and assessment
+    #: have both settled. Typed as Any to keep this module free of an import
+    #: from `agents/`, which imports back into the model layer.
+    validation: Any | None = None
 
     identification_questions_asked: int = 0
     assessment_questions_asked: int = 0
+    validation_questions_asked: int = 0
     #: A retake is offered at most once; asking repeatedly frustrates reporters
     #: and the second photo is rarely better.
     better_photo_requested: bool = False
@@ -109,10 +120,21 @@ class ConversationState:
     #: an answer would be recorded but never acted on.
     identification_stale: bool = False
     assessment_stale: bool = False
+    #: Set when identification or assessment changed after the last check, so
+    #: the record has to be re-checked against the evidence.
+    validation_stale: bool = False
 
     #: Why identification stopped, e.g. "confident at genus level". Kept for
     #: the evaluation notebook.
     identification_stop_reason: str | None = None
+
+    #: Animals found in the photo. None means detection has not run yet; an
+    #: empty list means it ran and found nothing (or could not run), in which
+    #: case identification looks at the whole photo.
+    detections: list[AnimalDetection] | None = None
+    #: Index into `detections` of the animal the reporter chose. Only used
+    #: when more than one animal was found.
+    selected_detection: int | None = None
 
     # --- Transcript helpers ------------------------------------------------
 
@@ -150,17 +172,90 @@ class ConversationState:
             )
         )
 
+        if self.pending_agent == "detection":
+            self._apply_selection_reply(content)
+
         recipient = self.pending_agent or {
             ConversationStage.IDENTIFYING: "identification",
             ConversationStage.ASSESSING: "assessment",
+            ConversationStage.VALIDATING: "validation",
         }.get(self.stage)
-        if recipient == "identification":
+        if recipient == "detection":
+            pass  # a selection is applied above; no agent needs to re-run
+        elif recipient == "identification":
             self.identification_stale = True
         elif recipient == "assessment":
             self.assessment_stale = True
+        elif recipient == "validation":
+            # An answer to a contradiction goes to the *assessment* agent, not
+            # back to the checker: the reporter is correcting a flag, and the
+            # assessment agent owns the flags. The check then re-runs against
+            # the corrected record.
+            self.assessment_stale = True
+            self.validation_stale = True
 
         self.pending_question = None
         self.pending_agent = None
+
+    # --- Animal selection ----------------------------------------------------
+
+    @property
+    def needs_animal_choice(self) -> bool:
+        """True when several animals were found and the reporter has not picked."""
+        return (
+            self.detections is not None
+            and len(self.detections) > 1
+            and self.selected_detection is None
+        )
+
+    @property
+    def chosen_detection(self) -> AnimalDetection | None:
+        """The animal identification should look at, or None for the whole photo.
+
+        With a single animal the whole photo is better than a crop: it keeps
+        the surroundings the species range and condition questions rely on.
+        """
+        if not self.detections or len(self.detections) < 2:
+            return None
+        if self.selected_detection is None:
+            return None
+        return self.detections[self.selected_detection]
+
+    def select_animal(self, index: int) -> None:
+        """Choose which detected animal the report is about (0-based).
+
+        Choosing again after identification has started throws that work away:
+        the transcript, probabilities and question budget all belonged to the
+        previous animal, and leaving them would feed the agent answers about
+        the wrong one.
+        """
+        if self.detections is None or not 0 <= index < len(self.detections):
+            raise ValueError(f"No detected animal at index {index}.")
+
+        changed = self.selected_detection not in (None, index)
+        self.selected_detection = index
+        self.pending_question = None
+        self.pending_agent = None
+        if changed or self.identification is not None:
+            self.identification = None
+            self.assessment = None
+            self.identification_questions_asked = 0
+            self.assessment_questions_asked = 0
+            self.better_photo_requested = False
+            self.probed_features = []
+            self.identification_stop_reason = None
+            self.identification_stale = False
+            self.assessment_stale = False
+            self.transcript = []
+
+    def _apply_selection_reply(self, text: str) -> None:
+        """Read a reply to "which animal?". An unreadable one leaves the choice
+        unset, so the pipeline simply asks again."""
+        match = re.match(r"\s*(\d+)", text)
+        if match and self.detections:
+            number = int(match.group(1))
+            if 1 <= number <= len(self.detections):
+                self.selected_detection = number - 1
 
     @property
     def awaiting_answer(self) -> bool:
@@ -174,9 +269,10 @@ def decide_next_step(state: ConversationState) -> Decision:
     The order of checks *is* the policy:
 
     1. Prerequisites: a photo and a location, since everything depends on them.
-    2. Identification, until confident, out of useful questions, or out of budget.
-    3. Assessment, likewise.
-    4. Finalise.
+    2. Detection, then which animal if there are several.
+    3. Identification, until confident, out of useful questions, or out of budget.
+    4. Assessment, likewise.
+    5. Finalise.
     """
     # --- 1. Prerequisites ---
     if not state.photo_ids:
@@ -193,7 +289,19 @@ def decide_next_step(state: ConversationState) -> Decision:
             reason="Location is needed for species range, tide, weather, and routing.",
         )
 
-    # --- 2. Identification ---
+    # --- 2. Which animal, if the photo holds several ---
+    if state.detections is None:
+        return Decision(
+            action=StepAction.RUN_DETECTION,
+            reason="Photo and location received; finding the animals in the photo.",
+        )
+    if state.needs_animal_choice:
+        return Decision(
+            action=StepAction.ASK_WHICH_ANIMAL,
+            reason=f"{len(state.detections)} animals found; the reporter must pick one.",
+        )
+
+    # --- 3. Identification ---
     if state.identification is None:
         return Decision(
             action=StepAction.RUN_IDENTIFICATION,
@@ -209,7 +317,7 @@ def decide_next_step(state: ConversationState) -> Decision:
     if identification_decision is not None:
         return identification_decision
 
-    # --- 3. Assessment ---
+    # --- 4. Assessment ---
     if state.assessment is None:
         return Decision(
             action=StepAction.RUN_ASSESSMENT,
@@ -226,10 +334,24 @@ def decide_next_step(state: ConversationState) -> Decision:
     if assessment_decision is not None:
         return assessment_decision
 
-    # --- 4. Done ---
+    # --- 4. Consistency check ---
+    # Runs only once both agents have settled: checking a record that is still
+    # changing would burn a model call on a conclusion about to be replaced.
+    if state.validation is None or state.validation_stale:
+        return Decision(
+            action=StepAction.RUN_VALIDATION,
+            reason="Checking the record against the photo and the conditions.",
+        )
+
+    validation_decision = _decide_validation(state)
+    if validation_decision is not None:
+        return validation_decision
+
+    # --- 5. Done ---
     return Decision(
         action=StepAction.FINALISE,
-        reason="Identification and assessment complete; writing the report.",
+        reason="Identification, assessment and consistency check complete; "
+        "writing the report.",
     )
 
 
@@ -384,28 +506,119 @@ def _decide_identification(state: ConversationState) -> Decision | None:
 
 
 def _decide_assessment(state: ConversationState) -> Decision | None:
-    """Continue assessment, or None to finalise."""
+    """Continue assessment, or None to finalise.
+
+    One question is mandatory before concluding. The prompt asks for this too,
+    but it is enforced here because it is a product rule, not a preference: a
+    photo shows a moment, and the facts that decide whether an animal is in
+    trouble -- laboured breathing, something wrapped around it, whether it has
+    moved since the reporter arrived -- do not appear in a still image.
+    Confidence on the first pass is confidence about the photo.
+    """
     result = state.assessment
     assert result is not None
 
-    if result.is_confident:
+    asked = state.assessment_questions_asked
+
+    if result.is_confident and asked > 0:
         return None
 
-    if state.assessment_questions_asked >= settings.max_assessment_questions:
+    if asked >= settings.max_assessment_questions:
         return None
 
-    if result.next_question is None or not result.next_question.question.strip():
-        return None
-
-    feature = result.next_question.feature
-    if feature and feature in state.probed_features:
-        return None
+    question = result.next_question
+    repeated = bool(
+        question and question.feature and question.feature in state.probed_features
+    )
+    if question is None or not question.question.strip() or repeated:
+        # Nothing usable from the agent. Before the first question that is not
+        # a reason to finalise -- fall back to a general condition check, the
+        # same way identification does.
+        fallback = _fallback_assessment_question(state) if asked == 0 else None
+        if fallback is None:
+            return None
+        question = fallback
 
     return Decision(
         action=StepAction.ASK_CLARIFYING_QUESTION,
-        question=result.next_question,
+        question=question,
         reason=(
-            "Assessment is not yet confident; asking question "
-            f"{state.assessment_questions_asked + 1} of {settings.max_assessment_questions}."
+            "Assessment has not asked anything yet; one question is required "
+            "before triage."
+            if asked == 0
+            else "Assessment is not yet confident; asking question "
+            f"{asked + 1} of {settings.max_assessment_questions}."
         ),
     )
+
+
+def _decide_validation(state: ConversationState) -> Decision | None:
+    """Ask about a contradiction, or None to finalise.
+
+    The check itself always runs; this decides whether what it found is worth
+    another question. Three things have to be true: a conflict solid enough to
+    act on, a question a reporter could actually answer, and budget left.
+
+    A conflict with no question -- two flags contradicting each other, or a
+    species outside its range -- is recorded on the incident for the
+    coordinator and does not stop the flow. Nobody on a beach can resolve it.
+    """
+    result = state.validation
+    if result is None:
+        return None
+
+    if not result.blocking_conflicts:
+        return None
+
+    asked = state.validation_questions_asked
+    limit = settings.max_validation_questions
+    if asked >= limit:
+        return None
+
+    question = result.next_question
+    if question is None or not question.question.strip():
+        return None
+
+    if question.feature and question.feature in state.probed_features:
+        return None
+
+    first = result.blocking_conflicts[0]
+    return Decision(
+        action=StepAction.ASK_CLARIFYING_QUESTION,
+        question=question,
+        reason=(
+            f"Record says {first.recorded or 'one thing'} but the evidence "
+            f"suggests {first.observed or 'another'}; asking to settle it "
+            f"({asked + 1} of {limit})."
+        ),
+    )
+
+
+#: Generic condition checks, used only when the assessment agent offers no
+#: usable question on its first pass. Features are distinct from the
+#: identification fallbacks, since `probed_features` is shared between agents.
+_FALLBACK_ASSESSMENT_QUESTIONS: list[ClarifyingQuestion] = [
+    ClarifyingQuestion(
+        question="Is it breathing normally, or does its breathing look laboured?",
+        options=["looks normal", "laboured or noisy", "cannot tell", "not sure"],
+        feature="breathing",
+    ),
+    ClarifyingQuestion(
+        question="Is anything wrapped around it -- net, rope, line, or plastic?",
+        options=["nothing visible", "yes, something is on it", "not sure"],
+        feature="entanglement_check",
+    ),
+    ClarifyingQuestion(
+        question="Has it moved at all since you got there?",
+        options=["not at all", "a little", "moving around", "not sure"],
+        feature="movement_since_arrival",
+    ),
+]
+
+
+def _fallback_assessment_question(state: ConversationState) -> ClarifyingQuestion | None:
+    """The next not-yet-asked condition check, or None if all have been used."""
+    for question in _FALLBACK_ASSESSMENT_QUESTIONS:
+        if question.feature not in state.probed_features:
+            return question
+    return None

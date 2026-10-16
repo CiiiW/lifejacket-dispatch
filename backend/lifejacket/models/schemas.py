@@ -16,7 +16,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 # ---------------------------------------------------------------------------
 # Enumerations
@@ -124,9 +124,16 @@ class WeatherConditions(BaseModel):
     wind_speed_mph: float | None = None
     wind_gust_mph: float | None = None
     precipitation_probability: float | None = Field(default=None, ge=0, le=1)
+    #: How much is falling right now, in millimetres for the current hour.
+    #: Distinct from the probability above: a 90% chance of 0.1 mm drizzle and
+    #: a 40% chance of 15 mm of rain are different problems for a beach rescue.
+    precipitation_mm: float | None = Field(default=None, ge=0)
     visibility_miles: float | None = None
     condition: str | None = None  # free text, e.g. "fog", "light rain"
-    sunset_local: datetime | None = None  # responders need daylight
+    #: Both ends of the day, so "is it dark now" can be answered rather than
+    #: only "when does the sun set". Daylight decides whether a team can work.
+    sunrise_local: datetime | None = None
+    sunset_local: datetime | None = None
     retrieved_at: datetime | None = None
 
 
@@ -489,13 +496,42 @@ class ChatMessage(BaseModel):
     options: list[str] = Field(default_factory=list)
 
 
+class AnimalDetection(BaseModel):
+    """One animal the detection step found in the photo.
+
+    `box` is `[ymin, xmin, ymax, xmax]` on a 0-1000 scale relative to the full
+    image (Gemini's native box format), so it does not depend on resolution.
+    """
+
+    box: list[int]
+    #: Position/colour wording a reporter will recognise. Never a species name.
+    description: str = ""
+    kind: str = "other"
+
+    @field_validator("box")
+    @classmethod
+    def _clamp_box(cls, box: list[int]) -> list[int]:
+        if len(box) != 4:
+            raise ValueError("box must be [ymin, xmin, ymax, xmax]")
+        return [min(max(v, 0), 1000) for v in box]
+
+
+class DetectionResult(BaseModel):
+    """Output of the detection step: every animal found in the photo."""
+
+    animals: list[AnimalDetection] = Field(default_factory=list)
+
+
 class ConversationStage(str, Enum):
     """Where the chatbot is in the conversation."""
 
     AWAITING_PHOTO = "awaiting_photo"
     AWAITING_LOCATION = "awaiting_location"
+    SELECTING_ANIMAL = "selecting_animal"
     IDENTIFYING = "identifying"
     ASSESSING = "assessing"
+    #: Checking the record against the photo and the conditions.
+    VALIDATING = "validating"
     COMPLETE = "complete"
 
 

@@ -50,9 +50,11 @@ from sqlalchemy.orm import Session
 
 from lifejacket.agents.assessment import AssessmentAgent
 from lifejacket.agents.base import Agent, AgentError
+from lifejacket.agents.detection import DetectionAgent, crop_to_detection
 from lifejacket.agents.guardrail import GuardrailAgent, GuardrailVerdict
 from lifejacket.agents.identification import IdentificationAgent
 from lifejacket.agents.report import ReportAgent
+from lifejacket.agents.validation import ValidationAgent, ValidationResult
 from lifejacket.chatbot.session import (
     ConversationState,
     Decision,
@@ -69,6 +71,7 @@ from lifejacket.dispatch.severity import recommended_action, score_severity
 from lifejacket.llm.client import ImageInput, LLMClient
 from lifejacket.models import repository
 from lifejacket.models.schemas import (
+    ClarifyingQuestion,
     ConversationStage,
     DispatchCandidate,
     GeoPoint,
@@ -128,8 +131,10 @@ class IntakePipeline:
     ) -> None:
         self.session = session
         self.stop_at = stop_at or set()
+        self.detection_agent = DetectionAgent(client)
         self.identification_agent = IdentificationAgent(client)
         self.assessment_agent = AssessmentAgent(client)
+        self.validation_agent = ValidationAgent(client)
         self.report_agent = ReportAgent(client)
         self.guardrail_agent = GuardrailAgent(client)
 
@@ -174,6 +179,20 @@ class IntakePipeline:
         """Register an uploaded photo with the conversation."""
         if photo_id not in state.photo_ids:
             state.photo_ids.append(photo_id)
+
+    def select_animal(
+        self, incident: Incident, state: ConversationState, number: int
+    ) -> None:
+        """Pick which detected animal the report is about (1-based, as shown).
+
+        Safe to call again later to change the choice: identification and
+        assessment restart on the newly chosen animal (see
+        `ConversationState.select_animal`).
+        """
+        state.select_animal(number - 1)
+        incident.identification = None
+        incident.assessment = None
+        self._save(incident)
 
     def submit_reply(self, state: ConversationState, text: str) -> None:
         """Record a reporter message.
@@ -236,9 +255,18 @@ class IntakePipeline:
                     "where you are -- do not move closer to the animal.",
                 )
 
+            case StepAction.RUN_DETECTION:
+                self._run_detection(incident, state, images)
+                return self.advance(incident, state, images)
+
+            case StepAction.ASK_WHICH_ANIMAL:
+                return self._ask_which_animal(state, decision)
+
             case StepAction.RUN_IDENTIFICATION:
                 try:
-                    self._run_identification(incident, state, images)
+                    self._run_identification(
+                        incident, state, self._images_of_chosen_animal(state, images)
+                    )
                 except AgentError as exc:
                     return self._ask_reporter_to_retry(incident, exc)
                 return self.advance(incident, state, images)
@@ -248,6 +276,10 @@ class IntakePipeline:
                     self._run_assessment(incident, state, images)
                 except AgentError as exc:
                     return self._ask_reporter_to_retry(incident, exc)
+                return self.advance(incident, state, images)
+
+            case StepAction.RUN_VALIDATION:
+                self._run_validation(incident, state, images)
                 return self.advance(incident, state, images)
 
             case StepAction.ASK_CLARIFYING_QUESTION:
@@ -328,11 +360,14 @@ class IntakePipeline:
         question = decision.question
         assert question is not None
 
-        # Assessment only runs after identification is settled, so whether it
-        # has started tells us whose budget this question spends.
+        # Each stage runs only once the previous has settled, so how far the
+        # conversation has got tells us whose budget this question spends.
         if state.assessment is None:
             state.identification_questions_asked += 1
             agent_name = "identification"
+        elif state.stage is ConversationStage.VALIDATING:
+            state.validation_questions_asked += 1
+            agent_name = "validation"
         else:
             state.assessment_questions_asked += 1
             agent_name = "assessment"
@@ -345,6 +380,75 @@ class IntakePipeline:
             action=StepAction.ASK_CLARIFYING_QUESTION,
             reason=decision.reason,
         )
+
+    def _run_detection(
+        self,
+        incident: Incident,
+        state: ConversationState,
+        images: list[ImageInput] | None,
+    ) -> None:
+        """Find the animals in the first photo.
+
+        Fails open: if there is no photo or the model call fails, detection
+        records "nothing found" and identification looks at the whole photo,
+        exactly as it did before this step existed.
+        """
+        state.stage = ConversationStage.IDENTIFYING
+        state.detections = []
+        if not images:
+            return
+        try:
+            # The first photo only: further photos are assumed to show the
+            # same animal, and boxes are specific to one image.
+            result = self.detection_agent.run(images=images[:1])
+        except AgentError as exc:
+            logger.warning("Detection failed for %s: %s", incident.incident_id, exc)
+            return
+        state.detections = result.animals
+        incident.metrics.update(self.detection_agent.last_metrics)
+        incident.metrics["animals_detected"] = len(result.animals)
+        self._save(incident)
+
+    def _ask_which_animal(self, state: ConversationState, decision: Decision) -> TurnResult:
+        """Ask the reporter to pick one of several animals."""
+        assert state.detections is not None
+        state.stage = ConversationStage.SELECTING_ANIMAL
+        options = [
+            f"{n}. {d.description or d.kind}" for n, d in enumerate(state.detections, 1)
+        ]
+        message = (
+            f"I can see {len(state.detections)} animals in your photo. "
+            "Which one are you reporting?"
+        )
+        # No feature key: a probed feature is something identification must not
+        # ask about again, and this is not one.
+        state.add_agent_message(
+            message,
+            agent_name="detection",
+            question=ClarifyingQuestion(question=message, options=options),
+        )
+        return TurnResult(
+            message=message,
+            options=options,
+            awaiting_reply=True,
+            action=StepAction.ASK_WHICH_ANIMAL,
+            reason=decision.reason,
+        )
+
+    @staticmethod
+    def _images_of_chosen_animal(
+        state: ConversationState, images: list[ImageInput] | None
+    ) -> list[ImageInput] | None:
+        """The photos identification should look at.
+
+        When the reporter picked one of several animals, that is the crop of
+        it; otherwise the photos exactly as submitted. Assessment always gets
+        the originals: it needs the surroundings (nets, tide line, people).
+        """
+        chosen = state.chosen_detection
+        if chosen is None or not images:
+            return images
+        return [crop_to_detection(images[0], chosen)]
 
     def _run_identification(
         self,
@@ -440,6 +544,77 @@ class IntakePipeline:
         incident.metrics["severity_reasons"] = severity.reasons
         incident.metrics["severity_triggered_rules"] = severity.triggered_rules
         incident.metrics["severity_contributions"] = severity.contributions
+        # The record just changed, so whatever the checker concluded about the
+        # previous version no longer applies.
+        state.validation_stale = True
+        self._save(incident)
+
+    def _run_validation(
+        self,
+        incident: Incident,
+        state: ConversationState,
+        images: list[ImageInput] | None,
+    ) -> None:
+        """Check the record against the photo and the conditions.
+
+        Runs once identification and assessment have both settled. Failure is
+        **not** fatal: a check that cannot run leaves the record as it was and
+        notes the gap, because a broken consistency check must not block a
+        real emergency. Same reasoning as the guardrail agent.
+        """
+        state.stage = ConversationStage.VALIDATING
+
+        try:
+            result = self.validation_agent.run(
+                images=images,
+                identification=state.identification,
+                assessment=state.assessment,
+                environment_summary=self._environment_summary(incident),
+                identification_summary=(
+                    describe_resolution(state.identification.resolution)
+                    if state.identification and state.identification.resolution
+                    else "Not recorded."
+                ),
+                photo_count=len(state.photo_ids) or 1,
+                transcript=state.transcript,
+            )
+        except Exception:
+            logger.exception(
+                "Consistency check failed for %s; continuing unchecked",
+                incident.incident_id,
+            )
+            result = ValidationResult(
+                notes="Consistency check could not run; record not verified."
+            )
+
+        state.validation = result
+        state.validation_stale = False
+        incident.metrics.update(self.validation_agent.last_metrics)
+
+        current = [c.model_dump(mode="json") for c in result.conflicts]
+        #: What is still wrong as of the latest check -- what a coordinator
+        #: has to look at.
+        incident.metrics["validation_conflicts"] = current
+        #: Everything ever flagged, including conflicts since resolved by
+        #: asking the reporter. Kept because "the photo seemed to contradict
+        #: the record and the reporter confirmed a wound" is worth knowing
+        #: later, and the final check only reports what is left.
+        raised = list(incident.metrics.get("validation_conflicts_raised") or [])
+        seen = {(c.get("field"), c.get("recorded")) for c in raised}
+        raised.extend(
+            c for c in current if (c.get("field"), c.get("recorded")) not in seen
+        )
+        incident.metrics["validation_conflicts_raised"] = raised
+
+        incident.metrics["validation_notes"] = result.notes
+        incident.metrics["validation_questions_asked"] = state.validation_questions_asked
+
+        # A conflict the reporter cannot settle still belongs in front of a
+        # human. Unresolved contradictions are exactly what coordinator review
+        # exists for.
+        if result.blocking_conflicts and incident.assessment is not None:
+            incident.assessment.requires_human_review = True
+
         self._save(incident)
 
     def _finalise(self, incident: Incident, state: ConversationState) -> None:
@@ -627,22 +802,32 @@ class IntakePipeline:
             lines.append("What you can do now:")
             lines.extend(f"• {step}" for step in assessment.reporter_instructions)
 
-        if incident.status is IncidentStatus.GUIDANCE_ONLY:
-            lines.append(
-                "Based on what you have described, this animal does not appear to "
-                "need rescue. Please keep your distance and let it be."
-            )
-        elif incident.duplicate_of:
-            lines.append(
-                "Someone has already reported this animal, so a team is aware of it. "
-                "Thank you for checking."
-            )
-        else:
-            lines.append(
-                "Your report has been sent to the rescue coordinators for this area. "
-                "You can follow its progress on the map."
-            )
+        lines.append(reporter_closing_note(incident))
         return "\n".join(lines)
+
+
+def reporter_closing_note(incident: Incident) -> str:
+    """How the report ends, as one sentence.
+
+    Split out of the closing paragraph so a client can render it on its own
+    rather than as the tail of a wall of text. Never promises a response or an
+    arrival time: no coordinator has approved anything yet, and an unmet
+    promise is worse than none.
+    """
+    if incident.status is IncidentStatus.GUIDANCE_ONLY:
+        return (
+            "Based on what you have described, this animal does not appear to "
+            "need rescue. Please keep your distance and let it be."
+        )
+    if incident.duplicate_of:
+        return (
+            "Someone has already reported this animal, so a team is aware of it. "
+            "Thank you for checking."
+        )
+    return (
+        "Your report has been sent to the rescue coordinators for this area. "
+        "You can follow its progress on the map."
+    )
 
 
 def _turn(decision: Decision, message: str) -> TurnResult:

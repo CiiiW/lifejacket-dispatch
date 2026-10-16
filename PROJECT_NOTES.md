@@ -28,6 +28,40 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-13** Sharing a location is one button, then a map. Previously two
+  buttons ("Share my location" and "Pick the spot on a map instead"), which
+  made the reporter choose a mechanism before they had seen where the pin
+  would land. Now the button gets a fix and opens `LocationPicker` centred on
+  it with the pin already placed -- one glance and "Share location" for the
+  common case, drag or tap first if the animal is elsewhere. Whether the pin
+  moved decides `source`: `device_gps` if untouched, `map_pin` if placed, and
+  a moved pin drops the GPS accuracy figure because it no longer applies.
+- **2026-10-13** The closing advice is cards, not a paragraph. The agent's
+  final message was one block of prose containing a safety sentence, "What you
+  can do now:", four bullets and a sign-off -- which someone standing over a
+  hurt animal skims rather than acts on. Now rendered from the structured
+  fields: an amber safety card, each instruction as its own numbered card
+  tinted from a four-colour palette, then the closing note and the matched
+  teams. The prose `message` is suppressed on the final turn so it is not
+  duplicated. Required splitting `reporter_closing_note` out of
+  `_reporter_closing_message` in the pipeline and sending it as its own
+  `closing_note` field, since the sign-off is not in the assessment's
+  structured output. Step tints avoid red and amber deliberately: those mean
+  danger elsewhere in the app, and "keep dogs away" is not a hazard warning.
+- **2026-10-12** Added an animal-detection step before identification, for photos
+  that hold more than one animal. `agents/detection.py` asks Gemini for a box
+  and a short description per animal (`prompts/identification/detect_animals.md`);
+  with several found, the pipeline asks the reporter which one
+  (`StepAction.ASK_WHICH_ANIMAL`, reply by number) and identification
+  then sees a crop of it (assessment still gets the original photos). One or zero animals: the whole photo, unchanged.
+  The choice can be changed later (`select_animal`); doing so discards the
+  transcript, probabilities and question budget for the previous animal.
+  Detection fails open (a failed call means "nothing found"). Not YOLO: the COCO
+  classes it ships with have no seals, sea lions, dolphins or turtles. Known
+  weakness, from two photos x two runs: Gemini's boxes are not stable between
+  runs (one run drew two boxes on empty sky; another boxed a seal's whole left
+  two-thirds), so the boxes are fixed per conversation in `ConversationState`
+  rather than re-detected each turn. Needs a larger check before trusting it.
 - **2026-10-05** Mass strandings are detected by counting, and the count is
   derived on every request instead of stored. A new report changes the answer
   for incidents filed earlier (the second reporter is often the one who sees
