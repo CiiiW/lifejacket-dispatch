@@ -72,6 +72,13 @@ export interface Conflict {
   field: string;
 }
 
+export interface AnimalDetection {
+  kind: string;
+  description: string;
+  /** [top, left, bottom, right] on a 0–1000 scale. */
+  box: [number, number, number, number];
+}
+
 export interface Turn {
   incident_id: string;
   message: string | null;
@@ -132,6 +139,13 @@ export interface Turn {
    * `reporter.retry`.
    */
   service_error: boolean;
+  detections: AnimalDetection[];
+  detection_photo_id: string | null;
+  detection_photo_url: string | null;
+  /** pending, found, no_animals, or failed. */
+  detection_status: string;
+  /** Zero-based index into detections. */
+  selected_detection: number | null;
 }
 
 /**
@@ -434,6 +448,12 @@ export const reporter = {
     request<Turn>(`/intake/${incidentId}/reply`, {
       method: 'POST',
       body: JSON.stringify({ text }),
+    }),
+
+  chooseAnimal: (incidentId: string, number: number) =>
+    request<Turn>(`/intake/${incidentId}/animal`, {
+      method: 'POST',
+      body: JSON.stringify({ number }),
     }),
 
   /**
