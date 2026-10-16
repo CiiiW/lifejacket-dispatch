@@ -564,8 +564,11 @@ class IntakePipeline:
         """
         state.stage = ConversationStage.VALIDATING
 
+        check_failed = False
         try:
-            result = self.validation_agent.run(
+            result = self._call_agent(
+                self.validation_agent,
+                incident,
                 images=images,
                 identification=state.identification,
                 assessment=state.assessment,
@@ -578,19 +581,29 @@ class IntakePipeline:
                 photo_count=len(state.photo_ids) or 1,
                 transcript=state.transcript,
             )
-        except Exception:
+        except Exception as exc:
             logger.exception(
                 "Consistency check failed for %s; continuing unchecked",
                 incident.incident_id,
             )
+            if not isinstance(exc, AgentError):
+                health.record_failure(
+                    incident.metrics,
+                    agent="validation",
+                    kind="unexpected_error",
+                    attempts=1,
+                    detail=str(exc),
+                )
+            health.record_fallback(
+                incident.metrics, health.FALLBACK_VALIDATION_CHECK_FAILED
+            )
+            check_failed = True
             result = ValidationResult(
                 notes="Consistency check could not run; record not verified."
             )
 
         state.validation = result
         state.validation_stale = False
-        incident.metrics.update(self.validation_agent.last_metrics)
-
         current = [c.model_dump(mode="json") for c in result.conflicts]
         #: What is still wrong as of the latest check -- what a coordinator
         #: has to look at.
@@ -612,7 +625,7 @@ class IntakePipeline:
         # A conflict the reporter cannot settle still belongs in front of a
         # human. Unresolved contradictions are exactly what coordinator review
         # exists for.
-        if result.blocking_conflicts and incident.assessment is not None:
+        if (check_failed or result.blocking_conflicts) and incident.assessment is not None:
             incident.assessment.requires_human_review = True
 
         self._save(incident)
