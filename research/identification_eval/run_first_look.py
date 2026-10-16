@@ -5,6 +5,7 @@
     python run_first_look.py --limit 5          # smoke test: first 5 images
     python run_first_look.py --dry-run          # scripted fake model, no credentials
     python run_first_look.py --resume results/first_look_<time>.csv
+    python run_first_look.py --targets selected_animals.csv
 
 Needs `gcloud auth application-default login` (not for --dry-run).
 
@@ -85,6 +86,7 @@ FIELDS = [
     "resolved_correct", "truth_in_members",
     "next_action", "chat_triggered", "stop_reason", "needs_new_photo",
     "species_distinguishable", "next_question", "next_question_feature",
+    "detected_count", "selected_animal", "detection_status",
     "latency_s", "prompt_tokens", "output_tokens", "attempts", "error",
 ]
 
@@ -147,6 +149,11 @@ def score(chat, truth: dict) -> dict:
     metrics = chat.pipeline.identification_agent.last_metrics
 
     row: dict = {
+        "detected_count": len(state.detections or []),
+        "selected_animal": (
+            state.selected_detection + 1 if state.selected_detection is not None else ""
+        ),
+        "detection_status": state.detection_status,
         "next_action": turn.action.value if turn.action else "",
         "chat_triggered": turn.action
         in (StepAction.ASK_CLARIFYING_QUESTION, StepAction.REQUEST_BETTER_PHOTO),
@@ -157,6 +164,10 @@ def score(chat, truth: dict) -> dict:
         "attempts": metrics.get("identification_attempts"),
     }
     if result is None:
+        row["error"] = (
+            "selection_required" if turn.action is StepAction.ASK_WHICH_ANIMAL
+            else "identification_unavailable"
+        )
         return row
 
     candidates = sorted(result.candidates, key=lambda c: c.confidence, reverse=True)
@@ -237,6 +248,27 @@ def load_items(only: str) -> tuple[list[dict], dict[str, dict]]:
     elif only == "variants":
         items = [i for i in items if i["variant_type"] != "original"]
     return items, truths
+
+
+def load_targets(path: Path | None) -> dict[tuple[str, str, int], int]:
+    """Explicit 1-based animal choices, keyed by image and variant.
+
+    A case's true species is not sufficient to infer which box contains the
+    labelled animal. An unlabelled multi-animal photo must remain unscored.
+    """
+    if path is None:
+        return {}
+    targets: dict[tuple[str, str, int], int] = {}
+    with path.open(newline="", encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            key = (row["case_id"], row["variant_type"], int(row["level"]))
+            if key in targets:
+                raise ValueError(f"Duplicate target choice for {key}")
+            number = int(row["animal_number"])
+            if number < 1:
+                raise ValueError(f"Animal number must be positive for {key}")
+            targets[key] = number
+    return targets
 
 
 class PlaceNames:
@@ -394,7 +426,10 @@ def main() -> None:
                         help="scripted fake model and no geocoding; needs no credentials")
     parser.add_argument("--no-place-names", action="store_true",
                         help="give the model coordinates only (skips Nominatim)")
+    parser.add_argument("--targets", type=Path,
+                        help="CSV with case_id,variant_type,level,animal_number (1-based)")
     args = parser.parse_args()
+    targets = load_targets(args.targets)
 
     items, truths = load_items(args.only)
     if args.limit:
@@ -463,6 +498,10 @@ def main() -> None:
                         longitude=truth["longitude"], place_name=place,
                         client=make_client(), live_context=False, verbose=False,
                     )
+                    if chat.last_turn.action is StepAction.ASK_WHICH_ANIMAL:
+                        key = (item["case_id"], item["variant_type"], item["level"])
+                        if key in targets:
+                            chat.select(targets[key])
                     row.update(score(chat, truth))
                     raw = chat.last_response("identification")
                 except Exception as exc:  # noqa: BLE001 - record it and keep going
