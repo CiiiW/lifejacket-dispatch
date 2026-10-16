@@ -46,7 +46,7 @@ Keep the workbook outside the repository on the staging host. After the stack
 is running, import it through a read-only, one-off mount:
 
 ```bash
-./deploy/import_historical.sh /private/path/Zhang_CA_2006-2025.xlsx
+bash deploy/import_historical.sh /private/path/Zhang_CA_2006-2025.xlsx
 curl http://127.0.0.1:8080/api/historical-strandings/density
 ```
 
