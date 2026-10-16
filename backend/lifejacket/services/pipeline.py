@@ -284,6 +284,13 @@ class IntakePipeline:
 
             case StepAction.RUN_DETECTION:
                 self._run_detection(incident, state, images)
+                if self.session is not None and self._target_images(state, images) is None:
+                    return TurnResult(
+                        message="We could not read that photo. Please send it again "
+                        "from where you are standing.",
+                        action=StepAction.REQUEST_BETTER_PHOTO,
+                        reason="The active photo file is unavailable.",
+                    )
                 return self.advance(incident, state, images)
 
             case StepAction.ASK_WHICH_ANIMAL:
@@ -418,7 +425,16 @@ class IntakePipeline:
         state.stage = ConversationStage.IDENTIFYING
         state.detections = []
         state.detection_photo_id = state.photo_ids[-1] if state.photo_ids else None
-        if not images:
+        image = next(
+            (item for item in images or [] if item.photo_id == state.detection_photo_id),
+            None,
+        )
+        if image is None and state.detection_photo_id is None and images:
+            image = images[-1]  # in-memory callers without persisted photo IDs
+        if image is None:
+            # Real uploads may be retried after a missing file is restored.
+            # In-memory notebook demos intentionally run without image bytes.
+            state.detections = None if self.session is not None else []
             state.detection_status = "failed"
             if self.session is not None:
                 health.record_failure(
@@ -428,10 +444,6 @@ class IntakePipeline:
                 health.record_fallback(incident.metrics, health.FALLBACK_DETECTION_UNAVAILABLE)
             self._save(incident)
             return
-        image = next(
-            (item for item in images if item.photo_id == state.detection_photo_id),
-            images[-1],
-        )
         try:
             result = self._call_agent(self.detection_agent, incident, images=[image])
         except AgentError as exc:
@@ -491,8 +503,12 @@ class IntakePipeline:
             return images
         active = next(
             (item for item in images if item.photo_id == state.detection_photo_id),
-            images[-1],
+            None,
         )
+        if active is None and state.detection_photo_id is None:
+            active = images[-1]  # in-memory callers without persisted photo IDs
+        if active is None:
+            return None
         chosen = state.chosen_detection
         if chosen is None:
             return [active]
