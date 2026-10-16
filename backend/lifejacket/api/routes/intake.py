@@ -369,6 +369,18 @@ def get_state(
             incident,
         )
 
+    if state.detection_status == "failed" and state.detections is None:
+        return _to_response(
+            incident_id,
+            TurnResult(
+                message="We could not read that photo. Please send it again "
+                "from where you are standing.",
+                action=StepAction.REQUEST_BETTER_PHOTO,
+            ),
+            state,
+            incident,
+        )
+
     pending = state.pending_question
     turn = TurnResult(
         message=pending.question if pending else None,
