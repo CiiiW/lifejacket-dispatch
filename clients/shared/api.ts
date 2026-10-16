@@ -11,8 +11,12 @@
  * the matching interface here -- nothing checks this automatically yet.
  */
 
-/** Set `EXPO_PUBLIC_API_URL` to your machine's LAN IP when testing on a phone. */
-export const API_BASE = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
+/** Configured by each app's local API re-export, where Expo inlines env vars. */
+export let API_BASE = 'http://localhost:8000';
+
+export function configureApiBase(url: string): void {
+  API_BASE = url.replace(/\/$/, '');
+}
 
 // --- Response types -------------------------------------------------------
 
