@@ -247,13 +247,31 @@ def test_guardrail_failure_holds_the_report_and_says_the_check_did_not_run():
     assert incident.metrics["health"]["failures"][0]["agent"] == "guardrail"
 
 
+def test_validation_failure_is_logged_and_held_for_review():
+    client = _scenario_failing("validation", LLMCallError("Vertex down", attempts=3))
+    chat = _start(client)
+    chat.answer("yes, green netting")
+
+    assert chat.done
+    assert chat.incident.report is not None
+    assert chat.incident.assessment.requires_human_review
+    assert chat.incident.metrics["validation_notes"] == (
+        "Consistency check could not run; record not verified."
+    )
+    record = chat.incident.metrics["health"]
+    assert record["failures"][0]["agent"] == "validation"
+    assert record["failed_calls"] == 1
+    assert record["llm_retries"] == 2
+    assert record["fallbacks"] == ["validation_check_failed"]
+
+
 def test_clean_run_records_calls_and_no_problems():
     chat = _start(ScriptedLLMClient.scenario("sea_lion"))
     chat.answer("yes, green netting")
 
     record = chat.incident.metrics["health"]
     assert record == {
-        "llm_calls": 5,  # identification, assessment x2, report, guardrail
+        "llm_calls": 6,  # identification, assessment x2, validation, report, guardrail
         "llm_retries": 0,
         "failed_calls": 0,
         "failures": [],
@@ -343,7 +361,7 @@ def test_failed_step_over_http_is_a_retry_turn_and_is_visible_to_coordinators(ap
     detail = client.get(f"/incidents/{incident_id}").json()
     assert detail["report"]["headline"]
     # Saved and reloaded across five requests, and still all there.
-    assert detail["health"]["llm_calls"] == 6
+    assert detail["health"]["llm_calls"] == 7
     assert detail["health"]["failed_calls"] == 1
     assert detail["health"]["awaiting_retry"] is False
     assert [m["role"] for m in detail["transcript"]].count("reporter") == 1
