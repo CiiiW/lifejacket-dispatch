@@ -186,6 +186,20 @@ export interface MapPin {
   photo_url: string | null;
 }
 
+/** Thresholded 0.1-degree NOAA report counts, with no individual locations. */
+export interface HistoricalDensity {
+  available: boolean;
+  label: string;
+  caveat: string;
+  grid_degrees: number;
+  min_reports_per_cell: number;
+  cells: {
+    latitude: number;
+    longitude: number;
+    band: '10-24' | '25-99' | '100+';
+  }[];
+}
+
 export interface PhotoRef {
   photo_id: string;
   /** Relative to the API root -- pass through `absoluteUrl` before display. */
@@ -474,6 +488,7 @@ export const reporter = {
 // --- Responder endpoints --------------------------------------------------
 
 export const responder = {
+  historicalDensity: () => request<HistoricalDensity>('/historical-strandings/density'),
   listIncidents: (options?: {
     near?: { latitude: number; longitude: number; radiusKm?: number };
     /** Also return resolved and guidance-only incidents, for a history view. */
