@@ -28,6 +28,9 @@ by the client or checked in. A deployment with an ephemeral SQLite file will
 lose the import on restart; use persistent database storage before deploying
 this layer.
 
+For a private persistent staging stack and an import command that mounts the
+workbook read-only, see [staging setup](staging.md).
+
 ## Inclusion and public map behavior
 
 - Include California records dated 2006–2025 with a confirmed confidence
