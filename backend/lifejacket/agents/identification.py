@@ -87,10 +87,12 @@ class IdentificationAgent(Agent[IdentificationResult]):
         questions_remaining: int = 5,
         previous_candidates: list[SpeciesCandidate] | None = None,
         photo_count: int = 1,
+        target_context: str = "Analyse the animal in the active photo.",
     ) -> dict[str, Any]:
         return {
             "location_summary": location_summary,
             "photo_count": photo_count,
+            "target_context": target_context,
             "questions_asked": questions_asked,
             "questions_remaining": questions_remaining,
             "transcript": _format_transcript(transcript or []),
