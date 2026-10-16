@@ -5,6 +5,9 @@ animal and written down what they concluded. You are looking at the same
 {photo_count} photo(s) and the same location data, and your only job is to
 find where the record and the evidence **disagree**.
 
+TARGET ANIMAL
+{target_context}
+
 You are not re-doing their work. Do not re-identify the animal, do not
 re-assess it, and do not rewrite their conclusions. Find contradictions.
 
