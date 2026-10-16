@@ -175,10 +175,15 @@ class IntakePipeline:
             )
         self._save(incident)
 
-    def attach_photo(self, state: ConversationState, photo_id: str) -> None:
-        """Register an uploaded photo with the conversation."""
+    def attach_photo(
+        self, incident: Incident, state: ConversationState, photo_id: str
+    ) -> None:
+        """Make this photo active and retire conclusions about earlier photos."""
         if photo_id not in state.photo_ids:
-            state.photo_ids.append(photo_id)
+            if state.photo_ids:
+                self._reset_incident_analysis(incident)
+            state.attach_photo(photo_id)
+            self._save(incident)
 
     def select_animal(
         self, incident: Incident, state: ConversationState, number: int
@@ -189,19 +194,41 @@ class IntakePipeline:
         assessment restart on the newly chosen animal (see
         `ConversationState.select_animal`).
         """
+        previous = state.selected_detection
+        had_analysis = state.identification is not None
         state.select_animal(number - 1)
-        incident.identification = None
-        incident.assessment = None
+        if previous not in (None, state.selected_detection) or had_analysis:
+            self._reset_incident_analysis(incident)
         self._save(incident)
 
-    def submit_reply(self, state: ConversationState, text: str) -> None:
+    def submit_reply(self, incident: Incident, state: ConversationState, text: str) -> None:
         """Record a reporter message.
 
         Usually it answers the pending agent question. If nothing is pending
         it is still kept -- a reporter volunteering "it just moved into the
         water" matters, and the agents read the whole transcript every turn.
         """
+        previous = state.selected_detection
         state.add_reporter_message(text)
+        if previous is not None and previous != state.selected_detection:
+            self._reset_incident_analysis(incident)
+            self._save(incident)
+
+    @staticmethod
+    def _reset_incident_analysis(incident: Incident) -> None:
+        incident.identification = None
+        incident.assessment = None
+        incident.report = None
+        incident.dispatch_candidates = []
+        incident.duplicate_of = None
+        incident.status = IncidentStatus.INTAKE
+        for key in (
+            "animals_detected", "identification_stop_reason", "identification_questions_asked",
+            "severity_reasons", "severity_triggered_rules", "severity_contributions",
+            "validation_conflicts", "validation_conflicts_raised", "validation_notes",
+            "validation_questions_asked", "guardrail", "duplicate_match",
+        ):
+            incident.metrics.pop(key, None)
 
     # -- The step loop ------------------------------------------------------
 
@@ -265,7 +292,7 @@ class IntakePipeline:
             case StepAction.RUN_IDENTIFICATION:
                 try:
                     self._run_identification(
-                        incident, state, self._images_of_chosen_animal(state, images)
+                        incident, state, self._target_images(state, images)
                     )
                 except AgentError as exc:
                     return self._ask_reporter_to_retry(incident, exc)
@@ -273,13 +300,13 @@ class IntakePipeline:
 
             case StepAction.RUN_ASSESSMENT:
                 try:
-                    self._run_assessment(incident, state, images)
+                    self._run_assessment(incident, state, self._target_images(state, images))
                 except AgentError as exc:
                     return self._ask_reporter_to_retry(incident, exc)
                 return self.advance(incident, state, images)
 
             case StepAction.RUN_VALIDATION:
-                self._run_validation(incident, state, images)
+                self._run_validation(incident, state, self._target_images(state, images))
                 return self.advance(incident, state, images)
 
             case StepAction.ASK_CLARIFYING_QUESTION:
@@ -387,25 +414,45 @@ class IntakePipeline:
         state: ConversationState,
         images: list[ImageInput] | None,
     ) -> None:
-        """Find the animals in the first photo.
-
-        Fails open: if there is no photo or the model call fails, detection
-        records "nothing found" and identification looks at the whole photo,
-        exactly as it did before this step existed.
-        """
+        """Detect animals in the latest photo, retaining failures as failures."""
         state.stage = ConversationStage.IDENTIFYING
         state.detections = []
+        state.detection_photo_id = state.photo_ids[-1] if state.photo_ids else None
         if not images:
+            state.detection_status = "failed"
+            if self.session is not None:
+                health.record_failure(
+                    incident.metrics, agent="detection", kind="missing_photo", attempts=0,
+                    detail="Active photo could not be loaded.",
+                )
+                health.record_fallback(incident.metrics, health.FALLBACK_DETECTION_UNAVAILABLE)
+            self._save(incident)
             return
+        image = next(
+            (item for item in images if item.photo_id == state.detection_photo_id),
+            images[-1],
+        )
         try:
-            # The first photo only: further photos are assumed to show the
-            # same animal, and boxes are specific to one image.
-            result = self.detection_agent.run(images=images[:1])
+            result = self._call_agent(self.detection_agent, incident, images=[image])
         except AgentError as exc:
             logger.warning("Detection failed for %s: %s", incident.incident_id, exc)
+            state.detection_status = "failed"
+            health.record_fallback(incident.metrics, health.FALLBACK_DETECTION_UNAVAILABLE)
+            self._save(incident)
+            return
+        except Exception as exc:
+            logger.exception("Detection failed for %s", incident.incident_id)
+            health.record_failure(
+                incident.metrics, agent="detection", kind="unexpected_error",
+                attempts=1, detail=str(exc),
+            )
+            state.detection_status = "failed"
+            health.record_fallback(incident.metrics, health.FALLBACK_DETECTION_UNAVAILABLE)
+            self._save(incident)
             return
         state.detections = result.animals
-        incident.metrics.update(self.detection_agent.last_metrics)
+        state.detection_photo_id = image.photo_id or state.detection_photo_id
+        state.detection_status = "found" if result.animals else "no_animals"
         incident.metrics["animals_detected"] = len(result.animals)
         self._save(incident)
 
@@ -436,19 +483,33 @@ class IntakePipeline:
         )
 
     @staticmethod
-    def _images_of_chosen_animal(
+    def _target_images(
         state: ConversationState, images: list[ImageInput] | None
     ) -> list[ImageInput] | None:
-        """The photos identification should look at.
-
-        When the reporter picked one of several animals, that is the crop of
-        it; otherwise the photos exactly as submitted. Assessment always gets
-        the originals: it needs the surroundings (nets, tide line, people).
-        """
-        chosen = state.chosen_detection
-        if chosen is None or not images:
+        """Give every vision agent the same active animal and its surroundings."""
+        if not images:
             return images
-        return [crop_to_detection(images[0], chosen)]
+        active = next(
+            (item for item in images if item.photo_id == state.detection_photo_id),
+            images[-1],
+        )
+        chosen = state.chosen_detection
+        if chosen is None:
+            return [active]
+        return [crop_to_detection(active, chosen), active]
+
+    @staticmethod
+    def _target_context(state: ConversationState) -> str:
+        chosen = state.chosen_detection
+        if chosen is None:
+            return "Analyse the animal in the active photo."
+        return (
+            f"Analyse only animal {state.selected_detection + 1}: "
+            f"{chosen.description or chosen.kind}. The FIRST image is its close-up; "
+            "the SECOND is the full photo for environmental context. "
+            "Do not attribute another animal's species, injuries or behavior "
+            f"to this one. Its normalized box [ymin, xmin, ymax, xmax] is {chosen.box}."
+        )
 
     def _run_identification(
         self,
@@ -465,7 +526,8 @@ class IntakePipeline:
             incident,
             images=images,
             location_summary=self._environment_summary(incident),
-            transcript=state.transcript,
+            transcript=state.active_transcript,
+            target_context=self._target_context(state),
             questions_asked=state.identification_questions_asked,
             questions_remaining=max(
                 0, settings.max_identification_questions - state.identification_questions_asked
@@ -473,7 +535,7 @@ class IntakePipeline:
             previous_candidates=(
                 state.identification.candidates if state.identification else None
             ),
-            photo_count=max(len(state.photo_ids), 1),
+            photo_count=max(len(images or []), 1),
         )
 
         state.identification = result
@@ -507,7 +569,8 @@ class IntakePipeline:
             identification=state.identification,
             context=incident.environment,
             environment_summary=self._environment_summary(incident),
-            transcript=state.transcript,
+            transcript=state.active_transcript,
+            target_context=self._target_context(state),
             questions_asked=state.assessment_questions_asked,
             questions_remaining=max(
                 0, settings.max_assessment_questions - state.assessment_questions_asked
@@ -578,8 +641,9 @@ class IntakePipeline:
                     if state.identification and state.identification.resolution
                     else "Not recorded."
                 ),
-                photo_count=len(state.photo_ids) or 1,
-                transcript=state.transcript,
+                photo_count=max(len(images or []), 1),
+                transcript=state.active_transcript,
+                target_context=self._target_context(state),
             )
         except Exception as exc:
             logger.exception(
@@ -646,7 +710,7 @@ class IntakePipeline:
                 assessment=incident.assessment,
                 context=incident.environment,
                 environment_summary=environment_summary,
-                transcript=state.transcript,
+                transcript=state.active_transcript,
                 severity_reasons=incident.metrics.get("severity_reasons", []),
             )
         except AgentError as exc:
