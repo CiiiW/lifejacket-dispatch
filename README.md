@@ -160,6 +160,9 @@ uvicorn lifejacket.api.main:app --reload --app-dir backend
 Then open <http://localhost:8000/docs> for interactive API docs — the quickest
 way to drive the whole intake flow without writing a client.
 
+For a private web/API preview with persistent PostgreSQL and the historical
+California report layer, follow [`docs/staging.md`](docs/staging.md).
+
 ```bash
 # Load the 33 real rescue centres into the database
 curl -X POST localhost:8000/responders/seed
