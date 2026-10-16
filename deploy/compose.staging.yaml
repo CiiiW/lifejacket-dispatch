@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: lifejacket
+      POSTGRES_DB: lifejacket
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in deploy/staging.env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lifejacket -d lifejacket"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    environment:
+      DATABASE_URL: postgresql+psycopg://lifejacket:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in deploy/staging.env}@db:5432/lifejacket
+      PHOTO_STORAGE_DIR: /app/var/photos
+      CORS_ALLOW_ORIGINS: '[]'
+    volumes:
+      - photos_data:/app/var/photos
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+      args:
+        EXPO_PUBLIC_MAPTILER_KEY: ${EXPO_PUBLIC_MAPTILER_KEY:-}
+    ports:
+      - "127.0.0.1:${STAGING_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  photos_data:
