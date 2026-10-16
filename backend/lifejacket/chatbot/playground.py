@@ -88,8 +88,10 @@ class ChatPlayground:
 
         # Photo first, then location -- the same order the phone app uses.
         photo_ids = [f"PHOTO_{i}" for i in range(len(self.images))] or ["PHOTO_none"]
-        for photo_id in photo_ids:
-            self.pipeline.attach_photo(self.state, photo_id)
+        for index, photo_id in enumerate(photo_ids):
+            self.pipeline.attach_photo(self.incident, self.state, photo_id)
+            if index < len(self.images):
+                self.images[index].photo_id = photo_id
 
         location = GeoPoint(latitude=latitude, longitude=longitude, place_name=place_name)
         if live_context:
@@ -177,7 +179,7 @@ class ChatPlayground:
             return self.last_turn
         if self.verbose:
             print(f"YOU:   {text}")
-        self.pipeline.submit_reply(self.state, text)
+        self.pipeline.submit_reply(self.incident, self.state, text)
         return self._advance()
 
     def select(self, number: int) -> TurnResult:
@@ -241,7 +243,14 @@ class ChatPlayground:
         import matplotlib.pyplot as plt
         from PIL import Image, ImageDraw, ImageOps
 
-        photo = Image.open(io.BytesIO(self.images[0].data))
+        active = next(
+            (
+                image for image in self.images
+                if image.photo_id == self.state.detection_photo_id
+            ),
+            self.images[-1],
+        )
+        photo = Image.open(io.BytesIO(active.data))
         image = ImageOps.exif_transpose(photo).convert("RGB")
         width, height = image.size
         draw = ImageDraw.Draw(image)
