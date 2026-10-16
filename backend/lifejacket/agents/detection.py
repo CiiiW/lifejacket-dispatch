@@ -87,4 +87,4 @@ def crop_to_detection(
 
     buffer = io.BytesIO()
     pil.crop(box).save(buffer, format="JPEG", quality=92)
-    return ImageInput(data=buffer.getvalue(), mime_type="image/jpeg")
+    return ImageInput(data=buffer.getvalue(), mime_type="image/jpeg", photo_id=image.photo_id)
