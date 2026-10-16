@@ -27,7 +27,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from lifejacket.api.routes import coordination, incidents, intake, responders
+from lifejacket.api.routes import coordination, historical_strandings, incidents, intake, responders
 from lifejacket.config import settings
 from lifejacket.models.db import init_db
 
@@ -74,6 +74,7 @@ app.include_router(intake.router)
 app.include_router(incidents.router)
 app.include_router(responders.router)
 app.include_router(coordination.router)
+app.include_router(historical_strandings.router)
 
 
 @app.get("/health", tags=["system"])
