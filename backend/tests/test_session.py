@@ -543,7 +543,8 @@ class TestDetectionStep:
         assert state.identification is None
         assert state.identification_questions_asked == 0
         assert state.probed_features == []
-        assert state.transcript == []
+        assert [message.content for message in state.transcript] == ["long"]
+        assert state.active_transcript == []
         assert decide_next_step(state).action is StepAction.RUN_IDENTIFICATION
 
     def test_invalid_index_is_rejected(self):
