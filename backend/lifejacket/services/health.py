@@ -46,6 +46,7 @@ HEALTH_KEY = "health"
 FALLBACK_GUARDRAIL_CHECK_FAILED = "guardrail_check_failed"
 FALLBACK_REPORT_UNAVAILABLE = "report_unavailable"
 FALLBACK_VALIDATION_CHECK_FAILED = "validation_check_failed"
+FALLBACK_DETECTION_UNAVAILABLE = "detection_unavailable"
 
 #: Error text is truncated: it is for a human scanning the console, and the
 #: full exception is already in the server log.
