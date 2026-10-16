@@ -61,6 +61,7 @@ class ImageInput:
 
     data: bytes
     mime_type: str = "image/jpeg"
+    photo_id: str | None = None  # local evidence identity; never sent to the SDK
 
 
 class LLMError(RuntimeError):
