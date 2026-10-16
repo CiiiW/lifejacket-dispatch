@@ -21,11 +21,13 @@ question comes from an agent and is chosen for that photo.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from enum import Enum
 
 from lifejacket.config import settings
 from lifejacket.models.schemas import (
+    AnimalDetection,
     AssessmentResult,
     ChatMessage,
     ChatRole,
@@ -42,6 +44,8 @@ class StepAction(str, Enum):
     REQUEST_LOCATION = "request_location"
     ASK_CLARIFYING_QUESTION = "ask_clarifying_question"
     REQUEST_BETTER_PHOTO = "request_better_photo"
+    RUN_DETECTION = "run_detection"
+    ASK_WHICH_ANIMAL = "ask_which_animal"
     RUN_IDENTIFICATION = "run_identification"
     RUN_ASSESSMENT = "run_assessment"
     FINALISE = "finalise"
@@ -110,6 +114,14 @@ class ConversationState:
     #: the evaluation notebook.
     identification_stop_reason: str | None = None
 
+    #: Animals found in the photo. None means detection has not run yet; an
+    #: empty list means it ran and found nothing (or could not run), in which
+    #: case identification looks at the whole photo.
+    detections: list[AnimalDetection] | None = None
+    #: Index into `detections` of the animal the reporter chose. Only used
+    #: when more than one animal was found.
+    selected_detection: int | None = None
+
     # --- Transcript helpers ------------------------------------------------
 
     def add_agent_message(
@@ -146,17 +158,82 @@ class ConversationState:
             )
         )
 
+        if self.pending_agent == "detection":
+            self._apply_selection_reply(content)
+
         recipient = self.pending_agent or {
             ConversationStage.IDENTIFYING: "identification",
             ConversationStage.ASSESSING: "assessment",
         }.get(self.stage)
-        if recipient == "identification":
+        if recipient == "detection":
+            pass  # a selection is applied above; no agent needs to re-run
+        elif recipient == "identification":
             self.identification_stale = True
         elif recipient == "assessment":
             self.assessment_stale = True
 
         self.pending_question = None
         self.pending_agent = None
+
+    # --- Animal selection ----------------------------------------------------
+
+    @property
+    def needs_animal_choice(self) -> bool:
+        """True when several animals were found and the reporter has not picked."""
+        return (
+            self.detections is not None
+            and len(self.detections) > 1
+            and self.selected_detection is None
+        )
+
+    @property
+    def chosen_detection(self) -> AnimalDetection | None:
+        """The animal identification should look at, or None for the whole photo.
+
+        With a single animal the whole photo is better than a crop: it keeps
+        the surroundings the species range and condition questions rely on.
+        """
+        if not self.detections or len(self.detections) < 2:
+            return None
+        if self.selected_detection is None:
+            return None
+        return self.detections[self.selected_detection]
+
+    def select_animal(self, index: int) -> None:
+        """Choose which detected animal the report is about (0-based).
+
+        Choosing again after identification has started throws that work away:
+        the transcript, probabilities and question budget all belonged to the
+        previous animal, and leaving them would feed the agent answers about
+        the wrong one.
+        """
+        if self.detections is None or not 0 <= index < len(self.detections):
+            raise ValueError(f"No detected animal at index {index}.")
+
+        changed = self.selected_detection not in (None, index)
+        self.selected_detection = index
+        self.pending_question = None
+        self.pending_agent = None
+        if changed or self.identification is not None:
+            self.identification = None
+            self.assessment = None
+            self.identification_questions_asked = 0
+            self.assessment_questions_asked = 0
+            self.better_photo_requested = False
+            self.probed_features = []
+            self.identification_stop_reason = None
+            self.identification_stale = False
+            self.assessment_stale = False
+            self.transcript = []
+
+    def _apply_selection_reply(self, text: str) -> None:
+        """Read a reply to "which animal?". An unreadable one leaves the choice
+        unset, so the pipeline simply asks again."""
+        match = re.match(r"\s*(\d+)", text)
+        if match and self.detections:
+            number = int(match.group(1))
+            if 1 <= number <= len(self.detections):
+                self.selected_detection = number - 1
 
     @property
     def awaiting_answer(self) -> bool:
@@ -170,9 +247,10 @@ def decide_next_step(state: ConversationState) -> Decision:
     The order of checks *is* the policy:
 
     1. Prerequisites: a photo and a location, since everything depends on them.
-    2. Identification, until confident, out of useful questions, or out of budget.
-    3. Assessment, likewise.
-    4. Finalise.
+    2. Detection, then which animal if there are several.
+    3. Identification, until confident, out of useful questions, or out of budget.
+    4. Assessment, likewise.
+    5. Finalise.
     """
     # --- 1. Prerequisites ---
     if not state.photo_ids:
@@ -189,7 +267,19 @@ def decide_next_step(state: ConversationState) -> Decision:
             reason="Location is needed for species range, tide, weather, and routing.",
         )
 
-    # --- 2. Identification ---
+    # --- 2. Which animal, if the photo holds several ---
+    if state.detections is None:
+        return Decision(
+            action=StepAction.RUN_DETECTION,
+            reason="Photo and location received; finding the animals in the photo.",
+        )
+    if state.needs_animal_choice:
+        return Decision(
+            action=StepAction.ASK_WHICH_ANIMAL,
+            reason=f"{len(state.detections)} animals found; the reporter must pick one.",
+        )
+
+    # --- 3. Identification ---
     if state.identification is None:
         return Decision(
             action=StepAction.RUN_IDENTIFICATION,
@@ -205,7 +295,7 @@ def decide_next_step(state: ConversationState) -> Decision:
     if identification_decision is not None:
         return identification_decision
 
-    # --- 3. Assessment ---
+    # --- 4. Assessment ---
     if state.assessment is None:
         return Decision(
             action=StepAction.RUN_ASSESSMENT,
@@ -222,7 +312,7 @@ def decide_next_step(state: ConversationState) -> Decision:
     if assessment_decision is not None:
         return assessment_decision
 
-    # --- 4. Done ---
+    # --- 5. Done ---
     return Decision(
         action=StepAction.FINALISE,
         reason="Identification and assessment complete; writing the report.",

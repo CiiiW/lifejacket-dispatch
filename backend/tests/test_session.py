@@ -14,6 +14,7 @@ from lifejacket.chatbot.session import (
 )
 from lifejacket.config import settings
 from lifejacket.models.schemas import (
+    AnimalDetection,
     AnimalGroup,
     AssessmentResult,
     ClarifyingQuestion,
@@ -25,9 +26,16 @@ from lifejacket.taxonomy import resolve_taxon
 
 
 def _ready_state() -> ConversationState:
-    """A state with a photo and a location -- ready for identification."""
+    """A state with a photo and a location -- ready for identification.
+
+    Detection is marked as already run and found nothing, so these tests keep
+    exercising identification; the detection step has its own tests below.
+    """
     return ConversationState(
-        incident_id="INC_test0001", photo_ids=["PHOTO_abc"], has_location=True
+        incident_id="INC_test0001",
+        photo_ids=["PHOTO_abc"],
+        has_location=True,
+        detections=[],
     )
 
 
@@ -318,3 +326,87 @@ class TestFinalisation:
         state.identification = _identification([_species(*HARBOR, 0.95, "Phocidae")])
         state.assessment = AssessmentResult(is_confident=True)
         assert decide_next_step(state).action is StepAction.FINALISE
+
+
+def _two_animals_state() -> ConversationState:
+    state = _ready_state()
+    state.detections = [
+        AnimalDetection(box=[200, 0, 890, 700], description="dark animal in the water"),
+        AnimalDetection(box=[240, 640, 500, 800], description="white bird"),
+    ]
+    return state
+
+
+class TestDetectionStep:
+    def test_detection_runs_before_identification(self):
+        state = _ready_state()
+        state.detections = None
+        assert decide_next_step(state).action is StepAction.RUN_DETECTION
+
+    def test_nothing_found_goes_straight_to_identification(self):
+        assert decide_next_step(_ready_state()).action is StepAction.RUN_IDENTIFICATION
+
+    def test_one_animal_needs_no_choice(self):
+        state = _ready_state()
+        state.detections = [AnimalDetection(box=[0, 0, 500, 500], description="seal")]
+        assert decide_next_step(state).action is StepAction.RUN_IDENTIFICATION
+        assert state.chosen_detection is None  # whole photo, not a crop
+
+    def test_several_animals_ask_which(self):
+        assert decide_next_step(_two_animals_state()).action is StepAction.ASK_WHICH_ANIMAL
+
+    def test_choice_unlocks_identification_on_that_animal(self):
+        state = _two_animals_state()
+        state.select_animal(1)
+        assert decide_next_step(state).action is StepAction.RUN_IDENTIFICATION
+        assert state.chosen_detection.description == "white bird"
+
+    def test_numbered_reply_selects(self):
+        state = _two_animals_state()
+        state.add_agent_message(
+            "Which?", "detection", ClarifyingQuestion(question="Which?", options=["1. a", "2. b"])
+        )
+        state.add_reporter_message("2. white bird")
+        assert state.selected_detection == 1
+        assert not state.identification_stale
+
+    def test_unreadable_reply_asks_again(self):
+        state = _two_animals_state()
+        state.add_agent_message(
+            "Which?", "detection", ClarifyingQuestion(question="Which?", options=["1. a", "2. b"])
+        )
+        state.add_reporter_message("the left one")
+        assert state.selected_detection is None
+        assert decide_next_step(state).action is StepAction.ASK_WHICH_ANIMAL
+
+    def test_out_of_range_number_is_ignored(self):
+        state = _two_animals_state()
+        state.add_agent_message(
+            "Which?", "detection", ClarifyingQuestion(question="Which?", options=["1. a", "2. b"])
+        )
+        state.add_reporter_message("7")
+        assert state.selected_detection is None
+
+    def test_changing_the_choice_restarts_identification(self):
+        state = _two_animals_state()
+        state.select_animal(0)
+        state.identification = IdentificationResult(
+            candidates=[_species("Harbor seal", "Phoca vitulina", 0.5, "Phocidae")]
+        )
+        state.identification_questions_asked = 3
+        state.probed_features = ["body_length"]
+        state.add_reporter_message("long")
+
+        state.select_animal(1)
+
+        assert state.identification is None
+        assert state.identification_questions_asked == 0
+        assert state.probed_features == []
+        assert state.transcript == []
+        assert decide_next_step(state).action is StepAction.RUN_IDENTIFICATION
+
+    def test_invalid_index_is_rejected(self):
+        import pytest
+
+        with pytest.raises(ValueError):
+            _two_animals_state().select_animal(5)

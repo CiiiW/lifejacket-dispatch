@@ -79,6 +79,8 @@ class ScriptedLLMClient:
         self.calls.append(RecordedCall(agent, prompt, len(images or [])))
 
         replies = self.script.get(agent)
+        if not replies and agent == "detection":
+            replies = [{"animals": []}]  # offline: no boxes, identify the whole photo
         if not replies:
             raise RuntimeError(
                 f"ScriptedLLMClient has no replies queued for the '{agent}' agent. "
@@ -111,6 +113,8 @@ class ScriptedLLMClient:
 def agent_for_schema(schema: dict[str, Any]) -> str:
     """Work out which agent is calling from a field unique to its schema."""
     properties = schema.get("properties", {})
+    if "animals" in properties:
+        return "detection"
     if "species_distinguishable" in properties:
         return "identification"
     if "injury_present" in properties:

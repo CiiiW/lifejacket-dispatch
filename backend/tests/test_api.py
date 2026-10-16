@@ -95,7 +95,8 @@ def test_full_conversation_over_http(api):
     ]
     assert detail["report"]["headline"]
     assert [c.agent for c in scripted.calls] == [
-        "identification", "identification", "assessment", "assessment", "report", "guardrail",
+        "detection", "identification", "identification", "assessment", "assessment", "report",
+        "guardrail",
     ]
 
 

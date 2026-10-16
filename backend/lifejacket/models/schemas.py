@@ -16,7 +16,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 # ---------------------------------------------------------------------------
 # Enumerations
@@ -462,11 +462,38 @@ class ChatMessage(BaseModel):
     options: list[str] = Field(default_factory=list)
 
 
+class AnimalDetection(BaseModel):
+    """One animal the detection step found in the photo.
+
+    `box` is `[ymin, xmin, ymax, xmax]` on a 0-1000 scale relative to the full
+    image (Gemini's native box format), so it does not depend on resolution.
+    """
+
+    box: list[int]
+    #: Position/colour wording a reporter will recognise. Never a species name.
+    description: str = ""
+    kind: str = "other"
+
+    @field_validator("box")
+    @classmethod
+    def _clamp_box(cls, box: list[int]) -> list[int]:
+        if len(box) != 4:
+            raise ValueError("box must be [ymin, xmin, ymax, xmax]")
+        return [min(max(v, 0), 1000) for v in box]
+
+
+class DetectionResult(BaseModel):
+    """Output of the detection step: every animal found in the photo."""
+
+    animals: list[AnimalDetection] = Field(default_factory=list)
+
+
 class ConversationStage(str, Enum):
     """Where the chatbot is in the conversation."""
 
     AWAITING_PHOTO = "awaiting_photo"
     AWAITING_LOCATION = "awaiting_location"
+    SELECTING_ANIMAL = "selecting_animal"
     IDENTIFYING = "identifying"
     ASSESSING = "assessing"
     COMPLETE = "complete"

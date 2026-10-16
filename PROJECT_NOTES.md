@@ -25,6 +25,20 @@ For the repository tour and design rationale, see [README.md](README.md).
 
 ## Decisions
 
+- **2026-10-12** Added an animal-detection step before identification, for photos
+  that hold more than one animal. `agents/detection.py` asks Gemini for a box
+  and a short description per animal (`prompts/identification/detect_animals.md`);
+  with several found, the pipeline asks the reporter which one
+  (`StepAction.ASK_WHICH_ANIMAL`, reply by number) and identification
+  then sees a crop of it (assessment still gets the original photos). One or zero animals: the whole photo, unchanged.
+  The choice can be changed later (`select_animal`); doing so discards the
+  transcript, probabilities and question budget for the previous animal.
+  Detection fails open (a failed call means "nothing found"). Not YOLO: the COCO
+  classes it ships with have no seals, sea lions, dolphins or turtles. Known
+  weakness, from two photos x two runs: Gemini's boxes are not stable between
+  runs (one run drew two boxes on empty sky; another boxed a seal's whole left
+  two-thirds), so the boxes are fixed per conversation in `ConversationState`
+  rather than re-detected each turn. Needs a larger check before trusting it.
 - **2026-10-01** Fixed a real bug: identification could settle on a guess at
   0.30 confidence having asked 0 of its 5 questions, because
   `identification_stop_reason` (chatbot/session.py) accepted the agent's

@@ -36,6 +36,8 @@ from dataclasses import dataclass, field
 from sqlalchemy.orm import Session
 
 from lifejacket.agents.assessment import AssessmentAgent
+from lifejacket.agents.base import AgentError
+from lifejacket.agents.detection import DetectionAgent, crop_to_detection
 from lifejacket.agents.guardrail import GuardrailAgent, GuardrailVerdict
 from lifejacket.agents.identification import IdentificationAgent
 from lifejacket.agents.report import ReportAgent
@@ -55,6 +57,7 @@ from lifejacket.dispatch.severity import recommended_action, score_severity
 from lifejacket.llm.client import ImageInput, LLMClient
 from lifejacket.models import repository
 from lifejacket.models.schemas import (
+    ClarifyingQuestion,
     ConversationStage,
     DispatchCandidate,
     GeoPoint,
@@ -104,6 +107,7 @@ class IntakePipeline:
     ) -> None:
         self.session = session
         self.stop_at = stop_at or set()
+        self.detection_agent = DetectionAgent(client)
         self.identification_agent = IdentificationAgent(client)
         self.assessment_agent = AssessmentAgent(client)
         self.report_agent = ReportAgent(client)
@@ -150,6 +154,20 @@ class IntakePipeline:
         """Register an uploaded photo with the conversation."""
         if photo_id not in state.photo_ids:
             state.photo_ids.append(photo_id)
+
+    def select_animal(
+        self, incident: Incident, state: ConversationState, number: int
+    ) -> None:
+        """Pick which detected animal the report is about (1-based, as shown).
+
+        Safe to call again later to change the choice: identification and
+        assessment restart on the newly chosen animal (see
+        `ConversationState.select_animal`).
+        """
+        state.select_animal(number - 1)
+        incident.identification = None
+        incident.assessment = None
+        self._save(incident)
 
     def submit_reply(self, state: ConversationState, text: str) -> None:
         """Record a reporter message.
@@ -212,8 +230,17 @@ class IntakePipeline:
                     "where you are -- do not move closer to the animal.",
                 )
 
+            case StepAction.RUN_DETECTION:
+                self._run_detection(incident, state, images)
+                return self.advance(incident, state, images)
+
+            case StepAction.ASK_WHICH_ANIMAL:
+                return self._ask_which_animal(state, decision)
+
             case StepAction.RUN_IDENTIFICATION:
-                self._run_identification(incident, state, images)
+                self._run_identification(
+                    incident, state, self._images_of_chosen_animal(state, images)
+                )
                 return self.advance(incident, state, images)
 
             case StepAction.RUN_ASSESSMENT:
@@ -260,6 +287,75 @@ class IntakePipeline:
             action=StepAction.ASK_CLARIFYING_QUESTION,
             reason=decision.reason,
         )
+
+    def _run_detection(
+        self,
+        incident: Incident,
+        state: ConversationState,
+        images: list[ImageInput] | None,
+    ) -> None:
+        """Find the animals in the first photo.
+
+        Fails open: if there is no photo or the model call fails, detection
+        records "nothing found" and identification looks at the whole photo,
+        exactly as it did before this step existed.
+        """
+        state.stage = ConversationStage.IDENTIFYING
+        state.detections = []
+        if not images:
+            return
+        try:
+            # The first photo only: further photos are assumed to show the
+            # same animal, and boxes are specific to one image.
+            result = self.detection_agent.run(images=images[:1])
+        except AgentError as exc:
+            logger.warning("Detection failed for %s: %s", incident.incident_id, exc)
+            return
+        state.detections = result.animals
+        incident.metrics.update(self.detection_agent.last_metrics)
+        incident.metrics["animals_detected"] = len(result.animals)
+        self._save(incident)
+
+    def _ask_which_animal(self, state: ConversationState, decision: Decision) -> TurnResult:
+        """Ask the reporter to pick one of several animals."""
+        assert state.detections is not None
+        state.stage = ConversationStage.SELECTING_ANIMAL
+        options = [
+            f"{n}. {d.description or d.kind}" for n, d in enumerate(state.detections, 1)
+        ]
+        message = (
+            f"I can see {len(state.detections)} animals in your photo. "
+            "Which one are you reporting?"
+        )
+        # No feature key: a probed feature is something identification must not
+        # ask about again, and this is not one.
+        state.add_agent_message(
+            message,
+            agent_name="detection",
+            question=ClarifyingQuestion(question=message, options=options),
+        )
+        return TurnResult(
+            message=message,
+            options=options,
+            awaiting_reply=True,
+            action=StepAction.ASK_WHICH_ANIMAL,
+            reason=decision.reason,
+        )
+
+    @staticmethod
+    def _images_of_chosen_animal(
+        state: ConversationState, images: list[ImageInput] | None
+    ) -> list[ImageInput] | None:
+        """The photos identification should look at.
+
+        When the reporter picked one of several animals, that is the crop of
+        it; otherwise the photos exactly as submitted. Assessment always gets
+        the originals: it needs the surroundings (nets, tide line, people).
+        """
+        chosen = state.chosen_detection
+        if chosen is None or not images:
+            return images
+        return [crop_to_detection(images[0], chosen)]
 
     def _run_identification(
         self,
