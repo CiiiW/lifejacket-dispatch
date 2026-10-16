@@ -97,6 +97,12 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
             identification.resolution.rank.value if identification.resolution else None
         )
         row.identification_json = identification.model_dump(mode="json")
+    else:
+        row.species_common_name = None
+        row.species_confidence = None
+        row.animal_group = None
+        row.taxon_rank = None
+        row.identification_json = None
 
     # --- Promoted from assessment ---
     if incident.assessment:
@@ -105,10 +111,19 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
         row.injury_present = incident.assessment.injury.injury_present
         row.entanglement_present = incident.assessment.injury.entanglement
         row.assessment_json = incident.assessment.model_dump(mode="json")
+    else:
+        row.severity_level = None
+        row.severity_score = None
+        row.injury_present = None
+        row.entanglement_present = None
+        row.assessment_json = None
 
     if incident.report:
         row.report_headline = incident.report.headline
         row.report_json = incident.report.model_dump(mode="json")
+    else:
+        row.report_headline = None
+        row.report_json = None
 
     if incident.environment:
         row.environment_json = incident.environment.model_dump(mode="json")
@@ -238,6 +253,9 @@ def _state_to_json(state: ConversationState) -> dict:
             else None
         ),
         "selected_detection": state.selected_detection,
+        "detection_photo_id": state.detection_photo_id,
+        "detection_status": state.detection_status,
+        "active_transcript_start": state.active_transcript_start,
         "pending_agent": state.pending_agent,
         "identification_stale": state.identification_stale,
         "assessment_stale": state.assessment_stale,
@@ -285,6 +303,16 @@ def _state_from_json(data: dict) -> ConversationState:
             else None
         ),
         selected_detection=data.get("selected_detection"),
+        # Earlier conversations only ran detection on their first photo.
+        detection_photo_id=data.get("detection_photo_id") or (
+            data.get("photo_ids", [None])[0] if data.get("detections") is not None
+            and data.get("photo_ids") else None
+        ),
+        detection_status=data.get("detection_status") or (
+            "found" if data.get("detections") else
+            "no_animals" if data.get("detections") is not None else "pending"
+        ),
+        active_transcript_start=data.get("active_transcript_start", 0),
         pending_agent=data.get("pending_agent"),
         identification_stale=data.get("identification_stale", False),
         assessment_stale=data.get("assessment_stale", False),
