@@ -29,7 +29,7 @@ from lifejacket.config import settings
 from lifejacket.llm.client import ImageInput
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
-from lifejacket.models.schemas import GeoPoint, Incident
+from lifejacket.models.schemas import AnimalDetection, ConversationStage, GeoPoint, Incident
 from lifejacket.models.tables import IncidentRow, PhotoRow
 from lifejacket.services import health
 from lifejacket.services.pipeline import (
@@ -67,6 +67,10 @@ class LocationRequest(BaseModel):
 
 class ReplyRequest(BaseModel):
     text: str
+
+
+class AnimalChoiceRequest(BaseModel):
+    number: int = Field(ge=1)
 
 
 class ContactRequest(BaseModel):
@@ -144,6 +148,11 @@ class TurnResponse(BaseModel):
     #: real step (`action` is then "service_retry"). The client should offer
     #: "Try again", which calls POST /intake/{id}/retry.
     service_error: bool = False
+    detections: list[AnimalDetection] = Field(default_factory=list)
+    detection_photo_id: str | None = None
+    detection_photo_url: str | None = None
+    detection_status: str = "pending"
+    selected_detection: int | None = None
 
 
 @router.post("/start", response_model=TurnResponse)
@@ -191,6 +200,11 @@ async def upload_photo(
         )
 
     incident, state, pipeline = _load(session, incident_id)
+    if state.stage is ConversationStage.COMPLETE:
+        raise HTTPException(
+            status_code=409,
+            detail="This report is complete; start a new report for another photo.",
+        )
 
     photo_row = repository.save_photo(
         session,
@@ -205,10 +219,14 @@ async def upload_photo(
     destination.write_bytes(data)
     photo_row.storage_path = str(destination)
 
-    pipeline.attach_photo(state, photo_row.photo_id)
+    pipeline.attach_photo(incident, state, photo_row.photo_id)
 
     turn = pipeline.advance(
-        incident, state, images=[ImageInput(data=data, mime_type=file.content_type)]
+        incident,
+        state,
+        images=[
+            ImageInput(data=data, mime_type=file.content_type, photo_id=photo_row.photo_id)
+        ],
     )
     _persist(session, pipeline, incident, state)
     return _to_response(incident_id, turn, state, incident)
@@ -237,7 +255,7 @@ def set_location(
         ),
     )
 
-    turn = pipeline.advance(incident, state, images=_load_images(session, incident_id))
+    turn = pipeline.advance(incident, state, images=_load_images(session, state))
     _persist(session, pipeline, incident, state)
     return _to_response(incident_id, turn, state, incident)
 
@@ -277,9 +295,31 @@ def submit_reply(
 
     # Any text is accepted: options are shortcuts for tapping, not a whitelist.
     # The agent reads the reply in context, so "the left one, I think" is fine.
-    pipeline.submit_reply(state, body.text)
+    pipeline.submit_reply(incident, state, body.text)
 
-    turn = pipeline.advance(incident, state, images=_load_images(session, incident_id))
+    turn = pipeline.advance(incident, state, images=_load_images(session, state))
+    _persist(session, pipeline, incident, state)
+    return _to_response(incident_id, turn, state, incident)
+
+
+@router.post("/{incident_id}/animal", response_model=TurnResponse)
+def choose_animal(
+    incident_id: str, body: AnimalChoiceRequest, session: Session = Depends(get_session)
+) -> TurnResponse:
+    """Choose or change the animal in the active photo during intake."""
+    incident, state, pipeline = _load(session, incident_id)
+    if state.stage is ConversationStage.COMPLETE:
+        raise HTTPException(status_code=409, detail="This report is complete.")
+    if state.detections is None or len(state.detections) < 2:
+        raise HTTPException(
+            status_code=409, detail="There is no animal choice for this photo."
+        )
+    if body.number > len(state.detections):
+        raise HTTPException(status_code=422, detail="Animal number is out of range.")
+    if state.selected_detection == body.number - 1:
+        return get_state(incident_id, session)
+    pipeline.select_animal(incident, state, body.number)
+    turn = pipeline.advance(incident, state, images=_load_images(session, state))
     _persist(session, pipeline, incident, state)
     return _to_response(incident_id, turn, state, incident)
 
@@ -299,7 +339,7 @@ def retry_step(incident_id: str, session: Session = Depends(get_session)) -> Tur
         # Nothing failed; re-asking would spend a question from the budget.
         return get_state(incident_id, session)
 
-    turn = pipeline.advance(incident, state, images=_load_images(session, incident_id))
+    turn = pipeline.advance(incident, state, images=_load_images(session, state))
     _persist(session, pipeline, incident, state)
     return _to_response(incident_id, turn, state, incident)
 
@@ -326,6 +366,7 @@ def get_state(
                 action=StepAction.SERVICE_RETRY,
             ),
             state,
+            incident,
         )
 
     pending = state.pending_question
@@ -334,6 +375,11 @@ def get_state(
         options=pending.options if pending else [],
         awaiting_reply=pending is not None,
         complete=state.stage.value == "complete",
+        action=(
+            StepAction.ASK_WHICH_ANIMAL
+            if state.pending_agent == "detection" else
+            StepAction.ASK_CLARIFYING_QUESTION if pending else None
+        ),
     )
     return _to_response(incident_id, turn, state, incident)
 
@@ -359,22 +405,27 @@ def _load(session: Session, incident_id: str):
     return incident, state, IntakePipeline(session)
 
 
-def _load_images(session: Session, incident_id: str) -> list[ImageInput]:
+def _load_images(session: Session, state) -> list[ImageInput]:
     """Re-read the incident's photos from disk for an agent call.
 
     The agents are stateless, so every identification or assessment pass needs
     the photos again. A missing file is skipped rather than fatal: losing a
     photo should degrade the identification, not abort an active report.
     """
-    rows = session.query(PhotoRow).filter(PhotoRow.incident_id == incident_id).all()
+    rows = session.query(PhotoRow).filter(PhotoRow.incident_id == state.incident_id).all()
+    by_id = {row.photo_id: row for row in rows}
 
     images: list[ImageInput] = []
-    for row in rows:
+    for photo_id in state.photo_ids:
+        row = by_id.get(photo_id)
+        if row is None:
+            continue
         try:
             with open(row.storage_path, "rb") as fh:
                 images.append(
                     ImageInput(
-                        data=fh.read(), mime_type=row.content_type or "image/jpeg"
+                        data=fh.read(), mime_type=row.content_type or "image/jpeg",
+                        photo_id=row.photo_id,
                     )
                 )
         except OSError as exc:
@@ -461,4 +512,12 @@ def _to_response(
         report_headline=None,
         conditions=build_conditions(incident.environment if incident else None),
         service_error=turn.action is StepAction.SERVICE_RETRY,
+        detections=state.detections or [],
+        detection_photo_id=state.detection_photo_id,
+        detection_photo_url=(
+            f"/incidents/{incident_id}/photos/{state.detection_photo_id}"
+            if state.detection_photo_id else None
+        ),
+        detection_status=state.detection_status,
+        selected_detection=state.selected_detection,
     )
