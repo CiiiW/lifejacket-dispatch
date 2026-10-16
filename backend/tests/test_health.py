@@ -361,7 +361,7 @@ def test_failed_step_over_http_is_a_retry_turn_and_is_visible_to_coordinators(ap
     detail = client.get(f"/incidents/{incident_id}").json()
     assert detail["report"]["headline"]
     # Saved and reloaded across five requests, and still all there.
-    assert detail["health"]["llm_calls"] == 7
+    assert detail["health"]["llm_calls"] == 8  # includes animal detection
     assert detail["health"]["failed_calls"] == 1
     assert detail["health"]["awaiting_retry"] is False
     assert [m["role"] for m in detail["transcript"]].count("reporter") == 1
