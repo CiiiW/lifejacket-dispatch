@@ -20,18 +20,20 @@ import IncidentDetailScreen from './src/screens/IncidentDetailScreen';
 import IncidentMapScreen from './src/screens/IncidentMapScreen';
 import LogIncidentScreen from './src/screens/LogIncidentScreen';
 import HandoverScreen from './src/screens/HandoverScreen';
+import DroneLabScreen from './src/screens/DroneLabScreen';
 import { colors, glass, radius, shadow, spacing, type } from './src/lib/theme';
 
 // TODO: replace with the signed-in responder once auth is in place.
 const RESPONDER_ID = 'org_the_marine_mammal_center_monterey_bay_operat';
 
-type TabName = 'triage' | 'incident' | 'log' | 'handover';
+type TabName = 'triage' | 'incident' | 'log' | 'handover' | 'drones';
 
 const TABS: { name: TabName; label: string }[] = [
   { name: 'triage', label: 'Triage' },
   { name: 'incident', label: 'Incident' },
   { name: 'log', label: 'Log outcome' },
   { name: 'handover', label: 'Handover' },
+  { name: 'drones', label: 'Drone Lab' },
 ];
 
 export default function App() {
@@ -71,6 +73,7 @@ export default function App() {
       </View>
 
       <View style={styles.body}>
+        {tab === 'drones' && <DroneLabScreen />}
         {tab === 'handover' && <HandoverScreen onSelect={select} />}
         {tab === 'triage' && <IncidentMapScreen onSelect={select} />}
 
