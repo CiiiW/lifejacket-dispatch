@@ -31,6 +31,7 @@ env/
 *.xlsx
 *.xls
 /deploy/staging.env
+/deploy/team.env
 
 # Uploaded photos. Kept out of git: they are large, and a stranding location
 # can be personally identifying.
