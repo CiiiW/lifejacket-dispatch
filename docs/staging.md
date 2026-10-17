@@ -8,6 +8,10 @@ still has writable incident and responder endpoints without authentication.
 This is a private feasibility environment for trusted team members, not a
 public service.
 
+For a shared HTTPS URL with individual Google accounts, see the prepared
+[team staging configuration](team_staging.md). Publishing it requires the
+project administrator's IAM policy permissions.
+
 ## Start on a trusted host
 
 Install Docker Engine with the Compose plugin on the host and check out the
