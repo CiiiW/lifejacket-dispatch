@@ -8,6 +8,19 @@ tide and weather at that spot, and sends a concise incident report to the
 rescue console with ranked responder candidates for coordinator review.
 The prototype does not verify permits or automatically dispatch responders.
 
+## Run the local drone demo
+
+With Python 3.11+ and Docker running, pull the `charlotte` branch and run:
+
+```bash
+python3 scripts/local_demo.py
+```
+
+Open <http://127.0.0.1:8080> and choose **Drone Lab**. The synthetic survey planner
+and mock telemetry replay work without GCP access, model keys or a private NOAA
+workbook. Each teammate gets a separate local database. See the
+[local setup](docs/local_drone_demo.md) and [drone architecture](docs/drone_architecture.md).
+
 ## Three rescue workflows
 
 | Workflow | What happens | Primary code |
