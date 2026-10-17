@@ -393,6 +393,61 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
+// --- Local drone experiments ----------------------------------------------
+export interface DronePoint { latitude: number; longitude: number }
+export interface SurveyBox { south: number; north: number; west: number; east: number }
+export interface DroneMissionRequest {
+  mode: 'simulation';
+  home: DronePoint;
+  survey_area: SurveyBox;
+  altitude_m: number;
+  simulated_wind_mps: number;
+  exclusion_zones: SurveyBox[];
+}
+export interface DroneWaypoint extends DronePoint {
+  altitude_m: number;
+  phase: 'ground' | 'takeoff' | 'survey' | 'return' | 'land';
+}
+export interface DronePlan {
+  plan_id: string;
+  status: 'ready_for_review' | 'blocked';
+  mission: DroneMissionRequest;
+  limits: { reserve_percent: number; max_wind_mps: number };
+  waypoints: DroneWaypoint[];
+  blocked_reasons: string[];
+  distance_m: number | null;
+  duration_s: number | null;
+  estimated_battery_remaining_percent: number | null;
+  synthetic: true;
+}
+export interface DroneTelemetry extends DroneWaypoint { elapsed_s: number; battery_percent: number }
+export type DroneScenario = 'nominal' | 'low_battery' | 'link_loss';
+export interface DroneSimulationResult {
+  run_id: string;
+  plan_id: string;
+  backend: 'mock';
+  synthetic: true;
+  scenario: DroneScenario;
+  status: 'completed' | 'aborted';
+  reviewed_by: string;
+  samples: DroneTelemetry[];
+  events: { elapsed_s: number; kind: string; message: string }[];
+  limitations: string[];
+}
+export const drones = {
+  demo: () => request<DroneMissionRequest>('/drones/demo'),
+  plan: (mission: DroneMissionRequest) => request<DronePlan>('/drones/plan', {
+    method: 'POST', body: JSON.stringify(mission),
+  }),
+  simulate: (plan: DronePlan, scenario: DroneScenario) =>
+    request<DroneSimulationResult>('/drones/simulate', {
+      method: 'POST', body: JSON.stringify({
+        mission: plan.mission, plan_id: plan.plan_id, backend: 'mock',
+        reviewed_by: 'Local demo reviewer', scenario,
+      }),
+    }),
+};
+
 // --- Reporter endpoints ---------------------------------------------------
 
 export const reporter = {

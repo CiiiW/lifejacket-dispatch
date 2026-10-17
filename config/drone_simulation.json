@@ -1,0 +1,13 @@
+{
+  "min_altitude_m": 10,
+  "max_altitude_m": 100,
+  "max_home_radius_m": 2000,
+  "max_route_m": 4000,
+  "max_wind_mps": 8,
+  "cruise_speed_mps": 5,
+  "vertical_speed_mps": 2,
+  "endurance_s": 1200,
+  "reserve_percent": 25,
+  "survey_spacing_m": 50,
+  "sample_period_s": 5
+}

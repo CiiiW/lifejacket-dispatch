@@ -4,6 +4,12 @@ Status: proposal. Extends `docs/drone_integration.md` — this fills in the
 "how" for integration points 1 and 2 (multi-angle visual input, and the
 deterministic drone dispatch decision) at the hardware/firmware level.
 
+Implementation update: [the current architecture](drone_architecture.md) starts
+with a local synthetic planner and mock replay, then an ArduPilot SITL adapter.
+No Pi, MAVLink transport or physical arming is implemented. Hardware/operating
+assumptions below remain proposals; a universal marine-mammal approach floor
+must not be treated as validated drone authorization.
+
 ## Role in the system
 
 The Pi does not fly the drone, and it does not decide whether to fly.

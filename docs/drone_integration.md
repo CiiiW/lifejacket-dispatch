@@ -1,6 +1,11 @@
 # Drone Integration (Proposal)
 
-Status: proposal, not yet implemented.
+Status: imagery and physical-flight proposal; the local simulation slice is implemented.
+
+Current scope: the local synthetic planner and mock replay are now implemented;
+see [drone architecture](drone_architecture.md) and
+[teammate setup](local_drone_demo.md). The imagery and physical-flight designs
+below remain proposals.
 
 ## Why
 
@@ -59,13 +64,13 @@ for the proposal to stand on its own.
 
 ## Safety boundary (non-negotiable)
 
-Drones operating near marine mammals are directly regulated: MMPA
-guidance sets minimum approach distances for most marine mammal species.
-Any flight plan `drone_dispatch.py` produces must enforce an altitude/
-distance floor as a hard constraint, the same way `severity.py` hard-rules
-entanglement and bleeding to critical regardless of score. This is not a
-tunable default — it should not be possible to configure a flight path to
-violate the minimum approach distance.
+Real mission constraints must come from current site/species/activity rules
+and the relevant operator's authorizations. A single generic MMPA distance or
+altitude constant is not an established drone flight policy. NOAA advises
+avoiding drone activity near marine mammals and says national UAS guidance is
+under development; see [its primary guidance](https://www.fisheries.noaa.gov/insight/viewing-marine-life).
+The implemented local prototype accepts only simulation requests and supplied
+synthetic exclusions. Real execution and wildlife clearance are future work.
 
 This also extends the backend's existing human-in-the-loop boundary
 (`responders/assign` requires a human; nothing dispatches automatically).

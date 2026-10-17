@@ -23,7 +23,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import maplibre, { type Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { severityColour, type HistoricalDensity, type MapPin, type ResponderOrg, type RouteLine } from '../lib/api';
+import { severityColour, type HistoricalDensity, type MapPin, type ResponderOrg, type RouteLine,
+  type DronePlan, type DroneTelemetry } from '../lib/api';
 import { basemap } from '../lib/basemap';
 import { colors, radius, spacing, type } from '../lib/theme';
 
@@ -38,6 +39,8 @@ export default function TriageMap({
   route,
   density,
   showDensity,
+  dronePlan = null,
+  droneSample = null,
   selectedId,
   onSelect,
 }: {
@@ -46,12 +49,15 @@ export default function TriageMap({
   route: RouteLine | null;
   density: HistoricalDensity | null;
   showDensity: boolean;
+  dronePlan?: DronePlan | null;
+  droneSample?: DroneTelemetry | null;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
 }) {
   const container = useRef<HTMLDivElement | null>(null);
   const map = useRef<MapLibreMap | null>(null);
   const markers = useRef<maplibre.Marker[]>([]);
+  const droneMarker = useRef<maplibre.Marker | null>(null);
   const ready = useRef(false);
   const tiles = basemap();
 
@@ -104,11 +110,18 @@ export default function TriageMap({
           'line-opacity': 0.9,
         },
       });
+      map.current.addSource('drone-survey', {
+        type: 'geojson',
+        data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } },
+      });
+      map.current.addLayer({ id: 'drone-survey-line', type: 'line', source: 'drone-survey',
+        paint: { 'line-color': colors.warning, 'line-width': 3, 'line-dasharray': [2, 1] } });
     });
 
     return () => {
       map.current?.remove();
       map.current = null;
+      droneMarker.current = null;
       ready.current = false;
     };
   }, [tiles.style]);
@@ -130,6 +143,37 @@ export default function TriageMap({
     if (ready.current) draw();
     else map.current?.once('load', draw);
   }, [density, showDensity]);
+
+  useEffect(() => {
+    const draw = () => {
+      const source = map.current?.getSource('drone-survey') as maplibre.GeoJSONSource | undefined;
+      if (!source) return;
+      const coordinates = dronePlan?.waypoints.map(p => [p.longitude, p.latitude]) ?? [];
+      source.setData({ type: 'Feature', properties: {},
+        geometry: { type: 'LineString', coordinates } });
+      map.current?.setPaintProperty('drone-survey-line', 'line-color',
+        dronePlan?.status === 'blocked' ? colors.danger : colors.warning);
+      if (coordinates.length && map.current) {
+        const bounds = new maplibre.LngLatBounds();
+        coordinates.forEach(point => bounds.extend([point[0], point[1]]));
+        map.current.fitBounds(bounds, { padding: 60, maxZoom: 16, duration: 600 });
+      }
+    };
+    if (ready.current) draw(); else map.current?.once('load', draw);
+    return () => { map.current?.off('load', draw); };
+  }, [dronePlan]);
+
+  useEffect(() => {
+    if (!map.current) return;
+    if (!droneSample) { droneMarker.current?.remove(); droneMarker.current = null; return; }
+    if (!droneMarker.current) {
+      const element = document.createElement('div');
+      element.style.cssText = 'width:18px;height:18px;background:#FFC043;border:3px solid #fff;border-radius:50%;';
+      element.title = 'Synthetic drone telemetry';
+      droneMarker.current = new maplibre.Marker({ element });
+    }
+    droneMarker.current.setLngLat([droneSample.longitude, droneSample.latitude]).addTo(map.current);
+  }, [droneSample]);
 
   // Redraw markers whenever the data or the selection changes. Markers are
   // DOM elements, so they are torn down and rebuilt rather than diffed.
@@ -221,6 +265,7 @@ export default function TriageMap({
 
       <View style={styles.badge} pointerEvents="none">
         <Text style={styles.badgeText}>{tiles.label}</Text>
+        {dronePlan && <Text style={styles.badgeText}>Synthetic survey route · {dronePlan.status.replace(/_/g, ' ')}</Text>}
         {showDensity && density && <Text style={styles.badgeText}>
           Historical reports · 10–24 / 25–99 / 100+ per ~11 km cell
         </Text>}
