@@ -11,8 +11,12 @@
  * the matching interface here -- nothing checks this automatically yet.
  */
 
-/** Set `EXPO_PUBLIC_API_URL` to your machine's LAN IP when testing on a phone. */
-export const API_BASE = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
+/** Configured by each app's local API re-export, where Expo inlines env vars. */
+export let API_BASE = 'http://localhost:8000';
+
+export function configureApiBase(url: string): void {
+  API_BASE = url.replace(/\/$/, '');
+}
 
 // --- Response types -------------------------------------------------------
 
@@ -70,6 +74,13 @@ export interface Conflict {
   confidence: number;
   /** The recorded field in doubt, e.g. "wound". */
   field: string;
+}
+
+export interface AnimalDetection {
+  kind: string;
+  description: string;
+  /** [top, left, bottom, right] on a 0–1000 scale. */
+  box: [number, number, number, number];
 }
 
 export interface Turn {
@@ -132,6 +143,13 @@ export interface Turn {
    * `reporter.retry`.
    */
   service_error: boolean;
+  detections: AnimalDetection[];
+  detection_photo_id: string | null;
+  detection_photo_url: string | null;
+  /** pending, found, no_animals, or failed. */
+  detection_status: string;
+  /** Zero-based index into detections. */
+  selected_detection: number | null;
 }
 
 /**
@@ -170,6 +188,20 @@ export interface MapPin {
   assigned_responder_id: string | null;
   /** First photo, relative to the API root. Use `absoluteUrl` to display it. */
   photo_url: string | null;
+}
+
+/** Thresholded 0.1-degree NOAA report counts, with no individual locations. */
+export interface HistoricalDensity {
+  available: boolean;
+  label: string;
+  caveat: string;
+  grid_degrees: number;
+  min_reports_per_cell: number;
+  cells: {
+    latitude: number;
+    longitude: number;
+    band: '10-24' | '25-99' | '100+';
+  }[];
 }
 
 export interface PhotoRef {
@@ -361,6 +393,61 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json() as Promise<T>;
 }
 
+// --- Local drone experiments ----------------------------------------------
+export interface DronePoint { latitude: number; longitude: number }
+export interface SurveyBox { south: number; north: number; west: number; east: number }
+export interface DroneMissionRequest {
+  mode: 'simulation';
+  home: DronePoint;
+  survey_area: SurveyBox;
+  altitude_m: number;
+  simulated_wind_mps: number;
+  exclusion_zones: SurveyBox[];
+}
+export interface DroneWaypoint extends DronePoint {
+  altitude_m: number;
+  phase: 'ground' | 'takeoff' | 'survey' | 'return' | 'land';
+}
+export interface DronePlan {
+  plan_id: string;
+  status: 'ready_for_review' | 'blocked';
+  mission: DroneMissionRequest;
+  limits: { reserve_percent: number; max_wind_mps: number };
+  waypoints: DroneWaypoint[];
+  blocked_reasons: string[];
+  distance_m: number | null;
+  duration_s: number | null;
+  estimated_battery_remaining_percent: number | null;
+  synthetic: true;
+}
+export interface DroneTelemetry extends DroneWaypoint { elapsed_s: number; battery_percent: number }
+export type DroneScenario = 'nominal' | 'low_battery' | 'link_loss';
+export interface DroneSimulationResult {
+  run_id: string;
+  plan_id: string;
+  backend: 'mock';
+  synthetic: true;
+  scenario: DroneScenario;
+  status: 'completed' | 'aborted';
+  reviewed_by: string;
+  samples: DroneTelemetry[];
+  events: { elapsed_s: number; kind: string; message: string }[];
+  limitations: string[];
+}
+export const drones = {
+  demo: () => request<DroneMissionRequest>('/drones/demo'),
+  plan: (mission: DroneMissionRequest) => request<DronePlan>('/drones/plan', {
+    method: 'POST', body: JSON.stringify(mission),
+  }),
+  simulate: (plan: DronePlan, scenario: DroneScenario) =>
+    request<DroneSimulationResult>('/drones/simulate', {
+      method: 'POST', body: JSON.stringify({
+        mission: plan.mission, plan_id: plan.plan_id, backend: 'mock',
+        reviewed_by: 'Local demo reviewer', scenario,
+      }),
+    }),
+};
+
 // --- Reporter endpoints ---------------------------------------------------
 
 export const reporter = {
@@ -436,6 +523,12 @@ export const reporter = {
       body: JSON.stringify({ text }),
     }),
 
+  chooseAnimal: (incidentId: string, number: number) =>
+    request<Turn>(`/intake/${incidentId}/animal`, {
+      method: 'POST',
+      body: JSON.stringify({ number }),
+    }),
+
   /**
    * Run the last step again after a `service_error` turn. Adds nothing to the
    * conversation, unlike `reply`.
@@ -454,6 +547,7 @@ export const reporter = {
 // --- Responder endpoints --------------------------------------------------
 
 export const responder = {
+  historicalDensity: () => request<HistoricalDensity>('/historical-strandings/density'),
   listIncidents: (options?: {
     near?: { latitude: number; longitude: number; radiusKm?: number };
     /** Also return resolved and guidance-only incidents, for a history view. */

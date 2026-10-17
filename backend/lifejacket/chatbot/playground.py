@@ -88,8 +88,10 @@ class ChatPlayground:
 
         # Photo first, then location -- the same order the phone app uses.
         photo_ids = [f"PHOTO_{i}" for i in range(len(self.images))] or ["PHOTO_none"]
-        for photo_id in photo_ids:
-            self.pipeline.attach_photo(self.state, photo_id)
+        for index, photo_id in enumerate(photo_ids):
+            self.pipeline.attach_photo(self.incident, self.state, photo_id)
+            if index < len(self.images):
+                self.images[index].photo_id = photo_id
 
         location = GeoPoint(latitude=latitude, longitude=longitude, place_name=place_name)
         if live_context:
@@ -177,7 +179,18 @@ class ChatPlayground:
             return self.last_turn
         if self.verbose:
             print(f"YOU:   {text}")
-        self.pipeline.submit_reply(self.state, text)
+        self.pipeline.submit_reply(self.incident, self.state, text)
+        return self._advance()
+
+    def select(self, number: int) -> TurnResult:
+        """Pick which animal the report is about, by the number shown.
+
+        Works any time, including after identification has started: choosing a
+        different animal discards the questions and answers about the first.
+        """
+        if self.verbose:
+            print(f"YOU:   animal {number}")
+        self.pipeline.select_animal(self.incident, self.state, number)
         return self._advance()
 
     def interactive(self) -> None:
@@ -208,9 +221,57 @@ class ChatPlayground:
         self.last_turn = turn
         if self.verbose:
             _print_turn(turn, self.state)
+            if turn.action is StepAction.ASK_WHICH_ANIMAL:
+                # The reporter has to see which number is which animal.
+                self.show_detections(list_animals=False)
         return turn
 
     # -- Inspection -----------------------------------------------------------
+
+    def show_detections(self, list_animals: bool = True) -> None:
+        """Draw the numbered boxes on the first photo, and mark the chosen one.
+
+        Shown automatically whenever the chatbot asks which animal is meant.
+        """
+        detections = self.state.detections
+        if not detections:
+            print("(no animals detected -- the whole photo is used)")
+            return
+
+        import io
+
+        import matplotlib.pyplot as plt
+        from PIL import Image, ImageDraw, ImageOps
+
+        active = next(
+            (
+                image for image in self.images
+                if image.photo_id == self.state.detection_photo_id
+            ),
+            self.images[-1],
+        )
+        photo = Image.open(io.BytesIO(active.data))
+        image = ImageOps.exif_transpose(photo).convert("RGB")
+        width, height = image.size
+        draw = ImageDraw.Draw(image)
+        for n, d in enumerate(detections, 1):
+            ymin, xmin, ymax, xmax = d.box
+            chosen = self.state.selected_detection == n - 1
+            box = (
+                xmin / 1000 * width,
+                ymin / 1000 * height,
+                xmax / 1000 * width,
+                ymax / 1000 * height,
+            )
+            colour = "lime" if chosen else "red"
+            draw.rectangle(box, outline=colour, width=max(2, width // 300))
+            draw.text((box[0] + 4, box[1] + 2), str(n), fill="yellow")
+            if list_animals:
+                print(f"{'*' if chosen else ' '} {n}. {d.kind:<8} {d.description}")
+        plt.figure(figsize=(8, 8))
+        plt.imshow(image)
+        plt.axis("off")
+        plt.show()
 
     def show_identification(self) -> None:
         """Print the candidates, the resolved taxon, and why it stopped."""
@@ -369,7 +430,7 @@ def _load_image(path: str | Path) -> ImageInput:
 
 
 def _print_turn(turn: TurnResult, state: ConversationState) -> None:
-    if turn.action is StepAction.ASK_CLARIFYING_QUESTION:
+    if turn.action in (StepAction.ASK_CLARIFYING_QUESTION, StepAction.ASK_WHICH_ANIMAL):
         print(f"AGENT: {turn.message}")
         if turn.options:
             print("       options: " + " | ".join(turn.options))

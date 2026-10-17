@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from lifejacket.agents.validation import ValidationResult
 from lifejacket.chatbot.session import ConversationState
 from lifejacket.dispatch.duplicates import (
     ACTIVE_DUPLICATE_TARGET_STATUSES,
@@ -23,6 +24,7 @@ from lifejacket.dispatch.duplicates import (
 from lifejacket.dispatch.mass_stranding import StrandingReport
 from lifejacket.geo import bounding_box, haversine_km
 from lifejacket.models.schemas import (
+    AnimalDetection,
     AnimalGroup,
     AssessmentResult,
     ChatMessage,
@@ -95,6 +97,12 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
             identification.resolution.rank.value if identification.resolution else None
         )
         row.identification_json = identification.model_dump(mode="json")
+    else:
+        row.species_common_name = None
+        row.species_confidence = None
+        row.animal_group = None
+        row.taxon_rank = None
+        row.identification_json = None
 
     # --- Promoted from assessment ---
     if incident.assessment:
@@ -103,10 +111,19 @@ def save_incident(session: Session, incident: Incident) -> IncidentRow:
         row.injury_present = incident.assessment.injury.injury_present
         row.entanglement_present = incident.assessment.injury.entanglement
         row.assessment_json = incident.assessment.model_dump(mode="json")
+    else:
+        row.severity_level = None
+        row.severity_score = None
+        row.injury_present = None
+        row.entanglement_present = None
+        row.assessment_json = None
 
     if incident.report:
         row.report_headline = incident.report.headline
         row.report_json = incident.report.model_dump(mode="json")
+    else:
+        row.report_headline = None
+        row.report_json = None
 
     if incident.environment:
         row.environment_json = incident.environment.model_dump(mode="json")
@@ -221,14 +238,28 @@ def _state_to_json(state: ConversationState) -> dict:
         "assessment": (
             state.assessment.model_dump(mode="json") if state.assessment else None
         ),
+        "validation": (
+            state.validation.model_dump(mode="json") if state.validation else None
+        ),
         "identification_questions_asked": state.identification_questions_asked,
         "assessment_questions_asked": state.assessment_questions_asked,
+        "validation_questions_asked": state.validation_questions_asked,
         "better_photo_requested": state.better_photo_requested,
         "probed_features": state.probed_features,
         "identification_stop_reason": state.identification_stop_reason,
+        "detections": (
+            [d.model_dump(mode="json") for d in state.detections]
+            if state.detections is not None
+            else None
+        ),
+        "selected_detection": state.selected_detection,
+        "detection_photo_id": state.detection_photo_id,
+        "detection_status": state.detection_status,
+        "active_transcript_start": state.active_transcript_start,
         "pending_agent": state.pending_agent,
         "identification_stale": state.identification_stale,
         "assessment_stale": state.assessment_stale,
+        "validation_stale": state.validation_stale,
         "pending_question": (
             state.pending_question.model_dump(mode="json")
             if state.pending_question
@@ -255,14 +286,37 @@ def _state_from_json(data: dict) -> ConversationState:
             if data.get("assessment")
             else None
         ),
+        validation=(
+            ValidationResult.model_validate(data["validation"])
+            if data.get("validation")
+            else None
+        ),
         identification_questions_asked=data.get("identification_questions_asked", 0),
         assessment_questions_asked=data.get("assessment_questions_asked", 0),
+        validation_questions_asked=data.get("validation_questions_asked", 0),
         better_photo_requested=data.get("better_photo_requested", False),
         probed_features=data.get("probed_features", []),
         identification_stop_reason=data.get("identification_stop_reason"),
+        detections=(
+            [AnimalDetection.model_validate(d) for d in data["detections"]]
+            if data.get("detections") is not None
+            else None
+        ),
+        selected_detection=data.get("selected_detection"),
+        # Earlier conversations only ran detection on their first photo.
+        detection_photo_id=data.get("detection_photo_id") or (
+            data.get("photo_ids", [None])[0] if data.get("detections") is not None
+            and data.get("photo_ids") else None
+        ),
+        detection_status=data.get("detection_status") or (
+            "found" if data.get("detections") else
+            "no_animals" if data.get("detections") is not None else "pending"
+        ),
+        active_transcript_start=data.get("active_transcript_start", 0),
         pending_agent=data.get("pending_agent"),
         identification_stale=data.get("identification_stale", False),
         assessment_stale=data.get("assessment_stale", False),
+        validation_stale=data.get("validation_stale", False),
         pending_question=(
             ClarifyingQuestion.model_validate(data["pending_question"])
             if data.get("pending_question")

@@ -37,6 +37,7 @@ import LocationPicker, { type PickedLocation } from '../components/LocationPicke
 
 import {
   ApiError,
+  absoluteUrl,
   reporter,
   severityColour,
   type Conditions,
@@ -156,6 +157,7 @@ export default function ReportScreen({
   const [turn, setTurn] = useState<Turn | null>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [draft, setDraft] = useState('');
+  const [changingAnimal, setChangingAnimal] = useState(false);
   const [busy, setBusy] = useState(false);
   const [waitLabel, setWaitLabel] = useState<string | null>(null);
   const [locating, setLocating] = useState(false);
@@ -174,6 +176,8 @@ export default function ReportScreen({
     species: string | null;
     severity: string | null;
   }>({ conditions: false, species: null, severity: null });
+  const activeSubject = useRef<{ photo: string | null; selection: number | null } | null>(null);
+  const detectionNotice = useRef<string | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollToEnd({ animated: true });
@@ -260,7 +264,22 @@ export default function ReportScreen({
     setWaitLabel(waiting ?? WAIT_LABELS.reply);
     try {
       const next = await call();
+      const previous = activeSubject.current;
+      const subjectChanged = previous && (
+        (previous.photo && next.detection_photo_id && previous.photo !== next.detection_photo_id)
+        || (previous.selection !== null && next.selected_detection !== null
+          && previous.selection !== next.selected_detection)
+      );
+      if (subjectChanged) {
+        announced.current.species = null;
+        announced.current.severity = null;
+      }
+      activeSubject.current = {
+        photo: next.detection_photo_id,
+        selection: next.selected_detection,
+      };
       setTurn(next);
+      setChangingAnimal(false);
       onIncident?.(next.incident_id);
       if (next.conditions) {
         onConditions?.(next.conditions);
@@ -269,7 +288,15 @@ export default function ReportScreen({
       // Order on the final turn: the verdict (from `announceFacts`), then the
       // agent's instructions, then who the report went to. Urgency first,
       // then what to do about it, then what happens next.
-      const notes = announceFacts(next);
+      const notes: Bubble[] = subjectChanged
+        ? [{ kind: 'status', label: 'New animal', text: 'Checking this animal afresh; earlier conclusions belonged to the previous photo or animal.' }]
+        : [];
+      if (next.detection_status === 'failed' && next.detection_photo_id
+        && detectionNotice.current !== next.detection_photo_id) {
+        detectionNotice.current = next.detection_photo_id;
+        notes.push({ kind: 'status', label: 'Photo check unavailable', text: 'I could not mark animals in this photo. I will use the full image, and the coordinator can review it.' });
+      }
+      notes.push(...announceFacts(next));
 
       // On the final turn the advice is rendered as cards from the structured
       // fields, so `next.message` -- which is the same advice as one
@@ -509,7 +536,7 @@ export default function ReportScreen({
   const action = turn?.action;
   const needsPhoto = action === 'request_photo' || action === 'request_better_photo';
   const needsLocation = action === 'request_location';
-  const isQuestion = action === 'ask_clarifying_question';
+  const isQuestion = action === 'ask_clarifying_question' || action === 'ask_which_animal';
   // The backend could not run a step (model failure). Nothing was lost; the
   // same step runs again when the reporter taps the button.
   const needsRetry = action === 'service_retry';
@@ -567,6 +594,24 @@ export default function ReportScreen({
       </ScrollView>
 
       <View style={styles.actions}>
+        {turn && !turn.complete && turn.selected_detection !== null && turn.detections.length > 1 && (
+          <Pressable disabled={busy} onPress={() => setChangingAnimal(!changingAnimal)}>
+            <Text style={styles.changeAnimal}>Change animal in photo</Text>
+          </Pressable>
+        )}
+        {(action === 'ask_which_animal' || changingAnimal) && turn && turn.detections.length > 1 && turn.detection_photo_url && (
+          <AnimalChoicePhoto
+            turn={turn}
+            busy={busy}
+            onChoose={(index) => {
+              if (changingAnimal) {
+                void run(() => reporter.chooseAnimal(turn.incident_id, index + 1));
+              } else {
+                void send(turn.options[index] ?? String(index + 1));
+              }
+            }}
+          />
+        )}
         {needsPhoto && (
           <Pressable style={styles.primary} onPress={takePhoto} disabled={busy}>
             <Text style={styles.primaryText}>Take a photo</Text>
@@ -631,6 +676,49 @@ export default function ReportScreen({
             </Pressable>
           </View>
         )}
+      </View>
+    </View>
+  );
+}
+
+/** Boxes use the original image's aspect ratio, so the normalized coordinates align. */
+function AnimalChoicePhoto({
+  turn, busy, onChoose,
+}: {
+  turn: Turn; busy: boolean; onChoose: (index: number) => void;
+}) {
+  const uri = absoluteUrl(turn.detection_photo_url);
+  const [ratio, setRatio] = useState(1);
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (!uri) return;
+    Image.getSize(uri, (w, h) => setRatio(w / h), () => setRatio(1));
+  }, [uri]);
+  if (!uri) return null;
+  const height = width / ratio;
+  return (
+    <View style={styles.choiceCard}>
+      <Text style={styles.choiceHint}>Tap the box around the animal you mean.</Text>
+      <View onLayout={(event) => setWidth(event.nativeEvent.layout.width)}>
+        <Image source={{ uri }} style={{ width: '100%', aspectRatio: ratio }} resizeMode="stretch" />
+        {width > 0 && turn.detections.map((animal, index) => {
+          const [top, left, bottom, right] = animal.box;
+          return (
+            <Pressable
+              key={index}
+              accessibilityLabel={`Animal ${index + 1}: ${animal.description || animal.kind}`}
+              disabled={busy}
+              onPress={() => onChoose(index)}
+              style={[styles.animalBox, {
+                top: top / 1000 * height, left: left / 1000 * width,
+                width: (right - left) / 1000 * width,
+                height: (bottom - top) / 1000 * height,
+              }]}
+            >
+              <Text style={styles.animalNumber}>{index + 1}</Text>
+            </Pressable>
+          );
+        })}
       </View>
     </View>
   );
@@ -818,6 +906,11 @@ function TranscriptBubble({ bubble }: { bubble: Bubble }) {
 }
 
 const styles = StyleSheet.create({
+  choiceCard: { ...glass, padding: spacing.sm, gap: spacing.xs },
+  choiceHint: { ...type.meta, color: colors.text, fontSize: 13 },
+  changeAnimal: { ...type.meta, color: colors.accent, textDecorationLine: 'underline' },
+  animalBox: { position: 'absolute', borderWidth: 3, borderColor: colors.accent, backgroundColor: 'rgba(0, 80, 120, 0.12)' },
+  animalNumber: { alignSelf: 'flex-start', backgroundColor: colors.accent, color: colors.onAccent, fontWeight: 'bold', paddingHorizontal: 5 },
   screen: { flex: 1, backgroundColor: colors.background },
   header: {
     paddingHorizontal: spacing.lg,
