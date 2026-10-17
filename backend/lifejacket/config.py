@@ -187,3 +187,10 @@ def load_scoring_config() -> dict[str, Any]:
     """
     with open(CONFIG_DIR / "scoring.json", encoding="utf-8") as fh:
         return json.load(fh)
+
+
+@lru_cache
+def load_drone_simulation_config() -> dict[str, Any]:
+    """Server-owned assumptions for synthetic drone experiments."""
+    with open(CONFIG_DIR / "drone_simulation.json", encoding="utf-8") as fh:
+        return json.load(fh)
