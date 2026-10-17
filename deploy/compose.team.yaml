@@ -1,0 +1,18 @@
+services:
+  origin:
+    image: nginx:stable-alpine
+    environment:
+      ORIGIN_TOKEN: ${ORIGIN_TOKEN:?Generate deploy/team.env first}
+      NGINX_ENVSUBST_FILTER: '^ORIGIN_TOKEN$$'
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - '/bin/sh /etc/lifejacket/check-token.sh; exec /docker-entrypoint.sh nginx -g "daemon off;"'
+    volumes:
+      - ./team/origin.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./team/check-token.sh:/etc/lifejacket/check-token.sh:ro
+    ports:
+      - "${TEAM_BIND_IP:?Set an explicit loopback or private VM address}:${TEAM_ORIGIN_PORT:-18081}:8080"
+    depends_on:
+      web:
+        condition: service_started
+    restart: unless-stopped
