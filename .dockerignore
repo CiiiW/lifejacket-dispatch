@@ -22,3 +22,4 @@ demo
 backend/tests
 clients/reporter_app
 deploy/staging.env
+deploy/team.env
