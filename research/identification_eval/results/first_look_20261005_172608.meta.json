@@ -1,0 +1,33 @@
+{
+  "started": "2026-10-05T17:26:08",
+  "resumed_at": [],
+  "finished": true,
+  "images_planned": 102,
+  "args": {
+    "only": "originals",
+    "limit": "None",
+    "resume": "None",
+    "out_dir": "/Users/xinyuwang/Desktop/lifejacket-dispatch/research/identification_eval/results",
+    "dry_run": "False",
+    "no_place_names": "False"
+  },
+  "git": {
+    "commit": "ea68503",
+    "uncommitted_changes_in_prompts_or_backend": true
+  },
+  "prompt_files_sha256": {
+    "identify_species.md": "5e464ae00e7b",
+    "system_principles.md": "c35e11828ee5"
+  },
+  "model": "gemini-2.5-flash",
+  "temperature": 0.1,
+  "thinking_budget": 1280,
+  "max_output_tokens": 6144,
+  "identification_confidence_threshold": 0.9,
+  "confident_taxon_ranks": [
+    "species",
+    "genus"
+  ],
+  "identification_min_confidence_to_settle": 0.8,
+  "location_text": "location line only (no tide, weather or time)"
+}

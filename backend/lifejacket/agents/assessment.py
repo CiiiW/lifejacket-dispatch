@@ -109,6 +109,7 @@ class AssessmentAgent(Agent[AssessmentResult]):
         transcript: list[ChatMessage] | None = None,
         questions_asked: int = 0,
         questions_remaining: int = 5,
+        target_context: str = "Analyse the animal in the active photo.",
     ) -> dict[str, Any]:
         group = identification.animal_group if identification else AnimalGroup.UNKNOWN
         resolution = identification.resolution if identification else None
@@ -129,6 +130,7 @@ class AssessmentAgent(Agent[AssessmentResult]):
             "animal_group": group.value,
             "group_specific_notes": _group_notes(group),
             "environment_summary": environment_summary,
+            "target_context": target_context,
             "transcript": _format_transcript(transcript or []),
             "questions_asked": questions_asked,
             "questions_remaining": questions_remaining,

@@ -27,6 +27,7 @@ import {
   severityColour,
   severityLabel,
   type MapPin,
+  type HistoricalDensity,
   type ResponderOrg,
   type RouteLine,
 } from '../lib/api';
@@ -49,6 +50,12 @@ export default function IncidentMapScreen({
   const [centres, setCentres] = useState<ResponderOrg[]>([]);
   const [highlighted, setHighlighted] = useState<string | null>(null);
   const [route, setRoute] = useState<RouteLine | null>(null);
+  const [density, setDensity] = useState<HistoricalDensity | null>(null);
+  const [showDensity, setShowDensity] = useState(false);
+
+  useEffect(() => {
+    responder.historicalDensity().then(setDensity).catch(() => setDensity(null));
+  }, []);
 
   const load = useCallback(async () => {
     try {
@@ -126,12 +133,26 @@ export default function IncidentMapScreen({
           pins={pins}
           centres={centres}
           route={route}
+          density={density}
+          showDensity={showDensity}
           selectedId={highlighted}
           onSelect={highlight}
         />
       </View>
 
       <View style={styles.panel}>
+        <Pressable
+          style={[styles.filter, { alignSelf: 'flex-start', marginBottom: spacing.sm }, showDensity && styles.filterActive]}
+          disabled={!density?.available || density.cells.length === 0}
+          onPress={() => setShowDensity((current) => !current)}
+        >
+          <Text style={[styles.filterText, showDensity && styles.filterTextActive]}>
+            {showDensity ? 'Hide historical reports' : 'Show historical reports'}
+          </Text>
+        </Pressable>
+        <Text style={styles.densityNote}>
+          {density?.available ? density.caveat : 'Historical data has not been imported here.'}
+        </Text>
         <View style={styles.panelHeader}>
           <Text style={styles.heading}>
             {pins.length} {showClosed ? '' : 'open '}
@@ -225,6 +246,7 @@ export default function IncidentMapScreen({
 const styles = StyleSheet.create({
   screen: { flex: 1, flexDirection: 'row', backgroundColor: colors.background },
   loading: { flex: 1 },
+  densityNote: { ...type.meta, color: colors.textMuted, fontSize: 11, marginBottom: spacing.md },
 
   mapWrap: { flex: 2, padding: spacing.lg },
 

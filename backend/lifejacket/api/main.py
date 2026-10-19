@@ -26,8 +26,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.engine import make_url
 
-from lifejacket.api.routes import coordination, incidents, intake, responders
+from lifejacket.api.routes import (
+    coordination,
+    drones,
+    historical_strandings,
+    incidents,
+    intake,
+    responders,
+)
 from lifejacket.config import settings
 from lifejacket.models.db import init_db
 
@@ -44,7 +52,11 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     """Create tables and the photo directory before serving any request."""
     init_db()
     settings.photo_storage_dir.mkdir(parents=True, exist_ok=True)
-    logger.info("LifeJacket ready. Database: %s", settings.database_url)
+    # A staging DATABASE_URL contains a password. Never write it to logs.
+    logger.info(
+        "LifeJacket ready. Database: %s",
+        make_url(settings.database_url).render_as_string(hide_password=True),
+    )
     yield
 
 
@@ -74,6 +86,8 @@ app.include_router(intake.router)
 app.include_router(incidents.router)
 app.include_router(responders.router)
 app.include_router(coordination.router)
+app.include_router(historical_strandings.router)
+app.include_router(drones.router)
 
 
 @app.get("/health", tags=["system"])

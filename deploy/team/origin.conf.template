@@ -1,0 +1,23 @@
+server {
+    listen 8080;
+    server_name _;
+    client_max_body_size 12m;
+
+    # Check the secret before serving either the frontend or API. This also
+    # protects the origin from other machines already allowed into the VPC.
+    if ($http_x_lifejacket_origin != "${ORIGIN_TOKEN}") {
+        return 403;
+    }
+
+    location / {
+        proxy_pass http://web:80;
+        proxy_set_header X-LifeJacket-Origin "";
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_buffering off;
+    }
+}

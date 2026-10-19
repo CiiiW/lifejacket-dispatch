@@ -19,6 +19,7 @@ pydantic-settings>=2.6.0
 
 # --- Database ---
 SQLAlchemy>=2.0.35
+openpyxl>=3.1.0                  # local NOAA workbook import (not used by API requests)
 
 # --- LLM ---
 # The unified Google Gen AI SDK. The prototype used two different SDKs

@@ -1,0 +1,16 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY backend/requirements-staging.txt /app/backend/requirements-staging.txt
+RUN pip install --no-cache-dir -r /app/backend/requirements-staging.txt
+
+COPY backend/lifejacket /app/backend/lifejacket
+COPY config /app/config
+COPY data /app/data
+COPY prompts /app/prompts
+
+ENV PYTHONPATH=/app/backend \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+EXPOSE 8000
+CMD ["python", "-m", "uvicorn", "lifejacket.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -147,9 +147,11 @@ class ValidationAgent(Agent[ValidationResult]):
         identification_summary: str = "Not recorded.",
         photo_count: int = 1,
         transcript: list[ChatMessage] | None = None,
+        target_context: str = "Analyse the animal in the active photo.",
     ) -> dict[str, Any]:
         return {
             "photo_count": photo_count,
+            "target_context": target_context,
             "species": identification.display_name if identification else "unidentified",
             "species_confidence": (
                 f"{identification.confidence:.2f}" if identification else "unknown"

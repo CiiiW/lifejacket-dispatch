@@ -8,14 +8,22 @@ serialisation would silently break the conversation.
 
 from __future__ import annotations
 
+import io
+import json
+
 import pytest
 from fastapi.testclient import TestClient
+from lifejacket.agents.validation import Conflict, ValidationResult
 from lifejacket.api.main import app
+from lifejacket.chatbot.session import ConversationState
 from lifejacket.config import settings
+from lifejacket.llm.client import LLMCallError
 from lifejacket.llm.fake import ScriptedLLMClient
+from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import EnvironmentalContext
 from lifejacket.models.tables import Base
+from PIL import Image
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -54,6 +62,31 @@ def api(tmp_path, monkeypatch):
     # create the real lifejacket.db) does not run.
     yield TestClient(app), scripted
     app.dependency_overrides.clear()
+
+
+def test_validation_state_round_trip_and_old_incident_defaults():
+    state = ConversationState(incident_id="INC_test")
+    state.validation = ValidationResult(
+        has_conflict=True,
+        conflicts=[Conflict(field="wound", recorded="false", observed="visible wound")],
+    )
+    state.validation_questions_asked = 2
+    state.validation_stale = True
+
+    saved = json.loads(json.dumps(repository._state_to_json(state)))
+    restored = repository._state_from_json(saved)
+    assert isinstance(restored.validation, ValidationResult)
+    assert restored.validation.conflicts[0].field == "wound"
+    assert restored.validation_questions_asked == 2
+    assert restored.validation_stale is True
+
+    # Older rows lacked these keys; they should still reopen safely.
+    for key in ("validation", "validation_questions_asked", "validation_stale"):
+        saved.pop(key)
+    previous = repository._state_from_json(saved)
+    assert previous.validation is None
+    assert previous.validation_questions_asked == 0
+    assert previous.validation_stale is False
 
 
 def test_full_conversation_over_http(api):
@@ -95,12 +128,209 @@ def test_full_conversation_over_http(api):
     ]
     assert detail["report"]["headline"]
     assert [c.agent for c in scripted.calls] == [
-        "identification", "identification", "assessment", "assessment",
+        "detection", "identification", "identification", "assessment", "assessment",
         # The consistency check sits between the assessment and the report:
         # late enough that the record has settled, early enough to still ask
         # the reporter about a contradiction.
         "validation", "report", "guardrail",
     ]
+
+
+def _two_colour_photo() -> bytes:
+    image = Image.new("RGB", (200, 100), "red")
+    image.paste("blue", (100, 0, 200, 100))
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
+def test_animal_choice_targets_every_vision_agent_and_survives_reload(api):
+    client, scripted = api
+    scripted.script["detection"] = [{"animals": [
+        {"box": [0, 0, 1000, 500], "description": "red animal", "kind": "mammal"},
+        {"box": [0, 500, 1000, 1000], "description": "blue animal", "kind": "bird"},
+    ]}]
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("animals.png", _two_colour_photo(), "image/png")
+    })
+    turn = client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    }).json()
+    assert turn["action"] == "ask_which_animal"
+    assert turn["detection_status"] == "found"
+    assert turn["detection_photo_url"].endswith(turn["detection_photo_id"])
+    assert len(turn["detections"]) == 2
+    resumed = client.get(f"/intake/{incident_id}").json()
+    assert resumed["action"] == "ask_which_animal"
+    assert resumed["detections"] == turn["detections"]
+
+    turn = client.post(f"/intake/{incident_id}/reply", json={"text": "2. blue animal"}).json()
+    assert turn["selected_detection"] == 1
+    client.post(f"/intake/{incident_id}/reply", json={"text": "long beak"})
+    client.post(f"/intake/{incident_id}/reply", json={"text": "yes"})
+    for agent in ("identification", "assessment", "validation"):
+        calls = [call for call in scripted.calls if call.agent == agent]
+        assert calls
+        assert all(call.image_count == 2 for call in calls)
+        assert all("Analyse only animal 2: blue animal" in call.prompt for call in calls)
+
+
+def test_new_photo_rechecks_and_clears_persisted_old_conclusion(api):
+    client, scripted = api
+    scripted.script["identification"][1] = LLMCallError("Vertex down", attempts=1)
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("first.png", _two_colour_photo(), "image/png")
+    })
+    first = client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    }).json()
+    assert first["identified_as"]
+    second = client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("second.png", _two_colour_photo(), "image/png")
+    }).json()
+    assert second["service_error"]
+    assert second["identified_as"] is None
+    assert second["detection_photo_id"] != first["detection_photo_id"]
+    assert second["detection_status"] == "no_animals"
+    detail = client.get(f"/incidents/{incident_id}").json()
+    assert detail["species_common_name"] is None
+    assert detail["species_candidates"] == []
+    assert detail["severity_level"] is None
+    assert client.get(f"/intake/{incident_id}").json()["identified_as"] is None
+
+
+def test_detection_failure_is_distinct_from_no_animals(api):
+    client, scripted = api
+    scripted.script["detection"] = [LLMCallError("Detector down", attempts=2)]
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("animal.png", _two_colour_photo(), "image/png")
+    })
+    turn = client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    }).json()
+    assert turn["detection_status"] == "failed"
+    assert turn["detections"] == []
+    assert turn["identified_as"]
+    detail = client.get(f"/incidents/{incident_id}").json()
+    assert "detection_unavailable" in detail["health"]["fallbacks"]
+
+
+def test_changing_animal_clears_stale_database_columns(api):
+    client, scripted = api
+    scripted.script["detection"] = [{"animals": [
+        {"box": [0, 0, 1000, 500], "description": "red animal", "kind": "mammal"},
+        {"box": [0, 500, 1000, 1000], "description": "blue animal", "kind": "bird"},
+    ]}]
+    scripted.script["identification"][1] = LLMCallError("Vertex down", attempts=1)
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("animals.png", _two_colour_photo(), "image/png")
+    })
+    client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    })
+    first = client.post(f"/intake/{incident_id}/animal", json={"number": 1}).json()
+    assert first["identified_as"]
+    changed = client.post(f"/intake/{incident_id}/animal", json={"number": 2}).json()
+    assert changed["service_error"]
+    assert changed["selected_detection"] == 1
+    assert changed["identified_as"] is None
+    detail = client.get(f"/incidents/{incident_id}").json()
+    assert detail["species_common_name"] is None
+    assert detail["species_candidates"] == []
+    assert detail["severity_level"] is None
+    assert client.get(f"/intake/{incident_id}").json()["selected_detection"] == 1
+
+
+def test_complete_report_rejects_photo_retake(api):
+    client, _ = api
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("first.png", _two_colour_photo(), "image/png")
+    })
+    client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    })
+    client.post(f"/intake/{incident_id}/reply", json={"text": "long beak"})
+    complete = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert complete["complete"]
+    response = client.post(f"/intake/{incident_id}/photo", files={
+        "file": ("second.png", _two_colour_photo(), "image/png")
+    })
+    assert response.status_code == 409
+    assert len(client.get(f"/incidents/{incident_id}").json()["photos"]) == 1
+
+
+def test_missing_active_photo_does_not_fall_back_to_older_photo(api):
+    client, scripted = api
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    for name in ("old.png", "new.png"):
+        client.post(f"/intake/{incident_id}/photo", files={
+            "file": (name, _two_colour_photo(), "image/png")
+        })
+    photos = client.get(f"/incidents/{incident_id}").json()["photos"]
+    (settings.photo_storage_dir / f"{photos[-1]['photo_id']}.jpg").unlink()
+
+    turn = client.post(f"/intake/{incident_id}/location", json={
+        "latitude": 36.8, "longitude": -121.79
+    }).json()
+    assert turn["action"] == "request_better_photo"
+    assert turn["detection_status"] == "failed"
+    assert turn["detection_photo_id"] == photos[-1]["photo_id"]
+    assert not scripted.calls
+    assert client.get(f"/intake/{incident_id}").json()["action"] == "request_better_photo"
+
+
+def test_validation_question_budget_survives_each_http_request(api):
+    """Repeated contradictions cannot reset the two-question limit on reload."""
+    client, scripted = api
+    conflict = {
+        "kind": "photo_vs_flags",
+        "recorded": "wound: false",
+        "observed": "a visible wound",
+        "confidence": 0.9,
+        "field": "wound",
+    }
+    scripted.script["validation"] = [
+        {
+            "has_conflict": True,
+            "conflicts": [conflict],
+            "next_question": f"Can you confirm the wound ({number})?",
+            "next_question_rationale": "Check the photograph.",
+            "next_question_options": ["yes", "no"],
+            "next_question_feature": f"wound_check_{number}",
+            "notes": "Unresolved wound.",
+        }
+        for number in range(1, 4)
+    ]
+
+    incident_id = client.post("/intake/start", json={}).json()["incident_id"]
+    client.post(
+        f"/intake/{incident_id}/photo",
+        files={"file": ("animal.jpg", b"\xff\xd8\xff fake jpeg", "image/jpeg")},
+    )
+    client.post(
+        f"/intake/{incident_id}/location", json={"latitude": 36.8, "longitude": -121.79}
+    )
+    client.post(f"/intake/{incident_id}/reply", json={"text": "long beak"})
+    first = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert first["message"] == "Can you confirm the wound (1)?"
+    assert client.get(f"/intake/{incident_id}").json()["message"] == first["message"]
+
+    second = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert second["message"] == "Can you confirm the wound (2)?"
+
+    last = client.post(f"/intake/{incident_id}/reply", json={"text": "yes"}).json()
+    assert last["complete"] is True
+    assert [call.agent for call in scripted.calls].count("validation") == 3
+
+    detail = client.get(f"/incidents/{incident_id}").json()
+    assert len([m for m in detail["transcript"] if m["agent_name"] == "validation"]) == 2
+    assert detail["conflicts"][0]["field"] == "wound"
+    assert detail["requires_human_review"] is True
 
 
 def test_connected_rescue_workflow(api, monkeypatch):

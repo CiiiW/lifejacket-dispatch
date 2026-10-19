@@ -26,6 +26,7 @@ from sqlalchemy import (
     Integer,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.types import JSON
@@ -36,6 +37,36 @@ class Base(DeclarativeBase):
 
     # JSON works on both SQLite and Postgres, so the type map stays portable.
     type_annotation_map = {dict: JSON, list: JSON}
+
+
+class HistoricalStrandingDatasetRow(Base):
+    """Provenance for one private NOAA workbook imported into this database."""
+
+    __tablename__ = "historical_stranding_datasets"
+
+    dataset_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    sha256: Mapped[str] = mapped_column(String(64))
+    imported_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    total_records: Mapped[int] = mapped_column(Integer)
+    included_records: Mapped[int] = mapped_column(Integer)
+    exclusions_json: Mapped[dict] = mapped_column(JSON)
+
+
+class HistoricalStrandingCellRow(Base):
+    """Counts at a 0.1-degree grid, never individual records or exact points."""
+
+    __tablename__ = "historical_stranding_cells"
+    __table_args__ = (
+        UniqueConstraint("dataset_id", "latitude_index", "longitude_index"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    dataset_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("historical_stranding_datasets.dataset_id"), index=True
+    )
+    latitude_index: Mapped[int] = mapped_column(Integer)
+    longitude_index: Mapped[int] = mapped_column(Integer)
+    count: Mapped[int] = mapped_column(Integer)
 
 
 class IncidentRow(Base):
