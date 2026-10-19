@@ -41,6 +41,7 @@ export default function TriageMap({
   showDensity,
   dronePlan = null,
   droneSample = null,
+  historicalCell = null,
   selectedId,
   onSelect,
 }: {
@@ -51,6 +52,7 @@ export default function TriageMap({
   showDensity: boolean;
   dronePlan?: DronePlan | null;
   droneSample?: DroneTelemetry | null;
+  historicalCell?: HistoricalDensity['cells'][number] | null;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
 }) {
@@ -116,6 +118,12 @@ export default function TriageMap({
       });
       map.current.addLayer({ id: 'drone-survey-line', type: 'line', source: 'drone-survey',
         paint: { 'line-color': colors.warning, 'line-width': 3, 'line-dasharray': [2, 1] } });
+      map.current.addSource('selected-historical-cell', {
+        type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+      });
+      map.current.addLayer({ id: 'selected-historical-cell-line', type: 'line',
+        source: 'selected-historical-cell',
+        paint: { 'line-color': colors.accent, 'line-width': 2 } });
     });
 
     return () => {
@@ -143,6 +151,30 @@ export default function TriageMap({
     if (ready.current) draw();
     else map.current?.once('load', draw);
   }, [density, showDensity]);
+
+  useEffect(() => {
+    const draw = () => {
+      const source = map.current?.getSource('selected-historical-cell') as maplibre.GeoJSONSource | undefined;
+      if (!source) return;
+      const half = (density?.grid_degrees ?? 0.1) / 2;
+      const cell = historicalCell;
+      source.setData({ type: 'FeatureCollection', features: cell ? [{
+        type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [[
+          [cell.longitude - half, cell.latitude - half],
+          [cell.longitude + half, cell.latitude - half],
+          [cell.longitude + half, cell.latitude + half],
+          [cell.longitude - half, cell.latitude + half],
+          [cell.longitude - half, cell.latitude - half],
+        ]] },
+      }] : [] });
+      if (cell) map.current?.fitBounds([
+        [cell.longitude - half, cell.latitude - half],
+        [cell.longitude + half, cell.latitude + half],
+      ], { padding: 40, duration: 400 });
+    };
+    if (ready.current) draw(); else map.current?.once('load', draw);
+    return () => { map.current?.off('load', draw); };
+  }, [historicalCell, density?.grid_degrees]);
 
   useEffect(() => {
     const draw = () => {

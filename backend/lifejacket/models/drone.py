@@ -1,4 +1,4 @@
-"""Contracts for the local drone prototype. All coordinates and telemetry are synthetic."""
+"""Simulation contracts; optional historical context is real aggregate evidence only."""
 
 from typing import Literal
 
@@ -28,6 +28,13 @@ class SurveyBox(DroneModel):
         return self
 
 
+class HistoricalSurveyContext(DroneModel):
+    dataset_id: Literal["noaa_ca_2006_2025"] = "noaa_ca_2006_2025"
+    dataset_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    latitude_index: int = Field(ge=320, le=424, strict=True)
+    longitude_index: int = Field(ge=-1250, le=-1141, strict=True)
+
+
 class DroneMissionRequest(DroneModel):
     mode: Literal["simulation"] = "simulation"
     home: DronePoint
@@ -35,6 +42,7 @@ class DroneMissionRequest(DroneModel):
     altitude_m: float = Field(default=60, gt=0, le=1000, strict=True)
     simulated_wind_mps: float = Field(default=3, ge=0, le=60, strict=True)
     exclusion_zones: list[SurveyBox] = Field(default_factory=list, max_length=20)
+    historical_context: HistoricalSurveyContext | None = None
 
 
 class SimulationLimits(DroneModel):

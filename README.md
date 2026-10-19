@@ -21,6 +21,9 @@ and mock telemetry replay work without GCP access, model keys or a private NOAA
 workbook. Each teammate gets a separate local database. See the
 [local setup](docs/local_drone_demo.md) and [drone architecture](docs/drone_architecture.md).
 
+For the verified baseline, remaining MVP gaps, and historical-context increment,
+see [the drone source review](docs/drone_simulation_review.md).
+
 ## Three rescue workflows
 
 | Workflow | What happens | Primary code |

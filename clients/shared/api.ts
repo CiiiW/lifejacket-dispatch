@@ -193,6 +193,7 @@ export interface MapPin {
 /** Thresholded 0.1-degree NOAA report counts, with no individual locations. */
 export interface HistoricalDensity {
   available: boolean;
+  dataset_sha256: string | null;
   label: string;
   caveat: string;
   grid_degrees: number;
@@ -403,6 +404,12 @@ export interface DroneMissionRequest {
   altitude_m: number;
   simulated_wind_mps: number;
   exclusion_zones: SurveyBox[];
+  historical_context?: {
+    dataset_id: 'noaa_ca_2006_2025';
+    dataset_sha256: string;
+    latitude_index: number;
+    longitude_index: number;
+  } | null;
 }
 export interface DroneWaypoint extends DronePoint {
   altitude_m: number;

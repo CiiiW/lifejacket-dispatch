@@ -9,10 +9,13 @@ from sqlalchemy.orm import Session
 
 from lifejacket.models.db import get_session
 from lifejacket.models.tables import HistoricalStrandingCellRow, HistoricalStrandingDatasetRow
-from lifejacket.services.historical_strandings import DATASET_ID, GRID_DEGREES
+from lifejacket.services.historical_strandings import (
+    DATASET_ID,
+    GRID_DEGREES,
+    MIN_PUBLIC_CELL_COUNT,
+)
 
 router = APIRouter(prefix="/historical-strandings", tags=["historical strandings"])
-MIN_PUBLIC_CELL_COUNT = 10
 
 
 class DensityCell(BaseModel):
@@ -23,8 +26,12 @@ class DensityCell(BaseModel):
 
 class DensityResponse(BaseModel):
     available: bool
+    dataset_sha256: str | None = None
     label: str = "Historical stranding report density, 2006–2025"
-    caveat: str = "Reports reflect observation effort and estimated locations; this is not stranding probability or a flight plan."
+    caveat: str = (
+        "Reports reflect observation effort and estimated locations; "
+        "this is not stranding probability or a flight plan."
+    )
     grid_degrees: float = GRID_DEGREES
     min_reports_per_cell: int = MIN_PUBLIC_CELL_COUNT
     cells: list[DensityCell]
@@ -41,7 +48,7 @@ def density(session: Session = Depends(get_session)) -> DensityResponse:
         .where(HistoricalStrandingCellRow.dataset_id == DATASET_ID)
         .where(HistoricalStrandingCellRow.count >= MIN_PUBLIC_CELL_COUNT)
     )
-    return DensityResponse(available=True, cells=[
+    return DensityResponse(available=True, dataset_sha256=dataset.sha256, cells=[
         DensityCell(
             latitude=round((row.latitude_index + 0.5) * GRID_DEGREES, 4),
             longitude=round((row.longitude_index + 0.5) * GRID_DEGREES, 4),
