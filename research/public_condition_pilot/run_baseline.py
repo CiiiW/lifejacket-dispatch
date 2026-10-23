@@ -2,6 +2,7 @@
 
 import argparse
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from lifejacket.llm.fake import ScriptedLLMClient
@@ -33,6 +34,13 @@ def main():
     parser.add_argument("--resume", action="store_true", help="Skip saved nonfailed attempts")
     parser.add_argument("--limit", type=int)
     parser.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        choices=range(1, 5),
+        help="Concurrent images, bounded to 1–4 (default: 1)",
+    )
+    parser.add_argument(
         "--serve",
         action="store_true",
         help="Serve private review app instead of running batch",
@@ -53,12 +61,12 @@ def main():
 
         uvicorn.run(create_app(store), host="127.0.0.1", port=args.port)
         return
-    for key in list(store.rows)[: args.limit]:
-        result = store.analyze(key, resume=args.resume)
+
+    def completed(result):
         print(
             json.dumps(
                 {
-                    "case_id": key,
+                    "case_id": result["case_id"],
                     "status": result["status"],
                     "seconds": result["latency_seconds"],
                     "error": result.get("error"),
@@ -66,6 +74,14 @@ def main():
             ),
             flush=True,
         )
+
+    with ThreadPoolExecutor(max_workers=args.workers) as pool:
+        pending = [
+            pool.submit(store.analyze, key, resume=args.resume)
+            for key in list(store.rows)[: args.limit]
+        ]
+        for future in as_completed(pending):
+            completed(future.result())
     print(json.dumps(store.summary(), indent=2), flush=True)
 
 

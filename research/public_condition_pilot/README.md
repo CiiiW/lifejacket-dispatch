@@ -111,7 +111,8 @@ PYTHONPATH=backend python research/public_condition_pilot/run_baseline.py \
 The review server binds to **127.0.0.1**. On the authenticated GCP notebook,
 open `/proxy/8813/`. Keep this behind notebook authentication; it has no separate
 account system. It is a standalone research app and never creates dispatch cases.
-Use `--limit 2` for a first live smoke run, then resume without a limit. A
+Use `--limit 2` for a first live smoke run, then resume without a limit.
+`--workers 3` bounds concurrency to three images (allowed range 1–4). A
 `--dry-run` in a separate directory checks orchestration using scripted replies;
 those outputs cannot measure quality and are excluded from comparison statistics.
 
