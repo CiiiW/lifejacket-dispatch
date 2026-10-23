@@ -23,7 +23,7 @@ implemented or authorized by the current milestone.
 | DR-02 | SITL upload, supervised flight and saved telemetry | Implemented; simulator-tested | [Flight notes](sitl.md): GCP short survey completed, landed and disarmed; cancel recovered; injected link loss remained unconfirmed. These are synthetic flight results. |
 | DR-03 | Individual-photo drone intake and advisory screening | Implemented; offline workflow-tested | [Observation workflow](drone_observation_handoff.md): original media, capture metadata, shared eight-group taxonomy, selected-target analysis, revisioned human review and case linking. No live camera ingestion. |
 | DR-04 | Public-photo development baseline | Live run completed | [Run record](../research/public_condition_pilot/BASELINE_RUN_2026-10-23.md): 40 detection results, 38 assessments, 2 awaiting target selection, 0 failed cases. Human/expert reviews: 0 at the recorded checkpoint. Not an aerial benchmark. |
-| DR-05 | Review page and small evaluation dashboard | Implemented; validation pending this session | [Review page](../research/public_condition_pilot/review.html): stage counts, predicted/reviewed group coverage, saved-attempt telemetry and provisional same-target sign comparisons. No expert accuracy score. |
+| DR-05 | Review page and small evaluation dashboard | Implemented; browser-verified on GCP | [Review page](../research/public_condition_pilot/review.html): stage counts, predicted/reviewed group coverage, saved-attempt telemetry and provisional same-target sign comparisons. No expert accuracy score. |
 | DR-06 | Recorded drone-video intake and frame extraction | **Next; not started** | Preserve media hash, timestamp offsets and capture metadata; produce a bounded frame sample for the existing detection agent. |
 | DR-07 | Repeated-sighting grouping across frames | Not started | Preserve frame evidence and uncertain associations; evaluate missed animals, duplicate alerts and incorrect merges on real footage. |
 | DR-08 | Video sighting review in the coordinator queue | Not started | Clip/frame references, target choice and location uncertainty; reuse existing observation review before any case link. |
@@ -84,7 +84,11 @@ metrics have not yet been agreed; do not invent a pass threshold.
 - Added this tracker and linked it from the repository entry points.
 - Added evaluation-panel views for processing, annotation coverage, shared
   animal groups, saved-attempt tokens/latency and provisional sign comparisons.
-- Validation: JavaScript syntax and diff checks passed; browser validation pending.
+- Validation: JavaScript syntax, documentation links and diff checks passed.
+  GCP browser checks confirmed the 38/2/0 processing counts, all eight group
+  rows, token/latency values, no-review empty state and dashboard toggle.
+  The browser console was clear; no human annotations were written.
+  Nine baseline/review regression tests passed on GCP (one dependency warning).
 - Next session starts at **DR-06**, using the checklist above. Actual video footage
   with usable source/license information is needed for the end-to-end check.
 
