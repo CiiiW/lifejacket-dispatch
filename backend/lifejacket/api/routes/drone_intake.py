@@ -13,18 +13,24 @@ from pydantic import ValidationError
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from lifejacket.agents.base import AgentError
 from lifejacket.config import settings
 from lifejacket.drones.runs import load_run
+from lifejacket.llm.client import LLMClient, get_client
 from lifejacket.models.db import get_session
 from lifejacket.models.drone_intake import (
+    AnalyzeAnimal,
     ContactUpdate,
     LinkCase,
     ObservationMetadata,
     PrepareHandoff,
     ReviewObservation,
+    RevisionRequest,
 )
+from lifejacket.models.schemas import AnimalGroup
 from lifejacket.models.tables import DroneObservationRow, ExternalHandoffRow
 from lifejacket.services import drone_intake as service
+from lifejacket.taxonomy import GROUP_LABELS
 
 router = APIRouter(prefix="/drone-intake", tags=["drone evidence and external handoff"])
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
@@ -39,10 +45,27 @@ def _call(session, function, *args):
     except service.Conflict as exc:
         session.rollback()
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except AgentError as exc:
+        session.rollback()
+        raise HTTPException(
+            status_code=503,
+            detail="Photo analysis unavailable; evidence is saved. Retry or review manually.",
+        ) from exc
+    except ValueError as exc:
+        session.rollback()
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 def _observation(session, observation_id):
     return _call(session, service.observation, observation_id)
+
+
+@router.get("/animal-groups")
+def animal_groups() -> list[dict]:
+    return [
+        {"value": group.value, "label": GROUP_LABELS.get(group, "Unknown / unsure")}
+        for group in AnimalGroup
+    ]
 
 
 @router.get("/observations")
@@ -148,6 +171,34 @@ def review(
     observation_id: str, body: ReviewObservation, session: Session = Depends(get_session)
 ):
     return _call(session, service.review, _observation(session, observation_id), body)
+
+
+@router.post("/observations/{observation_id}/detect")
+def detect(
+    observation_id: str,
+    body: RevisionRequest,
+    session: Session = Depends(get_session),
+    client: LLMClient = Depends(get_client),
+):
+    return _call(
+        session,
+        lambda s, row: service.screen_photo(s, row, body, client=client),
+        _observation(session, observation_id),
+    )
+
+
+@router.post("/observations/{observation_id}/analyze")
+def analyze(
+    observation_id: str,
+    body: AnalyzeAnimal,
+    session: Session = Depends(get_session),
+    client: LLMClient = Depends(get_client),
+):
+    return _call(
+        session,
+        lambda s, row: service.screen_photo(s, row, body, identify=True, client=client),
+        _observation(session, observation_id),
+    )
 
 
 @router.post("/observations/{observation_id}/case")

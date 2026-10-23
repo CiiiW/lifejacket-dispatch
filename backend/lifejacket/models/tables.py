@@ -56,9 +56,7 @@ class HistoricalStrandingCellRow(Base):
     """Counts at a 0.1-degree grid, never individual records or exact points."""
 
     __tablename__ = "historical_stranding_cells"
-    __table_args__ = (
-        UniqueConstraint("dataset_id", "latitude_index", "longitude_index"),
-    )
+    __table_args__ = (UniqueConstraint("dataset_id", "latitude_index", "longitude_index"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     dataset_id: Mapped[str] = mapped_column(
@@ -328,6 +326,17 @@ class DroneObservationRow(Base):
     incident_id: Mapped[str | None] = mapped_column(
         String(32), ForeignKey("incidents.incident_id")
     )
+
+
+class DroneAnalysisRow(Base):
+    """Append-only, advisory photo analysis; original evidence stays immutable."""
+
+    __tablename__ = "drone_analyses"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    observation_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("drone_observations.observation_id"), index=True
+    )
+    payload_json: Mapped[dict] = mapped_column(JSON)
 
 
 class ExternalHandoffRow(Base):

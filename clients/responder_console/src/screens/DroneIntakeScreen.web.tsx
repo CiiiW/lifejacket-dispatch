@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import {Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {API_BASE, droneIntake, type DirectoryCenter, type DroneObservation,
-  type ExternalContactStatus, type ExternalHandoff} from '../lib/api';
+  type AnimalGroupOption, type ExternalContactStatus, type ExternalHandoff} from '../lib/api';
 import {colors, glass, radius, spacing, type} from '../lib/theme';
 
 const nextStatuses: Record<ExternalContactStatus, ExternalContactStatus[]> = {
@@ -29,6 +29,9 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
   const [observedAt, setObservedAt] = useState('');
   const [description, setDescription] = useState('');
   const [area, setArea] = useState('');
+  const [groups, setGroups] = useState<AnimalGroupOption[]>([]);
+  const [animalGroup, setAnimalGroup] = useState('unknown');
+  const [animalNumber, setAnimalNumber] = useState<number | null>(null);
   const [note, setNote] = useState('');
   const [existingId, setExistingId] = useState('');
   const [centerId, setCenterId] = useState('');
@@ -50,6 +53,8 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
     let active = true;
     droneIntake.list().then(list => {if (active) setRows(list);})
       .catch(() => {if (active) setError('Could not load drone observations.');});
+    droneIntake.animalGroups().then(options => {if (active) setGroups(options);})
+      .catch(() => {if (active) setError('Could not load animal groups. Refresh to try again.');});
     return () => {active = false;};
   }, []);
   async function act(work: () => Promise<unknown>) {
@@ -58,6 +63,7 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
     finally {setBusy(false);}
   }
   async function choose(id: string) {
+    setAnimalNumber(null);
     setSelected(id); setCenterId(''); setVerifiedContact(false); setVerifiedCoverage(false);
     setVerificationSource(''); setVerificationNote(''); setNote(''); setExistingId(''); setContactNote('');
     await refresh(id);
@@ -70,7 +76,7 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
     const form = new FormData();
     form.append('metadata', JSON.stringify({source_kind: sourceKind, latitude: Number(latitude),
       longitude: Number(longitude), observed_at: captured.toISOString(), operator: actor,
-      description, area_terms: area.split(',').map(s => s.trim()).filter(Boolean), animal_group: 'unknown'}));
+      description, area_terms: area.split(',').map(s => s.trim()).filter(Boolean), animal_group: animalGroup}));
     form.append('photo', file);
     const created = await droneIntake.upload(form);
     await choose(created.observation_id);
@@ -93,6 +99,9 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
       <Field label="Observed longitude" value={longitude} onChange={setLongitude} />
       <Field label="Capture time with timezone" value={observedAt} onChange={setObservedAt} />
       <Field label="County or local coverage area, comma separated" value={area} onChange={setArea} />
+      <Text style={styles.meta}>Animal group · operator hint, unconfirmed</Text>
+      <View style={styles.actions}>{groups.map(group => <Action key={group.value} label={group.label}
+        active={animalGroup === group.value} disabled={busy} onPress={() => setAnimalGroup(group.value)} />)}</View>
       <Field label="What is visible? Include uncertainty" value={description} onChange={setDescription} />
       <Action label="Save for review" disabled={busy || !actor.trim() || !description.trim() || !area.trim() || !file}
         onPress={() => void act(upload)} />
@@ -107,11 +116,52 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
     </View>
     {row && <View style={styles.card}>
       <Text style={styles.heading}>Evidence · {row.status}</Text>
-      <Image source={{uri: API_BASE + row.photo_url}} style={{width: '100%', height: 260}} resizeMode="contain" accessibilityLabel="Uploaded drone observation" />
+      <View style={{position: 'relative'}}>
+        <img src={API_BASE + row.photo_url} alt="Uploaded drone observation" style={{width: '100%', display: 'block'}} />
+        {row.analysis?.detections.map((animal, index) => {
+          const [y1, x1, y2, x2] = animal.box;
+          return <Pressable key={index} accessibilityRole="button" accessibilityLabel={`Select animal ${index + 1}: ${animal.description}`}
+            disabled={busy || row.analysis?.stage !== 'detected'} onPress={() => setAnimalNumber(index + 1)}
+            style={{position: 'absolute', top: `${Math.min(y1, y2) / 10}%`, left: `${Math.min(x1, x2) / 10}%`,
+              height: `${Math.abs(y2 - y1) / 10}%`, width: `${Math.abs(x2 - x1) / 10}%`,
+              borderWidth: 2, borderColor: (animalNumber ?? row.analysis?.animal_number) === index + 1 ? colors.warning : colors.accent}}>
+            <Text style={{color: colors.text, backgroundColor: colors.background, alignSelf: 'flex-start'}}>{index + 1}</Text>
+          </Pressable>;
+        })}
+      </View>
       <a href={`${API_BASE}${row.photo_url}?download=true`} style={{color: colors.accent}}>Download original photo for a reviewed handoff</a>
       <Text style={styles.body}>{row.metadata.description}</Text>
+      <Text style={styles.meta}>Operator group hint: {groups.find(g => g.value === row.metadata.animal_group)?.label ?? row.metadata.animal_group} · unconfirmed</Text>
       <Text selectable style={styles.meta}>Capture {row.metadata.observed_at} · {row.metadata.latitude}, {row.metadata.longitude}{'\n'}SHA-256 {row.sha256}</Text>
       {row.review && <Text style={styles.body}>Review: {row.review.actor} · {row.review.note}</Text>}
+      {!row.incident_id && <>
+        <Text style={styles.heading}>AI photo screening</Text>
+        <Text style={styles.body}>Uses the chatbot's animal detection, identification and group-specific assessment. This analyzes one uploaded photo. Aerial accuracy has not been validated.</Text>
+        <Action label={row.analysis ? 'Find animals again' : 'Find animals in photo'} disabled={busy || !actor.trim()}
+          onPress={() => void act(async () => {await droneIntake.detect(row, actor); setAnimalNumber(null); await refresh();})} />
+      </>}
+      {row.analysis && <>
+        <Text style={styles.meta}>Analysis by {row.analysis.model} · {row.analysis.recorded_at} · requested by {row.analysis.actor}</Text>
+        {row.analysis.stage === 'detected' && <>
+          <Text style={styles.body}>{row.analysis.detections.length ? 'Select the animal to assess using its box or description.' : 'No animals detected. This does not prove no animal is present; review the original evidence.'}</Text>
+          {row.analysis.detections.map((animal, index) => <Action key={index} label={`Animal ${index + 1} · ${animal.description}`}
+            active={animalNumber === index + 1} disabled={busy} onPress={() => setAnimalNumber(index + 1)} />)}
+          {!!row.analysis.detections.length && <Action label="Identify and assess selected animal" disabled={busy || !actor.trim() || animalNumber === null}
+            onPress={() => void act(async () => {await droneIntake.analyze(row, actor, animalNumber!); await refresh();})} />}
+        </>}
+        {row.analysis.identity_summary && <Text style={styles.body}>
+          {row.analysis.identity_summary.name} · {groups.find(g => g.value === row.analysis?.identity_summary?.animal_group)?.label ?? row.analysis.identity_summary.animal_group}
+          {'\n'}Model-reported confidence: {Math.round(row.analysis.identity_summary.confidence * 100)}% · {row.analysis.identity_summary.is_confident ? 'above identification threshold' : 'uncertain identification'}
+        </Text>}
+        {row.analysis.assessment && <>
+          <Text style={styles.body}>{row.analysis.assessment.injury.summary || 'Condition uncertain.'}</Text>
+          <Text style={styles.meta}>Flagged signs: {Object.entries(row.analysis.assessment.injury).filter(([key, value]) => value === true && key !== 'injury_present').map(([key]) => key.replace(/_/g, ' ')).join(', ') || 'none observed; absence is not confirmed'}
+            {'\n'}Suggested triage: {row.analysis.assessment.severity_level} · human review required</Text>
+          {row.analysis.severity_reasons?.map((reason, index) => <Text key={index} style={styles.meta}>{reason}</Text>)}
+        </>}
+        {row.analysis.limitations.map((limit, index) => <Text key={index} style={styles.notice}>{limit}</Text>)}
+        {!row.incident_id && <Text style={styles.meta}>New analysis resets the observation to pending and requires a fresh coordinator review.</Text>}
+      </>}
       {!row.incident_id && <>
         <Field label="Review notes" value={note} onChange={setNote} />
         <View style={styles.actions}>{(['verified', 'rejected'] as const).map(decision => <Action key={decision}
@@ -132,7 +182,7 @@ export default function DroneIntakeScreen({onSelectCase}: {onSelectCase: (id: st
     {row?.incident_id && <View style={styles.card}>
       <Text style={styles.heading}>3 · External rescue-center handoff</Text>
       <Text style={styles.body}>Directory area matches are suggestions. Check the center's current coverage, animal-response capability and contact details. Availability is unknown.</Text>
-      {!centers.length && <Text style={styles.notice}>No local directory match. Escalate to the regional stranding network for routing.</Text>}
+      {!centers.length && <Text style={styles.notice}>No suitable local directory match. The current directory covers marine response; use appropriate wildlife rehabilitation or animal-control routing for other groups.</Text>}
       {centers.map(center => <View key={center.center_id} style={styles.card}>
         <Action label={center.name} active={centerId === center.center_id} disabled={busy} onPress={() => {
           setCenterId(center.center_id); setVerifiedContact(false); setVerifiedCoverage(false); setVerificationSource(''); setVerificationNote('');

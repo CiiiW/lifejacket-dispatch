@@ -44,6 +44,11 @@ class ReviewObservation(RevisionRequest):
     note: str = Field(min_length=1, max_length=2000)
 
 
+class AnalyzeAnimal(RevisionRequest):
+    detection_id: int = Field(ge=1)
+    animal_number: int = Field(ge=1)
+
+
 class LinkCase(RevisionRequest):
     existing_incident_id: str | None = Field(default=None, min_length=1, max_length=32)
 

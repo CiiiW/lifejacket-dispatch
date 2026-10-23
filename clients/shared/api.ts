@@ -757,6 +757,17 @@ export function severityLabel(level: string | null): string {
 }
 
 // --- Drone observations and coordinator-reported external contact ---------
+export interface AnimalGroupOption {value: string; label: string}
+export interface DronePhotoAnalysis {
+  analysis_id: number; stage: 'detected' | 'assessed'; model: string;
+  actor: string; recorded_at: string; source_kind: 'real' | 'simulation';
+  detections: {box: number[]; description: string; kind: string}[];
+  animal_number?: number; limitations: string[];
+  identity_summary?: {name: string; animal_group: string; confidence: number; is_confident: boolean};
+  assessment?: {injury: {summary: string | null; confidence: number; [key: string]: unknown};
+    severity_level: string; requires_human_review: boolean};
+  severity_reasons?: string[];
+}
 export interface DroneObservation {
   observation_id: string; status: 'pending' | 'verified' | 'rejected'; revision: number;
   source_kind: 'real' | 'simulation'; run_id: string | null; sha256: string;
@@ -765,6 +776,7 @@ export interface DroneObservation {
     animal_group: string};
   photo_url: string; review: {actor: string; note: string; recorded_at: string} | null;
   incident_id: string | null; created_at: string;
+  analysis: DronePhotoAnalysis | null;
 }
 export interface DirectoryCenter {
   center_id: string; name: string; hotline: string | null; phone: string | null;
@@ -781,8 +793,18 @@ export interface ExternalHandoff {
   history: {status: string; actor: string; note: string; recorded_at: string}[];
 }
 export const droneIntake = {
+  animalGroups: () => request<AnimalGroupOption[]>('/drone-intake/animal-groups'),
   list: () => request<DroneObservation[]>('/drone-intake/observations'),
   upload: (form: FormData) => request<DroneObservation>('/drone-intake/observations', {method: 'POST', body: form}),
+  detect: (row: DroneObservation, actor: string) =>
+    request<DroneObservation>(`/drone-intake/observations/${row.observation_id}/detect`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor}),
+    }),
+  analyze: (row: DroneObservation, actor: string, animalNumber: number) =>
+    request<DroneObservation>(`/drone-intake/observations/${row.observation_id}/analyze`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor,
+        detection_id: row.analysis?.analysis_id, animal_number: animalNumber}),
+    }),
   review: (row: DroneObservation, actor: string, decision: 'verified' | 'rejected', note: string) =>
     request<DroneObservation>(`/drone-intake/observations/${row.observation_id}/review`, {
       method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor, decision, note}),

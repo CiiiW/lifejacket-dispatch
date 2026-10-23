@@ -8,7 +8,7 @@ import uuid
 from datetime import UTC, datetime
 
 from sqlalchemy import select, update
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, object_session
 
 from lifejacket.dispatch.matching import center_id, load_rescue_centers, score_area_match
 from lifejacket.models import repository
@@ -18,8 +18,16 @@ from lifejacket.models.drone_intake import (
     PrepareHandoff,
     ReviewObservation,
 )
-from lifejacket.models.schemas import GeoPoint, Incident, IncidentReport, IncidentStatus
-from lifejacket.models.tables import DroneObservationRow, ExternalHandoffRow
+from lifejacket.models.schemas import (
+    AnimalGroup,
+    AssessmentResult,
+    GeoPoint,
+    IdentificationResult,
+    Incident,
+    IncidentReport,
+    IncidentStatus,
+)
+from lifejacket.models.tables import DroneAnalysisRow, DroneObservationRow, ExternalHandoffRow
 from lifejacket.services.events import record_event
 
 TRANSITIONS = {
@@ -44,6 +52,19 @@ def observation(session: Session, observation_id: str) -> DroneObservationRow:
     return row
 
 
+def latest_analysis(row: DroneObservationRow):
+    session = object_session(row)
+    if session is None:
+        return None
+    analysis = session.scalar(
+        select(DroneAnalysisRow)
+        .where(DroneAnalysisRow.observation_id == row.observation_id)
+        .order_by(DroneAnalysisRow.id.desc())
+        .limit(1)
+    )
+    return {"analysis_id": analysis.id, **analysis.payload_json} if analysis else None
+
+
 def observation_out(row: DroneObservationRow) -> dict:
     return {
         "observation_id": row.observation_id,
@@ -57,6 +78,7 @@ def observation_out(row: DroneObservationRow) -> dict:
         "review": row.review_json,
         "incident_id": row.incident_id,
         "created_at": row.created_at.isoformat(),
+        "analysis": latest_analysis(row),
     }
 
 
@@ -84,6 +106,7 @@ def review(session: Session, row: DroneObservationRow, body: ReviewObservation) 
         "actor": body.actor,
         "recorded_at": datetime.now(UTC).isoformat(),
         "identity_basis": "coordinator-entered; not authenticated",
+        "analysis_id": (latest_analysis(row) or {}).get("analysis_id"),
     }
     history = [*(row.review_json or {}).get("history", []), entry]
     _revise(
@@ -93,6 +116,43 @@ def review(session: Session, row: DroneObservationRow, body: ReviewObservation) 
         status=body.decision,
         review_json={**entry, "history": history},
     )
+    session.commit()
+    return observation_out(row)
+
+
+def screen_photo(session, row, body, *, identify=False, client=None):
+    from lifejacket.services import drone_vision
+
+    if row.incident_id:
+        raise Conflict("Evidence is already linked; use case assessment for further review")
+    if row.revision != body.expected_revision:
+        raise Conflict("Observation changed; refresh before analysis")
+    if identify:
+        previous = latest_analysis(row)
+        if (
+            not previous
+            or previous["analysis_id"] != body.detection_id
+            or previous["stage"] != "detected"
+        ):
+            raise Conflict("Refresh detections before selecting an animal")
+        detections = previous["detections"]
+        if body.animal_number > len(detections):
+            raise Conflict("Select one of the detected animals")
+        payload = drone_vision.analyze(
+            row, detections[body.animal_number - 1], body.animal_number, client
+        )
+        payload.update(detection_id=body.detection_id, detections=detections)
+    else:
+        payload = drone_vision.detect(row, client)
+    payload.update(
+        actor=body.actor,
+        recorded_at=datetime.now(UTC).isoformat(),
+        source_kind=row.source_kind,
+        evidence_sha256=row.sha256,
+    )
+    # A new analysis requires fresh review, even if this photo was verified before.
+    _revise(session, row, body.expected_revision, status="pending")
+    session.add(DroneAnalysisRow(observation_id=row.observation_id, payload_json=payload))
     session.commit()
     return observation_out(row)
 
@@ -126,6 +186,22 @@ def link_case(session: Session, row: DroneObservationRow, body: LinkCase) -> dic
                 "drone_intake_pending_assessment": True,
             },
         )
+        analysis = latest_analysis(row)
+        if analysis and analysis["stage"] == "assessed":
+            incident.identification = IdentificationResult.model_validate(
+                analysis["identification"]
+            )
+            incident.assessment = AssessmentResult.model_validate(analysis["assessment"])
+            incident.assessment.requires_human_review = True
+            incident.metrics.update(
+                drone_analysis_id=analysis["analysis_id"],
+                drone_analysis_limitations=analysis["limitations"],
+                severity_reasons=analysis["severity_reasons"],
+            )
+            incident.report.summary += " Advisory photo screening: " + (
+                incident.assessment.injury.summary or "condition uncertain"
+            )
+            incident.report.unknowns.extend(analysis["limitations"])
     repository.save_incident(session, incident)
     _revise(session, row, body.expected_revision, incident_id=incident.incident_id)
     repository.save_photo(
@@ -143,6 +219,7 @@ def link_case(session: Session, row: DroneObservationRow, body: LinkCase) -> dic
             "sha256": row.sha256,
             "review": row.review_json,
             "source_kind": "real",
+            "analysis_id": (latest_analysis(row) or {}).get("analysis_id"),
         },
         body.actor,
     )
@@ -151,6 +228,15 @@ def link_case(session: Session, row: DroneObservationRow, body: LinkCase) -> dic
 
 
 def directory_candidates(row: DroneObservationRow) -> list[dict]:
+    analysis = latest_analysis(row) or {}
+    identity = analysis.get("identity_summary", {})
+    group = (
+        identity.get("animal_group")
+        if identity.get("is_confident")
+        else row.metadata_json.get("animal_group")
+    )
+    if group in {AnimalGroup.TERRESTRIAL.value, AnimalGroup.DOMESTIC_ANIMAL.value}:
+        return []  # Same unsupported groups as the chatbot's marine directory.
     result = []
     generic = {"california", "oregon", "washington", "united states", "usa"}
     terms = [
@@ -228,6 +314,16 @@ def prepare(session: Session, row: DroneObservationRow, body: PrepareHandoff) ->
         )
     # Claim observation revision in the same transaction to serialize concurrent drafts.
     _revise(session, row, body.expected_revision)
+    analysis = latest_analysis(row) or {}
+    analysis_text = ""
+    if analysis.get("stage") == "assessed":
+        identity = analysis["identity_summary"]
+        analysis_text = (
+            f"Advisory AI screening of selected animal {analysis['animal_number']}: "
+            f"{identity['name']} ({identity['animal_group']}); "
+            f"{analysis['assessment']['injury'].get('summary') or 'condition uncertain'}.\n"
+            "Aerial model performance is unvalidated; findings require expert review.\n"
+        )
     packet = {
         "center": candidate,
         "evidence": observation_out(row),
@@ -242,6 +338,9 @@ def prepare(session: Session, row: DroneObservationRow, body: PrepareHandoff) ->
             f"Observed {row.metadata_json['observed_at']} "
             f"at {row.latitude}, {row.longitude}.\n"
             f"Operator description: {row.metadata_json['description']}\n"
+            "Operator animal-group hint (unconfirmed): "
+            f"{row.metadata_json.get('animal_group', 'unknown')}.\n"
+            f"{analysis_text}"
             "Species and medical severity are unconfirmed. Please advise on response.\n"
             f"Evidence reference: {row.observation_id}; SHA-256 {row.sha256}."
         ),
