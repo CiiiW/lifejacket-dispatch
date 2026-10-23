@@ -83,3 +83,4 @@ scratch/
 # Local SITL binaries, environments and recorded simulation runs
 /sitl-tools/
 /var/drone-runs/
+/var/drone-evidence/

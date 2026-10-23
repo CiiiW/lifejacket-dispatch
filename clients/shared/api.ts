@@ -755,3 +755,53 @@ export function severityLabel(level: string | null): string {
       return 'Unknown';
   }
 }
+
+// --- Drone observations and coordinator-reported external contact ---------
+export interface DroneObservation {
+  observation_id: string; status: 'pending' | 'verified' | 'rejected'; revision: number;
+  source_kind: 'real' | 'simulation'; run_id: string | null; sha256: string;
+  metadata: {source_kind: 'real' | 'simulation'; latitude: number; longitude: number;
+    observed_at: string; operator: string; description: string; area_terms: string[];
+    animal_group: string};
+  photo_url: string; review: {actor: string; note: string; recorded_at: string} | null;
+  incident_id: string | null; created_at: string;
+}
+export interface DirectoryCenter {
+  center_id: string; name: string; hotline: string | null; phone: string | null;
+  email: string | null; website: string | null; response_area: string | null;
+  response_type: string | null; directory_source: string | null;
+  availability: 'unknown'; registration_required: false;
+}
+export type ExternalContactStatus = 'draft' | 'contact_attempted' | 'acknowledged' | 'accepted' |
+  'declined' | 'escalated' | 'completed';
+export interface ExternalHandoff {
+  handoff_id: string; observation_id: string; incident_id: string;
+  status: ExternalContactStatus; revision: number; outbound_message_sent: false;
+  snapshot: {center: DirectoryCenter; packet_text: string; verification_source: string};
+  history: {status: string; actor: string; note: string; recorded_at: string}[];
+}
+export const droneIntake = {
+  list: () => request<DroneObservation[]>('/drone-intake/observations'),
+  upload: (form: FormData) => request<DroneObservation>('/drone-intake/observations', {method: 'POST', body: form}),
+  review: (row: DroneObservation, actor: string, decision: 'verified' | 'rejected', note: string) =>
+    request<DroneObservation>(`/drone-intake/observations/${row.observation_id}/review`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor, decision, note}),
+    }),
+  linkCase: (row: DroneObservation, actor: string, existingId?: string) =>
+    request<DroneObservation>(`/drone-intake/observations/${row.observation_id}/case`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor, existing_incident_id: existingId || null}),
+    }),
+  centers: (id: string) => request<DirectoryCenter[]>(`/drone-intake/observations/${id}/centers`),
+  handoffs: (id: string) => request<ExternalHandoff[]>(`/drone-intake/observations/${id}/handoffs`),
+  prepare: (row: DroneObservation, actor: string, centerId: string, source: string, note: string) =>
+    request<ExternalHandoff>(`/drone-intake/observations/${row.observation_id}/handoffs`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor, center_id: centerId,
+        coverage_and_capability_confirmed: true, contact_details_confirmed: true,
+        verification_source: source, verification_note: note}),
+    }),
+  recordContact: (handoff: ExternalHandoff, actor: string, status: ExternalContactStatus,
+    channel: 'phone' | 'email' | 'other', note: string) =>
+    request<ExternalHandoff>(`/drone-intake/handoffs/${handoff.handoff_id}/status`, {
+      method: 'POST', body: JSON.stringify({expected_revision: handoff.revision, actor, status, channel, note}),
+    }),
+};
