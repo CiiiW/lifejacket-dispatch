@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, 
 
 import DroneLabMap from '../components/DroneLabMap';
 import { drones, type DroneMissionRequest, type DronePlan, type DroneScenario,
-  responder, type HistoricalDensity, type DroneSimulationResult } from '../lib/api';
+  responder, type HistoricalDensity, type DroneSimulationResult, type SitlRun, type SitlRunSummary } from '../lib/api';
 import { colors, glass, radius, spacing, type } from '../lib/theme';
 
 const fields = ['home latitude', 'home longitude', 'south', 'north', 'west', 'east'] as const;
@@ -17,6 +17,10 @@ function areaDraft(mission: DroneMissionRequest): AreaDraft {
 }
 
 export default function DroneLabScreen() {
+  const [sitlRuns, setSitlRuns] = useState<SitlRunSummary[]>([]);
+  const [sitlRun, setSitlRun] = useState<SitlRun | null>(null);
+  const [selectedRun, setSelectedRun] = useState<string | null>(null);
+  const [sitlError, setSitlError] = useState<string | null>(null);
   const [density, setDensity] = useState<HistoricalDensity | null>(null);
   const [densityError, setDensityError] = useState(false);
   const [draft, setDraft] = useState<AreaDraft | null>(null);
@@ -46,8 +50,23 @@ export default function DroneLabScreen() {
     return () => clearTimeout(timer);
   }, [run, playing, frame]);
 
+  useEffect(() => {
+    let active = true;
+    let timer: ReturnType<typeof setTimeout>;
+    async function poll() {
+      try {
+        const summaries = await drones.runs();
+        const detail = selectedRun ? await drones.run(selectedRun) : null;
+        if (active) { setSitlRuns(summaries); setSitlRun(detail); setSitlError(null); }
+      } catch { if (active) setSitlError('Saved SITL runs unavailable. Check the API run folder.'); }
+      if (active) timer = setTimeout(() => void poll(), 2000);
+    }
+    void poll();
+    return () => { active = false; clearTimeout(timer); };
+  }, [selectedRun]);
+
   function reset(next: DroneMissionRequest) {
-    setMission(next); setPlan(null); setRun(null); setReviewed(false);
+    setSelectedRun(null); setSitlRun(null); setMission(next); setPlan(null); setRun(null); setReviewed(false);
     setFrame(0); setPlaying(false); setError(null);
   }
 
@@ -80,11 +99,14 @@ export default function DroneLabScreen() {
     Math.round(cell.latitude / density.grid_degrees - 0.5) === context.latitude_index &&
     Math.round(cell.longitude / density.grid_degrees - 0.5) === context.longitude_index) ?? null;
   const sample = run?.samples[frame] ?? null;
+  const sitlSample = sitlRun?.samples.at(-1) ?? null;
+  const mapSample = sitlSample ?? sample;
+  const stale = sitlRun ? Date.now() - Date.parse(sitlRun.updated_at) > 10000 : false;
   const shownEvent = run?.events.find(event => event.elapsed_s <= (sample?.elapsed_s ?? -1));
   return (
     <View style={styles.screen}>
       <View style={styles.map}>
-        <DroneLabMap plan={plan} sample={sample} density={density} selectedCell={selectedCell} />
+        <DroneLabMap plan={sitlRun?.plan ?? plan} sample={mapSample} trace={sitlRun?.samples ?? []} density={density} selectedCell={selectedCell} />
       </View>
       <ScrollView style={styles.panel} contentContainerStyle={styles.content}>
         <Text style={styles.title}>Drone Lab</Text>
@@ -94,6 +116,28 @@ export default function DroneLabScreen() {
           route, then replay a mock flight. Home and survey coordinates are simulation
           inputs; motion, wind and battery are synthetic.
         </Text>
+        <View style={styles.card}>
+          <Text style={styles.heading}>Saved SITL flights</Text>
+          <Text style={styles.meta}>ArduPilot simulator telemetry · refreshes every 2 seconds. Start and cancel flights from the local companion terminal.</Text>
+          {sitlError && <Text style={styles.error}>{sitlError}</Text>}
+          {!sitlRuns.length && <Text style={styles.meta}>No saved flights in this API's run folder.</Text>}
+          {sitlRuns.map(item => <Action key={item.run_id}
+            label={`${item.status} · ${item.started_at.slice(0, 19)} · ${item.run_id.slice(0, 8)}`}
+            active={selectedRun === item.run_id} onPress={() => { setPlaying(false); setSitlRun(null); setSelectedRun(item.run_id); }} />)}
+          {selectedRun && <Action label="Return to mock planner" onPress={() => { setSelectedRun(null); setSitlRun(null); }} />}
+          {sitlRun && <>
+            <Text style={styles.body}>Status: {sitlRun.status} · {stale ? 'snapshot older than 10 seconds' : 'snapshot current'}</Text>
+            {sitlRun.outcome && <Text style={styles.body}>{sitlRun.outcome}</Text>}
+            {sitlSample && <Text style={styles.body}>
+              Altitude {sitlSample.altitude_m.toFixed(1)} m · mode {sitlSample.mode} · waypoint {sitlSample.waypoint_seq}{'\n'}
+              Battery {sitlSample.battery_percent === null ? 'unavailable' : `${sitlSample.battery_percent}%`} · {sitlSample.armed ? 'armed' : 'disarmed'}
+            </Text>}
+            <Text style={styles.meta}>Dashed amber: planned route. Solid teal: measured SITL trace.</Text>
+            <Text style={styles.body}>Samples: {sitlRun.samples.length} · max horizontal deviation: {sitlRun.metrics.max_route_deviation_m?.toFixed(1) ?? '—'} m</Text>
+            <Text style={styles.meta}>{sitlRun.observations.length} observations · A simulated flight does not create a wildlife incident.</Text>
+            {sitlRun.events.slice(-5).map((event, i) => <Text key={i} style={styles.meta}>{event.elapsed_s.toFixed(1)}s · {event.message}</Text>)}
+          </>}
+        </View>
         {!mission && !error && <ActivityIndicator color={colors.accent} />}
         {densityError && <Text style={styles.meta}>Historical layer unavailable. The synthetic demo still works.</Text>}
         {density && !density.available && <Text style={styles.meta}>
@@ -188,7 +232,7 @@ export default function DroneLabScreen() {
         <Text style={styles.meta}>
           This mock checks app integration and basic route constraints. Flight dynamics,
           terrain, camera coverage, wildlife restrictions and autopilot recovery still
-          need separate validation. Plans and traces are not saved after leaving this tab.
+          need separate validation. Mock replay is temporary; SITL flights are saved by the local companion.
         </Text>
       </ScrollView>
     </View>

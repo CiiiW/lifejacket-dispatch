@@ -3,8 +3,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from lifejacket.config import settings
 from lifejacket.drones.historical import validate_historical_context
 from lifejacket.drones.planner import demo_mission, plan_mission
+from lifejacket.drones.runs import list_runs, load_run
 from lifejacket.drones.simulator import MockSimulator
 from lifejacket.models.db import get_session
 from lifejacket.models.drone import (
@@ -50,3 +52,19 @@ def _validate_context(mission: DroneMissionRequest, session: Session) -> None:
         validate_historical_context(mission, session)
     except ValueError as exc:
         raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get("/runs")
+def saved_runs() -> list[dict]:
+    """Read local companion snapshots; this endpoint never commands an autopilot."""
+    return list_runs(settings.drone_runs_dir)
+
+
+@router.get("/runs/{run_id}")
+def saved_run(run_id: str) -> dict:
+    try:
+        return load_run(settings.drone_runs_dir, run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Run not found") from exc

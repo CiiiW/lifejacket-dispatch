@@ -441,7 +441,26 @@ export interface DroneSimulationResult {
   events: { elapsed_s: number; kind: string; message: string }[];
   limitations: string[];
 }
+export interface SitlSample extends DronePoint {
+  elapsed_s: number; time_boot_ms: number; altitude_m: number;
+  battery_percent: number | null; mode: number; armed: boolean;
+  waypoint_seq: number; phase: DroneWaypoint['phase']; route_deviation_m: number;
+}
+export interface SitlRun {
+  run_id: string; backend: 'ardupilot_sitl'; synthetic: true; plan_id: string;
+  plan: DronePlan; reviewed_by: string; started_at: string; updated_at: string;
+  status: string; outcome: string | null; samples: SitlSample[];
+  events: {elapsed_s: number; kind: string; message: string}[];
+  metrics: {elapsed_wall_s?: number; sample_count?: number;
+    elapsed_simulated_s?: number; max_route_deviation_m?: number | null;
+    max_altitude_m?: number | null; home_distance_m?: number | null};
+  observations: unknown[]; limitations: string[];
+}
+export type SitlRunSummary = Omit<SitlRun, 'plan' | 'samples' | 'events'>;
+
 export const drones = {
+  runs: () => request<SitlRunSummary[]>('/drones/runs'),
+  run: (id: string) => request<SitlRun>(`/drones/runs/${encodeURIComponent(id)}`),
   demo: () => request<DroneMissionRequest>('/drones/demo'),
   plan: (mission: DroneMissionRequest) => request<DronePlan>('/drones/plan', {
     method: 'POST', body: JSON.stringify(mission),

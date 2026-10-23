@@ -24,7 +24,7 @@ import maplibre, { type Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { severityColour, type HistoricalDensity, type MapPin, type ResponderOrg, type RouteLine,
-  type DronePlan, type DroneTelemetry } from '../lib/api';
+  type DronePlan, type DronePoint } from '../lib/api';
 import { basemap } from '../lib/basemap';
 import { colors, radius, spacing, type } from '../lib/theme';
 
@@ -41,6 +41,7 @@ export default function TriageMap({
   showDensity,
   dronePlan = null,
   droneSample = null,
+  droneTrace = [],
   historicalCell = null,
   selectedId,
   onSelect,
@@ -51,7 +52,8 @@ export default function TriageMap({
   density: HistoricalDensity | null;
   showDensity: boolean;
   dronePlan?: DronePlan | null;
-  droneSample?: DroneTelemetry | null;
+  droneSample?: DronePoint | null;
+  droneTrace?: DronePoint[];
   historicalCell?: HistoricalDensity['cells'][number] | null;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
@@ -118,6 +120,11 @@ export default function TriageMap({
       });
       map.current.addLayer({ id: 'drone-survey-line', type: 'line', source: 'drone-survey',
         paint: { 'line-color': colors.warning, 'line-width': 3, 'line-dasharray': [2, 1] } });
+      map.current.addSource('drone-trace', {
+        type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+      });
+      map.current.addLayer({id: 'drone-trace-line', type: 'line', source: 'drone-trace',
+        paint: {'line-color': colors.accent, 'line-width': 3}});
       map.current.addSource('selected-historical-cell', {
         type: 'geojson', data: { type: 'FeatureCollection', features: [] },
       });
@@ -193,7 +200,7 @@ export default function TriageMap({
     };
     if (ready.current) draw(); else map.current?.once('load', draw);
     return () => { map.current?.off('load', draw); };
-  }, [dronePlan]);
+  }, [dronePlan?.plan_id]);
 
   useEffect(() => {
     if (!map.current) return;
@@ -206,6 +213,18 @@ export default function TriageMap({
     }
     droneMarker.current.setLngLat([droneSample.longitude, droneSample.latitude]).addTo(map.current);
   }, [droneSample]);
+
+  useEffect(() => {
+    const draw = () => {
+      const source = map.current?.getSource('drone-trace') as maplibre.GeoJSONSource | undefined;
+      source?.setData({type: 'FeatureCollection', features: droneTrace.length > 1 ? [{
+        type: 'Feature', properties: {}, geometry: {type: 'LineString',
+          coordinates: droneTrace.map(p => [p.longitude, p.latitude])},
+      }] : []});
+    };
+    if (ready.current) draw(); else map.current?.once('load', draw);
+    return () => { map.current?.off('load', draw); };
+  }, [droneTrace]);
 
   // Redraw markers whenever the data or the selection changes. Markers are
   // DOM elements, so they are torn down and rebuilt rather than diffed.

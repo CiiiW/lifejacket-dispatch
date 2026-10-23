@@ -79,3 +79,7 @@ yarn-error.log*
 # --- Local scratch ---------------------------------------------------------
 _claude_*
 scratch/
+
+# Local SITL binaries, environments and recorded simulation runs
+/sitl-tools/
+/var/drone-runs/

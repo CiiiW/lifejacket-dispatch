@@ -1,10 +1,10 @@
-# ArduPilot SITL: mission upload verified
+# ArduPilot SITL: flight supervision and saved telemetry
 
-Implemented: reviewed Drone Lab plan → integer MAVLink mission → upload
-acknowledgment → download/readback comparison. No arming or flight execution.
-The web API remains mock-only.
+Implemented: reviewed demo → mission upload → supervised AUTO flight → saved
+telemetry/outcome. Upload/readback verification remains available separately.
+The API exposes saved runs read-only; flight commands use a local SITL-only CLI.
 
-## Verified on GCP, 22 October 2026
+## Initial upload verification on GCP, 22 October 2026
 
 - Debian 11, x86_64, 4 CPUs, 15 GiB RAM.
 - Official prebuilt ArduCopter 4.6.3; source/defaults tag `Copter-4.6.3`
@@ -64,11 +64,82 @@ re-query historical dataset provenance from the application database.
 
 ## Next milestone
 
-Supervised start, actual simulated telemetry, mission completion and abort/recovery
-handling, then integration with Drone Lab. Upload/readback is an integration check,
-not a validated flight or a substitute for real observations in the project study.
+Next is real observation evidence ingestion and coordinator verification, plus
+broader firmware failsafe tests. SITL results do not replace real observations
+in the project study.
 
 References:
 - https://ardupilot.org/dev/docs/mavlink-mission-upload-download.html
 - https://mavlink.io/en/services/mission.html
 - https://firmware.ardupilot.org/Copter/stable-4.6.3/SITL_x86_64_linux_gnu/
+
+## Flight worker and saved runs
+
+`scripts/sitl_fly.py` now starts its own ArduCopter process, uploads the reviewed
+invented demo, waits for GPS and normal arming checks, starts AUTO, records
+telemetry and waits for landing/disarming. It refuses to attach if port 5760 is
+already occupied and serializes workers using a local file lock. No force-arm or
+arming-check bypass is used. Wind and cruise speed are confirmed simulator
+parameters; the binary SHA-256 and acceleration factor are saved with the run.
+
+Use Python >=3.11. The GCP test environment is now `sitl-tools/flight-venv`.
+
+```bash
+PYTHONPATH=backend /home/jupyter/sitl-tools/flight-venv/bin/python scripts/sitl_fly.py --execute-reviewed-demo --short-survey --reviewed-by Charlotte
+# Controlled cancel/RTL test, measured in wall-clock seconds:
+PYTHONPATH=backend /home/jupyter/sitl-tools/flight-venv/bin/python scripts/sitl_fly.py --execute-reviewed-demo --short-survey --reviewed-by Charlotte --abort-after 8
+# Controlled telemetry disconnection; expected result is unconfirmed, exit 1:
+PYTHONPATH=backend /home/jupyter/sitl-tools/flight-venv/bin/python scripts/sitl_fly.py --execute-reviewed-demo --short-survey --reviewed-by Charlotte --drop-link-after 8
+# A second terminal can request cancellation of an active local run:
+PYTHONPATH=backend /home/jupyter/sitl-tools/flight-venv/bin/python scripts/sitl_fly.py --cancel-run RUN_ID
+```
+
+SIGINT/SIGTERM request cancellation too. A pre-arm cancellation avoids arming;
+a ground cancellation after arming disarms normally. In flight, cancellation or
+reported battery below the plan's reserve requests RTL. Only observed low
+altitude plus disarming confirms recovery; an ACK alone is insufficient. Link
+loss, stale position, failed recovery or timeout never count as completion.
+Injected disconnection closes the client; this test does not validate the
+firmware's autonomous GCS-loss failsafe. Terminating the owned simulator during
+cleanup is also not evidence of a successful recovery.
+
+Run JSON snapshots are atomically replaced at `var/drone-runs/` (override with
+`DRONE_RUNS_DIR`). They include the complete reviewed plan, measured positions,
+altitude, flight mode, battery (null when unknown), mission progress, events,
+route deviation and outcome. Wall time and simulated boot time are separate.
+On restart, while holding the worker lock, unfinished records become
+`interrupted`; the worker never resumes a previous mission automatically.
+
+The API exposes read-only `GET /drones/runs` and `GET /drones/runs/{run_id}`.
+Drone Lab polls selected runs every two seconds, overlays the measured trace
+on the plan, and shows state, current telemetry, events and final metrics.
+The companion and API must share the same run directory. For containers, mount
+it and set `DRONE_RUNS_DIR` to its container path; copying code alone will not
+make host snapshots visible. The existing deployment is not changed by this
+worker. Flight commands remain local CLI actions rather than public endpoints.
+
+These records are explicitly synthetic. No camera observations are generated,
+and no rescue incident is created automatically. Real observation ingestion and
+coordinator verification remain a separate evidence integration milestone.
+
+
+### Flight test findings
+
+The original large demo completed with the default simulator profile before
+wind/speed were explicitly aligned. With the requested 3 m/s simulated wind and
+5 m/s cruise speed, its reported battery crossed the 25% reserve and the worker
+requested RTL; landing/disarming were observed. This demonstrates a mismatch
+between the planner's generic 1,200-second endurance assumption and this SITL
+battery model. Do not present the planner's battery estimate as calibrated.
+
+Use `--short-survey` for the nominal smoke test: 20 m altitude, bounds
+36.8002–36.8006 latitude and -121.8008–-121.8003 longitude. It retains the
+same invented home and simulated wind. Omitting that flag runs the larger demo.
+Both plan variants and complete measured traces are stored with their run.
+
+The configured short survey completed, landed and disarmed on GCP: 280 samples,
+about 30 wall-clock seconds (140 simulated seconds), maximum altitude 20.01 m,
+and maximum horizontal distance to the nearest planned segment 1.18 m. The
+controlled cancel run also landed/disarmed; injected link loss was correctly
+recorded as unconfirmed. Backend offline suite: 324 passed. Responder console:
+TypeScript check and production web export passed.
