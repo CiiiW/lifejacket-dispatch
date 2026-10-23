@@ -149,3 +149,9 @@ held out from tuning, and separately evaluate detection misses, target selection
 viewpoint, and expert-reviewed signs.
 
 First live run: [2026-10-23 results and limitations](BASELINE_RUN_2026-10-23.md).
+
+The **Show evaluation dashboard** button displays processing/review coverage,
+shared animal-group counts, latest-attempt metrics and provisional same-target
+comparisons. Opening it exposes aggregate predictions and is recorded with
+subsequent reviews in that tab. Drone priorities and session notes live in the
+[drone progress tracker](../../docs/drone_progress.md).

@@ -5,12 +5,15 @@ entries at the top of each section.
 
 For the repository tour and design rationale, see [README.md](README.md).
 
+Drone priorities and current progress are tracked in [docs/drone_progress.md](docs/drone_progress.md).
+The older general backlog below is not the current drone implementation order.
+
 ## Current Layout
 
 | Folder | What it is |
 |---|---|
 | `backend/lifejacket/` | All application logic. Python. See the README's layout table |
-| `backend/tests/` | 203 tests. No API key or network needed |
+| `backend/tests/` | Offline backend checks; latest drone validation is recorded in the progress tracker |
 | `clients/reporter_app/` | The public's phone app. Expo + React Native |
 | `clients/responder_console/` | Rescue organisation app. Expo + RN, phone **and** web |
 | `clients/shared/api.ts` | One API client, shared by both apps |
@@ -326,6 +329,19 @@ For the repository tour and design rationale, see [README.md](README.md).
   Marine Mammal Stranding Network directory.
 
 ## Change Log
+
+### 2026-10-23 — Drone progress tracking and evaluation support
+
+- Scope: drone patrol video, repeated sightings and coordinator review.
+- Added the [drone tracker](docs/drone_progress.md) with verified capabilities,
+  evidence limits, ordered milestones, blockers and a session-log convention.
+- Added a small evaluation panel to the existing private photo-review page.
+  It reports processing/review coverage, shared animal-group counts,
+  saved-attempt telemetry and provisional same-target comparisons.
+- Current live public-photo checkpoint: 40 detection results, 38 assessments,
+  2 target selections pending, 0 failed cases and 0 expert labels.
+- Next drone implementation: recorded-video ingestion and provenance-preserving
+  frame extraction (DR-06). Aerial performance remains unmeasured.
 
 ### 2026-10-05 — Mass stranding detection
 
