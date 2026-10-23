@@ -147,3 +147,5 @@ is reported without independent expert ground truth. The public convenience
 sample is not an aerial patrol benchmark. Keep future NOAA evaluation samples
 held out from tuning, and separately evaluate detection misses, target selection,
 viewpoint, and expert-reviewed signs.
+
+First live run: [2026-10-23 results and limitations](BASELINE_RUN_2026-10-23.md).
