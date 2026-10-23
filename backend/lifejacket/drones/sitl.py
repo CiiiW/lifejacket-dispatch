@@ -53,6 +53,8 @@ def upload_mission(connection, items: list[MissionItem], timeout_s: float = 30) 
     if [item.sequence for item in items] != list(range(len(items))):
         raise ValueError("Mission sequence must be contiguous from zero")
     system, component = connection.target_system, connection.target_component
+    if system <= 0 or component <= 0:
+        raise ValueError("Bind the target system and component from the autopilot heartbeat")
     connection.mav.mission_count_send(system, component, len(items))
     deadline = time.monotonic() + timeout_s
     sent = set()

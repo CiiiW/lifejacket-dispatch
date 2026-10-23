@@ -52,3 +52,12 @@ def test_upload_failure(responses, error):
     plan = plan_mission(demo_mission())
     with pytest.raises(error):
         upload_mission(connection(responses), mission_items(plan, plan.plan_id))
+
+
+def test_broadcast_target_is_rejected_before_upload():
+    plan = plan_mission(demo_mission())
+    conn = connection([])
+    conn.target_component = 0
+    with pytest.raises(ValueError, match="heartbeat"):
+        upload_mission(conn, mission_items(plan, plan.plan_id))
+    conn.mav.mission_count_send.assert_not_called()

@@ -19,8 +19,12 @@ def main():
     # Fixed loopback endpoint: no serial devices or arbitrary remote hosts.
     link = mavutil.mavlink_connection("tcp:127.0.0.1:5760", source_system=255)
     try:
-        if link.wait_heartbeat(timeout=15) is None:
+        heartbeat = link.wait_heartbeat(timeout=15)
+        if heartbeat is None:
             raise TimeoutError("No SITL heartbeat on localhost:5760")
+        # pymavlink leaves target_component at broadcast (0) after heartbeat.
+        link.target_system = heartbeat.get_srcSystem()
+        link.target_component = heartbeat.get_srcComponent()
         upload_mission(link, items)
         print(f"Upload accepted: {plan.plan_id}, {len(items)} items. Flight not started.")
     finally:
