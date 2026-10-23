@@ -57,6 +57,7 @@ research/**/distortion_images/
 # photos/ is re-downloaded from manifest.csv, variants/ is regenerated.
 research/identification_eval/photos/
 research/identification_eval/variants/
+research/public_condition_pilot/**/photos/
 
 # Charts committed by the research notebooks are wanted, so PNGs are NOT
 # ignored. Add specific paths here if that changes.
