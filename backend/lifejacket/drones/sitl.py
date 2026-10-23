@@ -82,13 +82,13 @@ def upload_mission(connection, items: list[MissionItem], timeout_s: float = 30) 
         if not 0 <= message.seq < len(items):
             raise RuntimeError("Autopilot requested an invalid mission sequence")
         item = items[message.seq]
-        # MAV_FRAME_GLOBAL_RELATIVE_ALT_INT for integer transfer, otherwise
-        # MAV_FRAME_GLOBAL_RELATIVE_ALT. Altitude is relative to SITL home.
-        args = (
+        # Current MAVLink guidance requires INT replies even to legacy requests.
+        # Float MISSION_ITEM coordinates lose precision at California longitudes.
+        connection.mav.mission_item_int_send(
             system,
             component,
             item.sequence,
-            6 if kind == "MISSION_REQUEST_INT" else 3,
+            6,
             item.command,
             0,
             1,
@@ -96,14 +96,9 @@ def upload_mission(connection, items: list[MissionItem], timeout_s: float = 30) 
             0,
             0,
             0,
+            item.latitude_int,
+            item.longitude_int,
+            item.altitude_m,
         )
-        if kind == "MISSION_REQUEST_INT":
-            connection.mav.mission_item_int_send(
-                *args, item.latitude_int, item.longitude_int, item.altitude_m
-            )
-        else:
-            connection.mav.mission_item_send(
-                *args, item.latitude_int / 1e7, item.longitude_int / 1e7, item.altitude_m
-            )
         sent.add(item.sequence)
     raise TimeoutError("Mission upload timed out without an accepted acknowledgment")

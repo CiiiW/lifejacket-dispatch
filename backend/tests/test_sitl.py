@@ -61,3 +61,18 @@ def test_broadcast_target_is_rejected_before_upload():
     with pytest.raises(ValueError, match="heartbeat"):
         upload_mission(conn, mission_items(plan, plan.plan_id))
     conn.mav.mission_count_send.assert_not_called()
+
+
+def test_legacy_request_preserves_integer_coordinate_precision():
+    plan = plan_mission(demo_mission())
+    items = mission_items(plan, plan.plan_id)
+    conn = connection(
+        [
+            *[message("MISSION_REQUEST", seq=i) for i in range(len(items))],
+            message("MISSION_ACK", type=0),
+        ]
+    )
+    upload_mission(conn, items)
+    assert conn.mav.mission_item_int_send.call_count == len(items)
+    assert conn.mav.mission_item_int_send.call_args_list[0].args[-2] == -1218010000
+    conn.mav.mission_item_send.assert_not_called()
