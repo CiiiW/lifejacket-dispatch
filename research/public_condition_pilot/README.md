@@ -96,3 +96,53 @@ Validation: all 352 offline backend tests passed, including license filtering,
 uncertainty, group hints, negated text, original-byte preservation, hash mismatch
 rejection and protection of existing review snapshots. Ruff passed for the collector
 and its tests; all 40 downloaded image hashes were verified locally.
+
+## Image-only baseline and private review
+
+Run from the repository root with backend dependencies and Vertex ADC configured:
+
+```bash
+PYTHONPATH=backend python research/public_condition_pilot/run_baseline.py \
+  --live --run-dir var/condition-baseline/pilot-v1 --resume
+PYTHONPATH=backend python research/public_condition_pilot/run_baseline.py \
+  --live --run-dir var/condition-baseline/pilot-v1 --serve --port 8813
+```
+
+The review server binds to **127.0.0.1**. On the authenticated GCP notebook,
+open `/proxy/8813/`. Keep this behind notebook authentication; it has no separate
+account system. It is a standalone research app and never creates dispatch cases.
+Use `--limit 2` for a first live smoke run, then resume without a limit. A
+`--dry-run` in a separate directory checks orchestration using scripted replies;
+those outputs cannot measure quality and are excluded from comparison statistics.
+
+Detection receives the original pixels after EXIF removal and orientation
+normalization. Identification and assessment receive the selected crop. Neither
+receives iNaturalist species, group hints, source descriptions, condition mentions,
+or geographic context. A sole detection is analyzed but remains unconfirmed;
+multiple detections pause for selection, and no detection is not a healthy label.
+Draw a target to recover a miss. Tiny or degenerate targets fail explicitly.
+
+Start by annotating the image with model suggestions and source context hidden.
+Select **Yes** for an animal and draw its box; choose the shared chatbot animal
+group, viewpoint and visibility. Each of six signs is **observed**, **not visible
+in this view**, or **uncertain**. Defaults remain uncertain. Save a provisional
+review before running analysis on a newly selected target. Model/source reveal
+flags are retained. Your qualification is self-reported, never an expert stamp.
+Source attribution remains visible throughout.
+
+`run.json` records input, prompt/code hashes, model and settings. Per-image
+predictions, every analysis attempt, current reviews and review revision history
+are separate files outside the collection. Resume rejects changed fingerprints;
+start a new run directory after a model, prompt, input or inference-code change.
+Concurrent/stale edits return a conflict rather than overwrite another result.
+Export includes the run metadata, current predictions, source provenance and
+current reviews; histories stay on disk. Latest-attempt token/latency totals are
+not a full billing ledger of retries or prior attempts.
+
+Group-level sign comparisons require a provisional human review of the same
+box and prediction version. Uncertain signs are excluded; exposure counts are
+reported because these comparisons may be model-assisted. No clinical accuracy
+is reported without independent expert ground truth. The public convenience
+sample is not an aerial patrol benchmark. Keep future NOAA evaluation samples
+held out from tuning, and separately evaluate detection misses, target selection,
+viewpoint, and expert-reviewed signs.
