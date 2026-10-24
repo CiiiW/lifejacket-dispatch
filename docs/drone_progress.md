@@ -76,6 +76,20 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-10-23 — GitHub push readiness check
+
+- Working tree was clean; refreshed `origin/charlotte` successfully. No upstream
+  commits needed incorporation; 17 implementation/documentation commits were
+  awaiting push before this log entry.
+- `git diff --check` passed. Existing validation remains 361 full backend tests
+  at the recorded checkpoint plus 9 focused review tests for the last UI increment;
+  no implementation changed during this readiness check.
+- Attempted a normal push to `charlotte` without force. Git exited 128 because
+  GitHub credentials were unavailable (`could not read Username`). No push succeeded.
+- Blocker: authenticate GitHub write access for this checkout, then fetch and
+  push `charlotte` again. Browser sign-in has not supplied Git credentials.
+- This log update is an additional local commit awaiting the same push.
+
 ### 2026-10-23 — Drone scope and progress tracking
 
 - Confirmed drone work is the priority; accepted a small supporting evaluation panel.
