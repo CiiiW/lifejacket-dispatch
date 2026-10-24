@@ -56,9 +56,7 @@ class HistoricalStrandingCellRow(Base):
     """Counts at a 0.1-degree grid, never individual records or exact points."""
 
     __tablename__ = "historical_stranding_cells"
-    __table_args__ = (
-        UniqueConstraint("dataset_id", "latitude_index", "longitude_index"),
-    )
+    __table_args__ = (UniqueConstraint("dataset_id", "latitude_index", "longitude_index"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     dataset_id: Mapped[str] = mapped_column(
@@ -305,3 +303,54 @@ class IncidentEventRow(Base):
     kind: Mapped[str] = mapped_column(String(32))
     actor_ref: Mapped[str | None] = mapped_column(String(128))
     details: Mapped[dict] = mapped_column(JSON)
+
+
+class DroneObservationRow(Base):
+    """Immutable photo evidence with coordinator review, separate from public intake."""
+
+    __tablename__ = "drone_observations"
+    observation_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+    status: Mapped[str] = mapped_column(String(24), default="pending", index=True)
+    revision: Mapped[int] = mapped_column(Integer, default=0)
+    source_kind: Mapped[str] = mapped_column(String(16))
+    run_id: Mapped[str | None] = mapped_column(String(32))
+    latitude: Mapped[float] = mapped_column(Float)
+    longitude: Mapped[float] = mapped_column(Float)
+    observed_at: Mapped[datetime] = mapped_column(DateTime)
+    metadata_json: Mapped[dict] = mapped_column(JSON)
+    storage_path: Mapped[str] = mapped_column(String(512))
+    content_type: Mapped[str] = mapped_column(String(64))
+    sha256: Mapped[str] = mapped_column(String(64))
+    review_json: Mapped[dict | None] = mapped_column(JSON)
+    incident_id: Mapped[str | None] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id")
+    )
+
+
+class DroneAnalysisRow(Base):
+    """Append-only, advisory photo analysis; original evidence stays immutable."""
+
+    __tablename__ = "drone_analyses"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    observation_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("drone_observations.observation_id"), index=True
+    )
+    payload_json: Mapped[dict] = mapped_column(JSON)
+
+
+class ExternalHandoffRow(Base):
+    """A coordinator's record of off-app contact; never an automated notification."""
+
+    __tablename__ = "external_handoffs"
+    handoff_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    observation_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("drone_observations.observation_id"), index=True
+    )
+    incident_id: Mapped[str] = mapped_column(String(32), ForeignKey("incidents.incident_id"))
+    center_id: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(24), default="draft", index=True)
+    revision: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
+    snapshot_json: Mapped[dict] = mapped_column(JSON)
+    history_json: Mapped[list] = mapped_column(JSON)

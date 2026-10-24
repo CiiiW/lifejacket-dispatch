@@ -83,7 +83,7 @@ coordinator approval before launch, not run as a background automation.
 | --- | --- |
 | Decide if/how a drone flies for an incident | `backend/lifejacket/dispatch/drone_dispatch.py` |
 | Fetch drone video/frames for an incident | `backend/lifejacket/context/drone.py` |
-| Enforce the MMPA approach-distance floor | constant + check inside `drone_dispatch.py`, unit-tested the way `test_severity.py` tests the hard rules |
+| Enforce operator-approved wildlife constraints | site/species/activity policy checks inside `drone_dispatch.py`; no generic clearance constant |
 | Feed drone frames into identification | extend the `PhotoRow`-shaped input `services/pipeline.py` passes to `agents/identification.py` |
 | Require coordinator approval before flight | new endpoint alongside `POST /responders/assign`, same approval pattern |
 | Scheduled patrol flights | out of scope for v1; revisit once single-incident dispatch works |

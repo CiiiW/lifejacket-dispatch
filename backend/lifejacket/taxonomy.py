@@ -40,7 +40,7 @@ from lifejacket.models.schemas import (
 
 #: Labels for the coarsest rank, used when even the family is uncertain.
 GROUP_LABELS: dict[AnimalGroup, str] = {
-    AnimalGroup.PINNIPED: "Seal or sea lion",
+    AnimalGroup.PINNIPED: "Seal, sea lion, or walrus",
     AnimalGroup.CETACEAN: "Whale, dolphin, or porpoise",
     AnimalGroup.SEA_TURTLE: "Sea turtle",
     AnimalGroup.SEABIRD: "Seabird",

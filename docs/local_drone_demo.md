@@ -83,3 +83,35 @@ This launch path exposes only a loopback web port on your computer; it does not
 configure public hosting or a shared team database.
 
 Architecture and the next integration step: [drone architecture](drone_architecture.md).
+
+## Historical context in Drone Lab
+
+On `charlotte-drone-historical-context`, Drone Lab also displays the existing
+NOAA heatmap after import. Select a thresholded cell from the list; its outline
+and bounds appear. **Selection does not move home or generate a flight from the
+cell center.** Enter a small survey rectangle inside the chosen cell and a nearby
+simulated home in the six coordinate fields. Build, inspect, acknowledge review
+and run the existing mock. Coordinate/cell/wind edits clear the current plan,
+review and trace. Reload the page after re-importing a changed workbook.
+
+The historical checksum and cell indices travel with the plan. The API rejects
+missing/stale evidence, cells below the threshold, and surveys outside the cell;
+all existing range/battery/wind/exclusion checks still apply. Real historical
+counts are context only. Survey/home are simulation inputs and telemetry remains
+synthetic. No incidents or assignments are created.
+
+Without a workbook, choose **Use synthetic demo area** and follow the original
+walkthrough. To reproduce backend checks without Docker or Google credentials:
+
+```bash
+python3 -m venv .venv
+# macOS/Linux; on Windows use .venv\Scripts\activate
+source .venv/bin/activate
+pip install -r backend/requirements-staging.txt pytest
+pytest backend/tests/test_drones.py backend/tests/test_drone_historical_context.py backend/tests/test_historical_strandings.py
+```
+
+These tests create synthetic aggregate fixtures in temporary SQLite databases;
+they do not require or redistribute the NOAA workbook. Start the existing local
+Docker launcher for the interactive console. See the complete source review and
+remaining MVP work in [drone_simulation_review.md](drone_simulation_review.md).

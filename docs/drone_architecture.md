@@ -23,9 +23,13 @@ flowchart TD
     E --> U
 ```
 
-The historical-to-mission and AI paths in this diagram are integration targets.
-Today Drone Lab supplies an invented area; the imported density layer remains
-in Triage. The AI brief will suggest a bounded survey area, priority rationale,
+The AI suggestion path in this diagram remains an integration target.
+Drone Lab now also displays the imported density layer and lets a coordinator
+select a thresholded cell as historical context, then manually specify a small
+survey and simulated home. The synthetic preset remains available. Historical
+context is checked against the current dataset checksum and cell threshold at
+both planning and simulation; the chosen survey must fit within that cell.
+The AI brief will suggest a bounded survey area, priority rationale,
 evidence references and assumptions. It will pass the same typed intent to the
 planner. The AI will not change server-owned limits, approve a run, or issue
 vehicle commands. Existing `llm/client.py` can supply the model adapter later;
@@ -70,7 +74,8 @@ segments are appropriate for this bounded demo, not terrain-aware navigation.
 
 ## Historical data and AI planning
 
-Reuse the existing private importer and thresholded density endpoint. A roughly
+The first integration reuses the private importer and thresholded density endpoint.
+See [the source review and MVP plan](drone_simulation_review.md). A roughly
 11-km aggregate cell is an area-level observation summary. It must not become
 an animal pin, a drone base, or an automatic mission endpoint. A coordinator
 should draw a smaller survey area after considering the coastal geography and

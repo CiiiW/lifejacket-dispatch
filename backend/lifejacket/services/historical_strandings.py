@@ -2,7 +2,8 @@
 
 Run locally against a database you control::
 
-    PYTHONPATH=backend python -m lifejacket.services.historical_strandings /private/Zhang_CA_2006-2025.xlsx
+    PYTHONPATH=backend python -m lifejacket.services.historical_strandings \
+        /private/Zhang_CA_2006-2025.xlsx
 
 The workbook and its detailed locality, identifiers, and remarks never enter
 the application database. Re-import atomically replaces this dataset's cells.
@@ -25,6 +26,7 @@ from lifejacket.models.tables import HistoricalStrandingCellRow, HistoricalStran
 
 DATASET_ID = "noaa_ca_2006_2025"
 GRID_DEGREES = 0.1  # approximately 11 km north-south; not a point location
+MIN_PUBLIC_CELL_COUNT = 10
 REQUIRED_COLUMNS = (
     "State", "Latitude", "Longitude", "Latitude Units", "Longitude Units",
     "Observation Date", "Confidence Code",
@@ -61,7 +63,7 @@ def aggregate_workbook(path: Path) -> tuple[Counter[tuple[int, int]], Counter[st
         stats: Counter[str] = Counter()
         for row in rows:
             stats["total"] += 1
-            get = lambda name: row[columns[name]]  # noqa: E731
+            get = lambda name, values=row: values[columns[name]]  # noqa: E731
             if str(get("State")).strip().lower() not in {"ca", "california"}:
                 stats["outside_california_state"] += 1
                 continue
@@ -113,7 +115,9 @@ def import_workbook(path: Path, session: Session) -> dict[str, object]:
         sha256=digest,
         total_records=stats["total"],
         included_records=stats["included"],
-        exclusions_json={key: value for key, value in stats.items() if key not in {"total", "included"}},
+        exclusions_json={
+            key: value for key, value in stats.items() if key not in {"total", "included"}
+        },
     ))
     session.flush()
     session.add_all(
@@ -123,7 +127,9 @@ def import_workbook(path: Path, session: Session) -> dict[str, object]:
         for (lat, lon), count in cells.items()
     )
     return {"sha256": digest, "total": stats["total"], "included": stats["included"],
-            "excluded": {key: value for key, value in stats.items() if key not in {"total", "included"}},
+            "excluded": {
+                key: value for key, value in stats.items() if key not in {"total", "included"}
+            },
             "cells": len(cells)}
 
 

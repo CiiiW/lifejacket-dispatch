@@ -1,0 +1,117 @@
+{
+  "retrieved_at": "2026-10-23T04:33:57.948400+00:00",
+  "queries": [
+    {
+      "reason": "existing_identification_eval",
+      "params": {
+        "id": "81502153,101163170,9012653,7923623,232308620,264136175,15716281,788638,340823139,25173902,37795643,5117029,340543104,338084325,25147880,249899937,46856655,399599862,348157366,204040158,265486052,297730163,47454663,73908340,21071966,66282025,28063435,6659273,66282386,320767551,169984813,170234962,245846005,266906156,230871800,109329439,20969419,201317314,2318271,6537459,63245390,104157639,104683125,256422973,1880425,235457190,235036445,369439024,11451452,175969532",
+        "per_page": 50
+      }
+    },
+    {
+      "reason": "existing_identification_eval",
+      "params": {
+        "id": "240234298,78082368,220625032,263047554,392286418,5217183,134777528,132991732,202184391,331023111,254806057,349358483,4403695,151797312,3814973,39505451,190672671,62454999,83520970,31020,153735396,55421447,340919854,14176732,37070329,41669981,180939215,345388150,345588756,198621000,154325433,103935928,213582333,41658000,26646841,127403691,233220654,37589411,100114934,321045079,14587692,52641864,328476684,27467746,149291128,1226219,399111614,404645360,277864622,353633573",
+        "per_page": 50
+      }
+    },
+    {
+      "reason": "existing_identification_eval",
+      "params": {
+        "id": "65919567,1499618",
+        "per_page": 50
+      }
+    },
+    {
+      "reason": "project:wildlife-diseases-morbidity-and-mortality",
+      "params": {
+        "photos": "true",
+        "photo_license": "cc-by,cc0",
+        "per_page": 25,
+        "order_by": "id",
+        "order": "desc",
+        "project_id": "wildlife-diseases-morbidity-and-mortality"
+      }
+    },
+    {
+      "reason": "text_search:injured",
+      "params": {
+        "photos": "true",
+        "photo_license": "cc-by,cc0",
+        "per_page": 25,
+        "order_by": "id",
+        "order": "desc",
+        "taxon_id": "3802,4328,4345,4519,4626,5212,39659,39665,39677,40086,41440,41461,41478,41482,41496,41521,41526,41532,41541,41550,41566,41708,41714,41728,41733,41740,41746,41755,41757,41860,42051,47144,49601,73844,74890,117302,117520,117766,118552,133061,147881,336654,446640,623433,705330,970572,1306016,1454382,1602533,1664971",
+        "q": "injured"
+      }
+    },
+    {
+      "reason": "text_search:entangled",
+      "params": {
+        "photos": "true",
+        "photo_license": "cc-by,cc0",
+        "per_page": 25,
+        "order_by": "id",
+        "order": "desc",
+        "taxon_id": "3802,4328,4345,4519,4626,5212,39659,39665,39677,40086,41440,41461,41478,41482,41496,41521,41526,41532,41541,41550,41566,41708,41714,41728,41733,41740,41746,41755,41757,41860,42051,47144,49601,73844,74890,117302,117520,117766,118552,133061,147881,336654,446640,623433,705330,970572,1306016,1454382,1602533,1664971",
+        "q": "entangled"
+      }
+    },
+    {
+      "reason": "text_search:wound",
+      "params": {
+        "photos": "true",
+        "photo_license": "cc-by,cc0",
+        "per_page": 25,
+        "order_by": "id",
+        "order": "desc",
+        "taxon_id": "3802,4328,4345,4519,4626,5212,39659,39665,39677,40086,41440,41461,41478,41482,41496,41521,41526,41532,41541,41550,41566,41708,41714,41728,41733,41740,41746,41755,41757,41860,42051,47144,49601,73844,74890,117302,117520,117766,118552,133061,147881,336654,446640,623433,705330,970572,1306016,1454382,1602533,1664971",
+        "q": "wound"
+      }
+    },
+    {
+      "reason": "text_search:oiled",
+      "params": {
+        "photos": "true",
+        "photo_license": "cc-by,cc0",
+        "per_page": 25,
+        "order_by": "id",
+        "order": "desc",
+        "taxon_id": "3802,4328,4345,4519,4626,5212,39659,39665,39677,40086,41440,41461,41478,41482,41496,41521,41526,41532,41541,41550,41566,41708,41714,41728,41733,41740,41746,41755,41757,41860,42051,47144,49601,73844,74890,117302,117520,117766,118552,133061,147881,336654,446640,623433,705330,970572,1306016,1454382,1602533,1664971",
+        "q": "oiled"
+      }
+    }
+  ],
+  "candidate_count": 40,
+  "expert_reviewed_count": 0,
+  "group_hints": {
+    "sea_turtle": 6,
+    "terrestrial": 6,
+    "pinniped": 5,
+    "domestic_animal": 4,
+    "cetacean": 5,
+    "seabird": 5,
+    "unknown": 5,
+    "other_marine": 4
+  },
+  "condition_mentions": {
+    "wound_mention": 14,
+    "injury_mention": 15,
+    "illness_mention": 4,
+    "bleeding_mention": 1,
+    "entanglement_mention": 4
+  },
+  "downloads": {
+    "saved": 40
+  },
+  "missing_named_groups": [],
+  "limitations": [
+    "Community reports and text mentions are unverified leads, including negations.",
+    "Alive does not mean healthy; dead does not identify injury or cause of death.",
+    "No expert-reviewed labels, no model training, no accuracy claim.",
+    "Viewpoint is unknown until reviewed; this is not an aerial evaluation set.",
+    "NOAA evaluation cases must remain held out from development and training."
+  ],
+  "duplicate_photo_count": 0,
+  "metadata_policy": "Condition-related fields only; no precise coordinates or unrelated profile fields retained."
+}

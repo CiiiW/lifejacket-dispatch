@@ -18,7 +18,8 @@ def incident_state(row: IncidentRow) -> dict:
         "duplicate_of": row.duplicate_of,
         "severity_level": row.severity_level,
         "requires_human_review": bool(
-            assessment.get("requires_human_review")
+            metrics.get("drone_intake_pending_assessment")
+            or assessment.get("requires_human_review")
             or guardrail.get("check_failed")
             or (
                 guardrail

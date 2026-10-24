@@ -8,6 +8,8 @@ tide and weather at that spot, and sends a concise incident report to the
 rescue console with ranked responder candidates for coordinator review.
 The prototype does not verify permits or automatically dispatch responders.
 
+Drone work status, evidence, open tasks and session notes: [Drone progress tracker](docs/drone_progress.md).
+
 ## Run the local drone demo
 
 With Python 3.11+ and Docker running, pull the `charlotte` branch and run:
@@ -20,6 +22,9 @@ Open <http://127.0.0.1:8080> and choose **Drone Lab**. The synthetic survey plan
 and mock telemetry replay work without GCP access, model keys or a private NOAA
 workbook. Each teammate gets a separate local database. See the
 [local setup](docs/local_drone_demo.md) and [drone architecture](docs/drone_architecture.md).
+
+For the verified baseline, remaining MVP gaps, and historical-context increment,
+see [the drone source review](docs/drone_simulation_review.md).
 
 ## Three rescue workflows
 
