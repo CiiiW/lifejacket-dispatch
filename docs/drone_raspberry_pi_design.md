@@ -48,7 +48,7 @@ attributable to a specific layer instead of "the drone misbehaved."
   backend for a flight plan from `drone_dispatch.py`, and converts it into
   a MAVLink mission (waypoints + loiter + RTL) plus geofence parameters.
 - **Local safety check**: before arming, the Pi independently re-validates
-  the MMPA approach-distance floor against the received waypoints. This is
+  the operator-approved wildlife constraints against the received waypoints. This is
   defense in depth — the Pi is the last software gate before a physical
   flight, so it does not simply trust that the backend's check already ran
   correctly.
@@ -69,8 +69,8 @@ attributable to a specific layer instead of "the drone misbehaved."
 ## Low-light and night operation (optional add-on)
 
 Two different pieces of hardware, often confused with each other, cover
-this: a **thermal camera** detects heat and works in total darkness or fog
-with no light source, but only gives a low-resolution heat blob, not
+this: a **thermal camera** detects thermal radiation without visible light;
+fog performance needs separate validation. Small sensors may give only a heat blob, not
 enough detail to identify species or see a wound. **Night vision** here
 means an IR-sensitive (NoIR) camera paired with an infrared illuminator;
 it gives an actual visual image in the dark, grayscale but with real
@@ -129,11 +129,11 @@ project's core accuracy gap on its own.
 
 ```
 drone_dispatch.py (backend)        →  flight plan (waypoints, loiter point,
-                                        altitude/distance floor, RTL)
+                                        site/species/activity constraints, RTL)
         ↓
 mission_client.py (Pi)             →  converts plan to MAVLink mission
         ↓
-safety_check.py (Pi)               →  re-validates MMPA floor before arming
+safety_check.py (Pi)               →  re-validates operator-approved wildlife constraints before arming
         ↓
 flight controller (ArduPilot)      →  flies the mission
         ↓
@@ -194,7 +194,7 @@ regardless of which hardware option the team lands on.
 | You want to... | Add |
 | --- | --- |
 | Convert a backend flight plan into a MAVLink mission | `companion/mission_client.py` (runs on the Pi) |
-| Re-check the MMPA floor on-device before arming | `companion/safety_check.py` (runs on the Pi) |
+| Re-check the operator-approved wildlife constraints on-device before arming | `companion/safety_check.py` (runs on the Pi) |
 | Record and tag video during loiter (visible, thermal, night-vision) | `companion/camera_capture.py` (runs on the Pi) |
 | Stream or buffer frames to the backend | `companion/uplink.py` (runs on the Pi) |
 | Ingest frames on the backend side | `backend/lifejacket/context/drone.py` (as already proposed in `drone_integration.md`) |

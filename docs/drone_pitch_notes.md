@@ -32,9 +32,9 @@ Talking points, not a script — adapt per slide.
 
 ## Slide: Safety boundary
 
-- MMPA sets minimum approach distances for marine mammals — this is a
-  hard constraint in the flight plan, not a tunable default, the same way
-  entanglement and bleeding wounds hard-rule to critical in triage today.
+- NOAA advises avoiding drone activity near marine mammals. Real flight
+  constraints need site/species/activity guidance and operator authorization;
+  a generic distance or altitude constant does not establish clearance.
 - Extends the system's existing rule that nothing dispatches without a
   human: a drone flight needs coordinator approval before launch, same as
   responder assignment does now.

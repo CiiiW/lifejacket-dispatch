@@ -1,9 +1,14 @@
-"""Stateless simulation endpoints. No database, cloud identity or drone is required."""
+"""Stateless simulations; historical context optionally reads the local aggregate DB."""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 
+from lifejacket.config import settings
+from lifejacket.drones.historical import validate_historical_context
 from lifejacket.drones.planner import demo_mission, plan_mission
+from lifejacket.drones.runs import list_runs, load_run
 from lifejacket.drones.simulator import MockSimulator
+from lifejacket.models.db import get_session
 from lifejacket.models.drone import (
     DroneMissionRequest,
     DronePlan,
@@ -20,12 +25,16 @@ def demo() -> DroneMissionRequest:
 
 
 @router.post("/plan", response_model=DronePlan)
-def plan(body: DroneMissionRequest) -> DronePlan:
+def plan(body: DroneMissionRequest, session: Session = Depends(get_session)) -> DronePlan:
+    _validate_context(body, session)
     return plan_mission(body)
 
 
 @router.post("/simulate", response_model=DroneSimulationResult)
-def simulate(body: DroneSimulationRequest) -> DroneSimulationResult:
+def simulate(
+    body: DroneSimulationRequest, session: Session = Depends(get_session)
+) -> DroneSimulationResult:
+    _validate_context(body.mission, session)
     # Rebuild from intent and server-owned limits; never execute client waypoints.
     current = plan_mission(body.mission)
     if current.plan_id != body.plan_id:
@@ -36,3 +45,26 @@ def simulate(body: DroneSimulationRequest) -> DroneSimulationResult:
         raise HTTPException(status_code=409, detail="; ".join(current.blocked_reasons))
     # Only this mock is registered. The API does not accept a host, port or device path.
     return MockSimulator().run(current, body.scenario, body.reviewed_by)
+
+
+def _validate_context(mission: DroneMissionRequest, session: Session) -> None:
+    try:
+        validate_historical_context(mission, session)
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+
+
+@router.get("/runs")
+def saved_runs() -> list[dict]:
+    """Read local companion snapshots; this endpoint never commands an autopilot."""
+    return list_runs(settings.drone_runs_dir)
+
+
+@router.get("/runs/{run_id}")
+def saved_run(run_id: str) -> dict:
+    try:
+        return load_run(settings.drone_runs_dir, run_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Run not found") from exc
