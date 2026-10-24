@@ -60,6 +60,7 @@ from lifejacket.chatbot.session import (
     Decision,
     StepAction,
     decide_next_step,
+    ensure_tappable,
     identification_stop_reason,
 )
 from lifejacket.config import settings
@@ -391,8 +392,10 @@ class IntakePipeline:
         self, state: ConversationState, decision: Decision
     ) -> TurnResult:
         """Put an agent's question to the reporter and charge it to a budget."""
-        question = decision.question
-        assert question is not None
+        assert decision.question is not None
+        # One choke point for all three question-asking agents, so none of
+        # them can send a yes/no question without buttons.
+        question = ensure_tappable(decision.question)
 
         # Each stage runs only once the previous has settled, so how far the
         # conversation has got tells us whose budget this question spends.
@@ -856,15 +859,44 @@ class IntakePipeline:
             if place:
                 area_terms = place.area_terms
 
-        return rank_centers(
-            area_terms=area_terms,
-            animal_group=incident.identification.animal_group
-            if incident.identification
-            else incident.assessment.animal_group,
-            injury=incident.assessment.injury,
-            latitude=incident.location.latitude if incident.location else None,
-            longitude=incident.location.longitude if incident.location else None,
+        return self._with_base_locations(
+            rank_centers(
+                area_terms=area_terms,
+                animal_group=incident.identification.animal_group
+                if incident.identification
+                else incident.assessment.animal_group,
+                injury=incident.assessment.injury,
+                latitude=incident.location.latitude if incident.location else None,
+                longitude=incident.location.longitude if incident.location else None,
+            )
         )
+
+    def _with_base_locations(
+        self, candidates: list[DispatchCandidate]
+    ) -> list[DispatchCandidate]:
+        """Attach each candidate's base coordinates, so it can be mapped.
+
+        Ranking is unaffected: this fills a display field after the choice has
+        been made. `rank_centers` reads the directory CSV, which carries no
+        coordinates, so without this every candidate is unplottable.
+        """
+        if self.session is None or not candidates:
+            return candidates
+
+        located = repository.responder_locations(
+            self.session, [candidate.responder_id for candidate in candidates]
+        )
+        resolved: list[DispatchCandidate] = []
+        for candidate in candidates:
+            position = located.get(candidate.responder_id)
+            if candidate.latitude is not None or position is None:
+                resolved.append(candidate)
+                continue
+            latitude, longitude = position
+            resolved.append(
+                candidate.model_copy(update={"latitude": latitude, "longitude": longitude})
+            )
+        return resolved
 
     # -- Internals ------------------------------------------------------------
 

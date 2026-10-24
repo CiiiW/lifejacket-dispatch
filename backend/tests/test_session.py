@@ -6,11 +6,14 @@ testable with no API key and no network.
 
 from __future__ import annotations
 
+import pytest
 from lifejacket.agents.validation import Conflict, ValidationResult
 from lifejacket.chatbot.session import (
+    DEFAULT_YES_NO_OPTIONS,
     ConversationState,
     StepAction,
     decide_next_step,
+    ensure_tappable,
     identification_stop_reason,
 )
 from lifejacket.config import settings
@@ -552,3 +555,57 @@ class TestDetectionStep:
 
         with pytest.raises(ValueError):
             _two_animals_state().select_animal(5)
+
+
+# --- Tap-able questions -----------------------------------------------------
+#
+# Every case below is a question the assessment agent really sent a reporter
+# with no options, taken from the incident database.
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Are there any other dolphins or marine mammals stranded nearby?",
+        "Is the animal breathing?",
+        "Has it moved at all since you got there?",
+        "Can you see any injuries?",
+    ],
+)
+def test_a_plain_yes_no_question_gets_buttons(text):
+    fixed = ensure_tappable(ClarifyingQuestion(question=text))
+    assert fixed.options == DEFAULT_YES_NO_OPTIONS
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        # Two questions: one "Yes" answers neither.
+        "Is the dolphin moving or making any sounds? Is its blowhole clear of water?",
+        "Is the dolphin still breathing? Is its blowhole currently clear of water?",
+        # Joined by "and": which half does "Yes" answer?
+        "Is the sea lion breathing, and has it moved at all since you first saw it?",
+        # Alternatives, not yes/no.
+        "Can you see if the porpoise is moving at all, or if its blowhole is opening?",
+        # Does not open like a yes/no question.
+        "You mentioned nothing is wrapped on it. Can you tell if its chest is rising?",
+        "What colour is it?",
+        "How long is it?",
+    ],
+)
+def test_a_question_yes_or_no_would_not_answer_is_left_alone(text):
+    question = ClarifyingQuestion(question=text)
+    assert ensure_tappable(question).options == []
+
+
+def test_options_the_model_supplied_are_never_replaced():
+    question = ClarifyingQuestion(
+        question="Is it breathing?", options=["slowly", "quickly", "not at all"]
+    )
+    assert ensure_tappable(question).options == ["slowly", "quickly", "not at all"]
+
+
+def test_filling_options_does_not_mutate_the_original():
+    original = ClarifyingQuestion(question="Is it breathing?")
+    ensure_tappable(original)
+    assert original.options == []

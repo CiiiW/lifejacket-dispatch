@@ -82,7 +82,10 @@ _SCHEMA = object_schema(
         "is_confident": BOOLEAN,
         "next_question": STRING,
         "next_question_rationale": STRING,
-        "next_question_options": {"type": "array", "items": STRING},
+        # At least two, so a question cannot be sent without something to tap.
+        # Left optional, the model omitted them on 9 of 40 recorded assessment
+        # questions. When it asks nothing, these are simply ignored.
+        "next_question_options": {"type": "array", "items": STRING, "minItems": 2},
         "next_question_feature": STRING,
     }
 )

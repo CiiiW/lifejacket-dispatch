@@ -21,6 +21,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from lifejacket.api.conditions import ConditionsOut, build_conditions
 from lifejacket.context.routing import driving_route
 from lifejacket.dispatch.duplicates import is_possible_duplicate
 from lifejacket.dispatch.mass_stranding import find_mass_strandings
@@ -30,6 +31,7 @@ from lifejacket.models.schemas import (
     AnimalGroup,
     DispatchCandidate,
     DuplicateMatch,
+    EnvironmentalContext,
     IncidentReport,
     IncidentStatus,
     MassStranding,
@@ -129,6 +131,10 @@ class IncidentDetail(BaseModel):
     #: rather than only the agent's summary of it.
     transcript: list[dict] = Field(default_factory=list)
     environment: dict | None = None
+    #: The same readings as `environment`, flattened for display. The raw
+    #: JSON stayed unrendered for months because every client would have had
+    #: to know its shape; this is the shape both clients already use.
+    conditions: ConditionsOut | None = None
 
     reporter_phone: str | None = None
     duplicate_of: str | None = None
@@ -303,6 +309,11 @@ def get_incident(incident_id: str, session: Session = Depends(get_session)) -> I
             for m in row.messages
         ],
         environment=row.environment_json,
+        conditions=build_conditions(
+            EnvironmentalContext.model_validate(row.environment_json)
+            if row.environment_json
+            else None
+        ),
         reporter_phone=row.reporter_phone,
         duplicate_of=row.duplicate_of,
         possible_duplicate=_possible_duplicate(row, metrics),

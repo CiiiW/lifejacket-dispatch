@@ -21,6 +21,7 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  Keyboard,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -29,6 +30,7 @@ import {
   View,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { File } from 'expo-file-system';
@@ -41,8 +43,10 @@ import {
   reporter,
   severityColour,
   type Conditions,
+  type MatchedTeam,
   type Turn,
 } from '../lib/api';
+import ConditionsPanel from '../../../shared/ConditionsPanel';
 import { reporterVerdict, summariseConditions } from '../../../shared/conditions';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
@@ -101,6 +105,24 @@ type Bubble =
   | { kind: 'closing'; text: string }
   | { kind: 'teams'; teams: { name: string; distance_km: number | null }[] }
   /**
+   * Why triage landed where it did, restated at the end of the report.
+   *
+   * The `verdict` bubble already carries these, but it is emitted the moment
+   * severity is first known -- often several questions from the end, and
+   * scrolled well out of view by the time the report is filed. Someone who
+   * has just been told their animal is critical should not have to scroll
+   * back through the transcript to find out which fact made it so.
+   */
+  | { kind: 'reasons'; severity: string; reasons: string[] }
+  /**
+   * Conditions at the animal's location, as the last card in the report.
+   *
+   * Previously pinned above the transcript, where it dominated a tab whose
+   * job is the conversation. It belongs at the end: useful once, after the
+   * reporter knows what the animal is and who is coming.
+   */
+  | { kind: 'conditions'; conditions: Conditions }
+  /**
    * A team has actually been assigned by a coordinator.
    *
    * This is the one event in the whole flow the reporter most wants and
@@ -134,7 +156,7 @@ export default function ReportScreen({
   onComplete,
   onIncident,
   onLocation,
-  onConditions,
+  onMatchedTeams,
   pendingPin = null,
   onPinSubmitted,
 }: {
@@ -144,7 +166,7 @@ export default function ReportScreen({
   /** Fires when the reporter shares GPS, so the map tab can centre on it. */
   onLocation?: (latitude: number, longitude: number) => void;
   /** Weather/tide/daylight, which arrive with every turn once located. */
-  onConditions?: (conditions: Conditions) => void;
+  onMatchedTeams?: (teams: MatchedTeam[]) => void;
   /**
    * A pin the reporter placed on the Map tab, waiting to be submitted.
    *
@@ -182,6 +204,17 @@ export default function ReportScreen({
   useEffect(() => {
     scrollRef.current?.scrollToEnd({ animated: true });
   }, [bubbles]);
+
+  // The keyboard shrinks the transcript to whatever is left above it, which
+  // leaves the scroll position wherever it was -- often with the question
+  // that is being answered pushed out of view. Snap back to the newest
+  // message once the keyboard is up.
+  useEffect(() => {
+    const subscription = Keyboard.addListener('keyboardDidShow', () => {
+      scrollRef.current?.scrollToEnd({ animated: true });
+    });
+    return () => subscription.remove();
+  }, []);
 
   /**
    * Turn a fresh response into status bubbles for anything newly established.
@@ -281,8 +314,10 @@ export default function ReportScreen({
       setTurn(next);
       setChangingAnimal(false);
       onIncident?.(next.incident_id);
-      if (next.conditions) {
-        onConditions?.(next.conditions);
+      // Only once there are any: an empty list arrives on every turn before
+      // intake completes and would wipe a list already shown on the map.
+      if (next.matched_teams.length > 0) {
+        onMatchedTeams?.(next.matched_teams);
       }
 
       // Order on the final turn: the verdict (from `announceFacts`), then the
@@ -303,6 +338,13 @@ export default function ReportScreen({
       // paragraph -- is deliberately not shown. Showing both duplicated it.
       const advice: Bubble[] = [];
       if (next.complete) {
+        const why = [
+          ...(next.injury_summary ? [next.injury_summary] : []),
+          ...next.severity_reasons,
+        ];
+        if (next.severity_level && why.length > 0) {
+          advice.push({ kind: 'reasons', severity: next.severity_level, reasons: why });
+        }
         if (next.safety_guidance) {
           advice.push({ kind: 'safety', text: next.safety_guidance });
         }
@@ -319,6 +361,11 @@ export default function ReportScreen({
         }
         if (next.matched_teams.length > 0) {
           advice.push({ kind: 'teams', teams: next.matched_teams });
+        }
+        // Last, after "who covers this area": conditions answer "what is it
+        // like out there", which only matters once the rest is settled.
+        if (next.conditions) {
+          advice.push({ kind: 'conditions', conditions: next.conditions });
         }
       }
 
@@ -345,7 +392,7 @@ export default function ReportScreen({
       setWaitLabel(null);
     }
     },
-    [onComplete, onIncident, onConditions, announceFacts],
+    [onComplete, onIncident, onMatchedTeams, announceFacts],
   );
 
   // Submit a pin placed on the Map tab. `source: 'map_pin'` is recorded so a
@@ -425,35 +472,110 @@ export default function ReportScreen({
       return;
     }
 
-    const result = await ImagePicker.launchCameraAsync({
-      // Compressed, because reporters are often on a weak coastal signal and
-      // the vision model does not need a 12 MP original.
-      quality: 0.7,
-      exif: true,
-    });
+    await submitPhoto(
+      await ImagePicker.launchCameraAsync({
+        // Compressed, because reporters are often on a weak coastal signal and
+        // the vision model does not need a 12 MP original.
+        quality: 0.7,
+        exif: true,
+      }),
+      'camera',
+    );
+  }
+
+  /**
+   * The same upload, from a photo the reporter already has.
+   *
+   * Someone who photographed the animal before thinking to open this app --
+   * or who walked back into signal before reporting -- should not have to
+   * return to the beach to take the picture again.
+   */
+  async function pickPhoto() {
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permission.granted) {
+      Alert.alert(
+        'Photo library needed',
+        'LifeJacket needs your photo library to upload a picture you already took.',
+      );
+      return;
+    }
+
+    await submitPhoto(
+      await ImagePicker.launchImageLibraryAsync({
+        // Stills only: the pipeline hands one image to the vision model, so a
+        // video would upload as a file nothing downstream can read.
+        mediaTypes: ['images'],
+        quality: 0.7,
+        exif: true,
+      }),
+      'library',
+    );
+  }
+
+  /** Shared tail of both sources: check the asset, show it, upload it. */
+  async function submitPhoto(
+    result: ImagePicker.ImagePickerResult,
+    source: 'camera' | 'library',
+  ) {
     if (result.canceled || !turn) return;
 
     const asset = result.assets?.[0];
     if (!asset?.uri) {
-      // Guard rather than assume: a camera result with no usable file would
+      // Guard rather than assume: a result with no usable file would
       // otherwise reach `fetch` as an undefined URI, which fails as a network
       // error and reads to the user as "could not reach the server".
-      console.warn('[LifeJacket] camera returned no usable asset:', result);
-      Alert.alert('Photo problem', 'The camera did not return a usable photo. Try again.');
+      console.warn(`[LifeJacket] ${source} returned no usable asset:`, result);
+      Alert.alert(
+        'Photo problem',
+        source === 'camera'
+          ? 'The camera did not return a usable photo. Try again.'
+          : 'That photo could not be read. Try choosing a different one.',
+      );
       return;
+    }
+
+    let uri = asset.uri;
+    let filename = asset.fileName ?? 'photo.jpg';
+    if (asset.mimeType !== 'image/jpeg') {
+      try {
+        uri = await toJpeg(asset.uri);
+        // The name has to follow the bytes. Uploading re-encoded JPEG under
+        // the original `.avif` name would tell the API the wrong thing.
+        filename = filename.replace(/\.[^.]+$/, '') + '.jpg';
+      } catch (reason) {
+        console.warn('[LifeJacket] could not convert photo to JPEG:', reason);
+        Alert.alert('Photo problem', 'That photo could not be converted. Try a different one.');
+        return;
+      }
     }
 
     // `File` implements `Blob`, which is the only file part React Native 0.86
     // accepts in a FormData -- the older `{ uri, name, type }` object fails
     // with "Unsupported FormDataPart implementation".
-    const file = new File(asset.uri);
-    console.warn('[LifeJacket] uploading photo:', asset.uri, file.type, file.size);
+    const file = new File(uri);
+    console.warn('[LifeJacket] uploading photo:', uri, file.type, file.size);
 
-    setBubbles((prev) => [...prev, { kind: 'photo', from: 'me', uri: asset.uri }]);
+    setBubbles((prev) => [...prev, { kind: 'photo', from: 'me', uri }]);
     await run(
-      () => reporter.uploadPhoto(turn.incident_id, file, asset.fileName ?? 'photo.jpg'),
+      () => reporter.uploadPhoto(turn.incident_id, file, filename),
       WAIT_LABELS.photo,
     );
+  }
+
+  /**
+   * Re-encode a photo to JPEG.
+   *
+   * A library photo arrives in whatever format it was saved in. An image
+   * saved from the web is often AVIF, and iOS shoots HEIC -- and neither
+   * survives the trip: the API rejects AVIF outright, and it accepts HEIC
+   * but the backend's Pillow build cannot decode it. The camera path never
+   * hit this because `quality` makes expo-image-picker re-encode to JPEG on
+   * the way out; the library picker hands back the original file.
+   */
+  async function toJpeg(sourceUri: string): Promise<string> {
+    const rendered = await ImageManipulator.manipulate(sourceUri).renderAsync();
+    const { uri } = await rendered.saveAsync({ format: SaveFormat.JPEG, compress: 0.7 });
+    return uri;
   }
 
   /**
@@ -530,6 +652,11 @@ export default function ReportScreen({
 
     setBubbles((prev) => [...prev, { kind: 'text', from: 'me', text: trimmed }]);
     setDraft('');
+    // The answer is in; the next thing to read is the next question and its
+    // options. Pressing the keyboard's own return key dismisses it, but the
+    // Send button and the option pills do not, and a keyboard left open
+    // covers exactly the options it is meant to be answered with.
+    Keyboard.dismiss();
     await run(() => reporter.reply(turn.incident_id, trimmed));
   }
 
@@ -581,7 +708,15 @@ export default function ReportScreen({
         </View>
       )}
 
-      <ScrollView ref={scrollRef} style={styles.transcript} contentContainerStyle={styles.transcriptInner}>
+      <ScrollView
+        ref={scrollRef}
+        style={styles.transcript}
+        contentContainerStyle={styles.transcriptInner}
+        // Dragging the chat puts the keyboard away, and a tap on a card
+        // inside it should still register while the keyboard is up.
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="handled"
+      >
         {bubbles.map((bubble, index) => (
           <TranscriptBubble key={index} bubble={bubble} />
         ))}
@@ -613,9 +748,16 @@ export default function ReportScreen({
           />
         )}
         {needsPhoto && (
-          <Pressable style={styles.primary} onPress={takePhoto} disabled={busy}>
-            <Text style={styles.primaryText}>Take a photo</Text>
-          </Pressable>
+          <>
+            <Pressable style={styles.primary} onPress={takePhoto} disabled={busy}>
+              <Text style={styles.primaryText}>Take a photo</Text>
+            </Pressable>
+            {/* Secondary, not equal: photographing the animal now is the
+                better evidence, so the camera stays the obvious choice. */}
+            <Pressable style={styles.secondary} onPress={pickPhoto} disabled={busy}>
+              <Text style={styles.secondaryText}>Choose from library</Text>
+            </Pressable>
+          </>
         )}
 
         {/* One button. It opens a map so the pin can be checked and moved
@@ -842,6 +984,33 @@ function TranscriptBubble({ bubble }: { bubble: Bubble }) {
     );
   }
 
+  if (bubble.kind === 'reasons') {
+    const tint = severityColour(bubble.severity);
+    return (
+      <View style={[styles.card, { borderLeftColor: tint, borderLeftWidth: 4 }]}>
+        <Text style={[styles.cardLabel, { color: tint }]}>
+          Why this is {reporterVerdict(bubble.severity).headline.toLowerCase()}
+        </Text>
+        {bubble.reasons.map((reason) => (
+          <Text key={reason} style={styles.whyLine}>
+            • {reason}
+          </Text>
+        ))}
+      </View>
+    );
+  }
+
+  if (bubble.kind === 'conditions') {
+    return (
+      <View style={styles.status}>
+        {/* `bare` drops the panel's own card and heading: this bubble already
+            provides both, and nesting two reads as a bug. */}
+        <Text style={styles.statusLabel}>Conditions at the animal</Text>
+        <ConditionsPanel conditions={bubble.conditions} bare compact />
+      </View>
+    );
+  }
+
   // A status note is the system reporting a finding, not a party in the
   // conversation -- so it sits across the full width rather than on a side.
   if (bubble.kind === 'status') {
@@ -906,6 +1075,7 @@ function TranscriptBubble({ bubble }: { bubble: Bubble }) {
 }
 
 const styles = StyleSheet.create({
+  whyLine: { ...type.body, color: colors.text, lineHeight: 21, marginTop: 2 },
   choiceCard: { ...glass, padding: spacing.sm, gap: spacing.xs },
   choiceHint: { ...type.meta, color: colors.text, fontSize: 13 },
   changeAnimal: { ...type.meta, color: colors.accent, textDecorationLine: 'underline' },

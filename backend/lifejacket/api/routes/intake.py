@@ -90,6 +90,10 @@ class ReporterTeam(BaseModel):
     """
 
     name: str
+    #: Base location, so the reporter's map can show who covers this area.
+    #: An area centroid from the directory, not a street address.
+    latitude: float | None = None
+    longitude: float | None = None
     distance_km: float | None = None
     eta_minutes: float | None = None
 
@@ -512,6 +516,8 @@ def _to_response(
         matched_teams=[
             ReporterTeam(
                 name=candidate.name,
+                latitude=candidate.latitude,
+                longitude=candidate.longitude,
                 distance_km=candidate.distance_km,
                 eta_minutes=candidate.eta_minutes,
             )

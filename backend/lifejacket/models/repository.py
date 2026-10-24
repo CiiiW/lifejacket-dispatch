@@ -38,7 +38,12 @@ from lifejacket.models.schemas import (
     IncidentReport,
     IncidentStatus,
 )
-from lifejacket.models.tables import ChatMessageRow, IncidentRow, PhotoRow
+from lifejacket.models.tables import (
+    ChatMessageRow,
+    IncidentRow,
+    PhotoRow,
+    ResponderRow,
+)
 from lifejacket.services.events import incident_state, record_incident_change
 
 
@@ -552,3 +557,25 @@ def animal_count(assessment_json: dict | None) -> int:
         return max(1, int((assessment_json or {}).get("animal_count", 1)))
     except (TypeError, ValueError):
         return 1
+
+
+def responder_locations(
+    session: Session, responder_ids: list[str]
+) -> dict[str, tuple[float, float]]:
+    """Base coordinates for the given responders, skipping any without them.
+
+    Exists because `data/rescue_centers.csv` has no coordinate columns, so a
+    `DispatchCandidate` built from it cannot be placed on a map. The seeded
+    responder rows were geocoded from the same directory and keyed by the
+    same id, so they can supply the position after the fact.
+    """
+    if not responder_ids:
+        return {}
+    rows = session.scalars(
+        select(ResponderRow).where(ResponderRow.responder_id.in_(responder_ids))
+    )
+    return {
+        row.responder_id: (row.latitude, row.longitude)
+        for row in rows
+        if row.latitude is not None and row.longitude is not None
+    }

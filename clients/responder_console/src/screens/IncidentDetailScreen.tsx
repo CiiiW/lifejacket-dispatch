@@ -35,6 +35,7 @@ import {
   type IncidentHealth,
 } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
+import ConditionsPanel from '../../../shared/ConditionsPanel';
 import CoordinationPanel from '../components/CoordinationPanel';
 
 export default function IncidentDetailScreen({
@@ -250,7 +251,7 @@ export default function IncidentDetailScreen({
             <Text style={styles.body}>{report.summary}</Text>
           </Section>
 
-          <Section title="Recommended actions">
+          <Section title="Recommended actions" count={report.recommended_actions.length}>
             {report.recommended_actions.map((action, i) => (
               <Text key={i} style={styles.bullet}>
                 {i + 1}. {action}
@@ -258,8 +259,21 @@ export default function IncidentDetailScreen({
             ))}
           </Section>
 
+          {/* Directly under the actions: a coordinator reading "what to do"
+              immediately asks "on what grounds", and these are the rules that
+              actually fired rather than a model's account of itself. */}
+          {incident.severity_reasons.length > 0 && (
+            <Section title="Why this triage level" count={incident.severity_reasons.length}>
+              {incident.severity_reasons.map((reason, i) => (
+                <Text key={i} style={styles.bullet}>
+                  {'•'} {reason}
+                </Text>
+              ))}
+            </Section>
+          )}
+
           {report.hazard_warnings.length > 0 && (
-            <Section title="Hazards">
+            <Section title="Hazards" count={report.hazard_warnings.length}>
               {report.hazard_warnings.map((hazard, i) => (
                 <Text key={i} style={[styles.bullet, styles.hazard]}>
                   {'•'} {hazard}
@@ -269,7 +283,7 @@ export default function IncidentDetailScreen({
           )}
 
           {report.equipment_suggestions.length > 0 && (
-            <Section title="Equipment">
+            <Section title="Equipment" count={report.equipment_suggestions.length}>
               {report.equipment_suggestions.map((item, i) => (
                 <Text key={i} style={styles.bullet}>
                   {'•'} {item}
@@ -286,7 +300,7 @@ export default function IncidentDetailScreen({
 
           {/* 2. Unknowns, shown as plainly as the findings. */}
           {report.unknowns.length > 0 && (
-            <Section title="Not established">
+            <Section title="Not established" count={report.unknowns.length}>
               {report.unknowns.map((unknown, i) => (
                 <Text key={i} style={[styles.bullet, styles.unknown]}>
                   {'•'} {unknown}
@@ -297,17 +311,13 @@ export default function IncidentDetailScreen({
         </>
       )}
 
-      {incident.severity_reasons.length > 0 && (
-        <Section title="Why this triage level">
-          {incident.severity_reasons.map((reason, i) => (
-            <Text key={i} style={styles.bullet}>
-              {'•'} {reason}
-            </Text>
-          ))}
+      {incident.conditions && (
+        <Section title="Conditions at the location">
+          <ConditionsPanel conditions={incident.conditions} bare />
         </Section>
       )}
 
-      <Section title="What the reporter said">
+      <Section title="What the reporter said" defaultOpen={false} count={incident.transcript.length}>
         {incident.transcript.map((turn, i) => (
           <Text key={i} style={styles.transcriptLine}>
             <Text style={styles.transcriptRole}>{turn.role}: </Text>
@@ -317,7 +327,7 @@ export default function IncidentDetailScreen({
       </Section>
 
       {incident.dispatch_candidates.length > 0 && (
-        <Section title="Suggested responders">
+        <Section title="Suggested responders" count={incident.dispatch_candidates.length}>
           {incident.dispatch_candidates.map((candidate) => (
             <View key={candidate.responder_id} style={styles.candidate}>
               <Text style={styles.candidateName}>
@@ -350,11 +360,46 @@ function expandedUrl(incident: IncidentDetail, expandedId: string | null): strin
   return (chosen ?? incident.photos[0]).url;
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+/**
+ * One collapsible block of the incident record.
+ *
+ * A coordinator triaging a critical animal wants the verdict and the actions,
+ * not a full transcript -- but the transcript still has to be reachable. Each
+ * block therefore opens and closes, and the long ones start closed.
+ *
+ * State is local to the section and resets when the incident changes, because
+ * the screen is keyed on the incident: a section left closed on one animal
+ * should not be closed on the next.
+ */
+function Section({
+  title,
+  children,
+  defaultOpen = true,
+  count,
+}: {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+  /** Shown beside the title so a closed section still says how much is in it. */
+  count?: number;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      {children}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+        accessibilityLabel={`${title}, ${open ? 'expanded' : 'collapsed'}`}
+        onPress={() => setOpen((current) => !current)}
+        style={styles.sectionHeader}
+      >
+        <Text style={styles.sectionTitle}>
+          {title}
+          {count !== undefined ? ` (${count})` : ''}
+        </Text>
+        <Text style={styles.sectionChevron}>{open ? '\u2212' : '+'}</Text>
+      </Pressable>
+      {open && <View style={styles.sectionBody}>{children}</View>}
     </View>
   );
 }
@@ -536,6 +581,13 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
     padding: spacing.md,
   },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionChevron: { ...type.label, fontSize: 18, color: colors.textFaint },
+  sectionBody: { marginTop: spacing.sm },
   sectionTitle: { ...type.eyebrow, color: colors.accent },
   body: { ...type.body, color: colors.text, lineHeight: 22 },
   bullet: { ...type.body, color: colors.text, lineHeight: 22 },
