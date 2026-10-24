@@ -264,6 +264,8 @@ def rank_centers(
                 score=round(min(total, 1.0), 2),
                 distance_km=distance_km,
                 eta_minutes=eta_minutes,
+                latitude=center.latitude,
+                longitude=center.longitude,
                 rationale=_build_rationale(center, area_score, matched, distance_km),
                 matched_capabilities=matched,
                 contact_phone=center.hotline or center.phone,

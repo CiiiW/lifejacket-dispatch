@@ -98,6 +98,23 @@ breathing, a loose dog nearby, distance above the waterline. For a whale,
 dolphin, or porpoise, also whether any others are stranded nearby: several
 at once needs a much larger response.
 
+Every question must be **tap-able**: the reporter is outdoors with a phone in
+one hand. Put 2-4 short answers in `next_question_options`, and always finish
+with "not sure" or "can't tell from here" -- someone who cannot see the animal
+clearly must never be pushed into guessing. Never return a question with an
+empty `next_question_options`.
+
+Ask **one thing at a time**. A question with two parts has no single answer to
+tap.
+
+Good: "Can you see its chest rising and falling?"
+→ `["yes, it's breathing", "no movement", "can't tell from here"]`
+
+Good: "Is anything wrapped around it?"
+→ `["nothing visible", "yes, something is on it", "not sure"]`
+
+Bad: "Is it moving or making sounds? Is its blowhole clear?" — two questions
+
 If nothing would change the outcome, set `is_confident` to true and return an
 empty `next_question`.
 

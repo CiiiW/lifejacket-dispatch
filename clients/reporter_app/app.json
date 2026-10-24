@@ -10,6 +10,7 @@
       "bundleIdentifier": "edu.uchicago.lifejacket.reporter",
       "infoPlist": {
         "NSCameraUsageDescription": "Used to photograph the animal you have found so it can be identified.",
+        "NSPhotoLibraryUsageDescription": "Used to upload a photo you already took of the animal you have found.",
         "NSLocationWhenInUseUsageDescription": "Used to check the tide and weather where the animal is, and to find the nearest rescue team."
       }
     },
@@ -17,6 +18,7 @@
       "package": "edu.uchicago.lifejacket.reporter",
       "permissions": [
         "CAMERA",
+        "READ_MEDIA_IMAGES",
         "ACCESS_FINE_LOCATION"
       ]
     },

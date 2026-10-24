@@ -1,5 +1,10 @@
 /**
- * The map: where the animal is, and who is coming to it.
+ * The map: where the animal is, and who covers it.
+ *
+ * Shows three things and nothing else -- the animal's position, the rescue
+ * organisations whose coverage matched this report, and whether anyone has
+ * actually been dispatched. Conditions used to live here too; they moved to
+ * the Report tab, which is where a reporter is already looking.
  *
  * Part of this screen exists for one reason. Someone who has just reported a
  * dying animal is standing there with nothing to do, and the most reassuring
@@ -26,9 +31,8 @@ import {
 } from 'react-native';
 import MapView, { Marker, type MapPressEvent } from 'react-native-maps';
 
-import { reporter, type Conditions, type ResponderEta } from '../lib/api';
+import { reporter, type MatchedTeam, type ResponderEta } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
-import ConditionsPanel from '../../../shared/ConditionsPanel';
 
 /** How often to re-check. Frequent enough to feel live, gentle on battery. */
 const POLL_INTERVAL_MS = 15_000;
@@ -38,7 +42,7 @@ export default function TrackScreen({
   incidentLatitude,
   incidentLongitude,
   locationKnown = true,
-  conditions = null,
+  matchedTeams = [],
   onPlacePin,
   placingPin = false,
 }: {
@@ -46,11 +50,11 @@ export default function TrackScreen({
   incidentLatitude: number;
   incidentLongitude: number;
   /**
-   * Weather, tide, and daylight where the animal is. The reporter is standing
-   * in these conditions, and until now could only see the agent's conclusions
-   * about them.
+   * Organisations whose coverage matched this report. They have NOT been
+   * contacted -- the area's coordinators decide who attends -- so they are
+   * drawn and worded differently from anyone actually on their way.
    */
-  conditions?: Conditions | null;
+  matchedTeams?: MatchedTeam[];
   /**
    * False while the coordinates are a regional fallback rather than the
    * reporter's own GPS fix. Said out loud rather than quietly showing the
@@ -129,6 +133,20 @@ export default function TrackScreen({
           />
         )}
 
+        {/* Matched but not contacted. Drawn first and in a muted colour so
+            that anyone actually dispatched sits on top of them. */}
+        {matchedTeams
+          .filter((team) => team.latitude !== null && team.longitude !== null)
+          .map((team) => (
+            <Marker
+              key={`matched-${team.name}`}
+              coordinate={{ latitude: team.latitude!, longitude: team.longitude! }}
+              title={team.name}
+              description="Covers this area -- not yet dispatched"
+              pinColor={colors.textFaint}
+            />
+          ))}
+
         {etas
           ?.filter((eta) => eta.latitude !== null && eta.longitude !== null)
           .map((eta) => (
@@ -143,6 +161,32 @@ export default function TrackScreen({
             />
           ))}
       </MapView>
+
+      {/* On the map rather than only in the list below: "has anyone come for
+          this animal" is the question the map is being opened to answer, and
+          the panel can be scrolled away from. */}
+      {!draftPin && (
+        <View style={styles.dispatch} pointerEvents="none">
+          <Text
+            style={[
+              styles.dispatchText,
+              { color: etas && etas.length > 0 ? colors.accent : colors.warning },
+            ]}
+          >
+            {etas === null
+              ? 'Checking who is coming…'
+              : etas.length > 0
+                ? `${etas.length} on the way`
+                : 'Nobody dispatched yet'}
+          </Text>
+          {etas?.length === 0 && matchedTeams.length > 0 && (
+            <Text style={styles.dispatchSub}>
+              {matchedTeams.length} organisation{matchedTeams.length === 1 ? '' : 's'} cover
+              {matchedTeams.length === 1 ? 's' : ''} this area
+            </Text>
+          )}
+        </View>
+      )}
 
       {onPlacePin && !draftPin && (
         <View style={styles.hint} pointerEvents="none">
@@ -183,12 +227,6 @@ export default function TrackScreen({
       )}
 
       <ScrollView style={styles.panel} contentContainerStyle={styles.panelInner}>
-        {conditions && (
-          <View style={styles.conditions}>
-            <ConditionsPanel conditions={conditions} title="Conditions here" compact />
-          </View>
-        )}
-
         {!locationKnown && (
           <Text style={styles.approximate}>
             Showing the regional view -- share your location on the Report tab to
@@ -205,6 +243,25 @@ export default function TrackScreen({
             Your report has been sent to the rescue coordinators for this area. Nobody
             has been assigned yet. Please keep your distance from the animal.
           </Text>
+        )}
+
+        {etas?.length === 0 && matchedTeams.length > 0 && (
+          <>
+            <Text style={styles.subheading}>Who covers this area</Text>
+            {matchedTeams.map((team) => (
+              <View key={team.name} style={styles.row}>
+                <View style={styles.rowMain}>
+                  <Text style={styles.name}>{team.name}</Text>
+                  <Text style={styles.status}>not contacted yet</Text>
+                </View>
+                {team.distance_km !== null && (
+                  <View style={styles.rowEnd}>
+                    <Text style={styles.distance}>{team.distance_km} km away</Text>
+                  </View>
+                )}
+              </View>
+            ))}
+          </>
         )}
 
         {/* Plain views rather than a FlatList: the panel is a ScrollView now,
@@ -300,7 +357,26 @@ const styles = StyleSheet.create({
   },
   secondaryText: { ...type.label, fontSize: 15, color: colors.text },
 
-  conditions: { marginBottom: spacing.md },
+  dispatch: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: '57%',
+    backgroundColor: 'rgba(11, 19, 43, 0.88)',
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    alignItems: 'center',
+  },
+  dispatchText: { ...type.label, fontSize: 13 },
+  dispatchSub: { ...type.meta, fontSize: 11, color: colors.textMuted, marginTop: 2 },
+  subheading: {
+    ...type.label,
+    color: colors.textMuted,
+    marginTop: spacing.md,
+    marginBottom: spacing.sm,
+  },
   approximate: {
     ...type.meta,
     fontSize: 12,

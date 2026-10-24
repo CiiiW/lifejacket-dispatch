@@ -648,6 +648,46 @@ _FALLBACK_ASSESSMENT_QUESTIONS: list[ClarifyingQuestion] = [
 ]
 
 
+#: What a tap answers when the model sent a yes/no question with no options.
+DEFAULT_YES_NO_OPTIONS = ["Yes", "No", "Not sure"]
+
+#: Words a yes/no question opens with. A question that opens any other way
+#: ("What colour...", "How long...") is not answered by "Yes".
+_YES_NO_OPENERS = frozenset(
+    {"is", "are", "was", "were", "do", "does", "did", "can", "could", "has",
+     "have", "had", "will", "would", "should"}
+)
+
+
+def ensure_tappable(question: ClarifyingQuestion) -> ClarifyingQuestion:
+    """Make sure a yes/no question reaches the reporter with buttons.
+
+    The prompts ask every agent for tap-able options, but options are an
+    optional field the model can leave empty, and the assessment agent did:
+    7 of 50 recorded questions had none, all from it. On a phone, with one
+    hand holding it, an empty field means typing.
+
+    This only fills the clear case -- a single question that opens like a
+    yes/no one. A question offering alternatives ("normally, or laboured?"),
+    one with two parts ("breathing, and has it moved?"), or an open one
+    ("what colour?") is returned untouched:
+    "Yes" would not answer it, and a wrong button is worse than none.
+    """
+    if question.options:
+        return question
+
+    text = question.question.strip()
+    words = text.split(maxsplit=1)
+    opener = words[0].lower().strip("\"'(") if words else ""
+    if (
+        opener not in _YES_NO_OPENERS
+        or text.count("?") != 1
+        or re.search(r",\s*(or|and)\b", text, re.IGNORECASE)
+    ):
+        return question
+    return question.model_copy(update={"options": list(DEFAULT_YES_NO_OPTIONS)})
+
+
 def _fallback_assessment_question(state: ConversationState) -> ClarifyingQuestion | None:
     """The next not-yet-asked condition check, or None if all have been used."""
     for question in _FALLBACK_ASSESSMENT_QUESTIONS:

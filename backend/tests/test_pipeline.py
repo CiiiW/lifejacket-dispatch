@@ -197,3 +197,18 @@ def test_non_marine_animal_is_identified_and_triaged_with_no_fake_dispatch():
     assert chat.incident.dispatch_candidates == []
     assert chat.incident.status is IncidentStatus.AWAITING_DISPATCH
     assert chat.incident.report is not None
+
+
+def test_a_yes_no_question_sent_without_options_still_reaches_the_reporter_with_buttons():
+    """The assessment agent omitted options on 9 of 40 recorded questions."""
+    client = ScriptedLLMClient.scenario("dolphin")
+    asked = client.script["assessment"][0]
+    asked["next_question"] = "Is the dolphin breathing?"
+    asked["next_question_options"] = []
+
+    chat = ChatPlayground.full(client=client, live_context=False, verbose=False)
+    chat.answer("long beak")  # settles identification; assessment now asks
+
+    last = [m for m in chat.state.transcript if m.agent_name == "assessment"][-1]
+    assert last.content == "Is the dolphin breathing?"
+    assert last.options == ["Yes", "No", "Not sure"]

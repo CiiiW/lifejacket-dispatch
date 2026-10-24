@@ -434,6 +434,11 @@ class DispatchCandidate(BaseModel):
     score: float = Field(ge=0, le=1)
     distance_km: float | None = None
     eta_minutes: float | None = None
+    #: Base location, for plotting the option on a map. Geocoded from the
+    #: directory's response area, so it is an area centroid rather than a
+    #: street address -- several organisations can share one point.
+    latitude: float | None = None
+    longitude: float | None = None
     # Human-readable justification, e.g. "covers Monterey County; permitted for
     # cetacean response; 12 km away". Surfaced in the UI next to the score so
     # the coordinator is approving a reason, not a number.

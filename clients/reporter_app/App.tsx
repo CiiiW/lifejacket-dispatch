@@ -17,13 +17,20 @@
  */
 
 import { useCallback, useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import ContactScreen from './src/screens/ContactScreen';
 import ReportScreen from './src/screens/ReportScreen';
 import TrackScreen from './src/screens/TrackScreen';
-import type { Conditions } from './src/lib/api';
+import type { MatchedTeam } from './src/lib/api';
 import { colors, glass, radius, shadow, spacing, type } from './src/lib/theme';
 
 type TabName = 'report' | 'map' | 'contact';
@@ -45,7 +52,7 @@ export default function App() {
     null,
   );
   const [phone, setPhone] = useState('');
-  const [conditions, setConditions] = useState<Conditions | null>(null);
+  const [matchedTeams, setMatchedTeams] = useState<MatchedTeam[]>([]);
   // A pin placed on the Map tab, handed to the Report tab to submit --
   // setting a location advances the conversation, which it owns.
   const [pendingPin, setPendingPin] = useState<
@@ -60,82 +67,88 @@ export default function App() {
 
   const handleIncident = useCallback((id: string) => setIncidentId(id), []);
 
-  const handleComplete = useCallback((id: string) => {
-    setIncidentId(id);
-    // Filing the report is the moment the map becomes the useful screen.
-    setTab('map');
-  }, []);
+  // Deliberately does not change tabs. Filing the report is the moment the
+  // verdict and instructions appear on the Report tab, and yanking someone to
+  // the map takes that away from them mid-read.
+  const handleComplete = useCallback((id: string) => setIncidentId(id), []);
 
   return (
-    <SafeAreaView style={styles.root}>
-      <StatusBar style="light" />
+    // Outermost on purpose. KeyboardAvoidingView works out how far to lift
+    // its content from its own position, so it only needs no hand-tuned
+    // offset when it starts at the very top of the window -- nested under the
+    // tab bar it would lift by too little. It also covers the Contact tab's
+    // phone field, which had the same problem.
+    <KeyboardAvoidingView style={styles.root} behavior="padding">
+      <SafeAreaView style={styles.root}>
+        <StatusBar style="light" />
 
-      <View style={styles.tabs}>
-        {TABS.map(({ name, label }) => {
-          const active = tab === name;
-          return (
-            <Pressable
-              key={name}
-              style={[styles.tab, active && styles.tabActive]}
-              onPress={() => setTab(name)}
-            >
-              <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>{label}</Text>
-            </Pressable>
-          );
-        })}
-      </View>
-
-      <View style={styles.body}>
-        {/* Kept mounted rather than unmounted when another tab is shown:
-            remounting would restart intake and lose the transcript. */}
-        <View style={[styles.panel, tab !== 'report' && styles.hidden]}>
-          <ReportScreen
-            onComplete={handleComplete}
-            onIncident={handleIncident}
-            onLocation={handleLocation}
-            onConditions={setConditions}
-            pendingPin={pendingPin}
-            onPinSubmitted={() => setPendingPin(null)}
-          />
+        <View style={styles.tabs}>
+          {TABS.map(({ name, label }) => {
+            const active = tab === name;
+            return (
+              <Pressable
+                key={name}
+                style={[styles.tab, active && styles.tabActive]}
+                onPress={() => setTab(name)}
+              >
+                <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>{label}</Text>
+              </Pressable>
+            );
+          })}
         </View>
 
-        {tab === 'map' && (
-          <View style={styles.panel}>
-            {incidentId ? (
-              <TrackScreen
-                incidentId={incidentId}
-                incidentLatitude={coordinates?.latitude ?? FALLBACK_LATITUDE}
-                incidentLongitude={coordinates?.longitude ?? FALLBACK_LONGITUDE}
-                locationKnown={coordinates !== null}
-                conditions={conditions}
-                onPlacePin={(latitude, longitude) =>
-                  setPendingPin({ latitude, longitude })
-                }
-                placingPin={pendingPin !== null}
-              />
-            ) : (
-              <NotYet
-                title="No report started"
-                body="Send a photo on the Report tab and the map will show where the animal is."
-              />
-            )}
+        <View style={styles.body}>
+          {/* Kept mounted rather than unmounted when another tab is shown:
+              remounting would restart intake and lose the transcript. */}
+          <View style={[styles.panel, tab !== 'report' && styles.hidden]}>
+            <ReportScreen
+              onComplete={handleComplete}
+              onIncident={handleIncident}
+              onLocation={handleLocation}
+              onMatchedTeams={setMatchedTeams}
+              pendingPin={pendingPin}
+              onPinSubmitted={() => setPendingPin(null)}
+            />
           </View>
-        )}
 
-        {tab === 'contact' && (
-          <View style={styles.panel}>
-            {incidentId ? (
-              <ContactScreen incidentId={incidentId} phone={phone} onSaved={setPhone} />
-            ) : (
-              <NotYet
-                title="No report started"
-                body="Once a report exists you can leave a phone number here for the rescue team."
-              />
-            )}
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+          {tab === 'map' && (
+            <View style={styles.panel}>
+              {incidentId ? (
+                <TrackScreen
+                  incidentId={incidentId}
+                  incidentLatitude={coordinates?.latitude ?? FALLBACK_LATITUDE}
+                  incidentLongitude={coordinates?.longitude ?? FALLBACK_LONGITUDE}
+                  locationKnown={coordinates !== null}
+                  matchedTeams={matchedTeams}
+                  onPlacePin={(latitude, longitude) =>
+                    setPendingPin({ latitude, longitude })
+                  }
+                  placingPin={pendingPin !== null}
+                />
+              ) : (
+                <NotYet
+                  title="No report started"
+                  body="Send a photo on the Report tab and the map will show where the animal is."
+                />
+              )}
+            </View>
+          )}
+
+          {tab === 'contact' && (
+            <View style={styles.panel}>
+              {incidentId ? (
+                <ContactScreen incidentId={incidentId} phone={phone} onSaved={setPhone} />
+              ) : (
+                <NotYet
+                  title="No report started"
+                  body="Once a report exists you can leave a phone number here for the rescue team."
+                />
+              )}
+            </View>
+          )}
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

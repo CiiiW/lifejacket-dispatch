@@ -76,6 +76,22 @@ export interface Conflict {
   field: string;
 }
 
+/**
+ * A rescue organisation whose coverage matched an incident.
+ *
+ * Coordinates are a geocoded area centroid from the stranding-network
+ * directory, not a street address, so two organisations covering the same
+ * county share a point. Good enough to show who covers an area; not a
+ * navigation target.
+ */
+export interface MatchedTeam {
+  name: string;
+  latitude: number | null;
+  longitude: number | null;
+  distance_km: number | null;
+  eta_minutes: number | null;
+}
+
 export interface AnimalDetection {
   kind: string;
   description: string;
@@ -132,7 +148,7 @@ export interface Turn {
    * These have NOT been contacted. The report goes to the area's
    * coordinators, who decide who attends -- do not imply otherwise in the UI.
    */
-  matched_teams: { name: string; distance_km: number | null; eta_minutes: number | null }[];
+  matched_teams: MatchedTeam[];
 
   report_headline: string | null;
   /** Weather, tide and daylight. Null until a location is shared. */
@@ -266,6 +282,8 @@ export interface DispatchCandidate {
   name: string;
   kind: string;
   score: number;
+  latitude: number | null;
+  longitude: number | null;
   distance_km: number | null;
   eta_minutes: number | null;
   rationale: string;
@@ -310,6 +328,8 @@ export interface IncidentDetail extends Omit<MapPin, 'in_mass_stranding'> {
   dispatch_candidates: DispatchCandidate[];
   transcript: { role: string; content: string; agent_name: string | null; created_at: string }[];
   environment: Record<string, unknown> | null;
+  /** The same readings as `environment`, typed and flattened for display. */
+  conditions: Conditions | null;
   reporter_phone: string | null;
   duplicate_of: string | null;
   /**
