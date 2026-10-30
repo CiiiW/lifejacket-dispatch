@@ -4,7 +4,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, 
 
 import DroneLabMap from '../components/DroneLabMap';
 import { drones, type DroneMissionRequest, type DronePlan, type DroneScenario,
-  responder, type HistoricalDensity, type DroneSimulationResult, type SitlRun, type SitlRunSummary } from '../lib/api';
+  responder, type HistoricalDensity, type DroneSimulationResult, type SitlRun, type SitlRunSummary , type MapPin, type SurveyBox } from '../lib/api';
 import { colors, glass, radius, spacing, type } from '../lib/theme';
 
 const fields = ['home latitude', 'home longitude', 'south', 'north', 'west', 'east'] as const;
@@ -31,17 +31,29 @@ export default function DroneLabScreen() {
   const [reviewed, setReviewed] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [attempt, setAttempt] = useState(0);
+  const [editing, setEditing] = useState(false);
+  const [pins, setPins] = useState<MapPin[]>([]);
+  const [drawing, setDrawing] = useState(false);
   const [frame, setFrame] = useState(0);
   const [playing, setPlaying] = useState(false);
 
+  // `attempt` exists so the Retry button can rerun this. Without it a single
+  // failed load -- the API not up yet, or restarted while this tab was open --
+  // left `mission` null forever, and every control below is gated on it, so
+  // the screen simply had no buttons and looked frozen.
   useEffect(() => {
     let active = true;
+    setError(null);
     drones.demo().then(value => { if (active) { setMission(value); setDraft(areaDraft(value)); } })
       .catch(() => { if (active) setError('Could not load the demo. Check that the local API is running.'); });
     responder.historicalDensity().then(value => { if (active) setDensity(value); })
       .catch(() => { if (active) setDensityError(true); });
+    // Context only: a survey area is easier to judge against real reports.
+    // Failure is silent -- the planner does not depend on these.
+    responder.listIncidents().then(value => { if (active) setPins(value); }).catch(() => {});
     return () => { active = false; };
-  }, []);
+  }, [attempt]);
 
   useEffect(() => {
     if (!run || !playing) return;
@@ -103,41 +115,56 @@ export default function DroneLabScreen() {
   const mapSample = sitlSample ?? sample;
   const stale = sitlRun ? Date.now() - Date.parse(sitlRun.updated_at) > 10000 : false;
   const shownEvent = run?.events.find(event => event.elapsed_s <= (sample?.elapsed_s ?? -1));
+  /**
+   * Accept a box dragged on the map.
+   *
+   * Home moves with it. The planner blocks any survey area more than
+   * `max_home_radius_m` from home, so keeping the old home point would make
+   * every area drawn away from it come back blocked with zero waypoints.
+   * Home lands just south of the area's south edge: outside the box, so the
+   * takeoff and return legs stay visible, and centred on it, so the far
+   * corners are as close as this placement allows.
+   */
+  function applyDrawnArea(box: SurveyBox) {
+    if (!mission) return;
+    const next = {
+      ...mission,
+      survey_area: box,
+      home: {
+        latitude: Number((box.south - 0.0008).toFixed(6)),
+        longitude: Number(((box.west + box.east) / 2).toFixed(6)),
+      },
+    };
+    setDrawing(false);
+    reset(next);
+    setDraft(areaDraft(next));
+  }
+
   return (
     <View style={styles.screen}>
       <View style={styles.map}>
-        <DroneLabMap plan={sitlRun?.plan ?? plan} sample={mapSample} trace={sitlRun?.samples ?? []} density={density} selectedCell={selectedCell} />
+        <DroneLabMap plan={sitlRun?.plan ?? plan} sample={mapSample} trace={sitlRun?.samples ?? []}
+            density={density} selectedCell={selectedCell} pins={pins}
+            surveyArea={mission?.survey_area ?? null}
+            onDrawSurvey={applyDrawnArea} drawing={drawing} />
       </View>
       <ScrollView style={styles.panel} contentContainerStyle={styles.content}>
         <Text style={styles.title}>Drone Lab</Text>
         <Text style={styles.notice}>SIMULATION ONLY · NO FLIGHT AUTHORIZATION</Text>
+
+        {/* Above the fold on purpose: this used to render last, so a failed
+            load was invisible without scrolling past every other card. */}
+        {error && (
+          <View style={styles.card}>
+            <Text accessibilityRole="alert" style={styles.error}>{error}</Text>
+            <Action label="Retry" onPress={() => setAttempt(current => current + 1)} />
+          </View>
+        )}
         <Text style={styles.body}>
           Use historical report density as context, choose a small survey, review its
           route, then replay a mock flight. Home and survey coordinates are simulation
           inputs; motion, wind and battery are synthetic.
         </Text>
-        <View style={styles.card}>
-          <Text style={styles.heading}>Saved SITL flights</Text>
-          <Text style={styles.meta}>ArduPilot simulator telemetry · refreshes every 2 seconds. Start and cancel flights from the local companion terminal.</Text>
-          {sitlError && <Text style={styles.error}>{sitlError}</Text>}
-          {!sitlRuns.length && <Text style={styles.meta}>No saved flights in this API's run folder.</Text>}
-          {sitlRuns.map(item => <Action key={item.run_id}
-            label={`${item.status} · ${item.started_at.slice(0, 19)} · ${item.run_id.slice(0, 8)}`}
-            active={selectedRun === item.run_id} onPress={() => { setPlaying(false); setSitlRun(null); setSelectedRun(item.run_id); }} />)}
-          {selectedRun && <Action label="Return to mock planner" onPress={() => { setSelectedRun(null); setSitlRun(null); }} />}
-          {sitlRun && <>
-            <Text style={styles.body}>Status: {sitlRun.status} · {stale ? 'snapshot older than 10 seconds' : 'snapshot current'}</Text>
-            {sitlRun.outcome && <Text style={styles.body}>{sitlRun.outcome}</Text>}
-            {sitlSample && <Text style={styles.body}>
-              Altitude {sitlSample.altitude_m.toFixed(1)} m · mode {sitlSample.mode} · waypoint {sitlSample.waypoint_seq}{'\n'}
-              Battery {sitlSample.battery_percent === null ? 'unavailable' : `${sitlSample.battery_percent}%`} · {sitlSample.armed ? 'armed' : 'disarmed'}
-            </Text>}
-            <Text style={styles.meta}>Dashed amber: planned route. Solid teal: measured SITL trace.</Text>
-            <Text style={styles.body}>Samples: {sitlRun.samples.length} · max horizontal deviation: {sitlRun.metrics.max_route_deviation_m?.toFixed(1) ?? '—'} m</Text>
-            <Text style={styles.meta}>{sitlRun.observations.length} observations · A simulated flight does not create a wildlife incident.</Text>
-            {sitlRun.events.slice(-5).map((event, i) => <Text key={i} style={styles.meta}>{event.elapsed_s.toFixed(1)}s · {event.message}</Text>)}
-          </>}
-        </View>
         {!mission && !error && <ActivityIndicator color={colors.accent} />}
         {densityError && <Text style={styles.meta}>Historical layer unavailable. The synthetic demo still works.</Text>}
         {density && !density.available && <Text style={styles.meta}>
@@ -172,9 +199,30 @@ export default function DroneLabScreen() {
             drones.demo().then(value => { reset(value); setDraft(areaDraft(value)); })
               .catch(() => setError('Could not load the synthetic area.'));
           }} />
+          <Action label={drawing ? 'Drawing — drag on the map, or tap to cancel' : 'Draw survey area on map'}
+            active={drawing} disabled={busy} onPress={() => setDrawing(current => !current)} />
+          {drawing && <Text style={styles.meta}>
+            Drag a rectangle over the map. Panning is paused until you finish.
+            Home moves to just south of the area, and an area much over a
+            kilometre across will be blocked as too far from it.
+          </Text>}
+          {!drawing && <Text style={styles.meta}>
+            The amber rectangle is the survey area. Red and amber dots are current incidents.
+          </Text>}
+
+          {/* Closed by default. Six labelled inputs are taller than the panel
+              on a laptop, and they pushed "Build survey plan" off screen; the
+              demo area is already filled in, so most runs never open this. */}
           {draft && <View style={styles.card}>
-            <Text style={styles.heading}>Simulation coordinates</Text>
-            {fields.map(key => <View key={key}>
+            <Pressable accessibilityRole="button" accessibilityState={{ expanded: editing }}
+              onPress={() => setEditing(current => !current)} style={styles.cardHeader}>
+              <Text style={styles.heading}>Simulation coordinates</Text>
+              <Text style={styles.chevron}>{editing ? '\u2212' : '+'}</Text>
+            </Pressable>
+            {!editing && <Text style={styles.meta}>
+              home {draft['home latitude']}, {draft['home longitude']} · tap to edit
+            </Text>}
+            {editing && fields.map(key => <View key={key}>
               <Text style={styles.meta}>{key}</Text>
               <TextInput accessibilityLabel={key} value={draft[key]} editable={!busy}
                 style={styles.input} onChangeText={value => {
@@ -228,7 +276,32 @@ export default function DroneLabScreen() {
           {!playing && <Action label="Replay trace" onPress={() => { setFrame(0); setPlaying(true); }} />}
         </View>}
         {busy && <ActivityIndicator color={colors.accent} />}
-        {error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
+        {/* Below the planner: on a laptop this card is usually empty --
+            SITL runs are written by the local companion, which only runs on
+            the GCP VM -- and above the planner it pushed the primary action
+            off screen. */}
+        <View style={styles.card}>
+          <Text style={styles.heading}>Saved SITL flights</Text>
+          <Text style={styles.meta}>ArduPilot simulator telemetry · refreshes every 2 seconds. Start and cancel flights from the local companion terminal.</Text>
+          {sitlError && <Text style={styles.error}>{sitlError}</Text>}
+          {!sitlRuns.length && <Text style={styles.meta}>No saved flights in this API's run folder.</Text>}
+          {sitlRuns.map(item => <Action key={item.run_id}
+            label={`${item.status} · ${item.started_at.slice(0, 19)} · ${item.run_id.slice(0, 8)}`}
+            active={selectedRun === item.run_id} onPress={() => { setPlaying(false); setSitlRun(null); setSelectedRun(item.run_id); }} />)}
+          {selectedRun && <Action label="Return to mock planner" onPress={() => { setSelectedRun(null); setSitlRun(null); }} />}
+          {sitlRun && <>
+            <Text style={styles.body}>Status: {sitlRun.status} · {stale ? 'snapshot older than 10 seconds' : 'snapshot current'}</Text>
+            {sitlRun.outcome && <Text style={styles.body}>{sitlRun.outcome}</Text>}
+            {sitlSample && <Text style={styles.body}>
+              Altitude {sitlSample.altitude_m.toFixed(1)} m · mode {sitlSample.mode} · waypoint {sitlSample.waypoint_seq}{'\n'}
+              Battery {sitlSample.battery_percent === null ? 'unavailable' : `${sitlSample.battery_percent}%`} · {sitlSample.armed ? 'armed' : 'disarmed'}
+            </Text>}
+            <Text style={styles.meta}>Dashed amber: planned route. Solid teal: measured SITL trace.</Text>
+            <Text style={styles.body}>Samples: {sitlRun.samples.length} · max horizontal deviation: {sitlRun.metrics.max_route_deviation_m?.toFixed(1) ?? '—'} m</Text>
+            <Text style={styles.meta}>{sitlRun.observations.length} observations · A simulated flight does not create a wildlife incident.</Text>
+            {sitlRun.events.slice(-5).map((event, i) => <Text key={i} style={styles.meta}>{event.elapsed_s.toFixed(1)}s · {event.message}</Text>)}
+          </>}
+        </View>
         <Text style={styles.meta}>
           This mock checks app integration and basic route constraints. Flight dynamics,
           terrain, camera coverage, wildlife restrictions and autopilot recovery still
@@ -253,6 +326,8 @@ const styles = StyleSheet.create({
   map: { flex: 2, minWidth: 280, minHeight: 350, padding: spacing.lg },
   panel: { flex: 1, minWidth: 310, backgroundColor: colors.backgroundElevated },
   content: { padding: spacing.lg, gap: spacing.md },
+  cardHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  chevron: { ...type.label, fontSize: 18, color: colors.textFaint },
   title: { ...type.title, color: colors.text },
   heading: { ...type.heading, color: colors.text },
   notice: { ...type.eyebrow, color: colors.warning },
