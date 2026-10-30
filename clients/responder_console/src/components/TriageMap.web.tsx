@@ -18,20 +18,205 @@
  *   is the straight-line fallback rather than a real road route.
  */
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import maplibre, { type Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { severityColour, type HistoricalDensity, type MapPin, type ResponderOrg, type RouteLine,
-  type DronePlan, type DronePoint } from '../lib/api';
+import { absoluteUrl, severityColour, severityLabel, type HistoricalDensity, type MapPin,
+  type ResponderOrg, type RouteLine,
+  type DronePlan, type DronePoint , type SurveyBox } from '../lib/api';
 import { basemap } from '../lib/basemap';
-import { colors, radius, spacing, type } from '../lib/theme';
+import { colors, fontFamily, radius, spacing, type } from '../lib/theme';
 
 const ROUTE_SOURCE = 'route';
 const DENSITY_SOURCE = 'historical-density';
 const DENSITY_LAYER = 'historical-heatmap';
 const DEFAULT_CENTRE: [number, number] = [-121.9, 36.8]; // Monterey Bay
+const SURVEY_SOURCE = 'survey-area';
+
+/** Two drag corners in any order -> a normalised south/north/west/east box. */
+function cornersToBox(a: maplibre.LngLat, b: maplibre.LngLat): SurveyBox {
+  return {
+    south: Math.min(a.lat, b.lat),
+    north: Math.max(a.lat, b.lat),
+    west: Math.min(a.lng, b.lng),
+    east: Math.max(a.lng, b.lng),
+  };
+}
+
+/** A box as a closed polygon, or an empty collection to clear it. */
+function boxFeature(box: SurveyBox | null) {
+  if (!box) return { type: 'FeatureCollection' as const, features: [] };
+  return {
+    type: 'FeatureCollection' as const,
+    features: [{
+      type: 'Feature' as const,
+      properties: {},
+      geometry: {
+        type: 'Polygon' as const,
+        coordinates: [[
+          [box.west, box.south], [box.east, box.south],
+          [box.east, box.north], [box.west, box.north],
+          [box.west, box.south],
+        ]],
+      },
+    }],
+  };
+}
+
+const POPUP_CLASS = 'lj-incident-popup';
+const POPUP_STYLE_ID = 'lj-incident-popup-style';
+
+/**
+ * Restyle MapLibre's popup chrome to the navy card.
+ *
+ * Markers are styled inline, but popup chrome is drawn from MapLibre's own
+ * stylesheet, so this is the one place CSS is unavoidable. Injected once, on
+ * first use, rather than at import time: this module is also loaded by the
+ * native bundle's type checking, which has no `document`.
+ *
+ * The tip is hidden rather than recoloured. MapLibre colours it per anchor
+ * direction at the same specificity, so overriding it correctly takes eight
+ * rules; instead the card is offset clear of the dot, and the clicked dot
+ * takes the selected ring, which is what ties a card to its pin.
+ */
+function installPopupStyle() {
+  if (document.getElementById(POPUP_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = POPUP_STYLE_ID;
+  style.textContent = `
+    .${POPUP_CLASS} .maplibregl-popup-content {
+      background: ${colors.backgroundElevated};
+      border: 1px solid ${colors.border};
+      border-radius: ${radius.card}px;
+      padding: 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+    .${POPUP_CLASS} .maplibregl-popup-tip { display: none; }
+    .${POPUP_CLASS} .maplibregl-popup-close-button {
+      top: 2px;
+      right: 2px;
+      color: ${colors.textMuted};
+      background: transparent;
+      border: 0;
+      border-radius: ${radius.sm}px;
+      font-size: 17px;
+      line-height: 1;
+      padding: 3px 7px;
+    }
+    .${POPUP_CLASS} .maplibregl-popup-close-button:hover {
+      color: ${colors.text};
+      background: ${colors.glassFill};
+    }
+    /* Clicking the card should not leave a focus ring behind, but a keyboard
+       user still needs one -- so suppress it only for the pointer case. */
+    .${POPUP_CLASS} .maplibregl-popup-close-button:focus { outline: none; }
+    .${POPUP_CLASS} .maplibregl-popup-close-button:focus-visible {
+      outline: 2px solid ${colors.accent};
+      outline-offset: -2px;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/**
+ * One pin as a summary card, built as DOM rather than React because the popup
+ * it goes into is owned by MapLibre.
+ *
+ * Every field is written with `textContent`, never `innerHTML`: headlines,
+ * species and place names all originate in reporter submissions and model
+ * output, so interpolating them into markup would be an injection sink.
+ *
+ * The layout deliberately mirrors a triage list row -- severity stripe, photo,
+ * title, meta line, flags -- so the two read as the same object.
+ */
+function incidentCard(pin: MapPin): HTMLElement {
+  const card = document.createElement('div');
+  card.style.cssText = [
+    'display:flex', 'gap:10px', 'align-items:flex-start',
+    'width:264px', 'padding:11px 26px 11px 11px',
+    `font-family:${fontFamily}`, `color:${colors.text}`,
+  ].join(';');
+
+  const stripe = document.createElement('div');
+  stripe.style.cssText = [
+    'flex:0 0 4px', 'align-self:stretch', 'border-radius:2px',
+    `background:${severityColour(pin.severity_level)}`,
+  ].join(';');
+  card.appendChild(stripe);
+
+  const photo = absoluteUrl(pin.photo_url);
+  if (photo) {
+    const image = document.createElement('img');
+    image.src = photo;
+    image.alt = '';
+    image.style.cssText = [
+      'flex:0 0 50px', 'width:50px', 'height:50px',
+      `border-radius:${radius.sm}px`, 'object-fit:cover',
+      `background:${colors.glassFill}`,
+    ].join(';');
+    card.appendChild(image);
+  }
+
+  const body = document.createElement('div');
+  body.style.cssText = 'display:flex;flex-direction:column;gap:3px;min-width:0';
+
+  const title = document.createElement('div');
+  title.style.cssText = 'font-size:14px;font-weight:700;letter-spacing:-0.2px;line-height:1.25';
+  title.textContent = pin.headline ?? pin.species_common_name ?? 'Unidentified animal';
+  body.appendChild(title);
+
+  const meta = document.createElement('div');
+  meta.style.cssText = `font-size:12px;line-height:1.3;color:${colors.textMuted}`;
+  const severity = document.createElement('span');
+  severity.style.color = severityColour(pin.severity_level);
+  severity.style.fontWeight = '600';
+  severity.textContent = severityLabel(pin.severity_level);
+  meta.appendChild(severity);
+  meta.appendChild(
+    document.createTextNode(
+      [pin.place_name, pin.status.replace(/_/g, ' ')]
+        .filter((part): part is string => Boolean(part))
+        .map((part) => ` · ${part}`)
+        .join(''),
+    ),
+  );
+  body.appendChild(meta);
+
+  // Entanglement needs a team with cutting authorisation and a mass stranding
+  // needs more than one, so both change who gets dispatched. Called out here
+  // for the same reason the list rows call them out.
+  const flags = [
+    pin.entanglement ? 'ENTANGLED' : null,
+    pin.in_mass_stranding ? 'MASS STRANDING' : null,
+  ].filter((flag): flag is string => flag !== null);
+  if (flags.length) {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;margin-top:1px';
+    flags.forEach((text) => {
+      const tag = document.createElement('span');
+      tag.style.cssText = [
+        'font-size:9px', 'font-weight:800', 'letter-spacing:0.8px',
+        `color:${colors.warning}`, `border:1px solid ${colors.border}`,
+        'border-radius:999px', 'padding:1px 6px',
+      ].join(';');
+      tag.textContent = text;
+      row.appendChild(tag);
+    });
+    body.appendChild(row);
+  }
+
+  const when = document.createElement('div');
+  when.style.cssText = `font-size:11px;color:${colors.textFaint};margin-top:1px`;
+  when.textContent = `Reported ${new Date(pin.created_at).toLocaleString(undefined, {
+    month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+  })}`;
+  body.appendChild(when);
+
+  card.appendChild(body);
+  return card;
+}
 
 export default function TriageMap({
   pins,
@@ -43,6 +228,10 @@ export default function TriageMap({
   droneSample = null,
   droneTrace = [],
   historicalCell = null,
+  surveyArea = null,
+  onDrawSurvey,
+  drawing = false,
+  fitToPins = true,
   selectedId,
   onSelect,
 }: {
@@ -55,6 +244,18 @@ export default function TriageMap({
   droneSample?: DronePoint | null;
   droneTrace?: DronePoint[];
   historicalCell?: HistoricalDensity['cells'][number] | null;
+  /** The survey box, drawn as a filled rectangle so its extent is visible. */
+  surveyArea?: SurveyBox | null;
+  /** Called with a new box when the user finishes dragging one out. */
+  onDrawSurvey?: (box: SurveyBox) => void;
+  /** While true, dragging draws a box instead of panning the map. */
+  drawing?: boolean;
+  /**
+   * Auto-zoom to fit the incident pins. The Drone Lab turns this off: there
+   * the survey area is the subject, and fitting to every incident in the
+   * country would zoom straight back out of it.
+   */
+  fitToPins?: boolean;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
 }) {
@@ -64,6 +265,48 @@ export default function TriageMap({
   const droneMarker = useRef<maplibre.Marker | null>(null);
   const ready = useRef(false);
   const tiles = basemap();
+
+  // The open incident card, and which pin it belongs to. Held in refs rather
+  // than state because the popup is a MapLibre object: re-rendering on open
+  // would tear down and rebuild every marker underneath it.
+  const card = useRef<maplibre.Popup | null>(null);
+  const cardPin = useRef<string | null>(null);
+
+  const closeCard = useCallback(() => {
+    card.current?.remove();
+    card.current = null;
+    cardPin.current = null;
+  }, []);
+
+  const openCard = useCallback((pin: MapPin) => {
+    if (!map.current) return;
+    installPopupStyle();
+    card.current?.remove();
+    card.current = new maplibre.Popup({
+      className: POPUP_CLASS,
+      // Clear of the largest marker, since the tip is hidden.
+      offset: 16,
+      closeOnClick: true,
+      // MapLibre caps popups at 240px, which would wrap the card's own layout.
+      maxWidth: 'none',
+      // MapLibre focuses the close button on open by default, which draws a
+      // focus ring on every pin click and pulls focus out of the page for a
+      // card that is only a read-only summary. Tab still reaches the button.
+      focusAfterOpen: false,
+    })
+      .setLngLat([pin.longitude as number, pin.latitude as number])
+      .setDOMContent(incidentCard(pin))
+      .addTo(map.current);
+    // Dismissing via the close button or a map click bypasses closeCard, so
+    // the refs have to be cleared from the popup's own event.
+    card.current.on('close', () => {
+      if (cardPin.current === pin.incident_id) {
+        card.current = null;
+        cardPin.current = null;
+      }
+    });
+    cardPin.current = pin.incident_id;
+  }, []);
 
   // Create the map once. Re-creating it on every render would flash and lose
   // the user's pan and zoom.
@@ -125,6 +368,14 @@ export default function TriageMap({
       });
       map.current.addLayer({id: 'drone-trace-line', type: 'line', source: 'drone-trace',
         paint: {'line-color': colors.accent, 'line-width': 3}});
+      // Under the route line, so the dashed waypoints stay readable on top.
+      map.current.addSource(SURVEY_SOURCE, {
+        type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+      });
+      map.current.addLayer({ id: 'survey-area-fill', type: 'fill', source: SURVEY_SOURCE,
+        paint: { 'fill-color': colors.warning, 'fill-opacity': 0.14 } });
+      map.current.addLayer({ id: 'survey-area-line', type: 'line', source: SURVEY_SOURCE,
+        paint: { 'line-color': colors.warning, 'line-width': 2 } });
       map.current.addSource('selected-historical-cell', {
         type: 'geojson', data: { type: 'FeatureCollection', features: [] },
       });
@@ -137,6 +388,8 @@ export default function TriageMap({
       map.current?.remove();
       map.current = null;
       droneMarker.current = null;
+      card.current = null;
+      cardPin.current = null;
       ready.current = false;
     };
   }, [tiles.style]);
@@ -182,6 +435,78 @@ export default function TriageMap({
     if (ready.current) draw(); else map.current?.once('load', draw);
     return () => { map.current?.off('load', draw); };
   }, [historicalCell, density?.grid_degrees]);
+
+  // Paint the committed survey box. Separate from the drag handler so the
+  // box stays on screen between edits, which is what makes its extent legible.
+  useEffect(() => {
+    const draw = () => {
+      const source = map.current?.getSource(SURVEY_SOURCE) as maplibre.GeoJSONSource | undefined;
+      source?.setData(boxFeature(surveyArea));
+      // Zoom to the area whenever it changes. A survey that fits the
+      // planner's range is a few hundred metres across, which is invisible at
+      // the statewide default zoom -- so the first drag is always too big.
+      // Fitting here turns that into a usable loop: drag, land on the area,
+      // drag again at the right scale.
+      if (surveyArea && map.current) {
+        map.current.fitBounds(
+          [[surveyArea.west, surveyArea.south], [surveyArea.east, surveyArea.north]],
+          { padding: 90, maxZoom: 17, duration: 600 },
+        );
+      }
+    };
+    if (ready.current) draw(); else map.current?.once('load', draw);
+    return () => { map.current?.off('load', draw); };
+  }, [surveyArea]);
+
+  // Drag out a new survey box.
+  //
+  // Panning is disabled while this is active, because a drag has to mean one
+  // thing or the other. The live rectangle is painted into the same source as
+  // the committed one, so what you drag is exactly what you get.
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance || !drawing || !onDrawSurvey) return;
+
+    let origin: maplibre.LngLat | null = null;
+    const canvas = instance.getCanvas();
+    const previousCursor = canvas.style.cursor;
+    canvas.style.cursor = 'crosshair';
+    instance.dragPan.disable();
+
+    const paint = (box: SurveyBox | null) => {
+      const source = instance.getSource(SURVEY_SOURCE) as maplibre.GeoJSONSource | undefined;
+      source?.setData(boxFeature(box));
+    };
+
+    const down = (event: maplibre.MapMouseEvent) => { origin = event.lngLat; };
+    const move = (event: maplibre.MapMouseEvent) => {
+      if (origin) paint(cornersToBox(origin, event.lngLat));
+    };
+    const up = (event: maplibre.MapMouseEvent) => {
+      if (!origin) return;
+      const box = cornersToBox(origin, event.lngLat);
+      origin = null;
+      // A click is not a drag. Anything this small is a misclick, so restore
+      // the previous box rather than committing a zero-width area the
+      // planner would reject.
+      if (box.north - box.south < 1e-5 || box.east - box.west < 1e-5) {
+        paint(surveyArea);
+        return;
+      }
+      onDrawSurvey(box);
+    };
+
+    instance.on('mousedown', down);
+    instance.on('mousemove', move);
+    instance.on('mouseup', up);
+    return () => {
+      instance.off('mousedown', down);
+      instance.off('mousemove', move);
+      instance.off('mouseup', up);
+      instance.dragPan.enable();
+      canvas.style.cursor = previousCursor;
+    };
+  }, [drawing, onDrawSurvey, surveyArea]);
 
   useEffect(() => {
     const draw = () => {
@@ -266,7 +591,15 @@ export default function TriageMap({
           'box-shadow:0 2px 8px rgba(0,0,0,0.5)',
         ].join(';');
         element.title = pin.headline ?? pin.species_common_name ?? 'Unidentified animal';
-        element.onclick = () => onSelect(pin.incident_id);
+        element.onclick = (event) => {
+          // Markers live inside the map's canvas container, so without this
+          // the click also reaches the map and `closeOnClick` shuts the card
+          // in the same gesture that opened it. Only `click` is stopped;
+          // mousedown and mouseup still reach the survey-area drag handler.
+          event.stopPropagation();
+          onSelect(pin.incident_id);
+          if (!drawing) openCard(pin);
+        };
 
         markers.current.push(
           new maplibre.Marker({ element })
@@ -274,18 +607,30 @@ export default function TriageMap({
             .addTo(map.current as MapLibreMap),
         );
       });
-  }, [pins, centres, selectedId, onSelect]);
+
+    // A card outliving its pin would describe an incident no longer shown --
+    // filters and refreshes can both drop one out from under an open card.
+    if (cardPin.current && !pins.some((pin) => pin.incident_id === cardPin.current)) {
+      closeCard();
+    }
+  }, [pins, centres, selectedId, onSelect, drawing, openCard, closeCard]);
+
+  // A drag has to mean one thing at a time, and a card sitting over the area
+  // being drawn is in the way of judging it.
+  useEffect(() => {
+    if (drawing) closeCard();
+  }, [drawing, closeCard]);
 
   // Fit to the incidents once there are some, so a coordinator does not open
   // the console to an empty ocean.
   useEffect(() => {
     const located = pins.filter((p) => p.latitude !== null && p.longitude !== null);
-    if (!map.current || located.length === 0) return;
+    if (!map.current || located.length === 0 || !fitToPins) return;
 
     const bounds = new maplibre.LngLatBounds();
     located.forEach((p) => bounds.extend([p.longitude as number, p.latitude as number]));
     map.current.fitBounds(bounds, { padding: 80, maxZoom: 9, duration: 600 });
-  }, [pins]);
+  }, [pins, fitToPins]);
 
   // Draw (or clear) the route line.
   useEffect(() => {
