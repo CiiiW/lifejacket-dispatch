@@ -90,8 +90,15 @@ metrics have not yet been agreed; do not invent a pass threshold.
   repeated-sighting association or physical flight is claimed. DR-06 is not complete.
 - Hardware decision: preparing for original DJI Mini 2. Litchi/iPhone route and
   streaming behavior must be tested on the actual devices. No onboard Pi required.
-- User requested GCP as the working environment. CPU workbench started; source
-  transfer and validation there are pending at this checkpoint.
+- Continued on GCP CPU workbench in an isolated worktree at
+  `/home/jupyter/lifejacket-mini2`; existing `charlotte` staging checkout preserved.
+- GCP: 375 backend tests passed (13 video tests initially skipped without FFmpeg);
+  all 13 video tests then passed separately with Conda FFmpeg 6.1.2. Ruff passed.
+- System Debian FFmpeg installation returned stale-package 404s. Installed an
+  isolated Conda environment under ignored `var/ffmpeg-env` instead.
+- Generated a 6-second test pattern and verified six timestamped frames in the
+  review page through authenticated Jupyter proxy port 8914. No model calls made.
+- Implementation committed locally on GCP; not pushed to GitHub.
 - Next: GCP validation, then actual toy footage and explicit app demo observation flow.
 
 ### 2026-10-23 — GitHub push readiness check

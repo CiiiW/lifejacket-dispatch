@@ -101,3 +101,25 @@ reject damaged media, preserve timezone/unknown time, escape review text and
 exercise the detection agent with scripted responses, including failures and
 integrity rejection. These are workflow checks, not animal-detection evaluation.
 A real aerial/toy clip and live model run are still outstanding.
+
+## GCP working environment (2026-10-31)
+
+Checkout: `/home/jupyter/lifejacket-mini2`, branch `charlotte-mini2-demo`.
+Python 3.11 environment: `.venv`. FFmpeg 6.1.2 is isolated under ignored
+`var/ffmpeg-env` because the system Debian mirror returned package 404s.
+Before preparing video or running decoder tests in a new terminal:
+
+```bash
+cd /home/jupyter/lifejacket-mini2
+export PATH="$PWD/var/ffmpeg-env/bin:$PATH"
+```
+
+Generated check bundle: `var/mini2/synthetic-camera-check`.
+This is a six-second test pattern, not animal or drone evidence.
+Review server is bound to 127.0.0.1:8914 and reachable through the authenticated
+Jupyter proxy at `/proxy/8914/review.html` while the server/instance is running.
+It serves only the generated bundle; it does not expose other repository files.
+
+GCP validation: 375 backend tests passed with 13 decoder tests initially skipped;
+the 13 decoder tests subsequently passed separately after installing FFmpeg.
+No live model evaluation or actual toy/aerial video has been run.
