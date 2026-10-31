@@ -9,6 +9,7 @@ rescue console with ranked responder candidates for coordinator review.
 The prototype does not verify permits or automatically dispatch responders.
 
 Drone work status, evidence, open tasks and session notes: [Drone progress tracker](docs/drone_progress.md).
+Recorded Mini 2 video preparation and local review: [Mini 2 demo workflow](docs/mini2_demo.md).
 
 ## Run the local drone demo
 

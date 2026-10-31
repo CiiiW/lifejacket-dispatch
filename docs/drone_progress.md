@@ -1,6 +1,6 @@
 # Drone progress tracker
 
-Last updated: **2026-10-23** · Working branch: **charlotte**
+Last updated: **2026-10-31** · Working branch: **charlotte-mini2-demo**
 
 ## Current scope and decisions
 
@@ -24,20 +24,21 @@ implemented or authorized by the current milestone.
 | DR-03 | Individual-photo drone intake and advisory screening | Implemented; offline workflow-tested | [Observation workflow](drone_observation_handoff.md): original media, capture metadata, shared eight-group taxonomy, selected-target analysis, revisioned human review and case linking. No live camera ingestion. |
 | DR-04 | Public-photo development baseline | Live run completed | [Run record](../research/public_condition_pilot/BASELINE_RUN_2026-10-23.md): 40 detection results, 38 assessments, 2 awaiting target selection, 0 failed cases. Human/expert reviews: 0 at the recorded checkpoint. Not an aerial benchmark. |
 | DR-05 | Review page and small evaluation dashboard | Implemented; browser-verified on GCP | [Review page](../research/public_condition_pilot/review.html): stage counts, predicted/reviewed group coverage, saved-attempt telemetry and provisional same-target sign comparisons. No expert accuracy score. |
-| DR-06 | Recorded drone-video intake and frame extraction | **Next; not started** | Preserve media hash, timestamp offsets and capture metadata; produce a bounded frame sample for the existing detection agent. |
+| DR-06 | Recorded drone-video intake and frame extraction | Local implementation; synthetic tests passed | [Mini 2 workflow](mini2_demo.md): original hash/copy, bounded JPEG samples, actual clip offsets, local review and optional existing detector. Actual drone/toy footage and live detection evaluation remain outstanding. |
 | DR-07 | Repeated-sighting grouping across frames | Not started | Preserve frame evidence and uncertain associations; evaluate missed animals, duplicate alerts and incorrect merges on real footage. |
 | DR-08 | Video sighting review in the coordinator queue | Not started | Clip/frame references, target choice and location uncertainty; reuse existing observation review before any case link. |
 | DR-09 | Live camera / companion upload and physical flight integration | Future work | Requires chosen hardware, actual capture/telemetry alignment and appropriate operator/site authorization. |
 
-## Next implementation: DR-06
+## DR-06 implementation and remaining validation
 
-- [ ] Define recorded-video metadata and distinguish capture time from frame offset.
-- [ ] Validate video uploads and bound bytes, duration, decoded dimensions and extracted frames.
-- [ ] Preserve the original video hash and extraction settings with every frame.
-- [ ] Extract a configurable, bounded frame sample and retain source offsets.
-- [ ] Record drone position as drone position; animal coordinates remain unknown
+- [x] Define recorded-video metadata and distinguish capture time from frame offset.
+- [x] Bound local recorded files by bytes, duration, dimensions and frame count.
+- [ ] Add authenticated video uploads / demo observation API; local CLI is not an upload service.
+- [x] Preserve the original video hash and extraction settings with every frame.
+- [x] Extract a configurable, bounded frame sample and retain source offsets.
+- [x] Record drone position as drone position; animal coordinates remain unknown
   unless a separate, validated geolocation method establishes them.
-- [ ] Connect sampled frames to existing detection without silently creating live
+- [x] Connect sampled frames to existing detection without silently creating live
   incidents or treating no detection as a healthy animal.
 - [ ] Run one actual recorded drone clip end to end; document its source/license,
   failures and observed results. A coded importer alone does not complete this item.
@@ -75,6 +76,23 @@ metrics have not yet been agreed; do not invent a pass threshold.
   2026-10-23. Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 — Mini 2 preparation from current main
+
+- Pulled main to `3a323e9`; created `charlotte-mini2-demo` with the new map/UI work intact.
+- Added recorded-video CLI, immutable source copy/hash, bounded sampling using actual
+  presentation timestamps, local review page and explicit opt-in existing-agent detection.
+- Added source/rights/evidence-kind metadata. Toy/synthetic evidence stays local;
+  aircraft and animal location fields remain unknown until telemetry alignment exists.
+- Focused decoder/integrity/failure tests: 13 passed. Full offline backend: 388 passed
+  after installing the research test's pandas dependency; one existing dependency warning.
+- No real aerial/toy clip, live model result, RTMP receiver, GPS synchronization,
+  repeated-sighting association or physical flight is claimed. DR-06 is not complete.
+- Hardware decision: preparing for original DJI Mini 2. Litchi/iPhone route and
+  streaming behavior must be tested on the actual devices. No onboard Pi required.
+- User requested GCP as the working environment. CPU workbench started; source
+  transfer and validation there are pending at this checkpoint.
+- Next: GCP validation, then actual toy footage and explicit app demo observation flow.
 
 ### 2026-10-23 — GitHub push readiness check
 
