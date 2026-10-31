@@ -91,6 +91,9 @@ class Settings(BaseSettings):
     # contain personal context). Overridden with a bucket path in deployment.
     drone_evidence_dir: Path = Field(default=REPO_ROOT / "var" / "drone-evidence")
 
+    drone_demo_enabled: bool = False
+    drone_demo_dir: Path = REPO_ROOT / "var" / "drone-demo"
+
     drone_runs_dir: Path = Field(default=REPO_ROOT / "var" / "drone-runs")
 
     photo_storage_dir: Path = Field(default=REPO_ROOT / "var" / "photos")

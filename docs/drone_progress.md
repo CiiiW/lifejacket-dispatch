@@ -26,14 +26,15 @@ implemented or authorized by the current milestone.
 | DR-05 | Review page and small evaluation dashboard | Implemented; browser-verified on GCP | [Review page](../research/public_condition_pilot/review.html): stage counts, predicted/reviewed group coverage, saved-attempt telemetry and provisional same-target sign comparisons. No expert accuracy score. |
 | DR-06 | Recorded drone-video intake and frame extraction | Local implementation; synthetic tests passed | [Mini 2 workflow](mini2_demo.md): original hash/copy, bounded JPEG samples, actual clip offsets, local review and optional existing detector. Actual drone/toy footage and live detection evaluation remain outstanding. |
 | DR-07 | Repeated-sighting grouping across frames | Not started | Preserve frame evidence and uncertain associations; evaluate missed animals, duplicate alerts and incorrect merges on real footage. |
-| DR-08 | Video sighting review in the coordinator queue | Not started | Clip/frame references, target choice and location uncertainty; reuse existing observation review before any case link. |
+| DR-08 | Video sighting review in the coordinator queue | Demo-only frame review implemented; GCP browser-verified | Separate toy/synthetic table, integrity-checked JPEGs, keep/reject audit and stale-edit protection. Real wildlife video review, target choice and case linking remain future work. |
 | DR-09 | Live camera / companion upload and physical flight integration | Future work | Requires chosen hardware, actual capture/telemetry alignment and appropriate operator/site authorization. |
 
 ## DR-06 implementation and remaining validation
 
 - [x] Define recorded-video metadata and distinguish capture time from frame offset.
 - [x] Bound local recorded files by bytes, duration, dimensions and frame count.
-- [ ] Add authenticated video uploads / demo observation API; local CLI is not an upload service.
+- [x] Add opt-in demo frame API/importer behind the authenticated notebook proxy;
+  whole-video uploads and app-level authentication remain future work.
 - [x] Preserve the original video hash and extraction settings with every frame.
 - [x] Extract a configurable, bounded frame sample and retain source offsets.
 - [x] Record drone position as drone position; animal coordinates remain unknown
@@ -63,8 +64,9 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Access and reproducibility
 
-- Code and notes are committed on `charlotte`; GCP receives matching source
-  patches. GitHub push remains pending repository authentication.
+- Current Mini 2 work is on `charlotte-mini2-demo`, based on main `3a323e9`,
+  in an isolated GCP worktree. Prior `charlotte` staging is preserved.
+  This branch has not been pushed to GitHub.
 - Private review/evaluation app: authenticated GCP notebook `/proxy/8813/`.
   It binds to loopback and has no separate account system.
 - Baseline run: `82cebed1b3e44e4c8b2352b22be595f9`; files and histories:
@@ -72,10 +74,33 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **361 passed** locally and on GCP on
-  2026-10-23. Scripted tests check orchestration, not visual accuracy.
+- Latest full backend validation: **402 passed locally and on GCP** on
+  2026-10-31. Scripted tests check orchestration,
+  not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 — Demo frame review queue
+
+- Added opt-in demo-only frame import/list/photo/review API and a Demo review
+  console tab. Separate table/IDs and no case-link, assignment or notification
+  path; the existing California wildlife contracts are unchanged.
+- Preserved source/frame hashes, rights notes, source offsets and optional saved
+  detection results. Unknown capture time/location stays unknown. No model calls.
+- Imports preflight the entire bundle, support identical retries without resetting
+  reviews and reject metadata conflicts. Reviews require a name/note, retain
+  history and use revision checks to reject stale writes.
+- Full backend: 402 tests passed locally and on GCP (one dependency warning);
+  focused video/demo tests: 27 passed locally and on GCP. TypeScript checking, Python lint and GCP web export passed.
+- GCP browser: six synthetic frames imported; preview image loaded, blank review
+  actions disabled, kept review saved, filter/reload preserved its audit history.
+  These are generated test patterns, not toy/animal detection evidence.
+- Private combined preview on loopback port 8915, notebook `/proxy/8915/`, using
+  its own `var/mini2/demo-review.db` and evidence directory. Only demo API routes
+  are served by this preview. Clear Expo's cache when changing API build config.
+- Updated reproduction instructions. GitHub push remains pending.
+- Next: actual toy clip/detection check, then repeated-sighting grouping (DR-07).
+  Live streaming, GPS synchronization and physical flight remain unverified.
 
 ### 2026-10-31 — Mini 2 preparation from current main
 

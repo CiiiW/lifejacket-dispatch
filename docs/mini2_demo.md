@@ -12,7 +12,8 @@ A local CLI copies and hashes the original recorded video, extracts a bounded
 JPEG sample with source presentation-time offsets, and generates `review.html`.
 Optional detection uses the existing animal DetectionAgent (same downstream
 identification/taxonomy path as photos); it does not introduce a separate species
-list. Results and per-frame failures are saved locally, not in the incident DB.
+list. Results and per-frame failures are saved in the bundle. Toy/synthetic bundles can
+also be imported into a separate demo review table; they never become incidents.
 The existing detector is trained/prompted for real animals; recognition of a
 particular toy must be tested and may fail. No recognition accuracy is claimed.
 
@@ -74,9 +75,9 @@ if rerunning; do not alter old evidence or mix different attempts silently.
    available, detection. Review misses and false positives manually.
 3. Add repeated-sighting grouping with uncertainty; frames are not distinct
    animals and candidate counts must not be summed as animal counts.
-4. Add explicit demo-only observation review in the app. Existing observation
-   contracts are California-scoped; do not fabricate California coordinates
-   for Chicago, widen production geography casually, or mark toy evidence as real.
+4. Use the implemented Demo review tab for toy/synthetic frames. Real wildlife
+   video review remains future work; existing observation contracts are
+   California-scoped. Do not fabricate coordinates or mark toys as real.
 5. Test Mini 2 + controller + iPhone/Litchi connection and live RTMP reception.
    This importer is recorded-file-only, not an implemented RTMP receiver.
 6. Export aircraft GPS logs, verify their format/time basis, and measure video
@@ -123,3 +124,44 @@ It serves only the generated bundle; it does not expose other repository files.
 GCP validation: 375 backend tests passed with 13 decoder tests initially skipped;
 the 13 decoder tests subsequently passed separately after installing FFmpeg.
 No live model evaluation or actual toy/aerial video has been run.
+
+## Demo-only app review
+
+Set `DRONE_DEMO_ENABLED=true` only in a private demo environment. It defaults to
+false. The importer accepts only `toy_demo` and `synthetic_test` bundles, validates
+the entire bundle and hashes before uploading, and uses a loopback HTTP API.
+Do not edit immutable bundle metadata; import a new preparation when it changes.
+Identical imports preserve existing reviews; conflicting metadata returns 409.
+A network failure can leave a partial import: rerun the same command to resume.
+
+For a private combined console/demo API preview, build from the repository root:
+
+```bash
+cd clients/responder_console
+npm ci
+EXPO_PUBLIC_API_URL=./api npx expo export --platform web --clear
+cd ../..
+DRONE_DEMO_ENABLED=true \
+DATABASE_URL=sqlite:///./var/mini2/demo-review.db \
+DRONE_DEMO_DIR=var/mini2/queue-evidence \
+PYTHONPATH=backend python scripts/serve_drone_demo.py --port 8915
+```
+
+In another terminal:
+
+```bash
+PYTHONPATH=backend python scripts/import_drone_demo.py var/mini2/clip-001 \
+  --api-url http://127.0.0.1:8915/api
+```
+
+Open `/proxy/8915/` on the authenticated GCP notebook, then **Demo review**.
+The preview exposes only the demo API; other console tabs require the full
+backend and are not served by this preview. Select a frame, enter reviewer/name
+and a note, then keep or reject it. Reviews retain history and reject stale edits.
+Capture time can be unknown; aircraft/animal coordinates are always unknown in
+this demo contract. Frames and candidates are not counts of distinct animals.
+
+This preview binds to loopback and relies on the notebook proxy for access;
+there is no app-level authentication. Do not expose it publicly. It uses a
+separate database and evidence directory and cannot create rescue cases or send
+notifications. Uploaded files are bounded JPEG frames, not whole videos.

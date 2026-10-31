@@ -30,6 +30,7 @@ from sqlalchemy.engine import make_url
 
 from lifejacket.api.routes import (
     coordination,
+    drone_demo,
     drone_intake,
     drones,
     historical_strandings,
@@ -90,6 +91,7 @@ app.include_router(coordination.router)
 app.include_router(historical_strandings.router)
 app.include_router(drones.router)
 app.include_router(drone_intake.router)
+app.include_router(drone_demo.router)
 
 
 @app.get("/health", tags=["system"])

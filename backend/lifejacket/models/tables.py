@@ -354,3 +354,18 @@ class ExternalHandoffRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, index=True)
     snapshot_json: Mapped[dict] = mapped_column(JSON)
     history_json: Mapped[list] = mapped_column(JSON)
+
+
+class DroneDemoFrameRow(Base):
+    """Isolated toy/synthetic queue: deliberately no incident/responder foreign keys."""
+
+    __tablename__ = "drone_demo_frames"
+
+    demo_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    import_key: Mapped[str] = mapped_column(String(64), unique=True)
+    metadata_json: Mapped[dict] = mapped_column(JSON)
+    storage_path: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(20), default="pending")
+    revision: Mapped[int] = mapped_column(Integer, default=0)
+    reviews_json: Mapped[list] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
