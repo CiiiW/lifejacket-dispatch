@@ -167,3 +167,7 @@ SDK references: https://firebase.google.com/docs/auth/web/password-auth and http
 Validation: GCP TypeScript check, 10 client API tests and Expo web export passed. Browser fictional checks passed for invalid sign-in/password clearing, generic reset acknowledgement on simulated failure, password mismatch, unverified-account gate, verification resend, unverified refresh, verified refresh, and sign-out. No live Auth delivery or end-to-end API login is claimed.
 
 The optional phone-reporter flow now has separately enumerated POST routes behind `REPORTER_PHONE_ENABLED` plus the existing network boundary. Its token-body transport does not change professional bearer-token verification or enable legacy intake. Both real SMS and end-to-end live login remain pending; see `reporter_phone.md`.
+
+Restricted case contact and response updates are now implemented behind the default-off
+`NETWORK_CASE_ACTIONS_ENABLED` flag. Professional browsing remains broader than operational
+permissions; NOAA has no implied update/contact override. See `rescuer_response_flow.md`.

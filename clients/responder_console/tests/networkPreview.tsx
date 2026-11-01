@@ -1,7 +1,10 @@
 /** Isolated component fixture. Not imported by the application entry point. */
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import NetworkScreen, { NetworkWorkspace, Shell } from '../src/screens/NetworkScreen.web';
+import NetworkScreen, {
+  NetworkWorkspace,
+  Shell,
+} from '../src/screens/NetworkScreen.web';
 import {
   NetworkError,
   type createNetworkApi,
@@ -30,7 +33,12 @@ const organizations: NetworkSession['organizations'] = [
     role: 'center_coordinator',
     states: ['AK'],
   },
-  { organization_id: 'N', name: 'Fictional NOAA Review', role: 'noaa', states: [] },
+  {
+    organization_id: 'N',
+    name: 'Fictional NOAA Review',
+    role: 'noaa',
+    states: [],
+  },
 ];
 const cases: NetworkCase[] = [
   {
@@ -58,6 +66,13 @@ const cases: NetworkCase[] = [
     created_at: '2026-11-01T09:00:00',
   },
 ];
+const fixtureClosures = (phase: string) => [
+  'no_response_needed',
+  'transferred',
+  ...(phase === 'on_scene' ? ['unable_to_locate'] : []),
+  ...(phase === 'animal_located' ? ['rescue_complete'] : []),
+];
+const responseStates: Record<string, { phase: string; revision: number }> = {};
 const fixtureApi: typeof createNetworkApi = (_, user, org) => {
   function context() {
     if (revoked && org === 'A') throw new NetworkError(403);
@@ -98,6 +113,66 @@ const fixtureApi: typeof createNetworkApi = (_, user, org) => {
       if (!row) throw new NetworkError(404);
       return row;
     },
+    response: async (id) => {
+      if (!visible().some((row) => row.incident_id === id))
+        throw new NetworkError(404);
+      const state = responseStates[id] ?? { phase: 'received', revision: 0 };
+      const allowed = org === 'A' && state.phase !== 'closed';
+      const next = (
+        {
+          received: 'accepted',
+          accepted: 'en_route',
+          en_route: 'on_scene',
+          on_scene: 'animal_located',
+        } as Record<string, string>
+      )[state.phase];
+      return {
+        case_id: id,
+        ...state,
+        allowed_transitions: allowed ? [...(next ? [next] : []), 'closed'] : [],
+        contact_channels: allowed ? ['text'] : [],
+        closure_reasons: allowed ? fixtureClosures(state.phase) : [],
+      };
+    },
+    changeResponse: async (id, revision, phase) => {
+      context();
+      const state = responseStates[id] ?? { phase: 'received', revision: 0 };
+      if (org !== 'A') throw new NetworkError(403);
+      if (revision !== state.revision) throw new NetworkError(409);
+      responseStates[id] = { phase, revision: revision + 1 };
+      const next = (
+        {
+          received: 'accepted',
+          accepted: 'en_route',
+          en_route: 'on_scene',
+          on_scene: 'animal_located',
+        } as Record<string, string>
+      )[phase];
+      return {
+        case_id: id,
+        phase,
+        revision: revision + 1,
+        allowed_transitions:
+          phase === 'closed' ? [] : [...(next ? [next] : []), 'closed'],
+        contact_channels: phase === 'closed' ? [] : ['text'],
+        closure_reasons: phase === 'closed' ? [] : fixtureClosures(phase),
+      };
+    },
+    contact: async (id) => {
+      context();
+      if (
+        org !== 'A' ||
+        !visible().some((row) => row.incident_id === id) ||
+        responseStates[id]?.phase === 'closed'
+      )
+        throw new NetworkError(403);
+      return {
+        case_id: id,
+        phone_number: '+12025550123',
+        channels: ['text'],
+        presence: 'left',
+      };
+    },
     report: async (id) => {
       if (id !== 'fictional_own_1') throw new NetworkError(404);
       return {
@@ -117,32 +192,85 @@ function AuthPreview() {
   const [fail, setFail] = useState(false);
   const [calls, setCalls] = useState('No fictional auth calls yet.');
   const [verified, setVerified] = useState(false);
-  const fictional = { ...fixtureUser, email: 'demo@example.invalid', emailVerified: false };
+  const fictional = {
+    ...fixtureUser,
+    email: 'demo@example.invalid',
+    emailVerified: false,
+  };
   async function call(name: string) {
     setCalls(`Fictional ${name} requested; no network request.`);
     await new Promise((resolve) => setTimeout(resolve, 500));
     if (fail) throw new Error('Fictional failure');
   }
-  return <Shell>
-    <div className="lj-toolbar">
-      <label><input type="checkbox" checked={fail} onChange={(e) => setFail(e.target.checked)} />Simulate auth failure</label>
-      <label><input type="checkbox" checked={verified} onChange={(e) => setVerified(e.target.checked)} />Simulate verified email</label>
-      <p role="status">{calls}</p>
-    </div>
-    {user?.emailVerified ? <section className="lj-panel"><h2>Fictional verification passed</h2><p>Production still requires backend token verification and approved membership.</p><button onClick={() => setUser(null)}>Sign out</button></section> :
-      <NetworkLogin user={user} configured checking={false} onSignOut={() => setUser(null)} onRefreshed={setUser}
-        driver={{
-          login: async () => { await call('sign-in'); setUser(fictional); },
-          create: async () => { await call('account creation'); setUser(fictional); },
-          reset: async () => { await call('password reset'); },
-          verify: async () => { await call('verification email'); },
-          refresh: async () => { await call('verification check'); return { ...fictional, emailVerified: verified }; },
-          google: async () => { await call('Google sign-in'); },
-        }} />}
-  </Shell>;
+  return (
+    <Shell>
+      <div className="lj-toolbar">
+        <label>
+          <input
+            type="checkbox"
+            checked={fail}
+            onChange={(e) => setFail(e.target.checked)}
+          />
+          Simulate auth failure
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={verified}
+            onChange={(e) => setVerified(e.target.checked)}
+          />
+          Simulate verified email
+        </label>
+        <p role="status">{calls}</p>
+      </div>
+      {user?.emailVerified ? (
+        <section className="lj-panel">
+          <h2>Fictional verification passed</h2>
+          <p>
+            Production still requires backend token verification and approved
+            membership.
+          </p>
+          <button onClick={() => setUser(null)}>Sign out</button>
+        </section>
+      ) : (
+        <NetworkLogin
+          user={user}
+          configured
+          checking={false}
+          onSignOut={() => setUser(null)}
+          onRefreshed={setUser}
+          driver={{
+            login: async () => {
+              await call('sign-in');
+              setUser(fictional);
+            },
+            create: async () => {
+              await call('account creation');
+              setUser(fictional);
+            },
+            reset: async () => {
+              await call('password reset');
+            },
+            verify: async () => {
+              await call('verification email');
+            },
+            refresh: async () => {
+              await call('verification check');
+              return { ...fictional, emailVerified: verified };
+            },
+            google: async () => {
+              await call('Google sign-in');
+            },
+          }}
+        />
+      )}
+    </Shell>
+  );
 }
 function Preview() {
-  const [view, setView] = useState<'signed-in' | 'signed-out' | 'auth'>('signed-in');
+  const [view, setView] = useState<'signed-in' | 'signed-out' | 'auth'>(
+    'signed-in',
+  );
   const [notice, setNotice] = useState('');
   return (
     <>
@@ -155,11 +283,18 @@ function Preview() {
         }}
       >
         <strong>
-          Fictional component test — no real sign-in, API requests or rescue cases.
+          Fictional component test — no real sign-in, API requests or rescue
+          cases.
         </strong>{' '}
-        <button onClick={() => setView('signed-in')}>Open signed-in fixture</button>{' '}
-        <button onClick={() => setView('signed-out')}>Open sign-in screen</button>{' '}
-        <button onClick={() => setView('auth')}>Open fictional email flow</button>{' '}
+        <button onClick={() => setView('signed-in')}>
+          Open signed-in fixture
+        </button>{' '}
+        <button onClick={() => setView('signed-out')}>
+          Open sign-in screen
+        </button>{' '}
+        <button onClick={() => setView('auth')}>
+          Open fictional email flow
+        </button>{' '}
         <button
           onClick={() => {
             revoked = true;
@@ -178,7 +313,9 @@ function Preview() {
         </button>{' '}
         <span role="status">{notice}</span>
       </div>
-      {view === 'auth' ? <AuthPreview /> : view === 'signed-in' ? (
+      {view === 'auth' ? (
+        <AuthPreview />
+      ) : view === 'signed-in' ? (
         <NetworkWorkspace
           user={fixtureUser}
           apiFactory={fixtureApi}

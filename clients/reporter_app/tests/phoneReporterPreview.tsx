@@ -30,6 +30,7 @@ const api: PhoneReporterApi = {
     if(failStatus) throw new Error('Fictional unavailable');
     return {case_id:'fictional-report',phase,message:phase==='animal_located'?'The team has located the animal.':phase==='accepted'?'A team has taken your report.':'Report received; awaiting team confirmation.',arrival_eta_minutes:null,eta_updated_at:null,eta_is_estimate:false,reporter_can_leave:true,leaving_cancels_report:false,presence};
   },
+  preferences:async()=>({}),
   presence:async(_,__,next)=>{presence=next;return {};},
 };
 const driver = {

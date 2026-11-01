@@ -1,7 +1,13 @@
-/** Dedicated authenticated reads. Never falls back to the legacy API. */
-export type NetworkRole = 'reporter' | 'volunteer' | 'noaa' | 'center_coordinator' | 'rescuer';
+/** Dedicated authenticated network access. Never falls back to the legacy API. */
+export type NetworkRole =
+  'reporter' | 'volunteer' | 'noaa' | 'center_coordinator' | 'rescuer';
 export type CaseScope =
-  'all_allowed' | 'my_center' | 'assigned_to_me' | 'leading' | 'supporting' | 'receiving';
+  | 'all_allowed'
+  | 'my_center'
+  | 'assigned_to_me'
+  | 'leading'
+  | 'supporting'
+  | 'receiving';
 export interface NetworkSession {
   account_id: string;
   role: NetworkRole;
@@ -37,6 +43,20 @@ export interface ReporterUpdate {
   reporter_can_leave: boolean;
   leaving_cancels_report: boolean;
 }
+export interface CaseResponse {
+  case_id: string;
+  phase: string;
+  revision: number;
+  allowed_transitions: string[];
+  contact_channels: ('phone' | 'text')[];
+  closure_reasons: string[];
+}
+export interface CaseContact {
+  case_id: string;
+  phone_number: string;
+  channels: ('phone' | 'text')[];
+  presence: string;
+}
 export interface TokenUser {
   uid: string;
   getIdToken(forceRefresh?: boolean): Promise<string>;
@@ -50,10 +70,14 @@ export class NetworkError extends Error {
 }
 export function networkErrorMessage(error: unknown): string {
   if (error instanceof NetworkError) {
-    if (error.status === 401) return 'Your sign-in has expired. Sign out and sign in again.';
+    if (error.status === 401)
+      return 'Your sign-in has expired. Sign out and sign in again.';
     if (error.status === 403)
       return 'This access is no longer approved. Return to your personal account or contact your coordinator.';
-    if (error.status === 404) return 'This case is unavailable for your account.';
+    if (error.status === 404)
+      return 'This case is unavailable for your account.';
+    if (error.status === 409)
+      return 'This case changed. Refresh it before confirming another update.';
     if (error.status === 503)
       return 'Network access is temporarily unavailable. Please try again later.';
   }
@@ -61,9 +85,22 @@ export function networkErrorMessage(error: unknown): string {
 }
 export interface NetworkApi {
   me(signal?: AbortSignal): Promise<NetworkSession>;
-  cases(scope: CaseScope, offset: number, signal?: AbortSignal): Promise<NetworkCase[]>;
+  cases(
+    scope: CaseScope,
+    offset: number,
+    signal?: AbortSignal,
+  ): Promise<NetworkCase[]>;
   case(id: string, signal?: AbortSignal): Promise<NetworkCase>;
   report(id: string, signal?: AbortSignal): Promise<ReporterUpdate>;
+  response(id: string, signal?: AbortSignal): Promise<CaseResponse>;
+  changeResponse(
+    id: string,
+    revision: number,
+    phase: string,
+    closureReason: string | null,
+    signal?: AbortSignal,
+  ): Promise<CaseResponse>;
+  contact(id: string, signal?: AbortSignal): Promise<CaseContact>;
 }
 export function createNetworkApi(
   baseUrl: string,
@@ -84,12 +121,18 @@ export function createNetworkApi(
         ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname)
       ))
   ) {
-    throw new Error('Use an HTTPS API endpoint (or local development loopback)');
+    throw new Error(
+      'Use an HTTPS API endpoint (or local development loopback)',
+    );
   }
   if (organization !== null && !/^[A-Za-z0-9_-]{1,64}$/.test(organization))
     throw new Error('Invalid organization');
   const prefix = base.href.replace(/\/$/, '');
-  async function request<T>(path: string, signal?: AbortSignal): Promise<T> {
+  async function request<T>(
+    path: string,
+    signal?: AbortSignal,
+    body?: Record<string, unknown>,
+  ): Promise<T> {
     const controller = new AbortController();
     const cancel = () => controller.abort();
     if (signal?.aborted) cancel();
@@ -100,21 +143,29 @@ export function createNetworkApi(
       // The SDK token refresh cannot be cancelled, but its late result must
       // never send an HTTP request after sign-out/context change or timeout.
       const token = await new Promise<string>((resolve, reject) => {
-        tokenCancelled = () => reject(new DOMException('Request cancelled', 'AbortError'));
+        tokenCancelled = () =>
+          reject(new DOMException('Request cancelled', 'AbortError'));
         if (controller.signal.aborted) {
           tokenCancelled();
           return;
         }
-        controller.signal.addEventListener('abort', tokenCancelled, { once: true });
+        controller.signal.addEventListener('abort', tokenCancelled, {
+          once: true,
+        });
         user.getIdToken().then(resolve, reject);
       });
-      if (controller.signal.aborted) throw new DOMException('Request cancelled', 'AbortError');
+      if (controller.signal.aborted)
+        throw new DOMException('Request cancelled', 'AbortError');
       if (!token) throw new NetworkError(401);
       const response = await transport(prefix + path, {
-        method: 'GET',
+        method: body ? 'PATCH' : 'GET',
+        ...(body ? { body: JSON.stringify(body) } : {}),
         headers: {
           Authorization: `Bearer ${token}`,
-          ...(organization ? { 'X-LifeJacket-Organization': organization } : {}),
+          ...(body ? { 'Content-Type': 'application/json' } : {}),
+          ...(organization
+            ? { 'X-LifeJacket-Organization': organization }
+            : {}),
         },
         signal: controller.signal,
         credentials: 'same-origin',
@@ -126,7 +177,8 @@ export function createNetworkApi(
     } finally {
       clearTimeout(timer);
       signal?.removeEventListener('abort', cancel);
-      if (tokenCancelled) controller.signal.removeEventListener('abort', tokenCancelled);
+      if (tokenCancelled)
+        controller.signal.removeEventListener('abort', tokenCancelled);
     }
   }
 
@@ -151,9 +203,36 @@ export function createNetworkApi(
         offset > 100000
       )
         throw new Error('Invalid case query');
-      return request(`/network/cases?scope=${scope}&limit=50&offset=${offset}`, signal);
+      return request(
+        `/network/cases?scope=${scope}&limit=50&offset=${offset}`,
+        signal,
+      );
     },
     case: (id, signal) => request(`/network/cases/${caseId(id)}`, signal),
     report: (id, signal) => request(`/network/reports/${caseId(id)}`, signal),
+    response: (id, signal) =>
+      request(`/network/cases/${caseId(id)}/response`, signal),
+    contact: (id, signal) =>
+      request(`/network/cases/${caseId(id)}/reporter-contact`, signal),
+    changeResponse: (id, revision, phase, closureReason, signal) => {
+      if (
+        !Number.isInteger(revision) ||
+        revision < 0 ||
+        ![
+          'accepted',
+          'en_route',
+          'on_scene',
+          'animal_located',
+          'closed',
+        ].includes(phase)
+      )
+        throw new Error('Invalid response update');
+      return request(`/network/cases/${caseId(id)}/response`, signal, {
+        revision,
+        phase,
+        confirmed: true,
+        closure_reason: closureReason,
+      });
+    },
   };
 }

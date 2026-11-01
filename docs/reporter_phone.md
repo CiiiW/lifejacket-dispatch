@@ -99,3 +99,7 @@ submission gates, receipt tracking and unavailable status. The fictional six-dig
 code exists only in that fixture; production has no such code or bypass.
 
 Validation: full backend regression suite passed; four reporter API transport tests passed; reporter TypeScript check and web export passed. Fictional browser checks passed for provider unavailable, unverified submission gate, failed code with code clearing, verified submission, own receipt history, animal-located status, departure without cancellation, unavailable-status clearing, and sign-out cleanup. These do not establish live SMS delivery or native-device support.
+
+Current-case contact permission can now be withdrawn from the own-case screen without
+cancelling the report. Assigned/involved staff contact and confirmed response events
+are implemented behind a separate default-off operational flag; see `rescuer_response_flow.md`.

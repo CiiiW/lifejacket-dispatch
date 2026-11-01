@@ -16,6 +16,7 @@ import {
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
 import { NetworkLogin } from './NetworkLogin.web';
+import { CaseActions } from './CaseActions.web';
 
 const apiBase = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
 const filters: { value: CaseScope; label: string }[] = [
@@ -39,7 +40,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
     </main>
   );
 }
-function ErrorNotice({ message, retry }: { message: string; retry?: () => void }) {
+function ErrorNotice({
+  message,
+  retry,
+}: {
+  message: string;
+  retry?: () => void;
+}) {
   return (
     <div className="lj-panel lj-error" role="alert">
       <p>{message}</p>
@@ -64,7 +71,8 @@ function roleLabel(role: string) {
     )[role] ?? 'Account'
   );
 }
-const text = (value: string | null) => (value ? value.replace(/_/g, ' ') : 'Not provided');
+const text = (value: string | null) =>
+  value ? value.replace(/_/g, ' ') : 'Not provided';
 
 export default function NetworkScreen() {
   const [user, setUser] = useState<NetworkUser | null>(null);
@@ -75,25 +83,60 @@ export default function NetworkScreen() {
     if (!networkSignInConfigured) return;
     try {
       return observeNetworkUser(
-        (next) => { setUser(next); setRevision((v) => v + 1); setChecking(false); },
-        () => { setUser(null); setChecking(false); setError('Sign-in is temporarily unavailable. Please try again.'); },
+        (next) => {
+          setUser(next);
+          setRevision((v) => v + 1);
+          setChecking(false);
+        },
+        () => {
+          setUser(null);
+          setChecking(false);
+          setError('Sign-in is temporarily unavailable. Please try again.');
+        },
       );
     } catch {
       setChecking(false);
-      setError('Network sign-in is not available yet. Please contact your coordinator.');
+      setError(
+        'Network sign-in is not available yet. Please contact your coordinator.',
+      );
     }
   }, []);
   async function logout() {
-    setUser(null); setRevision((v) => v + 1); setError('');
-    try { await signOutOfNetwork(); }
-    catch { setError('The view has been cleared. Close this tab to finish signing out.'); }
+    setUser(null);
+    setRevision((v) => v + 1);
+    setError('');
+    try {
+      await signOutOfNetwork();
+    } catch {
+      setError(
+        'The view has been cleared. Close this tab to finish signing out.',
+      );
+    }
   }
   // A new account never mounts the workspace before email verification.
   if (user?.emailVerified)
-    return <NetworkWorkspace key={`${user.uid}:${revision}`} user={user} onSignOut={logout} />;
-  return <Shell><NetworkLogin user={user} configured={networkSignInConfigured}
-    checking={checking} error={error} onSignOut={logout}
-    onRefreshed={(next) => { setUser(next); setRevision((v) => v + 1); }} /></Shell>;
+    return (
+      <NetworkWorkspace
+        key={`${user.uid}:${revision}`}
+        user={user}
+        onSignOut={logout}
+      />
+    );
+  return (
+    <Shell>
+      <NetworkLogin
+        user={user}
+        configured={networkSignInConfigured}
+        checking={checking}
+        error={error}
+        onSignOut={logout}
+        onRefreshed={(next) => {
+          setUser(next);
+          setRevision((v) => v + 1);
+        }}
+      />
+    </Shell>
+  );
 }
 
 /** Dependency injection is for isolated tests; the app always uses managed auth and its configured API. */
@@ -115,7 +158,7 @@ export function NetworkWorkspace({
           <h1>Coordinate the next response</h1>
         </div>
         <div className="lj-toolbar">
-          <span className="lj-pill">Read-only</span>
+          <span className="lj-pill">Verified access</span>
           <button className="secondary" onClick={onSignOut}>
             Sign out
           </button>
@@ -175,7 +218,9 @@ function SessionWorkspace({
   useEffect(() => {
     if (!api) {
       setBusy(false);
-      setError('Network access is not available yet. Please contact your coordinator.');
+      setError(
+        'Network access is not available yet. Please contact your coordinator.',
+      );
       return;
     }
     const controller = new AbortController();
@@ -189,8 +234,12 @@ function SessionWorkspace({
         const verified = await api.me(controller.signal);
         if (verified.selected_organization_id !== organization)
           throw new Error('Organization context mismatch');
-        const professional = ['noaa', 'center_coordinator', 'rescuer'].includes(verified.role);
-        const cases = professional ? await api.cases(scope, offset, controller.signal) : [];
+        const professional = ['noaa', 'center_coordinator', 'rescuer'].includes(
+          verified.role,
+        );
+        const cases = professional
+          ? await api.cases(scope, offset, controller.signal)
+          : [];
         if (current) {
           setSession(verified);
           setRows(cases);
@@ -218,7 +267,10 @@ function SessionWorkspace({
   if (error || !session || !api)
     return (
       <>
-        <ErrorNotice message={error || 'Unable to verify this account.'} retry={reload} />
+        <ErrorNotice
+          message={error || 'Unable to verify this account.'}
+          retry={reload}
+        />
         {organization && (
           <button className="secondary" onClick={() => onOrganization(null)}>
             Return to personal account
@@ -226,7 +278,9 @@ function SessionWorkspace({
         )}
       </>
     );
-  const professional = ['noaa', 'center_coordinator', 'rescuer'].includes(session.role);
+  const professional = ['noaa', 'center_coordinator', 'rescuer'].includes(
+    session.role,
+  );
   return (
     <>
       <section className="lj-panel lj-toolbar" aria-label="Verified access">
@@ -263,11 +317,13 @@ function SessionWorkspace({
           <section className="lj-panel">
             <h2>Your reports</h2>
             <p className="lj-muted">
-              Use the case ID from your report receipt to check its response status.
+              Use the case ID from your report receipt to check its response
+              status.
             </p>
             {!session.organizations.length && (
               <p className="lj-notice">
-                No professional organization access is approved for this account yet.
+                No professional organization access is approved for this account
+                yet.
               </p>
             )}
             <ReporterLookup api={api} />
@@ -294,7 +350,9 @@ function SessionWorkspace({
                 ))}
               </select>
             </label>
-            <small>Access refreshes every 30 seconds and when you return to this tab.</small>
+            <small>
+              Access refreshes every 30 seconds and when you return to this tab.
+            </small>
           </div>
           <div className="lj-grid">
             <section aria-label="Accessible cases">
@@ -307,7 +365,9 @@ function SessionWorkspace({
                       aria-pressed={selected === row.incident_id}
                       onClick={() => setSelected(row.incident_id)}
                     >
-                      <strong>{text(row.species_common_name ?? row.animal_group)}</strong>
+                      <strong>
+                        {text(row.species_common_name ?? row.animal_group)}
+                      </strong>
                       <span className="lj-id">Case {row.incident_id}</span>
                       <div className="lj-meta">
                         <span>{row.state_code ?? 'State under review'}</span>
@@ -320,8 +380,8 @@ function SessionWorkspace({
                   <div className="lj-panel">
                     <h2>No cases in this view</h2>
                     <p className="lj-muted">
-                      Try another filter or refresh later. Only cases available to your
-                      verified account appear here.
+                      Try another filter or refresh later. Only cases available
+                      to your verified account appear here.
                     </p>
                   </div>
                 )}
@@ -362,10 +422,12 @@ function SessionWorkspace({
                 <section className="lj-panel">
                   <h2>A coordinated view</h2>
                   <p className="lj-muted">
-                    Select a case to see its animal location, triage status and lead
-                    organization.
+                    Select a case to see its animal location, triage status and
+                    lead organization.
                   </p>
-                  <p className="lj-notice">Seeing a case does not assign it to your team.</p>
+                  <p className="lj-notice">
+                    Seeing a case does not assign it to your team.
+                  </p>
                 </section>
               )}
             </aside>
@@ -416,7 +478,7 @@ function CaseDetail({
       <h2>{text(row.species_common_name ?? row.animal_group)}</h2>
       <p className="lj-id">{row.incident_id}</p>
       <dl>
-        <dt>Status</dt>
+        <dt>Intake record</dt>
         <dd>{text(row.status)}</dd>
         <dt>Severity</dt>
         <dd>{text(row.severity_level)}</dd>
@@ -431,14 +493,13 @@ function CaseDetail({
         <dt>Lead center</dt>
         <dd>
           {row.lead_organization_id
-            ? (organizations.find((org) => org.organization_id === row.lead_organization_id)
-                ?.name ?? 'Another response organization')
+            ? (organizations.find(
+                (org) => org.organization_id === row.lead_organization_id,
+              )?.name ?? 'Another response organization')
             : 'Not confirmed'}
         </dd>
       </dl>
-      <p className="lj-muted">
-        Response actions and reporter contact are not available in this view yet.
-      </p>
+      <CaseActions api={api} id={id} />
     </section>
   );
 }
@@ -501,7 +562,8 @@ function ReportResponse({ api, id }: { api: NetworkApi; id: string }) {
       </p>
       {update.reporter_can_leave && !update.leaving_cancels_report && (
         <p className="lj-notice">
-          You are welcome to leave if you need to. Leaving does not cancel your report.
+          You are welcome to leave if you need to. Leaving does not cancel your
+          report.
         </p>
       )}
     </section>

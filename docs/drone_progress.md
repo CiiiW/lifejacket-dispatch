@@ -406,3 +406,18 @@ Validation: GCP TypeScript check, 10 client API tests and Expo web export passed
 - Details and launch prerequisites: `docs/reporter_phone.md`.
 
 Validation: full backend regression suite passed; four reporter API transport tests passed; reporter TypeScript check and web export passed. Fictional browser checks passed for provider unavailable, unverified submission gate, failed code with code clearing, verified submission, own receipt history, animal-located status, departure without cancellation, unavailable-status clearing, and sign-out cleanup. These do not establish live SMS delivery or native-device support.
+
+### 2026-11-01 — Restricted rescuer contact and confirmed response lifecycle
+
+- Added server-scoped reporter contact reveal: approved involved staff only, current
+  call/text choices honored, views audited, no statewide/NOAA contact entitlement.
+- Added explicit accepted/en-route/arrived/animal-located updates and lead-coordinator
+  closure. Stale revisions are rejected; response events record actor/org/server time.
+- Own reporters see only confirmed minimal status; ETA and notifications remain unwired.
+- Added own-reporter current-case contact withdrawal without report cancellation.
+- Added console case actions, explicit human confirmation, short-lived contact reveal
+  and isolated fictional UI checks. No real messages/calls or rescue cases touched.
+- Feature remains off by default; existing GCP IAM/proxy live-auth blockers remain.
+  Details: `docs/rescuer_response_flow.md`.
+
+Validation: 99 relevant backend tests passed, including the restricted workflow/authorization and reporter suites; 11 console API tests and 4 reporter API tests passed. Both clients passed TypeScript checks and web exports. New backend routes/tests passed Ruff. Fictional browser checks passed for text-only contact, explicit confirmation, sequential response phases, closure clearing and NOAA read-only access. No live managed sign-in, contact delivery or public operational deployment is claimed.

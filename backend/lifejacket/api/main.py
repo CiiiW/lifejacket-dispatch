@@ -42,6 +42,7 @@ from lifejacket.api.routes import (
     incidents,
     intake,
     network,
+    network_actions,
     reporter_phone,
     responders,
 )
@@ -108,6 +109,7 @@ async def private_reporter_validation(request: Request, exc: RequestValidationEr
 
 app.include_router(reporter_phone.router)
 app.include_router(network.router)
+app.include_router(network_actions.router)
 app.include_router(access.router)
 app.include_router(intake.router)
 app.include_router(incidents.router)

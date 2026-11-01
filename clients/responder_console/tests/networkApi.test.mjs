@@ -1,9 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createNetworkApi, NetworkError, networkErrorMessage } from '../src/lib/networkApi.ts';
+import {
+  createNetworkApi,
+  NetworkError,
+  networkErrorMessage,
+} from '../src/lib/networkApi.ts';
 
-const person = { uid: 'fictional-user', getIdToken: async () => 'fictional-managed-token' };
-const json = (body, status = 200) => new Response(JSON.stringify(body), { status });
+const person = {
+  uid: 'fictional-user',
+  getIdToken: async () => 'fictional-managed-token',
+};
+const json = (body, status = 200) =>
+  new Response(JSON.stringify(body), { status });
 
 test('every request uses a fresh token and the selected organization header, never URL credentials', async () => {
   const requests = [];
@@ -47,20 +55,32 @@ test('every request uses a fresh token and the selected organization header, nev
 
 test('personal context omits organization and does not invent a role', async () => {
   let headers;
-  await createNetworkApi('http://localhost:8000', person, null, async (_, options) => {
-    headers = options.headers;
-    return json({ role: 'reporter' });
-  }).me();
-  assert.deepEqual(headers, { Authorization: 'Bearer fictional-managed-token' });
+  await createNetworkApi(
+    'http://localhost:8000',
+    person,
+    null,
+    async (_, options) => {
+      headers = options.headers;
+      return json({ role: 'reporter' });
+    },
+  ).me();
+  assert.deepEqual(headers, {
+    Authorization: 'Bearer fictional-managed-token',
+  });
 });
 
 for (const status of [401, 403, 404, 503]) {
   test(`HTTP ${status} has no retry, no legacy fallback and no provider diagnostic leak`, async () => {
     const calls = [];
-    const api = createNetworkApi('https://example.org', person, 'A', async (url) => {
-      calls.push(url);
-      return json({ detail: 'SECRET PROVIDER DIAGNOSTIC' }, status);
-    });
+    const api = createNetworkApi(
+      'https://example.org',
+      person,
+      'A',
+      async (url) => {
+        calls.push(url);
+        return json({ detail: 'SECRET PROVIDER DIAGNOSTIC' }, status);
+      },
+    );
     await assert.rejects(api.case('case_1'), (error) => {
       assert.ok(error instanceof NetworkError);
       assert.equal(error.status, status);
@@ -128,7 +148,9 @@ test('only configured HTTPS or loopback endpoints are accepted', () => {
   ]) {
     assert.throws(() => createNetworkApi(base, person, null));
   }
-  assert.throws(() => createNetworkApi('https://example.org', person, 'A\nX-Role:noaa'));
+  assert.throws(() =>
+    createNetworkApi('https://example.org', person, 'A\nX-Role:noaa'),
+  );
 });
 
 test('a stalled token refresh times out without sending any request', async () => {
@@ -148,4 +170,38 @@ test('a stalled token refresh times out without sending any request', async () =
   );
   await assert.rejects(api.me(), { name: 'AbortError' });
   assert.equal(calls, 0);
+});
+
+test('response mutation sends explicit confirmation and revision once, with managed authorization', async () => {
+  const requests = [];
+  const api = createNetworkApi(
+    'https://example.org',
+    person,
+    'A',
+    async (url, options) => {
+      requests.push([url, options]);
+      return json({});
+    },
+  );
+  await api.response('case_1');
+  await api.contact('case_1');
+  await api.changeResponse('case_1', 3, 'animal_located', null);
+  assert.equal(requests.length, 3);
+  assert.equal(
+    requests[2][0],
+    'https://example.org/network/cases/case_1/response',
+  );
+  assert.equal(requests[2][1].method, 'PATCH');
+  assert.deepEqual(JSON.parse(requests[2][1].body), {
+    revision: 3,
+    phase: 'animal_located',
+    confirmed: true,
+    closure_reason: null,
+  });
+  assert.equal(
+    requests[2][1].headers.Authorization,
+    'Bearer fictional-managed-token',
+  );
+  assert.equal(requests[2][1].headers['X-LifeJacket-Organization'], 'A');
+  assert.throws(() => api.changeResponse('case_1', -1, 'accepted', null));
 });

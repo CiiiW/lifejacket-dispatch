@@ -100,6 +100,7 @@ export function PhoneReporterPage({ api, configured = phoneConfigured, authDrive
         <p role="status">{status.message}</p>
         <p>{status.arrival_eta_minutes !== null && status.eta_is_estimate ? `Approximate arrival: ${Math.ceil(status.arrival_eta_minutes)} minutes. Updated ${status.eta_updated_at}.` : 'An arrival estimate is not available.'}</p>
         <p>You may leave whenever you need to. Your report stays active.</p>
+        <button className="secondary" disabled={busy} onClick={() => run(() => api.preferences(selected, user, []), () => setNotice('Current-case call and text permission withdrawn. Your report has not been cancelled.'))}>Stop calls and texts about this case</button>
         <div className="toolbar"><button className="secondary" disabled={busy} onClick={() => run(() => api.presence(selected, user, 'nearby'), () => setNotice('Recorded: you are still nearby.'))}>I’m still nearby</button><button className="secondary" disabled={busy} onClick={() => run(() => api.presence(selected, user, 'left'), () => setNotice('Recorded: you have left. Your report has not been cancelled.'))}>I’ve left the scene</button></div>
       </>}
     </section>}

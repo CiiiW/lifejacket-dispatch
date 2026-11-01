@@ -21,7 +21,7 @@ from lifejacket.access.identity import (
     InvalidIdentity,
     verify_provider_token,
 )
-from lifejacket.access.memberships import AccessDenied, ensure_account
+from lifejacket.access.memberships import AccessDenied, audit, ensure_account
 from lifejacket.access.policy import CaseAccess, Principal, Role
 from lifejacket.access.reporter_view import ResponsePhase, reporter_update
 from lifejacket.api.routes import intake
@@ -302,3 +302,25 @@ def presence(incident_id: str, body: Presence, session: Session = Depends(get_se
     row.presence = body.presence
     session.commit()
     return {"case_id": incident_id, "presence": row.presence, "leaving_cancels_report": False}
+
+
+class ContactPreferences(PhoneToken):
+    contact_channels: list[Literal["call", "text"]] = Field(default_factory=list, max_length=2)
+
+
+@router.post("/reports/{incident_id}/contact-preferences")
+def contact_preferences(
+    incident_id: str, body: ContactPreferences, session: Session = Depends(get_session)
+):
+    row, user = own_submission(session, incident_id, body)
+    row.contact_channels = sorted(set(body.contact_channels))
+    row.contact_notice_version = "current-case-v1"
+    audit(
+        session,
+        "reporter_contact_preferences_changed",
+        incident_id,
+        user.user_id,
+        {"channels": row.contact_channels, "notice_version": "current-case-v1"},
+    )
+    session.commit()
+    return {"case_id": incident_id, "contact_channels": row.contact_channels}

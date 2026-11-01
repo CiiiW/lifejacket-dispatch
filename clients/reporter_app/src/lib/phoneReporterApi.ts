@@ -53,6 +53,7 @@ export function createPhoneReporterApi(base: string, transport: typeof fetch = f
     submit: (draft: Draft, user: PhoneUser, channels: string[]) => request<{ case_id: string; submitted: boolean }>(`/drafts/${id(draft.turn.incident_id)}/submit`, { draft_key: draft.draft_key, contact_channels: channels }, user),
     reports: (user: PhoneUser) => request<ReportReceipt[]>('/reports', {}, user),
     status: (caseId: string, user: PhoneUser) => request<ReportStatus>(`/reports/${id(caseId)}/status`, {}, user),
+    preferences: (caseId: string, user: PhoneUser, channels: string[]) => request(`/reports/${id(caseId)}/contact-preferences`, {contact_channels:channels}, user),
     presence: (caseId: string, user: PhoneUser, presence: string) => request(`/reports/${id(caseId)}/presence`, { presence }, user),
   };
 }

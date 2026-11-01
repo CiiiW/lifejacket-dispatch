@@ -21,9 +21,15 @@ class NetworkBoundaryMiddleware(BaseHTTPMiddleware):
                 settings.reporter_phone_enabled
                 and request.method == "POST"
                 and re.fullmatch(
-                    r"/reporter/(drafts|reports|drafts/[A-Za-z0-9_-]{1,40}/(turn|photo|submit)|reports/[A-Za-z0-9_-]{1,40}/(status|presence))",
+                    r"/reporter/(drafts|reports|drafts/[A-Za-z0-9_-]{1,40}/(turn|photo|submit)|reports/[A-Za-z0-9_-]{1,40}/(status|presence|contact-preferences))",
                     path,
                 )
+            ):
+                safe = True
+            if (
+                settings.network_case_actions_enabled
+                and request.method == "PATCH"
+                and re.fullmatch(r"/network/cases/[A-Za-z0-9_-]{1,40}/response", path)
             ):
                 safe = True
             # OPTIONS carries no case payload; the CORS layer validates the origin.

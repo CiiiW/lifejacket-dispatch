@@ -485,3 +485,29 @@ class ReporterDraftRow(Base):
     contact_channels: Mapped[list] = mapped_column(JSON, default=list)
     contact_notice_version: Mapped[str | None] = mapped_column(String(32))
     presence: Mapped[str] = mapped_column(String(16), default="unspecified")
+
+
+class NetworkResponseRow(Base):
+    """Optimistic version for response changes; separate from legacy incident status."""
+
+    __tablename__ = "network_responses"
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("network_cases.incident_id"), primary_key=True
+    )
+    revision: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class NetworkResponseEventRow(Base):
+    __tablename__ = "network_response_events"
+    __table_args__ = (UniqueConstraint("incident_id", "revision"),)
+    event_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("network_cases.incident_id"), index=True
+    )
+    revision: Mapped[int] = mapped_column(Integer)
+    previous_phase: Mapped[str] = mapped_column(String(24))
+    phase: Mapped[str] = mapped_column(String(24))
+    actor_user_id: Mapped[str] = mapped_column(String(40))
+    organization_id: Mapped[str] = mapped_column(String(64))
+    closure_reason: Mapped[str | None] = mapped_column(String(32))
+    recorded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
