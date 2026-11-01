@@ -389,3 +389,20 @@ older run results with newer ones or treat planned work as implemented.
 - Live login still blocked by the existing backend IAM permission and notebook proxy auth-header behavior; enabling email auth does not resolve either. No IAM escalation, deployment, notification or real professional grant was performed.
 
 Validation: GCP TypeScript check, 10 client API tests and Expo web export passed. Browser fictional checks passed for invalid sign-in/password clearing, generic reset acknowledgement on simulated failure, password mismatch, unverified-account gate, verification resend, unverified refresh, verified refresh, and sign-out. No live Auth delivery or end-to-end API login is claimed.
+
+### 2026-11-01 — Reporter phone verification (revises guest tracking plan)
+
+- Charlotte chose mandatory phone/SMS verification before submission and tracking;
+  a photo/location/conversation draft can be prepared first without registration.
+- Added private expiring draft credentials and managed phone-token verification at
+  submission. Receipt history is issuer/subject-owned; no incident-ID-only tracking
+  link, password requirement, auto-grant of professional roles or future subscriptions.
+- Added phone-browser reporter UI, current-case call/text choices, own-case timeline,
+  and departure update without cancellation. Native production wrapper has no
+  unverified fallback; old Expo Go screens are explicit private demo only.
+- Live SMS, public deployment, native development build, reviewed ETA source and
+  outbound case notifications are pending. Existing GCP token-verifier IAM blocker
+  remains. No provider/billing activation, real SMS or actual rescue case was created.
+- Details and launch prerequisites: `docs/reporter_phone.md`.
+
+Validation: full backend regression suite passed; four reporter API transport tests passed; reporter TypeScript check and web export passed. Fictional browser checks passed for provider unavailable, unverified submission gate, failed code with code clearing, verified submission, own receipt history, animal-located status, departure without cancellation, unavailable-status clearing, and sign-out cleanup. These do not establish live SMS delivery or native-device support.

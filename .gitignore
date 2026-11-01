@@ -88,3 +88,6 @@ scratch/
 
 # Dedicated verified network console build output.
 clients/responder_console/dist-network/
+
+# Phone-browser reporter web export.
+clients/reporter_app/dist-reporter/

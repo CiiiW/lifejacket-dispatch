@@ -19,6 +19,9 @@ class VerifiedIdentity:
     subject: str
     email: str | None = None
     email_verified: bool = False
+    phone_number: str | None = None
+    sign_in_provider: str | None = None
+    auth_time: int | None = None
 
 
 @lru_cache(maxsize=4)
@@ -80,4 +83,9 @@ def verify_provider_token(token: str, project_id: str) -> VerifiedIdentity:
         claims.get("email_verified") is True
         and isinstance(email, str)
         and bool(email.strip()),
+        claims.get("phone_number") if isinstance(claims.get("phone_number"), str) else None,
+        (claims.get("firebase") or {}).get("sign_in_provider")
+        if isinstance(claims.get("firebase"), dict)
+        else None,
+        claims.get("auth_time") if type(claims.get("auth_time")) is int else None,
     )

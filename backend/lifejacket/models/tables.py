@@ -465,3 +465,23 @@ class NetworkCaseAssigneeRow(Base):
         String(64), ForeignKey("access_organizations.organization_id"), primary_key=True
     )
     accepted: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class ReporterDraftRow(Base):
+    """Private, expiring draft credential; raw keys are never stored."""
+
+    __tablename__ = "reporter_drafts"
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), primary_key=True
+    )
+    key_hash: Mapped[str] = mapped_column(String(64))
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    submitted_user_id: Mapped[str | None] = mapped_column(
+        String(40), ForeignKey("access_users.user_id")
+    )
+    submitted_at: Mapped[datetime | None] = mapped_column(DateTime)
+    # Current-case contact only. None of these is a future-outreach subscription.
+    phone_number: Mapped[str | None] = mapped_column(String(16))
+    contact_channels: Mapped[list] = mapped_column(JSON, default=list)
+    contact_notice_version: Mapped[str | None] = mapped_column(String(32))
+    presence: Mapped[str] = mapped_column(String(16), default="unspecified")

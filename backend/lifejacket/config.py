@@ -48,6 +48,8 @@ class Settings(BaseSettings):
 
     # Managed end-user authentication; distinct from Workbench/Vertex ADC.
     network_auth_enabled: bool = False
+    # Only safe alongside the network boundary; never enables legacy public routes.
+    reporter_phone_enabled: bool = False
     firebase_auth_project_id: str | None = None
 
     # --- LLM / Vertex AI -------------------------------------------------
