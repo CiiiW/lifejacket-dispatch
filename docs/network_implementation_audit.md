@@ -122,3 +122,21 @@ policy/projection/assignment regressions. Initial focused run: 65 passed before
 the extra long-ETA check. Python lint and diff checks passed. One existing
 Starlette/httpx dependency warning remains. No UI or live authorization rollout
 was performed in this increment.
+
+## Managed identity and membership session increment (2026-11-01)
+
+`GET /access/me` now verifies managed provider tokens with revocation checks and
+resolves current approved database memberships. New sign-ins remain personal
+reporters; explicit organization approval, member approval, verified email and
+state subsets are required for professional context. Revocation is checked on
+every request. The trusted offline admin CLI creates additive tables and records
+approval/revocation audit events. No public role-grant endpoint exists.
+
+See [configuration and boundaries](network_signin.md). No real accounts, grants,
+cloud provider setup or UI sign-in were activated. Legacy case routes still need
+shared authorization enforcement and reporter ownership/response projection.
+
+Validation: all 35 new session/provider/admin tests and all 507 offline backend
+tests passed on GCP. Python lint and diff checks passed; one existing
+Starlette/httpx dependency warning remains. Tests use fictional identities and
+mocked provider responses; live provider configuration was not exercised.

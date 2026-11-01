@@ -47,3 +47,6 @@ matplotlib>=3.9.0                # photo previews in the chatbot notebooks, rese
 jupyterlab>=4.2.0
 ipykernel>=6.29.0                 # lets this venv be registered as a Jupyter/VS Code kernel
 nbconvert>=7.16.0                 # needed to run a notebook headless, e.g. in CI
+
+# Managed end-user token verification (lazy until network auth is enabled).
+firebase-admin>=6.5.0

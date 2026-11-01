@@ -74,10 +74,24 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **472 passed on GCP** on 2026-10-31.
+- Latest full backend validation: **507 passed on GCP** on 2026-11-01.
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-11-01 — Managed identity and persistent organization memberships
+
+- Added managed ID-token verification with provider revocation/disabled-user
+  checks, an authenticated `/access/me` session endpoint and database-backed
+  organization/member state scopes. Personal sign-in grants no professional role.
+- Added trusted offline additive-table initialization, explicit approvals and
+  membership revocation with audit records. Existing case records are preserved.
+- No real staff grants or cloud provider/IAM setup were performed. Legacy case
+  routes remain outside this authorization boundary; frontend sign-in, verified
+  geography and route-wide enforcement are next.
+- Validation: 35 new tests and all 507 offline backend tests passed on GCP;
+  lint and diff checks passed. One existing Starlette/httpx warning remains.
+- Setup and limitations: [managed sign-in](network_signin.md).
 
 ### 2026-10-31 — Network source audit and first backend foundations
 

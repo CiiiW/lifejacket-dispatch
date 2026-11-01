@@ -369,3 +369,53 @@ class DroneDemoFrameRow(Base):
     revision: Mapped[int] = mapped_column(Integer, default=0)
     reviews_json: Mapped[list] = mapped_column(JSON, default=list)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+class AccessUserRow(Base):
+    """Local identity bound to a verified provider subject, never an email match."""
+
+    __tablename__ = "access_users"
+    __table_args__ = (UniqueConstraint("issuer", "subject"),)
+    user_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    issuer: Mapped[str] = mapped_column(String(256))
+    subject: Mapped[str] = mapped_column(String(128))
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+class AccessOrganizationRow(Base):
+    """Approved professional organization; distinct from a directory listing."""
+
+    __tablename__ = "access_organizations"
+    organization_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    name: Mapped[str] = mapped_column(String(256))
+    kind: Mapped[str] = mapped_column(String(20))  # noaa | rescue_center
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    approved_states: Mapped[list] = mapped_column(JSON, default=list)
+    verified_at: Mapped[datetime | None] = mapped_column(DateTime)
+    verified_by: Mapped[str | None] = mapped_column(String(80))
+
+
+class AccessMembershipRow(Base):
+    __tablename__ = "access_memberships"
+    __table_args__ = (UniqueConstraint("user_id", "organization_id"),)
+    membership_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    user_id: Mapped[str] = mapped_column(String(40), ForeignKey("access_users.user_id"))
+    organization_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("access_organizations.organization_id")
+    )
+    role: Mapped[str] = mapped_column(String(32))
+    status: Mapped[str] = mapped_column(String(16), default="pending")
+    approved_states: Mapped[list] = mapped_column(JSON, default=list)
+    verified_at: Mapped[datetime | None] = mapped_column(DateTime)
+    verified_by: Mapped[str | None] = mapped_column(String(80))
+
+
+class AccessAuditRow(Base):
+    __tablename__ = "access_audit"
+    event_id: Mapped[str] = mapped_column(String(40), primary_key=True)
+    kind: Mapped[str] = mapped_column(String(48))
+    target_id: Mapped[str] = mapped_column(String(64))
+    actor_ref: Mapped[str] = mapped_column(String(80))
+    recorded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    details: Mapped[dict] = mapped_column(JSON)

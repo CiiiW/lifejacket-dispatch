@@ -11,3 +11,6 @@ google-auth>=2.35.0
 httpx>=0.27.0
 Pillow>=10.4.0
 openpyxl>=3.1.0
+
+# Managed end-user token verification (lazy until network auth is enabled).
+firebase-admin>=6.5.0

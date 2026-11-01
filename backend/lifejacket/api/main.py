@@ -29,6 +29,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.engine import make_url
 
 from lifejacket.api.routes import (
+    access,
     coordination,
     drone_demo,
     drone_intake,
@@ -84,6 +85,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(access.router)
 app.include_router(intake.router)
 app.include_router(incidents.router)
 app.include_router(responders.router)

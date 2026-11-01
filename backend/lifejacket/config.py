@@ -46,6 +46,10 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # Managed end-user authentication; distinct from Workbench/Vertex ADC.
+    network_auth_enabled: bool = False
+    firebase_auth_project_id: str | None = None
+
     # --- LLM / Vertex AI -------------------------------------------------
     # The team's GCP project hosts the Gemini models used by all three agents.
     gcp_project: str = Field(default="spring-2026-lifejacket")
