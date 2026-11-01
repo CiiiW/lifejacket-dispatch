@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "parent_sha256": "f335b21c54e45cc2689bee64715cc12f7acf6338ca8016ff0c9c08941cbcc541",
+  "excerpt_sha256": "b8794c58c89b51964eb986e4cb5cada1530554ea420c52973f2fc5157683bc02",
+  "requested_start_seconds": 156,
+  "requested_duration_seconds": 8,
+  "first_parent_pts_seconds": 156.023,
+  "last_parent_pts_seconds": 163.997,
+  "source": "NOAA Fisheries video 4084857759001",
+  "transform": [
+    "ffmpeg",
+    "-nostdin",
+    "-v",
+    "info",
+    "-i",
+    "var/mini2/noaa-california-sea-lions.mp4",
+    "-vf",
+    "trim=start=156:duration=8,showinfo,setpts=PTS-STARTPTS",
+    "-an",
+    "-c:v",
+    "mpeg4",
+    "-q:v",
+    "2",
+    "-threads",
+    "1",
+    "var/mini2/noaa-pups-156-164.mp4"
+  ],
+  "purpose": "Closer-view pipeline test, not aerial performance or injury evaluation",
+  "time_note": "Excerpt timestamps reset to zero. Parent first/last decoded presentation times retained; no absolute capture time or GPS.",
+  "manifest_sha256": "99e76194c000c3e0a91d9cc67513dfc2c4bf8dc6cec479bcb6f95d003307391b"
+}

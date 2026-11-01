@@ -79,6 +79,26 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-10-31 — Opening review complete and closer-view video run
+
+- Inspected original opening frames and completed provisional/model-visible
+  worksheets for all 12: five negative credit slates, four uncertain wide aerial
+  views, three visible-colony views. Five possible-group regions and eight
+  uncertain regions; no verified individual identities, recall or injury labels.
+- Preserved the initial one-slate export and added the complete opening review.
+- Scouted 32 samples across the original video offline; selected a ground-level
+  pup sequence. Derived 8-second excerpt, retaining parent/excerpt hashes,
+  source PTS 156.023–163.997s and transform details. No GPS/capture date inferred.
+- GCP detection: 16/16 completed, 0 failures, boxes 2,2,2,3,3,3,3,2,2,2,2,2,1,1,1,1.
+  Browser verified 16 images and 32 proposals. Clearer views produce individual
+  animal proposals, but neither 32 proposals nor this ground-level clip measures
+  distinct animals, aerial performance or injury accuracy.
+- Run outputs, metadata and lineage saved; see [pilot record](noaa_video_pilot.md).
+  New excerpt remains outside the toy/synthetic app queue. No code changed;
+  existing 432-test code validation retained, with new JSON/media integrity checks.
+- Next: define partial/background-target inclusion, draw per-animal reference
+  boxes and review the new 16-frame excerpt before computing detection metrics.
+
 ### 2026-10-31 — Visible video regions and manual review worksheets
 
 - Added numbered, responsive SVG detection boxes, escaped region descriptions,

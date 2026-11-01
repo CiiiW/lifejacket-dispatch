@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "stage": "frames_prepared",
+  "metadata": {
+    "evidence_kind": "wildlife_recording",
+    "source": "NOAA Fisheries California Sea Lions, video 4084857759001; re-encoded excerpt from parent PTS 156.023s; parent SHA256 f335b21c54e45cc2689bee64715cc12f7acf6338ca8016ff0c9c08941cbcc541",
+    "rights_note": "NOAA Fisheries; cinematography Paul B. Hillman / NOAA Fisheries. Opening Point Bennett sequence: NMFS MMPA Permit #16087-01 and #14327. Retain general and sequence credits with any excerpt.",
+    "recording_started_at": null
+  },
+  "source": {
+    "path": "source.mp4",
+    "sha256": "b8794c58c89b51964eb986e4cb5cada1530554ea420c52973f2fc5157683bc02",
+    "bytes": 11529146,
+    "duration_seconds": 8.008,
+    "width": 1280,
+    "height": 720
+  },
+  "extraction": {
+    "interval_seconds": 0.5,
+    "max_frames": 16,
+    "max_edge": 1280,
+    "timestamps": "relative_presentation_time",
+    "ffmpeg_version": "ffmpeg version 6.1.2 Copyright (c) 2000-2024 the FFmpeg developers"
+  },
+  "sample_limit_reached": true,
+  "frames": [
+    {
+      "path": "frames/0001.jpg",
+      "sha256": "716518af87cba6006227404dd4677bd0e4fa87fafee11f5147dd06981461947e",
+      "offset_seconds": 0,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0002.jpg",
+      "sha256": "7738a01b06d6b3423e97cba75251aa7ecef2163214abbcd44fb10fedc3fda8e6",
+      "offset_seconds": 0.5005,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0003.jpg",
+      "sha256": "31f258686d4086a90d3107e6afc4283e7819b1ba6e13ef5c024d7c2b40e1e639",
+      "offset_seconds": 1.001,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0004.jpg",
+      "sha256": "8848be325f616e8bf63c090d6d99b5228a180729829ab0bfe578d6d9c7502451",
+      "offset_seconds": 1.5015,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0005.jpg",
+      "sha256": "59a22f1528beb68c73ce1156612a50b3d9226181671a2e264536569354fe6c7a",
+      "offset_seconds": 2.002,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0006.jpg",
+      "sha256": "2a8c14ec78b070f3da7d2fa565620e4c816337fefde3943bff3b78c4e2a02b36",
+      "offset_seconds": 2.5025,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0007.jpg",
+      "sha256": "7e69ad5f58eccfb54e2b00afb0e3f97301932694af7cd13a8e5024ea99066659",
+      "offset_seconds": 3.003,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0008.jpg",
+      "sha256": "892a1a4b4e90bbc37a99293aa77d258a8c64579a473a55ae4252152a567d7409",
+      "offset_seconds": 3.5035,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0009.jpg",
+      "sha256": "54ace478188da3d96412b18f9a28c889a376c6af71e427c25391b8fb47cd1589",
+      "offset_seconds": 4.004,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0010.jpg",
+      "sha256": "ef17a88aee1e50b04551516227489e8662e6f92e9d2a98099e74fb61227c8f21",
+      "offset_seconds": 4.5045,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0011.jpg",
+      "sha256": "ae1b19020e837a7ebb1f5c482bdf6e38855c1687d9f453fb367e830410b9082b",
+      "offset_seconds": 5.005,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0012.jpg",
+      "sha256": "4fb917501904db0df05a72c9f839871806d721eb4629b6bcf0991e53a3bb2602",
+      "offset_seconds": 5.5055,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0013.jpg",
+      "sha256": "5141821f9ebb003b55417d51a8ab1944b3a5b9e26d92d089058067f29c3b9278",
+      "offset_seconds": 6.006,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0014.jpg",
+      "sha256": "360f8ed73e6f27389de291ad6ad8b03e34340859c01498d2610cf1b725695b41",
+      "offset_seconds": 6.5065,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0015.jpg",
+      "sha256": "682eff04860d2086b0f6a23822ddf2a0363cc1222186bbaea8fb84798bf079c9",
+      "offset_seconds": 7.007,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    },
+    {
+      "path": "frames/0016.jpg",
+      "sha256": "cde582eb89a3a223a8ab6fe43deb4b65a0289a8c84debdfdb70a886da06e50fd",
+      "offset_seconds": 7.5075,
+      "captured_at": null,
+      "aircraft_position": null,
+      "animal_position": null
+    }
+  ],
+  "limitations": [
+    "Sparse frame sampling may miss animals; this is not video tracking.",
+    "Toy recognition and aerial injury assessment are unvalidated.",
+    "Capture times require a correct operator-supplied recording start.",
+    "No GPS alignment, live stream, flight control or case creation."
+  ]
+}

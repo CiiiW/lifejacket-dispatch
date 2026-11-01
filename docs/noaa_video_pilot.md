@@ -90,3 +90,64 @@ marks only the opening credit slate as reviewed (no animals visible); the remain
 This is a Codex visual project review with model output exposed, not independent
 expert ground truth. It does not establish detection recall or injury accuracy.
 See the [worksheet workflow](mini2_demo.md#inspect-boxes-and-record-provisional-reviews).
+
+## Completed opening review and closer-view follow-up
+
+The [complete opening review](../research/noaa_video_pilot/provisional-opening-review-2026-10-31.json)
+adds a provisional assessment for all 12 original frames, superseding the initial
+one-slate worksheet as the latest review. It preserves the earlier export.
+
+- 5 slates: no animals visible, no predicted regions, missed count 0.
+- 4 wide aerial frames: animal presence uncertain, missed count unknown/null.
+- 3 later aerial frames: visible colony areas; individual counts remain unknown.
+- Of 13 model-proposed regions, 5 are marked possible groups and 8 uncertain.
+  No individual identity, expert injury or accuracy labels are implied.
+- Reviewer: Codex visual review; model-visible and not independent ground truth.
+  Presence/region judgements cannot substitute for per-target reference boxes.
+
+### Closer-view inference
+
+Scouted the original package at 10-second intervals (32 samples, no model calls)
+and selected a closer-view Point Bennett sequence. The new excerpt contains two
+foreground pups and cropped/background animals early on; one pup leaves later.
+This is ground-level footage, not an aerial benchmark. An animal leaving the
+frame is not a missed detection. Define treatment of partial/background animals
+before labeling recall.
+
+An 8-second excerpt was re-encoded with source `trim` and zero-based output PTS.
+First/last retained parent PTS reported by FFmpeg: **156.023 / 163.997 seconds**.
+Both parent and excerpt hashes are preserved in
+[parent provenance](../research/noaa_video_pilot/pups-close-parent-provenance-2026-10-31.json).
+Capture date, GPS, aircraft position and animal location remain unknown.
+
+GCP bundle: `var/mini2/noaa-pups-close-156s`. Private review:
+notebook `/proxy/8919/review.html`. Model: existing Gemini 2.5 Flash DetectionAgent.
+
+- 16 samples at roughly 0.5-second intervals, offsets 0–7.508s relative to excerpt.
+- 16 completed; 0 failures. Boxes per frame:
+  **2,2,2,3,3,3,3,2,2,2,2,2,1,1,1,1**.
+- 32 region proposals across repeated frames, not 32 distinct animals.
+- Saved attempt latency sums to 80.14s; token total 45,333 (not a cost estimate).
+- Browser verified all 16 images and 32 overlays. The 4.004s/4.505s views show
+  separate proposals around the two visible pups. Individual reference boxes
+  and full candidate reviews for this new excerpt remain pending.
+- [Detection output](../research/noaa_video_pilot/pups-close-detections-2026-10-31.json)
+  and [manifest](../research/noaa_video_pilot/pups-close-manifest-2026-10-31.json)
+  retain hashes, offsets and attempt metrics. No cases/notifications created.
+
+Reproduce after restoring the original MP4 and verifying its hash above:
+
+```bash
+ffmpeg -nostdin -v info -i var/mini2/noaa-california-sea-lions.mp4 \
+  -vf 'trim=start=156:duration=8,showinfo,setpts=PTS-STARTPTS' \
+  -an -c:v mpeg4 -q:v 2 -threads 1 var/mini2/noaa-pups-156-164.mp4
+PYTHONPATH=backend python scripts/drone_video.py prepare \
+  var/mini2/noaa-pups-156-164.mp4 \
+  --metadata config/examples/noaa_pups_excerpt_metadata.json \
+  --output var/mini2/noaa-pups-new-attempt --interval 0.5 --max-frames 16
+PYTHONPATH=backend python scripts/drone_video.py detect var/mini2/noaa-pups-new-attempt
+```
+
+Use fresh paths; do not overwrite evidence. Decoder/encoder changes may change
+hashes and sample timing; retain newly observed provenance rather than copying
+this run's hashes. Keep the general/sequence credits with any excerpt.
