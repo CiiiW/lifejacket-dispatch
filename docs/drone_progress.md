@@ -421,3 +421,16 @@ Validation: full backend regression suite passed; four reporter API transport te
   Details: `docs/rescuer_response_flow.md`.
 
 Validation: 99 relevant backend tests passed, including the restricted workflow/authorization and reporter suites; 11 console API tests and 4 reporter API tests passed. Both clients passed TypeScript checks and web exports. New backend routes/tests passed Ruff. Fictional browser checks passed for text-only contact, explicit confirmation, sequential response phases, closure clearing and NOAA read-only access. No live managed sign-in, contact delivery or public operational deployment is claimed.
+
+### 2026-11-01 — Teammate VS Code portability
+
+- Added a repository-owned local launcher for the two fictional reporter/console
+  fixtures, replacing reliance on session-specific GCP esbuild paths and manual servers.
+- Added pinned root bundler dependency, client-lockfile install commands and a local
+  preview integration check; preview uses loopback only, static routes and no backend.
+- Updated teammate/client docs and stale branch instructions. Live cloud services
+  still require each developer's own configuration/credentials and relevant permissions.
+- The Workbench service-account IAM block does not prevent running the local UI demos
+  or isolated backend tests. Details: `docs/teammate_setup.md`.
+
+Validation: a clean Linux source copy with no existing `.env` or node_modules passed `npm ci`, `npm run setup:demos`, `npm run check:demos` and `npm run test:local-demo`. Both pages were opened in the browser and the fictional reporter submission completed without backend/cloud access. macOS/Windows native installs were not executed in this session.

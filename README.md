@@ -11,9 +11,25 @@ The prototype does not verify permits or automatically dispatch responders.
 Drone work status, evidence, open tasks and session notes: [Drone progress tracker](docs/drone_progress.md).
 Recorded Mini 2 video preparation and local review: [Mini 2 demo workflow](docs/mini2_demo.md).
 
+## Teammate quick start in VS Code
+
+For the reporter and rescue-dashboard **fictional demos**, install Node.js 24.3+
+then run from this branch's repository root:
+
+```bash
+npm ci
+npm run setup:demos
+npm run demo:network
+```
+
+Open <http://127.0.0.1:8082>. No GCP permission, backend, Python or Docker is
+needed for these UI demos. Real AI, SMS and managed login still need their own
+configuration. See [teammate setup](docs/teammate_setup.md) for the branch/pull
+commands, backend tests, and live-versus-demo requirements.
+
 ## Run the local drone demo
 
-With Python 3.11+ and Docker running, pull the `charlotte` branch and run:
+With Python 3.11+ and Docker running, pull the `charlotte-mini2-demo` branch and run:
 
 ```bash
 python3 scripts/local_demo.py

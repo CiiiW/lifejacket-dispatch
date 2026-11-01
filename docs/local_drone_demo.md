@@ -9,7 +9,7 @@ it), and start Docker. You need internet for the first image/dependency download
 and the map's OpenStreetMap tiles. From your checkout:
 
 ```bash
-git checkout charlotte
+git checkout charlotte-mini2-demo
 git pull --ff-only
 python3 scripts/local_demo.py
 ```

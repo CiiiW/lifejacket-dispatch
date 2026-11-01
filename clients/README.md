@@ -2,21 +2,19 @@
 
 Two apps, both Expo SDK 57 (React Native 0.86) + TypeScript.
 
-Keep both on the SDK that Expo Go currently ships: Expo Go supports only the
-latest SDK, so falling behind means the reporter app cannot be run on an
-iPhone without a paid Apple Developer account.
+The reporter's phone-verified flow currently runs in the browser (including
+mobile Safari). Its default native wrapper links to the configured web app;
+native SMS support requires a development build. The old native reporter is
+an explicit private demo, not a verified production fallback.
 
-| App | Audience | Platforms | Entry point |
-|---|---|---|---|
-| [`reporter_app/`](reporter_app/) | The public | iOS, Android | Report an animal, chat with the agent, watch help arrive |
-| [`responder_console/`](responder_console/) | Rescue organisations | iOS, Android, **web** | Triage, case coordination review, outcomes, shift handover |
+| App | Audience | Current entry |
+| --- | --- | --- |
+| [`reporter_app/`](reporter_app/) | Reporters | Phone-browser draft, SMS verification, own-case status |
+| [`responder_console/`](responder_console/) | NOAA/centers/rescuers | Web role-scoped cases and confirmed response actions |
 
-## Why Expo for both
-
-The specification calls for the reporter app to be phone-only and the responder
-console to work on **both phone and web**. Expo compiles the same React Native
-codebase to iOS, Android, and the browser (via `react-native-web`), so the
-console is one codebase rather than a native app plus a separate React site.
+For a no-credentials VS Code demo, start at the repository root with `npm ci`,
+`npm run setup:demos`, then `npm run demo:network`. See
+[teammate setup](../docs/teammate_setup.md). This does not require a running API.
 
 ## The rule these apps follow
 
@@ -49,7 +47,7 @@ Two platform notes:
 
 ## Running them
 
-Both need the backend up first:
+The actual live clients need a configured backend first:
 
 ```bash
 # from the repository root
@@ -60,7 +58,7 @@ Then:
 
 ```bash
 cd clients/reporter_app      # or responder_console
-npm install
+npm ci
 npx expo start               # press i for iOS, a for Android, w for web
 ```
 
@@ -73,10 +71,10 @@ EXPO_PUBLIC_API_URL=http://192.168.1.42:8000 npx expo start
 
 ## Status
 
-These are working scaffolds, not finished apps: the screens and API wiring are
-real and styled to the design system above, but there is no authentication yet
-(`RESPONDER_ID` is hardcoded in the console's `App.tsx`). See the repository
-README's "Where to pick up" section.
+The new web network/phone flows implement managed sign-in, database-backed access
+boundaries and confirmed case response actions. Live sign-in/SMS setup is still
+pending. The older private console contains a hardcoded responder ID and must
+not be confused with the verified network mode. See the setup docs linked above.
 
 Incident detail includes an explicit Check Coordination action: it makes live
 model calls and shows record-backed review proposals, never dispatches.

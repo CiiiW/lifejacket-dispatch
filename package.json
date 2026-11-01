@@ -1,0 +1,12 @@
+{
+  "name": "lifejacket-local-workspace",
+  "private": true,
+  "engines": { "node": ">=24.3.0" },
+  "scripts": {
+    "setup:demos": "node scripts/local_network_demo.mjs --install",
+    "demo:network": "node scripts/local_network_demo.mjs",
+    "check:demos": "node scripts/local_network_demo.mjs --check",
+    "test:local-demo": "node --test scripts/test_local_network_demo.mjs"
+  },
+  "devDependencies": { "esbuild": "0.28.1" }
+}
