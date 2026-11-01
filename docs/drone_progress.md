@@ -74,10 +74,33 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **432 passed on GCP** on 2026-10-31.
+- Latest full backend validation: **472 passed on GCP** on 2026-10-31.
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 — Network source audit and first backend foundations
+
+- Traced identity, map/detail/media/history, assignments, contact, ETA and schema
+  behavior; [audit and rollout](network_implementation_audit.md) records concrete
+  gaps. Existing raw routes remain unauthenticated; this is not live RBAC rollout.
+- Added pure deny-by-default permission policy for verified principal/case
+  snapshots: NOAA global submitted reports, approved state-wide center views,
+  accepted field assignments, owner-only reporter view, participant contact/
+  operations and narrowing lead/support/receiving/my-center filters.
+- Added minimal owner-scoped reporter response contract with explicit acceptance,
+  en-route, arrival, animal-located and closed phases. Only fresh en-route arrival
+  estimates appear; no staff coordinates, contact details or internal transcripts.
+- Fixed legacy multi-offer regression: additional offers/declines/acceptances
+  preserve an active primary and travel/on-scene progress. Closed cases reject new
+  offers/responses; matching response retries are idempotent. No automatic support
+  membership or concurrent-update authorization is claimed.
+- GCP validation: initial focused regression run 65 passed; full backend after
+  the long-ETA check 472 passed (one existing dependency warning). Python lint
+  and diff checks passed. No model calls, migrations or notifications.
+- Next: verified sign-in/membership and geography migration, then enforce the
+  policy on every read/mutation and replace hardcoded client identity. The new
+  policy/projection functions are not yet adapters protecting legacy HTTP routes.
 
 ### 2026-10-31 — Assigned-rescuer contact and reporter response updates
 

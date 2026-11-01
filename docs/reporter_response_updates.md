@@ -93,3 +93,8 @@ future-contact preferences; no ETA before departure; arrival vs animal-found vs
 closure; stale/unavailable ETA; reporter departure without report cancellation;
 minimal reporter payload without responder coordinates/internal records; and
 updates reaching only opted-in/report-authorized recipients.
+
+
+A minimal reporter projection and authorization policy are now implemented as
+pure backend functions; [audit and integration plan](network_implementation_audit.md).
+The legacy reporter screen/ETA endpoint are not yet using that contract.

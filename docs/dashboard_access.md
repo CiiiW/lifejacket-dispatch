@@ -1,6 +1,7 @@
 # Dashboard access and cross-center collaboration
 
-Status: requirements/design recorded, not implemented. Based on Charlotte's
+Status: product design recorded; pure policy foundation added, but live RBAC is
+not implemented. See [source audit and rollout plan](network_implementation_audit.md). Based on Charlotte's
 requested NOAA-wide and state-wide rescue-center visibility.
 
 ## Visibility and filters
@@ -47,7 +48,7 @@ visibility does not automatically grant unrestricted operational changes.
 
 - Default state-wide view lets centers see nearby reports even when another
   center is responsible. A prominent **My center's cases** filter includes both
-  lead and accepted supporting involvement.
+  lead, accepted support and confirmed receiving involvement.
 - **Assigned to me** is a separate filter for individual staff/team assignments.
 - Case cards/maps show lead, supporting centers, receiving center, status and
   whether help is requested. Cases merely viewed or offered but not accepted do
