@@ -79,6 +79,20 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-10-31 — Dashboard access and collaboration requirements
+
+- Recorded [dashboard access design](dashboard_access.md): NOAA system-wide
+  report visibility; verified rescue-center state scope; state-wide browsing
+  plus my-center/assigned-to-me filters. This is design, not implemented RBAC.
+- Separated case lead, supporting organizations, receiving center and individual
+  assignments so nearby center B can assist a case destined for center A.
+- Clarified network scope: reporter ↔ center, center ↔ center and center ↔ NOAA;
+  shared case activity, help/acceptance, information requests and guidance.
+  No outbound messaging or external agency integration is implemented here.
+- Current hardcoded console identity and single assigned-responder model require
+  backend identity/scope enforcement and explicit participation before rollout.
+  Existing drone/data workflows and supported geography are unchanged.
+
 ### 2026-10-31 — Opening review complete and closer-view video run
 
 - Inspected original opening frames and completed provisional/model-visible
