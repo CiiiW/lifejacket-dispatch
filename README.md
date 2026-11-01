@@ -27,6 +27,11 @@ needed for these UI demos. Real AI, SMS and managed login still need their own
 configuration. See [teammate setup](docs/teammate_setup.md) for the branch/pull
 commands, backend tests, and live-versus-demo requirements.
 
+To check one case through the real backend across a reporter, two centers and
+NOAA without GCP, run `python scripts/run_connected_scenario.py` in the backend
+Python environment. See [connected scenario](docs/connected_scenario.md) for the
+redacted report, disposable database and explicit simulated boundaries.
+
 ## Run the local drone demo
 
 With Python 3.11+ and Docker running, pull the `charlotte-mini2-demo` branch and run:

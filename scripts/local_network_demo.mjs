@@ -50,7 +50,11 @@ if (values.install) {
       routes.set(`/${name}/`, ['text/html; charset=utf-8', await readFile(join(output, name, 'index.html'))]);
       routes.set(`/${name}/app.js`, ['text/javascript; charset=utf-8', await readFile(join(output, name, 'app.js'))]);
     }
-    const home = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LifeJacket local demos</title><style>body{background:#0b132b;color:#f4f7fb;font:18px/1.6 system-ui;padding:36px;max-width:800px;margin:auto}a{color:#48cae4}li{margin:18px 0}</style></head><body><h1>LifeJacket local demos</h1><p>Fictional data only. No GCP login, real SMS, model calls, backend or database.</p><ul><li><a href="./console/">Rescue dashboard</a> — choose Fictional California Center, select a case and try confirmed response updates.</li><li><a href="./reporter/">Reporter app</a> — choose a completed fictional draft and use fixture SMS code 123456.</li></ul><p>The two demos are independent UI fixtures; they do not share case state. Backend authorization and persistence have separate automated tests.</p><p>Do not enter real personal details or upload real incident photos. Stop with Ctrl+C.</p></body></html>`;
+    let connected;
+    try { connected = await readFile(join(root, 'var', 'connected-workflow', 'latest.html')); }
+    catch { connected = Buffer.from('<!doctype html><html><head><title>Connected scenario setup</title></head><body><h1>Run the connected API scenario first</h1><p>With the Python backend dependencies installed, run <code>python scripts/run_connected_scenario.py</code> from the repository root, then restart the demo launcher.</p><p>This report uses one temporary test database; no real SMS or cloud login.</p></body></html>'); }
+    routes.set('/connected/', ['text/html; charset=utf-8', connected]);
+    const home = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LifeJacket local demos</title><style>body{background:#0b132b;color:#f4f7fb;font:18px/1.6 system-ui;padding:36px;max-width:800px;margin:auto}a{color:#48cae4}li{margin:18px 0}</style></head><body><h1>LifeJacket local demos</h1><p>Fictional data only. No GCP login, real SMS, model calls, backend or database.</p><ul><li><a href="./connected/">Connected rescue scenario</a> — reporter, two centers and NOAA against one disposable API database. Run the Python scenario first.</li><li><a href="./console/">Rescue dashboard</a> — choose Fictional California Center, select a case and try confirmed response updates.</li><li><a href="./reporter/">Reporter app</a> — choose a completed fictional draft and use fixture SMS code 123456.</li></ul><p>The two demos are independent UI fixtures; they do not share case state. Backend authorization and persistence have separate automated tests.</p><p>Do not enter real personal details or upload real incident photos. Stop with Ctrl+C.</p></body></html>`;
     routes.set('/', ['text/html; charset=utf-8', Buffer.from(home)]);
     routes.set('/health', ['application/json', Buffer.from(JSON.stringify({ mode: 'fictional-ui-only', gcp_required: false }))]);
     const server = createServer((request, response) => {
@@ -59,7 +63,7 @@ if (values.install) {
       response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
       if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405, { Allow: 'GET, HEAD' }); response.end(); return; }
       const path = new URL(request.url, 'http://localhost').pathname;
-      if (path === '/console' || path === '/reporter') { response.writeHead(303, { Location: `.${path}/` }); response.end(); return; }
+      if (path === '/console' || path === '/reporter' || path === '/connected') { response.writeHead(303, { Location: `.${path}/` }); response.end(); return; }
       const route = routes.get(path);
       if (!route) { response.writeHead(404); response.end(); return; }
       response.writeHead(200, { 'Content-Type': route[0] });

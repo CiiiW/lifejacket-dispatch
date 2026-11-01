@@ -434,3 +434,20 @@ Validation: 99 relevant backend tests passed, including the restricted workflow/
   or isolated backend tests. Details: `docs/teammate_setup.md`.
 
 Validation: a clean Linux source copy with no existing `.env` or node_modules passed `npm ci`, `npm run setup:demos`, `npm run check:demos` and `npm run test:local-demo`. Both pages were opened in the browser and the fictional reporter submission completed without backend/cloud access. macOS/Windows native installs were not executed in this session.
+
+### 2026-11-01 — Connected reporter/two-center/NOAA API scenario
+
+- Added a standalone scenario runner using the actual API routes, identity-to-database
+  membership resolution, one temporary database and confirmed reporter projections.
+- Synthetic identity and prepared-intake adapters stay in a child process; no public
+  mock-auth server or production configuration flag is introduced. External sockets
+  are blocked; the inherited database is ignored and the temporary DB is removed.
+- Generates a redacted JSON check trace and readable HTML reporter timeline. The local
+  launcher can serve that completed report alongside the independent UI previews.
+- Explicit fixture setup covers organization approval, case review, accepted support
+  and rescuer assignment. Their production workflows are not claimed complete.
+- Found a review gap: phone submission already creates a network row, while the older
+  admin review command rejects existing rows. Recorded for the next integration step.
+- Details and reproducible commands: `docs/connected_scenario.md`.
+
+Validation: the connected run passed 42 actual in-process API checks, including expected authorization denials and the full reporter timeline. The scenario/isolation and related reporter/response regression selection passed 19 tests. The local launcher integration check passed with the connected-report route. No live identity provider, AI intake or production coordination setup is claimed.

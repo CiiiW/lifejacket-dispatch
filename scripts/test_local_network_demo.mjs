@@ -27,6 +27,9 @@ test('local launcher serves both fictional clients without exposing files or acc
       assert.equal(bundle.status, 200);
       assert.match(await bundle.text(), /Fictional/);
     }
+    const connected = await fetch(base + 'connected/');
+    assert.equal(connected.status, 200);
+    assert.match(await connected.text(), /connected|Connected/);
     assert.deepEqual(await (await fetch(base + 'health')).json(), { mode: 'fictional-ui-only', gcp_required: false });
     for (const path of ['.env', 'package.json', 'backend/lifejacket/config.py']) assert.equal((await fetch(base + path)).status, 404);
     assert.equal((await fetch(base, { method: 'POST' })).status, 405);

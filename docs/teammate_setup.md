@@ -107,3 +107,12 @@ not fall back to unverified intake. See `reporter_phone.md`, `network_console.md
 and `rescuer_response_flow.md` for exact live setup and permission boundaries.
 
 Validation: a clean Linux source copy with no existing `.env` or node_modules passed `npm ci`, `npm run setup:demos`, `npm run check:demos` and `npm run test:local-demo`. Both pages were opened in the browser and the fictional reporter submission completed without backend/cloud access. macOS/Windows native installs were not executed in this session.
+
+## Connected backend scenario (optional Python check)
+
+The Node-only demos above are independent UI fixtures. To exercise one case through
+real API routes and database policies across a reporter, two centers and NOAA, run
+`python scripts/run_connected_scenario.py` in the backend Python environment, then
+open `var/connected-workflow/latest.html` or restart the Node launcher and choose
+**Connected rescue scenario**. This uses a disposable database and fictional identity/
+intake adapters, without GCP or a public server. See `connected_scenario.md` for limits.
