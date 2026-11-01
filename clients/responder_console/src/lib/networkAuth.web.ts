@@ -1,6 +1,12 @@
 import { getApps, initializeApp } from 'firebase/app';
 import {
   browserPopupRedirectResolver,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  sendEmailVerification,
+  reload,
+  type User,
   getAuth,
   GoogleAuthProvider,
   initializeAuth,
@@ -9,7 +15,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import type { TokenUser } from './networkApi';
+export type NetworkUser = Pick<User, 'uid' | 'email' | 'emailVerified' | 'getIdToken'>;
 
 const config = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -17,7 +23,10 @@ const config = {
   projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
-export const networkSignInConfigured = Object.values(config).every(Boolean);
+// Identity Platform supplies API key/domain; appId is optional for Auth.
+export const networkSignInConfigured = Boolean(
+  config.apiKey?.trim() && config.authDomain?.trim() && config.projectId?.trim(),
+);
 function auth() {
   if (!networkSignInConfigured) throw new Error('Sign-in unavailable');
   const existing = getApps().find((app) => app.name === 'lifejacket-network');
@@ -29,7 +38,7 @@ function auth() {
   });
 }
 export function observeNetworkUser(
-  next: (user: TokenUser | null) => void,
+  next: (user: NetworkUser | null) => void,
   failed: () => void,
 ): () => void {
   return onIdTokenChanged(auth(), next, failed);
@@ -42,3 +51,31 @@ export async function signInToNetwork(): Promise<void> {
 export async function signOutOfNetwork(): Promise<void> {
   await signOut(auth());
 }
+
+export async function signInWithNetworkPassword(email: string, password: string): Promise<void> {
+  await signInWithEmailAndPassword(auth(), email.trim(), password);
+}
+export async function createNetworkAccount(email: string, password: string): Promise<void> {
+  // Verification is a separate user action: delivery failure cannot hide account creation.
+  await createUserWithEmailAndPassword(auth(), email.trim(), password);
+}
+export async function resetNetworkPassword(email: string): Promise<void> {
+  await sendPasswordResetEmail(auth(), email.trim());
+}
+export async function verifyNetworkEmail(): Promise<void> {
+  const user = auth().currentUser;
+  if (!user) throw new Error('Sign in first');
+  await sendEmailVerification(user);
+}
+export async function refreshNetworkUser(): Promise<NetworkUser | null> {
+  const user = auth().currentUser;
+  if (!user) return null;
+  await reload(user);
+  await user.getIdToken(true);
+  return user;
+}
+export const networkAuthDriver = {
+  login: signInWithNetworkPassword, create: createNetworkAccount,
+  reset: resetNetworkPassword, verify: verifyNetworkEmail,
+  refresh: refreshNetworkUser, google: signInToNetwork,
+};

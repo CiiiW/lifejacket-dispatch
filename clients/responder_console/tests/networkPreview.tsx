@@ -1,13 +1,16 @@
 /** Isolated component fixture. Not imported by the application entry point. */
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import NetworkScreen, { NetworkWorkspace } from '../src/screens/NetworkScreen.web';
+import NetworkScreen, { NetworkWorkspace, Shell } from '../src/screens/NetworkScreen.web';
 import {
   NetworkError,
   type createNetworkApi,
   type NetworkCase,
   type NetworkSession,
 } from '../src/lib/networkApi';
+
+import { NetworkLogin } from '../src/screens/NetworkLogin.web';
+import type { NetworkUser } from '../src/lib/networkAuth.web';
 
 const fixtureUser = {
   uid: 'fictional-ui-user',
@@ -109,8 +112,37 @@ const fixtureApi: typeof createNetworkApi = (_, user, org) => {
     },
   };
 };
+function AuthPreview() {
+  const [user, setUser] = useState<NetworkUser | null>(null);
+  const [fail, setFail] = useState(false);
+  const [calls, setCalls] = useState('No fictional auth calls yet.');
+  const [verified, setVerified] = useState(false);
+  const fictional = { ...fixtureUser, email: 'demo@example.invalid', emailVerified: false };
+  async function call(name: string) {
+    setCalls(`Fictional ${name} requested; no network request.`);
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    if (fail) throw new Error('Fictional failure');
+  }
+  return <Shell>
+    <div className="lj-toolbar">
+      <label><input type="checkbox" checked={fail} onChange={(e) => setFail(e.target.checked)} />Simulate auth failure</label>
+      <label><input type="checkbox" checked={verified} onChange={(e) => setVerified(e.target.checked)} />Simulate verified email</label>
+      <p role="status">{calls}</p>
+    </div>
+    {user?.emailVerified ? <section className="lj-panel"><h2>Fictional verification passed</h2><p>Production still requires backend token verification and approved membership.</p><button onClick={() => setUser(null)}>Sign out</button></section> :
+      <NetworkLogin user={user} configured checking={false} onSignOut={() => setUser(null)} onRefreshed={setUser}
+        driver={{
+          login: async () => { await call('sign-in'); setUser(fictional); },
+          create: async () => { await call('account creation'); setUser(fictional); },
+          reset: async () => { await call('password reset'); },
+          verify: async () => { await call('verification email'); },
+          refresh: async () => { await call('verification check'); return { ...fictional, emailVerified: verified }; },
+          google: async () => { await call('Google sign-in'); },
+        }} />}
+  </Shell>;
+}
 function Preview() {
-  const [view, setView] = useState<'signed-in' | 'signed-out'>('signed-in');
+  const [view, setView] = useState<'signed-in' | 'signed-out' | 'auth'>('signed-in');
   const [notice, setNotice] = useState('');
   return (
     <>
@@ -127,6 +159,7 @@ function Preview() {
         </strong>{' '}
         <button onClick={() => setView('signed-in')}>Open signed-in fixture</button>{' '}
         <button onClick={() => setView('signed-out')}>Open sign-in screen</button>{' '}
+        <button onClick={() => setView('auth')}>Open fictional email flow</button>{' '}
         <button
           onClick={() => {
             revoked = true;
@@ -145,7 +178,7 @@ function Preview() {
         </button>{' '}
         <span role="status">{notice}</span>
       </div>
-      {view === 'signed-in' ? (
+      {view === 'auth' ? <AuthPreview /> : view === 'signed-in' ? (
         <NetworkWorkspace
           user={fixtureUser}
           apiFactory={fixtureApi}

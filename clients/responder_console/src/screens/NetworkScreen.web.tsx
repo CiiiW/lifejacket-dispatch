@@ -12,9 +12,10 @@ import {
 import {
   networkSignInConfigured,
   observeNetworkUser,
-  signInToNetwork,
+  type NetworkUser,
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
+import { NetworkLogin } from './NetworkLogin.web';
 
 const apiBase = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
 const filters: { value: CaseScope; label: string }[] = [
@@ -30,7 +31,7 @@ const css = `
 .lj-network *{box-sizing:border-box}.lj-network h1{font-size:30px;letter-spacing:-.8px;margin:0}.lj-network h2{font-size:21px;margin:0 0 12px}.lj-network p{margin:8px 0 16px}.lj-network small,.lj-muted{color:#a9b4c6}.lj-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}.lj-eyebrow{color:#48cae4;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}.lj-panel{padding:24px;background:#101a38;border:1px solid #ffffff20;border-radius:14px;margin-bottom:18px}.lj-signin{max-width:560px;margin:7vh auto}.lj-toolbar{display:flex;gap:16px;align-items:end;flex-wrap:wrap}.lj-network label{display:flex;flex-direction:column;gap:6px;color:#a9b4c6;font-size:13px}.lj-network select,.lj-network input{background:#0b132b;color:#f4f7fb;padding:10px;border:1px solid #ffffff40;border-radius:7px;min-width:180px;font:inherit}.lj-network button{font:inherit;background:#48cae4;color:#06182e;border:1px solid transparent;padding:10px 16px;border-radius:7px;cursor:pointer;font-weight:650}.lj-network button.secondary{background:transparent;color:#dce6f1;border-color:#ffffff40}.lj-network button:disabled{opacity:.5;cursor:default}.lj-network button:focus-visible,.lj-network select:focus-visible,.lj-network input:focus-visible{outline:3px solid #ffc043;outline-offset:3px}.lj-error{border-color:#ff6b6b80;color:#ffc6c6}.lj-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,1fr);gap:22px}.lj-cases{display:flex;flex-direction:column;gap:10px}.lj-network .lj-case{background:#101a38;border-color:#ffffff20;color:#f4f7fb;text-align:left;display:block;width:100%;padding:18px}.lj-network .lj-case[aria-pressed=true]{border-color:#48cae4;background:#162a46}.lj-case strong{display:block;font-size:17px}.lj-case .lj-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;color:#a9b4c6;font-weight:400}.lj-pill{display:inline-block;color:#48cae4;border:1px solid #48cae450;padding:3px 10px;border-radius:20px;font-size:12px}.lj-network dl{display:grid;grid-template-columns:120px 1fr;gap:10px;margin:0}.lj-network dt{color:#a9b4c6}.lj-network dd{margin:0;overflow-wrap:anywhere}.lj-pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}.lj-notice{border-left:3px solid #48cae4;padding-left:14px}.lj-id{font-size:12px;overflow-wrap:anywhere;color:#a9b4c6}.lj-network form{display:flex;gap:12px;align-items:end;flex-wrap:wrap}@media(max-width:760px){.lj-network{padding:20px}.lj-grid{grid-template-columns:1fr}.lj-panel{padding:18px}.lj-network h1{font-size:26px}.lj-network select{max-width:100%}.lj-toolbar label{width:100%}.lj-signin{margin:5vh auto}}
 `;
 
-function Shell({ children }: { children: React.ReactNode }) {
+export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="lj-network">
       <style>{css}</style>
@@ -66,91 +67,33 @@ function roleLabel(role: string) {
 const text = (value: string | null) => (value ? value.replace(/_/g, ' ') : 'Not provided');
 
 export default function NetworkScreen() {
-  const [user, setUser] = useState<TokenUser | null>(null);
+  const [user, setUser] = useState<NetworkUser | null>(null);
   const [revision, setRevision] = useState(0);
   const [checking, setChecking] = useState(networkSignInConfigured);
-  const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   useEffect(() => {
     if (!networkSignInConfigured) return;
     try {
       return observeNetworkUser(
-        (next) => {
-          setUser(next);
-          setRevision((v) => v + 1);
-          setChecking(false);
-        },
-        () => {
-          setUser(null);
-          setChecking(false);
-          setError('Sign-in is temporarily unavailable. Please try again.');
-        },
+        (next) => { setUser(next); setRevision((v) => v + 1); setChecking(false); },
+        () => { setUser(null); setChecking(false); setError('Sign-in is temporarily unavailable. Please try again.'); },
       );
     } catch {
       setChecking(false);
       setError('Network sign-in is not available yet. Please contact your coordinator.');
     }
   }, []);
-  async function login() {
-    setError('');
-    setBusy(true);
-    try {
-      await signInToNetwork();
-    } catch {
-      setError('Sign-in was not completed. Allow the sign-in window, then try again.');
-    } finally {
-      setBusy(false);
-    }
-  }
   async function logout() {
-    setUser(null);
-    setRevision((v) => v + 1);
-    setError('');
-    try {
-      await signOutOfNetwork();
-    } catch {
-      setError('The view has been cleared. Close this tab to finish signing out.');
-    }
+    setUser(null); setRevision((v) => v + 1); setError('');
+    try { await signOutOfNetwork(); }
+    catch { setError('The view has been cleared. Close this tab to finish signing out.'); }
   }
-  if (user)
+  // A new account never mounts the workspace before email verification.
+  if (user?.emailVerified)
     return <NetworkWorkspace key={`${user.uid}:${revision}`} user={user} onSignOut={logout} />;
-  return (
-    <Shell>
-      <header className="lj-top">
-        <div>
-          <div className="lj-eyebrow">LifeJacket</div>
-          <h1>Rescue network</h1>
-        </div>
-      </header>
-      <section className="lj-panel lj-signin">
-        <span className="lj-pill">Coordinated response</span>
-        <h2 style={{ marginTop: 20 }}>A shared view. A closer response.</h2>
-        <p className="lj-muted">
-          Sign in to see your reports and the cases available to your organization.
-        </p>
-        {error && <ErrorNotice message={error} />}
-        {!networkSignInConfigured ? (
-          <p role="status">
-            Network sign-in is not available yet. Please contact your coordinator.
-          </p>
-        ) : (
-          <button disabled={busy || checking} onClick={login}>
-            {checking
-              ? 'Checking sign-in…'
-              : busy
-                ? 'Opening sign-in…'
-                : 'Continue with Google'}
-          </button>
-        )}
-        <p>
-          <small>
-            Professional access requires an approved organization membership. Signing in does
-            not grant NOAA or rescue-center access.
-          </small>
-        </p>
-      </section>
-    </Shell>
-  );
+  return <Shell><NetworkLogin user={user} configured={networkSignInConfigured}
+    checking={checking} error={error} onSignOut={logout}
+    onRefreshed={(next) => { setUser(next); setRevision((v) => v + 1); }} /></Shell>;
 }
 
 /** Dependency injection is for isolated tests; the app always uses managed auth and its configured API. */

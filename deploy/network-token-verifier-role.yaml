@@ -1,0 +1,9 @@
+# Approved minimal project IAM role for managed-token revocation checks.
+# Defining this file does not create a role or grant any access.
+# User approved binding to workbench-sa in spring-2026-lifejacket.
+# Current signed-in account cannot create/grant roles; a project IAM admin must apply it.
+title: LifeJacket Token Verifier
+description: Read managed authentication users for disabled-account and token-revocation checks.
+stage: GA
+includedPermissions:
+  - firebaseauth.users.get

@@ -79,6 +79,34 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-01 (Chicago) — Google provider configured; IAM administrator needed
+
+- Accepted the specifically approved OAuth User Data Policy, created the
+  LifeJacket test-mode OAuth web client, and saved Google as an enabled provider.
+  Added the current project user as the sole OAuth test user.
+- Prepared public SDK config only in ignored GCP runtime storage; OAuth secret
+  stayed within Google Console configuration and was not exported to source.
+- Approved backend IAM grant could not be applied: current Editor account lacks
+  iam.roles.create and Grant access is disabled. No broader roles were used.
+- Added an exact minimal-role administrator handoff script; shell syntax passed.
+  No messages/access requests sent. Live app login is still unverified pending
+  owner action and API/proxy connection checks.
+- [Verified cloud setup and administrator handoff](network_console.md).
+
+### 2026-11-01 (Chicago) — Identity Platform activation
+
+- With user approval, enabled Identity Platform and authorized the exact
+  existing preview host. Google provider/client remain unsaved pending the
+  additional OAuth User Data Policy agreement.
+- Verified backend ADC principal and a read-only fictional lookup denial.
+  Prepared a one-permission IAM role (firebaseauth.users.get); no role was
+  granted. Disabled/revoked-user verification remains required.
+- Made Firebase appId optional for Auth-only Identity Platform configuration.
+  GCP TypeScript and 10 client transport tests passed; backend code unchanged.
+- No real login or professional grants performed. OAuth policy/IAM approval
+  and live API/proxy verification remain open.
+- [Activation details and pending approval](network_console.md).
+
 ### 2026-11-01 (Chicago) — Network web console
 
 - Added managed Google sign-in UI, server-approved organization selection,
@@ -352,3 +380,12 @@ validation/results, remaining uncertainty, blockers and the next concrete task.
 Link detailed evidence instead of repeating old architecture proposals. Mark
 items complete only when their stated validation has run. Do not overwrite
 older run results with newer ones or treat planned work as implemented.
+
+### 2026-11-01 — Email/password dashboard entry
+
+- User chose email/password first; phone login deferred. Enabled Email / Password in GCP Identity Platform with passwordless links off; Google stays available.
+- Added managed SDK sign-in/account creation/reset, explicit verification-email sending and refresh, and a verification gate before the network workspace. No email-domain role inference; professional membership remains server approved.
+- Added isolated fictional email UI flow with failure/verified-state controls, no actual account creation or email sending.
+- Live login still blocked by the existing backend IAM permission and notebook proxy auth-header behavior; enabling email auth does not resolve either. No IAM escalation, deployment, notification or real professional grant was performed.
+
+Validation: GCP TypeScript check, 10 client API tests and Expo web export passed. Browser fictional checks passed for invalid sign-in/password clearing, generic reset acknowledgement on simulated failure, password mismatch, unverified-account gate, verification resend, unverified refresh, verified refresh, and sign-out. No live Auth delivery or end-to-end API login is claimed.
