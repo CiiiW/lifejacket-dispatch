@@ -74,10 +74,30 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **537 passed on GCP** on 2026-10-31 (Chicago).
+- Latest full backend validation: **537 passed on GCP** on 2026-11-01 (Chicago).
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-11-01 (Chicago) — Network web console
+
+- Added managed Google sign-in UI, server-approved organization selection,
+  scoped read-only case cards/details/filters and personal report status lookup.
+  Network-only mode has no legacy navigation; private drone demo mode is preserved.
+- Added SDK memory persistence, immediate view clearing on sign-out/context
+  changes, abort/stale-response guards, access refresh and generic access errors.
+- Workbench proxy did not preserve app auth headers in browser checks. Live
+  provider/domain/API verification is pending; the app remains fail-closed.
+  Backend token verification and membership policy remain unchanged.
+- No cloud/provider setup, real accounts/grants/cases or notifications changed.
+- Validation: 10 client transport tests, TypeScript check, network-only web
+  export, Python lint and all 537 backend tests passed on GCP. One existing
+  Starlette/httpx warning remains. Browser component checks covered state/NOAA
+  views, filters/detail, own-report success/unavailable, revocation, and clearing
+  on sign-out during a pending request. These checks use fictional data; live
+  provider sign-in was not exercised.
+- [Console setup and remaining work](network_console.md): live sign-in,
+  authenticated intake, scoped evidence/contact and permitted rescue actions.
 
 ### 2026-10-31 (Chicago) — Restricted network case reads
 

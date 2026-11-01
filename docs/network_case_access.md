@@ -40,7 +40,7 @@ Old `reporter_id`, location/place text, offers and `assigned_responder_id` grant
 
 ## Remaining work
 
-Frontend/provider configuration; authenticated intake and account ownership binding; approved geography review/backfill; scoped evidence and reporter contact consent; help requests and acceptance/handoffs; individual assignment and status-event workflows; fresh arrival estimates; volunteer contact/availability/consent and notifications. The database relationships are a foundation, not a completed center-to-center workflow or live dashboard.
+The [web console](network_console.md) now connects sign-in, organization selection, case cards/filters and personal status in code. Live provider/domain/API verification remains pending. Next: authenticated intake and account ownership binding; approved geography review/backfill; scoped evidence and reporter contact consent; help requests and acceptance/handoffs; individual assignment and status-event workflows; fresh arrival estimates; volunteer contact/availability/consent and notifications. The database relationships are a foundation, not a completed center-to-center workflow or live dashboard.
 
 ## Validation
 

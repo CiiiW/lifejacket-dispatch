@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
+import NetworkScreen from './src/screens/NetworkScreen';
 import IncidentDetailScreen from './src/screens/IncidentDetailScreen';
 import IncidentMapScreen from './src/screens/IncidentMapScreen';
 import LogIncidentScreen from './src/screens/LogIncidentScreen';
@@ -28,9 +29,10 @@ import { colors, glass, radius, shadow, spacing, type } from './src/lib/theme';
 // TODO: replace with the signed-in responder once auth is in place.
 const RESPONDER_ID = 'org_the_marine_mammal_center_monterey_bay_operat';
 
-type TabName = 'triage' | 'incident' | 'log' | 'handover' | 'drones' | 'drone-intake' | 'drone-demo';
+type TabName = 'network' | 'triage' | 'incident' | 'log' | 'handover' | 'drones' | 'drone-intake' | 'drone-demo';
 
 const TABS: { name: TabName; label: string }[] = [
+  { name: 'network', label: 'Rescue network' },
   { name: 'triage', label: 'Triage' },
   { name: 'incident', label: 'Incident' },
   { name: 'log', label: 'Log outcome' },
@@ -43,6 +45,8 @@ const TABS: { name: TabName; label: string }[] = [
 export default function App() {
   const [tab, setTab] = useState<TabName>('triage');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  if (process.env.EXPO_PUBLIC_NETWORK_MODE === 'true') return <NetworkScreen />;
 
   function select(incidentId: string) {
     setSelectedId(incidentId);
@@ -77,6 +81,7 @@ export default function App() {
       </View>
 
       <View style={styles.body}>
+        {tab === 'network' && <NetworkScreen />}
         {tab === 'drone-demo' && <DroneDemoScreen />}
         {tab === 'drone-intake' && <DroneIntakeScreen onSelectCase={select} />}
         {tab === 'drones' && <DroneLabScreen />}

@@ -157,3 +157,26 @@ existing fictional report across repeated initialization, and enrolled zero
 cases. The HTTP tests verify actual database memberships/revocation with a mocked
 provider, state/assignment scope, minimal projections, narrowing pagination, and
 blocking of every documented legacy operation in the actual API app.
+
+## Network web console increment (2026-11-01, Chicago)
+
+Connected managed web sign-in, server-approved organization context, scoped case
+filters/details and own-report status in code. No professional role picker or
+fallback to legacy APIs. The private legacy console remains unchanged by
+default; the network-only build hides its navigation. Access refresh clears
+denied views, and context changes discard late responses.
+
+Browser requests through Workbench arrived without app authentication headers;
+live sign-in needs a provider/domain/API endpoint with verified header delivery.
+The final client uses standard bearer tokens and the backend is unchanged.
+No cloud provider configuration, real memberships/cases or notifications changed.
+See [console setup and limitations](network_console.md).
+
+Final GCP validation: 10 client transport tests passed; TypeScript, dedicated
+network web export, Python lint and diff checks passed. All 537 backend tests
+passed on the final unchanged backend (one existing Starlette/httpx warning).
+Browser component checks used fictional records and separate injected adapters:
+CA/AK/NOAA contexts, detail, empty filter, personal success/unavailable status,
+revocation, and sign-out while a delayed result was pending. The actual network
+build shows the missing-provider configuration state and no legacy navigation.
+Live provider/API endpoint integration remains unverified.

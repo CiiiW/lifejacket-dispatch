@@ -7,7 +7,8 @@
     "ios": "expo start --ios",
     "android": "expo start --android",
     "typecheck": "tsc --noEmit",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test:network": "node --test tests/networkApi.test.mjs"
   },
   "dependencies": {
     "@expo/metro-runtime": "~57.0.16",
@@ -15,6 +16,7 @@
     "expo-asset": "~57.0.18",
     "expo-location": "~57.0.20",
     "expo-status-bar": "~57.0.1",
+    "firebase": "13.1.0",
     "maplibre-gl": "^4.7.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -24,6 +26,7 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.0",
+    "@types/react-dom": "19.2.0",
     "typescript": "~6.0.3"
   },
   "private": true

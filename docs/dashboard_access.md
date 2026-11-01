@@ -153,3 +153,11 @@ owner-only reporter update. Separate additive case metadata stores reviewed
 state/ownership and participation. Nothing is auto-backfilled from legacy IDs.
 The current console is not connected; enabling network mode blocks old endpoints
 until their authenticated replacements are ready.
+
+## Web console increment
+
+The [network console](network_console.md) now reads server-approved sessions,
+organization choices and case scopes. It provides read-only filters/details and
+personal report status with access/error handling. The legacy demo is preserved;
+network-only mode has no legacy navigation. Live provider/API configuration
+and rescue actions remain pending.
