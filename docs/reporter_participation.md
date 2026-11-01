@@ -96,3 +96,9 @@ Current intake stores an optional `reporter_phone` and callback contact endpoint
 It does not provide this participant database, future-contact consent, volunteer
 matching, background sharing or outbound alert delivery. No invitations/messages
 were sent while recording this design.
+
+
+Current-case contact and reporter departure/status updates are specified in the
+[response update design](reporter_response_updates.md). A person may leave the
+scene and still receive their own case's updates; this does not enroll them in
+future monitoring or volunteer alerts.

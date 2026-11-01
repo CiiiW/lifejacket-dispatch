@@ -79,6 +79,18 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-10-31 — Assigned-rescuer contact and reporter response updates
+
+- Recorded [response update design](reporter_response_updates.md): assigned-case
+  contact, minimal reporter status/arrival ETA, manual animal-located confirmation,
+  and optional reporter stay/leave with last-seen/access updates.
+- Existing ETA/map and response statuses provide some building blocks. They do
+  not yet enforce own-report/assigned-contact access or this minimal payload.
+  ETA means approximate arrival, not resolution; accepted/on-scene/found differ.
+- Reporter departure must not cancel the case or move the animal location.
+  Current-case callbacks and status updates remain separate from future outreach.
+  Requirements only; no contact, notification or security workflow claimed complete.
+
 ### 2026-10-31 — Reporter participation and nearby volunteer requirements
 
 - Recorded [reporter participation design](reporter_participation.md): optional

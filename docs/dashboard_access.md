@@ -135,3 +135,11 @@ See [reporter participation design](reporter_participation.md) for optional
 monitoring/future-support contact preferences, verified participant profiles,
 versioned consent, nearby invitations and optional location sharing. Volunteer
 participation does not grant a center's statewide professional access.
+
+
+## Assigned field response and reporter updates
+
+See [response update design](reporter_response_updates.md): assigned rescuers
+can contact the report author within active case permissions; the reporter gets
+minimal own-report acceptance/arrival/animal-located updates and an approximate
+arrival ETA. Reporter presence is optional and team movement remains professional.
