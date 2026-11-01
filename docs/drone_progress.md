@@ -79,6 +79,17 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-10-31 — Reporter participation and nearby volunteer requirements
+
+- Recorded [reporter participation design](reporter_participation.md): optional
+  monitoring/future-rescue contact by selected phone/text channels, reusable
+  participant profiles, consent changes, availability and nearby invitations.
+- Separated animal report location from a volunteer's permitted current position;
+  background sharing is optional, with saved-area/radius participation available.
+- Defined accepted-task access and coordinator/qualification checks. Current
+  callback phone storage does not implement subscriptions or future consent.
+  This is design only; no contacts, locations or alert subscriptions provisioned.
+
 ### 2026-10-31 — Dashboard access and collaboration requirements
 
 - Recorded [dashboard access design](dashboard_access.md): NOAA system-wide

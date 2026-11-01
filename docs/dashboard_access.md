@@ -127,3 +127,11 @@ MVP sequence: verified identity/scopes → shared case activity → help request
 acceptance between centers → NOAA information/guidance exchange → handoff and
 availability refinements. Delivery channels and external integrations can follow
 once in-app permissions, acknowledgements and audit behavior are reliable.
+
+
+## Reporter participation
+
+See [reporter participation design](reporter_participation.md) for optional
+monitoring/future-support contact preferences, verified participant profiles,
+versioned consent, nearby invitations and optional location sharing. Volunteer
+participation does not grant a center's statewide professional access.
