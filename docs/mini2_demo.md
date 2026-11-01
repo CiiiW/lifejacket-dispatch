@@ -199,3 +199,37 @@ identity tracking is not established by synthetic tests. [NOAA pilot record](noa
 reports the first real wildlife inference: 12 frames, 0 model failures, with group
 region outputs rather than individual animal identities. Keep real video marked
 `wildlife_recording`; the app's toy/synthetic demo contract intentionally rejects it.
+
+## Inspect boxes and record provisional reviews
+
+Refresh an existing bundle's static page without running the model again:
+
+```bash
+PYTHONPATH=backend python scripts/drone_video.py review var/mini2/noaa-sealion-opening-credited
+```
+
+This verifies the original/frame hashes and detection-to-manifest identity, then
+regenerates `review.html` and `review.js`. It does not alter the manifest, images
+or predictions. The page works from a local file or the private notebook proxy.
+Numbered SVG boxes follow the detector's `[ymin,xmin,ymax,xmax]` 0–1000 coordinates
+and scale with the image. Invalid geometry is flagged instead of drawn. Original
+images remain available for closer inspection.
+
+For each frame, choose a scene type and whether animals are visible; mark each
+candidate as a possible individual, group/colony, not-animal, or uncertain. Add
+a note. Leave missed-animal counts blank when unknown; only nonnegative whole
+numbers are accepted. A group box does not establish an individual count.
+
+Edits are stored only in the current browser when storage is available. Export
+review JSON before changing browsers or clearing browser data. The JSON preview
+is available even if downloads are restricted. Browser-only edits are not server
+records. Saved edits are scoped to the manifest and prediction fingerprints, so
+new predictions do not silently inherit old reviews. Exported rows distinguish
+unreviewed, draft and reviewed; blank missed counts remain null rather than zero.
+
+The worksheet explicitly records `model_visible=true` and
+`independent_ground_truth=false`. These project reviews are not independent
+expert injury labels and do not produce an accuracy score or open rescue cases.
+Keep downloaded private reviews under ignored `var/`, unless deliberately adding
+a non-sensitive reproducibility example to research. No upload/import of saved
+review JSON is implemented; existing-browser restore and download are available.

@@ -74,10 +74,32 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **420 passed on GCP** on 2026-10-31.
+- Latest full backend validation: **432 passed on GCP** on 2026-10-31.
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 — Visible video regions and manual review worksheets
+
+- Added numbered, responsive SVG detection boxes, escaped region descriptions,
+  individual/group/not-animal/uncertain judgements, scene/presence/note fields and
+  nullable whole-number missed-animal counts to the static video review page.
+- Added `drone_video.py review` to verify source/frame hashes and prediction
+  fingerprint before regenerating UI assets without new model calls.
+- Provisional worksheet exports bind to manifest, source, frame and prediction
+  fingerprints. Browser edits persist in that browser only; export is required
+  for portability. Unreviewed/draft/reviewed remain separate. No server-side
+  annotation API, accuracy score, expert labels or rescue operations added.
+- GCP checks: 42 focused and 432 full backend tests passed (one existing dependency
+  warning). Python lint, JS syntax and diff checks passed. Browser verified
+  13 overlays and loaded images,
+  required reviewer, fractional-count rejection, JSON preview/download request,
+  null unknown counts and restore after reload. One actual opening credit slate
+  provisionally reviewed by Codex; 11 animal/other frames remain unreviewed.
+- This sample is model-visible project review, not independent ground truth.
+  [Export example](../research/noaa_video_pilot/provisional-slate-review-2026-10-31.json).
+- Next: closer-view continuous footage with per-target manual boxes/labels and
+  independent expert evaluation. Region judgements alone are not a recall dataset.
 
 ### 2026-10-31 — GCP reconnection, recovery and first wildlife inference
 

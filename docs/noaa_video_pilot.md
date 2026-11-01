@@ -78,3 +78,15 @@ misses, crowded-group handling and camera/shot changes before any tracking score
 Keep `wildlife_recording` provenance; the toy/synthetic app queue intentionally
 rejects this bundle. Do not relabel real animals as demo fixtures. Real-wildlife
 video app review and independently labeled aerial/injury evaluation remain work.
+
+
+## Overlay and worksheet follow-up
+
+The same saved predictions now render as 13 numbered region boxes on the private
+review page. No model rerun was needed. A portable
+[provisional review example](../research/noaa_video_pilot/provisional-slate-review-2026-10-31.json)
+marks only the opening credit slate as reviewed (no animals visible); the remaining
+11 frames are explicitly unreviewed. Missed count is unknown/null, not zero.
+This is a Codex visual project review with model output exposed, not independent
+expert ground truth. It does not establish detection recall or injury accuracy.
+See the [worksheet workflow](mini2_demo.md#inspect-boxes-and-record-provisional-reviews).

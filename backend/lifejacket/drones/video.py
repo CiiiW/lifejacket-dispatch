@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import hashlib
-import html
 import json
 import math
 import re
@@ -252,42 +251,7 @@ def detect_frames(bundle: Path, *, client=None) -> dict:
 
 
 def write_review(root: Path, manifest: dict, results: dict | None = None) -> None:
-    """Static local review works through file://; source notes are escaped."""
-    statuses = {f["path"]: f for f in (results or {}).get("frames", [])}
-    cards = []
-    for frame in manifest["frames"]:
-        status = statuses.get(frame["path"])
-        label = "Not analyzed"
-        if status:
-            label = (
-                f"{len(status['animals'])} candidate(s); human review needed"
-                if status["status"] == "detected"
-                else "Detection failed"
-            )
-        cards.append(
-            f'<article><img src="{html.escape(frame["path"], quote=True)}" '
-            'alt="Sampled frame">'
-            f"<p>{frame['offset_seconds']:.3f}s · {html.escape(label)}</p>"
-            f"<p>{html.escape(frame['captured_at'] or 'Capture time unknown')}</p></article>"
-        )
-    root.joinpath("review.html").write_text(
-        '<!doctype html><meta charset="utf-8"><title>Drone video evidence review</title>'
-        "<style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:16px;"
-        "background:#f4f7fa;color:#142837}.grid{display:grid;grid-template-columns:"
-        "repeat(auto-fit,minmax(280px,1fr));gap:20px}article{background:white;padding:12px;"
-        "border-radius:12px}img{width:100%}p{overflow-wrap:anywhere}</style>"
-        "<h1>Drone video evidence review</h1><p>"
-        + html.escape(
-            manifest["metadata"]["evidence_kind"] + " · " + manifest["metadata"]["source"]
-        )
-        + "</p><p>Local evidence only. No rescue case created. Locations unknown. "
-        "Sparse samples do not establish absence of animals or injury.</p>"
-        + (
-            "<p>Frame limit reached; this may not cover the entire clip.</p>"
-            if manifest["sample_limit_reached"]
-            else ""
-        )
-        + '<div class="grid">'
-        + "".join(cards)
-        + "</div>"
-    )
+    """Rebuild the static review without changing original media or predictions."""
+    from lifejacket.drones.video_review import render_review
+
+    render_review(root, manifest, results)

@@ -3,7 +3,13 @@
 import argparse
 from pathlib import Path
 
-from lifejacket.drones.video import VideoMetadata, detect_frames, prepare_video
+from lifejacket.drones.video import (
+    VideoMetadata,
+    detect_frames,
+    digest,
+    prepare_video,
+    write_review,
+)
 
 
 def main():
@@ -19,6 +25,8 @@ def main():
         "detect", help="Uses existing Vertex credentials and model quota"
     )
     detect.add_argument("bundle", type=Path)
+    review = commands.add_parser("review", help="Refresh overlays/worksheet; no model calls")
+    review.add_argument("bundle", type=Path)
     args = parser.parse_args()
     try:
         if args.command == "prepare":
@@ -33,6 +41,25 @@ def main():
             print(
                 f"Prepared {len(result['frames'])} frames. Open {args.output / 'review.html'}"
             )
+        elif args.command == "review":
+            import json
+            import re
+
+            manifest = json.loads((args.bundle / "manifest.json").read_text())
+            original = manifest["source"]["path"]
+            if original not in {"source.mp4", "source.mov", "source.mkv"}:
+                raise ValueError("Invalid original evidence path")
+            if digest(args.bundle / original) != manifest["source"]["sha256"]:
+                raise ValueError("Original video integrity check failed")
+            for frame in manifest["frames"]:
+                if not re.fullmatch(r"frames/\d{4}\.jpg", frame["path"]):
+                    raise ValueError("Invalid frame evidence path")
+                if digest(args.bundle / frame["path"]) != frame["sha256"]:
+                    raise ValueError("Frame integrity check failed")
+            result_path = args.bundle / "detections.json"
+            results = json.loads(result_path.read_text()) if result_path.exists() else None
+            write_review(args.bundle, manifest, results)
+            print("Refreshed review page and worksheet. No model calls or evidence changes.")
         else:
             result = detect_frames(args.bundle)
             failed = sum(row["status"] == "failed" for row in result["frames"])
