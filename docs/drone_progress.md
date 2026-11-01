@@ -74,10 +74,28 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **507 passed on GCP** on 2026-11-01.
+- Latest full backend validation: **537 passed on GCP** on 2026-10-31 (Chicago).
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 (Chicago) — Restricted network case reads
+
+- Added authenticated role/state/assignment-scoped case list/detail, narrowing
+  filters and an owner-only minimal reporter update. Database filtering precedes
+  pagination. No raw contact, transcripts, staff positions or related-case links.
+- Added reviewed case metadata and explicit accepted participation tables, plus
+  trusted offline case enrollment with an audit record. No automatic legacy
+  ownership/geography/assignment backfill.
+- Network mode now blocks legacy endpoints to close alternate access paths; it
+  is read-only. The existing private demo flag/configuration was not changed.
+- No real cases, memberships, notifications or cloud configuration were changed.
+- Validation: 30 new tests and all 537 offline backend tests passed on GCP;
+  lint and diff checks passed. Disposable CLI schema smoke preserved an existing
+  report across repeat initialization and enrolled no cases. One existing
+  Starlette/httpx warning remains. No live provider configuration was exercised.
+- [Case access and next work](network_case_access.md): frontend sign-in,
+  authenticated intake, scoped evidence/contact, response and coordination actions.
 
 ### 2026-11-01 — Managed identity and persistent organization memberships
 

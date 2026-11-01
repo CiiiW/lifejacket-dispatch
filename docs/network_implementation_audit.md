@@ -140,3 +140,20 @@ Validation: all 35 new session/provider/admin tests and all 507 offline backend
 tests passed on GCP. Python lint and diff checks passed; one existing
 Starlette/httpx dependency warning remains. Tests use fictional identities and
 mocked provider responses; live provider configuration was not exercised.
+
+## Restricted case read increment (2026-10-31, Chicago)
+
+Added database-scoped `/network/cases` list/detail and owner-only `/network/reports`
+updates. Explicit reviewed ownership/state metadata and accepted organization/
+individual participation are additive tables; legacy data grants no automatic
+access. Network mode blocks all legacy routes, including mutations, media,
+coordination and staff ETA. Current private demos remain in legacy mode.
+See [case access boundaries and remaining work](network_case_access.md).
+
+GCP validation: all 30 new network route tests and all 537 offline backend tests
+passed; Python lint and diff checks passed. One existing Starlette/httpx warning
+remains. CLI initialization smoke used a disposable database, preserved an
+existing fictional report across repeated initialization, and enrolled zero
+cases. The HTTP tests verify actual database memberships/revocation with a mocked
+provider, state/assignment scope, minimal projections, narrowing pagination, and
+blocking of every documented legacy operation in the actual API app.

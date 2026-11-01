@@ -419,3 +419,49 @@ class AccessAuditRow(Base):
     actor_ref: Mapped[str] = mapped_column(String(80))
     recorded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     details: Mapped[dict] = mapped_column(JSON)
+
+
+class NetworkCaseRow(Base):
+    """Reviewed access metadata; never inferred from legacy reporter IDs/place text."""
+
+    __tablename__ = "network_cases"
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), primary_key=True
+    )
+    reporter_user_id: Mapped[str | None] = mapped_column(
+        String(40), ForeignKey("access_users.user_id")
+    )
+    submitted: Mapped[bool] = mapped_column(Boolean, default=False)
+    state_code: Mapped[str | None] = mapped_column(String(2), index=True)
+    verified_at: Mapped[datetime | None] = mapped_column(DateTime)
+    verified_by: Mapped[str | None] = mapped_column(String(80))
+    lead_org_id: Mapped[str | None] = mapped_column(
+        String(64), ForeignKey("access_organizations.organization_id")
+    )
+    response_phase: Mapped[str] = mapped_column(String(24), default="received")
+
+
+class NetworkCaseOrganizationRow(Base):
+    __tablename__ = "network_case_organizations"
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("network_cases.incident_id"), primary_key=True
+    )
+    organization_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("access_organizations.organization_id"), primary_key=True
+    )
+    kind: Mapped[str] = mapped_column(String(16), primary_key=True)  # supporting | receiving
+    accepted: Mapped[bool] = mapped_column(Boolean, default=False)
+
+
+class NetworkCaseAssigneeRow(Base):
+    __tablename__ = "network_case_assignees"
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("network_cases.incident_id"), primary_key=True
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(40), ForeignKey("access_users.user_id"), primary_key=True
+    )
+    organization_id: Mapped[str] = mapped_column(
+        String(64), ForeignKey("access_organizations.organization_id"), primary_key=True
+    )
+    accepted: Mapped[bool] = mapped_column(Boolean, default=False)

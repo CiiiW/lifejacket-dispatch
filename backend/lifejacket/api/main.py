@@ -28,6 +28,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.engine import make_url
 
+from lifejacket.access.boundary import NetworkBoundaryMiddleware
 from lifejacket.api.routes import (
     access,
     coordination,
@@ -37,6 +38,7 @@ from lifejacket.api.routes import (
     historical_strandings,
     incidents,
     intake,
+    network,
     responders,
 )
 from lifejacket.config import settings
@@ -85,6 +87,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(NetworkBoundaryMiddleware)
+app.include_router(network.router)
 app.include_router(access.router)
 app.include_router(intake.router)
 app.include_router(incidents.router)

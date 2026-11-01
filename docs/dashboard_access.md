@@ -144,3 +144,12 @@ See [response update design](reporter_response_updates.md): assigned rescuers
 can contact the report author within active case permissions; the reporter gets
 minimal own-report acceptance/arrival/animal-located updates and an approximate
 arrival ETA. Reporter presence is optional and team movement remains professional.
+
+## Restricted backend increment
+
+The [network read API and mode boundary](network_case_access.md) now implement
+role/state/accepted-assignment discovery with narrowing filters and a minimal
+owner-only reporter update. Separate additive case metadata stores reviewed
+state/ownership and participation. Nothing is auto-backfilled from legacy IDs.
+The current console is not connected; enabling network mode blocks old endpoints
+until their authenticated replacements are ready.
