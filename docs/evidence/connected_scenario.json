@@ -1,7 +1,7 @@
 {
   "mode": "isolated-connected-scenario",
   "passed": true,
-  "generated_at": "2026-11-01T18:33:22.960705+00:00",
+  "generated_at": "2026-11-01T18:55:47.782845+00:00",
   "checks": [
     {
       "step": "Unknown fictional token is denied",
@@ -332,7 +332,7 @@
   ],
   "boundaries": [
     "Phone identities and completed intake are fictional test adapters.",
-    "Organization approval, case review, support acceptance and assignment are trusted fixture setup; production workflows remain incomplete.",
+    "Organization approval, support acceptance and assignment are trusted fixture setup; case review uses the offline administrative service.",
     "API routes, membership checks, state changes and reporter projections use real code sharing one temporary database.",
     "No public server, real SMS, model calls, notifications or live rescue case."
   ],

@@ -13,6 +13,11 @@ participation by the selected organization, and a coordinator or accepted assign
 rescuer. Accepted support/receiving organizations count; suggested or withdrawn
 relationships do not. Rescuer assignments must belong to the selected organization.
 
+The offline case-review command can complete first review of a newly submitted
+phone report, preserving its verified reporter owner and contact preferences while
+setting reviewed state and an approved lead center. See `network_case_access.md`.
+This does not create support relationships or individual assignments.
+
 Reporter contact comes only from the phone-verified submitted reporter record,
 with matching explicit case ownership. Legacy callback phones are not a fallback.
 A staff request returns only the permitted call/text channels and reporter presence.

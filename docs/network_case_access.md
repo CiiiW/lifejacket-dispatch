@@ -36,6 +36,22 @@ Back up and verify the target `DATABASE_URL`, initialize access tables first, th
 
 A trusted operator can run `network_case_admin.py review --help` to enroll one independently reviewed submitted incident. The command requires an existing case, valid reviewed state, reviewer reference and explicit `--confirmed-submitted` attestation. Optional account ownership must reference an enabled account and must be verified outside the command; optional lead must be an approved center for that state. Review records an audit event and starts the reporter phase at `received`. It rejects silent re-enrollment/ownership overwrite. It does not send notifications or grant personal assignments/support relationships.
 
+For a newly submitted phone report, the same command completes its first review:
+
+```bash
+PYTHONPATH=backend python scripts/network_case_admin.py review \
+  --case-id REVIEWED_CASE_ID --state CA --lead-organization APPROVED_CENTER_ID \
+  --verified-by OPERATOR_REFERENCE --confirmed-submitted
+```
+
+Omit `--owner-account`: the verified reporter binding is preserved. If supplied, it
+must equal that binding. Phone reports require intact submitted ownership metadata,
+an enabled owner and an approved lead center for the reviewed state. The command
+keeps contact preferences and response phase unchanged. Partially reviewed cases,
+existing participation/assignments/response events and concurrent or repeated review
+are rejected; corrections need a separate workflow. This is a trusted offline operator
+command, not permission for reporters or dashboard staff to grant themselves access.
+
 Old `reporter_id`, location/place text, offers and `assigned_responder_id` grant no network access automatically. Unenrolled cases and draft records stay out of professional results. NOAA may read enrolled submitted reports whose state is still unknown; center access requires reviewed state. The ordinary review CLI requires a valid state; any separate unknown-state enrollment workflow is still future work. Do not enroll toy/synthetic drone evidence in the real incident network. Fixtures in tests are fictional.
 
 ## Remaining work

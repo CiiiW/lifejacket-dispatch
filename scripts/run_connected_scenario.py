@@ -56,6 +56,7 @@ def worker(directory, output):
 
     from fastapi.testclient import TestClient
     from lifejacket.access import dependencies
+    from lifejacket.access.case_review import review_case
     from lifejacket.access.identity import InvalidIdentity, VerifiedIdentity
     from lifejacket.access.memberships import (
         approve_membership,
@@ -217,14 +218,14 @@ def worker(directory, output):
         )
         check("Legacy incident path remains blocked", client.get(f"/incidents/{case_id}"), 403)
 
-        # Trusted fixture provisioning, not a claimed production review/invitation UI.
+        # Same trusted offline reviewer used by the CLI; preserves submitted ownership.
         with SessionLocal() as session:
-            scope = session.get(NetworkCaseRow, case_id)
-            scope.state_code = "CA"
-            scope.verified_at = datetime.now(UTC).replace(tzinfo=None)
-            scope.verified_by = "scenario-admin"
-            scope.lead_org_id = "A"
-            session.commit()
+            owner = session.get(NetworkCaseRow, case_id).reporter_user_id
+            reviewed = review_case(session, case_id, "CA", None, "A", "scenario-admin")
+            if reviewed.reporter_user_id != owner or reviewed.response_phase != "received":
+                raise AssertionError(
+                    "Review must preserve reporter ownership and response phase"
+                )
         for person, org in [("a", "A"), ("b", "B"), ("noaa", "NOAA")]:
             cards = check(
                 "Permitted organization discovers the same submitted case",
@@ -420,8 +421,9 @@ def worker(directory, output):
                 "reporter_timeline": receipts,
                 "boundaries": [
                     "Phone identities and completed intake are fictional test adapters.",
-                    "Organization approval, case review, support acceptance and assignment "
-                    "are trusted fixture setup; production workflows remain incomplete.",
+                    "Organization approval, support acceptance and assignment "
+                    "are trusted fixture setup; case review uses the "
+                    "offline administrative service.",
                     "API routes, membership checks, state changes and reporter projections "
                     "use real code sharing one temporary database.",
                     "No public server, real SMS, model calls, notifications "

@@ -29,7 +29,8 @@ The two original reporter/dashboard UI fixtures remain independent.
 2. Trusted scenario setup approves two fictional California centers and NOAA memberships.
 3. The reporter starts a real private draft. Premature submission is denied; the
    synthetic prepared intake is then explicitly submitted by a fictional phone identity.
-4. Trusted scenario setup reviews the case scope and designates Center A as lead.
+4. The trusted offline review service (also used by the admin CLI) reviews state and
+   designates Center A as lead while preserving the submitted reporter ownership.
 5. Both centers and NOAA discover that same submitted case. Statewide discovery
    alone grants neither reporter contact nor update permission.
 6. Trusted setup accepts Center B as support and assigns its rescuer. That rescuer
@@ -58,18 +59,19 @@ file as that inherited database and verify it is untouched.
 
 Phone verification and the completed intake are simulated: no real photo is
 identified, no SMS is sent, and injury assessment is not evaluated. Center approval,
-case review, support acceptance and individual assignment are explicit trusted
-fixture setup, not a claim that their production onboarding/invitation UIs exist.
+support acceptance and individual assignment are explicit trusted fixture setup,
+not a claim that their production onboarding/invitation UIs exist. Case review
+runs the actual offline administrative service; there is no public review UI.
 ETA stays unavailable because a reviewed arrival source is not connected. No calls,
 texts, push notifications or rescue dispatches are sent. JSON/HTML outputs omit
 raw credentials, draft keys, reporter contact numbers and responder coordinates.
 
 ## Gaps surfaced by this scenario
 
-- The submitted phone report creates an unreviewed `network_cases` row. The older
-  offline `network_case_admin.py review` command rejects an existing row, so a reviewed
-  transition for these newly submitted cases still needs implementation. This scenario
-  provisions that metadata only in its disposable fixture.
+- Resolved: the offline review command now completes the first review of a submitted
+  phone report. It preserves verified ownership, requires an approved lead for the
+  reviewed state, audits the review and rejects existing operational metadata or
+  concurrent/repeated review. The scenario now exercises that service.
 - Support requests/acceptance, organization onboarding and assignment approval need
   their own authorized production workflows. A fixture database edit is not that UI.
 - Real SMS/email delivery, managed-token verification/IAM, connected browser clients,
@@ -82,4 +84,4 @@ python -m pytest backend/tests/test_connected_scenario.py
 npm run test:local-demo
 ```
 
-Validation: the connected run passed 42 actual in-process API checks, including expected authorization denials and the full reporter timeline. The scenario/isolation and related reporter/response regression selection passed 19 tests. The local launcher integration check passed with the connected-report route. No live identity provider, AI intake or production coordination setup is claimed.
+Validation: the connected run passed 42 actual in-process API checks, including expected authorization denials and the full reporter timeline. The case-review, scenario/isolation, access, network, reporter and response regression selection passed 94 tests. The local launcher integration check passed with the connected-report route. No live identity provider, AI intake or production coordination setup is claimed.

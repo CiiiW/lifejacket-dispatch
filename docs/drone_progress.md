@@ -451,3 +451,21 @@ Validation: a clean Linux source copy with no existing `.env` or node_modules pa
 - Details and reproducible commands: `docs/connected_scenario.md`.
 
 Validation: the connected run passed 42 actual in-process API checks, including expected authorization denials and the full reporter timeline. The scenario/isolation and related reporter/response regression selection passed 19 tests. The local launcher integration check passed with the connected-report route. No live identity provider, AI intake or production coordination setup is claimed.
+
+### 2026-11-01 — Submitted phone-report review handoff
+
+- Added a shared trusted offline review service and connected the existing admin CLI
+  to it. Newly submitted phone reports can now receive reviewed state and an approved
+  lead center without replacing verified reporter ownership or contact preferences.
+- Rejects missing/inconsistent ownership, unfinished drafts, partial/repeated review,
+  existing operational metadata and stale concurrent review. Reviews are audited in
+  the same transaction. Existing legacy enrollment remains supported.
+- Replaced direct scope mutation in the connected scenario with the actual review
+  service; refreshed the redacted evidence and offline report.
+- This closes the review gap recorded above. Organization onboarding, support
+  acceptance, assignment approval, live auth/SMS, ETA and notifications remain open.
+
+Validation on GCP: 94 selected backend regressions passed, including 27 focused
+case-review tests and the connected/isolation run. The standalone connected scenario
+passed all 42 API checks using the real review helper. Changed Python files passed
+Ruff; no real incident, professional access grant or outbound contact was performed.
