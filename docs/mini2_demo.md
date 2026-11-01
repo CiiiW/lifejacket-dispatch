@@ -165,3 +165,37 @@ This preview binds to loopback and relies on the notebook proxy for access;
 there is no app-level authentication. Do not expose it publicly. It uses a
 separate database and evidence directory and cannot create rescue cases or send
 notifications. Uploaded files are bounded JPEG frames, not whole videos.
+
+## Provisional grouping and fixture
+
+Generate scripted rectangle footage (FFmpeg required, no model calls), then import:
+
+```bash
+PYTHONPATH=backend python scripts/make_drone_grouping_fixture.py \
+  --output var/mini2/grouping-rectangles
+PYTHONPATH=backend python scripts/import_drone_demo.py var/mini2/grouping-rectangles \
+  --api-url http://127.0.0.1:8915/api
+```
+
+Use a fresh output path if the fixture already exists. Six sampled frames yield
+2 expected suggestions with 5 and 2 candidate references. Candidate boxes are
+scripted and labeled `scripted-fixture-not-ai`; this is not detector performance.
+
+In Demo review, refresh, select a rectangle frame and choose **Suggest groups for
+selected clip**. Each suggestion links to its source frame/candidate. Reviews
+remain per-frame; no saved group decision exists. Refresh/review clears suggestions.
+
+`box-overlap-v1` matches the same candidate kind within the same source/evidence
+kind using IoU >= 0.5 and a maximum 3-second gap since the last match. Only mutually
+unique matches join; ambiguous matches split. Long gaps, camera/target motion
+and kind changes can split one animal; crowded scenes can merge regions wrongly.
+Thresholds are uncalibrated. Failed/unprocessed frames and invalid boxes generate
+warnings; rejected frames are excluded. All imported source frames are included,
+with >60 rejected rather than silently truncated. A partial import still means
+partial evidence. No appearance model, camera compensation, GPS or re-identification.
+
+GCP browser validation and 420 backend tests pass for this increment. Real-wildlife
+identity tracking is not established by synthetic tests. [NOAA pilot record](noaa_video_pilot.md)
+reports the first real wildlife inference: 12 frames, 0 model failures, with group
+region outputs rather than individual animal identities. Keep real video marked
+`wildlife_recording`; the app's toy/synthetic demo contract intentionally rejects it.

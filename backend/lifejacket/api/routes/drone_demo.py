@@ -5,7 +5,7 @@ import io
 import uuid
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from fastapi.responses import FileResponse
 from PIL import Image, UnidentifiedImageError
 from pydantic import ValidationError
@@ -14,6 +14,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from lifejacket.config import settings
+from lifejacket.drones.grouping import suggest_groups
 from lifejacket.models.db import get_session
 from lifejacket.models.drone_demo import DemoFrameMetadata, DemoReview
 from lifejacket.models.tables import DroneDemoFrameRow
@@ -127,3 +128,26 @@ def save_review(demo_id: str, body: DemoReview, session: Session = Depends(get_s
         return review(session, row, body)
     except ValueError as exc:
         raise HTTPException(409, str(exc)) from exc
+
+
+@router.get("/groups")
+def groups(
+    source_sha256: str = Query(pattern=r"^[0-9a-f]{64}$"),
+    evidence_kind: str = Query(pattern=r"^(toy_demo|synthetic_test)$"),
+    session: Session = Depends(get_session),
+):
+    rows = session.scalars(
+        select(DroneDemoFrameRow)
+        .where(
+            DroneDemoFrameRow.metadata_json["source_sha256"].as_string() == source_sha256,
+            DroneDemoFrameRow.metadata_json["evidence_kind"].as_string() == evidence_kind,
+        )
+        .limit(61)
+    ).all()
+    if not rows:
+        raise HTTPException(404, "Demo source not found")
+    try:
+        frames = [frame_out(row) for row in rows]
+        return {**suggest_groups(frames), "frames": frames}
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc

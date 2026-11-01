@@ -859,7 +859,16 @@ export interface DemoFrame {
   reviews: {actor: string; decision: 'kept' | 'rejected'; note: string; recorded_at: string}[];
   created_at: string;
 }
+export interface DemoGrouping {
+  method: string; notice: string; frame_count: number; excluded_rejected_frames: number;
+  frames: DemoFrame[];
+  warnings: {demo_id: string; reason: string; candidate_index?: number}[];
+  groups: {group_id: string; kind: string; association: 'ambiguous' | 'provisional';
+    members: {demo_id: string; candidate_index: number; offset_seconds: number;
+      frame_revision: number; box: number[]}[]}[];
+}
 export const droneDemo = {
+  groups: (row: DemoFrame) => request<DemoGrouping>(`/drone-demo/groups?source_sha256=${row.metadata.source_sha256}&evidence_kind=${row.metadata.evidence_kind}`),
   list: () => request<DemoFrame[]>('/drone-demo/frames'),
   review: (row: DemoFrame, actor: string, decision: 'kept' | 'rejected', note: string) =>
     request<DemoFrame>(`/drone-demo/frames/${row.demo_id}/review`, {

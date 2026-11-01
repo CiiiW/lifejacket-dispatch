@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import {Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
-import {API_BASE, droneDemo, type DemoFrame} from '../lib/api';
+import {API_BASE, droneDemo, type DemoFrame, type DemoGrouping} from '../lib/api';
 import {colors, glass, radius, spacing, type} from '../lib/theme';
 
 export default function DroneDemoScreen() {
+  const [grouping, setGrouping] = useState<DemoGrouping | null>(null);
   const [rows, setRows] = useState<DemoFrame[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [filter, setFilter] = useState('all');
@@ -13,7 +14,7 @@ export default function DroneDemoScreen() {
   const [busy, setBusy] = useState(false);
   const row = rows.find(r => r.demo_id === selected);
   async function refresh() {
-    setBusy(true); setError(null);
+    setBusy(true); setError(null); setGrouping(null);
     try {setRows(await droneDemo.list());}
     catch {setError('Demo queue unavailable. It must be enabled in this demo environment.');}
     finally {setBusy(false);}
@@ -21,12 +22,23 @@ export default function DroneDemoScreen() {
   useEffect(() => {void refresh();}, []);
   async function review(decision: 'kept' | 'rejected') {
     if (!row) return;
-    setBusy(true); setError(null);
+    setBusy(true); setError(null); setGrouping(null);
     try {
       const updated = await droneDemo.review(row, actor.trim(), decision, note.trim());
       setRows(current => current.map(r => r.demo_id === updated.demo_id ? updated : r));
       setNote('');
     } catch {setError('Could not save. Refresh to load the latest review, then try again.');}
+    finally {setBusy(false);}
+  }
+  async function groupClip() {
+    if (!row) return;
+    setBusy(true); setError(null); setGrouping(null);
+    try {
+      const result = await droneDemo.groups(row);
+      setGrouping(result);
+      setRows(current => [...current.filter(r => !result.frames.some(f => f.demo_id === r.demo_id)),
+        ...result.frames]);
+    } catch {setError('Could not group this clip. Refresh and try again.');}
     finally {setBusy(false);}
   }
   const visible = rows.filter(r => filter === 'all' || r.status === filter);
@@ -44,12 +56,31 @@ export default function DroneDemoScreen() {
         <Text style={styles.label}>{busy ? 'Loading…' : 'Refresh'}</Text></Pressable>
     </View>
     {error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
-    <Text style={styles.meta}>{rows.length} latest frames · Frame count is not animal count.</Text>
+    <Text style={styles.meta}>{rows.length} frames loaded · Frame count is not animal count.</Text>
     {!visible.length && <Text style={styles.body}>No frames in this view. Import a prepared demo clip, then refresh.</Text>}
+    {row && <Pressable accessibilityRole="button" disabled={busy} onPress={groupClip}
+      style={styles.button}><Text style={styles.label}>Suggest groups for selected clip</Text></Pressable>}
+    {grouping && <View style={styles.banner}>
+      <Text style={styles.heading}>Suggested sightings · Human review needed</Text>
+      <Text style={styles.body}>{grouping.notice}</Text>
+      <Text style={styles.meta}>{grouping.groups.length} suggested groups across {grouping.frame_count} imported source frames · {grouping.excluded_rejected_frames} rejected frames excluded</Text>
+      <Text style={styles.meta}>Box overlap only · No identity confirmation. Groups are recalculated, not saved. Reviews below apply to individual frames.</Text>
+      {!grouping.groups.length && <Text style={styles.body}>No usable candidates to group. Import analyzed demo frames first.</Text>}
+      {grouping.warnings.length > 0 && <Text style={styles.body}>{grouping.warnings.length} frame/candidate warnings: {Array.from(new Set(grouping.warnings.map(w => w.reason))).join(', ')}</Text>}
+      {grouping.groups.map(group => <View key={group.group_id} style={styles.card}>
+        <Text style={styles.label}>{group.group_id} · {group.kind} · {group.association}</Text>
+        <View style={styles.actions}>{group.members.map(member => <Pressable
+          key={`${member.demo_id}-${member.candidate_index}`} accessibilityRole="button"
+          accessibilityLabel={`Inspect ${group.group_id} at ${member.offset_seconds.toFixed(3)} seconds candidate ${member.candidate_index + 1}`}
+          onPress={() => {setSelected(member.demo_id); setNote('');}} style={styles.button}>
+          <Text style={styles.body}>{member.offset_seconds.toFixed(3)}s · Candidate {member.candidate_index + 1}</Text>
+        </Pressable>)}</View>
+      </View>)}
+    </View>}
     <View style={styles.columns}>
       <View style={styles.list}>{visible.map(item => <Pressable key={item.demo_id}
         accessibilityRole="button" accessibilityLabel={`Review frame at ${item.metadata.offset_seconds.toFixed(3)} seconds`}
-        onPress={() => {setSelected(item.demo_id); setNote('');}} style={[styles.card,
+        onPress={() => {setSelected(item.demo_id); setNote(''); setGrouping(null);}} style={[styles.card,
           selected === item.demo_id && {borderColor: colors.accent}]}>
         <Text style={styles.label}>{item.metadata.evidence_kind === 'toy_demo' ? 'Toy demo' : 'Synthetic test'} · {item.status}</Text>
         <Text style={styles.body}>{item.metadata.offset_seconds.toFixed(3)}s · {item.metadata.source}</Text>

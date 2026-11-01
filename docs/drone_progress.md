@@ -24,8 +24,8 @@ implemented or authorized by the current milestone.
 | DR-03 | Individual-photo drone intake and advisory screening | Implemented; offline workflow-tested | [Observation workflow](drone_observation_handoff.md): original media, capture metadata, shared eight-group taxonomy, selected-target analysis, revisioned human review and case linking. No live camera ingestion. |
 | DR-04 | Public-photo development baseline | Live run completed | [Run record](../research/public_condition_pilot/BASELINE_RUN_2026-10-23.md): 40 detection results, 38 assessments, 2 awaiting target selection, 0 failed cases. Human/expert reviews: 0 at the recorded checkpoint. Not an aerial benchmark. |
 | DR-05 | Review page and small evaluation dashboard | Implemented; browser-verified on GCP | [Review page](../research/public_condition_pilot/review.html): stage counts, predicted/reviewed group coverage, saved-attempt telemetry and provisional same-target sign comparisons. No expert accuracy score. |
-| DR-06 | Recorded drone-video intake and frame extraction | Local implementation; synthetic tests passed | [Mini 2 workflow](mini2_demo.md): original hash/copy, bounded JPEG samples, actual clip offsets, local review and optional existing detector. Actual drone/toy footage and live detection evaluation remain outstanding. |
-| DR-07 | Repeated-sighting grouping across frames | Not started | Preserve frame evidence and uncertain associations; evaluate missed animals, duplicate alerts and incorrect merges on real footage. |
+| DR-06 | Recorded drone-video intake and frame extraction | Implemented; first public wildlife video processed on GCP | [Mini 2 workflow](mini2_demo.md): original hash/copy, bounded JPEG samples, actual clip offsets, local review and optional existing detector. NOAA aerial opening samples processed successfully; actual Mini 2/toy footage and labeled detection evaluation remain outstanding. |
+| DR-07 | Repeated-sighting grouping across frames | Provisional demo suggestions implemented; GCP tested | Conservative box/time association, ambiguity splits and source references; synthetic checks only. Real animal identity/tracking evaluation remains pending. |
 | DR-08 | Video sighting review in the coordinator queue | Demo-only frame review implemented; GCP browser-verified | Separate toy/synthetic table, integrity-checked JPEGs, keep/reject audit and stale-edit protection. Real wildlife video review, target choice and case linking remain future work. |
 | DR-09 | Live camera / companion upload and physical flight integration | Future work | Requires chosen hardware, actual capture/telemetry alignment and appropriate operator/site authorization. |
 
@@ -74,11 +74,34 @@ metrics have not yet been agreed; do not invent a pass threshold.
   ignored by git and can be restored from the saved manifest.
 - [Baseline and review instructions](../research/public_condition_pilot/README.md)
   explain the runner, fingerprint checks, exports and private serving command.
-- Latest full backend validation: **402 passed locally and on GCP** on
-  2026-10-31. Scripted tests check orchestration,
-  not visual accuracy.
+- Latest full backend validation: **420 passed on GCP** on 2026-10-31.
+  Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-10-31 — GCP reconnection, recovery and first wildlife inference
+
+- Connected browser access restored. Workbench ADC refreshed successfully using
+  its existing credentials; no password/key export or access expansion needed.
+- Workspace maintenance removed the temporary local checkout and its unpushed
+  grouping/NOAA preparation commits. Recovered the intact GCP base and recreated
+  grouping code, tests, fixture and notes from recorded work. Earlier local hashes
+  `9bb39db` and `d3ab93c` are historical checkpoints, not available GCP commits.
+- Restored source transferred to GCP. Full backend 420 passed (one existing
+  dependency warning); Ruff, TypeScript checking, web export and diff checks passed.
+- Browser verified 2 suggestions across 6 scripted rectangle frames, member links
+  selecting the correct frame, loaded image and required review fields. These
+  groups are disposable; reviews remain per-frame. No animal identity/count claim.
+- NOAA source hash matched the earlier download. Prepared 12 first-section frames,
+  verified media hashes, then ran Vertex Gemini 2.5 Flash: 12 completed, 0 failed.
+  Boxes per frame: 0,0,0,0,0,0,0,0,1,3,4,5. See [run record](noaa_video_pilot.md).
+- Descriptions refer to groups/colonies, not individual animals. Thirteen boxes
+  cannot be interpreted as thirteen animals or verified sightings. No expert
+  labels, accuracy score, injury analysis or real rescue cases were produced.
+- Private NOAA review on notebook `/proxy/8917/review.html`; demo app `/proxy/8915/`.
+  Real wildlife evidence stays outside the toy/synthetic queue. GitHub not pushed.
+- Next: manual boxes/labels on a short continuous closer-view sequence; assess
+  missed animals, false positives and group-region outputs before tracking claims.
 
 ### 2026-10-31 — Demo frame review queue
 

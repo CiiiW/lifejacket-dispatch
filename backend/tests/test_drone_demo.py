@@ -197,3 +197,104 @@ def test_importer_preflights_all_frames_and_retries_safely(api, tmp_path):
     with pytest.raises(ValueError, match="loopback"):
         module.import_bundle(bundle, "https://example.com", client=client)
     assert digest(bundle / "manifest.json")
+
+
+def test_group_api_complete_source_snapshot_and_review_invalidation(api, monkeypatch):
+    client, factory = api
+    candidate = {"box": [100, 100, 300, 300], "description": "Scripted", "kind": "seal"}
+    for offset in range(3):
+        assert (
+            upload(
+                client,
+                offset_seconds=offset,
+                detection_status="completed",
+                detection={"animals": [candidate]},
+            ).status_code
+            == 200
+        )
+    upload(client, source_sha256="b" * 64)
+    upload(client, evidence_kind="synthetic_test")
+    params = {"source_sha256": "a" * 64, "evidence_kind": "toy_demo"}
+    result = client.get("/drone-demo/groups", params=params)
+    assert result.status_code == 200
+    body = result.json()
+    assert body["frame_count"] == 3 and len(body["frames"]) == 3
+    assert len(body["groups"]) == 1
+    last = body["groups"][0]["members"][-1]
+    client.post(
+        f"/drone-demo/frames/{last['demo_id']}/review",
+        json={
+            "expected_revision": 0,
+            "actor": "Tester",
+            "decision": "rejected",
+            "note": "Exclude",
+        },
+    )
+    refreshed = client.get("/drone-demo/groups", params=params).json()
+    assert refreshed["excluded_rejected_frames"] == 1
+    assert len(refreshed["groups"][0]["members"]) == 2
+    assert (
+        client.get(
+            "/drone-demo/groups", params=params | {"source_sha256": "c" * 64}
+        ).status_code
+        == 404
+    )
+    assert (
+        client.get(
+            "/drone-demo/groups", params=params | {"evidence_kind": "wildlife_recording"}
+        ).status_code
+        == 422
+    )
+    with factory() as session:
+        for table in [IncidentRow, DroneObservationRow, AssignmentRow]:
+            assert session.scalar(select(func.count()).select_from(table)) == 0
+    monkeypatch.setattr(settings, "drone_demo_enabled", False)
+    assert client.get("/drone-demo/groups", params=params).status_code == 404
+
+
+def test_group_api_refuses_partial_oversized_source(api):
+    client, _ = api
+    for offset in range(61):
+        assert upload(client, offset_seconds=offset).status_code == 200
+    response = client.get(
+        "/drone-demo/groups", params={"source_sha256": "a" * 64, "evidence_kind": "toy_demo"}
+    )
+    assert response.status_code == 422
+
+
+def test_generated_rectangle_clip_import_and_groups_end_to_end(api, tmp_path):
+    import shutil
+
+    if not shutil.which("ffmpeg"):
+        pytest.skip("FFmpeg not installed")
+    scripts = Path(__file__).resolve().parents[2] / "scripts"
+
+    def module(name):
+        spec = importlib.util.spec_from_file_location(name, scripts / f"{name}.py")
+        result = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(result)
+        return result
+
+    bundle = tmp_path / "rectangles"
+    manifest = module("make_drone_grouping_fixture").make_fixture(bundle)
+    assert len(manifest["frames"]) == 6
+    assert manifest["metadata"]["evidence_kind"] == "synthetic_test"
+    client, _ = api
+    importer = module("import_drone_demo")
+    ids = importer.import_bundle(bundle, "http://localhost", client=client)
+    assert len(ids) == 6
+    result = client.get(
+        "/drone-demo/groups",
+        params={
+            "source_sha256": manifest["source"]["sha256"],
+            "evidence_kind": "synthetic_test",
+        },
+    ).json()
+    assert [len(g["members"]) for g in result["groups"]] == [5, 2]
+    assert result["warnings"] == []
+    assert all(
+        f["metadata"]["detector_model"] == "scripted-fixture-not-ai" for f in result["frames"]
+    )
+    assert importer.import_bundle(bundle, "http://localhost", client=client) == ids
+    with pytest.raises(ValueError, match="already exists"):
+        module("make_drone_grouping_fixture").make_fixture(bundle)
