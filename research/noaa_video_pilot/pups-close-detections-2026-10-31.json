@@ -1,0 +1,534 @@
+{
+  "manifest_sha256": "99e76194c000c3e0a91d9cc67513dfc2c4bf8dc6cec479bcb6f95d003307391b",
+  "stage": "detection_only",
+  "frames": [
+    {
+      "path": "frames/0001.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            100,
+            100,
+            950,
+            950
+          ],
+          "description": "small dark animal on sand",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            0,
+            800,
+            1000
+          ],
+          "description": "large light brown animal in background",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 7.31,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 114,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0002.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            240,
+            0,
+            990,
+            990
+          ],
+          "description": "dark wet mammal on the sand",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            0,
+            700,
+            990
+          ],
+          "description": "large light brown mammal in the background",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 4.33,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 113,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0003.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            50,
+            0,
+            990,
+            850
+          ],
+          "description": "small dark wet furry animal in foreground",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            0,
+            700,
+            1000
+          ],
+          "description": "large light brown animal behind the pup",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 7.32,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 114,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0004.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            200,
+            300,
+            990,
+            990
+          ],
+          "description": "dark animal on sand, center",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            270,
+            800,
+            780,
+            1000
+          ],
+          "description": "dark animal, partially visible, right",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            0,
+            800,
+            700
+          ],
+          "description": "large light brown animal, left",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 5.7,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 169,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0005.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            0,
+            0,
+            900,
+            500
+          ],
+          "description": "light-colored animal on the left",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            200,
+            890,
+            858
+          ],
+          "description": "dark animal in the middle",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            590,
+            890,
+            1000
+          ],
+          "description": "dark animal on the right",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 5.37,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 121,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0006.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            100,
+            0,
+            990,
+            743
+          ],
+          "description": "dark animal on sand, left",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            100,
+            500,
+            990,
+            999
+          ],
+          "description": "dark animal on sand, right",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            0,
+            800,
+            300
+          ],
+          "description": "light-colored animal, far left",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 8.33,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 122,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0007.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            300,
+            0,
+            999,
+            870
+          ],
+          "description": "Dark animal in the foreground, left",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            0,
+            770,
+            60
+          ],
+          "description": "Light-colored animal, far left",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            0,
+            700,
+            880,
+            1000
+          ],
+          "description": "Dark animal on the right",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 6.38,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 122,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0008.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            300,
+            0,
+            1000,
+            895
+          ],
+          "description": "dark animal on the sand, left",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            125,
+            400,
+            900,
+            999
+          ],
+          "description": "dark animal on the sand, right",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.29,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 87,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0009.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            0,
+            0,
+            1000,
+            600
+          ],
+          "description": "dark animal on the left, head blurred",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            100,
+            450,
+            1000,
+            1000
+          ],
+          "description": "dark animal on the right, facing away",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.48,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 121,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0010.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            100,
+            0,
+            1000,
+            419
+          ],
+          "description": "dark animal on left, looking up",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            100,
+            531,
+            890,
+            1000
+          ],
+          "description": "dark animal on right, facing away",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.45,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 88,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0011.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            0,
+            0,
+            1000,
+            500
+          ],
+          "description": "dark animal on the left, looking forward",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            450,
+            1000,
+            1000
+          ],
+          "description": "dark animal on the right, facing away",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 6.23,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 121,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0012.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            0,
+            0,
+            1000,
+            700
+          ],
+          "description": "dark animal on sand, facing forward",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            800,
+            1000,
+            1000
+          ],
+          "description": "dark animal on sand, far right",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 4.53,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 119,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0013.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            10,
+            0,
+            990,
+            700
+          ],
+          "description": "dark animal on the sand, left",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.73,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 63,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0014.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            100,
+            0,
+            950,
+            650
+          ],
+          "description": "dark animal on the sand",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.18,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 62,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0015.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            10,
+            0,
+            999,
+            999
+          ],
+          "description": "dark animal on the sand",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 4.44,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 41,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0016.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            0,
+            0,
+            1000,
+            1000
+          ],
+          "description": "dark animal on sand, looking up",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 3.07,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 44,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    }
+  ]
+}

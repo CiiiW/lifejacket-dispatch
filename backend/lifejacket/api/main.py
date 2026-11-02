@@ -24,17 +24,26 @@ import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.engine import make_url
+from starlette.responses import JSONResponse
 
+from lifejacket.access.boundary import NetworkBoundaryMiddleware
 from lifejacket.api.routes import (
+    access,
     coordination,
+    drone_demo,
     drone_intake,
     drones,
     historical_strandings,
     incidents,
     intake,
+    network,
+    network_actions,
+    reporter_phone,
     responders,
 )
 from lifejacket.config import settings
@@ -83,6 +92,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(NetworkBoundaryMiddleware)
+
+
+@app.exception_handler(RequestValidationError)
+async def private_reporter_validation(request: Request, exc: RequestValidationError):
+    if request.url.path.startswith("/reporter/"):
+        # Never echo ID tokens, draft keys, phone numbers or report content.
+        return JSONResponse(
+            {"detail": "Invalid reporter request"},
+            status_code=422,
+            headers={"Cache-Control": "private, no-store"},
+        )
+    return await request_validation_exception_handler(request, exc)
+
+
+app.include_router(reporter_phone.router)
+app.include_router(network.router)
+app.include_router(network_actions.router)
+app.include_router(access.router)
 app.include_router(intake.router)
 app.include_router(incidents.router)
 app.include_router(responders.router)
@@ -90,6 +118,7 @@ app.include_router(coordination.router)
 app.include_router(historical_strandings.router)
 app.include_router(drones.router)
 app.include_router(drone_intake.router)
+app.include_router(drone_demo.router)
 
 
 @app.get("/health", tags=["system"])

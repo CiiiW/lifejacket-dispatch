@@ -1,0 +1,340 @@
+{
+  "mode": "isolated-connected-scenario",
+  "passed": true,
+  "generated_at": "2026-11-01T18:55:47.782845+00:00",
+  "checks": [
+    {
+      "step": "Unknown fictional token is denied",
+      "role": "scenario",
+      "http_status": 401,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Create fictional personal identity",
+      "role": "a",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Create fictional personal identity",
+      "role": "b",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Create fictional personal identity",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Create fictional personal identity",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Reporter starts private draft",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Incomplete draft cannot be submitted",
+      "role": "reporter",
+      "http_status": 409,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Phone-verified reporter explicitly submits",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "received",
+      "passed": true
+    },
+    {
+      "step": "Reporter sees received before any team acceptance",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "received",
+      "passed": true
+    },
+    {
+      "step": "Unrelated reporter cannot read the case",
+      "role": "unrelated",
+      "http_status": 404,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Legacy incident path remains blocked",
+      "role": "scenario",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Permitted organization discovers the same submitted case",
+      "role": "a",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Permitted organization discovers the same submitted case",
+      "role": "b",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Permitted organization discovers the same submitted case",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Case discovery does not grant reporter contact",
+      "role": "b",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Case discovery does not grant response changes",
+      "role": "b",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Case discovery does not grant reporter contact",
+      "role": "noaa",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Case discovery does not grant response changes",
+      "role": "noaa",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Unassigned rescuer cannot read operations",
+      "role": "rescuer-b",
+      "http_status": 404,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Accepted assigned support gets text-only contact",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Reporter leaves without cancellation",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Reporter withdraws current-case contact",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Withdrawal immediately denies staff contact",
+      "role": "rescuer-b",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Human-confirmed response: accepted",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": "accepted",
+      "passed": true
+    },
+    {
+      "step": "Stale update cannot overwrite a newer response",
+      "role": "rescuer-b",
+      "http_status": 409,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Reporter sees the same confirmed response",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "accepted",
+      "passed": true
+    },
+    {
+      "step": "NOAA sees the same response without operational permission",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": "accepted",
+      "passed": true
+    },
+    {
+      "step": "Human-confirmed response: en_route",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": "en_route",
+      "passed": true
+    },
+    {
+      "step": "Reporter sees the same confirmed response",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "en_route",
+      "passed": true
+    },
+    {
+      "step": "NOAA sees the same response without operational permission",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": "en_route",
+      "passed": true
+    },
+    {
+      "step": "Human-confirmed response: on_scene",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": "on_scene",
+      "passed": true
+    },
+    {
+      "step": "Reporter sees the same confirmed response",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "on_scene",
+      "passed": true
+    },
+    {
+      "step": "NOAA sees the same response without operational permission",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": "on_scene",
+      "passed": true
+    },
+    {
+      "step": "Human-confirmed response: animal_located",
+      "role": "rescuer-b",
+      "http_status": 200,
+      "phase": "animal_located",
+      "passed": true
+    },
+    {
+      "step": "Reporter sees the same confirmed response",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "animal_located",
+      "passed": true
+    },
+    {
+      "step": "NOAA sees the same response without operational permission",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": "animal_located",
+      "passed": true
+    },
+    {
+      "step": "Supporting center cannot close the lead case",
+      "role": "b",
+      "http_status": 409,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Human-confirmed response: closed",
+      "role": "a",
+      "http_status": 200,
+      "phase": "closed",
+      "passed": true
+    },
+    {
+      "step": "Reporter sees the same confirmed response",
+      "role": "reporter",
+      "http_status": 200,
+      "phase": "closed",
+      "passed": true
+    },
+    {
+      "step": "NOAA sees the same response without operational permission",
+      "role": "noaa",
+      "http_status": 200,
+      "phase": "closed",
+      "passed": true
+    },
+    {
+      "step": "Revoked member cannot continue using selected organization",
+      "role": "rescuer-b",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    },
+    {
+      "step": "Closed case no longer exposes reporter contact",
+      "role": "a",
+      "http_status": 403,
+      "phase": null,
+      "passed": true
+    }
+  ],
+  "reporter_timeline": [
+    {
+      "phase": "received",
+      "message": "Report received; awaiting team confirmation.",
+      "eta_minutes": null
+    },
+    {
+      "phase": "accepted",
+      "message": "A team has taken your report.",
+      "eta_minutes": null
+    },
+    {
+      "phase": "en_route",
+      "message": "A team is on the way.",
+      "eta_minutes": null
+    },
+    {
+      "phase": "on_scene",
+      "message": "The team has arrived and is checking the area.",
+      "eta_minutes": null
+    },
+    {
+      "phase": "animal_located",
+      "message": "The team has located the animal.",
+      "eta_minutes": null
+    },
+    {
+      "phase": "closed",
+      "message": "A case outcome has been recorded.",
+      "eta_minutes": null
+    }
+  ],
+  "boundaries": [
+    "Phone identities and completed intake are fictional test adapters.",
+    "Organization approval, support acceptance and assignment are trusted fixture setup; case review uses the offline administrative service.",
+    "API routes, membership checks, state changes and reporter projections use real code sharing one temporary database.",
+    "No public server, real SMS, model calls, notifications or live rescue case."
+  ],
+  "temporary_database_removed": true
+}

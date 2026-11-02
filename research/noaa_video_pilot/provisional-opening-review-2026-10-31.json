@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "manifest_sha256": "c1b1d85a8626c8e4d4e62b52e0cd2e3e2701ed882e2cd00cef044fc91043a768",
+  "predictions_sha256": "36c3d1829c034be4892027cfdac1cf8b37fd7f17fa8b1393473738c8489f0dd4",
+  "evidence_kind": "wildlife_recording",
+  "source_sha256": "f335b21c54e45cc2689bee64715cc12f7acf6338ca8016ff0c9c08941cbcc541",
+  "frames": [
+    {
+      "path": "frames/0001.jpg",
+      "frame_sha256": "2d23e31c4b88ebc19da8f321d777ed89bf69b8b48c09af278dcc339c827e9b65",
+      "offset_seconds": 0,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "slate",
+        "visible_animals": "no",
+        "missed_visible_animals": 0,
+        "note": "NOAA opening credit slate. No animals visible; no detection candidates. Provisional project review with model output visible.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0002.jpg",
+      "frame_sha256": "a35a4e897bd72a68dd40adbb685ba05694517a0d99549e5c7e94256e34b0604d",
+      "offset_seconds": 2.002,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "slate",
+        "visible_animals": "no",
+        "missed_visible_animals": 0,
+        "note": "NOAA opening credit slate. No animals visible; no detection candidates. Provisional project review with model output visible.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0003.jpg",
+      "frame_sha256": "b983052598860429a66890778e00173798391e1cc7d2652d210e15836268aabe",
+      "offset_seconds": 4.004,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "slate",
+        "visible_animals": "no",
+        "missed_visible_animals": 0,
+        "note": "NOAA opening credit slate. No animals visible; no detection candidates. Provisional project review with model output visible.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0004.jpg",
+      "frame_sha256": "b85ae7707f7a82f68ba3749b03c620fdfd02cd84219e7a5dc4ae1ff9b45a49b8",
+      "offset_seconds": 6.006,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "slate",
+        "visible_animals": "no",
+        "missed_visible_animals": 0,
+        "note": "Point Bennett location/credit/permit slate. No animals visible; no detection candidates. Provisional project review.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0005.jpg",
+      "frame_sha256": "aca2f60ab4ae1329477729dc851b94e15900da3f47b5b771676eb35795510571",
+      "offset_seconds": 8.008,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "slate",
+        "visible_animals": "no",
+        "missed_visible_animals": 0,
+        "note": "Point Bennett location/credit/permit slate. No animals visible; no detection candidates. Provisional project review.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0006.jpg",
+      "frame_sha256": "6297a3b5a04fb4c843f392d8f81827f49a708020c8482212359eadccb415ef20",
+      "offset_seconds": 10.01,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "uncertain",
+        "missed_visible_animals": null,
+        "note": "Inspected original frame at 10.01s. Distant shore and rocky/scrub foreground; individual animal presence/count cannot be verified at this scale. Empty detections do not establish absence.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0007.jpg",
+      "frame_sha256": "3fb777e49aaf62f9b8295712675e06bc6f264dc3780085ef58bb7d503bd29211",
+      "offset_seconds": 12.012,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "uncertain",
+        "missed_visible_animals": null,
+        "note": "Inspected original frame at 12.012s. Distant shore and rocky/scrub foreground; individual animal presence/count cannot be verified at this scale. Empty detections do not establish absence.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0008.jpg",
+      "frame_sha256": "17c5219d5c6638be3caecf00f1921d19646a33c2021b881da58650ae7a88fec3",
+      "offset_seconds": 14.014,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "uncertain",
+        "missed_visible_animals": null,
+        "note": "Inspected original frame at 14.014s. Distant shore and rocky/scrub foreground; individual animal presence/count cannot be verified at this scale. Empty detections do not establish absence.",
+        "candidate_judgements": []
+      }
+    },
+    {
+      "path": "frames/0009.jpg",
+      "frame_sha256": "b9c13bdc3ddeac7b8f20736bf044900fdad0f6de86422afbbc58197c8ee90715",
+      "offset_seconds": 16.016,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [
+        {
+          "box": [
+            360,
+            580,
+            480,
+            780
+          ],
+          "description": "group of dark animals on the sandy beach",
+          "kind": "mammal"
+        }
+      ],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "uncertain",
+        "missed_visible_animals": null,
+        "note": "Inspected original frame at 16.016s. Distant shore and rocky/scrub foreground; individual animal presence/count cannot be verified at this scale. Empty detections do not establish absence. Proposed region overlaps distant terrain and remains uncertain.",
+        "candidate_judgements": [
+          "uncertain"
+        ]
+      }
+    },
+    {
+      "path": "frames/0010.jpg",
+      "frame_sha256": "108930ddcb8ce9b77bc1ccda6824fd65f5928a7cfb1cbc77829d4b5f41edd932",
+      "offset_seconds": 18.018,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [
+        {
+          "box": [
+            390,
+            300,
+            600,
+            990
+          ],
+          "description": "large group of dark animals on the sand",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            150,
+            500,
+            350
+          ],
+          "description": "group of dark animals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            200,
+            150,
+            300,
+            300
+          ],
+          "description": "dark animals on the rocky island",
+          "kind": "mammal"
+        }
+      ],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "yes",
+        "missed_visible_animals": null,
+        "note": "Original frame shows a dense beach colony. Region 1 plausibly covers the colony; regions 2 and 3 include water/distant rocks and cannot be verified. No individual count or injury judgement.",
+        "candidate_judgements": [
+          "group",
+          "uncertain",
+          "uncertain"
+        ]
+      }
+    },
+    {
+      "path": "frames/0011.jpg",
+      "frame_sha256": "4a2e105e83c0cffb083446d187d52f5fcce223b7e83b06e76598974545e7c03c",
+      "offset_seconds": 20.02,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [
+        {
+          "box": [
+            450,
+            200,
+            650,
+            450
+          ],
+          "description": "dense group of dark mammals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            450,
+            450,
+            700,
+            800
+          ],
+          "description": "dense group of dark mammals on the right beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            350,
+            400,
+            550,
+            850
+          ],
+          "description": "scattered dark mammals on the upper sandy beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            550,
+            250,
+            650,
+            400
+          ],
+          "description": "dark mammals in the shallow water",
+          "kind": "mammal"
+        }
+      ],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "yes",
+        "missed_visible_animals": null,
+        "note": "Original frame shows a beach colony. Regions 2 and 3 plausibly cover groups; regions 1 and 4 are not reliably resolved. Possible overlapping proposals; no distinct-animal or missed-animal count.",
+        "candidate_judgements": [
+          "uncertain",
+          "group",
+          "group",
+          "uncertain"
+        ]
+      }
+    },
+    {
+      "path": "frames/0012.jpg",
+      "frame_sha256": "d0a14909ebe794cf88036918787d561cffa2ac432d0b743cc04e579a312d802c",
+      "offset_seconds": 22.022,
+      "captured_at": null,
+      "detection_status": "detected",
+      "candidates": [
+        {
+          "box": [
+            398,
+            200,
+            550,
+            450
+          ],
+          "description": "Dense group of dark animals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            348,
+            450,
+            550,
+            700
+          ],
+          "description": "Large group of dark animals on the central beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            380,
+            700,
+            500,
+            950
+          ],
+          "description": "Scattered dark animals on the right beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            180,
+            250,
+            250,
+            350
+          ],
+          "description": "Small group of dark animals on the left island",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            200,
+            500,
+            280,
+            600
+          ],
+          "description": "Small group of dark animals on the central island",
+          "kind": "mammal"
+        }
+      ],
+      "review": {
+        "state": "reviewed",
+        "scene": "aerial",
+        "visible_animals": "yes",
+        "missed_visible_animals": null,
+        "note": "Original frame shows a beach colony. Regions 2 and 3 plausibly cover groups; region 1 and island regions 4 and 5 remain uncertain. No individual count or injury judgement.",
+        "candidate_judgements": [
+          "uncertain",
+          "group",
+          "group",
+          "uncertain",
+          "uncertain"
+        ]
+      }
+    }
+  ],
+  "exported_at": "2026-11-01T03:14:36.372Z",
+  "reviewer": "Codex visual review",
+  "model_visible": true,
+  "independent_ground_truth": false,
+  "review_kind": "provisional_visual_review"
+}

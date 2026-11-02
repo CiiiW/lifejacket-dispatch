@@ -847,3 +847,31 @@ export const droneIntake = {
       method: 'POST', body: JSON.stringify({expected_revision: handoff.revision, actor, status, channel, note}),
     }),
 };
+
+// Isolated toy/synthetic evidence. Deliberately no case or handoff operations.
+export interface DemoFrame {
+  demo_id: string; demo_only: true; status: 'pending' | 'kept' | 'rejected'; revision: number;
+  metadata: {evidence_kind: 'toy_demo' | 'synthetic_test'; source: string; rights_note: string;
+    source_sha256: string; frame_sha256: string; offset_seconds: number;
+    captured_at: string | null; detection: {animals: AnimalDetection[]} | null;
+    detection_status: 'not_run' | 'completed' | 'failed'; detector_model: string | null};
+  photo_url: string; aircraft_position: null; animal_position: null; incident_id: null;
+  reviews: {actor: string; decision: 'kept' | 'rejected'; note: string; recorded_at: string}[];
+  created_at: string;
+}
+export interface DemoGrouping {
+  method: string; notice: string; frame_count: number; excluded_rejected_frames: number;
+  frames: DemoFrame[];
+  warnings: {demo_id: string; reason: string; candidate_index?: number}[];
+  groups: {group_id: string; kind: string; association: 'ambiguous' | 'provisional';
+    members: {demo_id: string; candidate_index: number; offset_seconds: number;
+      frame_revision: number; box: number[]}[]}[];
+}
+export const droneDemo = {
+  groups: (row: DemoFrame) => request<DemoGrouping>(`/drone-demo/groups?source_sha256=${row.metadata.source_sha256}&evidence_kind=${row.metadata.evidence_kind}`),
+  list: () => request<DemoFrame[]>('/drone-demo/frames'),
+  review: (row: DemoFrame, actor: string, decision: 'kept' | 'rejected', note: string) =>
+    request<DemoFrame>(`/drone-demo/frames/${row.demo_id}/review`, {
+      method: 'POST', body: JSON.stringify({expected_revision: row.revision, actor, decision, note}),
+    }),
+};

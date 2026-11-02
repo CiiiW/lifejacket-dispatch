@@ -1,0 +1,284 @@
+{
+  "manifest_sha256": "c1b1d85a8626c8e4d4e62b52e0cd2e3e2701ed882e2cd00cef044fc91043a768",
+  "stage": "detection_only",
+  "frames": [
+    {
+      "path": "frames/0001.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 1.7,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0002.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 2.2,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0003.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 2.09,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0004.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 1.87,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0005.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 1.89,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0006.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 2.42,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0007.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 2.55,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0008.jpg",
+      "status": "detected",
+      "animals": [],
+      "metrics": {
+        "detection_latency_seconds": 3,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0009.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            360,
+            580,
+            480,
+            780
+          ],
+          "description": "group of dark animals on the sandy beach",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 6.05,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 67,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0010.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            390,
+            300,
+            600,
+            990
+          ],
+          "description": "large group of dark animals on the sand",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            400,
+            150,
+            500,
+            350
+          ],
+          "description": "group of dark animals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            200,
+            150,
+            300,
+            300
+          ],
+          "description": "dark animals on the rocky island",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 6.37,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 175,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0011.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            450,
+            200,
+            650,
+            450
+          ],
+          "description": "dense group of dark mammals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            450,
+            450,
+            700,
+            800
+          ],
+          "description": "dense group of dark mammals on the right beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            350,
+            400,
+            550,
+            850
+          ],
+          "description": "scattered dark mammals on the upper sandy beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            550,
+            250,
+            650,
+            400
+          ],
+          "description": "dark mammals in the shallow water",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 6.15,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 233,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    },
+    {
+      "path": "frames/0012.jpg",
+      "status": "detected",
+      "animals": [
+        {
+          "box": [
+            398,
+            200,
+            550,
+            450
+          ],
+          "description": "Dense group of dark animals on the left beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            348,
+            450,
+            550,
+            700
+          ],
+          "description": "Large group of dark animals on the central beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            380,
+            700,
+            500,
+            950
+          ],
+          "description": "Scattered dark animals on the right beach",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            180,
+            250,
+            250,
+            350
+          ],
+          "description": "Small group of dark animals on the left island",
+          "kind": "mammal"
+        },
+        {
+          "box": [
+            200,
+            500,
+            280,
+            600
+          ],
+          "description": "Small group of dark animals on the central island",
+          "kind": "mammal"
+        }
+      ],
+      "metrics": {
+        "detection_latency_seconds": 10.09,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 291,
+        "detection_attempts": 1
+      },
+      "model": "gemini-2.5-flash"
+    }
+  ]
+}

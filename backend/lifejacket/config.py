@@ -46,6 +46,13 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # Managed end-user authentication; distinct from Workbench/Vertex ADC.
+    network_auth_enabled: bool = False
+    network_case_actions_enabled: bool = False
+    # Only safe alongside the network boundary; never enables legacy public routes.
+    reporter_phone_enabled: bool = False
+    firebase_auth_project_id: str | None = None
+
     # --- LLM / Vertex AI -------------------------------------------------
     # The team's GCP project hosts the Gemini models used by all three agents.
     gcp_project: str = Field(default="spring-2026-lifejacket")
@@ -90,6 +97,9 @@ class Settings(BaseSettings):
     # Uploaded photos are kept outside the repo (they are large and often
     # contain personal context). Overridden with a bucket path in deployment.
     drone_evidence_dir: Path = Field(default=REPO_ROOT / "var" / "drone-evidence")
+
+    drone_demo_enabled: bool = False
+    drone_demo_dir: Path = REPO_ROOT / "var" / "drone-demo"
 
     drone_runs_dir: Path = Field(default=REPO_ROOT / "var" / "drone-runs")
 

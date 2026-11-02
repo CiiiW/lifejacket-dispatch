@@ -28,6 +28,7 @@ from lifejacket.geo import estimate_drive_minutes, haversine_km
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import AssignmentStatus, ResponderKind
 from lifejacket.models.tables import AssignmentRow, IncidentRow, ResponderRow
+from lifejacket.services.assignment_summary import TERMINAL_CASES, refresh_assignment_summary
 from lifejacket.services.events import incident_state, record_event, record_incident_change
 
 router = APIRouter(prefix="/responders", tags=["responders"])
@@ -258,6 +259,9 @@ def assign_responder(body: AssignRequest, session: Session = Depends(get_session
     if incident is None:
         raise HTTPException(status_code=404, detail=f"Unknown incident: {body.incident_id}")
 
+    if incident.status in TERMINAL_CASES:
+        raise HTTPException(status_code=409, detail="Case is not open for assignments")
+
     responder = session.get(ResponderRow, body.responder_id)
     if responder is None:
         raise HTTPException(status_code=404, detail=f"Unknown responder: {body.responder_id}")
@@ -300,7 +304,7 @@ def assign_responder(body: AssignRequest, session: Session = Depends(get_session
         body.approved_by,
     )
 
-    incident.status = "dispatched"
+    refresh_assignment_summary(session, incident)
     incident.updated_at = datetime.now()
     record_incident_change(session, incident, before, body.approved_by)
     session.commit()
@@ -320,21 +324,32 @@ def respond_to_assignment(
 ) -> dict:
     """A responder accepts or declines an offered incident.
 
-    On a decline the incident returns to `awaiting_dispatch` so the coordinator
-    can offer it to the next candidate. It must not silently stay "dispatched"
-    with nobody actually going.
+    Preserve another active primary response when an additional offer is answered.
+    With no active response, retain pending offers or return to awaiting_dispatch.
+    Repeated identical answers are idempotent; withdrawal is a separate workflow.
     """
     assignment = session.get(AssignmentRow, assignment_id)
     if assignment is None:
         raise HTTPException(status_code=404, detail=f"Unknown assignment: {assignment_id}")
 
+    incident = session.get(IncidentRow, assignment.incident_id)
+    if incident is None or incident.status in TERMINAL_CASES:
+        raise HTTPException(
+            status_code=409, detail="Case is not open for assignment responses"
+        )
     previous_status = assignment.status
+    if previous_status != AssignmentStatus.OFFERED.value:
+        if (body.accept and previous_status in {"accepted", "en_route", "on_scene"}) or (
+            not body.accept and previous_status == "declined"
+        ):
+            return {"assignment_id": assignment_id, "status": previous_status}
+        raise HTTPException(status_code=409, detail="Offer has already been answered")
+    before = incident_state(incident)
     assignment.status = (
         AssignmentStatus.ACCEPTED.value if body.accept else AssignmentStatus.DECLINED.value
     )
     assignment.responded_at = datetime.now()
 
-    incident = session.get(IncidentRow, assignment.incident_id)
     record_event(
         session,
         assignment.incident_id,
@@ -348,16 +363,9 @@ def respond_to_assignment(
         },
         assignment.responder_id,
     )
-    if incident is not None:
-        before = incident_state(incident)
-        if body.accept:
-            incident.status = "accepted"
-            incident.assigned_responder_id = assignment.responder_id
-        else:
-            incident.status = "awaiting_dispatch"
-            incident.assigned_responder_id = None
-        incident.updated_at = datetime.now()
-        record_incident_change(session, incident, before, assignment.responder_id)
+    refresh_assignment_summary(session, incident)
+    incident.updated_at = datetime.now()
+    record_incident_change(session, incident, before, assignment.responder_id)
 
     session.commit()
     return {"assignment_id": assignment_id, "status": assignment.status}
