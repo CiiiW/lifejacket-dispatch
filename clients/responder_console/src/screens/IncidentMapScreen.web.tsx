@@ -20,6 +20,7 @@ import {
   View,
 } from 'react-native';
 
+import CasePanel from '../components/CasePanel.web';
 import TriageMap from '../components/TriageMap.web';
 import {
   absoluteUrl,
@@ -34,6 +35,13 @@ import {
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
 
 const REFRESH_INTERVAL_MS = 30_000;
+
+// The list panel is user-resizable. Bounds keep both sides usable: the panel
+// rows need room for a title and tags, and the map needs room to be a map.
+const PANEL_DEFAULT_WIDTH = 380;
+const PANEL_MIN_WIDTH = 300;
+const MAP_MIN_WIDTH = 360;
+const PANEL_KEY_STEP = 24;
 
 /** Statuses that mean the incident already ended, so its row reads as done. */
 const CLOSED_STATUSES = new Set(['resolved', 'guidance_only']);
@@ -52,6 +60,53 @@ export default function IncidentMapScreen({
   const [route, setRoute] = useState<RouteLine | null>(null);
   const [density, setDensity] = useState<HistoricalDensity | null>(null);
   const [showDensity, setShowDensity] = useState(false);
+  const [panelWidth, setPanelWidth] = useState(PANEL_DEFAULT_WIDTH);
+  const [mapExpanded, setMapExpanded] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [detailId, setDetailId] = useState<string | null>(null);
+
+  const clampPanel = useCallback(
+    (width: number) =>
+      Math.max(PANEL_MIN_WIDTH, Math.min(width, window.innerWidth - MAP_MIN_WIDTH)),
+    [],
+  );
+
+  // Drag from the divider: the panel is on the right, so moving left widens it.
+  // Listeners go on `window` so the drag keeps tracking over the map canvas,
+  // which would otherwise swallow the pointer events.
+  const startDrag = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      const startX = event.clientX;
+      const startWidth = panelWidth;
+      setDragging(true);
+      const previousSelect = document.body.style.userSelect;
+      document.body.style.userSelect = 'none';
+
+      const move = (e: PointerEvent) => setPanelWidth(clampPanel(startWidth - (e.clientX - startX)));
+      const stop = () => {
+        setDragging(false);
+        document.body.style.userSelect = previousSelect;
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', stop);
+        window.removeEventListener('pointercancel', stop);
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', stop);
+      window.addEventListener('pointercancel', stop);
+    },
+    [panelWidth, clampPanel],
+  );
+
+  const dividerKey = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'ArrowLeft') setPanelWidth((w) => clampPanel(w + PANEL_KEY_STEP));
+      else if (event.key === 'ArrowRight') setPanelWidth((w) => clampPanel(w - PANEL_KEY_STEP));
+      else return;
+      event.preventDefault();
+    },
+    [clampPanel],
+  );
 
   useEffect(() => {
     responder.historicalDensity().then(setDensity).catch(() => setDensity(null));
@@ -90,6 +145,7 @@ export default function IncidentMapScreen({
   const highlight = useCallback(
     (incidentId: string) => {
       setHighlighted(incidentId);
+      setDetailId(incidentId);
       setRoute(null);
 
       const pin = (pins ?? []).find((p) => p.incident_id === incidentId);
@@ -122,6 +178,8 @@ export default function IncidentMapScreen({
       order.indexOf(b.severity_level ?? 'guidance'),
   );
 
+  const detailPin = detailId ? ((pins ?? []).find((p) => p.incident_id === detailId) ?? null) : null;
+
   if (pins === null) {
     return <ActivityIndicator style={styles.loading} size="large" color={colors.accent} />;
   }
@@ -137,10 +195,55 @@ export default function IncidentMapScreen({
           showDensity={showDensity}
           selectedId={highlighted}
           onSelect={highlight}
+          popup={false}
         />
+        <Pressable
+          style={styles.expandButton}
+          accessibilityRole="button"
+          accessibilityLabel={mapExpanded ? 'Show incident list' : 'Expand map'}
+          onPress={() => setMapExpanded((current) => !current)}
+        >
+          <Text style={styles.expandText}>{mapExpanded ? 'Show list' : 'Expand map'}</Text>
+        </Pressable>
       </View>
 
-      <View style={styles.panel}>
+      {!mapExpanded && (
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          aria-label="Resize map and incident list"
+          aria-valuenow={panelWidth}
+          tabIndex={0}
+          onPointerDown={startDrag}
+          onKeyDown={dividerKey}
+          onDoubleClick={() => setPanelWidth(PANEL_DEFAULT_WIDTH)}
+          title="Drag to resize · double-click to reset"
+          style={{
+            flex: '0 0 8px',
+            cursor: 'col-resize',
+            touchAction: 'none',
+            background: dragging ? colors.accent : colors.border,
+            opacity: dragging ? 0.8 : 1,
+          }}
+        />
+      )}
+
+      <View style={[styles.panel, { width: panelWidth }, mapExpanded && styles.panelHidden]}>
+        {detailPin && (
+          <CasePanel
+            pin={detailPin}
+            leadCentre={
+              centres.find((c) => c.responder_id === detailPin.assigned_responder_id)?.name ?? null
+            }
+            onBack={() => {
+              setDetailId(null);
+              setHighlighted(null);
+              setRoute(null);
+            }}
+            onOpenFull={() => onSelect(detailPin.incident_id)}
+          />
+        )}
+        <View style={detailPin ? styles.listHidden : styles.listShown}>
         <Pressable
           style={[styles.filter, { alignSelf: 'flex-start', marginBottom: spacing.sm }, showDensity && styles.filterActive]}
           disabled={!density?.available || density.cells.length === 0}
@@ -238,6 +341,7 @@ export default function IncidentMapScreen({
             </Pressable>
           )}
         />
+        </View>
       </View>
     </View>
   );
@@ -248,11 +352,30 @@ const styles = StyleSheet.create({
   loading: { flex: 1 },
   densityNote: { ...type.meta, color: colors.textMuted, fontSize: 11, marginBottom: spacing.md },
 
-  mapWrap: { flex: 2, padding: spacing.lg },
+  mapWrap: { flex: 1, minWidth: MAP_MIN_WIDTH, padding: spacing.lg },
+  expandButton: {
+    position: 'absolute',
+    top: spacing.lg + spacing.sm,
+    left: spacing.lg + spacing.sm,
+    backgroundColor: colors.backgroundElevated,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.pill,
+    paddingVertical: 6,
+    paddingHorizontal: spacing.md,
+  },
+  expandText: { ...type.meta, color: colors.text, fontWeight: '600' },
+
+  // Kept mounted but hidden while the map is expanded, so the list's scroll
+  // position and highlighted row survive collapsing and re-opening.
+  panelHidden: { display: 'none' },
+  // The list stays mounted under the detail card so its scroll position survives.
+  listShown: { flex: 1 },
+  listHidden: { display: 'none' },
 
   panel: {
-    flex: 1,
-    minWidth: 340,
+    flexGrow: 0,
+    flexShrink: 0,
     backgroundColor: colors.backgroundElevated,
     borderLeftWidth: 1,
     borderLeftColor: colors.border,
