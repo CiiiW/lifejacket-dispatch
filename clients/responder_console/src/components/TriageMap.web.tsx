@@ -18,7 +18,7 @@
  *   is the straight-line fallback rather than a real road route.
  */
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import maplibre, { type Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -120,6 +120,115 @@ function installPopupStyle() {
   document.head.appendChild(style);
 }
 
+const MARKER_STYLE_ID = 'lj-marker-style';
+const CLUSTER_RADIUS_PX = 36;
+// Past this zoom, pins that still overlap are the same spot, so grouping them
+// would only hide them behind a count that cannot be opened further.
+const CLUSTER_MAX_ZOOM = 15;
+const SEVERITY_RANK = ['critical', 'respond', 'monitor', 'guidance'];
+
+/**
+ * Nobody has taken these yet. `dispatched` means centres were notified but none
+ * has claimed the case, so it still needs eyes; accepted, en route and on scene
+ * mean a team owns it.
+ */
+const NEEDS_ATTENTION = new Set(['awaiting_dispatch', 'dispatched']);
+
+/**
+ * Keyframes for the attention pulse. Reduced-motion users get a still halo, so
+ * "unclaimed" is still readable without any movement.
+ */
+function installMarkerStyle() {
+  if (document.getElementById(MARKER_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = MARKER_STYLE_ID;
+  style.textContent = `
+    @keyframes lj-pulse {
+      0% { transform: scale(1); opacity: 1; }
+      85%, 100% { transform: scale(4.2); opacity: 0; }
+    }
+    .lj-pulse-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: lj-pulse 1.3s ease-out infinite;
+    }
+    .lj-pulse-ring.lj-pulse-late { animation-delay: 0.65s; }
+    @media (prefers-reduced-motion: reduce) {
+      .lj-pulse-ring { animation: none; opacity: 0.5; transform: scale(2); }
+      .lj-pulse-ring.lj-pulse-late { display: none; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+/** A round marker; `pulsing` adds an expanding halo behind it. */
+function markerDot(opts: {
+  size: number;
+  colour: string;
+  border: string;
+  pulsing: boolean;
+  label?: string;
+}): HTMLElement {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = `width:${opts.size}px;height:${opts.size}px;cursor:pointer`;
+  if (opts.pulsing) {
+    // Two rings, half a cycle apart, so the pulse reads as continuous.
+    ['', ' lj-pulse-late'].forEach((extra) => {
+      const ring = document.createElement('span');
+      ring.className = 'lj-pulse-ring' + extra;
+      ring.style.background = opts.colour;
+      ring.style.border = `3px solid ${opts.colour}`;
+      wrap.appendChild(ring);
+    });
+  }
+  const dot = document.createElement('div');
+  dot.style.cssText = [
+    'position:absolute', 'inset:0', 'border-radius:50%',
+    `background:${opts.colour}`, `border:${opts.border}`,
+    opts.pulsing
+      ? `box-shadow:0 0 0 4px ${opts.colour}55, 0 0 14px ${opts.colour}`
+      : 'box-shadow:0 2px 8px rgba(0,0,0,0.5)',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    `font-family:${fontFamily}`, 'font-size:10px', 'font-weight:800', 'color:#0B132B',
+  ].join(';');
+  if (opts.label) dot.textContent = opts.label;
+  wrap.appendChild(dot);
+  return wrap;
+}
+
+interface PinCluster {
+  pins: MapPin[];
+  longitude: number;
+  latitude: number;
+}
+
+/**
+ * Greedy grouping by on-screen distance, so what is grouped depends on the zoom
+ * level the coordinator is looking at, not on a fixed geographic radius.
+ */
+function clusterPins(mapInstance: MapLibreMap, pins: MapPin[]): PinCluster[] {
+  const groups: { pins: MapPin[]; x: number; y: number }[] = [];
+  pins.forEach((pin) => {
+    const point = mapInstance.project([pin.longitude as number, pin.latitude as number]);
+    const hit = groups.find((g) => Math.hypot(g.x - point.x, g.y - point.y) <= CLUSTER_RADIUS_PX);
+    if (hit) {
+      const n = hit.pins.length;
+      hit.x = (hit.x * n + point.x) / (n + 1);
+      hit.y = (hit.y * n + point.y) / (n + 1);
+      hit.pins.push(pin);
+    } else {
+      groups.push({ pins: [pin], x: point.x, y: point.y });
+    }
+  });
+  return groups.map((g) => ({
+    pins: g.pins,
+    longitude: g.pins.reduce((sum, p) => sum + (p.longitude as number), 0) / g.pins.length,
+    latitude: g.pins.reduce((sum, p) => sum + (p.latitude as number), 0) / g.pins.length,
+  }));
+}
+
 /**
  * One pin as a summary card, built as DOM rather than React because the popup
  * it goes into is owned by MapLibre.
@@ -131,7 +240,7 @@ function installPopupStyle() {
  * The layout deliberately mirrors a triage list row -- severity stripe, photo,
  * title, meta line, flags -- so the two read as the same object.
  */
-function incidentCard(pin: MapPin): HTMLElement {
+function incidentCard(pin: MapPin, leadCentre: string | null): HTMLElement {
   const card = document.createElement('div');
   card.style.cssText = [
     'display:flex', 'gap:10px', 'align-items:flex-start',
@@ -207,6 +316,11 @@ function incidentCard(pin: MapPin): HTMLElement {
     body.appendChild(row);
   }
 
+  const lead = document.createElement('div');
+  lead.style.cssText = `font-size:12px;line-height:1.3;color:${colors.textMuted}`;
+  lead.textContent = leadCentre ? `Lead centre: ${leadCentre}` : 'Lead centre: not assigned yet';
+  body.appendChild(lead);
+
   const when = document.createElement('div');
   when.style.cssText = `font-size:11px;color:${colors.textFaint};margin-top:1px`;
   when.textContent = `Reported ${new Date(pin.created_at).toLocaleString(undefined, {
@@ -232,6 +346,7 @@ export default function TriageMap({
   onDrawSurvey,
   drawing = false,
   fitToPins = true,
+  popup = true,
   selectedId,
   onSelect,
 }: {
@@ -256,6 +371,8 @@ export default function TriageMap({
    * country would zoom straight back out of it.
    */
   fitToPins?: boolean;
+  /** Show the small summary card on click. The triage page shows a side panel instead. */
+  popup?: boolean;
   selectedId: string | null;
   onSelect: (incidentId: string) => void;
 }) {
@@ -278,7 +395,7 @@ export default function TriageMap({
     cardPin.current = null;
   }, []);
 
-  const openCard = useCallback((pin: MapPin) => {
+  const openCard = useCallback((pin: MapPin, leadCentre: string | null) => {
     if (!map.current) return;
     installPopupStyle();
     card.current?.remove();
@@ -295,7 +412,7 @@ export default function TriageMap({
       focusAfterOpen: false,
     })
       .setLngLat([pin.longitude as number, pin.latitude as number])
-      .setDOMContent(incidentCard(pin))
+      .setDOMContent(incidentCard(pin, leadCentre))
       .addTo(map.current);
     // Dismissing via the close button or a map click bypasses closeCard, so
     // the refs have to be cleared from the popup's own event.
@@ -306,6 +423,16 @@ export default function TriageMap({
       }
     });
     cardPin.current = pin.incident_id;
+  }, []);
+
+  // MapLibre only follows window resizes. When the page splits the screen with
+  // a draggable divider the container changes size on its own, so watch it.
+  useEffect(() => {
+    const element = container.current;
+    if (!element || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => map.current?.resize());
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   // Create the map once. Re-creating it on every render would flash and lose
@@ -553,8 +680,21 @@ export default function TriageMap({
 
   // Redraw markers whenever the data or the selection changes. Markers are
   // DOM elements, so they are torn down and rebuilt rather than diffed.
+  // Grouping depends on zoom, so markers are rebuilt when a zoom finishes.
+  const [zoomTick, setZoomTick] = useState(0);
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    const bump = () => setZoomTick((tick) => tick + 1);
+    instance.on('zoomend', bump);
+    return () => {
+      instance.off('zoomend', bump);
+    };
+  }, []);
+
   useEffect(() => {
     if (!map.current) return;
+    installMarkerStyle();
 
     markers.current.forEach((marker) => marker.remove());
     markers.current = [];
@@ -577,19 +717,30 @@ export default function TriageMap({
         );
       });
 
-    pins
-      .filter((pin) => pin.latitude !== null && pin.longitude !== null)
-      .forEach((pin) => {
+    const located = pins.filter((pin) => pin.latitude !== null && pin.longitude !== null);
+    const mapInstance = map.current as MapLibreMap;
+    const grouped: PinCluster[] =
+      mapInstance.getZoom() < CLUSTER_MAX_ZOOM
+        ? clusterPins(mapInstance, located)
+        : located.map((pin) => ({
+            pins: [pin],
+            longitude: pin.longitude as number,
+            latitude: pin.latitude as number,
+          }));
+
+    grouped.forEach((group) => {
+      let element: HTMLElement;
+
+      if (group.pins.length === 1) {
+        const pin = group.pins[0];
         const selected = pin.incident_id === selectedId;
-        const element = document.createElement('div');
-        const size = selected ? 22 : 16;
-        element.style.cssText = [
-          `width:${size}px`, `height:${size}px`, 'border-radius:50%',
-          `background:${severityColour(pin.severity_level)}`,
-          `border:${selected ? 3 : 2}px solid ${selected ? colors.accent : 'rgba(255,255,255,0.85)'}`,
-          'cursor:pointer',
-          'box-shadow:0 2px 8px rgba(0,0,0,0.5)',
-        ].join(';');
+        const size = selected ? 24 : 18;
+        element = markerDot({
+          size,
+          colour: severityColour(pin.severity_level),
+          border: `${selected ? 3 : 2}px solid ${selected ? colors.accent : 'rgba(255,255,255,0.85)'}`,
+          pulsing: NEEDS_ATTENTION.has(pin.status),
+        });
         element.title = pin.headline ?? pin.species_common_name ?? 'Unidentified animal';
         element.onclick = (event) => {
           // Markers live inside the map's canvas container, so without this
@@ -598,22 +749,63 @@ export default function TriageMap({
           // mousedown and mouseup still reach the survey-area drag handler.
           event.stopPropagation();
           onSelect(pin.incident_id);
-          if (!drawing) openCard(pin);
+          const lead = pin.assigned_responder_id
+            ? (centres.find((c) => c.responder_id === pin.assigned_responder_id)?.name ?? null)
+            : null;
+          if (!drawing && popup) openCard(pin, lead);
         };
-
-        markers.current.push(
-          new maplibre.Marker({ element })
-            .setLngLat([pin.longitude as number, pin.latitude as number])
-            .addTo(map.current as MapLibreMap),
+      } else {
+        // The worst severity wins the colour, and any unclaimed case makes the
+        // whole group pulse: a count must never hide the one that needs help.
+        const worst = group.pins.reduce((best, pin) =>
+          SEVERITY_RANK.indexOf(pin.severity_level ?? 'guidance') <
+          SEVERITY_RANK.indexOf(best.severity_level ?? 'guidance')
+            ? pin
+            : best,
         );
-      });
+        const holdsSelected = group.pins.some((pin) => pin.incident_id === selectedId);
+        const unclaimed = group.pins.filter((pin) => NEEDS_ATTENTION.has(pin.status)).length;
+        element = markerDot({
+          size: holdsSelected ? 24 : 18,
+          colour: severityColour(worst.severity_level),
+          border: `${holdsSelected ? 3 : 2}px solid ${holdsSelected ? colors.accent : 'rgba(255,255,255,0.85)'}`,
+          pulsing: unclaimed > 0,
+          label: String(group.pins.length),
+        });
+        element.title =
+          `${group.pins.length} incidents · ${unclaimed} unclaimed. Click to zoom in.`;
+        element.onclick = (event) => {
+          event.stopPropagation();
+          const bounds = new maplibre.LngLatBounds();
+          group.pins.forEach((pin) =>
+            bounds.extend([pin.longitude as number, pin.latitude as number]),
+          );
+          const [sw, ne] = [bounds.getSouthWest(), bounds.getNorthEast()];
+          if (sw.lng === ne.lng && sw.lat === ne.lat) {
+            // Same spot: fitting a zero-size box would not zoom, so step in.
+            mapInstance.easeTo({
+              center: [sw.lng, sw.lat],
+              zoom: Math.min(mapInstance.getZoom() + 3, 17),
+            });
+          } else {
+            mapInstance.fitBounds(bounds, { padding: 100, maxZoom: CLUSTER_MAX_ZOOM, duration: 500 });
+          }
+        };
+      }
+
+      markers.current.push(
+        new maplibre.Marker({ element })
+          .setLngLat([group.longitude, group.latitude])
+          .addTo(mapInstance),
+      );
+    });
 
     // A card outliving its pin would describe an incident no longer shown --
     // filters and refreshes can both drop one out from under an open card.
     if (cardPin.current && !pins.some((pin) => pin.incident_id === cardPin.current)) {
       closeCard();
     }
-  }, [pins, centres, selectedId, onSelect, drawing, openCard, closeCard]);
+  }, [pins, centres, selectedId, onSelect, drawing, popup, openCard, closeCard, zoomTick]);
 
   // A drag has to mean one thing at a time, and a card sitting over the area
   // being drawn is in the way of judging it.
@@ -631,6 +823,16 @@ export default function TriageMap({
     located.forEach((p) => bounds.extend([p.longitude as number, p.latitude as number]));
     map.current.fitBounds(bounds, { padding: 80, maxZoom: 9, duration: 600 });
   }, [pins, fitToPins]);
+
+  // Choosing a case from the list should bring it into view, but never yank the
+  // map when it is already visible.
+  useEffect(() => {
+    const target = pins.find((p) => p.incident_id === selectedId);
+    const instance = map.current;
+    if (!instance || !target || target.latitude === null || target.longitude === null) return;
+    const point: [number, number] = [target.longitude, target.latitude];
+    if (!instance.getBounds().contains(point)) instance.easeTo({ center: point, duration: 500 });
+  }, [selectedId, pins]);
 
   // Draw (or clear) the route line.
   useEffect(() => {
