@@ -16,6 +16,7 @@ import {
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
 import { NetworkLogin } from './NetworkLogin.web';
+import { DroneRequests } from './DroneRequests.web';
 import { CaseActions } from './CaseActions.web';
 
 const apiBase = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
@@ -500,6 +501,7 @@ function CaseDetail({
         </dd>
       </dl>
       <CaseActions api={api} id={id} />
+      {api.drones && <DroneRequests key={id} api={api.drones} id={id} />}
     </section>
   );
 }

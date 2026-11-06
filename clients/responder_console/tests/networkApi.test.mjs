@@ -205,3 +205,34 @@ test('response mutation sends explicit confirmation and revision once, with mana
   assert.equal(requests[2][1].headers['X-LifeJacket-Organization'], 'A');
   assert.throws(() => api.changeResponse('case_1', -1, 'accepted', null));
 });
+
+test('drone request writes carry managed auth, revisions and multipart evidence', async () => {
+  const requests = [];
+  const api = createNetworkApi('https://example.org', person, 'center_A',
+    async (url, options) => { requests.push({url,options}); return json({}); });
+  await api.drones.create('case_1', {purpose:'verification',request_key:'one'});
+  await api.drones.change('case_1','request_1',{revision:3,status:'approved',confirmed:true});
+  const evidence = new FormData();
+  evidence.set('metadata', JSON.stringify({revision:4}));
+  evidence.set('photo',new Blob(['synthetic'],{type:'image/png'}),'frame.png');
+  await api.drones.upload('case_1','request_1',evidence);
+  assert.deepEqual(requests.map(x=>x.options.method),['POST','PATCH','POST']);
+  assert.equal(requests[2].options.body,evidence);
+  assert.equal(requests[2].options.headers['Content-Type'],undefined);
+  for (const {options} of requests) {
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'center_A');
+  }
+  assert.equal(JSON.parse(requests[1].options.body).revision,3);
+});
+test('drone evidence fetch keeps authorization on the image request', async () => {
+  let sent;
+  const api=createNetworkApi('https://example.org',person,'center_A',async(url,options)=>{
+    sent={url,options}; return new Response(new Blob(['image']));
+  });
+  const image=await api.drones.photo('case_1','request_1','evidence_1');
+  assert.equal(await image.text(),'image');
+  assert.equal(sent.options.method,'GET');
+  assert.equal(sent.options.headers.Authorization,'Bearer fictional-managed-token');
+  assert.equal(sent.options.cache,'no-store');
+});

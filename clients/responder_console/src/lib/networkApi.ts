@@ -84,6 +84,7 @@ export function networkErrorMessage(error: unknown): string {
   return 'Unable to load this view. Check your connection and try again.';
 }
 export interface NetworkApi {
+  drones?: DroneApi;
   me(signal?: AbortSignal): Promise<NetworkSession>;
   cases(
     scope: CaseScope,
@@ -131,7 +132,9 @@ export function createNetworkApi(
   async function request<T>(
     path: string,
     signal?: AbortSignal,
-    body?: Record<string, unknown>,
+    body?: Record<string, unknown> | FormData,
+    method?: string,
+    blob = false,
   ): Promise<T> {
     const controller = new AbortController();
     const cancel = () => controller.abort();
@@ -158,11 +161,11 @@ export function createNetworkApi(
         throw new DOMException('Request cancelled', 'AbortError');
       if (!token) throw new NetworkError(401);
       const response = await transport(prefix + path, {
-        method: body ? 'PATCH' : 'GET',
-        ...(body ? { body: JSON.stringify(body) } : {}),
+        method: method ?? (body ? 'PATCH' : 'GET'),
+        ...(body ? { body: body instanceof FormData ? body : JSON.stringify(body) } : {}),
         headers: {
           Authorization: `Bearer ${token}`,
-          ...(body ? { 'Content-Type': 'application/json' } : {}),
+          ...(body && !(body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}),
           ...(organization
             ? { 'X-LifeJacket-Organization': organization }
             : {}),
@@ -173,7 +176,7 @@ export function createNetworkApi(
         redirect: 'error',
       });
       if (!response.ok) throw new NetworkError(response.status);
-      return (await response.json()) as T;
+      return (blob ? await response.blob() : await response.json()) as T;
     } finally {
       clearTimeout(timer);
       signal?.removeEventListener('abort', cancel);
@@ -187,6 +190,14 @@ export function createNetworkApi(
     return encodeURIComponent(id);
   }
   return {
+    drones: {
+      list:(id,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s),
+      detail:(id,r,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}`,s),
+      create:(id,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s,b,'POST'),
+      change:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}`,s,b),
+      upload:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/evidence`,s,b,'POST'),
+      photo:(id,r,e,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/evidence/${caseId(e)}/photo`,s,undefined,'GET',true),
+    },
     me: (signal) => request('/access/me', signal),
     cases: (scope, offset, signal) => {
       if (
@@ -235,4 +246,23 @@ export function createNetworkApi(
       });
     },
   };
+}
+
+export interface DroneRequest {
+  request_id: string; case_id: string; status: string; revision: number;
+  purpose: string; execution_kind: string; objective: string; reason: string;
+  operator: string | null; next_review_at: string | null; escalation_criteria: string;
+  target_location: {latitude:number|null;longitude:number|null};
+  allowed_transitions: string[]; outcome: string|null; review_note?:string;
+  evidence?: {evidence_id:string;description:string;source_kind:string;source_url:string|null;
+    captured_at:string|null;frame_offset_seconds:number|null;rights_note:string}[];
+  events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
+}
+export interface DroneApi {
+  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[]}>;
+  detail(id:string,requestId:string,signal?:AbortSignal):Promise<DroneRequest>;
+  create(id:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  change(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  upload(id:string,requestId:string,body:FormData,signal?:AbortSignal):Promise<unknown>;
+  photo(id:string,requestId:string,evidenceId:string,signal?:AbortSignal):Promise<Blob>;
 }

@@ -511,3 +511,47 @@ class NetworkResponseEventRow(Base):
     organization_id: Mapped[str] = mapped_column(String(64))
     closure_reason: Mapped[str | None] = mapped_column(String(32))
     recorded_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+class CaseDroneRequestRow(Base):
+    """Case-linked request with optimistic revision and an idempotent creation key."""
+
+    __tablename__ = "case_drone_requests"
+    __table_args__ = (UniqueConstraint("incident_id", "request_key"),)
+    request_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("network_cases.incident_id"), index=True
+    )
+    request_key: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(24), index=True)
+    revision: Mapped[int] = mapped_column(Integer, default=0)
+    payload_json: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class CaseDroneEventRow(Base):
+    __tablename__ = "case_drone_events"
+    __table_args__ = (UniqueConstraint("request_id", "revision"),)
+    event_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_requests.request_id"), index=True
+    )
+    revision: Mapped[int] = mapped_column(Integer)
+    actor_user_id: Mapped[str] = mapped_column(String(40))
+    organization_id: Mapped[str] = mapped_column(String(64))
+    kind: Mapped[str] = mapped_column(String(32))
+    details_json: Mapped[dict] = mapped_column(JSON)
+    recorded_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class CaseDroneEvidenceRow(Base):
+    __tablename__ = "case_drone_evidence"
+    evidence_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_requests.request_id"), index=True
+    )
+    storage_path: Mapped[str] = mapped_column(String(512))
+    content_type: Mapped[str] = mapped_column(String(64))
+    sha256: Mapped[str] = mapped_column(String(64))
+    metadata_json: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime)

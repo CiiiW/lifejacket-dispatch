@@ -49,6 +49,7 @@ class Settings(BaseSettings):
     # Managed end-user authentication; distinct from Workbench/Vertex ADC.
     network_auth_enabled: bool = False
     network_case_actions_enabled: bool = False
+    case_drone_requests_enabled: bool = False
     # Only safe alongside the network boundary; never enables legacy public routes.
     reporter_phone_enabled: bool = False
     firebase_auth_project_id: str | None = None

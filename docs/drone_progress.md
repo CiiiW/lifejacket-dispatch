@@ -1,6 +1,6 @@
 # Drone progress tracker
 
-Last updated: **2026-10-31** · Working branch: **charlotte-mini2-demo**
+Last updated: **2026-11-06** · Working branch: **charlotte-mini2-demo**
 
 ## Current scope and decisions
 
@@ -78,6 +78,20 @@ metrics have not yet been agreed; do not invent a pass threshold.
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-11-06 — Case-linked verification and monitoring requests
+
+- Purchased hardware: original DJI Mini 2. Physical flight/camera integration remains unverified.
+- Added case-linked requests, lead-coordinator approval, recorded-demo/operator-flight distinction,
+  evidence attachment, explicit review outcomes and optional follow-up review times.
+- Request/evidence events retain identity, source metadata and revisions; case intake and rescue status are preserved.
+- Based on fetched main 3a323e9 plus existing local 9baad25 case-access dependency, in isolated
+  /home/jupyter/lifejacket-case-drone on charlotte-case-drone-requests.
+- Validation: full backend run 579 passed / 15 skipped; final focused drone suite 13 passed.
+  TypeScript, lint and browser fictional monitoring lifecycle passed. No actual NOAA footage or flight was used.
+- Automatic confidence suggestions, recurring monitoring/notifications and live flight integration remain open.
+  Feature defaults off; not deployed. See [case request workflow](case_drone_requests.md).
+
 
 ### 2026-11-01 (Chicago) — Google provider configured; IAM administrator needed
 
