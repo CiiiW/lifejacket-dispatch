@@ -40,31 +40,38 @@ const organizations: NetworkSession['organizations'] = [
     states: [],
   },
 ];
+// Fictional cases with coordinates so the map has something to draw: two close
+// together (they cluster), one unclaimed (it pulses) and one in each state.
+const fixtureCase = (
+  incident_id: string,
+  state_code: string,
+  latitude: number,
+  longitude: number,
+  species: string,
+  group: string,
+  severity: string,
+  status: string,
+  lead: string | null,
+  created_at: string,
+): NetworkCase => ({
+  incident_id,
+  status,
+  state_code,
+  latitude,
+  longitude,
+  animal_group: group,
+  species_common_name: species,
+  severity_level: severity,
+  lead_organization_id: lead,
+  created_at,
+});
 const cases: NetworkCase[] = [
-  {
-    incident_id: 'fictional_ca_1',
-    status: 'en_route',
-    state_code: 'CA',
-    latitude: 0,
-    longitude: 0,
-    animal_group: 'seal',
-    species_common_name: 'Harbor seal (fictional)',
-    severity_level: 'high',
-    lead_organization_id: 'A',
-    created_at: '2026-11-01T10:00:00',
-  },
-  {
-    incident_id: 'fictional_ak_1',
-    status: 'accepted',
-    state_code: 'AK',
-    latitude: 0,
-    longitude: 0,
-    animal_group: 'sea_lion',
-    species_common_name: 'Sea lion (fictional)',
-    severity_level: 'moderate',
-    lead_organization_id: 'B',
-    created_at: '2026-11-01T09:00:00',
-  },
+  fixtureCase('fictional_ca_1', 'CA', 36.95, -122.02, 'Harbor seal (fictional)', 'seal', 'respond', 'en_route', 'A', '2026-11-01T10:00:00'),
+  fixtureCase('fictional_ca_2', 'CA', 36.96, -122.01, 'Brown pelican (fictional)', 'seabird', 'respond', 'awaiting_dispatch', null, '2026-11-01T10:30:00'),
+  fixtureCase('fictional_ca_3', 'CA', 36.62, -121.9, 'Sea lion (fictional)', 'sea_lion', 'critical', 'dispatched', null, '2026-11-01T09:30:00'),
+  fixtureCase('fictional_ca_4', 'CA', 35.14, -120.64, 'Elephant seal (fictional)', 'seal', 'monitor', 'accepted', 'A', '2026-11-01T08:00:00'),
+  fixtureCase('fictional_ak_1', 'AK', 58.3, -134.4, 'Sea lion (fictional)', 'sea_lion', 'monitor', 'accepted', 'B', '2026-11-01T09:00:00'),
+  fixtureCase('fictional_ak_2', 'AK', 61.2, -149.9, 'Harbor seal (fictional)', 'seal', 'critical', 'awaiting_dispatch', null, '2026-11-01T11:00:00'),
 ];
 const fixtureClosures = (phase: string) => [
   'no_response_needed',
