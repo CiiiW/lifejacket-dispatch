@@ -92,8 +92,9 @@ The same endpoint enforces existing case access. GET does not create requests or
 | Exact species uncertain, broader group confident | Same-group candidate probabilities | No identification-only suggestion |
 | Urgent case | Severity respond/critical or critical condition flags | Evidence review may run in parallel; response must not wait |
 
-Scores are model/assessment confidence values, not measured accuracy. The condition model
-may persist a default zero confidence; this remains a review signal rather than a diagnosis.
+Scores are model/assessment confidence values, not measured accuracy. Missing condition confidence is preserved as null by the parser and domain model and displayed as Unknown.
+Explicit zero remains a genuine low-confidence value. Existing legacy zero values cannot be retrospectively
+distinguished from old defaults without source evidence and are not silently rewritten.
 Deterministic severity confidence and weather lookup failures are not used as image-confidence triggers.
 No model calls or aircraft commands are made when generating suggestions.
 
@@ -101,8 +102,10 @@ Review suggested request opens an editable verification draft. Submission requir
 coordinator action; the server checks current evidence again before accepting the suggestion ID.
 The new request remains requested until separately approved. Its source confidence/threshold snapshot is saved.
 A stable evidence/policy fingerprint and existing unique creation key prevent duplicate creation.
-Any active verification request suppresses additional suggestions for that case.
-After a suggested request is declined, cancelled or reviewed, unchanged evidence does not generate it again.
+Any active operator-flight verification request suppresses additional operational suggestions for that case.
+Recorded-demo requests do not suppress or consume operational suggestions. Their idempotency keys
+are namespaced separately so the same evidence can support both a demo and an actual request.
+After an operator-flight suggested request is declined, cancelled or reviewed, unchanged evidence does not generate it again.
 New assessment evidence can generate a fresh suggestion once no verification request is active.
 Closed, unresolved-intake and duplicate cases do not generate suggestions.
 
@@ -111,3 +114,19 @@ urgent response and missing-score scenarios. These controls are outside the prod
 
 Suggestion increment validation: 69 backend regression checks passed; final suggestion suite 34 passed.
 TypeScript, lint, fixture build and 13 network transport checks passed. Browser scenario checks passed.
+
+
+## Review fixes — 2026-11-06
+
+- A recorded demo can be created or cancelled without hiding the operational suggestion.
+  This also handles older demo rows using an unscoped creation key.
+- Explicitly unidentified animals and explicit retake gaps produce a qualitative
+  identification-evidence-gap suggestion. No animal-group probability is manufactured.
+  Confident broader animal groups continue to avoid species-only verification requests.
+- Missing condition confidence survives parsing, serialization and database round trips as null.
+  The case panel displays Unknown. Confidence 0.0 is still treated as an explicitly supplied score.
+- New regression tests reverse all three reproduced review failures, covering both the schemas
+  and the real API with disposable data. No existing case data was rewritten.
+
+Review-fix validation: full backend 620 passed / 15 skipped; final focused suite 53 passed.
+TypeScript, lint, fixture build, 13 transport tests and browser checks passed.

@@ -1,5 +1,6 @@
 """Transactional request lifecycle. No aircraft commands, alerts or auto-triage."""
 
+import hashlib
 import uuid
 from datetime import UTC, datetime
 
@@ -112,7 +113,11 @@ def suggestions(session, case_id, case):
             CaseDroneRequestRow.status.in_(TRANSITIONS),
         )
     ).all()
-    if any(row.payload_json.get("purpose") == "verification" for row in active):
+    if any(
+        row.payload_json.get("purpose") == "verification"
+        and row.payload_json.get("execution_kind") == "operator_flight"
+        for row in active
+    ):
         return []
     incident = session.get(IncidentRow, case_id)
     item = suggest(incident, settings.drone_verification_confidence_threshold)
@@ -122,7 +127,10 @@ def suggestions(session, case_id, case):
         select(CaseDroneRequestRow.request_id)
         .where(
             CaseDroneRequestRow.incident_id == case_id,
-            CaseDroneRequestRow.request_key == item["suggestion_id"],
+            CaseDroneRequestRow.payload_json["suggestion_id"].as_string()
+            == item["suggestion_id"],
+            CaseDroneRequestRow.payload_json["execution_kind"].as_string()
+            == "operator_flight",
         )
         .limit(1)
     )
@@ -131,7 +139,11 @@ def suggestions(session, case_id, case):
 
 def create(session, actor, case_id, body):
     _, case = access(session, actor, case_id, write=True)
-    effective_key = body.suggestion_id or body.request_key
+    effective_key = (
+        hashlib.sha256(f"{body.execution_kind}:{body.suggestion_id}".encode()).hexdigest()
+        if body.suggestion_id
+        else body.request_key
+    )
     previous = session.scalar(
         select(CaseDroneRequestRow).where(
             CaseDroneRequestRow.incident_id == case_id,
@@ -145,12 +157,16 @@ def create(session, actor, case_id, body):
         return out(previous, True)
     suggestion = None
     if body.suggestion_id:
+        if body.execution_kind == "recorded_demo":
+            current = suggest(
+                session.get(IncidentRow, case_id),
+                settings.drone_verification_confidence_threshold,
+            )
+            candidates = [current] if current else []
+        else:
+            candidates = suggestions(session, case_id, case)
         suggestion = next(
-            (
-                s
-                for s in suggestions(session, case_id, case)
-                if s["suggestion_id"] == body.suggestion_id
-            ),
+            (s for s in candidates if s["suggestion_id"] == body.suggestion_id),
             None,
         )
         if suggestion is None or body.purpose != "verification":

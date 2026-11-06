@@ -137,6 +137,7 @@ def test_get_suggestions_is_read_only_and_review_creates_one_audited_request(dro
     with factory() as session:
         assert session.scalar(select(func.count()).select_from(CaseDroneRequestRow)) == 0
     body = payload()
+    body["execution_kind"] = "operator_flight"
     body["suggestion_id"] = item["suggestion_id"]
     response = client.post(BASE, json=body)
     assert response.status_code == 201, response.text
@@ -158,6 +159,7 @@ def test_stale_suggestion_is_rechecked_at_creation(drone_api):
     old = client.get(BASE).json()["suggestions"][0]
     seed(factory, identification_json=identity(0.97))
     body = payload()
+    body["execution_kind"] = "operator_flight"
     body["suggestion_id"] = old["suggestion_id"]
     assert client.post(BASE, json=body).status_code == 409
     with factory() as session:
@@ -179,6 +181,7 @@ def test_rejected_suggestion_does_not_loop_and_new_evidence_can_suggest_again(dr
     client, factory, _ = drone_api
     seed(factory)
     body = payload()
+    body["execution_kind"] = "operator_flight"
     body["suggestion_id"] = client.get(BASE).json()["suggestions"][0]["suggestion_id"]
     created = client.post(BASE, json=body).json()
     result = client.patch(
@@ -207,7 +210,9 @@ def test_existing_manual_verification_request_suppresses_duplicate_suggestion(dr
     client, factory, _ = drone_api
     seed(factory)
     assert client.get(BASE).json()["suggestions"]
-    result = client.post(BASE, json=payload())
+    body = payload()
+    body["execution_kind"] = "operator_flight"
+    result = client.post(BASE, json=body)
     assert result.status_code == 201
     assert client.get(BASE).json()["suggestions"] == []
 
@@ -216,5 +221,136 @@ def test_malformed_group_metadata_never_crashes_suggestions():
     bad = {"candidates": [{"confidence": 0.5, "animal_group": []}]}
     assert suggest(incident(identification_json=bad), 0.90) is None
 
+
 def test_probability_pooling_does_not_trigger_on_float_roundoff_at_threshold():
     assert suggest(incident(identification_json=identity(0.3, 0.6)), 0.90) is None
+
+
+def test_schema_and_parser_preserve_missing_condition_confidence():
+    from lifejacket.agents.assessment import AssessmentAgent
+    from lifejacket.models.schemas import AssessmentResult, InjuryAssessment
+    from lifejacket.services.drone_suggestions import confidence_summary
+
+    assessment = AssessmentResult(injury=InjuryAssessment(injury_present=False))
+    saved = assessment.model_dump(mode="json")
+    assert saved["injury"]["confidence"] is None
+    assert AssessmentResult.model_validate(saved).injury.confidence is None
+    # Parsing a partial agent reply must not manufacture an explicit zero.
+    assert AssessmentAgent(None).parse({}).injury.confidence is None
+    explicit_zero = AssessmentAgent(None).parse({"injury_confidence": 0.0})
+    assert explicit_zero.injury.confidence == 0.0
+    row = incident(identification_json=identity(0.98), assessment_json=saved)
+    assert confidence_summary(row)["condition"] is None
+    assert suggest(row, 0.9) is None
+    assert suggest(incident(assessment_json=explicit_zero.model_dump(mode="json")), 0.9)
+
+
+def test_unidentified_poor_photo_has_an_explicit_gap_without_a_fake_score():
+    from lifejacket.models.schemas import AnimalGroup, IdentificationResult, SpeciesCandidate
+
+    value = IdentificationResult(
+        candidates=[
+            SpeciesCandidate(
+                common_name="Unidentified animal",
+                confidence=0.4,
+                animal_group=AnimalGroup.UNKNOWN,
+            )
+        ],
+        needs_new_photo=True,
+        photo_quality_note="Too distant to identify",
+    ).model_dump(mode="json")
+    result = suggest(
+        incident(identification_json=value, assessment_json={"injury": {"confidence": 0.98}}),
+        0.9,
+    )
+    assert result["signals"][0]["code"] == "identification_evidence_gap"
+    assert result["signals"][0]["confidence"] is None
+    assert "unidentified" in result["reason"]
+    # Species-only photo limitations must not override a sufficient routing group.
+    clear = identity(0.5, 0.45)
+    clear["needs_new_photo"] = True
+    assert suggest(incident(identification_json=clear), 0.9) is None
+
+
+def test_empty_photo_identification_needs_an_explicit_retake_flag():
+    assert suggest(incident(identification_json={"candidates": []}), 0.9) is None
+    assert (
+        suggest(
+            incident(identification_json={"candidates": [], "needs_new_photo": True}), 0.9
+        )["signals"][0]["confidence"]
+        is None
+    )
+
+
+def test_demo_does_not_consume_operational_suggestion_and_modes_are_idempotent(drone_api):
+    client, factory, _ = drone_api
+    seed(factory)
+    original = client.get(BASE).json()["suggestions"][0]
+    demo = payload()
+    demo["suggestion_id"] = original["suggestion_id"]
+    created = client.post(BASE, json=demo)
+    assert created.status_code == 201, created.text
+    demo_row = created.json()
+    assert (
+        client.get(BASE).json()["suggestions"][0]["suggestion_id"] == original["suggestion_id"]
+    )
+    assert client.post(BASE, json=demo).json()["request_id"] == demo_row["request_id"]
+    result = client.patch(
+        BASE + "/" + demo_row["request_id"],
+        json={
+            "revision": 0,
+            "status": "cancelled",
+            "confirmed": True,
+            "note": "Demo only",
+        },
+    )
+    assert result.status_code == 200
+    assert (
+        client.get(BASE).json()["suggestions"][0]["suggestion_id"] == original["suggestion_id"]
+    )
+    # Simulate an older demo's unscoped creation key. It must not block a real request.
+    with factory() as session:
+        session.get(CaseDroneRequestRow, demo_row["request_id"]).request_key = original[
+            "suggestion_id"
+        ]
+        session.commit()
+    flight = dict(demo, execution_kind="operator_flight")
+    response = client.post(BASE, json=flight)
+    assert response.status_code == 201, response.text
+    actual = response.json()
+    assert actual["request_id"] != demo_row["request_id"]
+    assert client.post(BASE, json=flight).json()["request_id"] == actual["request_id"]
+    assert client.get(BASE).json()["suggestions"] == []
+    with factory() as session:
+        assert session.scalar(select(func.count()).select_from(CaseDroneRequestRow)) == 2
+
+
+def test_missing_confidence_summary_survives_database_roundtrip(drone_api):
+    from lifejacket.models.schemas import AssessmentResult
+
+    client, factory, _ = drone_api
+    seed(
+        factory,
+        identification_json=identity(0.98),
+        assessment_json=AssessmentResult().model_dump(mode="json"),
+    )
+    result = client.get(BASE)
+    assert result.status_code == 200
+    assert result.json()["confidence_summary"] == {"animal_group": 0.98, "condition": None}
+    assert result.json()["suggestions"] == []
+
+
+def test_demo_and_flight_can_be_created_in_either_order(drone_api):
+    client, factory, _ = drone_api
+    seed(factory)
+    original = client.get(BASE).json()["suggestions"][0]
+    body = payload()
+    body["suggestion_id"] = original["suggestion_id"]
+    body["execution_kind"] = "operator_flight"
+    flight = client.post(BASE, json=body)
+    assert flight.status_code == 201
+    body["execution_kind"] = "recorded_demo"
+    demo = client.post(BASE, json=body)
+    assert demo.status_code == 201, demo.text
+    assert demo.json()["request_id"] != flight.json()["request_id"]
+    assert client.get(BASE).json()["suggestions"] == []

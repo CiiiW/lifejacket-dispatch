@@ -25,7 +25,7 @@ FINAL_STATUSES = {
     "on_scene",
     "guidance_only",
 }
-POLICY_VERSION = "low-confidence-v1"
+POLICY_VERSION = "low-confidence-v2"
 
 
 def score(value):
@@ -69,6 +69,38 @@ def group_confidence(identification):
     return None
 
 
+def confidence_summary(incident):
+    assessment = incident.assessment_json
+    injury = assessment.get("injury") if isinstance(assessment, dict) else None
+    return {
+        "animal_group": group_confidence(incident.identification_json),
+        "condition": score(injury.get("confidence")) if isinstance(injury, dict) else None,
+    }
+
+
+def explicitly_unidentified(identity):
+    if not isinstance(identity, dict):
+        return False
+    candidates = identity.get("candidates")
+    if isinstance(candidates, list) and candidates:
+        valid = [
+            c
+            for c in candidates
+            if isinstance(c, dict) and score(c.get("confidence")) is not None
+        ]
+        if any(
+            isinstance(c.get("animal_group"), str) and c["animal_group"] in GROUPS
+            for c in valid
+        ):
+            return False
+        if any(c.get("animal_group") == "unknown" for c in valid):
+            return True
+    resolution = identity.get("resolution")
+    if isinstance(resolution, dict) and resolution.get("rank") == "unknown":
+        return True
+    return candidates == [] and identity.get("needs_new_photo") is True
+
+
 def suggest(incident, threshold):
     """One combined verification suggestion; absent/invalid scores stay unknown."""
     if incident.status not in FINAL_STATUSES or incident.duplicate_of:
@@ -86,6 +118,18 @@ def suggest(incident, threshold):
                 "label": "Animal group confidence",
                 "confidence": animal_score,
                 "reason": "The animal group remains uncertain after intake.",
+            }
+        )
+    if animal_score is None and explicitly_unidentified(identity):
+        signals.append(
+            {
+                "code": "identification_evidence_gap",
+                "label": "Animal group unresolved",
+                "confidence": None,
+                "reason": (
+                    "The animal remains unidentified after intake; "
+                    "a clearer view needs review."
+                ),
             }
         )
     if condition_score is not None and condition_score < threshold:
@@ -115,7 +159,9 @@ def suggest(incident, threshold):
         )
     )
     objectives = []
-    if any(s["code"] == "animal_group_uncertain" for s in signals):
+    if any(
+        s["code"] in {"animal_group_uncertain", "identification_evidence_gap"} for s in signals
+    ):
         objectives.append("Clarify the animal group from an additional view")
     if any(s["code"] == "condition_uncertain" for s in signals):
         objectives.append(

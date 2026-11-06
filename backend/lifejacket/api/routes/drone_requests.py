@@ -22,8 +22,10 @@ from lifejacket.models.tables import (
     CaseDroneEventRow,
     CaseDroneEvidenceRow,
     CaseDroneRequestRow,
+    IncidentRow,
 )
 from lifejacket.services import drone_requests as service
+from lifejacket.services.drone_suggestions import confidence_summary
 
 
 def enabled():
@@ -60,6 +62,7 @@ def listing(
         "can_create": writable,
         "requests": [service.out(r, writable) for r in rows],
         "suggestions": service.suggestions(session, case_id, case),
+        "confidence_summary": confidence_summary(session.get(IncidentRow, case_id)),
     }
 
 

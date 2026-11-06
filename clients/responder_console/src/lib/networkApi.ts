@@ -249,6 +249,7 @@ export function createNetworkApi(
 }
 
 export interface DroneRequest {
+  suggestion_id?: string | null;
   request_id: string; case_id: string; status: string; revision: number;
   purpose: string; execution_kind: string; objective: string; reason: string;
   operator: string | null; next_review_at: string | null; escalation_criteria: string;
@@ -259,7 +260,7 @@ export interface DroneRequest {
   events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
 }
 export interface DroneApi {
-  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[]}>;
+  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[];confidence_summary?:{animal_group:number|null;condition:number|null}}>;
   detail(id:string,requestId:string,signal?:AbortSignal):Promise<DroneRequest>;
   create(id:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   change(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
@@ -269,7 +270,7 @@ export interface DroneApi {
 
 export interface DroneSuggestion {
   suggestion_id:string; purpose:'verification'; title:string; objective:string; reason:string;
-  signals:{code:string;label:string;confidence:number;reason:string}[];
+  signals:{code:string;label:string;confidence:number|null;reason:string}[];
   threshold:number; threshold_is_validated:false; policy_version:string;
   urgent_parallel_review:boolean; response_note:string; escalation_criteria:string;
 }

@@ -79,6 +79,19 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-06 — Fixed three review findings
+
+- Recorded-demo and operator-flight requests use separate creation keys. Demo creation/cancellation
+  never consumes operational suggestions; both modes can coexist in either creation order.
+- Explicit unidentified/retake evidence gaps generate qualitative suggestions with unknown group confidence.
+- Missing condition confidence stays null through agent parsing, serialization and persistence;
+  the case panel displays Unknown while explicit zero remains a low-confidence score.
+- Added permanent regression coverage for all three review reproductions and the old-key compatibility case.
+- Browser verified cancelled-demo suggestions, unknown condition display and unidentified-animal suggestions.
+- Final focused suite: 53 passed. Full backend: 620 passed, 15 skipped.
+  TypeScript, lint, fixture build and 13 transport checks passed. Not pushed or deployed.
+
+
 ### 2026-11-06 — Automatic low-confidence request suggestions
 
 - Added provisional 0.90 suggestion threshold, separately configurable from intake stopping.
