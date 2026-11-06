@@ -56,7 +56,11 @@ def listing(
         .order_by(CaseDroneRequestRow.created_at.desc())
         .limit(100)
     ).all()
-    return {"can_create": writable, "requests": [service.out(r, writable) for r in rows]}
+    return {
+        "can_create": writable,
+        "requests": [service.out(r, writable) for r in rows],
+        "suggestions": service.suggestions(session, case_id, case),
+    }
 
 
 @router.post("", status_code=201)

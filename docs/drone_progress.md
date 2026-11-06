@@ -79,6 +79,21 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-06 — Automatic low-confidence request suggestions
+
+- Added provisional 0.90 suggestion threshold, separately configurable from intake stopping.
+- Uses pooled animal-group probabilities and explicit condition confidence. Species ambiguity within a
+  confident group, missing scores, incomplete/closed/duplicate cases do not generate suggestions.
+- Suggestions open editable coordinator drafts; no automatic request creation or flight approval.
+- Rechecks evidence at submission, saves the confidence snapshot, suppresses active verification duplicates
+  and prevents unchanged evidence repeatedly triggering handled suggestions.
+- Browser checks covered low group, low condition, confident broader group, missing scores and urgent review;
+  review-to-request remained separate from approval.
+- Validation: 69 backend regression checks passed; final suggestion suite 34 passed.
+  TypeScript/lint, fixture build and 13 transport checks passed.
+- Not pushed or deployed. Ready for Charlotte's workflow review.
+
+
 ### 2026-11-06 — Case-linked verification and monitoring requests
 
 - Purchased hardware: original DJI Mini 2. Physical flight/camera integration remains unverified.

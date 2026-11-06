@@ -259,10 +259,17 @@ export interface DroneRequest {
   events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
 }
 export interface DroneApi {
-  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[]}>;
+  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[]}>;
   detail(id:string,requestId:string,signal?:AbortSignal):Promise<DroneRequest>;
   create(id:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   change(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   upload(id:string,requestId:string,body:FormData,signal?:AbortSignal):Promise<unknown>;
   photo(id:string,requestId:string,evidenceId:string,signal?:AbortSignal):Promise<Blob>;
+}
+
+export interface DroneSuggestion {
+  suggestion_id:string; purpose:'verification'; title:string; objective:string; reason:string;
+  signals:{code:string;label:string;confidence:number;reason:string}[];
+  threshold:number; threshold_is_validated:false; policy_version:string;
+  urgent_parallel_review:boolean; response_note:string; escalation_criteria:string;
 }

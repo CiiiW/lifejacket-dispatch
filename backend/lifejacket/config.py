@@ -50,6 +50,8 @@ class Settings(BaseSettings):
     network_auth_enabled: bool = False
     network_case_actions_enabled: bool = False
     case_drone_requests_enabled: bool = False
+    # Provisional suggestion threshold; independent from identification stopping.
+    drone_verification_confidence_threshold: float = Field(default=0.90, gt=0, le=1)
     # Only safe alongside the network boundary; never enables legacy public routes.
     reporter_phone_enabled: bool = False
     firebase_auth_project_id: str | None = None

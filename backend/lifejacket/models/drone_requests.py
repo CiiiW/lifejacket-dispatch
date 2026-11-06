@@ -9,6 +9,7 @@ from lifejacket.models.drone_intake import Contract
 
 
 class CreateRequest(Contract):
+    suggestion_id: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     purpose: Literal["verification", "monitoring"]
     objective: str = Field(min_length=1, max_length=1000)
     reason: str = Field(min_length=1, max_length=2000)

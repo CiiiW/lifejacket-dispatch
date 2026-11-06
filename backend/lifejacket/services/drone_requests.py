@@ -8,12 +8,14 @@ from sqlalchemy import select, update
 
 from lifejacket.access.policy import Role, can_update_case, participating_org
 from lifejacket.api.routes.network_actions import context
+from lifejacket.config import settings
 from lifejacket.models.tables import (
     CaseDroneEventRow,
     CaseDroneEvidenceRow,
     CaseDroneRequestRow,
     IncidentRow,
 )
+from lifejacket.services.drone_suggestions import suggest
 
 TRANSITIONS = {
     "requested": ["approved", "declined", "cancelled"],
@@ -101,12 +103,39 @@ def compare_swap(session, row, revision, **values):
     session.refresh(row)
 
 
+def suggestions(session, case_id, case):
+    if not case.active:
+        return []
+    active = session.scalars(
+        select(CaseDroneRequestRow).where(
+            CaseDroneRequestRow.incident_id == case_id,
+            CaseDroneRequestRow.status.in_(TRANSITIONS),
+        )
+    ).all()
+    if any(row.payload_json.get("purpose") == "verification" for row in active):
+        return []
+    incident = session.get(IncidentRow, case_id)
+    item = suggest(incident, settings.drone_verification_confidence_threshold)
+    if item is None:
+        return []
+    consumed = session.scalar(
+        select(CaseDroneRequestRow.request_id)
+        .where(
+            CaseDroneRequestRow.incident_id == case_id,
+            CaseDroneRequestRow.request_key == item["suggestion_id"],
+        )
+        .limit(1)
+    )
+    return [] if consumed else [item]
+
+
 def create(session, actor, case_id, body):
-    access(session, actor, case_id, write=True)
+    _, case = access(session, actor, case_id, write=True)
+    effective_key = body.suggestion_id or body.request_key
     previous = session.scalar(
         select(CaseDroneRequestRow).where(
             CaseDroneRequestRow.incident_id == case_id,
-            CaseDroneRequestRow.request_key == body.request_key,
+            CaseDroneRequestRow.request_key == effective_key,
         )
     )
     payload = body.model_dump(mode="json", exclude={"request_key"})
@@ -114,16 +143,29 @@ def create(session, actor, case_id, body):
         if previous.payload_json["original_request"] != payload:
             raise HTTPException(409, "Request key was already used for different details")
         return out(previous, True)
+    suggestion = None
+    if body.suggestion_id:
+        suggestion = next(
+            (
+                s
+                for s in suggestions(session, case_id, case)
+                if s["suggestion_id"] == body.suggestion_id
+            ),
+            None,
+        )
+        if suggestion is None or body.purpose != "verification":
+            raise HTTPException(409, "Suggestion changed; refresh and review current evidence")
     incident = session.get(IncidentRow, case_id)
     row = CaseDroneRequestRow(
         request_id=uuid.uuid4().hex,
         incident_id=case_id,
-        request_key=body.request_key,
+        request_key=effective_key,
         status="requested",
         revision=0,
         payload_json={
             **payload,
             "original_request": payload,
+            "suggestion_snapshot": suggestion,
             "target_location": {
                 "latitude": incident.latitude,
                 "longitude": incident.longitude,

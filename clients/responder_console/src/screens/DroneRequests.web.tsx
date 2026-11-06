@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { type DroneApi, type DroneRequest, networkErrorMessage } from '../lib/networkApi';
+import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMessage } from '../lib/networkApi';
 
 const label = (s: string) => s.replaceAll('_', ' ');
 export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
   const [rows, setRows] = useState<DroneRequest[]>([]);
+  const [suggestions, setSuggestions] = useState<DroneSuggestion[]>([]);
+  const [suggestionId, setSuggestionId] = useState<string | null>(null);
+  const [createOpen, setCreateOpen] = useState(false);
   const [canCreate, setCanCreate] = useState(false);
   const [selected, setSelected] = useState<DroneRequest | null>(null);
   const [error, setError] = useState('');
@@ -34,13 +37,13 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
     const list = await api.list(id, signal);
     const detail = requestId ? await api.detail(id, requestId, signal) : null;
     if (!signal.aborted) {
-      setRows(list.requests); setCanCreate(list.can_create); setSelected(detail);
+      setRows(list.requests); setSuggestions(list.suggestions ?? []); setCanCreate(list.can_create); setSelected(detail);
       setTarget(''); setNote(''); setOutcome(''); setConfirmed(false);
     }
   }
   useEffect(() => {
     const c = new AbortController(); controller.current = c;
-    setRows([]); setSelected(null); setCanCreate(false);
+    setRows([]); setSuggestions([]); setSelected(null); setCanCreate(false);
     void load(c.signal).catch(e => { if (!c.signal.aborted) setError(networkErrorMessage(e)); });
     return () => { c.abort(); if (preview.current) URL.revokeObjectURL(preview.current); };
   }, [api, id]);
@@ -53,7 +56,7 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
       await load(signal, requestId || selected?.request_id);
     } catch (e) {
       if (!signal.aborted) {
-        setError(networkErrorMessage(e)); setCanCreate(false); setRows([]); setSelected(null);
+        setError(networkErrorMessage(e)); setCanCreate(false); setRows([]); setSuggestions([]); setSelected(null);
         if (preview.current) URL.revokeObjectURL(preview.current);
         preview.current = ''; setImage('');
       }
@@ -64,23 +67,36 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
     <p className="lj-muted">Collect evidence for this case: clarify an uncertainty or monitor a change.</p>
     {error && <p role="alert" className="lj-error">{error}</p>}
     <button className="secondary" disabled={busy} onClick={() => void act(async () => undefined)}>Refresh drone requests</button>
-    {canCreate && <details style={{marginTop:16}}><summary>Create observation request</summary>
+    {suggestions.map(s=><aside className="lj-panel" key={s.suggestion_id} aria-label="Automatic drone request suggestion" style={{marginTop:16}}>
+      <div className="lj-eyebrow">Suggested from current intake</div><h3>{s.title}</h3>
+      <p>{s.reason}</p>
+      <ul>{s.signals.map(signal=><li key={signal.code}>{signal.label}: <strong>{Number((signal.confidence*100).toFixed(2))}%</strong> · below {Number((s.threshold*100).toFixed(2))}%</li>)}</ul>
+      <p className={s.urgent_parallel_review?'lj-notice lj-error':'lj-muted'}>{s.response_note}</p>
+      <p className="lj-muted">Provisional threshold. Check whether an additional view would help.</p>
+      {canCreate && <button disabled={busy} onClick={()=>{
+        setPurpose('verification');setSuggestionId(s.suggestion_id);setObjective(s.objective);
+        setReason(s.reason);setEscalation(s.escalation_criteria);setCreateOpen(true);
+        key.current=crypto.randomUUID();
+      }}>Review suggested request</button>}
+    </aside>)}
+    {canCreate && <details open={createOpen} onToggle={e=>setCreateOpen(e.currentTarget.open)} style={{marginTop:16}}><summary>Create observation request</summary>
       <form aria-label="Create drone request" onSubmit={e => {
         e.preventDefault();
         void act(async signal => {
           const row = await api.create(id, {purpose, objective, reason, execution_kind:mode,
-            escalation_criteria:escalation, request_key:key.current,
+            escalation_criteria:escalation, request_key:key.current, suggestion_id:suggestionId,
             next_review_at:reviewTime ? new Date(reviewTime).toISOString() : null}, signal);
-          key.current = crypto.randomUUID(); setObjective(''); setReason(''); setEscalation('');
+          key.current = crypto.randomUUID();setSuggestionId(null);setCreateOpen(false); setObjective(''); setReason(''); setEscalation('');
           return row.request_id;
         });
       }}>
-        <label>Purpose<select value={purpose} onChange={e=>setPurpose(e.target.value)}>
+        <label>Purpose<select disabled={Boolean(suggestionId)} value={purpose} onChange={e=>setPurpose(e.target.value)}>
           <option value="verification">Verification</option><option value="monitoring">Monitoring</option>
         </select></label>
         <label>Evidence collection<select value={mode} onChange={e=>setMode(e.target.value)}>
           <option value="recorded_demo">Recorded footage demo</option><option value="operator_flight">Operator flight · Mini 2</option>
         </select></label>
+        {suggestionId && <p className="lj-notice">Review and edit this draft before creating the request. <button type="button" className="secondary" onClick={()=>setSuggestionId(null)}>Use as manual request instead</button></p>}
         <label>Question to answer<input required maxLength={1000} value={objective} onChange={e=>setObjective(e.target.value)}/></label>
         <label>Why more evidence is needed<input required maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label>
         <label>Escalate if<input required maxLength={1000} value={escalation} onChange={e=>setEscalation(e.target.value)}/></label>

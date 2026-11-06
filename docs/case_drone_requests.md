@@ -69,10 +69,45 @@ against the older main without reviewing the parent changes.
 
 ## Remaining work
 
-Automatic suggestions based on calibrated confidence/critical evidence gaps are separate from manually created requests.
+Automatic low-confidence suggestions are implemented as described below; calibration and additional evidence-gap rules remain future work.
 The existing 0.90 identification threshold is unvalidated and is not used as an automatic flight rule.
 Monitoring recurrence, notifications, operator self-service, video upload/automatic frame import into requests,
 live managed-auth deployment and Mini 2 flight/camera integration remain future work.
 
 Validation on 2026-11-06: full backend 579 passed / 15 skipped; final focused drone suite 13 passed.
 TypeScript, lint and fictional browser monitoring lifecycle passed.
+
+
+## Automatic low-confidence suggestions
+
+Suggestions are derived on the case request GET endpoint after completed intake, using
+DRONE_VERIFICATION_CONFIDENCE_THRESHOLD (default 0.90, provisional and uncalibrated).
+The same endpoint enforces existing case access. GET does not create requests or events.
+
+| Signal | Source | Rule |
+| --- | --- | --- |
+| Animal group uncertainty | Identification candidate probabilities pooled by animal group | Maximum known group probability below threshold |
+| Condition uncertainty | Explicit persisted assessment.injury.confidence | Confidence below threshold |
+| Missing/invalid confidence | No numeric evidence | No score is invented; manual requests remain available |
+| Exact species uncertain, broader group confident | Same-group candidate probabilities | No identification-only suggestion |
+| Urgent case | Severity respond/critical or critical condition flags | Evidence review may run in parallel; response must not wait |
+
+Scores are model/assessment confidence values, not measured accuracy. The condition model
+may persist a default zero confidence; this remains a review signal rather than a diagnosis.
+Deterministic severity confidence and weather lookup failures are not used as image-confidence triggers.
+No model calls or aircraft commands are made when generating suggestions.
+
+Review suggested request opens an editable verification draft. Submission requires an explicit
+coordinator action; the server checks current evidence again before accepting the suggestion ID.
+The new request remains requested until separately approved. Its source confidence/threshold snapshot is saved.
+A stable evidence/policy fingerprint and existing unique creation key prevent duplicate creation.
+Any active verification request suppresses additional suggestions for that case.
+After a suggested request is declined, cancelled or reviewed, unchanged evidence does not generate it again.
+New assessment evidence can generate a fresh suggestion once no verification request is active.
+Closed, unresolved-intake and duplicate cases do not generate suggestions.
+
+The fictional UI fixture includes low group confidence, low condition confidence, confident broader group,
+urgent response and missing-score scenarios. These controls are outside the production component.
+
+Suggestion increment validation: 69 backend regression checks passed; final suggestion suite 34 passed.
+TypeScript, lint, fixture build and 13 network transport checks passed. Browser scenario checks passed.
