@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ISSUER = "https://securetoken.google.com/lifejacket-connected-scenario"
 
 
-def worker(directory, output):
+def worker(directory, output, with_drone=False):
     directory = Path(directory).resolve()
     marker = directory / "scenario.marker"
     nonce = os.environ.get("LIFEJACKET_SCENARIO_NONCE")
@@ -35,6 +35,9 @@ def worker(directory, output):
         PHOTO_STORAGE_DIR=str(directory / "photos"),
         NETWORK_AUTH_ENABLED="true",
         NETWORK_CASE_ACTIONS_ENABLED="true",
+        CASE_DRONE_REQUESTS_ENABLED="true" if with_drone else "false",
+        DRONE_EVIDENCE_DIR=str(directory / "drone-evidence"),
+        DRONE_VERIFICATION_CONFIDENCE_THRESHOLD="0.90",
         REPORTER_PHONE_ENABLED="true",
         FIREBASE_AUTH_PROJECT_ID="lifejacket-connected-scenario",
         GCP_PROJECT="lifejacket-connected-scenario",
@@ -53,6 +56,9 @@ def worker(directory, output):
 
     if settings.database_url != "sqlite:///" + database.as_posix():
         raise RuntimeError("Refusing any database outside the disposable scenario")
+
+    if settings.drone_evidence_dir.resolve() != directory / "drone-evidence":
+        raise RuntimeError("Refusing evidence storage outside the disposable scenario")
 
     from fastapi.testclient import TestClient
     from lifejacket.access import dependencies
@@ -78,6 +84,7 @@ def worker(directory, output):
 
     traces = []
     receipts = []
+    drone_report = None
 
     def verify(token, project):
         if project != "lifejacket-connected-scenario" or token not in {
@@ -105,7 +112,7 @@ def worker(directory, output):
             {"X-LifeJacket-Organization": organization} if organization else {}
         )
 
-    def check(name, response, expected=200, *, role="scenario", phase=None):
+    def check(name, response, expected=200, *, role="scenario", phase=None, raw=False):
         if response.status_code != expected:
             raise AssertionError(
                 f"{name}: expected HTTP {expected}, got {response.status_code}"
@@ -119,7 +126,7 @@ def worker(directory, output):
                 "passed": True,
             }
         )
-        return response.json()
+        return response.content if raw else response.json()
 
     # All actual HTTP calls below are in-process ASGI TestClient requests.
     # Any accidental external socket use fails rather than contacting a provider.
@@ -186,6 +193,10 @@ def worker(directory, output):
         )
         with SessionLocal() as session:
             state = repository.load_conversation_state(session, case_id)
+            if with_drone:
+                from connected_drone_checks import prepare_intake
+
+                prepare_intake(session, case_id)
             state.stage = ConversationStage.COMPLETE
             repository.save_conversation_state(session, case_id, state)
             session.commit()
@@ -234,6 +245,10 @@ def worker(directory, output):
             )
             if [row["incident_id"] for row in cards] != [case_id]:
                 raise AssertionError("Role views must refer to the same submitted case")
+        if with_drone:
+            from connected_drone_checks import run_drone_checks
+
+            drone_report = run_drone_checks(client, case_id, headers, check, SessionLocal)
         contact_path = f"/network/cases/{case_id}/reporter-contact"
         response_path = f"/network/cases/{case_id}/response"
         for person, org in [("b", "B"), ("noaa", "NOAA")]:
@@ -414,7 +429,10 @@ def worker(directory, output):
     (output / "latest.json").write_text(
         json.dumps(
             {
-                "mode": "isolated-connected-scenario",
+                "mode": "isolated-connected-drone-scenario"
+                if with_drone
+                else "isolated-connected-scenario",
+                **({"drone_workflow": drone_report} if drone_report else {}),
                 "passed": True,
                 "generated_at": datetime.now(UTC).isoformat(),
                 "checks": traces,
@@ -426,6 +444,12 @@ def worker(directory, output):
                     "offline administrative service.",
                     "API routes, membership checks, state changes and reporter projections "
                     "use real code sharing one temporary database.",
+                    (
+                        "Drone checks use a generated frame, prepared low-confidence intake "
+                        "and the real request/evidence APIs; no physical flight."
+                    )
+                    if with_drone
+                    else "No drone workflow included in this run.",
                     "No public server, real SMS, model calls, notifications "
                     "or live rescue case.",
                 ],
@@ -436,6 +460,10 @@ def worker(directory, output):
 
 
 def render(result):
+    if result.get("drone_workflow"):
+        from connected_drone_checks import render_drone
+
+        return render_drone(result)
     rows = "".join(
         "<tr><td>"
         + str(index)
@@ -497,12 +525,22 @@ Leaving and withdrawing contact did not cancel the case.</p></section>
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "var/connected-workflow")
+    parser.add_argument("--output-dir", type=Path)
+    parser.add_argument(
+        "--with-drone",
+        action="store_true",
+        help="Include case-linked drone suggestion and evidence review",
+    )
     parser.add_argument("--worker", type=Path, help=argparse.SUPPRESS)
     args = parser.parse_args()
-    output = args.output_dir.resolve()
+    output = (
+        args.output_dir
+        or ROOT
+        / "var"
+        / ("connected-drone-workflow" if args.with_drone else "connected-workflow")
+    ).resolve()
     if args.worker:
-        worker(args.worker, output)
+        worker(args.worker, output, args.with_drone)
         return
     with tempfile.TemporaryDirectory(prefix="lifejacket-connected-") as folder:
         directory = Path(folder)
@@ -518,6 +556,7 @@ def main():
                 str(directory),
                 "--output-dir",
                 str(output),
+                *(["--with-drone"] if args.with_drone else []),
             ],
             env=env,
             cwd=directory,
@@ -534,11 +573,20 @@ def main():
     report["temporary_database_removed"] = not directory.exists()
     (output / "latest.json").write_text(json.dumps(report, indent=2))
     (output / "latest.html").write_text(render(report))
+    if args.with_drone:
+        (output / "index.html").write_text(render(report))
     print(
         f"Connected scenario passed: {len(report['checks'])} API checks. "
         "Temporary database removed."
     )
-    print(f"Open {output / 'latest.html'} or restart npm run demo:network for /connected/.")
+    print(f"Open {output / 'latest.html'}.")
+    if args.with_drone:
+        print(
+            "Serve the completed static report with "
+            "scripts/serve_network_ui_fixture.py on loopback."
+        )
+    else:
+        print("Or restart npm run demo:network for /connected/.")
 
 
 if __name__ == "__main__":

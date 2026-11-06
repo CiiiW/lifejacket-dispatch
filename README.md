@@ -32,6 +32,11 @@ NOAA without GCP, run `python scripts/run_connected_scenario.py` in the backend
 Python environment. See [connected scenario](docs/connected_scenario.md) for the
 redacted report, disposable database and explicit simulated boundaries.
 
+For the case-linked drone flow, run `python scripts/run_connected_scenario.py --with-drone`
+in the backend environment. This checks a submitted case through confidence suggestions,
+approved evidence collection and review using a temporary database and synthetic frame.
+See [connected drone scenario](docs/connected_drone_scenario.md).
+
 ## Run the local drone demo
 
 With Python 3.11+ and Docker running, pull the `charlotte-mini2-demo` branch and run:

@@ -130,3 +130,10 @@ TypeScript, lint, fixture build and 13 network transport checks passed. Browser 
 
 Review-fix validation: full backend 620 passed / 15 skipped; final focused suite 53 passed.
 TypeScript, lint, fixture build, 13 transport tests and browser checks passed.
+
+## Connected backend scenario
+
+Run `python scripts/run_connected_scenario.py --with-drone` in the backend environment.
+The completed run passed 68 real API checks using one disposable case/database.
+See [connected drone scenario](connected_drone_scenario.md) for isolation boundaries,
+the saved report and regression commands. AI, SMS and aircraft operation remain simulated.

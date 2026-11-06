@@ -79,6 +79,22 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-06 — Connected reporter-to-drone backend scenario
+
+- Extended the isolated connected runner with an opt-in drone phase, using actual request,
+  evidence, membership and reporter routes against the same submitted case/database.
+- Prepared low-confidence intake and a generated frame are explicit fixture boundaries.
+  No live model, SMS, physical flight or public API server.
+- Standalone run passed 68 API checks: creation/approval, evidence upload/download,
+  byte integrity, stale/unauthorized writes, same-case reassessment and source preservation.
+- Confirmed sample review does not advance rescue status or consume operational uncertainty.
+- Regression selection: 55 passed; final connected-only rerun passed after report image correction.
+  Changed Python lint and browser report/image checks passed.
+- Temporary DB/evidence cleanup and inherited-storage sentinels verified.
+- Report: var/connected-drone-workflow/latest.html.
+  Details: [connected drone scenario](connected_drone_scenario.md). Not pushed or deployed.
+
+
 ### 2026-11-06 — Fixed three review findings
 
 - Recorded-demo and operator-flight requests use separate creation keys. Demo creation/cancellation
