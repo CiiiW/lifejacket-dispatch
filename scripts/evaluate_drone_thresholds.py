@@ -44,64 +44,68 @@ def validate(dataset):
     return rows
 
 
-def evaluate(dataset, thresholds=THRESHOLDS):
+def evaluate(dataset, thresholds=THRESHOLDS, *, test_threshold=None):
     rows = validate(dataset)
     metrics = []
-    for threshold in thresholds:
+    runs = [("validation", threshold) for threshold in thresholds]
+    if test_threshold is not None:
+        runs.append(("test", test_threshold))
+    for split, threshold in runs:
         if (
             type(threshold) not in (float, int)
             or not math.isfinite(threshold)
             or not 0 < threshold <= 1
         ):
             raise ValueError("Threshold must be finite and in (0,1]")
-        for split in ("validation", "test"):
-            selected = [r for r in rows if r["split"] == split]
-            if not selected:
-                continue
-            tp = fp = fn = tn = urgent = 0
-            for row in selected:
-                incident = SimpleNamespace(
-                    **{
-                        "status": "awaiting_dispatch",
-                        "duplicate_of": None,
-                        "identification_json": None,
-                        "assessment_json": None,
-                        "latitude": None,
-                        "longitude": None,
-                        "severity_level": "monitor",
-                        "entanglement_present": False,
-                        **row["incident"],
-                    }
-                )
-                result = suggest(incident, threshold)
-                predicted = result is not None
-                label = row["verification_needed"]
-                tp += predicted and label
-                fp += predicted and not label
-                fn += not predicted and label
-                tn += not predicted and not label
-                urgent += bool(result and result["urgent_parallel_review"])
-            metrics.append(
-                {
-                    "split": split,
-                    "threshold": threshold,
-                    "n": len(selected),
-                    "tp": tp,
-                    "fp": fp,
-                    "fn": fn,
-                    "tn": tn,
-                    "precision": tp / (tp + fp) if tp + fp else None,
-                    "recall": tp / (tp + fn) if tp + fn else None,
-                    "false_positive_rate": fp / (fp + tn) if fp + tn else None,
-                    "suggestion_rate": (tp + fp) / len(selected),
-                    "urgent_parallel_suggestions": urgent,
+        selected = [r for r in rows if r["split"] == split]
+        if not selected:
+            continue
+        tp = fp = fn = tn = urgent = 0
+        for row in selected:
+            incident = SimpleNamespace(
+                **{
+                    "status": "awaiting_dispatch",
+                    "duplicate_of": None,
+                    "identification_json": None,
+                    "assessment_json": None,
+                    "latitude": None,
+                    "longitude": None,
+                    "severity_level": "monitor",
+                    "entanglement_present": False,
+                    **row["incident"],
                 }
             )
+            result = suggest(incident, threshold)
+            predicted = result is not None
+            label = row["verification_needed"]
+            tp += predicted and label
+            fp += predicted and not label
+            fn += not predicted and label
+            tn += not predicted and not label
+            urgent += bool(result and result["urgent_parallel_review"])
+        metrics.append(
+            {
+                "split": split,
+                "threshold": threshold,
+                "n": len(selected),
+                "tp": tp,
+                "fp": fp,
+                "fn": fn,
+                "tn": tn,
+                "precision": tp / (tp + fp) if tp + fp else None,
+                "recall": tp / (tp + fn) if tp + fn else None,
+                "false_positive_rate": fp / (fp + tn) if fp + tn else None,
+                "suggestion_rate": (tp + fp) / len(selected),
+                "urgent_parallel_suggestions": urgent,
+            }
+        )
     return {
         "dataset_kind": dataset["dataset_kind"],
         "case_count": len(rows),
         "threshold_is_validated": False,
         "configuration_changed": False,
+        "held_out_test_evaluated": any(m["split"] == "test" for m in metrics),
+        "test_threshold": test_threshold,
         "interpretation": (
             "Synthetic policy checks only; no evidence of real-world model accuracy."
             if dataset["dataset_kind"] == "synthetic"
@@ -120,8 +124,13 @@ def main():
     parser.add_argument(
         "--output", type=Path, default=Path("var/drone-threshold-evaluation.json")
     )
+    parser.add_argument(
+        "--test-threshold",
+        type=float,
+        help="One cutoff selected on validation data; required to evaluate held-out cases",
+    )
     args = parser.parse_args()
-    result = evaluate(json.loads(args.input.read_text()))
+    result = evaluate(json.loads(args.input.read_text()), test_threshold=args.test_threshold)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")
     print(

@@ -166,3 +166,47 @@ def test_multiple_attention_items_recheck_revision(monitoring_api):
     refreshed = client.get(ATTENTION).json()["items"][0]
     assert acknowledge(client, refreshed).status_code == 200
     assert client.get(ATTENTION).json()["total"] == 0
+
+
+def test_comparison_rejects_an_existing_request_from_another_accessible_case(monitoring_api):
+    from datetime import datetime
+
+    client, factory, _ = monitoring_api
+    original = monitored(client)
+    foreign_id = "f" * 32
+    with factory() as session:
+        session.add(IncidentRow(incident_id="other", status="awaiting_dispatch"))
+        session.flush()
+        session.add(
+            NetworkCaseRow(
+                incident_id="other",
+                submitted=True,
+                state_code="CA",
+                verified_at=datetime.now(),
+                verified_by="reviewer",
+                lead_org_id="A",
+                response_phase="received",
+            )
+        )
+        session.flush()
+        payload = dict(session.get(CaseDroneRequestRow, original["request_id"]).payload_json)
+        payload["objective"] = "OTHER_CASE_PRIVATE_FINDING"
+        session.add(
+            CaseDroneRequestRow(
+                request_id=foreign_id,
+                incident_id="other",
+                request_key="foreign",
+                status="requested",
+                revision=0,
+                payload_json=payload,
+                created_at=datetime.now(),
+            )
+        )
+        session.commit()
+    foreign = client.get("/network/cases/other/drone-requests/" + foreign_id)
+    assert foreign.status_code == 200, foreign.text
+    response = client.get(
+        BASE + "/" + original["request_id"] + "/comparison?previous_id=" + foreign_id
+    )
+    assert response.status_code == 404
+    assert "OTHER_CASE_PRIVATE_FINDING" not in response.text

@@ -4,7 +4,7 @@ import { CoordinatorAttention } from '../src/screens/CoordinatorAttention.web';
 import { MonitoringQueue } from '../src/screens/MonitoringQueue.web';
 import { DroneRequests } from '../src/screens/DroneRequests.web';
 import { Shell } from '../src/screens/NetworkScreen.web';
-import { type DroneApi, type DroneRequest, type DroneSuggestion } from '../src/lib/networkApi';
+import { NetworkError, type DroneApi, type DroneRequest, type DroneSuggestion } from '../src/lib/networkApi';
 
 
 const suggestionFor=(scenario:string):DroneSuggestion|null=>{
@@ -47,6 +47,7 @@ const clone=<T,>(value:T):T=>JSON.parse(JSON.stringify(value));
 const next:Record<string,string[]> = {requested:['approved','declined','cancelled'],
   approved:['in_progress','cancelled','failed'],in_progress:['evidence_ready','cancelled','failed'],
   evidence_ready:['reviewed','cancelled','failed']};
+let comparisonDenied=false;
 const acknowledged=new Set<string>();
 function fixtureAttention(){
   return rows.flatMap(row=>{
@@ -70,6 +71,7 @@ const api:DroneApi={
     return clone(row);
   },
   async comparison(id,r,previous){
+    if(comparisonDenied)throw new NetworkError(403);
     const row=rows.find(x=>x.request_id===r)!;
     return {case_id:id,intake:{recorded_at:new Date().toISOString(),animal_group:'pinniped',
       species_common_name:null,severity_level:'monitor',injury_present:null,entanglement_present:false,
@@ -131,7 +133,7 @@ const api:DroneApi={
     row.revision++;row.evidence!.push({...meta,evidence_id:'synthetic-frame'});
     return {};
   },
-  async photo(){return new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
+  async photo(){if(comparisonDenied)throw new NetworkError(403);return new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
 };
 function Demo(){
   const [version,setVersion]=React.useState(0);
@@ -191,6 +193,7 @@ function Demo(){
       }
       setRequest(ids[1]);setVersion(v=>v+1);setMonitorRevision(v=>v+1);
     }}>Fixture: load evidence comparison</button>
+    <button className="secondary" onClick={()=>{comparisonDenied=true;}}>Fixture: deny evidence access</button>
     <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
     <DroneRequests key={version} api={api} id="fictional-case" initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>

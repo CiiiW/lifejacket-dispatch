@@ -79,6 +79,14 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Double-check review
+- Fixed comparison image failures retaining previously loaded evidence: cancel pending loads, revoke preview URLs and clear the request panel.
+- Replaced the assumed earlier-observation label with a neutral comparison label.
+- Restricted held-out evaluation to one explicitly supplied test threshold; cutoff sweeps use validation data only.
+- Added regression checks for held-out isolation and comparison against another accessible case.
+- Validation: full backend suite passed (656 passed, 15 skipped), targeted regressions passed, TypeScript/Ruff passed, and browser access-revocation checks cleared all request images and findings.
+
+
 ### 2026-11-07 — Attention, reminders, evidence comparison and threshold evaluation
 - Added an in-app attention inbox for escalations and overdue review reminders.
 - Added lead-only, revision-checked acknowledgment with notes and durable history.

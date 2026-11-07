@@ -199,7 +199,7 @@ authenticated image controls. The intake assessment is the current stored
 record, not an immutable historical snapshot or a reporter transcript. No raw
 reporter contact or transcript is returned. Original reporter photos are not
 included in this view. Images are loaded through the existing case-scoped
-authenticated evidence endpoint, and preview URLs are revoked on context changes.
+authenticated evidence endpoint, and preview URLs are revoked on context changes. A failed comparison/image request also cancels pending image loads and clears the observation panel.
 Comparison does not automatically infer deterioration or recovery.
 
 See [threshold evaluation](drone_threshold_evaluation.md) for the offline

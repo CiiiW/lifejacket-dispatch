@@ -59,3 +59,23 @@ def test_invalid_evaluation_data_rejected(mutation):
         data["cases"].append(second)
     with pytest.raises(ValueError):
         module.evaluate(data)
+
+
+def test_holdout_is_not_swept_for_threshold_selection():
+    data = dataset()
+    data["cases"].append(
+        {
+            **data["cases"][0],
+            "case_id": "holdout",
+            "animal_event_id": "other-animal",
+            "split": "test",
+        }
+    )
+    exploratory = module.evaluate(data, (0.6, 0.9))
+    assert all(m["split"] == "validation" for m in exploratory["metrics"])
+    assert exploratory["held_out_test_evaluated"] is False
+    locked = module.evaluate(data, (0.6, 0.9), test_threshold=0.85)
+    held_out = [m for m in locked["metrics"] if m["split"] == "test"]
+    assert len(held_out) == 1
+    assert held_out[0]["threshold"] == 0.85
+    assert locked["threshold_is_validated"] is False
