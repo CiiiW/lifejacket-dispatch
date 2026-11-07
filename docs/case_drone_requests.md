@@ -168,3 +168,39 @@ the request history. Recorded demonstrations remain distinct from operator fligh
 
 The queue currently scopes cases in SQL and sorts eligible observations in memory
 before pagination; indexed queue queries will be needed for larger deployments.
+
+
+## Coordinator attention and overdue reminders
+
+`GET /network/monitoring/attention` is a permissioned in-app inbox for participating
+cases. An escalation decision remains visible after it leaves the monitoring
+queue. A reviewed outcome of escalation_needed also creates an attention item.
+Overdue review times create reminders without waiting for a coordinator to open
+the individual case. Both appear when the workspace next loads and refresh
+every 30 seconds while it is open.
+
+Only the active lead coordinator can acknowledge an item, with an explicit note
+and confirmation. The acknowledgment is stored in the request and immutable event
+history using a revision check. Acknowledging does not approve, resolve, dispatch
+or reschedule anything. Reminder identities include the review time, so a new
+schedule can create a new reminder without repeating acknowledged reminders for
+the same schedule. Closed cases are excluded; supporting staff and assigned
+rescuers can read but cannot acknowledge.
+
+These are in-app reminders. Email, text, push notifications and background
+delivery while the workspace is closed are not configured.
+
+## Evidence comparison
+
+The selected observation includes a comparison with its linked previous request,
+or another observation from the same case. The view shows the stored intake
+assessment, each observation finding, evidence provenance, capture time and
+authenticated image controls. The intake assessment is the current stored
+record, not an immutable historical snapshot or a reporter transcript. No raw
+reporter contact or transcript is returned. Original reporter photos are not
+included in this view. Images are loaded through the existing case-scoped
+authenticated evidence endpoint, and preview URLs are revoked on context changes.
+Comparison does not automatically infer deterioration or recovery.
+
+See [threshold evaluation](drone_threshold_evaluation.md) for the offline
+evaluation runner, synthetic results and requirements for reviewer-labeled data.

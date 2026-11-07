@@ -18,6 +18,7 @@ from lifejacket.api.routes.network import private
 from lifejacket.config import settings
 from lifejacket.models.db import get_session
 from lifejacket.models.drone_requests import (
+    AttentionAcknowledgment,
     ChangeRequest,
     CreateRequest,
     EvidenceMetadata,
@@ -328,3 +329,51 @@ def monitoring_queue(
         key=lambda x: (order[x["queue_status"]], x["next_review_at"] or "", x["request_id"])
     )
     return {"items": items[offset : offset + limit], "total": len(items), "due_soon_hours": 24}
+
+
+@monitoring_router.get("/attention")
+def attention_queue(
+    response: Response,
+    offset: int = 0,
+    limit: int = 50,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_attention
+
+    private(response)
+    return drone_attention.queue(session, current.access.principal, offset, limit)
+
+
+@router.post("/{request_id}/attention")
+def acknowledge_attention(
+    case_id: str,
+    request_id: str,
+    body: AttentionAcknowledgment,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_attention
+
+    private(response)
+    return drone_attention.acknowledge(
+        session, current.access.principal, case_id, request_id, body
+    )
+
+
+@router.get("/{request_id}/comparison")
+def compare_observations(
+    case_id: str,
+    request_id: str,
+    response: Response,
+    previous_id: str | None = None,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_attention
+
+    private(response)
+    return drone_attention.comparison(
+        session, current.access.principal, case_id, request_id, previous_id
+    )

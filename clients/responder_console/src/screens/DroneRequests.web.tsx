@@ -1,3 +1,4 @@
+import { ObservationComparison } from './ObservationComparison.web';
 import { useEffect, useRef, useState } from 'react';
 import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMessage } from '../lib/networkApi';
 
@@ -219,6 +220,7 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
           <button disabled={busy || !monitoringConfirmed || !monitoringReason.trim()}>Record monitoring decision</button>
           <p className="lj-muted">Continue creates a follow-up awaiting approval. Escalation requires coordinator action. Finishing monitoring does not close the rescue case.</p>
         </form>}
+      <ObservationComparison key={selected.request_id} api={api} id={id} request={selected} rows={rows}/>
       <details><summary>Request history</summary><ol>{selected.events?.map(e=><li key={e.revision}>{label(e.kind)} · {new Date(e.recorded_at).toLocaleString()} · {e.actor_user_id}{e.note ? ': '+e.note:''}</li>)}</ol></details>
       <p className="lj-muted">Findings are saved as a case addendum. Rescue status and the original intake assessment remain separately reviewed.</p>
     </article>}

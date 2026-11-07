@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { CoordinatorAttention } from '../src/screens/CoordinatorAttention.web';
 import { MonitoringQueue } from '../src/screens/MonitoringQueue.web';
 import { DroneRequests } from '../src/screens/DroneRequests.web';
 import { Shell } from '../src/screens/NetworkScreen.web';
@@ -46,7 +47,36 @@ const clone=<T,>(value:T):T=>JSON.parse(JSON.stringify(value));
 const next:Record<string,string[]> = {requested:['approved','declined','cancelled'],
   approved:['in_progress','cancelled','failed'],in_progress:['evidence_ready','cancelled','failed'],
   evidence_ready:['reviewed','cancelled','failed']};
+const acknowledged=new Set<string>();
+function fixtureAttention(){
+  return rows.flatMap(row=>{
+    const escalation=row.monitoring_decision?.action==='escalate'||row.outcome==='escalation_needed';
+    const overdue=!row.monitoring_decision&&row.next_review_at&&Date.parse(row.next_review_at)<=Date.now();
+    return (['escalation','overdue'] as const).filter(kind=>kind==='escalation'?escalation:overdue).map(kind=>({
+      case_id:row.case_id,request_id:row.request_id,revision:row.revision,kind,
+      attention_key:row.request_id+(kind==='escalation'?'e':'d').repeat(32),
+      reason:row.monitoring_decision?.reason||row.review_note||'Scheduled review is overdue',
+      since:row.next_review_at,objective:row.objective,execution_kind:row.execution_kind,can_acknowledge:true,
+    })).filter(item=>!acknowledged.has(item.attention_key));
+  });
+}
 const api:DroneApi={
+  async attention(offset){const items=fixtureAttention();return {items:clone(items.slice(offset,offset+50)),total:items.length};},
+  async acknowledgeAttention(_id,r,b){
+    const row=rows.find(x=>x.request_id===r)!;
+    if(row.revision!==b.revision||!fixtureAttention().some(x=>x.attention_key===b.attention_key))throw new Error('Stale fixture acknowledgment');
+    acknowledged.add(String(b.attention_key));row.revision++;
+    row.events!.push({revision:row.revision,kind:'attention_acknowledged',recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator',note:String(b.note)});
+    return clone(row);
+  },
+  async comparison(id,r,previous){
+    const row=rows.find(x=>x.request_id===r)!;
+    return {case_id:id,intake:{recorded_at:new Date().toISOString(),animal_group:'pinniped',
+      species_common_name:null,severity_level:'monitor',injury_present:null,entanglement_present:false,
+      confidence:{animal_group:.95,condition:.7}},
+      current:clone(row),previous:clone(rows.find(x=>x.request_id===(previous||row.previous_request_id))||null),
+      comparison_is_automated:false as const};
+  },
   async monitoringQueue(offset){
     const items=rows.filter(r=>!r.monitoring_decision && (r.purpose==='monitoring'||r.next_review_at)).map(r=>({
       case_id:r.case_id,request_id:r.request_id,request_status:r.status,
@@ -135,6 +165,33 @@ function Demo(){
       stored.status='reviewed';stored.allowed_transitions=[];stored.outcome='still_uncertain';
       stored.review_note='Synthetic observation only';setRequest(row.request_id);setVersion(v=>v+1);setMonitorRevision(v=>v+1);
     }}>Fixture: load overdue monitoring</button>
+    <button className="secondary" onClick={async()=>{
+      const row=await api.create('fictional-case',{purpose:'verification',objective:'Review a possible change in condition',
+        reason:'Fictional escalation scenario',execution_kind:'recorded_demo',next_review_at:null,
+        escalation_criteria:'Coordinator review'});
+      const stored=rows.find(x=>x.request_id===row.request_id)!;
+      stored.status='reviewed';stored.allowed_transitions=[];stored.outcome='escalation_needed';
+      stored.review_note='Synthetic finding: coordinator review requested.';
+      setRequest(row.request_id);setVersion(v=>v+1);setMonitorRevision(v=>v+1);
+    }}>Fixture: load escalation</button>
+    <button className="secondary" onClick={async()=>{
+      const ids:string[]=[];
+      for(const period of ['Earlier','Current']){
+        const row=await api.create('fictional-case',{purpose:'verification',objective:period+' synthetic observation',
+          reason:'Fictional comparison scenario',execution_kind:'recorded_demo',next_review_at:null,
+          escalation_criteria:'Coordinator review'});
+        const stored=rows.find(x=>x.request_id===row.request_id)!;
+        stored.status='reviewed';stored.allowed_transitions=[];stored.outcome='still_uncertain';
+        stored.review_note=period+' synthetic finding; no animal outcome is inferred.';
+        stored.evidence=[{evidence_id:'comparison-'+period,description:period+' synthetic test pattern',
+          source_kind:'sample_footage',source_url:'https://www.fisheries.noaa.gov/',
+          captured_at:null,frame_offset_seconds:0,rights_note:'Generated test pattern'}];
+        if(ids.length)stored.previous_request_id=ids[0];
+        ids.push(row.request_id);
+      }
+      setRequest(ids[1]);setVersion(v=>v+1);setMonitorRevision(v=>v+1);
+    }}>Fixture: load evidence comparison</button>
+    <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
     <DroneRequests key={version} api={api} id="fictional-case" initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
   </Shell>;

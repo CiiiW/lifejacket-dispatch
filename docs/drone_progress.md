@@ -79,6 +79,16 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Attention, reminders, evidence comparison and threshold evaluation
+- Added an in-app attention inbox for escalations and overdue review reminders.
+- Added lead-only, revision-checked acknowledgment with notes and durable history.
+- Added case-scoped intake/observation comparison with authenticated evidence images.
+- Added an offline threshold sweep, twelve synthetic scenarios and labeled-data validation.
+- The 90% threshold remains provisional; no real-world labels or external notification channel were available.
+- Validation: focused API/evaluation regressions, TypeScript, Ruff, and browser acknowledgment/reminder/image checks passed.
+- No production deployment, external messages or aircraft commands.
+
+
 ### 2026-11-07 — Monitoring follow-through
 - Added a permissioned due/overdue queue, local-time display and case/request navigation.
 - Added audited continue, escalate and finish decisions after a terminal observation.

@@ -191,6 +191,9 @@ export function createNetworkApi(
   }
   return {
     drones: {
+      attention:(offset,s)=>request(`/network/monitoring/attention?offset=${offset}&limit=50`,s),
+      acknowledgeAttention:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/attention`,s,b,'POST'),
+      comparison:(id,r,previous,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/comparison${previous?'?previous_id='+caseId(previous):''}`,s),
       monitoringQueue:(offset,s)=>request(`/network/monitoring?offset=${offset}&limit=50`,s),
       monitoringDecision:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/monitoring`,s,b,"POST"),
       list:(id,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s),
@@ -267,7 +270,21 @@ export interface DroneRequest {
     captured_at:string|null;frame_offset_seconds:number|null;rights_note:string}[];
   events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
 }
+export interface AttentionItem {
+  case_id:string;request_id:string;revision:number;kind:'escalation'|'overdue';
+  attention_key:string;reason:string|null;since:string|null;objective:string;
+  execution_kind:string;can_acknowledge:boolean;
+}
+export interface ObservationComparison {
+  case_id:string;intake:{recorded_at:string;animal_group:string|null;
+    species_common_name:string|null;severity_level:string|null;injury_present:boolean|null;
+    entanglement_present:boolean|null;confidence:{animal_group:number|null;condition:number|null}};
+  current:DroneRequest;previous:DroneRequest|null;comparison_is_automated:false;
+}
 export interface DroneApi {
+  attention?(offset:number,signal?:AbortSignal):Promise<{items:AttentionItem[];total:number}>;
+  acknowledgeAttention?(id:string,r:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  comparison?(id:string,r:string,previous:string|undefined,signal?:AbortSignal):Promise<ObservationComparison>;
   monitoringQueue?(offset:number,signal?:AbortSignal):Promise<{items:MonitoringItem[];total:number;due_soon_hours:number}>;
   monitoringDecision?(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[];confidence_summary?:{animal_group:number|null;condition:number|null}}>;

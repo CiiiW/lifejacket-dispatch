@@ -95,3 +95,11 @@ class MonitoringDecision(Contract):
         elif self.next_review_at is not None:
             raise ValueError("Only continued monitoring has a next review time")
         return self
+
+
+class AttentionAcknowledgment(Contract):
+    revision: int = Field(ge=0)
+    confirmed: Literal[True]
+    kind: Literal["escalation", "overdue"]
+    attention_key: str = Field(pattern=r"^[a-f0-9]{64}$")
+    note: str = Field(min_length=1, max_length=2000)

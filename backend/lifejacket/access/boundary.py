@@ -36,7 +36,7 @@ class NetworkBoundaryMiddleware(BaseHTTPMiddleware):
                 settings.case_drone_requests_enabled
                 and request.method in {"POST", "PATCH"}
                 and re.fullmatch(
-                    r"/network/cases/[A-Za-z0-9_-]{1,40}/drone-requests(?:/[a-f0-9]{32}(?:/(?:evidence|monitoring))?)?",
+                    r"/network/cases/[A-Za-z0-9_-]{1,40}/drone-requests(?:/[a-f0-9]{32}(?:/(?:evidence|monitoring|attention))?)?",
                     path,
                 )
             ):

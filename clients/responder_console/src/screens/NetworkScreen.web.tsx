@@ -16,6 +16,7 @@ import {
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
 import { NetworkLogin } from './NetworkLogin.web';
+import { CoordinatorAttention } from './CoordinatorAttention.web';
 import { MonitoringQueue } from './MonitoringQueue.web';
 import { DroneRequests } from './DroneRequests.web';
 import { CaseActions } from './CaseActions.web';
@@ -359,6 +360,7 @@ function SessionWorkspace({
               Access refreshes every 30 seconds and when you return to this tab.
             </small>
           </div>
+          {api.drones && session.role !== 'noaa' && <CoordinatorAttention api={api.drones} revision={monitorRevision} onChange={monitoringChanged} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
           {api.drones && session.role !== 'noaa' && <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
           <div className="lj-grid">
             <section aria-label="Accessible cases">
