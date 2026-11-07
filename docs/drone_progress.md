@@ -79,6 +79,14 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Retrospective real-photo analysis
+- Analyzed 102 saved original-photo identifications against the existing community-label/group manifest.
+- Replayed confidence suggestions on the live 40-photo condition pilot, separating assessed and target-selection cases.
+- Retained unknown/raw-missing confidence, checked live-run provenance and fingerprints, and prepared a blind review template.
+- Recorded group conflicts and threshold workload in docs/real_drone_validation_2026-11-07.md.
+- The 90% cutoff remains provisional. No expert condition or verification-needed labels, new model calls, training or operational cases.
+
+
 ### 2026-11-07 — Double-check review
 - Fixed comparison image failures retaining previously loaded evidence: cancel pending loads, revoke preview URLs and clear the request panel.
 - Replaced the assumed earlier-observation label with a neutral comparison label.
