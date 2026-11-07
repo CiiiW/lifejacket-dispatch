@@ -79,6 +79,15 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Four-case confident-disagreement audit
+- Verified all four source photo/observation associations and current source taxa.
+- Inspected three skull/remains views and one partly submerged view (non-expert, labels visible).
+- Ran fresh current-model full-image and detection/crop diagnostics with source labels/location withheld.
+- Recorded persistent full-image disagreements, misleading group-only crop matches and an unsurfaced new-photo request.
+- Kept threshold settings unchanged; no operational cases or expert medical labels were created.
+- Input-integrity regressions and Ruff passed; the source/crop preview was inspected in the browser.
+
+
 ### 2026-11-07 — Retrospective real-photo analysis
 - Analyzed 102 saved original-photo identifications against the existing community-label/group manifest.
 - Replayed confidence suggestions on the live 40-photo condition pilot, separating assessed and target-selection cases.

@@ -75,3 +75,7 @@ These counts replay the current suggestion policy on saved image-only prediction
 `python scripts/validate_real_drone_data.py --condition-run /home/jupyter/var/condition-baseline/pilot-v1-live`
 
 The input prediction directory is local research data and is not committed with this change. The aggregate report excludes coordinates, reporter contacts and raw observation descriptions.
+
+## Follow-up audit
+
+The [four-case source audit and fresh recheck](confident_case_review_2026-11-07.md) found three remains-only views and one limited submerged view. Cropped routing-group agreement can coexist with an incorrect species prediction. These cases remain in the development benchmark; no threshold validation or revised headline accuracy is claimed.
