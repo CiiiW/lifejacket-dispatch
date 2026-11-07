@@ -44,6 +44,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
         const value=await api.streamPreview(id,request.request_id,selected,c.signal);
         if(c.signal.aborted)return;
         clock.current=performance.now();setElapsed(0);setView(value);setError('');
+        setStreams(previous=>previous.map(s=>s.stream_id===value.stream_id?{...s,status:value.status,can_manage:value.can_manage}:s));
       }catch(e){if(c.signal.aborted)return;failure(e);}
       if(!c.signal.aborted)timer=setTimeout(()=>void poll(),1000);
     }
