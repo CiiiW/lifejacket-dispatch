@@ -50,6 +50,9 @@ class Settings(BaseSettings):
     network_auth_enabled: bool = False
     network_case_actions_enabled: bool = False
     case_drone_requests_enabled: bool = False
+    drone_streams_enabled: bool = False
+    drone_stream_publish_base: str = "rtmp://127.0.0.1:19350/live"
+    drone_stream_receiver_secret: str = ""
     # Provisional suggestion threshold; independent from identification stopping.
     drone_verification_confidence_threshold: float = Field(default=0.90, gt=0, le=1)
     # Only safe alongside the network boundary; never enables legacy public routes.

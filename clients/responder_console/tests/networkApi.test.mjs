@@ -236,3 +236,27 @@ test('drone evidence fetch keeps authorization on the image request', async () =
   assert.equal(sent.options.headers.Authorization,'Bearer fictional-managed-token');
   assert.equal(sent.options.cache,'no-store');
 });
+
+
+test('stream actions stay on the same case and use managed headers without putting publish keys in URLs',async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return json({});
+  }).drones;
+  await api.streams('case_1','request_1');
+  await api.openStream('case_1','request_1',{revision:3,label:'Rehearsal'});
+  await api.streamPreview('case_1','request_1','stream_1');
+  await api.captureStream('case_1','request_1','stream_1',{revision:4,frame_id:'exact-frame',description:'Review'});
+  await api.endStream('case_1','request_1','stream_1',{revision:5});
+  const base='https://example.org/network/cases/case_1/drone-requests/request_1/streams';
+  assert.deepEqual(calls.map(c=>[c.url,c.options.method]),[
+    [base,'GET'],[base,'POST'],[base+'/stream_1/preview','GET'],
+    [base+'/stream_1/capture','POST'],[base+'/stream_1/end','POST']]);
+  for(const call of calls){
+    assert.equal(call.options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(call.options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(call.options.cache,'no-store');
+  }
+  assert.equal(JSON.parse(calls[3].options.body).frame_id,'exact-frame');
+  assert.throws(()=>api.streamPreview('case_1','request_1','../other'));
+});

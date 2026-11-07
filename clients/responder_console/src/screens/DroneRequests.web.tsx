@@ -1,3 +1,4 @@
+import { DroneStreamPanel } from './DroneStreamPanel.web';
 import { ObservationComparison } from './ObservationComparison.web';
 import { useEffect, useRef, useState } from 'react';
 import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMessage } from '../lib/networkApi';
@@ -183,6 +184,7 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
       </form>}
       {!!selected.evidence?.length && <><h3>Case evidence</h3>{selected.evidence.map(e=><div key={e.evidence_id} className="lj-panel">
         <p>{e.description}</p><small>{label(e.source_kind)} · capture time {e.captured_at || 'unknown'} · offset {e.frame_offset_seconds ?? 'unknown'}</small>
+        {e.received_at && <p className="lj-muted">Saved from an observation stream · received {new Date(e.received_at).toLocaleString()}. Camera capture time remains unknown.</p>}
         <p>{e.rights_note}</p>{e.source_url && <a href={e.source_url} target="_blank" rel="noreferrer" style={{color:'#48cae4'}}>Source</a>}
         <button className="secondary" disabled={busy} onClick={()=>void act(async signal=>{
           const blob=await api.photo(id,selected.request_id,e.evidence_id,signal);
@@ -222,7 +224,13 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
           <button disabled={busy || !monitoringConfirmed || !monitoringReason.trim()}>Record monitoring decision</button>
           <p className="lj-muted">Continue creates a follow-up awaiting approval. Escalation requires coordinator action. Finishing monitoring does not close the rescue case.</p>
         </form>}
-      <ObservationComparison key={selected.request_id} api={api} id={id} request={selected} rows={rows} onUnavailable={failure=>{
+      <DroneStreamPanel key={'stream-'+selected.request_id} api={api} id={id} request={selected}
+        onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
+          setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
+          setSuggestions([]);setConfidence(null);setImage('');
+          if(preview.current)URL.revokeObjectURL(preview.current);preview.current='';
+        }}/>
+      <ObservationComparison key={'comparison-'+selected.request_id} api={api} id={id} request={selected} rows={rows} onUnavailable={failure=>{
         setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);setSuggestions([]);setConfidence(null);
         if(preview.current)URL.revokeObjectURL(preview.current);
         preview.current='';setImage('');

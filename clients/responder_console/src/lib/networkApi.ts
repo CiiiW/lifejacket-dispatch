@@ -189,8 +189,16 @@ export function createNetworkApi(
     if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) throw new NetworkError(404);
     return encodeURIComponent(id);
   }
+  function streamPath(id:string,r:string) {
+    return '/network/cases/'+caseId(id)+'/drone-requests/'+caseId(r)+'/streams';
+  }
   return {
     drones: {
+      streams:(id,r,s)=>request(streamPath(id,r),s),
+      openStream:(id,r,b,s)=>request(streamPath(id,r),s,b,'POST'),
+      streamPreview:(id,r,t,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/preview',s),
+      captureStream:(id,r,t,b,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/capture',s,b,'POST'),
+      endStream:(id,r,t,b,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/end',s,b,'POST'),
       attention:(offset,s)=>request(`/network/monitoring/attention?offset=${offset}&limit=50`,s),
       acknowledgeAttention:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/attention`,s,b,'POST'),
       comparison:(id,r,previous,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/comparison${previous?'?previous_id='+caseId(previous):''}`,s),
@@ -267,7 +275,7 @@ export interface DroneRequest {
   target_location: {latitude:number|null;longitude:number|null};
   allowed_transitions: string[]; outcome: string|null; review_note?:string;
   evidence?: {evidence_id:string;description:string;source_kind:string;source_url:string|null;
-    captured_at:string|null;frame_offset_seconds:number|null;rights_note:string}[];
+    captured_at:string|null;frame_offset_seconds:number|null;rights_note:string;received_at?:string;source_session_id?:string}[];
   events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
 }
 export interface AttentionItem {
@@ -281,7 +289,18 @@ export interface ObservationComparison {
     entanglement_present:boolean|null;confidence:{animal_group:number|null;condition:number|null}};
   current:DroneRequest;previous:DroneRequest|null;comparison_is_automated:false;
 }
+export interface DroneStream {
+  stream_id:string;request_id:string;status:string;created_at:string;expires_at:string;
+  last_frame_at:string|null;frame_age_seconds:number|null;can_manage:boolean;publish_url?:string;
+  source:{label:string;source_kind:string;source_url:string|null;rights_note:string};
+  frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
+}
 export interface DroneApi {
+  streams?(id:string,r:string,signal?:AbortSignal):Promise<{streams:DroneStream[]}>;
+  openStream?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<DroneStream>;
+  streamPreview?(id:string,r:string,t:string,signal?:AbortSignal):Promise<DroneStream>;
+  captureStream?(id:string,r:string,t:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
+  endStream?(id:string,r:string,t:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
   attention?(offset:number,signal?:AbortSignal):Promise<{items:AttentionItem[];total:number}>;
   acknowledgeAttention?(id:string,r:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   comparison?(id:string,r:string,previous:string|undefined,signal?:AbortSignal):Promise<ObservationComparison>;

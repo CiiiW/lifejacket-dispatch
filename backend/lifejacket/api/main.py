@@ -38,6 +38,7 @@ from lifejacket.api.routes import (
     drone_demo,
     drone_intake,
     drone_requests,
+    drone_streams,
     drones,
     historical_strandings,
     incidents,
@@ -111,6 +112,7 @@ async def private_reporter_validation(request: Request, exc: RequestValidationEr
 app.include_router(reporter_phone.router)
 app.include_router(network.router)
 app.include_router(drone_requests.router)
+app.include_router(drone_streams.router)
 app.include_router(drone_requests.monitoring_router)
 app.include_router(network_actions.router)
 app.include_router(access.router)

@@ -226,3 +226,6 @@ The policy version changes the evidence fingerprint, so an old displayed draft
 must be refreshed before creating a request. Existing request history is retained.
 The provisional 90% cutoff is unchanged. This rule closes an explicit image-gap
 signal; it does not detect every confident misidentification or classify remains.
+
+
+Live observation sessions and the Mini 2 ground-test handoff are documented in [drone_live_workflow.md](drone_live_workflow.md).

@@ -555,3 +555,20 @@ class CaseDroneEvidenceRow(Base):
     sha256: Mapped[str] = mapped_column(String(64))
     metadata_json: Mapped[dict] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class CaseDroneStreamRow(Base):
+    """Short-lived publish grant and bounded transient preview; no full recording."""
+
+    __tablename__ = "case_drone_streams"
+    stream_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_requests.request_id"), index=True
+    )
+    lead_org_id: Mapped[str] = mapped_column(String(64))
+    token_hash: Mapped[str] = mapped_column(String(64))
+    source_json: Mapped[dict] = mapped_column(JSON)
+    frames_json: Mapped[list] = mapped_column(JSON, default=list)
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+    expires_at: Mapped[datetime] = mapped_column(DateTime)
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime)
