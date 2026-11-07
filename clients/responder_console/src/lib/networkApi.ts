@@ -191,6 +191,8 @@ export function createNetworkApi(
   }
   return {
     drones: {
+      monitoringQueue:(offset,s)=>request(`/network/monitoring?offset=${offset}&limit=50`,s),
+      monitoringDecision:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/monitoring`,s,b,"POST"),
       list:(id,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s),
       detail:(id,r,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}`,s),
       create:(id,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s,b,'POST'),
@@ -248,7 +250,13 @@ export function createNetworkApi(
   };
 }
 
+export interface MonitoringItem {
+ case_id:string; request_id:string; queue_status:string; request_status:string;
+ next_review_at:string|null; objective:string; execution_kind:string; can_decide:boolean;
+}
 export interface DroneRequest {
+ previous_request_id?:string; monitoring_root_request_id?:string;
+ monitoring_decision?:{action:string;reason:string;next_request_id:string|null};
   suggestion_id?: string | null;
   request_id: string; case_id: string; status: string; revision: number;
   purpose: string; execution_kind: string; objective: string; reason: string;
@@ -260,6 +268,8 @@ export interface DroneRequest {
   events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
 }
 export interface DroneApi {
+  monitoringQueue?(offset:number,signal?:AbortSignal):Promise<{items:MonitoringItem[];total:number;due_soon_hours:number}>;
+  monitoringDecision?(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
   list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[];confidence_summary?:{animal_group:number|null;condition:number|null}}>;
   detail(id:string,requestId:string,signal?:AbortSignal):Promise<DroneRequest>;
   create(id:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;

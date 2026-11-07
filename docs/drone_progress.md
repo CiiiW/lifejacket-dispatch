@@ -79,6 +79,15 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Monitoring follow-through
+- Added a permissioned due/overdue queue, local-time display and case/request navigation.
+- Added audited continue, escalate and finish decisions after a terminal observation.
+- Continue creates a linked request awaiting approval; decisions do not alter rescue status.
+- Added API regressions and a synthetic overdue-monitoring browser fixture.
+- Validation: monitoring + existing drone/suggestion/connected API regressions passed; TypeScript, Ruff and browser continue/escalate checks passed.
+- No production deployment or aircraft commands.
+
+
 ### 2026-11-06 — Connected reporter-to-drone backend scenario
 
 - Extended the isolated connected runner with an opt-in drone phase, using actual request,

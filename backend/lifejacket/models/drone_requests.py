@@ -78,3 +78,20 @@ class EvidenceMetadata(Contract):
         if self.source_kind == "operator_capture" and self.captured_at is None:
             raise ValueError("Operator evidence requires a capture time")
         return self
+
+
+class MonitoringDecision(Contract):
+    revision: int = Field(ge=0)
+    confirmed: Literal[True]
+    action: Literal["continue", "escalate", "finish"]
+    reason: str = Field(min_length=1, max_length=2000)
+    next_review_at: AwareDatetime | None = None
+
+    @model_validator(mode="after")
+    def schedule(self):
+        if self.action == "continue":
+            if not self.next_review_at or self.next_review_at <= datetime.now(UTC):
+                raise ValueError("Continue monitoring requires a future review time")
+        elif self.next_review_at is not None:
+            raise ValueError("Only continued monitoring has a next review time")
+        return self

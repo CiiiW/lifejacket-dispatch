@@ -3,7 +3,7 @@ import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMes
 
 const label = (s: string) => s.replaceAll('_', ' ');
 const confidenceText = (value: number | null) => value === null ? 'Unknown' : Number((value*100).toFixed(2))+'%';
-export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
+export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }: { api: DroneApi; id: string; initialRequestId?:string; onMonitoringChange?:()=>void }) {
   const [rows, setRows] = useState<DroneRequest[]>([]);
   const [confidence, setConfidence] = useState<{animal_group:number|null;condition:number|null}|null>(null);
   const [suggestions, setSuggestions] = useState<DroneSuggestion[]>([]);
@@ -13,6 +13,10 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
   const [selected, setSelected] = useState<DroneRequest | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [monitoringAction, setMonitoringAction] = useState('continue');
+  const [monitoringReason, setMonitoringReason] = useState('');
+  const [monitoringTime, setMonitoringTime] = useState('');
+  const [monitoringConfirmed, setMonitoringConfirmed] = useState(false);
   const [purpose, setPurpose] = useState('verification');
   const [mode, setMode] = useState('recorded_demo');
   const [objective, setObjective] = useState('');
@@ -40,15 +44,15 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
     const detail = requestId ? await api.detail(id, requestId, signal) : null;
     if (!signal.aborted) {
       setRows(list.requests); setConfidence(list.confidence_summary ?? null); setSuggestions(list.suggestions ?? []); setCanCreate(list.can_create); setSelected(detail);
-      setTarget(''); setNote(''); setOutcome(''); setConfirmed(false);
+      setTarget(''); setNote(''); setOutcome(''); setConfirmed(false); setMonitoringReason(''); setMonitoringTime(''); setMonitoringConfirmed(false);
     }
   }
   useEffect(() => {
     const c = new AbortController(); controller.current = c;
     setRows([]); setConfidence(null); setSuggestions([]); setSelected(null); setCanCreate(false);
-    void load(c.signal).catch(e => { if (!c.signal.aborted) setError(networkErrorMessage(e)); });
+    void load(c.signal, initialRequestId).catch(e => { if (!c.signal.aborted) setError(networkErrorMessage(e)); });
     return () => { c.abort(); if (preview.current) URL.revokeObjectURL(preview.current); };
-  }, [api, id]);
+  }, [api, id, initialRequestId]);
   async function act(fn: (signal: AbortSignal) => Promise<string | void>) {
     if (lock.current || !controller.current || controller.current.signal.aborted) return;
     lock.current = true; setBusy(true); setError('');
@@ -56,6 +60,7 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
     try {
       const requestId = await fn(signal);
       await load(signal, requestId || selected?.request_id);
+      if (!signal.aborted) onMonitoringChange?.();
     } catch (e) {
       if (!signal.aborted) {
         setError(networkErrorMessage(e)); setCanCreate(false); setRows([]); setConfidence(null); setSuggestions([]); setSelected(null);
@@ -185,6 +190,35 @@ export function DroneRequests({ api, id }: { api: DroneApi; id: string }) {
       </div>)}</>}
       {image && <img src={image} alt="Selected request evidence" style={{maxWidth:'100%',borderRadius:8}}/>}
       {selected.outcome && <p className="lj-notice"><strong>{label(selected.outcome)}</strong>: {selected.review_note}</p>}
+      {selected.previous_request_id && <p className="lj-id">Follow-up of {selected.previous_request_id}</p>}
+      {selected.monitoring_decision && <p className="lj-notice">Monitoring decision: {label(selected.monitoring_decision.action)} · {selected.monitoring_decision.reason}
+        {selected.monitoring_decision.next_request_id && <button className="secondary" disabled={busy} onClick={()=>void act(async()=>selected.monitoring_decision!.next_request_id!)}>Open follow-up request</button>}
+      </p>}
+      {canCreate && api.monitoringDecision && !selected.monitoring_decision &&
+        (selected.purpose==='monitoring' || selected.next_review_at) &&
+        ['reviewed','failed','declined','cancelled'].includes(selected.status) &&
+        <form aria-label="Monitoring decision" onSubmit={e=>{
+          e.preventDefault();
+          if (!monitoringConfirmed) return;
+          void act(async signal=>{
+            await api.monitoringDecision!(id,selected.request_id,{
+              revision:selected.revision,confirmed:true,action:monitoringAction,
+              reason:monitoringReason,
+              next_review_at:monitoringAction==='continue'?new Date(monitoringTime).toISOString():null,
+            },signal);
+            return selected.request_id;
+          });
+        }}>
+          <h3>Monitoring follow-through</h3>
+          <label>Decision<select value={monitoringAction} onChange={e=>{setMonitoringAction(e.target.value);setMonitoringConfirmed(false);}}>
+            <option value="continue">Continue monitoring</option><option value="escalate">Escalate for coordinator action</option><option value="finish">Finish monitoring</option>
+          </select></label>
+          {monitoringAction==='continue' && <label>Next review · your local time<input type="datetime-local" required value={monitoringTime} onChange={e=>setMonitoringTime(e.target.value)} onInput={e=>setMonitoringTime(e.currentTarget.value)}/></label>}
+          <label>Decision reason<input required maxLength={2000} value={monitoringReason} onChange={e=>setMonitoringReason(e.target.value)}/></label>
+          <label style={{flexDirection:'row'}}><input type="checkbox" style={{minWidth:0}} checked={monitoringConfirmed} onChange={e=>setMonitoringConfirmed(e.target.checked)}/>I confirm this monitoring decision.</label>
+          <button disabled={busy || !monitoringConfirmed || !monitoringReason.trim()}>Record monitoring decision</button>
+          <p className="lj-muted">Continue creates a follow-up awaiting approval. Escalation requires coordinator action. Finishing monitoring does not close the rescue case.</p>
+        </form>}
       <details><summary>Request history</summary><ol>{selected.events?.map(e=><li key={e.revision}>{label(e.kind)} · {new Date(e.recorded_at).toLocaleString()} · {e.actor_user_id}{e.note ? ': '+e.note:''}</li>)}</ol></details>
       <p className="lj-muted">Findings are saved as a case addendum. Rescue status and the original intake assessment remain separately reviewed.</p>
     </article>}

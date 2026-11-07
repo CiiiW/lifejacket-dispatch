@@ -16,6 +16,7 @@ import {
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
 import { NetworkLogin } from './NetworkLogin.web';
+import { MonitoringQueue } from './MonitoringQueue.web';
 import { DroneRequests } from './DroneRequests.web';
 import { CaseActions } from './CaseActions.web';
 
@@ -199,6 +200,9 @@ function SessionWorkspace({
   const [scope, setScope] = useState<CaseScope>('all_allowed');
   const [offset, setOffset] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
+  const [droneRequest, setDroneRequest] = useState<string|undefined>();
+  const [monitorRevision,setMonitorRevision]=useState(0);
+  const monitoringChanged=useCallback(()=>setMonitorRevision(v=>v+1),[]);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(true);
   const [refresh, setRefresh] = useState(0);
@@ -355,6 +359,7 @@ function SessionWorkspace({
               Access refreshes every 30 seconds and when you return to this tab.
             </small>
           </div>
+          {api.drones && session.role !== 'noaa' && <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
           <div className="lj-grid">
             <section aria-label="Accessible cases">
               <div className="lj-cases">
@@ -364,7 +369,7 @@ function SessionWorkspace({
                       className="lj-case"
                       key={row.incident_id}
                       aria-pressed={selected === row.incident_id}
-                      onClick={() => setSelected(row.incident_id)}
+                      onClick={() => {setDroneRequest(undefined);setSelected(row.incident_id);}}
                     >
                       <strong>
                         {text(row.species_common_name ?? row.animal_group)}
@@ -417,6 +422,8 @@ function SessionWorkspace({
                   key={selected}
                   api={api}
                   id={selected}
+                  droneRequest={droneRequest}
+                  onMonitoringChange={monitoringChanged}
                   organizations={session.organizations}
                 />
               ) : (
@@ -442,11 +449,15 @@ function SessionWorkspace({
 function CaseDetail({
   api,
   id,
+  droneRequest,
+  onMonitoringChange,
   organizations,
 }: {
   api: NetworkApi;
   id: string;
   organizations: NetworkSession['organizations'];
+  droneRequest?:string;
+  onMonitoringChange?:()=>void;
 }) {
   const [row, setRow] = useState<NetworkCase | null>(null);
   const [error, setError] = useState('');
@@ -501,7 +512,7 @@ function CaseDetail({
         </dd>
       </dl>
       <CaseActions api={api} id={id} />
-      {api.drones && <DroneRequests key={id} api={api.drones} id={id} />}
+      {api.drones && <DroneRequests key={id} api={api.drones} id={id} initialRequestId={droneRequest} onMonitoringChange={onMonitoringChange}/>}
     </section>
   );
 }

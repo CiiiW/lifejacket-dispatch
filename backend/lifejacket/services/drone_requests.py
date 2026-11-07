@@ -137,7 +137,7 @@ def suggestions(session, case_id, case):
     return [] if consumed else [item]
 
 
-def create(session, actor, case_id, body):
+def create(session, actor, case_id, body, *, commit=True):
     _, case = access(session, actor, case_id, write=True)
     effective_key = (
         hashlib.sha256(f"{body.execution_kind}:{body.suggestion_id}".encode()).hexdigest()
@@ -195,7 +195,8 @@ def create(session, actor, case_id, body):
     session.add(row)
     session.flush()
     event(session, row, actor, "requested", {"reason": body.reason})
-    session.commit()
+    if commit:
+        session.commit()
     return out(row, True)
 
 
@@ -256,5 +257,98 @@ def change(session, actor, case_id, request_id, body):
             "feasibility_confirmed": body.feasibility_confirmed,
         },
     )
+    session.commit()
+    return out(row, True)
+
+
+TERMINAL = {"reviewed", "failed", "declined", "cancelled"}
+
+
+def monitoring_item(row, clock=None):
+    payload = row.payload_json
+    if payload.get("monitoring_decision") or not (
+        payload.get("purpose") == "monitoring" or payload.get("next_review_at")
+    ):
+        return None
+    clock = clock or datetime.now(UTC)
+    raw = payload.get("next_review_at")
+    try:
+        due = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if due.tzinfo is None:
+            raise ValueError("Timezone required")
+    except (ValueError, TypeError, AttributeError):
+        due = None
+    from datetime import timedelta
+
+    state = (
+        "needs_schedule"
+        if due is None
+        else "overdue"
+        if due <= clock
+        else "needs_decision"
+        if row.status in TERMINAL
+        else "due_soon"
+        if due <= clock + timedelta(hours=24)
+        else "scheduled"
+    )
+    return {
+        "case_id": row.incident_id,
+        "request_id": row.request_id,
+        "queue_status": state,
+        "request_status": row.status,
+        "next_review_at": due.astimezone(UTC).isoformat() if due else None,
+        "execution_kind": payload["execution_kind"],
+        "objective": payload["objective"],
+        "previous_request_id": payload.get("previous_request_id"),
+        "monitoring_root_request_id": payload.get(
+            "monitoring_root_request_id", row.request_id
+        ),
+    }
+
+
+def monitoring_decision(session, actor, case_id, request_id, body):
+    access(session, actor, case_id, write=True)
+    row = get(session, case_id, request_id)
+    if not monitoring_item(row) or row.status not in TERMINAL:
+        raise HTTPException(409, "Finish the current observation before deciding monitoring")
+    payload = dict(row.payload_json)
+    compare_swap(session, row, body.revision, payload_json=payload)
+    child_id = None
+    if body.action == "continue":
+        from lifejacket.models.drone_requests import CreateRequest
+
+        created = create(
+            session,
+            actor,
+            case_id,
+            CreateRequest(
+                purpose="monitoring",
+                objective=payload["objective"],
+                reason=body.reason,
+                execution_kind=payload["execution_kind"],
+                escalation_criteria=payload["escalation_criteria"],
+                next_review_at=body.next_review_at,
+                request_key="followup_" + request_id,
+            ),
+            commit=False,
+        )
+        child_id = created["request_id"]
+        child = get(session, case_id, child_id)
+        child.payload_json = {
+            **child.payload_json,
+            "previous_request_id": request_id,
+            "monitoring_root_request_id": payload.get(
+                "monitoring_root_request_id", request_id
+            ),
+        }
+    payload["monitoring_decision"] = {
+        "action": body.action,
+        "reason": body.reason,
+        "decided_at": now().isoformat() + "Z",
+        "actor_user_id": actor.user_id,
+        "next_request_id": child_id,
+    }
+    row.payload_json = payload
+    event(session, row, actor, "monitoring_" + body.action, payload["monitoring_decision"])
     session.commit()
     return out(row, True)

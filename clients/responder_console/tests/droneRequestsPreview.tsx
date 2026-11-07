@@ -1,5 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { MonitoringQueue } from '../src/screens/MonitoringQueue.web';
 import { DroneRequests } from '../src/screens/DroneRequests.web';
 import { Shell } from '../src/screens/NetworkScreen.web';
 import { type DroneApi, type DroneRequest, type DroneSuggestion } from '../src/lib/networkApi';
@@ -46,6 +47,28 @@ const next:Record<string,string[]> = {requested:['approved','declined','cancelle
   approved:['in_progress','cancelled','failed'],in_progress:['evidence_ready','cancelled','failed'],
   evidence_ready:['reviewed','cancelled','failed']};
 const api:DroneApi={
+  async monitoringQueue(offset){
+    const items=rows.filter(r=>!r.monitoring_decision && (r.purpose==='monitoring'||r.next_review_at)).map(r=>({
+      case_id:r.case_id,request_id:r.request_id,request_status:r.status,
+      queue_status:r.next_review_at && Date.parse(r.next_review_at)<Date.now()?'overdue':r.status==='reviewed'?'needs_decision':'scheduled',
+      next_review_at:r.next_review_at,execution_kind:r.execution_kind,objective:r.objective,can_decide:r.status==='reviewed',
+    }));
+    return {items:items.slice(offset,offset+50),total:items.length,due_soon_hours:24};
+  },
+  async monitoringDecision(id,r,b){
+    const row=rows.find(x=>x.request_id===r)!;
+    if(row.revision!==b.revision || row.monitoring_decision)throw new Error('Stale fixture update');
+    let child:DroneRequest|undefined;
+    if(b.action==='continue'){
+      child=await api.create(id,{purpose:'monitoring',objective:row.objective,reason:b.reason,
+        execution_kind:row.execution_kind,next_review_at:b.next_review_at,escalation_criteria:row.escalation_criteria});
+      const stored=rows.find(x=>x.request_id===child!.request_id)!;
+      stored.previous_request_id=r;stored.monitoring_root_request_id=row.monitoring_root_request_id||r;
+    }
+    row.revision++;row.monitoring_decision={action:String(b.action),reason:String(b.reason),next_request_id:child?.request_id||null};
+    row.events!.push({revision:row.revision,kind:'monitoring_'+b.action,recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator',note:String(b.reason)});
+    return clone(row);
+  },
   async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='unidentified'?null:scenario==='low_group'?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
   async detail(_id,r){return clone(rows.find(x=>x.request_id===r)!);},
   async create(id,b){
@@ -82,6 +105,8 @@ const api:DroneApi={
 };
 function Demo(){
   const [version,setVersion]=React.useState(0);
+  const [request,setRequest]=React.useState<string>();
+  const [monitorRevision,setMonitorRevision]=React.useState(0);
   return <Shell><header><div className="lj-eyebrow">LifeJacket · Fictional case</div><h1>Case-linked drone workflow</h1>
     <p>Fictional case and synthetic evidence. No actual flight or NOAA footage.</p></header>
     <section className="lj-panel"><label>Test scenario<select value={scenario} onChange={e=>{
@@ -101,7 +126,17 @@ function Demo(){
       row.events!.push({revision:row.revision,kind:'evidence_attached',recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator'});
       setVersion(v=>v+1);
     }}>Fixture: attach synthetic frame to in-progress request</button>
-    <DroneRequests key={version} api={api} id="fictional-case"/>
+    <button className="secondary" onClick={async()=>{
+      const row=await api.create('fictional-case',{purpose:'monitoring',objective:'Observe pup activity from a distance',
+        reason:'Fictional monitoring scenario',execution_kind:'recorded_demo',
+        next_review_at:new Date(Date.now()-3600000).toISOString(),
+        escalation_criteria:'Coordinator reviews worsening condition'});
+      const stored=rows.find(x=>x.request_id===row.request_id)!;
+      stored.status='reviewed';stored.allowed_transitions=[];stored.outcome='still_uncertain';
+      stored.review_note='Synthetic observation only';setRequest(row.request_id);setVersion(v=>v+1);setMonitorRevision(v=>v+1);
+    }}>Fixture: load overdue monitoring</button>
+    <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
+    <DroneRequests key={version} api={api} id="fictional-case" initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
   </Shell>;
 }
 createRoot(document.getElementById('root')!).render(<Demo/>);

@@ -137,3 +137,34 @@ Run `python scripts/run_connected_scenario.py --with-drone` in the backend envir
 The completed run passed 68 real API checks using one disposable case/database.
 See [connected drone scenario](connected_drone_scenario.md) for isolation boundaries,
 the saved report and regression commands. AI, SMS and aircraft operation remain simulated.
+
+
+## Monitoring follow-through
+
+Participating coordinators and assigned rescuers can read `GET /network/monitoring`.
+Only an active case's lead coordinator can record a decision at
+`POST /network/cases/{case_id}/drone-requests/{request_id}/monitoring`.
+The queue uses existing verified membership, state and case participation rules;
+reporters, NOAA accounts and unrelated centers do not gain monitoring access.
+
+A monitoring request, or any observation with an explicit next review time, remains
+in the queue until a coordinator records continue, escalate or finish. Overdue
+items appear first; due soon means within 24 hours. This is a display window,
+not a recommended observation interval. Missing/invalid legacy schedules are visible.
+Closed rescue cases are excluded. The queue refreshes every 30 seconds while open;
+there are no background notifications.
+
+Complete, decline, cancel or fail the current observation before deciding its next
+step. Continue requires a future time and atomically creates a same-case follow-up,
+retaining the evidence collection mode, objective and escalation criteria. Its
+status is requested and it needs separate approval. Server-assigned previous/root
+request IDs preserve the chain. Revision checks and the unique follow-up key
+reject repeat decisions. A failed transaction leaves the parent and child unchanged.
+
+Escalate records the reason for coordinator action; it sends no alert or aircraft
+command. Finish stops this monitoring branch. Neither changes rescue response
+status, severity or the original intake. Decisions and linked requests remain in
+the request history. Recorded demonstrations remain distinct from operator flights.
+
+The queue currently scopes cases in SQL and sorts eligible observations in memory
+before pagination; indexed queue queries will be needed for larger deployments.

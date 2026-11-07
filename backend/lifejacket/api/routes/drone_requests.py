@@ -17,7 +17,12 @@ from lifejacket.access.dependencies import AccessSession, current_access_session
 from lifejacket.api.routes.network import private
 from lifejacket.config import settings
 from lifejacket.models.db import get_session
-from lifejacket.models.drone_requests import ChangeRequest, CreateRequest, EvidenceMetadata
+from lifejacket.models.drone_requests import (
+    ChangeRequest,
+    CreateRequest,
+    EvidenceMetadata,
+    MonitoringDecision,
+)
 from lifejacket.models.tables import (
     CaseDroneEventRow,
     CaseDroneEvidenceRow,
@@ -243,3 +248,83 @@ def photo(
             "Vary": "Authorization, X-LifeJacket-Organization",
         },
     )
+
+
+@router.post("/{request_id}/monitoring")
+def decide_monitoring(
+    case_id: str,
+    request_id: str,
+    body: MonitoringDecision,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    private(response)
+    try:
+        return service.monitoring_decision(
+            session, current.access.principal, case_id, request_id, body
+        )
+    except IntegrityError as exc:
+        session.rollback()
+        raise HTTPException(409, "Monitoring changed; refresh before retrying") from exc
+
+
+monitoring_router = APIRouter(
+    prefix="/network/monitoring",
+    tags=["case monitoring"],
+    dependencies=[Depends(enabled)],
+)
+
+
+@monitoring_router.get("")
+def monitoring_queue(
+    response: Response,
+    offset: int = 0,
+    limit: int = 50,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    from lifejacket.access.cases import participating, professional_query
+    from lifejacket.access.policy import Role
+
+    private(response)
+    actor = current.access.principal
+    if actor.role not in {Role.CENTER_COORDINATOR, Role.RESCUER}:
+        raise HTTPException(403, "Monitoring requires participating professional access")
+    if offset < 0 or not 1 <= limit <= 100:
+        raise HTTPException(422, "Invalid monitoring page")
+    query = professional_query(actor).where(participating(actor))
+    items = []
+    for incident, scope in session.execute(query):
+        if scope.response_phase == "closed" or incident.status in {
+            "resolved",
+            "cancelled",
+            "duplicate",
+        }:
+            continue
+        _, case = service.access(session, actor, incident.incident_id)
+        for row in session.scalars(
+            select(CaseDroneRequestRow).where(
+                CaseDroneRequestRow.incident_id == incident.incident_id
+            )
+        ):
+            item = service.monitoring_item(row)
+            if item:
+                items.append(
+                    {
+                        **item,
+                        "can_decide": service.writable(actor, case)
+                        and row.status in service.TERMINAL,
+                    }
+                )
+    order = {
+        "overdue": 0,
+        "needs_schedule": 1,
+        "needs_decision": 2,
+        "due_soon": 3,
+        "scheduled": 4,
+    }
+    items.sort(
+        key=lambda x: (order[x["queue_status"]], x["next_review_at"] or "", x["request_id"])
+    )
+    return {"items": items[offset : offset + limit], "total": len(items), "due_soon_hours": 24}
