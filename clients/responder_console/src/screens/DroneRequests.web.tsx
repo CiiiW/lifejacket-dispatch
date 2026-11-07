@@ -79,9 +79,11 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
     {suggestions.map(s=><aside className="lj-panel" key={s.suggestion_id} aria-label="Automatic drone request suggestion" style={{marginTop:16}}>
       <div className="lj-eyebrow">Suggested from current intake</div><h3>{s.title}</h3>
       <p>{s.reason}</p>
-      <ul>{s.signals.map(signal=><li key={signal.code}>{signal.label}: <strong>{confidenceText(signal.confidence)}</strong>{signal.confidence !== null && <> · below {Number((s.threshold*100).toFixed(2))}%</>}</li>)}</ul>
+      <ul>{s.signals.map(signal=><li key={signal.code}>{signal.label}: <strong>{signal.code==='photo_evidence_gap'?'Additional view requested':confidenceText(signal.confidence)}</strong>{signal.confidence !== null && <> · below {Number((s.threshold*100).toFixed(2))}%</>}</li>)}</ul>
       <p className={s.urgent_parallel_review?'lj-notice lj-error':'lj-muted'}>{s.response_note}</p>
-      <p className="lj-muted">Provisional threshold. Check whether an additional view would help.</p>
+      <p className="lj-muted">{s.signals.some(signal=>signal.code==='photo_evidence_gap')
+      ?'The intake requested another photo. Review this evidence gap even when confidence is high.'
+      :'Provisional threshold. Check whether an additional view would help.'}</p>
       {canCreate && <button disabled={busy} onClick={()=>{
         setPurpose('verification');setSuggestionId(s.suggestion_id);setObjective(s.objective);
         setReason(s.reason);setEscalation(s.escalation_criteria);setCreateOpen(true);

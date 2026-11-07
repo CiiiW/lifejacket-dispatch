@@ -25,7 +25,7 @@ FINAL_STATUSES = {
     "on_scene",
     "guidance_only",
 }
-POLICY_VERSION = "low-confidence-v2"
+POLICY_VERSION = "low-confidence-v3"
 
 
 def score(value):
@@ -132,6 +132,19 @@ def suggest(incident, threshold):
                 ),
             }
         )
+    photo_requested = isinstance(identity, dict) and identity.get("needs_new_photo") is True
+    if photo_requested:
+        signals.append(
+            {
+                "code": "photo_evidence_gap",
+                "label": "Clearer photo requested",
+                "confidence": None,
+                "reason": (
+                    "Intake explicitly requests another photo; "
+                    "the available view needs review even if confidence is high."
+                ),
+            }
+        )
     if condition_score is not None and condition_score < threshold:
         signals.append(
             {
@@ -163,6 +176,10 @@ def suggest(incident, threshold):
         s["code"] in {"animal_group_uncertain", "identification_evidence_gap"} for s in signals
     ):
         objectives.append("Clarify the animal group from an additional view")
+    if photo_requested:
+        objectives.append(
+            "Obtain a clearer view of the reported animal for coordinator review"
+        )
     if any(s["code"] == "condition_uncertain" for s in signals):
         objectives.append(
             "Document visible posture, movement and possible entanglement for review"
@@ -183,7 +200,11 @@ def suggest(incident, threshold):
     return {
         "suggestion_id": fingerprint,
         "purpose": "verification",
-        "title": "Additional evidence suggested",
+        "title": (
+            "Clearer photo requested"
+            if photo_requested and len(signals) == 1
+            else "Additional evidence suggested"
+        ),
         "objective": "; ".join(objectives) + ".",
         "reason": " ".join(s["reason"] for s in signals),
         "signals": signals,
@@ -195,7 +216,10 @@ def suggest(incident, threshold):
             "Continue urgent coordinator response review; do not wait for drone evidence."
             if urgent
             else (
-                "Coordinator review is required before creating a request "
+                "Review whether a clearer reporter photo, ground observation or drone "
+                "evidence is appropriate before creating a request."
+                if photo_requested
+                else "Coordinator review is required before creating a request "
                 "or arranging a flight."
             )
         ),

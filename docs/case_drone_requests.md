@@ -204,3 +204,25 @@ Comparison does not automatically infer deterioration or recovery.
 
 See [threshold evaluation](drone_threshold_evaluation.md) for the offline
 evaluation runner, synthetic results and requirements for reviewer-labeled data.
+
+
+## Explicit new-photo requests
+
+Policy low-confidence-v3 adds a qualitative photo_evidence_gap signal whenever
+the stored intake identification has `needs_new_photo: true`, including scores
+equal to or above the numeric cutoff. Its confidence is null: the flag does not
+change, invent or lower an animal-group/condition score. Missing, false or
+non-boolean flags do not trigger this rule.
+
+The suggestion explains that a clearer photo was requested and asks the
+coordinator to consider a reporter photo, ground observation or appropriate drone
+evidence. Numeric and qualitative reasons remain one combined suggestion.
+Existing finalized-case eligibility, duplicate/closed-case exclusion, urgent
+parallel response, permissions, stale-suggestion checks and mode-specific
+idempotency still apply. Reading a suggestion creates no request; a reviewed
+request begins requested and requires separate approval.
+
+The policy version changes the evidence fingerprint, so an old displayed draft
+must be refreshed before creating a request. Existing request history is retained.
+The provisional 90% cutoff is unchanged. This rule closes an explicit image-gap
+signal; it does not detect every confident misidentification or classify remains.

@@ -266,10 +266,12 @@ def test_unidentified_poor_photo_has_an_explicit_gap_without_a_fake_score():
     assert result["signals"][0]["code"] == "identification_evidence_gap"
     assert result["signals"][0]["confidence"] is None
     assert "unidentified" in result["reason"]
-    # Species-only photo limitations must not override a sufficient routing group.
+    # An explicit retake flag now triggers evidence review even with a sufficient group.
     clear = identity(0.5, 0.45)
     clear["needs_new_photo"] = True
-    assert suggest(incident(identification_json=clear), 0.9) is None
+    item = suggest(incident(identification_json=clear), 0.9)
+    assert [signal["code"] for signal in item["signals"]] == ["photo_evidence_gap"]
+    assert item["signals"][0]["confidence"] is None
 
 
 def test_empty_photo_identification_needs_an_explicit_retake_flag():
@@ -354,3 +356,88 @@ def test_demo_and_flight_can_be_created_in_either_order(drone_api):
     assert demo.status_code == 201, demo.text
     assert demo.json()["request_id"] != flight.json()["request_id"]
     assert client.get(BASE).json()["suggestions"] == []
+
+
+@pytest.mark.parametrize("confidence", [0.9, 0.95, 1.0])
+def test_explicit_retake_overrides_numeric_confidence_gate(confidence):
+    value = {**identity(confidence), "needs_new_photo": True}
+    item = suggest(incident(identification_json=value), 0.9)
+    assert [s["code"] for s in item["signals"]] == ["photo_evidence_gap"]
+    assert item["signals"][0]["confidence"] is None
+    assert "clearer view" in item["objective"]
+    assert "reporter photo" in item["response_note"]
+    assert item["policy_version"] == "low-confidence-v3"
+    assert item["title"] == "Clearer photo requested"
+
+
+@pytest.mark.parametrize("flag", [False, None, "true", 1])
+def test_retake_trigger_requires_explicit_boolean_true(flag):
+    value = {**identity(0.98), "needs_new_photo": flag}
+    assert suggest(incident(identification_json=value), 0.9) is None
+
+
+@pytest.mark.parametrize("status", ["intake", "identifying", "resolved", "cancelled"])
+def test_photo_gap_does_not_bypass_case_eligibility(status):
+    value = {**identity(0.98), "needs_new_photo": True}
+    assert suggest(incident(status=status, identification_json=value), 0.9) is None
+
+
+def test_photo_gap_stays_one_combined_suggestion_and_preserves_urgent_review():
+    item = suggest(
+        incident(
+            identification_json={**identity(0.62), "needs_new_photo": True},
+            assessment_json={"injury": {"confidence": 0.58}},
+            severity_level="critical",
+        ),
+        0.9,
+    )
+    assert [s["code"] for s in item["signals"]] == [
+        "animal_group_uncertain",
+        "photo_evidence_gap",
+        "condition_uncertain",
+    ]
+    assert item["urgent_parallel_review"] is True
+    assert "do not wait" in item["response_note"]
+
+
+def test_photo_gap_is_read_only_stale_checked_and_created_only_after_review(drone_api):
+    client, factory, _ = drone_api
+    photo = {**identity(0.9), "needs_new_photo": True}
+    seed(factory, identification_json=photo)
+    listing = client.get(BASE)
+    assert listing.status_code == 200
+    item = listing.json()["suggestions"][0]
+    assert [s["code"] for s in item["signals"]] == ["photo_evidence_gap"]
+    with factory() as session:
+        assert session.scalar(select(func.count()).select_from(CaseDroneRequestRow)) == 0
+    body = payload()
+    body.update(suggestion_id=item["suggestion_id"], execution_kind="operator_flight")
+    seed(factory, identification_json={**photo, "needs_new_photo": False})
+    assert client.post(BASE, json=body).status_code == 409
+    seed(factory, identification_json=photo)
+    result = client.post(BASE, json=body)
+    assert result.status_code == 201, result.text
+    assert result.json()["status"] == "requested"
+    assert result.json()["suggestion_snapshot"]["signals"] == item["signals"]
+    assert client.post(BASE, json=body).json()["request_id"] == result.json()["request_id"]
+    assert client.get(BASE).json()["suggestions"] == []
+
+
+def test_saved_submerged_view_now_suggests_evidence_review_without_new_inference():
+    import json
+    from pathlib import Path
+
+    saved = json.loads(
+        (
+            Path(__file__).resolve().parents[2]
+            / "research/drone_validation/confident_case_review_2026-11-07.json"
+        ).read_text()
+    )
+    case = next(c for c in saved["cases"] if c["case_id"] == "trichechus_manatus_01")
+    crop = case["selected_crop"]
+    assert crop["verification_suggested_in_constructed_replay"] is False
+    assert crop["identification"]["needs_new_photo"] is True
+    assert crop["pooled_group_confidence"] == 0.9
+    item = suggest(incident(identification_json=crop["identification"]), 0.9)
+    assert item is not None
+    assert [s["code"] for s in item["signals"]] == ["photo_evidence_gap"]

@@ -79,6 +79,15 @@ metrics have not yet been agreed; do not invent a pass threshold.
 
 ## Session log
 
+### 2026-11-07 — Close explicit photo-evidence gap
+- Added a qualitative verification suggestion for needs_new_photo=true at any confidence.
+- Updated coordinator copy to distinguish image adequacy from numeric confidence and show evidence-source choices.
+- Added strict-boolean, threshold-boundary, combined/urgent, eligibility, real saved-output and reviewed-creation regressions.
+- Bumped the suggestion policy to v3; the 90% numeric threshold and approval workflow are unchanged.
+- Validation: related API/workflow regressions, final suggestion tests, TypeScript, Ruff and browser draft/approval checks passed; the saved submerged-view replay now suggests verification.
+- No new inference calls, operational requests or flights.
+
+
 ### 2026-11-07 — Four-case confident-disagreement audit
 - Verified all four source photo/observation associations and current source taxa.
 - Inspected three skull/remains views and one partly submerged view (non-expert, labels visible).

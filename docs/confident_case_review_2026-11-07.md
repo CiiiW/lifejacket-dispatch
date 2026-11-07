@@ -52,3 +52,13 @@ The preview remains behind authenticated notebook access. Original images and cr
 `python scripts/review_confident_cases.py --input-dir var/confident-case-review-2026-11-07` verifies the saved inputs without model calls.
 
 Use a new run directory containing a verified source_audit.json and its source images, then pass `--live` for a fresh run. Existing live prediction files are protected from overwrite.
+
+
+## Subsequent policy fix
+
+The historical live-run outputs above remain unchanged. Policy low-confidence-v3
+now turns an explicit `needs_new_photo: true` into a qualitative verification
+suggestion even with sufficient numeric confidence. A no-new-inference replay of
+the saved submerged-view crop is recorded in
+`research/drone_validation/photo_gap_replay_2026-11-07.json`. This changes the
+suggestion outcome, not the saved model identification or its validity.

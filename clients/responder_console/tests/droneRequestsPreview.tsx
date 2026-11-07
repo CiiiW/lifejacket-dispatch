@@ -8,6 +8,16 @@ import { NetworkError, type DroneApi, type DroneRequest, type DroneSuggestion } 
 
 
 const suggestionFor=(scenario:string):DroneSuggestion|null=>{
+  if(scenario==='photo_gap'){
+    const base=suggestionFor('low_group')!;
+    return {...base,suggestion_id:'5'.repeat(64),title:'Clearer photo requested',
+      objective:'Obtain a clearer view of the reported animal for coordinator review.',
+      reason:'Intake explicitly requests another photo; the available view needs review even if confidence is high.',
+      signals:[{code:'photo_evidence_gap',label:'Clearer photo requested',confidence:null,
+        reason:'Intake explicitly requests another photo.'}],
+      urgent_parallel_review:false,
+      response_note:'Review whether a clearer reporter photo, ground observation or drone evidence is appropriate before creating a request.'};
+  }
   if (scenario==='unidentified') {
     const base=suggestionFor('low_group')!;
     return {...base,suggestion_id:'4'.repeat(64),
@@ -26,7 +36,7 @@ const suggestionFor=(scenario:string):DroneSuggestion|null=>{
     signals:[{code:condition?'condition_uncertain':'animal_group_uncertain',
       label:condition?'Condition assessment confidence':'Animal group confidence',confidence,
       reason:'Additional evidence may help the coordinator.'}],
-    threshold:0.9,threshold_is_validated:false as const,policy_version:'low-confidence-v2',
+    threshold:0.9,threshold_is_validated:false as const,policy_version:'low-confidence-v3',
     urgent_parallel_review:scenario==='urgent',
     response_note:scenario==='urgent'?'Continue urgent coordinator response review; do not wait for drone evidence.':'Coordinator review is required before creating a request or arranging a flight.',
     escalation_criteria:'Escalate any new signs of distress or worsening hazards to the lead coordinator.',
@@ -101,7 +111,7 @@ const api:DroneApi={
     row.events!.push({revision:row.revision,kind:'monitoring_'+b.action,recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator',note:String(b.reason)});
     return clone(row);
   },
-  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='unidentified'?null:scenario==='low_group'?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
+  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='photo_gap'?.9:scenario==='unidentified'?null:scenario==='low_group'?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
   async detail(_id,r){return clone(rows.find(x=>x.request_id===r)!);},
   async create(id,b){
     if (b.purpose==='monitoring' && !b.next_review_at) throw new Error('Monitoring requires a review time');
@@ -148,6 +158,7 @@ function Demo(){
       <option value="confident_group">Exact species unclear · animal group confident · 95%</option>
       <option value="urgent">Urgent response · condition uncertain</option>
       <option value="unidentified">Unidentified animal · photo too distant</option><option value="missing_scores">Condition confidence unavailable</option>
+      <option value="photo_gap">High confidence · 90% · clearer photo requested</option>
     </select></label><p className="lj-muted">Scenarios test suggestion display; backend rules have separate API tests.</p></section>
     <button className="secondary" onClick={()=>{
       const row=rows.find(x=>x.status==='in_progress');
