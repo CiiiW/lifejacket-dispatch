@@ -44,16 +44,21 @@ def main():
             stop.wait(30)
 
     thread = threading.Thread(target=pulse, daemon=True)
-    thread.start()
+    if not args.once:
+        thread.start()
     process = ai.process_one if args.kind == "analysis" else reminders.deliver_one
+    cycle_failed = False
     try:
         while not stop.is_set():
             try:
                 worked = process(SessionLocal)
-            except Exception:
+            except Exception as exc:
+                cycle_failed = True
                 # Never log provider payloads, webhook destinations, credentials or images.
                 print(
-                    "Follow-up worker cycle failed; will retry.", file=sys.stderr, flush=True
+                    "Follow-up worker cycle failed (" + type(exc).__name__ + "); will retry.",
+                    file=sys.stderr,
+                    flush=True,
                 )
                 worked = False
             if args.once:
@@ -61,7 +66,10 @@ def main():
             stop.wait(1 if worked else 15)
     finally:
         stop.set()
-        thread.join(timeout=2)
+        if thread.is_alive():
+            thread.join(timeout=2)
+    if args.once and cycle_failed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

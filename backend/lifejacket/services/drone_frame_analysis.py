@@ -174,7 +174,8 @@ def infer(db, row, client=None):
         result = agent.run(images=[image])
         return {
             "detections": result.model_dump(mode="json")["animals"][:32],
-            "limitations": LIMITATIONS,
+            "limitations": ["Advisory still-photo screening; viewpoint is unverified."]
+            + LIMITATIONS[1:],
             "model": agent.client.model,
             "metrics": agent.last_metrics,
         }

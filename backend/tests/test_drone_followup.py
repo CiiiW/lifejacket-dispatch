@@ -471,3 +471,50 @@ def test_worker_commands_persist_attention_without_browser_or_delivery(followup_
         assert db.get(DroneWorkerHeartbeatRow, "analysis") is not None
         assert db.get(DroneWorkerHeartbeatRow, "reminders") is not None
         assert db.scalar(select(CaseDroneReminderRow)).status == "blocked"
+
+
+def test_concurrent_first_worker_heartbeats(followup_api):
+    from concurrent.futures import ThreadPoolExecutor
+
+    from lifejacket.models.tables import DroneWorkerHeartbeatRow
+    from lifejacket.services import drone_followup as common
+
+    _, factory, _ = followup_api
+
+    def beat(_):
+        with factory() as db:
+            common.heartbeat(db, "analysis")
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        list(pool.map(beat, range(12)))
+    with factory() as db:
+        rows = list(db.scalars(select(DroneWorkerHeartbeatRow)))
+        assert len(rows) == 1
+        assert rows[0].worker_kind == "analysis"
+
+
+def test_once_worker_failure_is_nonzero_and_redacted(followup_api, monkeypatch, capsys):
+    import importlib.util
+    import sys
+    from pathlib import Path
+
+    _, factory, _ = followup_api
+    path = Path(__file__).resolve().parents[2] / "scripts/drone_followup_worker.py"
+    spec = importlib.util.spec_from_file_location("live_worker_failure_test", path)
+    worker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(worker)
+    monkeypatch.setattr(worker, "SessionLocal", factory)
+    monkeypatch.setattr(worker, "init_db", lambda: None)
+    monkeypatch.setattr(worker.signal, "signal", lambda *args: None)
+
+    def fail(_):
+        raise RuntimeError("SECRET_PROVIDER_PAYLOAD")
+
+    monkeypatch.setattr(worker.ai, "process_one", fail)
+    monkeypatch.setattr(sys, "argv", ["worker", "--kind", "analysis", "--once"])
+    with pytest.raises(SystemExit) as exc:
+        worker.main()
+    assert exc.value.code == 1
+    logged = capsys.readouterr().err
+    assert "RuntimeError" in logged
+    assert "SECRET_PROVIDER_PAYLOAD" not in logged

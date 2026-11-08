@@ -4,6 +4,7 @@ import uuid
 from datetime import timedelta
 
 from sqlalchemy import and_, or_, update
+from sqlalchemy.exc import IntegrityError
 
 from lifejacket.access.policy import US_STATES
 from lifejacket.models.tables import DroneWorkerHeartbeatRow, IncidentRow, NetworkCaseRow
@@ -76,8 +77,25 @@ def finish(db, table, row, token, status, **values):
 
 
 def heartbeat(db, kind):
-    db.merge(DroneWorkerHeartbeatRow(worker_kind=kind, touched_at=requests.now()))
-    db.commit()
+    clock = requests.now()
+    changed = db.execute(
+        update(DroneWorkerHeartbeatRow)
+        .where(DroneWorkerHeartbeatRow.worker_kind == kind)
+        .values(touched_at=clock)
+    )
+    if changed.rowcount == 0:
+        db.add(DroneWorkerHeartbeatRow(worker_kind=kind, touched_at=clock))
+    try:
+        db.commit()
+    except IntegrityError:
+        # Another worker can create the first heartbeat concurrently.
+        db.rollback()
+        db.execute(
+            update(DroneWorkerHeartbeatRow)
+            .where(DroneWorkerHeartbeatRow.worker_kind == kind)
+            .values(touched_at=clock)
+        )
+        db.commit()
 
 
 def worker_status(db, kind):
