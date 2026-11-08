@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   createNetworkApi,
   networkErrorMessage,
@@ -19,6 +19,7 @@ import { NetworkLogin } from './NetworkLogin.web';
 import { CoordinatorAttention } from './CoordinatorAttention.web';
 import { MonitoringQueue } from './MonitoringQueue.web';
 import { DroneRequests } from './DroneRequests.web';
+import NetworkMapView from './NetworkMapView.web';
 import { CaseActions } from './CaseActions.web';
 
 const apiBase = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8000';
@@ -30,6 +31,20 @@ const filters: { value: CaseScope; label: string }[] = [
   { value: 'supporting', label: 'Supporting' },
   { value: 'receiving', label: 'Receiving' },
 ];
+const PAGE_SIZE = 50;
+// Bounds the number of requests a very large statewide or national view makes.
+const MAX_CASES = 2000;
+
+/** Walk every page of the permissioned list so the map is not limited to page one. */
+async function loadAllCases(api: NetworkApi, scope: CaseScope, signal: AbortSignal) {
+  const byId = new Map<string, NetworkCase>();
+  for (let offset = 0; offset < MAX_CASES; offset += PAGE_SIZE) {
+    const page = await api.cases(scope, offset, signal);
+    page.forEach((row) => byId.set(row.incident_id, row));
+    if (page.length < PAGE_SIZE) return { cases: [...byId.values()], truncatedAt: null };
+  }
+  return { cases: [...byId.values()], truncatedAt: MAX_CASES };
+}
 const css = `
 .lj-network{box-sizing:border-box;background:#0b132b;color:#f4f7fb;min-height:100vh;padding:32px;font:15px/1.55 Inter,system-ui,sans-serif;width:100%;overflow:auto}
 .lj-network *{box-sizing:border-box}.lj-network h1{font-size:30px;letter-spacing:-.8px;margin:0}.lj-network h2{font-size:21px;margin:0 0 12px}.lj-network p{margin:8px 0 16px}.lj-network small,.lj-muted{color:#a9b4c6}.lj-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}.lj-eyebrow{color:#48cae4;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}.lj-panel{padding:24px;background:#101a38;border:1px solid #ffffff20;border-radius:14px;margin-bottom:18px}.lj-signin{max-width:560px;margin:7vh auto}.lj-toolbar{display:flex;gap:16px;align-items:end;flex-wrap:wrap}.lj-network label{display:flex;flex-direction:column;gap:6px;color:#a9b4c6;font-size:13px}.lj-network select,.lj-network input{background:#0b132b;color:#f4f7fb;padding:10px;border:1px solid #ffffff40;border-radius:7px;min-width:180px;font:inherit}.lj-network button{font:inherit;background:#48cae4;color:#06182e;border:1px solid transparent;padding:10px 16px;border-radius:7px;cursor:pointer;font-weight:650}.lj-network button.secondary{background:transparent;color:#dce6f1;border-color:#ffffff40}.lj-network button:disabled{opacity:.5;cursor:default}.lj-network button:focus-visible,.lj-network select:focus-visible,.lj-network input:focus-visible{outline:3px solid #ffc043;outline-offset:3px}.lj-error{border-color:#ff6b6b80;color:#ffc6c6}.lj-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,1fr);gap:22px}.lj-cases{display:flex;flex-direction:column;gap:10px}.lj-network .lj-case{background:#101a38;border-color:#ffffff20;color:#f4f7fb;text-align:left;display:block;width:100%;padding:18px}.lj-network .lj-case[aria-pressed=true]{border-color:#48cae4;background:#162a46}.lj-case strong{display:block;font-size:17px}.lj-case .lj-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;color:#a9b4c6;font-weight:400}.lj-pill{display:inline-block;color:#48cae4;border:1px solid #48cae450;padding:3px 10px;border-radius:20px;font-size:12px}.lj-network dl{display:grid;grid-template-columns:120px 1fr;gap:10px;margin:0}.lj-network dt{color:#a9b4c6}.lj-network dd{margin:0;overflow-wrap:anywhere}.lj-pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}.lj-notice{border-left:3px solid #48cae4;padding-left:14px}.lj-id{font-size:12px;overflow-wrap:anywhere;color:#a9b4c6}.lj-network form{display:flex;gap:12px;align-items:end;flex-wrap:wrap}@media(max-width:760px){.lj-network{padding:20px}.lj-grid{grid-template-columns:1fr}.lj-panel{padding:18px}.lj-network h1{font-size:26px}.lj-network select{max-width:100%}.lj-toolbar label{width:100%}.lj-signin{margin:5vh auto}}
@@ -199,7 +214,10 @@ function SessionWorkspace({
   const [session, setSession] = useState<NetworkSession | null>(null);
   const [rows, setRows] = useState<NetworkCase[]>([]);
   const [scope, setScope] = useState<CaseScope>('all_allowed');
-  const [offset, setOffset] = useState(0);
+  const [truncatedAt, setTruncatedAt] = useState<number | null>(null);
+  // The view the data on screen belongs to. A refresh of the same view updates
+  // quietly; only a new view clears the screen, so the map keeps its position.
+  const loadedView = useRef<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [droneRequest, setDroneRequest] = useState<string|undefined>();
   const [monitorRevision,setMonitorRevision]=useState(0);
@@ -231,10 +249,14 @@ function SessionWorkspace({
     }
     const controller = new AbortController();
     let current = true;
-    setSession(null);
-    setRows([]);
+    const view = `${organization ?? ''}|${scope}`;
+    const background = loadedView.current === view;
+    if (!background) {
+      setSession(null);
+      setRows([]);
+      setBusy(true);
+    }
     setError('');
-    setBusy(true);
     (async () => {
       try {
         const verified = await api.me(controller.signal);
@@ -243,15 +265,23 @@ function SessionWorkspace({
         const professional = ['noaa', 'center_coordinator', 'rescuer'].includes(
           verified.role,
         );
-        const cases = professional
-          ? await api.cases(scope, offset, controller.signal)
-          : [];
+        const loaded = professional
+          ? await loadAllCases(api, scope, controller.signal)
+          : { cases: [], truncatedAt: null };
         if (current) {
           setSession(verified);
-          setRows(cases);
+          // Keep the same array when nothing changed so the map is not re-fitted.
+          setRows((previous) =>
+            JSON.stringify(previous) === JSON.stringify(loaded.cases)
+              ? previous
+              : loaded.cases,
+          );
+          setTruncatedAt(loaded.truncatedAt);
+          loadedView.current = view;
         }
       } catch (failure) {
         if (current) {
+          loadedView.current = null;
           setSelected(null);
           setError(networkErrorMessage(failure));
         }
@@ -263,7 +293,7 @@ function SessionWorkspace({
       current = false;
       controller.abort();
     };
-  }, [api, organization, scope, offset, refresh]);
+  }, [api, organization, scope, refresh]);
   if (busy)
     return (
       <section className="lj-panel" role="status">
@@ -345,7 +375,6 @@ function SessionWorkspace({
                 value={scope}
                 onChange={(event) => {
                   setSelected(null);
-                  setOffset(0);
                   setScope(event.target.value as CaseScope);
                 }}
               >
@@ -362,64 +391,13 @@ function SessionWorkspace({
           </div>
           {api.drones && session.role !== 'noaa' && <CoordinatorAttention api={api.drones} revision={monitorRevision} onChange={monitoringChanged} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
           {api.drones && session.role !== 'noaa' && <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
-          <div className="lj-grid">
-            <section aria-label="Accessible cases">
-              <div className="lj-cases">
-                {rows.length ? (
-                  rows.map((row) => (
-                    <button
-                      className="lj-case"
-                      key={row.incident_id}
-                      aria-pressed={selected === row.incident_id}
-                      onClick={() => {setDroneRequest(undefined);setSelected(row.incident_id);}}
-                    >
-                      <strong>
-                        {text(row.species_common_name ?? row.animal_group)}
-                      </strong>
-                      <span className="lj-id">Case {row.incident_id}</span>
-                      <div className="lj-meta">
-                        <span>{row.state_code ?? 'State under review'}</span>
-                        <span>{text(row.status)}</span>
-                        <span>{text(row.severity_level)}</span>
-                      </div>
-                    </button>
-                  ))
-                ) : (
-                  <div className="lj-panel">
-                    <h2>No cases in this view</h2>
-                    <p className="lj-muted">
-                      Try another filter or refresh later. Only cases available
-                      to your verified account appear here.
-                    </p>
-                  </div>
-                )}
-              </div>
-              <nav className="lj-pagination" aria-label="Case pages">
-                <button
-                  className="secondary"
-                  disabled={offset === 0}
-                  onClick={() => {
-                    setSelected(null);
-                    setOffset((v) => Math.max(0, v - 50));
-                  }}
-                >
-                  Previous
-                </button>
-                <span>Page {offset / 50 + 1}</span>
-                <button
-                  className="secondary"
-                  disabled={rows.length < 50 || offset >= 100000}
-                  onClick={() => {
-                    setSelected(null);
-                    setOffset((v) => v + 50);
-                  }}
-                >
-                  Next
-                </button>
-              </nav>
-            </section>
-            <aside aria-label="Selected case">
-              {selected ? (
+                    <NetworkMapView
+            rows={rows}
+            selected={selected}
+            onSelect={(caseId) => {setDroneRequest(undefined);setSelected(caseId);}}
+            truncatedAt={truncatedAt}
+            detail={
+              selected ? (
                 <CaseDetail
                   key={selected}
                   api={api}
@@ -428,20 +406,9 @@ function SessionWorkspace({
                   onMonitoringChange={monitoringChanged}
                   organizations={session.organizations}
                 />
-              ) : (
-                <section className="lj-panel">
-                  <h2>A coordinated view</h2>
-                  <p className="lj-muted">
-                    Select a case to see its animal location, triage status and
-                    lead organization.
-                  </p>
-                  <p className="lj-notice">
-                    Seeing a case does not assign it to your team.
-                  </p>
-                </section>
-              )}
-            </aside>
-          </div>
+              ) : null
+            }
+          />
         </>
       )}
     </>
@@ -512,7 +479,17 @@ function CaseDetail({
               )?.name ?? 'Another response organization')
             : 'Not confirmed'}
         </dd>
+        <dt>Photo</dt>
+        <dd className="lj-muted">Unavailable for now</dd>
+        <dt>Summary</dt>
+        <dd className="lj-muted">Unavailable for now</dd>
+        <dt>Why this urgency</dt>
+        <dd className="lj-muted">Unavailable for now</dd>
       </dl>
+      <p className="lj-notice">
+        Photos, the report summary and urgency reasons will appear here once protected case
+        detail and media access is added.
+      </p>
       <CaseActions api={api} id={id} />
       {api.drones && <DroneRequests key={id} api={api.drones} id={id} initialRequestId={droneRequest} onMonitoringChange={onMonitoringChange}/>}
     </section>
