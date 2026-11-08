@@ -189,11 +189,18 @@ export function createNetworkApi(
     if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) throw new NetworkError(404);
     return encodeURIComponent(id);
   }
+  function followupPath(id:string,r:string) {
+    return '/network/cases/'+caseId(id)+'/drone-requests/'+caseId(r);
+  }
   function streamPath(id:string,r:string) {
     return '/network/cases/'+caseId(id)+'/drone-requests/'+caseId(r)+'/streams';
   }
   return {
     drones: {
+      frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
+      queueFrameAnalysis:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/analysis',s,b,'POST'),
+      reminderStatus:(id,r,s)=>request(followupPath(id,r)+'/reminders',s),
+      retryReminder:(id,r,b,s)=>request(followupPath(id,r)+'/reminders/retry',s,b,'POST'),
       streams:(id,r,s)=>request(streamPath(id,r),s),
       openStream:(id,r,b,s)=>request(streamPath(id,r),s,b,'POST'),
       streamPreview:(id,r,t,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/preview',s),
@@ -295,7 +302,22 @@ export interface DroneStream {
   source:{label:string;source_kind:string;source_url:string|null;rights_note:string};
   frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
 }
+export interface FrameAnalysis {
+  analysis_id:string;evidence_id:string;stage:'detect'|'assess';status:string;request_key:string;
+  detection_job_id:string|null;animal_index:number|null;error_code:string|null;attempts:number;created_at:string;
+  result:{detections?:{label?:string;description?:string;confidence?:number}[];limitations?:string[];
+    identity_summary?:{name:string;confidence:number|null};
+    assessment?:{injury?:{summary?:string};severity_level?:string}}|null;
+}
+export interface ReminderStatus {
+  enabled:boolean;destination_configured:boolean;worker:{running:boolean;last_seen_at:string|null};
+  items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
+}
 export interface DroneApi {
+  frameAnalyses?(id:string,r:string,signal?:AbortSignal):Promise<{jobs:FrameAnalysis[];worker:{running:boolean}}>;
+  queueFrameAnalysis?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
+  reminderStatus?(id:string,r:string,signal?:AbortSignal):Promise<ReminderStatus>;
+  retryReminder?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
   streams?(id:string,r:string,signal?:AbortSignal):Promise<{streams:DroneStream[]}>;
   openStream?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<DroneStream>;
   streamPreview?(id:string,r:string,t:string,signal?:AbortSignal):Promise<DroneStream>;

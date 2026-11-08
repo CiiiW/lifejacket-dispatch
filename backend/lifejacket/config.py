@@ -51,6 +51,10 @@ class Settings(BaseSettings):
     network_case_actions_enabled: bool = False
     case_drone_requests_enabled: bool = False
     drone_streams_enabled: bool = False
+    drone_frame_analysis_enabled: bool = False
+    drone_reminders_enabled: bool = False
+    drone_reminder_webhooks: dict[str, str] = Field(default_factory=dict)
+    drone_reminder_signing_keys: dict[str, str] = Field(default_factory=dict)
     drone_stream_publish_base: str = "rtmp://127.0.0.1:19350/live"
     drone_stream_receiver_secret: str = ""
     # Provisional suggestion threshold; independent from identification stopping.

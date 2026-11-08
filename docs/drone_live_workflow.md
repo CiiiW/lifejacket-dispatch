@@ -99,3 +99,6 @@ Open the authenticated Workbench proxy for port 8935. The server is loopback-onl
 
 
 See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest coverage review and remaining software, deployment and hardware acceptance items.
+
+
+Saved-frame AI jobs and closed-app reminder delivery are described in [drone_followup.md](drone_followup.md).

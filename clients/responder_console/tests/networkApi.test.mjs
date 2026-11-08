@@ -260,3 +260,25 @@ test('stream actions stay on the same case and use managed headers without putti
   assert.equal(JSON.parse(calls[3].options.body).frame_id,'exact-frame');
   assert.throws(()=>api.streamPreview('case_1','request_1','../other'));
 });
+
+
+test('saved-frame analysis and reminder retries carry case-scoped managed authorization',async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return json({});
+  }).drones;
+  await api.frameAnalyses('case_1','request_1');
+  await api.queueFrameAnalysis('case_1','request_1','evidence_1',{revision:4,confirmed:true,stage:'detect',request_key:'one'});
+  await api.reminderStatus('case_1','request_1');
+  await api.retryReminder('case_1','request_1',{revision:5,confirmed:true,notification_id:'a'.repeat(64)});
+  const base='https://example.org/network/cases/case_1/drone-requests/request_1';
+  assert.deepEqual(calls.map(c=>[c.url,c.options.method]),[[base+'/analysis','GET'],
+    [base+'/evidence/evidence_1/analysis','POST'],[base+'/reminders','GET'],[base+'/reminders/retry','POST']]);
+  for(const {options} of calls){
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(options.cache,'no-store');
+  }
+  assert.equal(JSON.parse(calls[1].options.body).confirmed,true);
+  assert.throws(()=>api.queueFrameAnalysis('case_1','request_1','../other',{}));
+});

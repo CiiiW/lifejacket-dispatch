@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 """Private connected rehearsal using ONLY disposable fixture data and identity.
 
 Requires development/test dependencies. Never mount in the production app.
@@ -9,7 +10,9 @@ import secrets
 import subprocess
 import sys
 import tempfile
+import threading
 import time
+from datetime import timedelta
 from pathlib import Path
 
 import pytest
@@ -20,6 +23,15 @@ from fastapi.staticfiles import StaticFiles
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "backend"), str(ROOT / "backend/tests")]
 from lifejacket.config import settings  # noqa: E402
+from lifejacket.models.tables import CaseDroneRequestRow  # noqa: E402
+from lifejacket.services import (
+    drone_frame_analysis as frame_ai,
+)  # noqa: E402
+from lifejacket.services import (
+    drone_reminders,
+    drone_requests,
+)
+from test_drone_followup import followup_api  # noqa: E402
 from test_drone_requests import drone_api  # noqa: E402
 from test_drone_streams import opened, stream_api  # noqa: E402
 from test_network_actions import api  # noqa: E402
@@ -33,15 +45,68 @@ def main():
     args = parser.parse_args()
     children = []
     monkey = pytest.MonkeyPatch()
+    followup_stop = threading.Event()
+    followup_thread = None
     with tempfile.TemporaryDirectory(prefix="lifejacket-stream-demo-") as temp:
         directory = Path(temp)
         generator = api.__wrapped__(directory, monkey)
         current = next(generator)
         try:
             drone = drone_api.__wrapped__(current, monkey, directory)
-            client, factory, _ = stream_api.__wrapped__(drone, monkey)
+            stream_context = stream_api.__wrapped__(drone, monkey)
+            client, factory, _ = followup_api.__wrapped__(stream_context, monkey)
             monkey.setattr(settings, "drone_stream_receiver_secret", secrets.token_urlsafe(32))
-            _, _, grant = opened(client)
+            demo_row, _, grant = opened(client)
+            with factory() as db:
+                request = db.get(CaseDroneRequestRow, demo_row["request_id"])
+                request.payload_json = {
+                    **request.payload_json,
+                    "next_review_at": (drone_requests.now() - timedelta(hours=1)).isoformat()
+                    + "Z",
+                }
+                db.commit()
+
+            def synthetic_analysis(db, job):
+                if job.input_json["stage"] == "detect":
+                    return {
+                        "detections": [
+                            {
+                                "box": [0, 0, 1000, 1000],
+                                "description": "Synthetic test pattern, not an animal",
+                                "kind": "other",
+                            }
+                        ],
+                        "limitations": ["Fixture result only; no wildlife model was called."],
+                        "model": "synthetic-fixture",
+                    }
+                return {
+                    "identity_summary": {
+                        "name": "Generated test pattern (demo)",
+                        "confidence": 0.0,
+                    },
+                    "assessment": {
+                        "injury": {
+                            "summary": "Synthetic footage cannot establish animal condition."
+                        },
+                        "severity_level": "unknown",
+                        "requires_human_review": True,
+                    },
+                    "limitations": ["Fixture result only; no wildlife model was called."],
+                    "model": "synthetic-fixture",
+                }
+
+            def local_delivery(_url, body, _headers):
+                with (directory / "captured-reminders.jsonl").open("ab") as output:
+                    output.write(body + b"\n")
+
+            def followup_work():
+                while not followup_stop.is_set():
+                    frame_ai.process_one(factory, synthetic_analysis)
+                    drone_reminders.deliver_one(factory, local_delivery)
+                    followup_stop.wait(1)
+
+            followup_thread = threading.Thread(target=followup_work, daemon=True)
+            followup_thread.start()
             video = directory / "synthetic.mp4"
             subprocess.run(
                 [
@@ -145,6 +210,9 @@ def main():
                 app, host="127.0.0.1", port=args.port, access_log=False, log_level="error"
             )
         finally:
+            followup_stop.set()
+            if followup_thread:
+                followup_thread.join(timeout=3)
             for child in reversed(children):
                 child.terminate()
                 try:

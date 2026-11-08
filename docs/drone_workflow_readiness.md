@@ -12,9 +12,9 @@ The core coordinator workflow can be rehearsed without an aircraft. This does no
 | Stream ingestion | Real RTMP receiver and bounded JPEG extraction; case-linked, expiring, publishing-only grant. | Exact Mini 2/controller/iPhone/DJI Fly combination, phone uplink and query-string handling need the ground test. |
 | Coordinator preview | Sampled preview up to 2 fps; waiting / connected / interrupted / expired / ended; frozen images hidden. | Full-motion playback and audio are not implemented. Camera-to-screen delay and useful visual detail need measurement. |
 | Evidence and provenance | Exact displayed frame ID, immutable saved image/hash, source/rights, reception timestamp; original intake preserved. | Camera capture time, video offset, animal position and aircraft telemetry are not inferred. |
-| Reassessment | Coordinator compares observations and records answered / still uncertain / escalation needed. | Saved stream frames are not automatically sent to the AI identification/condition pipeline. Model-assisted reassessment is a separate software increment. |
+| Reassessment | Coordinator compares observations and records answered / still uncertain / escalation needed. | Selected saved frames now support queued detection and selected-animal AI assessment with human review. Enable the analysis worker and validate real imagery before field use. |
 | Revocation and failure | Failed/cancelled requests, case closure/transfer, invalid verification/submission/state, expiry and ended sessions block collection/publishing; stale writes are rejected. | Battery, flight-controller link loss and pilot availability are not automatically monitored. A stream outage alone does not reveal the reason. |
-| Monitoring attention | In-app attention and due/overdue follow-through exist. | No background email/SMS/push delivery when the coordinator closes the app. Do not rely on the open-page queue as a field alert service. |
+| Monitoring attention | In-app attention and due/overdue follow-through exist. | A durable background reminder worker and signed, deduplicated lead-organization webhook transport now exist. A real destination/channel and supervised worker still require activation; email/SMS/push providers are not implicitly connected. |
 | Deployment and operations | Receiver defaults to loopback, private/VPN publishing, bounded buffers, one process with up to four decoder slots. | No phone-to-GCP private route has been provisioned or tested. Production supervision/alerts, concurrent-load testing, backup and an agreed evidence-retention policy remain deployment work. |
 | Sharing and release | Work is committed on the feature branch and a disposable private rehearsal is available. | Branch is not pushed/merged and production feature flags remain off. |
 
@@ -27,7 +27,7 @@ The core coordinator workflow can be rehearsed without an aircraft. This does no
 
 ## What to do next
 
-1. Software increments if needed for the intended demo: explicit selected-frame AI analysis with results saved as a reviewed addendum; background reminder delivery with an agreed recipient/channel. These are not part of the completed manual-review prototype.
+1. Activate follow-up workers after configuring the model runtime and the authorized lead-organization delivery destination. See [drone_followup.md](drone_followup.md). The private rehearsal uses fixture AI outputs and a local reminder sink; it makes no live model calls or external deliveries.
 2. Deployment preparation: choose the private/VPN route, persistent runtime, receiver monitoring and evidence-retention policy before a real remote session.
 3. Teammate ground test: use [the hardware checklist](drone_live_workflow.md#teammate-hardware-handoff), with motors off, to verify pairing, RTMP publishing, image detail, measured latency, interruption/reconnection and expiry.
 4. Usefulness evaluation: compare the original report with paired real aerial evidence, reviewed independently by qualified domain reviewers. Measure correct identification/observation, remaining uncertainty, decision changes and review time; retain failure examples. A generated video validates transport only.

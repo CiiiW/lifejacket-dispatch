@@ -572,3 +572,52 @@ class CaseDroneStreamRow(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime)
     expires_at: Mapped[datetime] = mapped_column(DateTime)
     ended_at: Mapped[datetime | None] = mapped_column(DateTime)
+
+
+class CaseDroneAnalysisRow(Base):
+    __tablename__ = "case_drone_analysis"
+    __table_args__ = (UniqueConstraint("request_id", "request_key"),)
+    analysis_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_requests.request_id"), index=True
+    )
+    evidence_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_evidence.evidence_id")
+    )
+    request_key: Mapped[str] = mapped_column(String(64))
+    requested_by: Mapped[str] = mapped_column(String(40))
+    organization_id: Mapped[str] = mapped_column(String(64))
+    status: Mapped[str] = mapped_column(String(20), index=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    lease_token: Mapped[str | None] = mapped_column(String(32))
+    next_attempt_at: Mapped[datetime] = mapped_column(DateTime)
+    input_json: Mapped[dict] = mapped_column(JSON)
+    result_json: Mapped[dict | None] = mapped_column(JSON)
+    error_code: Mapped[str | None] = mapped_column(String(40))
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+    updated_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class CaseDroneReminderRow(Base):
+    __tablename__ = "case_drone_reminders"
+    __table_args__ = (UniqueConstraint("request_id", "organization_id", "attention_key"),)
+    notification_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    request_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_requests.request_id"), index=True
+    )
+    organization_id: Mapped[str] = mapped_column(String(64))
+    attention_key: Mapped[str] = mapped_column(String(64))
+    kind: Mapped[str] = mapped_column(String(20))
+    status: Mapped[str] = mapped_column(String(20), index=True)
+    attempts: Mapped[int] = mapped_column(Integer, default=0)
+    lease_token: Mapped[str | None] = mapped_column(String(32))
+    next_attempt_at: Mapped[datetime] = mapped_column(DateTime)
+    error_code: Mapped[str | None] = mapped_column(String(40))
+    created_at: Mapped[datetime] = mapped_column(DateTime)
+    updated_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class DroneWorkerHeartbeatRow(Base):
+    __tablename__ = "drone_worker_heartbeats"
+    worker_kind: Mapped[str] = mapped_column(String(20), primary_key=True)
+    touched_at: Mapped[datetime] = mapped_column(DateTime)

@@ -1,3 +1,4 @@
+import { DroneFollowupPanel } from './DroneFollowupPanel.web';
 import { DroneStreamPanel } from './DroneStreamPanel.web';
 import { ObservationComparison } from './ObservationComparison.web';
 import { useEffect, useRef, useState } from 'react';
@@ -224,6 +225,12 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
           <button disabled={busy || !monitoringConfirmed || !monitoringReason.trim()}>Record monitoring decision</button>
           <p className="lj-muted">Continue creates a follow-up awaiting approval. Escalation requires coordinator action. Finishing monitoring does not close the rescue case.</p>
         </form>}
+      <DroneFollowupPanel key={'followup-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
+        onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
+          setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
+          setSuggestions([]);setConfidence(null);setImage('');
+          if(preview.current)URL.revokeObjectURL(preview.current);preview.current='';
+        }}/>
       <DroneStreamPanel key={'stream-'+selected.request_id} api={api} id={id} request={selected}
         onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
           setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
