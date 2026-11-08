@@ -47,3 +47,5 @@ Physical Mini 2 / teammate phone streaming and evidence transfer, representative
 Machine-readable output: research/drone_validation/live_frame_ai_check_2026-11-07.json. Runtime and prompt hashes are included there; its git_commit identifies the base commit plus the recorded uncommitted runtime changes. Runner formatting was subsequently cleaned without another model call.
 
 Verification: all 22 follow-up tests passed; Ruff passed for changed Python files.
+
+Follow-up: the saved-frame context issue was addressed and revalidated in [the context grounding fix](drone_context_grounding_fix_2026-11-07.md). The original results above remain unchanged.

@@ -218,6 +218,20 @@ def main():
                     "notifications_not_queued": True,
                     "ready_for_coordinator_review": True,
                 }
+                accepted = result["jobs"][-1]["result"]["assessment"]
+                guard = result["jobs"][-1]["result"]["context_validation"]
+                grounding_checks = {
+                    "environmental_deadline_withheld": accepted["time_sensitivity_hours"]
+                    is None,
+                    "movement_retained_unknown": accepted["injury"]["mobility_concern"]
+                    == "unknown",
+                    "unresponsiveness_not_inferred": accepted["injury"]["unresponsive"]
+                    is False,
+                    "no_unanswerable_reporter_question": accepted["next_question"] is None,
+                    "withheld_context_auditable": bool(guard["withheld_model_fields"]),
+                }
+                assert all(grounding_checks.values()), grounding_checks
+                result["checks"].update(grounding_checks)
                 result["status"] = "passed"
                 result["human_review_performed"] = False
             finally:

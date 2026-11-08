@@ -1,0 +1,279 @@
+{
+  "source": {
+    "case_reference": "chelonia_mydas_03",
+    "observation_id": "151797312",
+    "observation_url": "https://www.inaturalist.org/observations/151797312",
+    "photo_id": 261969015,
+    "photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/261969015/large.jpg",
+    "license": "cc0",
+    "attribution": "no rights reserved",
+    "source_reference_taxon": "Chelonia mydas",
+    "source_sha256": "6ec6ca9b55e37699be88052b4d29ddd46b5d1ad94a8b725b4446e2fbdb49e802",
+    "prepared_sha256": "57b196d2260763db2de0bc5929ef221ac7199fb2dfc9e927f2f581d092e6b699",
+    "source_verified_at": "2026-11-08T01:37:58.683195+00:00",
+    "preparation": "EXIF removed; RGB JPEG, longest edge <=1600; no source labels or location sent to model."
+  },
+  "run_kind": "live_model_queued_pipeline",
+  "synthetic_case_identity": true,
+  "started_at": 1794103860.4631488,
+  "jobs": [
+    {
+      "analysis_id": "da878d767396439e9b4f5215092e69c8",
+      "evidence_id": "b228571f990143d18cd2a31760a8851b",
+      "status": "completed",
+      "stage": "detect",
+      "detection_job_id": null,
+      "animal_index": null,
+      "request_key": "live-detect",
+      "result": {
+        "detections": [
+          {
+            "box": [
+              100,
+              0,
+              950,
+              1000
+            ],
+            "description": "large dark animal on sand",
+            "kind": "reptile"
+          }
+        ],
+        "limitations": [
+          "Advisory still-photo screening; viewpoint is unverified.",
+          "Unobserved signs are not confirmed absent. Stillness does not establish injury or unresponsiveness.",
+          "Weather, tide, movement over time and hidden injuries have not been established.",
+          "A coordinator must review the evidence and confirm appropriate response capability."
+        ],
+        "model": "gemini-2.5-flash",
+        "metrics": {
+          "detection_latency_seconds": 3.58,
+          "detection_prompt_tokens": 2216,
+          "detection_output_tokens": 63,
+          "detection_attempts": 1
+        }
+      },
+      "error_code": null,
+      "attempts": 1,
+      "created_at": "2026-11-08T02:11:01.582900Z",
+      "requires_human_review": true,
+      "elapsed_seconds": 5.838
+    },
+    {
+      "analysis_id": "78977d4b146f4a4291a07db1cd7e6afd",
+      "evidence_id": "b228571f990143d18cd2a31760a8851b",
+      "status": "completed",
+      "stage": "assess",
+      "detection_job_id": "da878d767396439e9b4f5215092e69c8",
+      "animal_index": 0,
+      "request_key": "live-assess",
+      "result": {
+        "stage": "assessed",
+        "animal_number": 1,
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "Green sea turtle",
+              "scientific_name": "Chelonia mydas",
+              "confidence": 0.95,
+              "animal_group": "sea_turtle",
+              "genus": "Chelonia",
+              "genus_common_name": "green sea turtles",
+              "family": "Cheloniidae",
+              "family_common_name": "sea turtles"
+            },
+            {
+              "common_name": "Loggerhead sea turtle",
+              "scientific_name": "Caretta caretta",
+              "confidence": 0.03,
+              "animal_group": "sea_turtle",
+              "genus": "Caretta",
+              "genus_common_name": "loggerhead sea turtles",
+              "family": "Cheloniidae",
+              "family_common_name": "sea turtles"
+            },
+            {
+              "common_name": "Kemp's ridley sea turtle",
+              "scientific_name": "Lepidochelys kempii",
+              "confidence": 0.01,
+              "animal_group": "sea_turtle",
+              "genus": "Lepidochelys",
+              "genus_common_name": "ridley sea turtles",
+              "family": "Cheloniidae",
+              "family_common_name": "sea turtles"
+            }
+          ],
+          "resolution": {
+            "rank": "species",
+            "name": "Green sea turtle",
+            "scientific_name": "Chelonia mydas",
+            "confidence": 0.95,
+            "animal_group": "sea_turtle",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "Green sea turtle",
+                "scientific_name": "Chelonia mydas",
+                "confidence": 0.95,
+                "animal_group": "sea_turtle",
+                "genus": "Chelonia",
+                "genus_common_name": "green sea turtles",
+                "family": "Cheloniidae",
+                "family_common_name": "sea turtles"
+              }
+            ]
+          },
+          "next_question": null,
+          "species_distinguishable": true,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "Non-overlapping carapace scutes, 5 lateral scutes, and head shape are consistent with a Green sea turtle."
+        },
+        "identity_summary": {
+          "name": "Green sea turtle",
+          "animal_group": "sea_turtle",
+          "confidence": 0.95,
+          "is_confident": true
+        },
+        "assessment": {
+          "animal_group": "sea_turtle",
+          "animal_count": 1,
+          "injury": {
+            "injury_present": false,
+            "confidence": 0.5,
+            "wound": false,
+            "bleeding": false,
+            "entanglement": false,
+            "swelling": false,
+            "abnormal_posture": false,
+            "respiratory_distress": false,
+            "unresponsive": false,
+            "emaciated": false,
+            "mobility_concern": "unknown",
+            "summary": "No obvious external injuries or distress visible from the photo."
+          },
+          "hazards": {
+            "near_people": false,
+            "near_dogs": false,
+            "near_road": false,
+            "in_surf": false,
+            "risk_of_being_stranded_further": false,
+            "notes": "No immediate hazards visible."
+          },
+          "severity_level": "guidance",
+          "severity_score": 0.0,
+          "severity_confidence": 0.55,
+          "recommended_action": "A permitted rescue team should assess the turtle's condition and situation.",
+          "reporter_instructions": [
+            "Maintain a safe distance from the turtle.",
+            "Keep pets and other people away from the area.",
+            "Observe for any changes in its condition or movement.",
+            "Do not attempt to touch, move, or pour water on the turtle."
+          ],
+          "safety_guidance": "Always keep a safe distance from wild animals. Do not approach or touch the turtle.",
+          "environmental_rationale": "Weather, tide, daylight and local nesting context are unverified. Environmental urgency cannot be established from this still.",
+          "time_sensitivity_hours": null,
+          "is_confident": false,
+          "next_question": null,
+          "requires_human_review": true
+        },
+        "severity_reasons": [],
+        "context_validation": {
+          "status": "environmental_inferences_withheld",
+          "capture_time_known": false,
+          "location_provided": false,
+          "unavailable": [
+            "weather",
+            "tide",
+            "daylight",
+            "local nesting context"
+          ],
+          "withheld_model_fields": {
+            "environmental_rationale": "Tide, weather, and daylight conditions are unknown, preventing an assessment of environmental urgency.",
+            "time_sensitivity_hours": 24.0,
+            "mobility_concern": "unknown",
+            "unresponsive": false,
+            "next_question": {
+              "question": "Is the turtle moving or attempting to move?",
+              "rationale": "Understanding if the turtle is mobile or attempting to move will help assess its overall health and potential need for immediate intervention.",
+              "options": [
+                "Yes, it is moving",
+                "No, it is still",
+                "Can't tell from here"
+              ],
+              "allows_free_text": true,
+              "feature": "mobility"
+            }
+          },
+          "note": "Withheld model text is retained for audit, not accepted as evidence."
+        },
+        "limitations": [
+          "Advisory still-photo analysis; viewpoint and aerial performance are unverified.",
+          "Unobserved signs are not confirmed absent. Stillness does not establish injury or unresponsiveness.",
+          "Weather, tide, movement over time and hidden injuries have not been established.",
+          "A coordinator must review the evidence and confirm appropriate response capability.",
+          "Environmental rationale and timing are application-limited because verified environmental data are unavailable; withheld model fields are audit-only."
+        ],
+        "metrics": {
+          "identification_latency_seconds": 8.23,
+          "identification_prompt_tokens": 4277,
+          "identification_output_tokens": 427,
+          "identification_attempts": 1,
+          "assessment_latency_seconds": 7.4,
+          "assessment_prompt_tokens": 4405,
+          "assessment_output_tokens": 464,
+          "assessment_attempts": 1
+        },
+        "model": "gemini-2.5-flash"
+      },
+      "error_code": null,
+      "attempts": 1,
+      "created_at": "2026-11-08T02:11:07.452161Z",
+      "requires_human_review": true,
+      "elapsed_seconds": 17.935
+    }
+  ],
+  "checks": {
+    "evidence_hash_matches": true,
+    "real_worker_detection_completed": true,
+    "real_worker_assessment_completed": true,
+    "original_intake_preserved": true,
+    "rescue_phase_preserved": true,
+    "camera_capture_time_retained_unknown": true,
+    "animal_coordinates_retained_unknown": true,
+    "notifications_not_queued": true,
+    "ready_for_coordinator_review": true,
+    "environmental_deadline_withheld": true,
+    "movement_retained_unknown": true,
+    "unresponsiveness_not_inferred": true,
+    "no_unanswerable_reporter_question": true,
+    "withheld_context_auditable": true
+  },
+  "scope_limit": "One non-aerial real-photo integration check; not a model-accuracy or clinical validation.",
+  "selected_animal_index": 0,
+  "target_selection_note": "Sole detector target after source-photo visual inspection.",
+  "status": "passed",
+  "human_review_performed": false,
+  "completed_at": 1794103885.4637005,
+  "elapsed_seconds": 25.001,
+  "git_commit": "77b3ffec0bccc8fc5c65d35e539c79b097e6c722",
+  "source_code_sha256": {
+    "scripts/drone_followup_worker.py": "09946accbe913dae492e88d75b50b247797e500c4cdd8ea21b6668fd51fc6716",
+    "backend/lifejacket/services/drone_followup.py": "d45fe72c19e531dfb81bc2c917a38b6d2a39ac7ac40ee296efdc4c30388e2a24",
+    "backend/lifejacket/services/drone_frame_analysis.py": "398a723a255c05e7ee91bc651c8da9473fd459c744bbadbbe6a5a0bf759e4623",
+    "backend/lifejacket/services/drone_vision.py": "b75e967095b7fe9c21d91d8fa82acea4cbd233aed81116b136b41070933ba420",
+    "backend/lifejacket/agents/detection.py": "638c22614f46d9547cb25e28d1ddf13cb6544280214f4459caf59db6a2506fae",
+    "backend/lifejacket/agents/identification.py": "239f35caaadc6b10c60b802de403245ea3b4caefc8268ae4dc00a896232fb87c",
+    "backend/lifejacket/agents/assessment.py": "8d2870a907c134aa49d24696c79b7070ad63fb27255a4743ca410629d3a53d1a",
+    "prompts/identification/detect_animals.md": "947a75485e6268e64fadeaacc225e9fa8ce1ce9aaf499f330633e50dd45d9264",
+    "prompts/identification/identify_species.md": "08d9ec72a07239efd87a7427557eb14c93bdb92667aa6a878c1cc729a030b5c6",
+    "prompts/assessment/assess_situation.md": "c80dc14a0f365a4e8137bf42463bc32f6e4d6900b79823cf5a49f3a471a95994"
+  },
+  "runner_sha256": "d1524f0380436e57b83687ef19e0b84b34e855bdb9e4c43066a067509343409e",
+  "review_scope": "Application grounding checks, not clinical or aerial model validation.",
+  "review_notes": [
+    "Accepted environmental rationale is supplied by application; model environmental fields are retained only as withheld audit data.",
+    "One still cannot establish movement or unresponsiveness; false boolean means not observed, not confirmed responsive.",
+    "Injury findings from visible flags remain available; absence of flags does not establish health.",
+    "No automatic response or dispatch; independent expert review remains required."
+  ]
+}

@@ -40,6 +40,19 @@ Coastal location: {is_coastal}
 Weather matters for **responders**: wind, poor visibility, and failing
 daylight shorten the safe window for a volunteer on a remote beach.
 
+## Ground conclusions in supplied context
+
+Use only explicit observation facts and supplied environmental data. Missing
+capture date, location, weather, tide, daylight, season or local nesting context
+remain unknown. Processing time and the current date are not capture time.
+Species identity, beach appearance and a turtle on sand do not establish
+nesting season, abnormal stranding, illness, or a rescue deadline.
+Even a known date and location do not establish a local nesting calendar.
+Do not turn a possibility into a stated reason for intervention.
+Apply this rule to every field, including recommendations and injury/hazard flags.
+When environmental inputs are absent, say they are unavailable and do not
+invent an environmental time-to-deterioration estimate.
+
 ## Conversation so far
 
 {transcript}
