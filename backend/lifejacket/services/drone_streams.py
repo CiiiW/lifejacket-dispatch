@@ -12,6 +12,7 @@ from fastapi import HTTPException
 from PIL import Image
 from sqlalchemy import select, update
 
+from lifejacket.access.policy import US_STATES
 from lifejacket.config import settings
 from lifejacket.models.tables import (
     CaseDroneEvidenceRow,
@@ -45,6 +46,10 @@ def active(db, row):
         request
         and request.status == "in_progress"
         and scope
+        and scope.submitted
+        and scope.verified_at is not None
+        and bool(scope.verified_by and scope.verified_by.strip())
+        and scope.state_code in US_STATES
         and incident
         and scope.lead_org_id == row.lead_org_id
         and scope.response_phase != "closed"
@@ -102,12 +107,18 @@ def create(db, actor, case_id, request_id, body):
     request = requests.get(db, case_id, request_id)
     if request.status != "in_progress":
         raise HTTPException(409, "Start evidence collection before opening a stream")
+    incident = db.get(IncidentRow, case_id)
+    if incident is None or incident.status in {"resolved", "cancelled", "duplicate"}:
+        raise HTTPException(409, "This case is no longer collecting observation evidence")
     rows = db.scalars(
         select(CaseDroneStreamRow).where(CaseDroneStreamRow.request_id == request_id)
     ).all()
     if any(active(db, row) for row in rows):
         raise HTTPException(409, "End the existing stream before opening another")
-    base = urlsplit(settings.drone_stream_publish_base)
+    try:
+        base = urlsplit(settings.drone_stream_publish_base)
+    except ValueError as exc:
+        raise HTTPException(503, "Invalid receiver configuration") from exc
     if (
         base.scheme not in {"rtmp", "rtmps"}
         or not base.hostname
@@ -150,7 +161,10 @@ def create(db, actor, case_id, request_id, body):
         ended_at=None,
     )
     if row.source_json["source_kind"] == "sample_footage":
-        source = urlsplit(body.source_url or "")
+        try:
+            source = urlsplit(body.source_url or "")
+        except ValueError as exc:
+            raise HTTPException(422, "Invalid recording source reference") from exc
         if (
             source.scheme != "https"
             or not source.hostname

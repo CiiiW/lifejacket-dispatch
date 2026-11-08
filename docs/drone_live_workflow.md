@@ -96,3 +96,6 @@ Open the authenticated Workbench proxy for port 8935. The server is loopback-onl
 - Browser rehearsal saved an exact displayed frame, ended the stream, submitted evidence for review, recorded still uncertain, and scheduled follow-up. Stream reception time remained separate from unknown camera capture time; the original case assessment was preserved.
 - Bad publishing credentials, non-lead writes, unrelated case access, stale frames, expiry and loss of case participation are covered. The transport check verified interruption, reconnect and publisher disconnection on end. The receiver exits with its media children on termination.
 - Physical Mini 2/iPhone pairing, DJI Fly URL handling, private-network reachability, camera-to-screen delay and usefulness of aerial wildlife footage remain hardware acceptance items.
+
+
+See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest coverage review and remaining software, deployment and hardware acceptance items.

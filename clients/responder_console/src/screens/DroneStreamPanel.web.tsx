@@ -19,7 +19,11 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
   const lock=useRef(false);
   function failure(e:unknown) {
     setView(null);setGrant('');
-    if(e instanceof NetworkError && e.status===503){setAvailable(false);return;}
+    if(e instanceof NetworkError && e.status===503){
+      if(!selected)setAvailable(false);
+      else setError('Observation preview is temporarily unavailable. Retrying…');
+      return;
+    }
     setError(networkErrorMessage(e));
     if(e instanceof NetworkError && [401,403,404].includes(e.status)) onUnavailable(e);
   }
@@ -43,7 +47,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
       try {
         const value=await api.streamPreview(id,request.request_id,selected,c.signal);
         if(c.signal.aborted)return;
-        clock.current=performance.now();setElapsed(0);setView(value);setError('');
+        clock.current=performance.now();setElapsed(0);setAvailable(true);setView(value);setError('');
         setStreams(previous=>previous.map(s=>s.stream_id===value.stream_id?{...s,status:value.status,can_manage:value.can_manage}:s));
       }catch(e){if(c.signal.aborted)return;failure(e);}
       if(!c.signal.aborted)timer=setTimeout(()=>void poll(),1000);

@@ -70,20 +70,24 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
         "DRONE_STREAM_RECEIVER_SECRET": "x" * 40,
     }
     log = open(tmp_path / "receiver.log", "wb")  # noqa: SIM115
-    receiver = subprocess.Popen(
-        [
-            sys.executable,
-            str(root / "scripts/drone_stream_receiver.py"),
-            "--mediamtx",
-            media,
-            "--ffmpeg",
-            ffmpeg,
-        ],
-        env=env,
-        cwd=root,
-        stdout=log,
-        stderr=log,
-    )
+
+    def start_receiver():
+        return subprocess.Popen(
+            [
+                sys.executable,
+                str(root / "scripts/drone_stream_receiver.py"),
+                "--mediamtx",
+                media,
+                "--ffmpeg",
+                ffmpeg,
+            ],
+            env=env,
+            cwd=root,
+            stdout=log,
+            stderr=log,
+        )
+
+    receiver = start_receiver()
     publishers = []
     endpoint = path + "/" + grant["stream_id"]
 
@@ -124,7 +128,18 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
                 return False
 
         wait_until(healthy)
-        time.sleep(1)
+        import socket
+
+        def rtmp_ready():
+            if receiver.poll() is not None:
+                raise AssertionError("Receiver stopped")
+            try:
+                with socket.create_connection(("127.0.0.1", 19350), timeout=0.5):
+                    return True
+            except OSError:
+                return False
+
+        wait_until(rtmp_ready)
         # A wrong publish credential cannot create a preview.
         bad = publish(grant["publish_url"] + "wrong")
         wait_until(lambda: bad.poll() is not None)
@@ -159,6 +174,14 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
             15,
         )
         assert stale["frame"] is None
+        # Restart the actual receiver on the same ports/lock, preserving the grant
+        # and saved evidence in the shared database.
+        receiver.terminate()
+        receiver.wait(timeout=5)
+        assert client.get(BASE_PHOTO(row, saved)).status_code == 200
+        receiver = start_receiver()
+        wait_until(healthy)
+        wait_until(rtmp_ready)
         again = publish(grant["publish_url"])
         wait_until(lambda: client.get(endpoint + "/preview").json().get("frame"), 30)
         ended = client.post(endpoint + "/end", json={"revision": saved.json()["revision"]})
