@@ -1,36 +1,36 @@
-# LifeJacket Dispatch
+<div align="center">
 
-AI-assisted intake and human-approved coordination for wildlife rescue.
+# LifeJacket
 
-Someone finds an animal on a beach and photographs it. LifeJacket identifies
-the species by asking a few questions, works out what should happen using the
-tide and weather at that spot, and sends a concise incident report to the
-rescue console with ranked responder candidates for coordinator review.
-The prototype does not verify permits or automatically dispatch responders.
+### *Integrating AI-Powered Rescue Coordination and Drone Surveillance for Wildlife Protection*
 
-Drone work status, evidence, open tasks and session notes: [Drone progress tracker](docs/drone_progress.md).
-Recorded Mini 2 video preparation and local review: [Mini 2 demo workflow](docs/mini2_demo.md).
+MS in Applied Data Science Capstone · University of Chicago · 2026
 
-## Teammate quick start in VS Code
+</div>
 
-For the reporter and rescue-dashboard **fictional demos**, install Node.js 24.3+
-then run from this branch's repository root:
+---
 
-```bash
-npm ci
-npm run setup:demos
-npm run demo:network
-```
+## Table of Contents
 
-Open <http://127.0.0.1:8082>. No GCP permission, backend, Python or Docker is
-needed for these UI demos. Real AI, SMS and managed login still need their own
-configuration. See [teammate setup](docs/teammate_setup.md) for the branch/pull
-commands, backend tests, and live-versus-demo requirements.
+1. [🌊 Project Motivation](#1--project-motivation)
+2. [🦭 Overview of LifeJacket](#2--overview-of-lifejacket)
+3. [🧭 The Project](#3--the-project)
+   - [3.1 Public App — a guided report from the person who found the animal](#31-public-app--a-guided-report-from-the-person-who-found-the-animal)
+     - [3.1.1 Behind the app: seven stages from photo to report](#311-behind-the-app-seven-stages-from-photo-to-report)
+   - [3.2 Rescue Console — where rules score urgency and coordinators decide](#32-rescue-console--where-rules-score-urgency-and-coordinators-decide)
+     - [3.2.1 Models perceive, code decides](#321-models-perceive-code-decides)
+     - [3.2.2 One case, shared across centers and agencies](#322-one-case-shared-across-centers-and-agencies)
+   - [3.3 Drones — a look at places crews can't reach](#33-drones--a-look-at-places-crews-cant-reach)
+   - [3.4 Architecture](#34-architecture)
+4. [📊 Evaluation and Results](#4--evaluation-and-results)
+5. [🌍 Why It Matters Beyond the Animals](#5--why-it-matters-beyond-the-animals)
+6. [🚀 Future Work](#6--future-work)
+7. [🛠️ Tools Used](#7-️-tools-used)
+8. [⚡ Getting Started](#8--getting-started)
 
-To check one case through the real backend across a reporter, two centers and
-NOAA without GCP, run `python scripts/run_connected_scenario.py` in the backend
-Python environment. See [connected scenario](docs/connected_scenario.md) for the
-redacted report, disposable database and explicit simulated boundaries.
+---
+
+## 1. 🌊 Project Motivation
 
 For the case-linked drone flow, run `python scripts/run_connected_scenario.py --with-drone`
 in the backend environment. This checks a submitted case through confidence suggestions,
@@ -39,427 +39,411 @@ See [connected drone scenario](docs/connected_drone_scenario.md).
 
 ## Run the local drone demo
 
-With Python 3.11+ and Docker running, pull the `charlotte-mini2-demo` branch and run:
+<div align="center">
 
-```bash
-python3 scripts/local_demo.py
+| | | |
+|:---:|:---:|:---:|
+| **650,000+** | **49,505** | **1 million** |
+| marine mammals killed or seriously injured in fishing gear every year | species threatened with extinction | species could face extinction, many within decades, unless action is taken |
+| *Marine Mammal Commission* | *IUCN Red List, July 2026* | *IPBES Global Assessment* |
+
+</div>
+
+<div align="center">
+<img src="docs/images/entangled-monk-seal.jpg" width="380" alt="Hawaiian monk seal entangled in derelict fishing net">
+<img src="docs/images/oiled-pelicans.jpg" width="380" alt="Brown pelicans coated in oil after the Deepwater Horizon spill">
+</div>
+
+<!-- PLACEHOLDER: entangled monk seal — NOAA Fisheries (Permit #10137), public domain -->
+<!-- PLACEHOLDER: oiled brown pelicans, Grand Isle LA, 2010 — Int'l Bird Rescue Research Center, CC BY 2.0 (credit required) -->
+
+### Where the current system breaks down
+
+Today a rescue begins with a phone call which starts a chain of events filled with inefficiencies and information + time loss.
+
+**The public doesn't know how to help.** Someone has to find the animal, figure out who to call, and work out how and what to report — usually about a species they can't name and know little about.
+
+**Rescuers triage over the phone.** Coordinators must extract species, condition, location and urgency from a stranger in a few minutes, then dispatch on incomplete information.
+
+**Resources are stretched thin.** Teams are small, and **94% of wildlife rehabilitation programs rely on volunteers** (IWRC, 2026). The whole system is reactive: help waits for a call, and animals in places people don't visit go unseen.
+
+---
+
+## 2. 🦭 Overview of LifeJacket
+
+*LifeJacket looks save animals by improving the efficiency of the current wildlife rescue system. By introducing an AI-powered tools, LifeJacket can increase the quality of care for injured animals.*
+
+<div align="center">
+<img src="docs/images/system-overview.png" width="760" alt="LifeJacket system overview: public app, rescue console and drones feeding one structured case">
+</div>
+
+<!-- PLACEHOLDER: system overview diagram — adapt slide 5 of LifeJacket_Draft_20261109.pptx -->
+
+**1. The Public App** — An AI chatbot assesses the incident quickly, gives the reporter guidance on what to do in the meantime, and routes the report to the right organization automatically.
+
+**2. The Rescue Console** — Coordinators analyze rather than extract. Every report arrives with weather, tide, daylight, exact location and directions already attached. Humans override anything the AI got wrong, and nothing is dispatched without approval.
+
+**3. Drones** — A quick aerial look at incidents that may not need a crew, so scarce staff go only where they're needed.
+
+> Together, these turn a scattered phone-and-notepad process into one structured case that any coordinator on duty can pick up.
+
+---
+
+## 3. 🧭 The Project
+
+### 3.1 Public App — a guided report from the person who found the animal
+
+<div align="center">
+<video src="docs/images/reporter-walkthrough.mp4" width="350" controls></video>
+</div>
+
+<!-- PLACEHOLDER: screen recording of the reporter flow, portrait, ~30-45s -->
+
+| | What the reporter does |
+|:---:|---|
+| **1** | **Photo + map pin.** A photo and an exact location replace the hardest part of the phone call — describing the animal and the place |
+| **2** | **Tap the animal you mean.** If several animals are in frame, detection AI outlines each one and the reporter picks the one in trouble |
+| **3** | **A few tap-to-choose questions.** The AI asks only what the photo can't show — at most five to identify the species, five to assess condition |
+| **4** | **Safety guidance and a trackable case.** Keep your distance, don't handle the animal, and follow the case reference through every status update |
+
+```
+Received  →  Accepted  →  En route  →  On scene  →  Animal located  →  Closed
 ```
 
-Open <http://127.0.0.1:8080> and choose **Drone Lab**. The synthetic survey planner
-and mock telemetry replay work without GCP access, model keys or a private NOAA
-workbook. Each teammate gets a separate local database. See the
-[local setup](docs/local_drone_demo.md) and [drone architecture](docs/drone_architecture.md).
+<div align="center">
+<img src="docs/evidence/reporter_phone_fixture.jpg" width="320" alt="LifeJacket reporter app showing a completed fictional draft">
+</div>
 
-For the verified baseline, remaining MVP gaps, and historical-context increment,
-see [the drone source review](docs/drone_simulation_review.md).
+*Reporter app UI fixture with a completed fictional draft — no real report, SMS or rescue case.*
 
-## Three rescue workflows
+> ⚠️ **Honest limit:** the urgency score applies to the animal the reporter selects. If someone taps the healthy seal in a photo that also contains an injured one, the case is scored on the healthy one.
 
-| Workflow | What happens | Primary code |
+#### 3.1.1 Behind the app: seven stages from photo to report
+
+```
+     REPORTER'S PHONE                                  RESCUE CONSOLE
+      photo + location                                  report + map
+            │                                                 ▲
+            ▼                                                 │
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  1  CONTEXT     tide, weather, daylight, place name   [external] │
+  │  2  IDENTIFY    species, up to 5 questions per photo  [AI model] │
+  │  3  ASSESS      condition and hazards, up to 5 more   [AI model] │
+  │  4  TRIAGE      weighted rules                     ** NO MODEL **│
+  │  5  REPORT      the write-up for responders           [AI model] │
+  │  6  GUARDRAIL   a second model re-checks it           [AI model] │
+  │  7  DISPATCH    rank centers by area + capability  ** NO MODEL **│
+  └─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                      HUMAN APPROVES
+```
+
+The two most consequential stages — **triage** and **dispatch** — are the two with no model in them. That is deliberate, and it is the central design decision of the project.
+
+Context comes from NOAA CO-OPS (tides), Open-Meteo (weather, sunrise and sunset) and Nominatim (place names). The tide matters most: the same animal at the same spot is a different emergency on a rising tide than a falling one.
+
+---
+
+### 3.2 Rescue Console — where rules score urgency and coordinators decide
+
+<div align="center">
+<img src="docs/images/console-triage-map.png" width="760" alt="LifeJacket rescue console showing the live triage map with urgency-colored incident pins">
+</div>
+
+<!-- PLACEHOLDER: screenshot of the Triage tab at ~1440x820 -->
+
+| Feature | What it does |
+|---|---|
+| *Live triage map* | Urgency-colored pins; clicking one opens the incident card with photo, summary and the reasons behind its level |
+| *Ranked responder candidates* | Distance, capability match and estimated drive time |
+| *Contact the reporter* | Call or text for more details or photos, if they opted in |
+| *Shift handover* | What changed during a window, and which cases are still open |
+
+> 🧑‍✈️ **HUMAN IN THE LOOP** — Coordinators can override any AI conclusion they judge wrong, and **nothing is dispatched without their approval**.
+
+#### 3.2.1 Models perceive, code decides
+
+AI extracts the evidence. A deterministic, auditable rule set turns that evidence into an urgency level.
+
+| Level | Score |
+|---|---|
+| *Guidance* | < 1 |
+| *Monitor* | 1 to < 3 |
+| *Respond* | 3 to < 6.5 |
+| *Critical* | 6.5+ **or** a critical override |
+
+**Critical overrides** — entanglement · bleeding wound · breathing distress · unresponsive · immobile cetacean
+
+Weather contributes at most 0.5 points, and a falling tide can shorten the response window.
+
+> Rules keep urgency **explainable** to a coordinator who disagrees, **reproducible** across identical reports, and **tunable** without retraining anything.
+
+*These weights are a prototype and require expert review. They are not clinically validated policy.*
+
+#### 3.2.2 One case, shared across centers and agencies
+
+Strandings don't respect organizational boundaries, so a newer layer lets several rescue centers and a wildlife agency work the same case with controlled visibility.
+
+<div align="center">
+<img src="docs/evidence/network_console_fixture.png" width="760" alt="LifeJacket rescue network view as a NOAA reviewer, showing fictional harbor seal and sea lion cases">
+</div>
+
+| Role | Sees |
+|---|---|
+| *Reporter* | Submits a private case and sees only permitted status updates |
+| *Center A* | Leads the case and coordinates the response |
+| *Center B* | An accepted rescuer confirms response events |
+| *NOAA* | A wildlife agency reads the same case across states |
+
+> ✅ **Tested end to end:** 42 automated checks pass for one case across all four roles, on a disposable database.
+
+*Screenshot is a UI fixture with fictional cases and a fictional reviewer.*
+
+---
+
+### 3.3 Drones — a look at places crews can't reach
+
+*Two jobs: check now, patrol next.*
+
+| | **USE CASE 1 · NOW** | **USE CASE 2 · NEXT STEP** |
 |---|---|---|
-| Public intake | Photo and location, clarification, assessment, triage, report, duplicate checks | [`services/pipeline.py`](backend/lifejacket/services/pipeline.py), reporter app |
-| Coordinator review | Case evidence, pending checks, responder review, human-approved offers and responses | [`services/coordination.py`](backend/lifejacket/services/coordination.py), [`agents/coordination.py`](backend/lifejacket/agents/coordination.py), responder console |
-| Shift handover | Recorded changes during a window and current open cases | [`services/events.py`](backend/lifejacket/services/events.py), [`services/handover.py`](backend/lifejacket/services/handover.py), Handover tab |
+| | Check incidents that may not need a crew | Proactively patrol hard-to-reach areas |
+| *What it answers* | "Is that sea otter pup stranded, or is its mother nearby?" | Remote coastlines, cliffs and backcountry |
+| *Built so far* | Coordinator-approved survey routes, flown in simulation, plus a video review queue | A historical report-density layer on the console map |
 
-Start with the [workflow ownership map](docs/rescue_workflows.md) and the
-[connected demo](demo/connected_workflow.md). Model calls, read-only tools,
-deterministic rules, and human actions have different responsibilities;
-they are not interchangeable agents.
+**Either way, a coordinator approves every flight.**
 
----
+#### How a survey is planned
 
-## Intake implementation
+A coordinator drags a box on the map. The planner turns it into a lawnmower route — rows across the box, alternating direction, starting at the southwest corner. Pure geometry, no model.
 
-```
-                    REPORTER'S PHONE                      RESCUE ORGANISATION
-                 (clients/reporter_app)              (clients/responder_console)
-                           |                                      ^
-                    photo + location                              | report + map
-                           v                                      |
-  ┌────────────────────────────────────────────────────────────────┴──────────┐
-  │                   PYTHON BACKEND  (backend/lifejacket)                    │
-  │                                                                           │
-  │  1. CONTEXT        tide, weather, place name          context/            │
-  │                    NOAA CO-OPS + Open-Meteo + Nominatim                   │
-  │                                                                           │
-  │  2. IDENTIFY       own questions per photo, max 5     agents/             │
-  │                    species, or genus/family + probs   identification.py   │
-  │                                                                           │
-  │  3. ASSESS         condition + hazards, max 5 more    agents/             │
-  │                    wound? entangled? can it move?     assessment.py       │
-  │                                                                           │
-  │  4. TRIAGE         severity level  ← NOT an LLM call  dispatch/           │
-  │                    deterministic, weighted, audited   severity.py         │
-  │                                                                           │
-  │  5. REPORT         the responder-facing write-up      agents/report.py    │
-  │                                                                           │
-  │  6. GUARDRAIL      second model checks it for         agents/             │
-  │                    invented claims + unsafe advice    guardrail.py        │
-  │                                                                           │
-  │  7. DISPATCH       rank organisations by area +       dispatch/           │
-  │                    capability, for human approval     matching.py         │
-  └───────────────────────────────────────────────────────────────────────────┘
-```
+<div align="center">
+<img src="docs/images/drone-lab-plan.png" width="700" alt="Drone Lab showing a generated lawnmower survey route over the survey area">
+</div>
 
-Read [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py)
-for this flow as actual code. It is the single best entry point to the codebase.
+<!-- PLACEHOLDER: screenshot of Drone Lab with a built plan -->
 
-Read-only incident history, assignment history, pending coordination checks,
-and responder availability are available through Python and HTTP. See
-[`docs/coordination_tools.md`](docs/coordination_tools.md) for usage and evidence limits.
-The coordination agent can choose these tools to check one case through
-`POST /coordination/incidents/{incident_id}/check`. It proposes attention items
-for human review without changing the case or dispatching anyone.
+Before anything flies, the plan is validated against hard limits:
 
----
-
-## Repository layout
-
-```
-lifejacket-dispatch/
-├── backend/                  ← all the logic lives here (Python)
-│   ├── lifejacket/
-│   │   ├── agents/           model stages + bounded coordination tool-selection loop
-│   │   ├── chatbot/          when to ask / when to stop + notebook playground
-│   │   ├── context/          weather, tides, reverse geocoding
-│   │   ├── dispatch/         severity, duplicates, mass strandings, responder matching (no LLM)
-│   │   ├── llm/              the one place we call a model
-│   │   ├── models/           schemas, database tables, repository
-│   │   ├── services/         intake pipeline, health, coordination tools, events, handover
-│   │   ├── api/              FastAPI routes (thin: no business logic)
-│   │   ├── config.py         every setting, in one file
-│   │   ├── taxonomy.py       pools species probabilities into genus/family
-│   │   └── geo.py            haversine, ETA, bounding boxes
-│   ├── tests/                offline unit and HTTP workflow tests
-│   └── requirements.txt
-│
-├── clients/
-│   ├── reporter_app/         Expo RN — the public's phone app
-│   ├── responder_console/    Expo RN + web — rescue organisations
-│   └── shared/api.ts         one API client, shared by both
-│
-├── prompts/                  ← prompts as Markdown, not Python strings
-│   ├── system_principles.md  safety rules sent with EVERY model call
-│   ├── identification/
-│   ├── assessment/
-│   ├── report/
-│   ├── coordination/        tool-selection instructions
-│   └── legacy/               the prototype's 29-prompt library, for reference
-│
-├── config/scoring.json       severity weights, dispatch weights, species groups
-├── data/
-│   ├── rescue_centers.csv    33 real West Coast stranding network centres
-│   ├── schema/               the prototype's 45-column CSV contract (reference)
-│   └── seeds/                example incident rows
-│
-├── notebooks/                walkthrough, evaluation, and a chatbot playground
-├── research/
-│   ├── coordination_evaluation/ scripted and five-case live evaluation reports
-│   └── dispatch_benchmark/   directory vs. online search (built, never run)
-├── archive/prototypes/       the previous ChatBox / agent2 notebooks
-└── docs/                     backend_tour.md — every backend file explained
-```
-
-### Where to make a change
-
-| You want to… | Edit |
+| Limit | Value |
 |---|---|
-| Change what the agent asks the reporter | [`prompts/identification/identify_species.md`](prompts/identification/identify_species.md) |
-| Change when the agent stops asking | [`backend/lifejacket/chatbot/session.py`](backend/lifejacket/chatbot/session.py) → `identification_stop_reason` |
-| Allow stopping at family level, or move the 0.90 threshold | `CONFIDENT_TAXON_RANKS`, `IDENTIFICATION_CONFIDENCE_THRESHOLD` in `.env` |
-| Change how species pool into genus/family | [`backend/lifejacket/taxonomy.py`](backend/lifejacket/taxonomy.py) |
-| Re-tune triage urgency | [`config/scoring.json`](config/scoring.json) |
-| Change what counts as a mass stranding | `mass_stranding` in [`config/scoring.json`](config/scoring.json); the rule is in [`backend/lifejacket/dispatch/mass_stranding.py`](backend/lifejacket/dispatch/mass_stranding.py) |
-| Change how responders are ranked | [`backend/lifejacket/dispatch/matching.py`](backend/lifejacket/dispatch/matching.py) |
-| Change derived pending checks or availability retrieval | [`backend/lifejacket/services/coordination.py`](backend/lifejacket/services/coordination.py) |
-| Change the bounded coordination tool-selection loop | [`backend/lifejacket/agents/coordination.py`](backend/lifejacket/agents/coordination.py) and [`prompts/coordination/check_case.md`](prompts/coordination/check_case.md) |
-| Change which application transitions are recorded | [`backend/lifejacket/services/events.py`](backend/lifejacket/services/events.py) and its repository/route call sites |
-| Change handover retrieval or limits | [`backend/lifejacket/services/handover.py`](backend/lifejacket/services/handover.py) |
-| Add a weather or tide signal | [`backend/lifejacket/context/`](backend/lifejacket/context/) |
-| Add an endpoint | [`backend/lifejacket/api/routes/`](backend/lifejacket/api/routes/) |
-| Add a safety rule | [`prompts/system_principles.md`](prompts/system_principles.md) |
-| Change what happens when a model call fails | `_call_agent` and the fail-safes in [`backend/lifejacket/services/pipeline.py`](backend/lifejacket/services/pipeline.py); what gets recorded in [`services/health.py`](backend/lifejacket/services/health.py) |
+| *Altitude band* | 10–100 m |
+| *Distance from home* | ≤ 2,000 m |
+| *Total route* | ≤ 4,000 m |
+| *Simulated wind* | ≤ 8 m/s |
+| *Endurance* | 1,200 s with a 25% reserve |
+| *Row spacing* | ≤ 50 m |
 
----
+#### It actually flew — in simulation
 
-## Running it
+<div align="center">
 
-Requires **Python 3.11+**.
+### **1.18 m**
+**maximum distance from the planned route, across 280 telemetry samples**
 
-```bash
-# 1. Dependencies
-python3.13 -m venv .venv && source .venv/bin/activate
-pip install -r backend/requirements.txt
+</div>
 
-# 2. Credentials for intake model calls and live coordination checks.
-#    No API key — this uses Application Default Credentials.
-gcloud auth application-default login
+- ✅ Plan uploaded over MAVLink to **real ArduCopter 4.6.3 autopilot firmware**
+- ✅ Flown in software-in-the-loop on GCP, 22 October 2026
+- ✅ Completed the survey, returned, landed and disarmed
+- ✅ Controlled cancel also landed cleanly; injected link loss was correctly flagged as unconfirmed
+- ✅ Normal arming checks throughout — no force-arm, no bypass
 
-# 3. Optional config. Every value has a working default.
-cp .env.example .env
+<div align="center">
+<img src="docs/images/sitl-route-trace.png" width="620" alt="Planned survey route drawn to scale with the 1.18 m deviation band">
+</div>
 
-# 4. Run
-uvicorn lifejacket.api.main:app --reload --app-dir backend
+<!-- PLACEHOLDER: planned route vs flown trace plot -->
+
+#### From recorded video to human review
+
+```
+Recorded video  →  Verifiable frames  →  Same detection AI  →  Human review
+NOAA's public      each still gets a      the model used on     a person keeps
+sea lion footage   timestamp and a        reporter photos       or rejects
+                   SHA-256 hash           looks for animals     every frame
 ```
 
-Then open <http://localhost:8000/docs> for interactive API docs — the quickest
-way to drive the whole intake flow without writing a client.
+**First real run:** 12 frames processed, 0 failures, on NOAA's public California sea lion B-roll.
 
-For a private web/API preview with persistent PostgreSQL and the historical
-California report layer, follow [`docs/staging.md`](docs/staging.md).
+> ⚠️ This tests the **processing path**, not detection accuracy or injury diagnosis. The boxes the model drew are regions containing possible groups of animals, not validated individuals, and there are no expert labels yet.
 
-```bash
-# Load the 33 real rescue centres into the database
-curl -X POST localhost:8000/responders/seed
+#### 🔗 The missing link
 
-# Start a report
-curl -X POST localhost:8000/intake/start -H 'Content-Type: application/json' -d '{}'
-```
-
-### Tests
-
-```bash
-pytest                 # offline tests, no API key or network required
-```
-
-The deterministic logic — severity, duplicates, matching, taxonomy, the
-conversation state machine — is pure functions, so it is tested properly. Whole
-conversations are tested too, in memory (`test_pipeline.py`) and over HTTP
-(`test_api.py`), using a scripted stand-in for Gemini. Start with
-[`backend/tests/test_severity.py`](backend/tests/test_severity.py): it is the
-clearest specification of how triage actually behaves.
-
-The [connected demo](demo/connected_workflow.md) has an HTTP test covering
-intake, read-only coordination checks, an offer/decline/re-offer/accept cycle,
-handover, and outcome logging. It uses scripted model replies, not live AI.
-
-### Notebooks
-
-```bash
-jupyter lab notebooks/
-```
-
-| Notebook | What it is for |
+| Flight half | Perception half |
 |---|---|
-| [`01_pipeline_walkthrough`](notebooks/01_pipeline_walkthrough.ipynb) | Tour of the decision logic against live tide and weather data |
-| [`02_agent_evaluation`](notebooks/02_agent_evaluation.ipynb) | Compare agent answers against what responders found |
-| [`03_try_the_chatbots`](notebooks/03_try_the_chatbots.ipynb) | **Talk to** all three chatbots in one photo: identification, assessment, report + guardrail. Each stage saves its result to plain variables the next stage reads -- no retyping a species name between stages |
+| ✅ Planned route flown in simulation within 1.18 m | ✅ Recorded video processed and reviewed by a person |
 
-Notebook 3 has an **offline mode** (default) that needs no credentials: a
-scripted stand-in replaces Gemini while every other line of real code runs.
-Switch `MODE = "live"` and add a photo to `notebooks/sample_photos/` to talk to
-the real model.
+**They don't connect yet.** The simulator has no camera, and no physical drone has flown. Closing that gap — so a planned route produces real footage that flows into this pipeline — is the next major piece of work.
 
-```python
-id_chat = ChatPlayground.identification_only(photos=["seal.jpg"], latitude=36.80, longitude=-121.79)
-id_chat.answer("shorter than a person")
-id_chat.show_identification()
-print(id_chat.last_prompt("identification"))   # exactly what the model was sent
+---
+
+### 3.4 Architecture
+
+<div align="center">
+<img src="docs/images/architecture.png" width="820" alt="LifeJacket architecture: Expo clients, FastAPI backend, Gemini on Vertex AI, SQLite, and external context APIs">
+</div>
+
+<!-- PLACEHOLDER: architecture diagram -->
+
+```
+clients/reporter_app/        Expo + TypeScript — the public's phone app
+clients/responder_console/   Expo + web — the rescue organization's console
+clients/shared/              one API client and one design system
+
+backend/lifejacket/
+  agents/        six intake agents + a bounded coordination agent
+  dispatch/      severity, duplicates, mass strandings, responder matching (no LLM)
+  context/       NOAA CO-OPS tides, Open-Meteo weather, Nominatim, OpenRouteService
+  access/        role-scoped permissions across centers and agencies
+  drones/        planner, mock simulator, ArduPilot SITL adapter, video pipeline
+  services/      the intake pipeline — the single best entry point to the code
+  models/        23 tables, Pydantic schemas
+  api/routes/    12 route groups, 63 endpoints
+
+prompts/         prompts as Markdown, not Python strings
+config/          every tunable number, with a comment on where it came from
 ```
 
-### Clients
-
-See [`clients/README.md`](clients/README.md).
-
 ---
 
-## Design decisions worth knowing
+## 4. 📊 Evaluation and Results
 
-These are the choices that will surprise you if you did not make them.
+<a id="evaluation"></a>
 
-### 1. Severity is deterministic, not an LLM call
+### Species identification
 
-The model decides what it **observes** (is there a wound, is the animal
-entangled). [`dispatch/severity.py`](backend/lifejacket/dispatch/severity.py)
-decides what those observations **mean**, using weights from
-[`config/scoring.json`](config/scoring.json).
+102 curated public photos, one initial pass, no follow-up answers.
 
-This split exists because a coordinator has to be able to see *why* something
-was triaged critical. "The model said so" is not reviewable, cannot be tested
-without an API key, and shifts silently every time someone edits a prompt.
+<div align="center">
 
-The prototype had the opposite problem: an LLM prompt assigned severity 0–3
-while a parallel deterministic path computed a different number from the same
-flags — and the prompt was explicitly instructed to ignore weather, which the
-current specification requires.
+| **96%** | **70%** |
+|:---:|:---:|
+| animal group correct | species correct |
+| *98 / 102* | *71 / 102* |
 
-### 2. Questions are chosen per photo, and "dolphin" can be a final answer
+</div>
 
-There is no questionnaire. Once a photo and location arrive, the
-identification agent asks about whatever would most change its own
-probabilities for *this* photo — a sharp photo of a sea lion may need no
-questions at all. It asks at most 5.
+Animal group is what drives responder matching, so the higher figure is the one that affects routing. Gemini 2.5 Flash, temperature 0.1.
 
-The agent reports per-species probabilities with genus and family;
-[`taxonomy.py`](backend/lifejacket/taxonomy.py) pools them up the tree and the
-system settles on the **finest rank that reaches 0.90**. Identification stops
-when it is confident at species or genus level, when 5 questions are used, or
-when the agent says no question could separate the remaining species from a
-safe distance. That last case is how common vs bottlenose dolphin in a distant
-photo becomes *"oceanic dolphins, 0.94 (common 0.50, bottlenose 0.44)"* — both
-probabilities travel with the report.
+*Exploratory evaluation. Not aerial-detector accuracy, not injury accuracy, and not a calibrated confidence result.*
 
-Note common and bottlenose dolphins are different **genera**, so "dolphin" is a
-**family**-level answer. Family is not an early-stop rank by default: harbor
-and elephant seals pool to 0.90 as "true seals", but one question about size
-usually settles which, so the agent asks it. Add `"family"` to
-`CONFIDENT_TAXON_RANKS` to stop sooner.
+### Engineering validation
 
-The rank is chosen in Python, not by the model, so the rule is identical on
-every incident and unit-tested.
-
-### 3. Some conditions bypass the score entirely
-
-Entanglement scores 1.4 additively, below the 3.0 "respond" threshold. So an
-entangled animal with no other symptoms would be triaged "monitor" while the
-line tightens around it as it moves. **Hard rules** force critical for
-entanglement, bleeding wounds, respiratory distress, unresponsiveness, and any
-cetacean that cannot move.
-
-Conversely, weather can **never** be the sole cause of a critical rating. It
-adds at most 0.5 points, and there is an explicit demotion guard if the
-animal's own condition does not independently reach the threshold.
-
-### 4. The tide is the most important input
-
-For a stranded marine mammal it usually matters more than anything else:
-
-- A **rising** tide may refloat the animal with no intervention. Patience is
-  often the right recommendation, and a rushed rescue can do more harm.
-- A **falling** tide is a hard deadline. The animal is left further from the
-  water every minute, and a heat-stress clock starts.
-- An immobile **cetacean** on a rising tide may drown, because it cannot lift
-  its blowhole clear.
-
-The prototype had no tide data at all, so it could not distinguish these. This
-was the biggest single gap.
-
-### 5. Failed lookups say so
-
-Every external call can fail, and a rescue cannot wait for NOAA. Failures are
-recorded by name in `EnvironmentalContext.unavailable` and surfaced in the
-report as explicit unknowns.
-
-This replaced a `PlaceholderWeatherProvider` in the prototype that fabricated
-plausible-looking numbers from arithmetic on the coordinates — and was the
-default, so demos showed invented weather that looked real.
-
-### 6. Prompts are Markdown files
-
-Not Python strings. A prompt change becomes a readable diff in code review,
-non-programmers on the team can edit them, and
-[`backend/tests/test_prompts.py`](backend/tests/test_prompts.py) checks every
-one still renders with the values its agent actually supplies.
-
-### 7. A second model checks the report before anyone sees it
-
-[`agents/guardrail.py`](backend/lifejacket/agents/guardrail.py) reviews the
-generated report against the source data for two failure modes: claims nothing
-supports, and advice that would hurt someone. The dangerous advice here is
-specific and recurring — pushing a stranded cetacean back to sea, pouring water
-into a blowhole, moving an apparently-orphaned seal pup, the public washing an
-oiled bird.
-
-A failed report is **held for a human, not discarded**: a guardrail false
-positive must not bury a real emergency.
-
-This pattern is carried over from the prototype, where it was the strongest
-idea in the codebase.
-
-### 8. Nothing dispatches automatically
-
-Every deployment is approved by a human coordinator
-(`POST /responders/assign`). Stranding networks operate under permits, and the
-system must never place an untrained person next to a protected animal without
-someone having agreed to it. At `respond` severity and above,
-`volunteer_allowed` is false — a safety boundary, not a preference.
-
-### 9. County, not state, routes an incident
-
-Rescue centres describe coverage by county ("Del Norte and Humboldt Counties,
-California"), so reverse geocoding resolves the county and matches on that.
-
-Including the state in the match terms was a real bug found while building
-this: every entry in the California directory contains the word "California",
-so a centre 400 km away in Del Norte County scored as highly for a Monterey
-incident as the centre covering Monterey itself.
-
----
-
-## Known limitations
-
-Be honest about these in any write-up.
-
-| Limitation | Detail |
+| Result | Detail |
 |---|---|
-| **Species accuracy is ~54%** | Best prompt strategy, from the team's vision research. Animal-*group* accuracy is much better, and group is what routes the incident. The research notebook itself (`research/vision_confidence/`) was removed from this repo for disk space -- this number is what remains of it. |
-| **Intake model quality remains unmeasured** | Scripted intake tests validate execution, not identification, question quality, or injury accuracy. Coordination has a separate five-case live Gemini evaluation (5/5 after a prompt fix); this does not validate intake or establish reliability. See [`docs/coordination_tools.md`](docs/coordination_tools.md). |
-| **The 0.90 confidence threshold is unvalidated** | 50 of 485 answers at 90%+ confidence were wrong in the research data. Every stop decision is logged so this can be calibrated. See notebook 2. |
-| **Vision research used 5 photos** | One was a dog control. Treat the strategy comparison as indicative only. |
-| **Injury flags have never been evaluated** | And they feed severity scoring. This is the highest-value gap. |
-| **No authentication** | `RESPONDER_ID` is hardcoded in the console. Must be fixed before more than one person uses it. |
-| **Coordination and handover are review aids** | Pending checks are derived, not owned tasks. Availability is not eligibility. Handover is installation-wide and shows current carryover, not historical state at shift end; events have no backfill and actor references are unauthenticated. Do not expose these endpoints publicly. |
-| **New console views need visual QA** | Coordination and Handover typecheck, but mobile/desktop visual verification was blocked by macOS native CSS-library loading policy. |
-| **Tides are US-only** | NOAA CO-OPS covers US coasts. Weather and geocoding are global. |
-| **Rescue centres have no coordinates** | `data/rescue_centers.csv` has no latitude/longitude or street address, so organisation distance and ETA are always null. Area matching (by county) works fine; only distance is affected. |
-| **Dispatch only has data for marine animals** | Identification and assessment work for any animal (`AnimalGroup.TERRESTRIAL`, `DOMESTIC_ANIMAL`, `OTHER_MARINE` are real, supported groups — see the `raccoon` scenario in `llm/fake.py`). But `data/rescue_centers.csv` is a *West Coast Marine Mammal Stranding Network* directory, so a coyote or pet dog correctly gets no suggested responder rather than a misleading one. Adding a wildlife-rehab directory needs no change to identification or triage, only a second data file and a merge in `dispatch/matching.py`. |
-| **No real ETAs** | `estimate_drive_minutes` is straight-line distance × 1.3. Google Directions is wired for navigation but not for ETAs. |
-| **Dispatch benchmark never ran** | [`research/dispatch_benchmark/`](research/dispatch_benchmark/) was built with both run switches set to `False`. Its conclusion is open. |
-| **Clients are scaffolds** | Screens and API wiring are real; styling is minimal; no offline support, push notifications, or photo EXIF extraction yet. |
+| *Automated tests* | **566**, all running offline against a deterministic stand-in model — no API key, no network, no cost |
+| *Simulated flight* | **1.18 m** max deviation across 280 samples on real autopilot firmware |
+| *Video pipeline* | **12 frames, 0 failures** on real NOAA footage |
+| *Multi-organization case* | **42 checks** pass for one case across four roles |
+
+### What we have not shown
+
+This matters as much as what we have:
+
+- ❌ **Response-time or survival improvements** — not measured
+- ❌ **Injury assessment from the air** — not validated
+- ❌ **A calibrated battery model** — an approved simulated flight ran low on reserve in modest wind
+- ❌ **A physical flight** — all flight to date is simulated
+- ❌ **Real incident data** — the demo database is seeded sample data
+
+> LifeJacket is **not a dispatch system**. No permits are verified and no one is tasked automatically.
 
 ---
 
-## Where to pick up
+## 5. 🌍 Why It Matters Beyond the Animals
 
-Roughly in priority order:
+*Healthy wildlife, healthy ecosystems and healthy people are one system.*
 
-1. **Evaluate the injury flags** against a labelled photo set. They drive
-   triage and have never been measured. The 400-image set used for the
-   team's earlier vision research is no longer in this repo (`research/vision_confidence/`
-   was removed for disk space, metadata included) -- this needs a fresh
-   labelled set, or the original iNaturalist observations re-identified.
-2. **Calibrate the 0.90 stop threshold** using notebook 2 once there are closed
-   incidents with responder logs.
-3. **Authentication** for the responder console, so actions are attributable.
-4. **Photo EXIF extraction** — `PhotoRow` has the columns, nothing populates
-   them. EXIF often has a better location than a hand-typed one, plus a capture
-   time that tells you how stale the sighting is.
-5. **Geocode the rescue centres** so distance and ETA work. The directory has
-   no addresses, so this likely means resolving each organisation by name once
-   and committing the coordinates alongside the CSV.
-6. **Real ETAs** via the Google Directions API.
-7. **Push notifications** so a report reaches an on-call responder without them
-   watching the map.
-8. **Run the dispatch benchmark** and settle whether online search beats the
-   directory.
+<div align="center">
+
+| **6 in 10** | **3 in 4** |
+|:---:|:---:|
+| known infectious diseases in people can spread from animals | new or emerging infectious diseases in people come from animals |
+
+*CDC, One Health*
+
+</div>
+
+**Sick wildlife is an early warning system.** California sea lions are among the first animals hit by toxic algae, and eat many of the same kinds of seafood people do — their outbreak data help officials decide when to issue seafood warnings.
+
+**Safer encounters with wild animals.** More than 90% of reported animal rabies cases in the U.S. are in wildlife. The app tells people to keep their distance and not handle the animal.
+
+**Located, structured reports.** Every report carries a photo, coordinates and a condition record, and a deterministic check flags possible mass strandings.
+
+*Earlier warning for public health agencies is an intended benefit, not one we have measured.*
 
 ---
 
-## Data notes
+## 6. 🚀 Future Work
 
-- **Rescue centre contacts** come from the public 2026 West Coast Marine Mammal
-  Stranding Network directory.
-- **Raw photos are not in this repo** (about 1.1 GB, gitignored). They were
-  originally downloaded from public iNaturalist observations by scraping
-  cells that lived in `research/vision_confidence/`; that folder (notebook,
-  result CSVs, and the observation-ID metadata needed to re-fetch the
-  photos) was removed for disk space, so rebuilding the set now means
-  re-scraping iNaturalist from scratch rather than replaying a saved
-  metadata list. iNaturalist content is licensed by its observers — check
-  each observation before reusing images.
-- **Reporter photos** are written to `PHOTO_STORAGE_DIR` (gitignored), not the
-  database. A stranding location can be personally identifying, so images stay
-  deletable independently of the record.
-- **Dispatch benchmark cases are synthetic.**
+**From reactive to proactive**
 
-## Prior work
+```
+TODAY     animal is hurt → someone happens to notice → they find a hotline → a team responds
+NEXT      past reports show hotspots → drones patrol → animal spotted early → coordinator opens a case
+```
 
-The previous prototype lives in [`archive/prototypes/`](archive/prototypes/)
-and nothing active reads from it. Its genuinely valuable parts were carried
-forward: the scoring weights (now `config/scoring.json`, previously hardcoded
-and unread), the rescue centre directory, the prototype's intake questions (now asked
-dynamically, only when the photo leaves them open), the
-guardrail pattern, and the 45-column CSV contract (kept in
-[`data/schema/`](data/schema/) for reference).
+Already built: a historical report-density layer from NOAA's California records (2006–2025) on the console map. *Density reflects where people reported strandings, not risk, so it needs expert validation before it guides patrols.*
 
-See [`PROJECT_NOTES.md`](PROJECT_NOTES.md) for the decision log.
+**Open work**
+
+- **Close the drone loop** — fly a planned route on a real aircraft so the camera pipeline gets real footage
+- **Calibrate the battery model** against real flight data
+- **Validate identification** against expert-labeled stranding cases
+- **Widen the region** beyond the California pilot bounds
+- **Add volunteer matching** — responder ranking currently covers organizations only
+- **Field trial** with a partner rescue center
+
+---
+
+## 7. 🛠️ Tools Used
+
+| Layer | Stack |
+|---|---|
+| *Backend* | Python 3.11+ · FastAPI · SQLAlchemy · SQLite · Pydantic v2 |
+| *AI* | Gemini 2.5 Flash via Vertex AI (`google-genai`) — Application Default Credentials only |
+| *Clients* | Expo SDK 57 · React Native 0.86 · React 19 · TypeScript |
+| *Maps* | MapLibre GL JS (web) · react-native-maps (native) |
+| *External data* | NOAA CO-OPS · Open-Meteo · Nominatim · OpenRouteService |
+| *Drone* | ArduPilot SITL 4.6.3 · MAVLink · pymavlink · FFmpeg |
+| *Identity* | Firebase Authentication |
+| *Testing* | pytest (566 offline tests) · ruff |
+
+---
+
+## 8. ⚡ Getting Started
+
+```bash
+# Backend
+make setup                      # venv + dependencies
+make run                        # API on http://localhost:8000
+make test                       # 566 tests, fully offline
+
+# Rescue console (web)
+cd clients/responder_console && npx expo start --web --port 19006
+
+# Reporter app
+cd clients/reporter_app && npx expo start --web --port 19007
+```
+
+**No credentials needed for a first look.** From the repository root:
+
+```bash
+npm ci && npm run setup:demos && npm run demo:network
+```
+
+Open <http://127.0.0.1:8082> — two labeled UI fixtures with fictional data. No GCP login, no SMS, no model calls, no database.
+
+<div align="center">
+<img src="docs/evidence/teammate_local_demo.jpg" width="620" alt="LifeJacket local demo landing page">
+</div>
+
+See [`docs/teammate_setup.md`](docs/teammate_setup.md) for the full setup, and [`clients/README.md`](clients/README.md) for the two apps.
+
+---
+
+<div align="center">
+
+</div>
