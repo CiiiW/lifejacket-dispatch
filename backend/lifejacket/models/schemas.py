@@ -326,7 +326,7 @@ class InjuryAssessment(BaseModel):
     """
 
     injury_present: bool = False
-    confidence: float = Field(default=0.0, ge=0, le=1)
+    confidence: float | None = Field(default=None, ge=0, le=1)
     wound: bool = False
     bleeding: bool = False
     entanglement: bool = False  # net, line, plastic -- needs a cutting team

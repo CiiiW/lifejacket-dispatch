@@ -1,3 +1,4 @@
+import { networkDroneFixture } from './networkDroneFixture';
 /** Isolated component fixture. Not imported by the application entry point. */
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -94,6 +95,7 @@ const fixtureApi: typeof createNetworkApi = (_, user, org) => {
         : cases.filter((row) => selected.states.includes(row.state_code!));
   }
   return {
+    drones: networkDroneFixture(() => visible().map(row => row.incident_id)),
     me: async () => {
       const selected = context();
       return {

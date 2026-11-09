@@ -84,6 +84,7 @@ export function networkErrorMessage(error: unknown): string {
   return 'Unable to load this view. Check your connection and try again.';
 }
 export interface NetworkApi {
+  drones?: DroneApi;
   me(signal?: AbortSignal): Promise<NetworkSession>;
   cases(
     scope: CaseScope,
@@ -131,7 +132,9 @@ export function createNetworkApi(
   async function request<T>(
     path: string,
     signal?: AbortSignal,
-    body?: Record<string, unknown>,
+    body?: Record<string, unknown> | FormData,
+    method?: string,
+    blob = false,
   ): Promise<T> {
     const controller = new AbortController();
     const cancel = () => controller.abort();
@@ -158,11 +161,11 @@ export function createNetworkApi(
         throw new DOMException('Request cancelled', 'AbortError');
       if (!token) throw new NetworkError(401);
       const response = await transport(prefix + path, {
-        method: body ? 'PATCH' : 'GET',
-        ...(body ? { body: JSON.stringify(body) } : {}),
+        method: method ?? (body ? 'PATCH' : 'GET'),
+        ...(body ? { body: body instanceof FormData ? body : JSON.stringify(body) } : {}),
         headers: {
           Authorization: `Bearer ${token}`,
-          ...(body ? { 'Content-Type': 'application/json' } : {}),
+          ...(body && !(body instanceof FormData) ? { 'Content-Type': 'application/json' } : {}),
           ...(organization
             ? { 'X-LifeJacket-Organization': organization }
             : {}),
@@ -173,7 +176,7 @@ export function createNetworkApi(
         redirect: 'error',
       });
       if (!response.ok) throw new NetworkError(response.status);
-      return (await response.json()) as T;
+      return (blob ? await response.blob() : await response.json()) as T;
     } finally {
       clearTimeout(timer);
       signal?.removeEventListener('abort', cancel);
@@ -186,7 +189,35 @@ export function createNetworkApi(
     if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) throw new NetworkError(404);
     return encodeURIComponent(id);
   }
+  function followupPath(id:string,r:string) {
+    return '/network/cases/'+caseId(id)+'/drone-requests/'+caseId(r);
+  }
+  function streamPath(id:string,r:string) {
+    return '/network/cases/'+caseId(id)+'/drone-requests/'+caseId(r)+'/streams';
+  }
   return {
+    drones: {
+      frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
+      queueFrameAnalysis:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/analysis',s,b,'POST'),
+      reminderStatus:(id,r,s)=>request(followupPath(id,r)+'/reminders',s),
+      retryReminder:(id,r,b,s)=>request(followupPath(id,r)+'/reminders/retry',s,b,'POST'),
+      streams:(id,r,s)=>request(streamPath(id,r),s),
+      openStream:(id,r,b,s)=>request(streamPath(id,r),s,b,'POST'),
+      streamPreview:(id,r,t,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/preview',s),
+      captureStream:(id,r,t,b,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/capture',s,b,'POST'),
+      endStream:(id,r,t,b,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/end',s,b,'POST'),
+      attention:(offset,s)=>request(`/network/monitoring/attention?offset=${offset}&limit=50`,s),
+      acknowledgeAttention:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/attention`,s,b,'POST'),
+      comparison:(id,r,previous,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/comparison${previous?'?previous_id='+caseId(previous):''}`,s),
+      monitoringQueue:(offset,s)=>request(`/network/monitoring?offset=${offset}&limit=50`,s),
+      monitoringDecision:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/monitoring`,s,b,"POST"),
+      list:(id,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s),
+      detail:(id,r,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}`,s),
+      create:(id,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests`,s,b,'POST'),
+      change:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}`,s,b),
+      upload:(id,r,b,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/evidence`,s,b,'POST'),
+      photo:(id,r,e,s)=>request(`/network/cases/${caseId(id)}/drone-requests/${caseId(r)}/evidence/${caseId(e)}/photo`,s,undefined,'GET',true),
+    },
     me: (signal) => request('/access/me', signal),
     cases: (scope, offset, signal) => {
       if (
@@ -235,4 +266,79 @@ export function createNetworkApi(
       });
     },
   };
+}
+
+export interface MonitoringItem {
+ case_id:string; request_id:string; queue_status:string; request_status:string;
+ next_review_at:string|null; objective:string; execution_kind:string; can_decide:boolean;
+}
+export interface DroneRequest {
+ previous_request_id?:string; monitoring_root_request_id?:string;
+ monitoring_decision?:{action:string;reason:string;next_request_id:string|null};
+  suggestion_id?: string | null;
+  request_id: string; case_id: string; status: string; revision: number;
+  purpose: string; execution_kind: string; objective: string; reason: string;
+  operator: string | null; next_review_at: string | null; escalation_criteria: string;
+  target_location: {latitude:number|null;longitude:number|null};
+  allowed_transitions: string[]; outcome: string|null; review_note?:string;
+  evidence?: {evidence_id:string;description:string;source_kind:string;source_url:string|null;
+    captured_at:string|null;frame_offset_seconds:number|null;rights_note:string;received_at?:string;source_session_id?:string}[];
+  events?: {revision:number;kind:string;recorded_at:string;actor_user_id:string;note?:string}[];
+}
+export interface AttentionItem {
+  case_id:string;request_id:string;revision:number;kind:'escalation'|'overdue';
+  attention_key:string;reason:string|null;since:string|null;objective:string;
+  execution_kind:string;can_acknowledge:boolean;
+}
+export interface ObservationComparison {
+  case_id:string;intake:{recorded_at:string;animal_group:string|null;
+    species_common_name:string|null;severity_level:string|null;injury_present:boolean|null;
+    entanglement_present:boolean|null;confidence:{animal_group:number|null;condition:number|null}};
+  current:DroneRequest;previous:DroneRequest|null;comparison_is_automated:false;
+}
+export interface DroneStream {
+  stream_id:string;request_id:string;status:string;created_at:string;expires_at:string;
+  last_frame_at:string|null;frame_age_seconds:number|null;can_manage:boolean;publish_url?:string;
+  source:{label:string;source_kind:string;source_url:string|null;rights_note:string};
+  frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
+}
+export interface FrameAnalysis {
+  analysis_id:string;evidence_id:string;stage:'detect'|'assess';status:string;request_key:string;
+  detection_job_id:string|null;animal_index:number|null;error_code:string|null;attempts:number;created_at:string;
+  result:{detections?:{label?:string;description?:string;confidence?:number}[];limitations?:string[];
+    identity_summary?:{name:string;confidence:number|null};
+    assessment?:{injury?:{summary?:string};severity_level?:string}}|null;
+}
+export interface ReminderStatus {
+  enabled:boolean;destination_configured:boolean;worker:{running:boolean;last_seen_at:string|null};
+  items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
+}
+export interface DroneApi {
+  frameAnalyses?(id:string,r:string,signal?:AbortSignal):Promise<{jobs:FrameAnalysis[];worker:{running:boolean}}>;
+  queueFrameAnalysis?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
+  reminderStatus?(id:string,r:string,signal?:AbortSignal):Promise<ReminderStatus>;
+  retryReminder?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
+  streams?(id:string,r:string,signal?:AbortSignal):Promise<{streams:DroneStream[]}>;
+  openStream?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<DroneStream>;
+  streamPreview?(id:string,r:string,t:string,signal?:AbortSignal):Promise<DroneStream>;
+  captureStream?(id:string,r:string,t:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
+  endStream?(id:string,r:string,t:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
+  attention?(offset:number,signal?:AbortSignal):Promise<{items:AttentionItem[];total:number}>;
+  acknowledgeAttention?(id:string,r:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  comparison?(id:string,r:string,previous:string|undefined,signal?:AbortSignal):Promise<ObservationComparison>;
+  monitoringQueue?(offset:number,signal?:AbortSignal):Promise<{items:MonitoringItem[];total:number;due_soon_hours:number}>;
+  monitoringDecision?(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  list(id:string,signal?:AbortSignal):Promise<{can_create:boolean;requests:DroneRequest[];suggestions?:DroneSuggestion[];confidence_summary?:{animal_group:number|null;condition:number|null}}>;
+  detail(id:string,requestId:string,signal?:AbortSignal):Promise<DroneRequest>;
+  create(id:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  change(id:string,requestId:string,body:Record<string,unknown>,signal?:AbortSignal):Promise<DroneRequest>;
+  upload(id:string,requestId:string,body:FormData,signal?:AbortSignal):Promise<unknown>;
+  photo(id:string,requestId:string,evidenceId:string,signal?:AbortSignal):Promise<Blob>;
+}
+
+export interface DroneSuggestion {
+  suggestion_id:string; purpose:'verification'; title:string; objective:string; reason:string;
+  signals:{code:string;label:string;confidence:number|null;reason:string}[];
+  threshold:number; threshold_is_validated:false; policy_version:string;
+  urgent_parallel_review:boolean; response_note:string; escalation_criteria:string;
 }

@@ -1,0 +1,21 @@
+[Unit]
+Description=LifeJacket drone %i follow-up worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=lifejacket
+Group=lifejacket
+WorkingDirectory=/opt/lifejacket
+EnvironmentFile=/etc/lifejacket/drone-followup.env
+ExecStart=/opt/lifejacket/.venv/bin/python scripts/drone_followup_worker.py --kind %i
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=330
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

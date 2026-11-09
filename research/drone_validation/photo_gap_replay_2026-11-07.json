@@ -1,0 +1,81 @@
+{
+  "recorded_at": "2026-11-07T22:27:38.919865+00:00",
+  "policy_version": "low-confidence-v3",
+  "threshold": 0.9,
+  "threshold_is_validated": false,
+  "source_artifact_sha256": "aa37425f15ff631fa72bc3435b132ceee4a2e6229fcdda000f24345a4bae02c9",
+  "policy_source_sha256": "50a8366bfda1fd67d035dc72fd4128afe5abbb20e080c9a16b5856ca42a74cbd",
+  "new_inference_calls": 0,
+  "operational_cases_created": 0,
+  "requests_created": 0,
+  "scope": "Constructed policy replay of six saved identification outputs; not a new quality benchmark.",
+  "results": [
+    {
+      "case_id": "eumetopias_jubatus_02",
+      "variant": "full_image",
+      "needs_new_photo": false,
+      "pooled_group_confidence": 0.95,
+      "before_suggested": false,
+      "after_suggested": false,
+      "after_signals": [],
+      "after_response_note": null
+    },
+    {
+      "case_id": "odobenus_rosmarus_01",
+      "variant": "full_image",
+      "needs_new_photo": false,
+      "pooled_group_confidence": 0.9,
+      "before_suggested": false,
+      "after_suggested": false,
+      "after_signals": [],
+      "after_response_note": null
+    },
+    {
+      "case_id": "enhydra_lutris_02",
+      "variant": "full_image",
+      "needs_new_photo": false,
+      "pooled_group_confidence": 0.9,
+      "before_suggested": false,
+      "after_suggested": false,
+      "after_signals": [],
+      "after_response_note": null
+    },
+    {
+      "case_id": "enhydra_lutris_02",
+      "variant": "selected_crop",
+      "needs_new_photo": false,
+      "pooled_group_confidence": 0.95,
+      "before_suggested": false,
+      "after_suggested": false,
+      "after_signals": [],
+      "after_response_note": null
+    },
+    {
+      "case_id": "trichechus_manatus_01",
+      "variant": "full_image",
+      "needs_new_photo": false,
+      "pooled_group_confidence": 1.0,
+      "before_suggested": false,
+      "after_suggested": false,
+      "after_signals": [],
+      "after_response_note": null
+    },
+    {
+      "case_id": "trichechus_manatus_01",
+      "variant": "selected_crop",
+      "needs_new_photo": true,
+      "pooled_group_confidence": 0.9,
+      "before_suggested": false,
+      "after_suggested": true,
+      "after_signals": [
+        {
+          "code": "photo_evidence_gap",
+          "label": "Clearer photo requested",
+          "confidence": null,
+          "reason": "Intake explicitly requests another photo; the available view needs review even if confidence is high."
+        }
+      ],
+      "after_response_note": "Review whether a clearer reporter photo, ground observation or drone evidence is appropriate before creating a request."
+    }
+  ]
+}

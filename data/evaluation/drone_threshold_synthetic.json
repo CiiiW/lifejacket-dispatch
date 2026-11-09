@@ -1,0 +1,243 @@
+{
+  "dataset_kind": "synthetic",
+  "description": "Hand-authored policy scenarios, not real animals or calibrated accuracy labels.",
+  "cases": [
+    {
+      "case_id": "uncertain_group",
+      "animal_event_id": "uncertain_group",
+      "split": "validation",
+      "verification_needed": true,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.62
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.98
+          }
+        }
+      }
+    },
+    {
+      "case_id": "uncertain_condition",
+      "animal_event_id": "uncertain_condition",
+      "split": "validation",
+      "verification_needed": true,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.98
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.58
+          }
+        }
+      }
+    },
+    {
+      "case_id": "confident",
+      "animal_event_id": "confident",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.98
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.98
+          }
+        }
+      }
+    },
+    {
+      "case_id": "borderline_group",
+      "animal_event_id": "borderline_group",
+      "split": "validation",
+      "verification_needed": true,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.89
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.98
+          }
+        }
+      }
+    },
+    {
+      "case_id": "borderline_condition",
+      "animal_event_id": "borderline_condition",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.98
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.91
+          }
+        }
+      }
+    },
+    {
+      "case_id": "same_group_species",
+      "animal_event_id": "same_group_species",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "candidates": [
+            {
+              "animal_group": "pinniped",
+              "confidence": 0.51
+            },
+            {
+              "animal_group": "pinniped",
+              "confidence": 0.44
+            }
+          ]
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.98
+          }
+        }
+      }
+    },
+    {
+      "case_id": "unidentified",
+      "animal_event_id": "unidentified",
+      "split": "validation",
+      "verification_needed": true,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "unknown"
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.98
+          }
+        }
+      }
+    },
+    {
+      "case_id": "missing_scores",
+      "animal_event_id": "missing_scores",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": null,
+        "assessment_json": null
+      }
+    },
+    {
+      "case_id": "urgent_uncertain",
+      "animal_event_id": "urgent_uncertain",
+      "split": "validation",
+      "verification_needed": true,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.98
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.6
+          }
+        },
+        "severity_level": "respond",
+        "entanglement_present": true
+      }
+    },
+    {
+      "case_id": "duplicate_report",
+      "animal_event_id": "duplicate_report",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.3
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.4
+          }
+        },
+        "duplicate_of": "another"
+      }
+    },
+    {
+      "case_id": "closed_report",
+      "animal_event_id": "closed_report",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 0.3
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": 0.4
+          }
+        },
+        "status": "resolved"
+      }
+    },
+    {
+      "case_id": "invalid_scores",
+      "animal_event_id": "invalid_scores",
+      "split": "validation",
+      "verification_needed": false,
+      "incident": {
+        "identification_json": {
+          "resolution": {
+            "rank": "group",
+            "animal_group": "pinniped",
+            "confidence": 1.4
+          }
+        },
+        "assessment_json": {
+          "injury": {
+            "confidence": "0.2"
+          }
+        }
+      }
+    }
+  ]
+}

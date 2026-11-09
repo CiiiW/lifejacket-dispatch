@@ -16,6 +16,9 @@ import {
   signOutOfNetwork,
 } from '../lib/networkAuth.web';
 import { NetworkLogin } from './NetworkLogin.web';
+import { CoordinatorAttention } from './CoordinatorAttention.web';
+import { MonitoringQueue } from './MonitoringQueue.web';
+import { DroneRequests } from './DroneRequests.web';
 import NetworkMapView from './NetworkMapView.web';
 import { CaseActions } from './CaseActions.web';
 
@@ -216,6 +219,9 @@ function SessionWorkspace({
   // quietly; only a new view clears the screen, so the map keeps its position.
   const loadedView = useRef<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [droneRequest, setDroneRequest] = useState<string|undefined>();
+  const [monitorRevision,setMonitorRevision]=useState(0);
+  const monitoringChanged=useCallback(()=>setMonitorRevision(v=>v+1),[]);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(true);
   const [refresh, setRefresh] = useState(0);
@@ -383,10 +389,12 @@ function SessionWorkspace({
               Access refreshes every 30 seconds and when you return to this tab.
             </small>
           </div>
-          <NetworkMapView
+          {api.drones && session.role !== 'noaa' && <CoordinatorAttention api={api.drones} revision={monitorRevision} onChange={monitoringChanged} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
+          {api.drones && session.role !== 'noaa' && <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
+                    <NetworkMapView
             rows={rows}
             selected={selected}
-            onSelect={setSelected}
+            onSelect={(caseId) => {setDroneRequest(undefined);setSelected(caseId);}}
             truncatedAt={truncatedAt}
             detail={
               selected ? (
@@ -394,6 +402,8 @@ function SessionWorkspace({
                   key={selected}
                   api={api}
                   id={selected}
+                  droneRequest={droneRequest}
+                  onMonitoringChange={monitoringChanged}
                   organizations={session.organizations}
                 />
               ) : null
@@ -408,11 +418,15 @@ function SessionWorkspace({
 function CaseDetail({
   api,
   id,
+  droneRequest,
+  onMonitoringChange,
   organizations,
 }: {
   api: NetworkApi;
   id: string;
   organizations: NetworkSession['organizations'];
+  droneRequest?:string;
+  onMonitoringChange?:()=>void;
 }) {
   const [row, setRow] = useState<NetworkCase | null>(null);
   const [error, setError] = useState('');
@@ -477,6 +491,7 @@ function CaseDetail({
         detail and media access is added.
       </p>
       <CaseActions api={api} id={id} />
+      {api.drones && <DroneRequests key={id} api={api.drones} id={id} initialRequestId={droneRequest} onMonitoringChange={onMonitoringChange}/>}
     </section>
   );
 }

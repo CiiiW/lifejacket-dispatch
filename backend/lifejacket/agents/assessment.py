@@ -149,7 +149,7 @@ class AssessmentAgent(Agent[AssessmentResult]):
         """
         injury = InjuryAssessment(
             injury_present=bool(data.get("injury_present")),
-            confidence=data.get("injury_confidence", 0.0),
+            confidence=data.get("injury_confidence"),
             wound=bool(data.get("wound")),
             bleeding=bool(data.get("bleeding")),
             entanglement=bool(data.get("entanglement")),

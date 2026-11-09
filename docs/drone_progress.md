@@ -1,6 +1,6 @@
 # Drone progress tracker
 
-Last updated: **2026-10-31** · Working branch: **charlotte-mini2-demo**
+Last updated: **2026-11-06** · Working branch: **charlotte-mini2-demo**
 
 ## Current scope and decisions
 
@@ -78,6 +78,117 @@ metrics have not yet been agreed; do not invent a pass threshold.
   Scripted tests check orchestration, not visual accuracy.
 
 ## Session log
+
+### 2026-11-07 — Close explicit photo-evidence gap
+- Added a qualitative verification suggestion for needs_new_photo=true at any confidence.
+- Updated coordinator copy to distinguish image adequacy from numeric confidence and show evidence-source choices.
+- Added strict-boolean, threshold-boundary, combined/urgent, eligibility, real saved-output and reviewed-creation regressions.
+- Bumped the suggestion policy to v3; the 90% numeric threshold and approval workflow are unchanged.
+- Validation: related API/workflow regressions, final suggestion tests, TypeScript, Ruff and browser draft/approval checks passed; the saved submerged-view replay now suggests verification.
+- No new inference calls, operational requests or flights.
+
+
+### 2026-11-07 — Four-case confident-disagreement audit
+- Verified all four source photo/observation associations and current source taxa.
+- Inspected three skull/remains views and one partly submerged view (non-expert, labels visible).
+- Ran fresh current-model full-image and detection/crop diagnostics with source labels/location withheld.
+- Recorded persistent full-image disagreements, misleading group-only crop matches and an unsurfaced new-photo request.
+- Kept threshold settings unchanged; no operational cases or expert medical labels were created.
+- Input-integrity regressions and Ruff passed; the source/crop preview was inspected in the browser.
+
+
+### 2026-11-07 — Retrospective real-photo analysis
+- Analyzed 102 saved original-photo identifications against the existing community-label/group manifest.
+- Replayed confidence suggestions on the live 40-photo condition pilot, separating assessed and target-selection cases.
+- Retained unknown/raw-missing confidence, checked live-run provenance and fingerprints, and prepared a blind review template.
+- Recorded group conflicts and threshold workload in docs/real_drone_validation_2026-11-07.md.
+- The 90% cutoff remains provisional. No expert condition or verification-needed labels, new model calls, training or operational cases.
+
+
+### 2026-11-07 — Double-check review
+- Fixed comparison image failures retaining previously loaded evidence: cancel pending loads, revoke preview URLs and clear the request panel.
+- Replaced the assumed earlier-observation label with a neutral comparison label.
+- Restricted held-out evaluation to one explicitly supplied test threshold; cutoff sweeps use validation data only.
+- Added regression checks for held-out isolation and comparison against another accessible case.
+- Validation: full backend suite passed (656 passed, 15 skipped), targeted regressions passed, TypeScript/Ruff passed, and browser access-revocation checks cleared all request images and findings.
+
+
+### 2026-11-07 — Attention, reminders, evidence comparison and threshold evaluation
+- Added an in-app attention inbox for escalations and overdue review reminders.
+- Added lead-only, revision-checked acknowledgment with notes and durable history.
+- Added case-scoped intake/observation comparison with authenticated evidence images.
+- Added an offline threshold sweep, twelve synthetic scenarios and labeled-data validation.
+- The 90% threshold remains provisional; no real-world labels or external notification channel were available.
+- Validation: focused API/evaluation regressions, TypeScript, Ruff, and browser acknowledgment/reminder/image checks passed.
+- No production deployment, external messages or aircraft commands.
+
+
+### 2026-11-07 — Monitoring follow-through
+- Added a permissioned due/overdue queue, local-time display and case/request navigation.
+- Added audited continue, escalate and finish decisions after a terminal observation.
+- Continue creates a linked request awaiting approval; decisions do not alter rescue status.
+- Added API regressions and a synthetic overdue-monitoring browser fixture.
+- Validation: monitoring + existing drone/suggestion/connected API regressions passed; TypeScript, Ruff and browser continue/escalate checks passed.
+- No production deployment or aircraft commands.
+
+
+### 2026-11-06 — Connected reporter-to-drone backend scenario
+
+- Extended the isolated connected runner with an opt-in drone phase, using actual request,
+  evidence, membership and reporter routes against the same submitted case/database.
+- Prepared low-confidence intake and a generated frame are explicit fixture boundaries.
+  No live model, SMS, physical flight or public API server.
+- Standalone run passed 68 API checks: creation/approval, evidence upload/download,
+  byte integrity, stale/unauthorized writes, same-case reassessment and source preservation.
+- Confirmed sample review does not advance rescue status or consume operational uncertainty.
+- Regression selection: 55 passed; final connected-only rerun passed after report image correction.
+  Changed Python lint and browser report/image checks passed.
+- Temporary DB/evidence cleanup and inherited-storage sentinels verified.
+- Report: var/connected-drone-workflow/latest.html.
+  Details: [connected drone scenario](connected_drone_scenario.md). Not pushed or deployed.
+
+
+### 2026-11-06 — Fixed three review findings
+
+- Recorded-demo and operator-flight requests use separate creation keys. Demo creation/cancellation
+  never consumes operational suggestions; both modes can coexist in either creation order.
+- Explicit unidentified/retake evidence gaps generate qualitative suggestions with unknown group confidence.
+- Missing condition confidence stays null through agent parsing, serialization and persistence;
+  the case panel displays Unknown while explicit zero remains a low-confidence score.
+- Added permanent regression coverage for all three review reproductions and the old-key compatibility case.
+- Browser verified cancelled-demo suggestions, unknown condition display and unidentified-animal suggestions.
+- Final focused suite: 53 passed. Full backend: 620 passed, 15 skipped.
+  TypeScript, lint, fixture build and 13 transport checks passed. Not pushed or deployed.
+
+
+### 2026-11-06 — Automatic low-confidence request suggestions
+
+- Added provisional 0.90 suggestion threshold, separately configurable from intake stopping.
+- Uses pooled animal-group probabilities and explicit condition confidence. Species ambiguity within a
+  confident group, missing scores, incomplete/closed/duplicate cases do not generate suggestions.
+- Suggestions open editable coordinator drafts; no automatic request creation or flight approval.
+- Rechecks evidence at submission, saves the confidence snapshot, suppresses active verification duplicates
+  and prevents unchanged evidence repeatedly triggering handled suggestions.
+- Browser checks covered low group, low condition, confident broader group, missing scores and urgent review;
+  review-to-request remained separate from approval.
+- Validation: 69 backend regression checks passed; final suggestion suite 34 passed.
+  TypeScript/lint, fixture build and 13 transport checks passed.
+- Not pushed or deployed. Ready for Charlotte's workflow review.
+
+
+### 2026-11-06 — Case-linked verification and monitoring requests
+
+- Purchased hardware: original DJI Mini 2. Physical flight/camera integration remains unverified.
+- Added case-linked requests, lead-coordinator approval, recorded-demo/operator-flight distinction,
+  evidence attachment, explicit review outcomes and optional follow-up review times.
+- Request/evidence events retain identity, source metadata and revisions; case intake and rescue status are preserved.
+- Based on fetched main 3a323e9 plus existing local 9baad25 case-access dependency, in isolated
+  /home/jupyter/lifejacket-case-drone on charlotte-case-drone-requests.
+- Validation: full backend run 579 passed / 15 skipped; final focused drone suite 13 passed.
+  TypeScript, lint and browser fictional monitoring lifecycle passed. No actual NOAA footage or flight was used.
+- Automatic confidence suggestions, recurring monitoring/notifications and live flight integration remain open.
+  Feature defaults off; not deployed. See [case request workflow](case_drone_requests.md).
+
 
 ### 2026-11-01 (Chicago) — Google provider configured; IAM administrator needed
 

@@ -205,3 +205,80 @@ test('response mutation sends explicit confirmation and revision once, with mana
   assert.equal(requests[2][1].headers['X-LifeJacket-Organization'], 'A');
   assert.throws(() => api.changeResponse('case_1', -1, 'accepted', null));
 });
+
+test('drone request writes carry managed auth, revisions and multipart evidence', async () => {
+  const requests = [];
+  const api = createNetworkApi('https://example.org', person, 'center_A',
+    async (url, options) => { requests.push({url,options}); return json({}); });
+  await api.drones.create('case_1', {purpose:'verification',request_key:'one'});
+  await api.drones.change('case_1','request_1',{revision:3,status:'approved',confirmed:true});
+  const evidence = new FormData();
+  evidence.set('metadata', JSON.stringify({revision:4}));
+  evidence.set('photo',new Blob(['synthetic'],{type:'image/png'}),'frame.png');
+  await api.drones.upload('case_1','request_1',evidence);
+  assert.deepEqual(requests.map(x=>x.options.method),['POST','PATCH','POST']);
+  assert.equal(requests[2].options.body,evidence);
+  assert.equal(requests[2].options.headers['Content-Type'],undefined);
+  for (const {options} of requests) {
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'center_A');
+  }
+  assert.equal(JSON.parse(requests[1].options.body).revision,3);
+});
+test('drone evidence fetch keeps authorization on the image request', async () => {
+  let sent;
+  const api=createNetworkApi('https://example.org',person,'center_A',async(url,options)=>{
+    sent={url,options}; return new Response(new Blob(['image']));
+  });
+  const image=await api.drones.photo('case_1','request_1','evidence_1');
+  assert.equal(await image.text(),'image');
+  assert.equal(sent.options.method,'GET');
+  assert.equal(sent.options.headers.Authorization,'Bearer fictional-managed-token');
+  assert.equal(sent.options.cache,'no-store');
+});
+
+
+test('stream actions stay on the same case and use managed headers without putting publish keys in URLs',async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return json({});
+  }).drones;
+  await api.streams('case_1','request_1');
+  await api.openStream('case_1','request_1',{revision:3,label:'Rehearsal'});
+  await api.streamPreview('case_1','request_1','stream_1');
+  await api.captureStream('case_1','request_1','stream_1',{revision:4,frame_id:'exact-frame',description:'Review'});
+  await api.endStream('case_1','request_1','stream_1',{revision:5});
+  const base='https://example.org/network/cases/case_1/drone-requests/request_1/streams';
+  assert.deepEqual(calls.map(c=>[c.url,c.options.method]),[
+    [base,'GET'],[base,'POST'],[base+'/stream_1/preview','GET'],
+    [base+'/stream_1/capture','POST'],[base+'/stream_1/end','POST']]);
+  for(const call of calls){
+    assert.equal(call.options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(call.options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(call.options.cache,'no-store');
+  }
+  assert.equal(JSON.parse(calls[3].options.body).frame_id,'exact-frame');
+  assert.throws(()=>api.streamPreview('case_1','request_1','../other'));
+});
+
+
+test('saved-frame analysis and reminder retries carry case-scoped managed authorization',async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return json({});
+  }).drones;
+  await api.frameAnalyses('case_1','request_1');
+  await api.queueFrameAnalysis('case_1','request_1','evidence_1',{revision:4,confirmed:true,stage:'detect',request_key:'one'});
+  await api.reminderStatus('case_1','request_1');
+  await api.retryReminder('case_1','request_1',{revision:5,confirmed:true,notification_id:'a'.repeat(64)});
+  const base='https://example.org/network/cases/case_1/drone-requests/request_1';
+  assert.deepEqual(calls.map(c=>[c.url,c.options.method]),[[base+'/analysis','GET'],
+    [base+'/evidence/evidence_1/analysis','POST'],[base+'/reminders','GET'],[base+'/reminders/retry','POST']]);
+  for(const {options} of calls){
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(options.cache,'no-store');
+  }
+  assert.equal(JSON.parse(calls[1].options.body).confirmed,true);
+  assert.throws(()=>api.queueFrameAnalysis('case_1','request_1','../other',{}));
+});
