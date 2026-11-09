@@ -135,7 +135,7 @@ def prepare_video(
                 "-dn",
                 "-vf",
                 filters,
-                "-vsync",
+                "-fps_mode",
                 "vfr",
                 "-frames:v",
                 str(max_frames),
