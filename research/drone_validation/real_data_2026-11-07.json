@@ -1,0 +1,326 @@
+{
+  "analysis_type": "retrospective_development_data",
+  "threshold_is_validated": false,
+  "configuration_changed": false,
+  "policy_source_sha256": "94ede0553d1b3cc69e993260a3f906690024bd71f4a4f2507fd52710f8e16dca",
+  "identification": {
+    "saved_run_metadata": {
+      "model": "gemini-2.5-flash",
+      "started": "2026-10-05T17:26:08",
+      "location_context_used": true,
+      "uncommitted_source_at_run": true
+    },
+    "sample_n": 102,
+    "prediction_errors": 0,
+    "reference_type": "iNaturalist community labels, not independent expert adjudication",
+    "known_reference_n": 102,
+    "pooled_group_agreement_count": 97,
+    "missing_or_tied_prediction_n": 1,
+    "per_group": [
+      {
+        "group": "cetacean",
+        "n": 32,
+        "agreement_count": 32
+      },
+      {
+        "group": "domestic_animal",
+        "n": 3,
+        "agreement_count": 3
+      },
+      {
+        "group": "other_marine",
+        "n": 9,
+        "agreement_count": 7
+      },
+      {
+        "group": "pinniped",
+        "n": 29,
+        "agreement_count": 27
+      },
+      {
+        "group": "sea_turtle",
+        "n": 11,
+        "agreement_count": 10
+      },
+      {
+        "group": "seabird",
+        "n": 12,
+        "agreement_count": 12
+      },
+      {
+        "group": "terrestrial",
+        "n": 6,
+        "agreement_count": 6
+      }
+    ],
+    "confidence_sweep": [
+      {
+        "threshold": 0.5,
+        "high_confidence_count": 101,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 0,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.6,
+        "high_confidence_count": 101,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 0,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.7,
+        "high_confidence_count": 101,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 0,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.8,
+        "high_confidence_count": 101,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 0,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.85,
+        "high_confidence_count": 100,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 1,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.9,
+        "high_confidence_count": 100,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 1,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.95,
+        "high_confidence_count": 89,
+        "high_confidence_disagreements": 4,
+        "low_confidence_count": 12,
+        "low_confidence_disagreements": 0,
+        "unknown_confidence_count": 1
+      },
+      {
+        "threshold": 0.99,
+        "high_confidence_count": 41,
+        "high_confidence_disagreements": 0,
+        "low_confidence_count": 60,
+        "low_confidence_disagreements": 4,
+        "unknown_confidence_count": 1
+      }
+    ],
+    "source_sha256": {
+      "manifest": "2043da1b36655ccea834c5b656670e517a57a7990383c05c2856cec5024a2ef8",
+      "predictions": "0215fe9f378dfb4910861ba936911e98a29564663270e8d499ed1bf5f126d49a"
+    },
+    "disagreements": [
+      {
+        "case_id": "eumetopias_jubatus_02",
+        "reference_group": "pinniped",
+        "predicted_group": "terrestrial",
+        "group_confidence": 0.95,
+        "group_agrees": false,
+        "reference_species": "Eumetopias jubatus",
+        "source_url": "https://www.inaturalist.org/observations/264136175"
+      },
+      {
+        "case_id": "odobenus_rosmarus_01",
+        "reference_group": "pinniped",
+        "predicted_group": "cetacean",
+        "group_confidence": 0.98,
+        "group_agrees": false,
+        "reference_species": "Odobenus rosmarus",
+        "source_url": "https://www.inaturalist.org/observations/6659273"
+      },
+      {
+        "case_id": "lepidochelys_kempii_01",
+        "reference_group": "sea_turtle",
+        "predicted_group": null,
+        "group_confidence": null,
+        "group_agrees": false,
+        "reference_species": "Lepidochelys kempii",
+        "source_url": "https://www.inaturalist.org/observations/153735396"
+      },
+      {
+        "case_id": "enhydra_lutris_02",
+        "reference_group": "other_marine",
+        "predicted_group": "pinniped",
+        "group_confidence": 0.95,
+        "group_agrees": false,
+        "reference_species": "Enhydra lutris",
+        "source_url": "https://www.inaturalist.org/observations/127403691"
+      },
+      {
+        "case_id": "trichechus_manatus_01",
+        "reference_group": "other_marine",
+        "predicted_group": "terrestrial",
+        "group_confidence": 0.98,
+        "group_agrees": false,
+        "reference_species": "Trichechus manatus",
+        "source_url": "https://www.inaturalist.org/observations/37589411"
+      }
+    ]
+  },
+  "condition": {
+    "sample_n": 40,
+    "current_predictions_n": 40,
+    "assessed_n": 38,
+    "condition_confidence_audit": {},
+    "status_counts": {
+      "selection_required": 2,
+      "completed": 38
+    },
+    "saved_review_file_count": 0,
+    "expert_labels_available_in_run_metadata": false,
+    "model": "gemini-2.5-flash",
+    "run_id": "82cebed1b3e44e4c8b2352b22be595f9",
+    "model_run_created_at": "2026-10-23T04:56:11.128887+00:00",
+    "manifest_sha256": "143b6b60d8ecb413db438145b3b81d2561863bb21d14737fcb32bc359dc34b12",
+    "run_sha256": "5d9e47fda78237f785928c8c55d47567339475abf451d9a878fcab1fc25f172b",
+    "prediction_files_sha256": {
+      "inat_101291305_169148756.json": "b112093b4fada9534728bd1e616966f0d38dd8d9a41b6b74f76be932224393af",
+      "inat_103168446_172610619.json": "49891164435d1ea0c05111bbdb6a5daa328e7dd8ecebbc3130f37cb48de9b14f",
+      "inat_110150331_185766991.json": "c5330520693b55401064d97765c4407b2e887997947c2795cb98a303e5242fcc",
+      "inat_126823336_215229037.json": "a0a5e504e7f8b3c4cb65e3cd6fce351d86d98c9549889ca91a5d32f2bdacee3f",
+      "inat_127403691_216290669.json": "65632dff59b4cf612befb45783ba75cbbb1eb0fd32717a5a6dcaaeb308722e23",
+      "inat_162797980_281522063.json": "17518328440d93228ede42d10c6f39e4a2665d54c3e9239621466921979f8109",
+      "inat_176993443_307767936.json": "bc2e14ecf7eba3e1df14b1a657cab14c5bba2846092f649bae60df1121ffa9d7",
+      "inat_180366251_314166513.json": "346c1bcebdd4b91b506421037654e2f9f01163e0055ad7f59306a708eac4b05f",
+      "inat_180367312_314168186.json": "d5e4cd1114706bad5af7ceb224d1b2b6a9e52e573c4b691bab43fea5c8ae5099",
+      "inat_190430764_333825187.json": "fcd61d6c50f63a33436abafc7617fc23b753fdd7bb5658a9cbf84b68621eb944",
+      "inat_196736425_346323475.json": "b5eee75f0eae82f185b202aadf3ae0e4d5ee860ce183ae0eea5b88c7304b6742",
+      "inat_198002382_348881314.json": "10a85353bd1aef78b6aceccf9dbabfece29c27da6ebbc372a3f0a42daf638da0",
+      "inat_205518034_363404117.json": "0915ca39c3b85c5719ccccdaf57587d6e429a18781630a860b0f42e328bb1eaa",
+      "inat_205784490_363901325.json": "51f3525cf90a546409f972e99b0c4957fa4a474738bda43dfbf6204010e8cdc4",
+      "inat_221581390_421041754.json": "e0325d49a2f96ef8066ed0a40c076b4d9ebeb5a4c492786d525d83f0994766a4",
+      "inat_230995983_410213663.json": "ba17aded1d66eb70d254df8fbe9659d0270ea490979c1bdb646e2244df756db4",
+      "inat_233220654_414451145.json": "a4359f442411850ea12436ee9470a39277fcf9a61d6c635451aae77a3e37a76a",
+      "inat_233922799_415784797.json": "e09170f779fb26ceabfac032456daf445c83bc53437a3371713e1f68bbc7e2c8",
+      "inat_234780557_417440977.json": "625d039177b6938de834eb19aa6c8b71fdcd03abffe99a4a403017a5d4dc7f32",
+      "inat_247578239_442207184.json": "3d57ed65173b2cf2f63aea6b5d76a0de05fcdf2d5f4ea646bdde2d73fa374328",
+      "inat_255845218_458584782.json": "117a709932947f2f6ae8e2ed98b51d6153f959eb08c00aeaf0859ad77e6ef40e",
+      "inat_28063435_43720045.json": "95fdc54a9c24754f4c5f34a617a6c8900727592aca7686b30480eeb310f9811a",
+      "inat_292215071_525836011.json": "27a9b09504e95f1a9821223766c6c4a46db2dffa70baa398e8407121e6e503d8",
+      "inat_296110943_533144902.json": "a50ef0bf39b402d5a9bc5003647c397174134a70d762f164528dff57034e1864",
+      "inat_306578_380377.json": "c4eadb74483e768a8780da2ce8652b26f5b4de6385c447b7d6758fce6c052eae",
+      "inat_309100673_557736797.json": "2656f8a19d92c1b14024c03eee68e03227bb715466182489dc19de326dc5c0e8",
+      "inat_310948216_561260626.json": "506a7953cdeef051c7d8c5878fdccab55f8b1b7c368ac3d1164d48b6607e36aa",
+      "inat_313795816_566707767.json": "027e688779ae6c7c1b03bcfbedbbd4f748d5c818b54dc85e845af118762c7db4",
+      "inat_330935571_600222362.json": "dcc7bf528a5166464a5715334feb85906ebc0b05f009765a5f39e3d2270ee335",
+      "inat_387081105_708774713.json": "c5bc19842a557ba5b7d038f786ca06e81900eb778bfdd6c1333c633f128aedbf",
+      "inat_399410642_732993102.json": "5b2a2bed350bccc58c9d59478869660248de26e932e7bd91abc7b16a360b179c",
+      "inat_405333742_744494447.json": "98aea2674f06c814c2882e885666f038363c2fa6f41c7358b881561d7b0660a0",
+      "inat_405967324_745763757.json": "ef4fbeb81d153bcdae04170d01d68289a9b4ed0f052744d012e5fd0ca9f1d177",
+      "inat_407384038_748622249.json": "2cc931baf32d773f8911fe1f088875b484dd71913d548f5f668af78e2c378878",
+      "inat_408547239_751007184.json": "946bfc88cd001cad9a9bb72ba112ac4da71eea49a4244fc63fca3aaa55cf2bfe",
+      "inat_4093476_4859825.json": "1749efc555dc7272df8faf7971926ac5ed1824efd04c1ab160a3c85a6d5f45b5",
+      "inat_46063755_73062609.json": "2b23b4d656a7ffd8ade0bc99c4d25961dba661368034d1e7ac011663d8ce0be5",
+      "inat_613969_773853.json": "ce19597432c5114ed480c004eff893ca62652639ba9a3cf64ce14d0aa406e829",
+      "inat_66282025_106815920.json": "e7beede6deb41387467d83076e12376aed6ea81c6e487361af2eaf69acba715a",
+      "inat_9160059_12387913.json": "c415efcbe87957e830398c6927d78e4f2694612f373cb6486d11a3a6288e6b99"
+    },
+    "policy_replay_sweep": [
+      {
+        "threshold": 0.5,
+        "assessed_n": 38,
+        "suggestion_count": 5,
+        "urgent_parallel_count": 0,
+        "signal_counts": {
+          "condition_uncertain": 5
+        }
+      },
+      {
+        "threshold": 0.6,
+        "assessed_n": 38,
+        "suggestion_count": 8,
+        "urgent_parallel_count": 0,
+        "signal_counts": {
+          "animal_group_uncertain": 1,
+          "condition_uncertain": 8
+        }
+      },
+      {
+        "threshold": 0.7,
+        "assessed_n": 38,
+        "suggestion_count": 11,
+        "urgent_parallel_count": 1,
+        "signal_counts": {
+          "animal_group_uncertain": 1,
+          "condition_uncertain": 11
+        }
+      },
+      {
+        "threshold": 0.8,
+        "assessed_n": 38,
+        "suggestion_count": 17,
+        "urgent_parallel_count": 4,
+        "signal_counts": {
+          "condition_uncertain": 17,
+          "animal_group_uncertain": 1
+        }
+      },
+      {
+        "threshold": 0.85,
+        "assessed_n": 38,
+        "suggestion_count": 24,
+        "urgent_parallel_count": 6,
+        "signal_counts": {
+          "condition_uncertain": 24,
+          "animal_group_uncertain": 1
+        }
+      },
+      {
+        "threshold": 0.9,
+        "assessed_n": 38,
+        "suggestion_count": 24,
+        "urgent_parallel_count": 6,
+        "signal_counts": {
+          "condition_uncertain": 24,
+          "animal_group_uncertain": 1
+        }
+      },
+      {
+        "threshold": 0.95,
+        "assessed_n": 38,
+        "suggestion_count": 33,
+        "urgent_parallel_count": 10,
+        "signal_counts": {
+          "condition_uncertain": 31,
+          "animal_group_uncertain": 6
+        }
+      },
+      {
+        "threshold": 0.99,
+        "assessed_n": 38,
+        "suggestion_count": 35,
+        "urgent_parallel_count": 12,
+        "signal_counts": {
+          "condition_uncertain": 32,
+          "animal_group_uncertain": 21
+        }
+      }
+    ],
+    "clinical_accuracy": null,
+    "verification_request_precision": null
+  },
+  "limitations": [
+    "Convenience development samples; not independent hold-out or aerial validation.",
+    "Identification run includes location context; condition run uses pixels only.",
+    "Animal-group agreement does not label whether a drone observation would help.",
+    "No expert condition or verification-needed labels; no clinical accuracy estimate.",
+    "Saved historical model outputs; current model and prompt quality are not retested.",
+    "A policy suggestion is neither flight feasibility nor dispatch authorization.",
+    "Condition replay uses a constructed eligible workflow state; creates no real cases."
+  ],
+  "development_sample_overlap_observations": 4
+}

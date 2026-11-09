@@ -32,6 +32,15 @@ class NetworkBoundaryMiddleware(BaseHTTPMiddleware):
                 and re.fullmatch(r"/network/cases/[A-Za-z0-9_-]{1,40}/response", path)
             ):
                 safe = True
+            if (
+                settings.case_drone_requests_enabled
+                and request.method in {"POST", "PATCH"}
+                and re.fullmatch(
+                    r"/network/cases/[A-Za-z0-9_-]{1,40}/drone-requests(?:/[a-f0-9]{32}(?:/(?:evidence(?:/[a-f0-9]{32}/analysis)?|monitoring|attention|reminders/retry|streams|streams/[a-f0-9]{32}/(?:capture|end)))?)?",
+                    path,
+                )
+            ):
+                safe = True
             # OPTIONS carries no case payload; the CORS layer validates the origin.
             if request.method != "OPTIONS" and not safe:
                 return JSONResponse(

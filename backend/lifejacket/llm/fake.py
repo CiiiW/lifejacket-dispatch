@@ -130,6 +130,8 @@ def agent_for_schema(schema: dict[str, Any]) -> str:
     properties = schema.get("properties", {})
     if "animals" in properties:
         return "detection"
+    if "animal_visible" in properties:
+        return "frame_observation"
     if "coordination_action" in properties:
         return "coordination"
     if "species_distinguishable" in properties:

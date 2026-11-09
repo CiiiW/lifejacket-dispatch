@@ -35,10 +35,16 @@ if (values.install) {
       absWorkingDir: client,
       entryPoints: [join(client, 'tests', entry)],
       bundle: true, outfile: join(directory, 'app.js'), platform: 'browser',
-      define: { 'process.env': '{}' }, jsx: 'automatic',
+      // The console's map uses react-native components, which need their web build here.
+      alias: { 'react-native': 'react-native-web' },
+      define: { 'process.env': '{}', __DEV__: 'false' }, jsx: 'automatic',
       nodePaths: [join(client, 'node_modules')],
     });
-    await writeFile(join(directory, 'index.html'), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>LifeJacket fictional ${name} demo</title></head><body style="margin:0"><div id="root"></div><script src="./app.js"></script></body></html>`);
+    // OpenStreetMap refuses tile requests that carry no Referer, so only the console
+    // (which draws a map) sends its origin; the reporter demo keeps no-referrer.
+    // Bundled CSS (the map library's) is emitted next to app.js and must be linked.
+    const css = await access(join(directory, 'app.css')).then(() => '<link rel="stylesheet" href="./app.css">', () => '');
+    await writeFile(join(directory, 'index.html'), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="${name === 'console' ? 'origin' : 'no-referrer'}">${css}<title>LifeJacket fictional ${name} demo</title></head><body style="margin:0"><div id="root"></div><script src="./app.js"></script></body></html>`);
   }
   if (values.check) {
     console.log('Both fictional demos built successfully. No GCP credentials or backend needed.');
@@ -49,6 +55,7 @@ if (values.install) {
     for (const name of Object.keys(clients)) {
       routes.set(`/${name}/`, ['text/html; charset=utf-8', await readFile(join(output, name, 'index.html'))]);
       routes.set(`/${name}/app.js`, ['text/javascript; charset=utf-8', await readFile(join(output, name, 'app.js'))]);
+      try { routes.set(`/${name}/app.css`, ['text/css; charset=utf-8', await readFile(join(output, name, 'app.css'))]); } catch {}
     }
     let connected;
     try { connected = await readFile(join(root, 'var', 'connected-workflow', 'latest.html')); }
@@ -60,7 +67,7 @@ if (values.install) {
     const server = createServer((request, response) => {
       response.setHeader('Cache-Control', 'no-store');
       response.setHeader('X-Content-Type-Options', 'nosniff');
-      response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
+      response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://tile.openstreetmap.org; connect-src https://tile.openstreetmap.org; worker-src blob:; child-src blob:; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
       if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405, { Allow: 'GET, HEAD' }); response.end(); return; }
       const path = new URL(request.url, 'http://localhost').pathname;
       if (path === '/console' || path === '/reporter' || path === '/connected') { response.writeHead(303, { Location: `.${path}/` }); response.end(); return; }

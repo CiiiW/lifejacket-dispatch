@@ -1,0 +1,902 @@
+{
+  "mode": "live",
+  "started_at": "2026-11-07T22:05:58.352500+00:00",
+  "model": "gemini-2.5-flash",
+  "git_commit": "1451284fbabc4ab9c54a220c896c0be1ef765dc6",
+  "source_sha256": {
+    "prompts/system_principles.md": "c35e11828ee58b94d4cd06598733a28b0e092dba65f93e3b26fab2ad56c44871",
+    "prompts/identification/identify_species.md": "08d9ec72a07239efd87a7427557eb14c93bdb92667aa6a878c1cc729a030b5c6",
+    "prompts/identification/detect_animals.md": "947a75485e6268e64fadeaacc225e9fa8ce1ce9aaf499f330633e50dd45d9264",
+    "backend/lifejacket/agents/identification.py": "239f35caaadc6b10c60b802de403245ea3b4caefc8268ae4dc00a896232fb87c",
+    "backend/lifejacket/agents/detection.py": "638c22614f46d9547cb25e28d1ddf13cb6544280214f4459caf59db6a2506fae",
+    "backend/lifejacket/llm/client.py": "3a2ea229c6330a622018f38c1bb0190e3ebd5fdb6f0e115d29093a96147de62a",
+    "backend/lifejacket/models/schemas.py": "04b55501ba2953b8f5e8a2b632696e158f99c7fc7c9d6ddc94e0e4a80820db2d",
+    "backend/lifejacket/taxonomy.py": "7a493ab994ed61eddb1db39d46a76903d7af6cf71292fb5b618c4330b18db059",
+    "scripts/review_confident_cases.py": "f53468cca4f9f0477a7d9c197135e93c0297cea05283afed085df049fcceb8fa"
+  },
+  "input_policy": "EXIF removed; opaque image IDs; no species, source text or location supplied.",
+  "selection_policy": "Use only a sole detector target. Zero/multiple detections remain unresolved.",
+  "source_photos_have_october_hashes": false,
+  "independent_holdout": false,
+  "expert_review": false,
+  "cases": [
+    {
+      "case_id": "eumetopias_jubatus_02",
+      "prepared_sha256": "9e40101ac29bf7195b03da8eb4f378efaac9fb8f3250487ef2c68d26fe8043b8",
+      "original_sha256": "4633f8fe6088cec63f0120ac68421e361dd259bf6cf399465f5db4fc31f2d102",
+      "reference_group": "pinniped",
+      "full_image": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "Polar bear",
+              "scientific_name": "Ursus maritimus",
+              "confidence": 0.6,
+              "animal_group": "terrestrial",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears"
+            },
+            {
+              "common_name": "Brown bear",
+              "scientific_name": "Ursus arctos",
+              "confidence": 0.35,
+              "animal_group": "terrestrial",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears"
+            }
+          ],
+          "resolution": {
+            "rank": "genus",
+            "name": "Bears",
+            "scientific_name": "Ursus",
+            "confidence": 0.95,
+            "animal_group": "terrestrial",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "Polar bear",
+                "scientific_name": "Ursus maritimus",
+                "confidence": 0.6,
+                "animal_group": "terrestrial",
+                "genus": "Ursus",
+                "genus_common_name": "bears",
+                "family": "Ursidae",
+                "family_common_name": "bears"
+              },
+              {
+                "common_name": "Brown bear",
+                "scientific_name": "Ursus arctos",
+                "confidence": 0.35,
+                "animal_group": "terrestrial",
+                "genus": "Ursus",
+                "genus_common_name": "bears",
+                "family": "Ursidae",
+                "family_common_name": "bears"
+              }
+            ]
+          },
+          "next_question": null,
+          "species_distinguishable": false,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "Large, robust skull with prominent canines and an elongated snout, consistent with a large bear species."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "Polar bear",
+              "scientific_name": "Ursus maritimus",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears",
+              "confidence": 0.6,
+              "animal_group": "terrestrial"
+            },
+            {
+              "common_name": "Brown bear",
+              "scientific_name": "Ursus arctos",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears",
+              "confidence": 0.35,
+              "animal_group": "terrestrial"
+            }
+          ],
+          "species_distinguishable": false,
+          "reasoning": "Large, robust skull with prominent canines and an elongated snout, consistent with a large bear species.",
+          "needs_new_photo": false,
+          "photo_quality_note": "",
+          "next_question": "",
+          "next_question_rationale": "",
+          "next_question_options": [],
+          "next_question_feature": ""
+        },
+        "metrics": {
+          "identification_latency_seconds": 8.9,
+          "identification_prompt_tokens": 4153,
+          "identification_output_tokens": 296,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "terrestrial",
+        "pooled_group_confidence": 0.95,
+        "top_species": "Ursus maritimus",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "detection": {
+        "animals": []
+      },
+      "detection_metrics": {
+        "detection_latency_seconds": 3.41,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "crop_status": "no_detection",
+      "assistant_visual_review": {
+        "view_description": "Skull/jaw on stones with a person nearby; remains-only view.",
+        "reviewer_type": "AI assistant, non-expert visual audit",
+        "source_and_previous_model_labels_seen": true,
+        "independent_or_clinical_ground_truth": false
+      }
+    },
+    {
+      "case_id": "odobenus_rosmarus_01",
+      "prepared_sha256": "37f057696081d61798beb7cfe58890426a6ccf81e706b6e1c9a323a6b5f1efaa",
+      "original_sha256": "5e1dea15ed11762a74d8b3f8a63aeb943cb32a93726372a1548ee4f484bfa309",
+      "reference_group": "pinniped",
+      "full_image": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "Gray Whale",
+              "scientific_name": "Eschrichtius robustus",
+              "confidence": 0.5,
+              "animal_group": "cetacean",
+              "genus": "Eschrichtius",
+              "genus_common_name": "Gray Whale",
+              "family": "Eschrichtiidae",
+              "family_common_name": "Gray Whales"
+            },
+            {
+              "common_name": "Humpback Whale",
+              "scientific_name": "Megaptera novaeangliae",
+              "confidence": 0.3,
+              "animal_group": "cetacean",
+              "genus": "Megaptera",
+              "genus_common_name": "Humpback Whale",
+              "family": "Balaenopteridae",
+              "family_common_name": "Rorquals"
+            },
+            {
+              "common_name": "Minke Whale",
+              "scientific_name": "Balaenoptera acutorostrata",
+              "confidence": 0.1,
+              "animal_group": "cetacean",
+              "genus": "Balaenoptera",
+              "genus_common_name": "Rorquals",
+              "family": "Balaenopteridae",
+              "family_common_name": "Rorquals"
+            }
+          ],
+          "resolution": {
+            "rank": "group",
+            "name": "Whale, dolphin, or porpoise",
+            "scientific_name": null,
+            "confidence": 0.9,
+            "animal_group": "cetacean",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "Gray Whale",
+                "scientific_name": "Eschrichtius robustus",
+                "confidence": 0.5,
+                "animal_group": "cetacean",
+                "genus": "Eschrichtius",
+                "genus_common_name": "Gray Whale",
+                "family": "Eschrichtiidae",
+                "family_common_name": "Gray Whales"
+              },
+              {
+                "common_name": "Humpback Whale",
+                "scientific_name": "Megaptera novaeangliae",
+                "confidence": 0.3,
+                "animal_group": "cetacean",
+                "genus": "Megaptera",
+                "genus_common_name": "Humpback Whale",
+                "family": "Balaenopteridae",
+                "family_common_name": "Rorquals"
+              },
+              {
+                "common_name": "Minke Whale",
+                "scientific_name": "Balaenoptera acutorostrata",
+                "confidence": 0.1,
+                "animal_group": "cetacean",
+                "genus": "Balaenoptera",
+                "genus_common_name": "Rorquals",
+                "family": "Balaenopteridae",
+                "family_common_name": "Rorquals"
+              }
+            ]
+          },
+          "next_question": null,
+          "species_distinguishable": false,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "The image shows a large, weathered skull with a broad cranium and no visible teeth or tooth sockets, consistent with a baleen whale."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "Gray Whale",
+              "scientific_name": "Eschrichtius robustus",
+              "genus": "Eschrichtius",
+              "genus_common_name": "Gray Whale",
+              "family": "Eschrichtiidae",
+              "family_common_name": "Gray Whales",
+              "confidence": 0.5,
+              "animal_group": "cetacean"
+            },
+            {
+              "common_name": "Humpback Whale",
+              "scientific_name": "Megaptera novaeangliae",
+              "genus": "Megaptera",
+              "genus_common_name": "Humpback Whale",
+              "family": "Balaenopteridae",
+              "family_common_name": "Rorquals",
+              "confidence": 0.3,
+              "animal_group": "cetacean"
+            },
+            {
+              "common_name": "Minke Whale",
+              "scientific_name": "Balaenoptera acutorostrata",
+              "genus": "Balaenoptera",
+              "genus_common_name": "Rorquals",
+              "family": "Balaenopteridae",
+              "family_common_name": "Rorquals",
+              "confidence": 0.1,
+              "animal_group": "cetacean"
+            }
+          ],
+          "species_distinguishable": false,
+          "reasoning": "The image shows a large, weathered skull with a broad cranium and no visible teeth or tooth sockets, consistent with a baleen whale.",
+          "needs_new_photo": false,
+          "photo_quality_note": "",
+          "next_question": "",
+          "next_question_rationale": "",
+          "next_question_options": [],
+          "next_question_feature": ""
+        },
+        "metrics": {
+          "identification_latency_seconds": 11.89,
+          "identification_prompt_tokens": 4153,
+          "identification_output_tokens": 440,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "cetacean",
+        "pooled_group_confidence": 0.9,
+        "top_species": "Eschrichtius robustus",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "detection": {
+        "animals": []
+      },
+      "detection_metrics": {
+        "detection_latency_seconds": 2.17,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 5,
+        "detection_attempts": 1
+      },
+      "crop_status": "no_detection",
+      "assistant_visual_review": {
+        "view_description": "Weathered skull on the ground; remains-only view.",
+        "reviewer_type": "AI assistant, non-expert visual audit",
+        "source_and_previous_model_labels_seen": true,
+        "independent_or_clinical_ground_truth": false
+      }
+    },
+    {
+      "case_id": "enhydra_lutris_02",
+      "prepared_sha256": "9f11235606cfbc3e0ed23941776d1c6e00d9313d0555d50965e3ae0ffcd48546",
+      "original_sha256": "ded4b71780a23b8c0e21ee9c8abe96a8204ff12519e24054151b6e958a079fb1",
+      "reference_group": "other_marine",
+      "full_image": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "Brown bear",
+              "scientific_name": "Ursus arctos",
+              "confidence": 0.6,
+              "animal_group": "terrestrial",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears"
+            },
+            {
+              "common_name": "Polar bear",
+              "scientific_name": "Ursus maritimus",
+              "confidence": 0.3,
+              "animal_group": "terrestrial",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears"
+            }
+          ],
+          "resolution": {
+            "rank": "species",
+            "name": "Brown bear",
+            "scientific_name": "Ursus arctos",
+            "confidence": 0.6,
+            "animal_group": "terrestrial",
+            "meets_threshold": false,
+            "members": [
+              {
+                "common_name": "Brown bear",
+                "scientific_name": "Ursus arctos",
+                "confidence": 0.6,
+                "animal_group": "terrestrial",
+                "genus": "Ursus",
+                "genus_common_name": "bears",
+                "family": "Ursidae",
+                "family_common_name": "bears"
+              }
+            ]
+          },
+          "next_question": {
+            "question": "Can you see any teeth in the skull?",
+            "rationale": "Teeth can help distinguish between bear species and other large mammals.",
+            "options": [
+              "yes, I can see teeth",
+              "no, I cannot see teeth",
+              "not sure"
+            ],
+            "allows_free_text": true,
+            "feature": "teeth_present"
+          },
+          "species_distinguishable": false,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "The image shows a skull with a robust build and large nasal opening, consistent with a bear. The purple color is likely staining."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "Brown bear",
+              "scientific_name": "Ursus arctos",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears",
+              "confidence": 0.6,
+              "animal_group": "terrestrial"
+            },
+            {
+              "common_name": "Polar bear",
+              "scientific_name": "Ursus maritimus",
+              "genus": "Ursus",
+              "genus_common_name": "bears",
+              "family": "Ursidae",
+              "family_common_name": "bears",
+              "confidence": 0.3,
+              "animal_group": "terrestrial"
+            }
+          ],
+          "species_distinguishable": false,
+          "reasoning": "The image shows a skull with a robust build and large nasal opening, consistent with a bear. The purple color is likely staining.",
+          "needs_new_photo": false,
+          "photo_quality_note": "",
+          "next_question": "Can you see any teeth in the skull?",
+          "next_question_rationale": "Teeth can help distinguish between bear species and other large mammals.",
+          "next_question_options": [
+            "yes, I can see teeth",
+            "no, I cannot see teeth",
+            "not sure"
+          ],
+          "next_question_feature": "teeth_present"
+        },
+        "metrics": {
+          "identification_latency_seconds": 6.84,
+          "identification_prompt_tokens": 3637,
+          "identification_output_tokens": 356,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "terrestrial",
+        "pooled_group_confidence": 0.9,
+        "top_species": "Ursus arctos",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "detection": {
+        "animals": [
+          {
+            "box": [
+              0,
+              100,
+              999,
+              900
+            ],
+            "description": "purple skull on the sand",
+            "kind": "mammal"
+          }
+        ]
+      },
+      "detection_metrics": {
+        "detection_latency_seconds": 2.97,
+        "detection_prompt_tokens": 2216,
+        "detection_output_tokens": 42,
+        "detection_attempts": 1
+      },
+      "crop_sha256": "e10995d31b7751360648a56161bdf32ad1360cc4ed793a73b7a6840cca0d8270",
+      "selected_crop": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "Sea sponge",
+              "scientific_name": "Porifera",
+              "confidence": 0.95,
+              "animal_group": "other_marine",
+              "genus": "Unknown",
+              "genus_common_name": "Unknown",
+              "family": "Unknown",
+              "family_common_name": "Unknown"
+            }
+          ],
+          "resolution": {
+            "rank": "species",
+            "name": "Sea sponge",
+            "scientific_name": "Porifera",
+            "confidence": 0.95,
+            "animal_group": "other_marine",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "Sea sponge",
+                "scientific_name": "Porifera",
+                "confidence": 0.95,
+                "animal_group": "other_marine",
+                "genus": "Unknown",
+                "genus_common_name": "Unknown",
+                "family": "Unknown",
+                "family_common_name": "Unknown"
+              }
+            ]
+          },
+          "next_question": null,
+          "species_distinguishable": false,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "The object's porous, intricate internal structure and overall shape are characteristic of a sea sponge."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "Sea sponge",
+              "scientific_name": "Porifera",
+              "genus": "Unknown",
+              "genus_common_name": "Unknown",
+              "family": "Unknown",
+              "family_common_name": "Unknown",
+              "confidence": 0.95,
+              "animal_group": "other_marine"
+            }
+          ],
+          "species_distinguishable": false,
+          "reasoning": "The object's porous, intricate internal structure and overall shape are characteristic of a sea sponge.",
+          "needs_new_photo": false,
+          "photo_quality_note": "",
+          "next_question": "",
+          "next_question_rationale": "",
+          "next_question_options": [],
+          "next_question_feature": ""
+        },
+        "metrics": {
+          "identification_latency_seconds": 7.28,
+          "identification_prompt_tokens": 4151,
+          "identification_output_tokens": 199,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "other_marine",
+        "pooled_group_confidence": 0.95,
+        "top_species": "Porifera",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "assistant_visual_review": {
+        "view_description": "Purple-stained skull on the ground; remains-only view.",
+        "reviewer_type": "AI assistant, non-expert visual audit",
+        "source_and_previous_model_labels_seen": true,
+        "independent_or_clinical_ground_truth": false
+      }
+    },
+    {
+      "case_id": "trichechus_manatus_01",
+      "prepared_sha256": "f3f0de2e449391bd7c98d17cc55659b092342d9e1fe628ff2f380951ebd9d9d0",
+      "original_sha256": "3887895a2350796fb9cd349aa3d6b10fb6a53f46b77558a916b2f072e9703cc7",
+      "reference_group": "other_marine",
+      "full_image": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "American alligator",
+              "scientific_name": "Alligator mississippiensis",
+              "confidence": 0.5,
+              "animal_group": "terrestrial",
+              "genus": "Alligator",
+              "genus_common_name": "alligators",
+              "family": "Alligatoridae",
+              "family_common_name": "alligators and caimans"
+            },
+            {
+              "common_name": "American crocodile",
+              "scientific_name": "Crocodylus acutus",
+              "confidence": 0.5,
+              "animal_group": "terrestrial",
+              "genus": "Crocodylus",
+              "genus_common_name": "true crocodiles",
+              "family": "Crocodylidae",
+              "family_common_name": "true crocodiles"
+            }
+          ],
+          "resolution": {
+            "rank": "group",
+            "name": "Wild land animal",
+            "scientific_name": null,
+            "confidence": 1.0,
+            "animal_group": "terrestrial",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "American alligator",
+                "scientific_name": "Alligator mississippiensis",
+                "confidence": 0.5,
+                "animal_group": "terrestrial",
+                "genus": "Alligator",
+                "genus_common_name": "alligators",
+                "family": "Alligatoridae",
+                "family_common_name": "alligators and caimans"
+              },
+              {
+                "common_name": "American crocodile",
+                "scientific_name": "Crocodylus acutus",
+                "confidence": 0.5,
+                "animal_group": "terrestrial",
+                "genus": "Crocodylus",
+                "genus_common_name": "true crocodiles",
+                "family": "Crocodylidae",
+                "family_common_name": "true crocodiles"
+              }
+            ]
+          },
+          "next_question": {
+            "question": "Can you describe the shape of its snout?",
+            "rationale": "To distinguish between alligator and crocodile.",
+            "options": [
+              "broad and rounded",
+              "narrow and pointed",
+              "not sure"
+            ],
+            "allows_free_text": true,
+            "feature": "snout_shape"
+          },
+          "species_distinguishable": true,
+          "needs_new_photo": false,
+          "photo_quality_note": null,
+          "reasoning": "Scaly back and head partially submerged in water indicate a crocodilian. Snout shape is not visible."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "American alligator",
+              "scientific_name": "Alligator mississippiensis",
+              "genus": "Alligator",
+              "genus_common_name": "alligators",
+              "family": "Alligatoridae",
+              "family_common_name": "alligators and caimans",
+              "confidence": 0.5,
+              "animal_group": "terrestrial"
+            },
+            {
+              "common_name": "American crocodile",
+              "scientific_name": "Crocodylus acutus",
+              "genus": "Crocodylus",
+              "genus_common_name": "true crocodiles",
+              "family": "Crocodylidae",
+              "family_common_name": "true crocodiles",
+              "confidence": 0.5,
+              "animal_group": "terrestrial"
+            }
+          ],
+          "species_distinguishable": true,
+          "reasoning": "Scaly back and head partially submerged in water indicate a crocodilian. Snout shape is not visible.",
+          "needs_new_photo": false,
+          "photo_quality_note": "",
+          "next_question": "Can you describe the shape of its snout?",
+          "next_question_rationale": "To distinguish between alligator and crocodile.",
+          "next_question_options": [
+            "broad and rounded",
+            "narrow and pointed",
+            "not sure"
+          ],
+          "next_question_feature": "snout_shape"
+        },
+        "metrics": {
+          "identification_latency_seconds": 6.94,
+          "identification_prompt_tokens": 4153,
+          "identification_output_tokens": 358,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "terrestrial",
+        "pooled_group_confidence": 1.0,
+        "top_species": "Alligator mississippiensis",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "detection": {
+        "animals": [
+          {
+            "box": [
+              400,
+              0,
+              700,
+              700
+            ],
+            "description": "dark, textured animal partially submerged in water",
+            "kind": "reptile"
+          }
+        ]
+      },
+      "detection_metrics": {
+        "detection_latency_seconds": 4.39,
+        "detection_prompt_tokens": 2732,
+        "detection_output_tokens": 65,
+        "detection_attempts": 1
+      },
+      "crop_sha256": "91d203beb1e1ff48f8f7be859b803906e9972a6f5455c025f39ff5380df23cab",
+      "selected_crop": {
+        "identification": {
+          "candidates": [
+            {
+              "common_name": "American Alligator",
+              "scientific_name": "Alligator mississippiensis",
+              "confidence": 0.45,
+              "animal_group": "other_marine",
+              "genus": "Alligator",
+              "genus_common_name": "Alligators",
+              "family": "Alligatoridae",
+              "family_common_name": "Alligators and Caimans"
+            },
+            {
+              "common_name": "American Crocodile",
+              "scientific_name": "Crocodylus acutus",
+              "confidence": 0.45,
+              "animal_group": "other_marine",
+              "genus": "Crocodylus",
+              "genus_common_name": "Crocodiles",
+              "family": "Crocodylidae",
+              "family_common_name": "Crocodiles"
+            }
+          ],
+          "resolution": {
+            "rank": "group",
+            "name": "Marine animal",
+            "scientific_name": null,
+            "confidence": 0.9,
+            "animal_group": "other_marine",
+            "meets_threshold": true,
+            "members": [
+              {
+                "common_name": "American Alligator",
+                "scientific_name": "Alligator mississippiensis",
+                "confidence": 0.45,
+                "animal_group": "other_marine",
+                "genus": "Alligator",
+                "genus_common_name": "Alligators",
+                "family": "Alligatoridae",
+                "family_common_name": "Alligators and Caimans"
+              },
+              {
+                "common_name": "American Crocodile",
+                "scientific_name": "Crocodylus acutus",
+                "confidence": 0.45,
+                "animal_group": "other_marine",
+                "genus": "Crocodylus",
+                "genus_common_name": "Crocodiles",
+                "family": "Crocodylidae",
+                "family_common_name": "Crocodiles"
+              }
+            ]
+          },
+          "next_question": {
+            "question": "From your distance, can you describe the shape of its snout?",
+            "rationale": "Snout shape helps distinguish between alligators and crocodiles.",
+            "options": [
+              "Broad and rounded (like a 'U')",
+              "Narrow and pointed (like a 'V')",
+              "Not sure"
+            ],
+            "allows_free_text": true,
+            "feature": "snout_shape"
+          },
+          "species_distinguishable": false,
+          "needs_new_photo": true,
+          "photo_quality_note": "A clearer photo of the head and snout would help.",
+          "reasoning": "The animal has a textured, scaly body, broad head with eyes on top, and is partially submerged, characteristic of a crocodilian."
+        },
+        "raw_response": {
+          "candidates": [
+            {
+              "common_name": "American Alligator",
+              "scientific_name": "Alligator mississippiensis",
+              "genus": "Alligator",
+              "genus_common_name": "Alligators",
+              "family": "Alligatoridae",
+              "family_common_name": "Alligators and Caimans",
+              "confidence": 0.45,
+              "animal_group": "other_marine"
+            },
+            {
+              "common_name": "American Crocodile",
+              "scientific_name": "Crocodylus acutus",
+              "genus": "Crocodylus",
+              "genus_common_name": "Crocodiles",
+              "family": "Crocodylidae",
+              "family_common_name": "Crocodiles",
+              "confidence": 0.45,
+              "animal_group": "other_marine"
+            }
+          ],
+          "species_distinguishable": false,
+          "reasoning": "The animal has a textured, scaly body, broad head with eyes on top, and is partially submerged, characteristic of a crocodilian.",
+          "needs_new_photo": true,
+          "photo_quality_note": "A clearer photo of the head and snout would help.",
+          "next_question": "From your distance, can you describe the shape of its snout?",
+          "next_question_rationale": "Snout shape helps distinguish between alligators and crocodiles.",
+          "next_question_options": [
+            "Broad and rounded (like a 'U')",
+            "Narrow and pointed (like a 'V')",
+            "Not sure"
+          ],
+          "next_question_feature": "snout_shape"
+        },
+        "metrics": {
+          "identification_latency_seconds": 12.2,
+          "identification_prompt_tokens": 3635,
+          "identification_output_tokens": 399,
+          "identification_attempts": 1
+        },
+        "model": "gemini-2.5-flash",
+        "reported_group": "other_marine",
+        "pooled_group_confidence": 0.9,
+        "top_species": "Alligator mississippiensis",
+        "verification_suggested_in_constructed_replay": false,
+        "suggestion_signals": []
+      },
+      "assistant_visual_review": {
+        "view_description": "Partly submerged head/snout with limited visible anatomy.",
+        "reviewer_type": "AI assistant, non-expert visual audit",
+        "source_and_previous_model_labels_seen": true,
+        "independent_or_clinical_ground_truth": false
+      }
+    }
+  ],
+  "finished_at": "2026-11-07T22:07:06.885393+00:00",
+  "source_audit": [
+    {
+      "case_id": "eumetopias_jubatus_02",
+      "reference_species": "Eumetopias jubatus",
+      "reference_group": "pinniped",
+      "observation_id": "264136175",
+      "observation_url": "https://www.inaturalist.org/observations/264136175",
+      "manifest_photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/474612547/large.jpeg",
+      "manifest_photo_license": "cc-by-nc",
+      "manifest_photo_attribution": "(c) IanLJones, some rights reserved (CC BY-NC)",
+      "retrieved_at": "2026-11-07T22:03:11.652613+00:00",
+      "current_taxon_name": "Eumetopias jubatus",
+      "current_common_name": "Steller Sea Lion",
+      "quality_grade": "research",
+      "current_photo_ids": [
+        474612547,
+        474612554,
+        474612561
+      ],
+      "manifest_photo_attached": true,
+      "download_sha256": "4633f8fe6088cec63f0120ac68421e361dd259bf6cf399465f5db4fc31f2d102",
+      "download_bytes": 839581
+    },
+    {
+      "case_id": "odobenus_rosmarus_01",
+      "reference_species": "Odobenus rosmarus",
+      "reference_group": "pinniped",
+      "observation_id": "6659273",
+      "observation_url": "https://www.inaturalist.org/observations/6659273",
+      "manifest_photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/8436738/large.jpg",
+      "manifest_photo_license": "cc-by-nc",
+      "manifest_photo_attribution": "(c) Donna Pomeroy, some rights reserved (CC BY-NC)",
+      "retrieved_at": "2026-11-07T22:03:12.530970+00:00",
+      "current_taxon_name": "Odobenus rosmarus divergens",
+      "current_common_name": "Pacific Walrus",
+      "quality_grade": "research",
+      "current_photo_ids": [
+        8436738,
+        8436764
+      ],
+      "manifest_photo_attached": true,
+      "download_sha256": "5e1dea15ed11762a74d8b3f8a63aeb943cb32a93726372a1548ee4f484bfa309",
+      "download_bytes": 286439
+    },
+    {
+      "case_id": "enhydra_lutris_02",
+      "reference_species": "Enhydra lutris",
+      "reference_group": "other_marine",
+      "observation_id": "127403691",
+      "observation_url": "https://www.inaturalist.org/observations/127403691",
+      "manifest_photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/216290669/large.jpeg",
+      "manifest_photo_license": "cc0",
+      "manifest_photo_attribution": "no rights reserved",
+      "retrieved_at": "2026-11-07T22:03:13.364946+00:00",
+      "current_taxon_name": "Enhydra lutris nereis",
+      "current_common_name": "Southern Sea Otter",
+      "quality_grade": "research",
+      "current_photo_ids": [
+        216290669,
+        216329841,
+        216290170,
+        216290204,
+        216290575,
+        216290723,
+        216290759
+      ],
+      "manifest_photo_attached": true,
+      "download_sha256": "ded4b71780a23b8c0e21ee9c8abe96a8204ff12519e24054151b6e958a079fb1",
+      "download_bytes": 621917
+    },
+    {
+      "case_id": "trichechus_manatus_01",
+      "reference_species": "Trichechus manatus",
+      "reference_group": "other_marine",
+      "observation_id": "37589411",
+      "observation_url": "https://www.inaturalist.org/observations/37589411",
+      "manifest_photo_url": "https://inaturalist-open-data.s3.amazonaws.com/photos/59618453/large.jpg",
+      "manifest_photo_license": "cc-by-nc",
+      "manifest_photo_attribution": "(c) Janet Wright, some rights reserved (CC BY-NC)",
+      "retrieved_at": "2026-11-07T22:03:14.151088+00:00",
+      "current_taxon_name": "Trichechus manatus latirostris",
+      "current_common_name": "Florida Manatee",
+      "quality_grade": "research",
+      "current_photo_ids": [
+        59618453
+      ],
+      "manifest_photo_attached": true,
+      "download_sha256": "3887895a2350796fb9cd349aa3d6b10fb6a53f46b77558a916b2f072e9703cc7",
+      "download_bytes": 130580
+    }
+  ],
+  "runner_snapshot_sha256": "f53468cca4f9f0477a7d9c197135e93c0297cea05283afed085df049fcceb8fa",
+  "interpretation": {
+    "source_photos_attached_to_current_observations": 4,
+    "current_source_taxa_consistent_with_manifest_species": 4,
+    "remains_only_views_in_assistant_audit": 3,
+    "limited_submerged_view_in_assistant_audit": 1,
+    "full_image_reference_species_disagreements": 4,
+    "full_image_numeric_threshold_suggestions": 0,
+    "no_detection_cases": 2,
+    "single_detection_cases": 2,
+    "cropped_reference_group_matches": 2,
+    "cropped_reference_species_matches": 0,
+    "expert_validation": false
+  }
+}

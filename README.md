@@ -32,7 +32,12 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 
 ## 1. 🌊 Project Motivation
 
-*Human activity is driving wildlife toward extinction — and when an injured animal is found, the first few minutes decide what happens next.*
+For the case-linked drone flow, run `python scripts/run_connected_scenario.py --with-drone`
+in the backend environment. This checks a submitted case through confidence suggestions,
+approved evidence collection and review using a temporary database and synthetic frame.
+See [connected drone scenario](docs/connected_drone_scenario.md).
+
+## Run the local drone demo
 
 <div align="center">
 

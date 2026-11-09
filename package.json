@@ -9,7 +9,9 @@
     "demo:network": "node scripts/local_network_demo.mjs",
     "check:demos": "node scripts/local_network_demo.mjs --check",
     "test:local-demo": "node --test scripts/test_local_network_demo.mjs",
-    "demo:connected": "python scripts/run_connected_scenario.py"
+    "demo:connected": "python scripts/run_connected_scenario.py",
+    "demo:drone-requests": "node scripts/drone_request_demo.mjs",
+    "demo:connected-drone": "python scripts/run_connected_scenario.py --with-drone"
   },
   "devDependencies": {
     "esbuild": "0.28.1"
