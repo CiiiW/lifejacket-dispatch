@@ -54,7 +54,7 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 
 ### Where the current system breaks down
 
-Today a rescue begins with a phone call, and that call fails three groups at once.
+Today a rescue begins with a phone call which starts a chain of events filled with inefficiencies and information + time loss.
 
 **The public doesn't know how to help.** Someone has to find the animal, figure out who to call, and work out how and what to report — usually about a species they can't name and know little about.
 
