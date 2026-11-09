@@ -2,9 +2,7 @@
 
 # LifeJacket
 
-### *From a wildlife sighting to a reviewed response*
-
-**Models perceive. Code decides. Humans approve.**
+### *Integrating AI-Powered Rescue Coordination and Drone Surveillance for Wildlife Protection*
 
 MS in Applied Data Science Capstone · University of Chicago · 2026
 
@@ -442,9 +440,5 @@ See [`docs/teammate_setup.md`](docs/teammate_setup.md) for the full setup, and [
 ---
 
 <div align="center">
-
-### **Models perceive. Code decides. Humans approve.**
-
-*From a wildlife sighting to a reviewed response*
 
 </div>
