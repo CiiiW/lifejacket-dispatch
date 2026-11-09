@@ -66,7 +66,7 @@ Today a rescue begins with a phone call, and that call fails three groups at onc
 
 ## 2. 🦭 Overview of LifeJacket
 
-*LifeJacket replaces the phone call at the front of a wildlife rescue with a guided report, transparent urgency scoring, and a shared console where a human makes the call.*
+*LifeJacket looks save animals by improving the efficiency of the current wildlife rescue system. By introducing an AI-powered tools, LifeJacket can increase the quality of care for injured animals.*
 
 <div align="center">
 <img src="docs/images/system-overview.png" width="760" alt="LifeJacket system overview: public app, rescue console and drones feeding one structured case">
