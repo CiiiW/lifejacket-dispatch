@@ -41,7 +41,7 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 | | | |
 |:---:|:---:|:---:|
 | **650,000+** | **49,505** | **1 million** |
-| marine mammals killed or seriously injured in fishing gear every year | species threatened with extinction, 28% of all assessed so far | species could face extinction, many within decades, unless action is taken |
+| marine mammals killed or seriously injured in fishing gear every year | species threatened with extinction | species could face extinction, many within decades, unless action is taken |
 | *Marine Mammal Commission* | *IUCN Red List, July 2026* | *IPBES Global Assessment* |
 
 </div>
@@ -58,26 +58,11 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 
 Today a rescue begins with a phone call, and that call fails three groups at once.
 
-**The public doesn't know how to help.** Someone has to find the animal, work out who to call, and decide what to report — usually about a species they can't name. In the RSPCA's 2026 Kindness Index, **54% of people said they don't feel confident helping sick or injured wildlife**.
+**The public doesn't know how to help.** Someone has to find the animal, figure out who to call, and work out how and what to report — usually about a species they can't name and know little about.
 
-**Rescuers triage over the phone.** Coordinators must extract species, condition, location and urgency from a stranger in a few minutes, then dispatch on incomplete information. WIRES, Australia's largest wildlife rescue, handles **more than 230,000 calls a year**.
+**Rescuers triage over the phone.** Coordinators must extract species, condition, location and urgency from a stranger in a few minutes, then dispatch on incomplete information.
 
 **Resources are stretched thin.** Teams are small, and **94% of wildlife rehabilitation programs rely on volunteers** (IWRC, 2026). The whole system is reactive: help waits for a call, and animals in places people don't visit go unseen.
-
-### A real example: the Alaska SeaLife Center
-
-Alaska's only permanent marine mammal rehabilitation facility handles every report this way today:
-
-| Step | How it works now |
-|---|---|
-| *Public calls in* | Staff share a single phone — no dedicated rescue line, so ticketing and visitor calls come in too |
-| *On-call staff answer* | Someone takes the phone home and stays on call for every report |
-| *Staff assess the case* | The first assessment rests on whatever the caller describes and photographs |
-| *Staff find volunteers* | Volunteers are phoned one by one until someone can come |
-
-> **Every report runs through one phone and one person on call.**
-
-*Source: team conversations with Alaska SeaLife Center staff. Qualitative design input, not an endorsement or a validation of LifeJacket.*
 
 ---
 
