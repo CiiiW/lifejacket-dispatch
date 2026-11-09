@@ -4,10 +4,6 @@
 
 ### *From a wildlife sighting to a reviewed response*
 
-<img src="docs/images/logo.png" width="420" alt="LifeJacket logo">
-
-<!-- PLACEHOLDER: add docs/images/logo.png (transparent PNG, ~1200px wide) -->
-
 **Models perceive. Code decides. Humans approve.**
 
 MS in Applied Data Science Capstone · University of Chicago · 2026
@@ -21,19 +17,18 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 1. [🌊 Project Motivation](#1--project-motivation)
 2. [🦭 Overview of LifeJacket](#2--overview-of-lifejacket)
 3. [🧭 The Project](#3--the-project)
-   - [3.1 Public App — a guided report from the person who found the animal](#31--public-app--a-guided-report-from-the-person-who-found-the-animal)
-     - [3.1.1 Behind the app: seven stages from photo to report](#311--behind-the-app-seven-stages-from-photo-to-report)
-   - [3.2 Rescue Console — where rules score urgency and coordinators decide](#32--rescue-console--where-rules-score-urgency-and-coordinators-decide)
-     - [3.2.1 Models perceive, code decides](#321--models-perceive-code-decides)
-     - [3.2.2 One case, shared across centers and agencies](#322--one-case-shared-across-centers-and-agencies)
-   - [3.3 Drones — a look at places crews can't reach](#33--drones--a-look-at-places-crews-cant-reach)
-   - [3.4 Architecture](#34--architecture)
+   - [3.1 Public App — a guided report from the person who found the animal](#31-public-app--a-guided-report-from-the-person-who-found-the-animal)
+     - [3.1.1 Behind the app: seven stages from photo to report](#311-behind-the-app-seven-stages-from-photo-to-report)
+   - [3.2 Rescue Console — where rules score urgency and coordinators decide](#32-rescue-console--where-rules-score-urgency-and-coordinators-decide)
+     - [3.2.1 Models perceive, code decides](#321-models-perceive-code-decides)
+     - [3.2.2 One case, shared across centers and agencies](#322-one-case-shared-across-centers-and-agencies)
+   - [3.3 Drones — a look at places crews can't reach](#33-drones--a-look-at-places-crews-cant-reach)
+   - [3.4 Architecture](#34-architecture)
 4. [📊 Evaluation and Results](#4--evaluation-and-results)
 5. [🌍 Why It Matters Beyond the Animals](#5--why-it-matters-beyond-the-animals)
 6. [🚀 Future Work](#6--future-work)
 7. [🛠️ Tools Used](#7-️-tools-used)
 8. [⚡ Getting Started](#8--getting-started)
-9. [👥 The Team Behind LifeJacket](#9--the-team-behind-lifejacket)
 
 ---
 
@@ -59,7 +54,7 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 <!-- PLACEHOLDER: entangled monk seal — NOAA Fisheries (Permit #10137), public domain -->
 <!-- PLACEHOLDER: oiled brown pelicans, Grand Isle LA, 2010 — Int'l Bird Rescue Research Center, CC BY 2.0 (credit required) -->
 
-### 🩵 Where the current system breaks down
+### Where the current system breaks down
 
 Today a rescue begins with a phone call, and that call fails three groups at once.
 
@@ -69,7 +64,7 @@ Today a rescue begins with a phone call, and that call fails three groups at onc
 
 **Resources are stretched thin.** Teams are small, and **94% of wildlife rehabilitation programs rely on volunteers** (IWRC, 2026). The whole system is reactive: help waits for a call, and animals in places people don't visit go unseen.
 
-### 🩵 A real example: the Alaska SeaLife Center
+### A real example: the Alaska SeaLife Center
 
 Alaska's only permanent marine mammal rehabilitation facility handles every report this way today:
 
@@ -108,7 +103,7 @@ Alaska's only permanent marine mammal rehabilitation facility handles every repo
 
 ## 3. 🧭 The Project
 
-### 3.1 🩵 Public App — a guided report from the person who found the animal
+### 3.1 Public App — a guided report from the person who found the animal
 
 <div align="center">
 <video src="docs/images/reporter-walkthrough.mp4" width="350" controls></video>
@@ -135,7 +130,7 @@ Received  →  Accepted  →  En route  →  On scene  →  Animal located  → 
 
 > ⚠️ **Honest limit:** the urgency score applies to the animal the reporter selects. If someone taps the healthy seal in a photo that also contains an injured one, the case is scored on the healthy one.
 
-#### 3.1.1 🩵 Behind the app: seven stages from photo to report
+#### 3.1.1 Behind the app: seven stages from photo to report
 
 ```
      REPORTER'S PHONE                                  RESCUE CONSOLE
@@ -162,7 +157,7 @@ Context comes from NOAA CO-OPS (tides), Open-Meteo (weather, sunrise and sunset)
 
 ---
 
-### 3.2 🩵 Rescue Console — where rules score urgency and coordinators decide
+### 3.2 Rescue Console — where rules score urgency and coordinators decide
 
 <div align="center">
 <img src="docs/images/console-triage-map.png" width="760" alt="LifeJacket rescue console showing the live triage map with urgency-colored incident pins">
@@ -179,7 +174,7 @@ Context comes from NOAA CO-OPS (tides), Open-Meteo (weather, sunrise and sunset)
 
 > 🧑‍✈️ **HUMAN IN THE LOOP** — Coordinators can override any AI conclusion they judge wrong, and **nothing is dispatched without their approval**.
 
-#### 3.2.1 🩵 Models perceive, code decides
+#### 3.2.1 Models perceive, code decides
 
 AI extracts the evidence. A deterministic, auditable rule set turns that evidence into an urgency level.
 
@@ -198,7 +193,7 @@ Weather contributes at most 0.5 points, and a falling tide can shorten the respo
 
 *These weights are a prototype and require expert review. They are not clinically validated policy.*
 
-#### 3.2.2 🩵 One case, shared across centers and agencies
+#### 3.2.2 One case, shared across centers and agencies
 
 Strandings don't respect organizational boundaries, so a newer layer lets several rescue centers and a wildlife agency work the same case with controlled visibility.
 
@@ -219,7 +214,7 @@ Strandings don't respect organizational boundaries, so a newer layer lets severa
 
 ---
 
-### 3.3 🩵 Drones — a look at places crews can't reach
+### 3.3 Drones — a look at places crews can't reach
 
 *Two jobs: check now, patrol next.*
 
@@ -296,7 +291,7 @@ sea lion footage   timestamp and a        reporter photos       or rejects
 
 ---
 
-### 3.4 🩵 Architecture
+### 3.4 Architecture
 
 <div align="center">
 <img src="docs/images/architecture.png" width="820" alt="LifeJacket architecture: Expo clients, FastAPI backend, Gemini on Vertex AI, SQLite, and external context APIs">
@@ -329,7 +324,7 @@ config/          every tunable number, with a comment on where it came from
 
 <a id="evaluation"></a>
 
-### 🩵 Species identification
+### Species identification
 
 102 curated public photos, one initial pass, no follow-up answers.
 
@@ -346,7 +341,7 @@ Animal group is what drives responder matching, so the higher figure is the one 
 
 *Exploratory evaluation. Not aerial-detector accuracy, not injury accuracy, and not a calibrated confidence result.*
 
-### 🩵 Engineering validation
+### Engineering validation
 
 | Result | Detail |
 |---|---|
@@ -355,7 +350,7 @@ Animal group is what drives responder matching, so the higher figure is the one 
 | *Video pipeline* | **12 frames, 0 failures** on real NOAA footage |
 | *Multi-organization case* | **42 checks** pass for one case across four roles |
 
-### 🩵 What we have not shown
+### What we have not shown
 
 This matters as much as what we have:
 
@@ -458,34 +453,6 @@ Open <http://127.0.0.1:8082> — two labeled UI fixtures with fictional data. No
 </div>
 
 See [`docs/teammate_setup.md`](docs/teammate_setup.md) for the full setup, and [`clients/README.md`](clients/README.md) for the two apps.
-
----
-
-## 9. 👥 The Team Behind LifeJacket
-
-<div align="center">
-<table>
-  <tr>
-    <td align="center">
-      <img src="docs/images/team-charlotte.jpg" width="80" style="border-radius:50%" alt="Charlotte Zhang"><br>
-      <b>Charlotte Zhang</b>
-    </td>
-    <td align="center">
-      <img src="docs/images/team-cindy.jpg" width="80" style="border-radius:50%" alt="Xinyu (Cindy) Wang"><br>
-      <b>Xinyu (Cindy) Wang</b>
-    </td>
-    <td align="center">
-      <img src="docs/images/team-yuta.jpg" width="80" style="border-radius:50%" alt="Yuta Kobayashi"><br>
-      <b>Yuta Kobayashi</b>
-    </td>
-  </tr>
-</table>
-
-<!-- PLACEHOLDER: add square headshots to docs/images/ and link each name to LinkedIn -->
-
-*MS in Applied Data Science · University of Chicago*
-
-</div>
 
 ---
 
