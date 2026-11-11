@@ -18,25 +18,11 @@ University of Chicago · MS in Applied Data Science Capstone · 2026
 
 LifeJacket helps a member of the public describe what they see, turns that information into a structured case, and gives a coordinator the evidence and suggested priorities needed to review the next step. Drone observations can add another view when the original report is unclear.
 
-| 📱 Report | 🧭 Review | 📹 Observe |
-|---|---|---|
-| Photo, location and guided questions | Case summary, urgency reasons and responder candidates | Additional footage, selected photos and advisory findings |
-| A person reports what they can safely see | A coordinator reviews the evidence | An operator collects evidence; a coordinator interprets it |
-
 **For judges:** read the workflow below, inspect the screenshot, then review the evidence table. Installation is optional. This repository contains prototype code, evaluation records and reproducible demonstrations—not a deployed emergency service.
 
 ## How it works
 
-```mermaid
-flowchart TD
-    R["📱 Public report: photo and location"] --> P["Guided intake and structured case"]
-    P --> A["AI-assisted evidence interpretation"]
-    A --> T["Rules: urgency and responder ranking"]
-    T --> H["🧑 Coordinator reviews the next step"]
-    H --> O["📹 Request additional observation if useful"]
-    O --> E["Saved frames and advisory findings"]
-    E --> H
-```
+![LifeJacket overview: a public report becomes a coordinator-reviewed case; additional observation returns evidence to the same case, with human approval throughout](docs/images/judges-overview.svg)
 
 The observation loop above is the **existing-case workflow**. Automatic patrol-to-case creation remains future work.
 
@@ -64,6 +50,10 @@ The observation loop above is the **existing-case workflow**. Automatic patrol-t
 | 🔎 Detector handoff | Export original frames/metadata; validate and import detector results; select an animal for existing assessment and triage | Trained YOLO execution and automatic live frame shortlisting are not connected yet |
 | ✈️ Flight planning | Survey-route generation and ArduPilot software-in-the-loop testing | Simulation is separate from physical Mini 2 control; autonomous Mini 2 flight is not implemented |
 
+### The drone evidence loop
+
+![Drone evidence flow: private receiver splits footage into a received-video archive and saved frames; matched detector results and selected-still assessment support coordinator review. Hardware and live YOLO integration remain pending.](docs/images/judges-drone-evidence.svg)
+
 **Latest drone workflow:** received video → saved original frame → validated detector results → selected-animal assessment → triage suggestion → coordinator review. Only selected still images are sent for model assessment; original received recordings remain available for review.
 
 [Drone workflow and teammate handoff](docs/drone_detector_handoff.md) · [Recording and playback setup](docs/drone_recordings.md)
@@ -71,6 +61,8 @@ The observation loop above is the **existing-case workflow**. Automatic patrol-t
 ## Where AI fits—and where it does not
 
 LifeJacket combines an **orchestrated AI pipeline** with a **bounded, tool-using coordination agent**. These are different roles; the diagram's boxes are not all autonomous agents.
+
+![AI responsibilities: specialized model components operate inside an orchestrated pipeline; a separate bounded coordination agent uses read-only tools; deterministic services support human review](docs/images/judges-ai-roles.svg)
 
 | Component | Responsibility |
 |---|---|
