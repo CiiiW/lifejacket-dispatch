@@ -76,9 +76,10 @@ playback, unknown segments, tampering and stale heartbeat behavior.
 ## AI and patrol scope
 
 This change prepares the receiving, recording and evidence interface for an EXISTING case.
-Saved-frame detection/assessment uses the existing explicit review workflow. YOLO weights,
-automatic frame shortlisting and automatic patrol-to-alert integration are not supplied
-by this recording change. The legacy drone-intake UI is not used to bypass the authenticated
+Saved-frame detection/assessment uses the existing explicit review workflow. A permissioned external-detector JSON handoff now connects saved evidence to the existing
+selected-animal assessment workflow; see [drone_detector_handoff.md](drone_detector_handoff.md).
+Trained YOLO weights, automatic frame shortlisting and patrol-to-alert integration are
+not supplied by this recording change. The legacy drone-intake UI is not used to bypass the authenticated
 case boundary. New patrol sightings need their own permissioned intake/duplicate-review
 workflow before being connected to case creation.
 

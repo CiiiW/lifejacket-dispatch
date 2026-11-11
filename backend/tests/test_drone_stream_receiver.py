@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 
 import pytest
-from test_drone_followup import detect_result, followup_api, queue  # noqa: F401
+from test_drone_followup import followup_api, queue  # noqa: F401
 from test_drone_requests import BASE, change, drone_api  # noqa: F401
 from test_drone_streams import (
     opened,
@@ -167,7 +167,7 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, followup_api,
         )
         assert saved.status_code == 201, saved.text
         # Continue the SAME saved stream frame through real agent adapters and
-        # deterministic severity rules. Only model responses are scripted.
+        # deterministic severity rules. Detector output and model replies are fixtures.
         from lifejacket.llm.fake import ScriptedLLMClient
         from lifejacket.models.tables import (
             CaseDroneAnalysisRow,
@@ -177,13 +177,43 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, followup_api,
         from lifejacket.services import drone_frame_analysis as analysis
 
         scripted = ScriptedLLMClient.scenario("sea_lion")
-        scripted.queue("detection", {"animals": detect_result()["detections"]})
         current_row = {**row, "revision": saved.json()["revision"]}
         eid = saved.json()["evidence_id"]
-        detected = queue(client, current_row, eid)
-        assert detected.status_code == 202, detected.text
+        evidence_endpoint = BASE + "/" + row["request_id"] + "/evidence/" + eid
+        source = client.get(evidence_endpoint + "/detector-input").json()
+        width, height = source["width"], source["height"]
+        detected = client.post(
+            evidence_endpoint + "/detector-result",
+            json={
+                "revision": current_row["revision"],
+                "confirmed": True,
+                "request_key": "stream-detector-result",
+                "result": {
+                    k: source[k]
+                    for k in ("evidence_id", "source_sha256", "width", "height", "source_kind")
+                }
+                | {
+                    "model_name": "synthetic-detector-fixture",
+                    "model_version": "test-v1",
+                    "weights_sha256": "a" * 64,
+                    "status": "completed",
+                    "detections": [
+                        {
+                            "class_name": "left synthetic target",
+                            "confidence": 0.8,
+                            "xyxy": [0, 0, width / 2, height],
+                        },
+                        {
+                            "class_name": "right synthetic target",
+                            "confidence": 0.7,
+                            "xyxy": [width / 2, 0, width, height],
+                        },
+                    ],
+                },
+            },
+        )
+        assert detected.status_code == 201, detected.text
         current_row["revision"] = detected.json()["revision"]
-        assert analysis.process_one(factory, lambda db, job: analysis.infer(db, job, scripted))
         assessed = queue(
             client,
             current_row,
@@ -208,7 +238,6 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, followup_api,
             )
             assert db.get(IncidentRow, "case").assessment_json is None
         assert {call.agent for call in scripted.calls} == {
-            "detection",
             "identification",
             "assessment",
         }

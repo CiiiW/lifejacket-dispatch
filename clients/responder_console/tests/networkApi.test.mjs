@@ -299,3 +299,20 @@ test('recording playback fetches a private blob with managed auth and rejects pa
   }
   assert.throws(()=>api.recordingVideo('case_1','request_1','stream_1','../other','000000'));
 });
+
+test('external detector export and import stay on the selected evidence with managed authorization', async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return json({});
+  }).drones;
+  await api.detectorInput('case_1','request_1','evidence_1');
+  await api.attachDetectorResult('case_1','request_1','evidence_1',{revision:3,confirmed:true,request_key:'one',result:{status:'completed'}});
+  const base='https://example.org/network/cases/case_1/drone-requests/request_1/evidence/evidence_1';
+  assert.deepEqual(calls.map(c=>[c.url,c.options.method]),[[base+'/detector-input','GET'],[base+'/detector-result','POST']]);
+  for(const {options} of calls){
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(options.cache,'no-store');
+  }
+  assert.throws(()=>api.attachDetectorResult('case_1','request_1','../other',{}));
+});

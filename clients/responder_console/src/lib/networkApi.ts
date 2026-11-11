@@ -197,6 +197,8 @@ export function createNetworkApi(
   }
   return {
     drones: {
+      detectorInput:(id,r,e,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-input',s),
+      attachDetectorResult:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-result',s,b,'POST'),
       frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
       queueFrameAnalysis:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/analysis',s,b,'POST'),
       reminderStatus:(id,r,s)=>request(followupPath(id,r)+'/reminders',s),
@@ -312,9 +314,9 @@ export interface DroneStream {
   frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
 }
 export interface FrameAnalysis {
-  analysis_id:string;evidence_id:string;stage:'detect'|'assess';status:string;request_key:string;
+  provider?:string;analysis_id:string;evidence_id:string;stage:'detect'|'assess';status:string;request_key:string;
   detection_job_id:string|null;animal_index:number|null;error_code:string|null;attempts:number;created_at:string;
-  result:{detections?:{label?:string;description?:string;confidence?:number}[];limitations?:string[];
+  result:{model?:string;model_version?:string;detections?:{label?:string;description?:string;confidence?:number}[];limitations?:string[];
     identity_summary?:{name:string;confidence:number|null};
     assessment?:{injury?:{summary?:string};severity_level?:string}}|null;
 }
@@ -323,6 +325,8 @@ export interface ReminderStatus {
   items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
 }
 export interface DroneApi {
+  detectorInput?(id:string,r:string,e:string,signal?:AbortSignal):Promise<Record<string,unknown>>;
+  attachDetectorResult?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   recordings?(id:string,r:string,t:string,signal?:AbortSignal):Promise<{enabled:boolean;recordings:DroneRecording[];time_note:string}>;
   recordingVideo?(id:string,r:string,t:string,v:string,g:string,signal?:AbortSignal):Promise<Blob>;
   frameAnalyses?(id:string,r:string,signal?:AbortSignal):Promise<{jobs:FrameAnalysis[];worker:{running:boolean}}>;

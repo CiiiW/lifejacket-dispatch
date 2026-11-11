@@ -13,6 +13,7 @@ from lifejacket.api.routes.drone_requests import enabled
 from lifejacket.api.routes.network import private
 from lifejacket.config import settings
 from lifejacket.models.db import get_session
+from lifejacket.models.drone_detector import DetectorFrameResult
 from lifejacket.models.drone_intake import Contract
 from lifejacket.models.tables import CaseDroneAnalysisRow, CaseDroneReminderRow
 from lifejacket.services import (
@@ -48,6 +49,13 @@ class QueueAnalysis(Contract):
         ):
             raise ValueError("Detection does not accept an animal selection")
         return self
+
+
+class AttachDetectorResult(Contract):
+    revision: int = Field(ge=0)
+    confirmed: Literal[True]
+    request_key: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
+    result: DetectorFrameResult
 
 
 class RetryReminder(Contract):
@@ -106,6 +114,32 @@ def queue(
         raise HTTPException(409, "Analysis request changed; refresh before retrying") from exc
 
 
+@router.post(
+    "/evidence/{evidence_id}/detector-result",
+    status_code=201,
+    dependencies=[Depends(ai.enabled)],
+)
+def attach_detector_result(
+    case_id: str,
+    request_id: str,
+    evidence_id: str,
+    body: AttachDetectorResult,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    db: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_detector_results
+
+    private(response)
+    try:
+        return drone_detector_results.attach(
+            db, current.access.principal, case_id, request_id, evidence_id, body
+        )
+    except IntegrityError as exc:
+        db.rollback()
+        raise HTTPException(409, "Detector result changed; refresh before retrying") from exc
+
+
 @router.get("/reminders")
 def reminder_status(
     case_id: str,
@@ -142,3 +176,20 @@ def reminder_retry(
 ):
     private(response)
     return reminders.retry(db, current.access.principal, case_id, request_id, body)
+
+
+@router.get("/evidence/{evidence_id}/detector-input", dependencies=[Depends(ai.enabled)])
+def detector_input(
+    case_id: str,
+    request_id: str,
+    evidence_id: str,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    db: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_detector_results
+
+    private(response)
+    return drone_detector_results.source(
+        db, current.access.principal, case_id, request_id, evidence_id
+    )
