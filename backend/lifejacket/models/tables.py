@@ -574,6 +574,21 @@ class CaseDroneStreamRow(Base):
     ended_at: Mapped[datetime | None] = mapped_column(DateTime)
 
 
+class CaseDroneRecordingRow(Base):
+    """Received video segments; independent table so existing stream rows need no alteration."""
+
+    __tablename__ = "case_drone_recordings"
+    recording_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    stream_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("case_drone_streams.stream_id"), index=True
+    )
+    status: Mapped[str] = mapped_column(String(20))
+    started_at: Mapped[datetime] = mapped_column(DateTime)
+    updated_at: Mapped[datetime] = mapped_column(DateTime)
+    segments_json: Mapped[list] = mapped_column(JSON, default=list)
+    error_code: Mapped[str | None] = mapped_column(String(40), nullable=True)
+
+
 class CaseDroneAnalysisRow(Base):
     __tablename__ = "case_drone_analysis"
     __table_args__ = (UniqueConstraint("request_id", "request_key"),)

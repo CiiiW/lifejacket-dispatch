@@ -83,10 +83,8 @@ def main():
                 free = False
         report(f"loopback port {port} available", free, "Stop the previous rehearsal/receiver")
     print("\nScope: generated video, disposable cases, fixture AI, no external notifications.")
-    print(
-        "Not checked: phone/VPN reachability, DJI pairing, camera latency, real AI."
-    )
-    print("Live receiver saves selected stills only; it does not archive the full video.")
+    print("Not checked: phone/VPN reachability, DJI pairing, camera latency, real AI.")
+    print("Video archive requires DRONE_RECORDINGS_ENABLED and persistent private storage.")
     return 1 if failures else 0
 
 

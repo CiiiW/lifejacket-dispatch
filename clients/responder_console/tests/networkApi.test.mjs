@@ -282,3 +282,20 @@ test('saved-frame analysis and reminder retries carry case-scoped managed author
   assert.equal(JSON.parse(calls[1].options.body).confirmed,true);
   assert.throws(()=>api.queueFrameAnalysis('case_1','request_1','../other',{}));
 });
+
+test('recording playback fetches a private blob with managed auth and rejects path traversal', async()=>{
+  const calls=[];
+  const api=createNetworkApi('https://example.org',person,'A',async(url,options)=>{
+    calls.push({url,options});return url.endsWith('/recordings')?json({recordings:[]}):new Response(new Blob(['received video']));
+  }).drones;
+  await api.recordings('case_1','request_1','stream_1');
+  const video=await api.recordingVideo('case_1','request_1','stream_1','recording_1','000000');
+  assert.equal(await video.text(),'received video');
+  for(const {url,options} of calls){
+    assert.equal(options.headers.Authorization,'Bearer fictional-managed-token');
+    assert.equal(options.headers['X-LifeJacket-Organization'],'A');
+    assert.equal(options.cache,'no-store');
+    assert.ok(!url.includes('token='));
+  }
+  assert.throws(()=>api.recordingVideo('case_1','request_1','stream_1','../other','000000'));
+});

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Private MediaMTX + bounded JPEG collector. Run one receiver per database.
 
-No flight commands. No full-video recording. Binds loopback by default.
+No flight commands. Optional private received-video recording. Loopback by default.
 """
 
 import argparse
@@ -26,6 +26,7 @@ from lifejacket.config import settings
 from lifejacket.models.db import SessionLocal, init_db
 from lifejacket.models.tables import CaseDroneStreamRow
 from lifejacket.services import drone_streams as streams
+from lifejacket.services.drone_recordings import Recorder
 from sqlalchemy import select
 
 
@@ -87,10 +88,12 @@ def run(args):
         "webrtc": False,
         "srt": False,
         "moq": False,
-        "pathDefaults": {"overridePublisher": False, "maxReaders": 1, "record": False},
+        "pathDefaults": {"overridePublisher": False, "maxReaders": 2, "record": False},
         "paths": {"~^live/[a-f0-9]{32}$": {"source": "publisher"}},
     }
     children = {}
+    recorders = {}
+    blocked_recordings = set()
     selector = selectors.DefaultSelector()
     try:
         with tempfile.TemporaryDirectory(prefix="lifejacket-receiver-") as temp:
@@ -137,6 +140,49 @@ def run(args):
                             if sid not in active and source.get("type") == "rtmpConn":
                                 with contextlib.suppress(Exception):
                                     control("rtmpconns/kick/" + source["id"], "POST")
+                        blocked_recordings.intersection_update(ready)
+                        for sid in list(recorders):
+                            recorder = recorders[sid]
+                            try:
+                                if sid not in active or sid not in ready:
+                                    recorder.finish(
+                                        "complete" if sid not in active else "interrupted"
+                                    )
+                                    del recorders[sid]
+                                    continue
+                                quota = recorder.poll()
+                                if quota or recorder.process.poll() is not None:
+                                    recorder.finish(
+                                        "limited" if quota else "interrupted",
+                                        "storage_limit" if quota else "publisher_stopped",
+                                    )
+                                    del recorders[sid]
+                                    blocked_recordings.add(sid)
+                            except (OSError, subprocess.SubprocessError):
+                                # Recording trouble must not kill a usable preview.
+                                with contextlib.suppress(OSError, subprocess.SubprocessError):
+                                    recorder.finish("failed", "recording_io_failed")
+                                recorders.pop(sid, None)
+                                blocked_recordings.add(sid)
+                        if settings.drone_recordings_enabled:
+                            for sid in sorted(active & ready):
+                                if sid in recorders or sid in blocked_recordings:
+                                    continue
+                                if len(recorders) >= 4:
+                                    break
+                                secret = settings.drone_stream_receiver_secret
+                                url = (
+                                    "rtsp://receiver:"
+                                    + secret
+                                    + "@127.0.0.1:18554/live/"
+                                    + sid
+                                )
+                                try:
+                                    recorders[sid] = Recorder(
+                                        SessionLocal, sid, url, args.ffmpeg
+                                    )
+                                except OSError:
+                                    blocked_recordings.add(sid)
                         for sid in list(children):
                             child = children[sid]
                             if (
@@ -203,6 +249,9 @@ def run(args):
                             stop(selector, children.pop(sid))
                 raise RuntimeError("Receiver process stopped; check binary/configuration")
             finally:
+                for recorder in recorders.values():
+                    with contextlib.suppress(OSError, subprocess.SubprocessError):
+                        recorder.finish("interrupted", "receiver_stopped")
                 for child in children.values():
                     stop(selector, child)
                 media.terminate()

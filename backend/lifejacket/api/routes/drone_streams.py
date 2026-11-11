@@ -120,3 +120,49 @@ def end(
 ):
     private(response)
     return streams.end(db, current.access.principal, case_id, request_id, stream_id, body)
+
+
+@router.get("/{stream_id}/recordings")
+def recordings(
+    case_id: str,
+    request_id: str,
+    stream_id: str,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    db: Session = Depends(get_session),
+):
+    from lifejacket.services import drone_recordings
+
+    private(response)
+    requests.access(db, current.access.principal, case_id)
+    requests.get(db, case_id, request_id)
+    streams.get(db, request_id, stream_id)
+    return drone_recordings.listing(db, stream_id)
+
+
+@router.get("/{stream_id}/recordings/{recording_id}/{segment_id}")
+def recording_video(
+    case_id: str,
+    request_id: str,
+    stream_id: str,
+    recording_id: str,
+    segment_id: str,
+    current: AccessSession = Depends(current_access_session),
+    db: Session = Depends(get_session),
+):
+    from fastapi.responses import FileResponse
+
+    from lifejacket.services import drone_recordings
+
+    requests.access(db, current.access.principal, case_id)
+    requests.get(db, case_id, request_id)
+    streams.get(db, request_id, stream_id)
+    path = drone_recordings.segment(db, stream_id, recording_id, segment_id)
+    return FileResponse(
+        path,
+        media_type="video/mp4",
+        headers={
+            "Cache-Control": "private, no-store",
+            "X-Content-Type-Options": "nosniff",
+        },
+    )

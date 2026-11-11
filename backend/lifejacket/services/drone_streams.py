@@ -97,6 +97,7 @@ def state(db, row, writable=False):
         "frame_age_seconds": max(0, age) if age is not None else None,
         "source": row.source_json,
         "can_manage": writable and active(db, row),
+        "recording_enabled": settings.drone_recordings_enabled,
         "preview_fps": 2,
         "stale_after_seconds": STALE_SECONDS,
     }

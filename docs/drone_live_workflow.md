@@ -32,11 +32,11 @@ Run from repository root, with backend on PYTHONPATH:
 python scripts/drone_stream_receiver.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg
 ~~~
 
-The receiver binds RTMP 19350, RTSP 18554, its control API 19997 and auth callback 18941 to loopback by default. Only RTMP can be bound to a selected private/VPN interface with --bind. RTSP, control and auth stay on loopback. The normal authenticated LifeJacket API serves previews; the browser never receives receiver credentials. Disable other MediaMTX protocol servers and recording. Publish credentials cannot read streams. The receiver checks case/request activity and disconnects ended/expired/invalid publishers through the control API, normally within the one-second poll plus API timeout. Killing the receiver shuts down its media server and collectors.
+The receiver binds RTMP 19350, RTSP 18554, its control API 19997 and auth callback 18941 to loopback by default. Only RTMP can be bound to a selected private/VPN interface with --bind. RTSP, control and auth stay on loopback. The normal authenticated LifeJacket API serves previews; the browser never receives receiver credentials. Disable other MediaMTX protocol servers and native MediaMTX recording. Optional LifeJacket received-video segments are described in [drone_recordings.md](drone_recordings.md). Publish credentials cannot read streams. The receiver checks case/request activity and disconnects ended/expired/invalid publishers through the control API, normally within the one-second poll plus API timeout. Killing the receiver shuts down its media server and collectors.
 
 Do not expose raw RTMP on the public Internet: this implementation requires a private/VPN route for phone use. RTMPS support in the phone is not assumed, and this receiver launcher does not provision TLS. Jupyter's HTTP proxy cannot carry RTMP; a working web preview URL does not make the phone ingest address reachable. Deployment/network setup remains a separate acceptance item.
 
-Transient frame storage is bounded to 20 JPEGs of at most 256 KiB each per session, decoded to 640-pixel width. The running receiver clears ended/expired/inactive buffers. Stopping the receiver can leave its last bounded buffer in the private database until cleanup/restart; no full-video archive is created. Selected evidence follows the existing evidence retention policy. Use a dedicated database for synthetic rehearsals.
+Transient frame storage is bounded to 20 JPEGs of at most 256 KiB each per session, decoded to 640-pixel width. The running receiver clears ended/expired/inactive buffers. Stopping the receiver can leave its last bounded buffer in the private database until cleanup/restart; no full-video archive is created unless DRONE_RECORDINGS_ENABLED is explicitly enabled. Selected evidence follows the existing evidence retention policy. Use a dedicated database for synthetic rehearsals.
 
 ## Recorded rehearsal
 
@@ -114,8 +114,9 @@ It is intentionally disposable: stopping it removes its generated media and test
 Do not use it for real animal evidence. A deployed API, receiver and analysis worker must
 share persistent database/evidence storage and the same configuration.
 
-The live receiver is a sampled-preview and selected-still workflow. It does not retain a
-full-video archive or offer full-motion playback. Recorded-file selection separately copies
+The live preview remains sampled. The optional received-video archive now adds private
+segment playback; see [drone_recordings.md](drone_recordings.md). Without that flag, the
+receiver retains selected stills only. Recorded-file selection separately copies
 the original local clip into its output directory; that is not a live archive or a console
 video player. Keep original aircraft recordings separately until an archive workflow exists.
 

@@ -201,6 +201,8 @@ export function createNetworkApi(
       queueFrameAnalysis:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/analysis',s,b,'POST'),
       reminderStatus:(id,r,s)=>request(followupPath(id,r)+'/reminders',s),
       retryReminder:(id,r,b,s)=>request(followupPath(id,r)+'/reminders/retry',s,b,'POST'),
+      recordings:(id,r,t,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/recordings',s),
+      recordingVideo:(id,r,t,v,g,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/recordings/'+caseId(v)+'/'+caseId(g),s,undefined,'GET',true),
       streams:(id,r,s)=>request(streamPath(id,r),s),
       openStream:(id,r,b,s)=>request(streamPath(id,r),s,b,'POST'),
       streamPreview:(id,r,t,s)=>request(streamPath(id,r)+'/'+caseId(t)+'/preview',s),
@@ -296,9 +298,16 @@ export interface ObservationComparison {
     entanglement_present:boolean|null;confidence:{animal_group:number|null;condition:number|null}};
   current:DroneRequest;previous:DroneRequest|null;comparison_is_automated:false;
 }
+export interface RecordingSegment {
+  segment_id:string;offset_seconds:number;duration_seconds:number;bytes:number;sha256:string;
+}
+export interface DroneRecording {
+  recording_id:string;status:string;started_at:string;updated_at:string;
+  segments:RecordingSegment[];error_code:string|null;
+}
 export interface DroneStream {
   stream_id:string;request_id:string;status:string;created_at:string;expires_at:string;
-  last_frame_at:string|null;frame_age_seconds:number|null;can_manage:boolean;publish_url?:string;
+  last_frame_at:string|null;frame_age_seconds:number|null;can_manage:boolean;publish_url?:string;recording_enabled?:boolean;
   source:{label:string;source_kind:string;source_url:string|null;rights_note:string};
   frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
 }
@@ -314,6 +323,8 @@ export interface ReminderStatus {
   items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
 }
 export interface DroneApi {
+  recordings?(id:string,r:string,t:string,signal?:AbortSignal):Promise<{enabled:boolean;recordings:DroneRecording[];time_note:string}>;
+  recordingVideo?(id:string,r:string,t:string,v:string,g:string,signal?:AbortSignal):Promise<Blob>;
   frameAnalyses?(id:string,r:string,signal?:AbortSignal):Promise<{jobs:FrameAnalysis[];worker:{running:boolean}}>;
   queueFrameAnalysis?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   reminderStatus?(id:string,r:string,signal?:AbortSignal):Promise<ReminderStatus>;

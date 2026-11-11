@@ -51,6 +51,7 @@ class Settings(BaseSettings):
     network_case_actions_enabled: bool = False
     case_drone_requests_enabled: bool = False
     drone_streams_enabled: bool = False
+    drone_recordings_enabled: bool = False
     drone_frame_analysis_enabled: bool = False
     drone_reminders_enabled: bool = False
     drone_reminder_webhooks: dict[str, str] = Field(default_factory=dict)

@@ -67,6 +67,8 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
         "NETWORK_AUTH_ENABLED": "true",
         "CASE_DRONE_REQUESTS_ENABLED": "true",
         "DRONE_STREAMS_ENABLED": "true",
+        "DRONE_RECORDINGS_ENABLED": "true",
+        "DRONE_EVIDENCE_DIR": str(tmp_path / "recorded-evidence"),
         "DRONE_STREAM_RECEIVER_SECRET": "x" * 40,
     }
     log = open(tmp_path / "receiver.log", "wb")  # noqa: SIM115
@@ -174,6 +176,35 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
             15,
         )
         assert stale["frame"] is None
+        # Closed segments are persistent and only available through case authorization.
+        from lifejacket.config import settings
+
+        old_directory = settings.drone_evidence_dir
+        settings.drone_evidence_dir = tmp_path / "recorded-evidence"
+        try:
+
+            def recorded():
+                archive = client.get(endpoint + "/recordings").json()
+                return archive if any(r["segments"] for r in archive["recordings"]) else None
+
+            archive = wait_until(recorded, 20)
+            recording = next(r for r in archive["recordings"] if r["segments"])
+            segment = recording["segments"][0]
+            video_path = (
+                endpoint
+                + "/recordings/"
+                + recording["recording_id"]
+                + "/"
+                + segment["segment_id"]
+            )
+            playback = client.get(video_path)
+            assert playback.status_code == 200, playback.text
+            assert playback.headers["content-type"] == "video/mp4"
+            import hashlib
+
+            assert hashlib.sha256(playback.content).hexdigest() == segment["sha256"]
+        finally:
+            settings.drone_evidence_dir = old_directory
         # Restart the actual receiver on the same ports/lock, preserving the grant
         # and saved evidence in the shared database.
         receiver.terminate()
