@@ -82,7 +82,10 @@ Operator naming does not grant an app account or flight permission. The coordina
 With development dependencies installed, build the actual request UI:
 
 ~~~sh
-node scripts/build_drone_stream_preview.mjs
+npm ci
+npm ci --prefix clients/responder_console
+npm run build:drone-stream
+python scripts/check_drone_setup.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg
 python scripts/drone_stream_demo.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg --port 8935
 ~~~
 
@@ -102,3 +105,26 @@ See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest co
 
 
 Saved-frame AI jobs and closed-app reminder delivery are described in [drone_followup.md](drone_followup.md).
+
+
+## Setup boundaries before the hardware test
+
+The rehearsal uses the actual coordinator request/stream/evidence UI and case APIs.
+It is intentionally disposable: stopping it removes its generated media and test database.
+Do not use it for real animal evidence. A deployed API, receiver and analysis worker must
+share persistent database/evidence storage and the same configuration.
+
+The live receiver is a sampled-preview and selected-still workflow. It does not retain a
+full-video archive or offer full-motion playback. Recorded-file selection separately copies
+the original local clip into its output directory; that is not a live archive or a console
+video player. Keep original aircraft recordings separately until an archive workflow exists.
+
+Before involving YOLO, verify stream reception, exact-frame saving, original-photo access,
+interruption/reconnection, end-session revocation and the human review flow. AI outputs in
+the rehearsal are fixtures. YOLO integration and patrol-to-alert creation are separate work;
+this setup exercises an observation request linked to an existing case.
+
+For a remote phone, select a private/VPN route to the receiver with the project operator.
+The default loopback URL cannot be reached by an iPhone. An HTTP app/proxy URL does not
+carry RTMP. No public receiver, VPN, external notification destination or cloud service is
+provisioned by these commands.
