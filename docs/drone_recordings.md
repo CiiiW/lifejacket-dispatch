@@ -91,3 +91,22 @@ UI bundling and Ruff passed. A connected rehearsal served the UI and a 715,218-b
 segment over the case-authenticated API while the preview reported connected. This is
 software/transport evidence, not a visual browser acceptance test, hardware acceptance or
 wildlife AI validation. The code is prepared locally; it is not a deployed cloud receiver.
+
+
+## Unified observation workspace
+
+The request now opens a responsive workspace before the request-update form. Footage
+(live preview plus received recordings) occupies the left column; saved original photos
+and advisory findings share the right column. It stacks below 850 px. Selecting a photo
+also selects that evidence in the AI controls, but never starts a model call. Selecting
+another frame clears the animal/detection choices and requires a fresh confirmation.
+Unknown animal location, capture-time limits, recording/demo provenance and human-review
+status are kept visible. Existing comparison, approval and human-outcome forms remain.
+
+Run `npm run test:observation-workspace` after installing root and console dependencies.
+These React DOM checks cover photo/AI selection, authenticated playback handoff, stale
+photo response cancellation, media cleanup on case changes and denied photo access.
+TypeScript and the rehearsal bundle are separate checks. The connected user browser could
+not reach this workspace's localhost rehearsal (connection refused), so visual browser,
+mobile layout, actual video decoding and keyboard acceptance still need to be run from
+an environment where the rehearsal URL is reachable. No visual acceptance is claimed.

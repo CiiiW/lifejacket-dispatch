@@ -1,9 +1,10 @@
 import {useEffect,useRef,useState} from 'react';
 import {type DroneApi,type DroneRequest,type FrameAnalysis,type ReminderStatus,NetworkError,networkErrorMessage} from '../lib/networkApi';
 
-export function DroneFollowupPanel({api,id,request,canManage,onChanged,onUnavailable}:{api:DroneApi;id:string;request:DroneRequest;canManage:boolean;onChanged:()=>Promise<void>;onUnavailable:(e:unknown)=>void}){
+export function DroneFollowupPanel({api,id,request,canManage,selectedEvidenceId,onEvidenceSelected,onChanged,onUnavailable}:{api:DroneApi;id:string;request:DroneRequest;canManage:boolean;selectedEvidenceId?:string;onEvidenceSelected?:(id:string)=>void;onChanged:()=>Promise<void>;onUnavailable:(e:unknown)=>void}){
   const [jobs,setJobs]=useState<FrameAnalysis[]>([]);
   const [aiEnabled,setAIEnabled]=useState(false);
+  const [aiLoaded,setAILoaded]=useState(false);
   const [aiWorker,setAIWorker]=useState(false);
   const [reminders,setReminders]=useState<ReminderStatus|null>(null);
   const [frame,setFrame]=useState('');
@@ -22,16 +23,22 @@ export function DroneFollowupPanel({api,id,request,canManage,onChanged,onUnavail
       api.reminderStatus?.(id,request.request_id,signal),
     ]);
     if(signal.aborted)return;
-    setAIEnabled(Boolean(analyses));setJobs(analyses?.jobs||[]);setAIWorker(Boolean(analyses?.worker.running));
+    setAILoaded(true);setAIEnabled(Boolean(analyses));setJobs(analyses?.jobs||[]);setAIWorker(Boolean(analyses?.worker.running));
     setReminders(delivery||null);setError('');
   }
   useEffect(()=>{
     const c=new AbortController();active.current=c;let timer:ReturnType<typeof setTimeout>;
-    setJobs([]);setReminders(null);setAIEnabled(false);setFrame('');setDetection('');setAnimal('');setConfirmed(false);setError('');
+    setJobs([]);setReminders(null);setAIEnabled(false);setAILoaded(false);setFrame('');setDetection('');setAnimal('');setConfirmed(false);setError('');
     async function poll(){try{await refresh(c.signal);}catch(e){if(!c.signal.aborted)failure(e);}
       if(!c.signal.aborted)timer=setTimeout(()=>void poll(),5000);}
     void poll();return()=>{c.abort();clearTimeout(timer);};
   },[api,id,request.request_id]);
+  useEffect(()=>{
+    if(selectedEvidenceId!==undefined && (!selectedEvidenceId || request.evidence?.some(e=>e.evidence_id===selectedEvidenceId))){
+      setFrame(selectedEvidenceId);setDetection('');setAnimal('');setConfirmed(false);
+      key.current=crypto.randomUUID();
+    }
+  },[selectedEvidenceId]);
   async function action(fn:(s:AbortSignal)=>Promise<unknown>){
     if(lock.current || !active.current || active.current.signal.aborted)return;
     const s=active.current.signal;lock.current=true;setBusy(true);setError('');
@@ -53,12 +60,13 @@ export function DroneFollowupPanel({api,id,request,canManage,onChanged,onUnavail
   if(!api.frameAnalyses && !api.reminderStatus)return null;
   return <section aria-label="Observation follow-up" className="lj-panel" style={{marginTop:20}}>
     {error && <p role="alert">{error}</p>}
+    {!aiEnabled && <p className="lj-muted">{api.frameAnalyses&&!aiLoaded?'Checking AI analysis availability…':'AI analysis is unavailable here. Review the original evidence manually; no AI finding has been applied.'}</p>}
     {aiEnabled && <>
       <h3>Analyze saved evidence</h3>
       <p>AI screening is advisory. A coordinator must review it before making a case decision.</p>
       {!aiWorker && <p className="lj-notice">The analysis worker is not reporting ready. Queued jobs will wait for it.</p>}
       {canAnalyze && <>
-        <label>Saved frame<select value={frame} onChange={e=>{setFrame(e.target.value);setDetection('');setAnimal('');setConfirmed(false);key.current=crypto.randomUUID();}}>
+        <label>Saved frame<select value={frame} onChange={e=>{setFrame(e.target.value);if(e.target.value)onEvidenceSelected?.(e.target.value);setDetection('');setAnimal('');setConfirmed(false);key.current=crypto.randomUUID();}}>
           <option value="">Choose saved evidence</option>{request.evidence?.map(e=><option key={e.evidence_id} value={e.evidence_id}>{e.description}</option>)}
         </select></label>
         <label style={{flexDirection:'row'}}><input type="checkbox" style={{minWidth:0}} checked={confirmed} onChange={e=>setConfirmed(e.target.checked)}/>I confirm sending this saved frame for advisory AI analysis.</label>

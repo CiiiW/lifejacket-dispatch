@@ -12,9 +12,11 @@
     "demo:connected": "python scripts/run_connected_scenario.py",
     "demo:drone-requests": "node scripts/drone_request_demo.mjs",
     "demo:connected-drone": "python scripts/run_connected_scenario.py --with-drone",
-    "build:drone-stream": "node scripts/build_drone_stream_preview.mjs"
+    "build:drone-stream": "node scripts/build_drone_stream_preview.mjs",
+    "test:observation-workspace": "node scripts/test_observation_workspace.mjs"
   },
   "devDependencies": {
-    "esbuild": "0.28.1"
+    "esbuild": "0.28.1",
+    "jsdom": "26.1.0"
   }
 }

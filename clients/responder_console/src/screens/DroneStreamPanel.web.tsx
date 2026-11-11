@@ -65,7 +65,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
     catch(e){if(!signal.aborted)failure(e);}
     finally{lock.current=false;if(!signal.aborted)setBusy(false);}
   }
-  if(!api.streams || available===false)return null;
+  if(!api.streams || available===false)return <p className="lj-notice">Live observation is not configured in this environment. Saved evidence remains available for review.</p>;
   if(available===null)return <p className="lj-muted">Checking observation streaming…</p>;
   const canManage=request.allowed_transitions.length>0 && request.status==='in_progress';
   const fresh=view?.status==='connected' && (view.frame_age_seconds??Infinity)+elapsed<=6;
