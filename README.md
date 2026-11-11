@@ -2,15 +2,21 @@
 
 # 🛟 LifeJacket
 
-### From a wildlife sighting to a clearer rescue decision.
+## Help a wildlife sighting become an informed rescue decision.
 
-**A human-reviewed rescue coordination prototype**
+Photo reports, structured triage and drone evidence—brought together for **human-reviewed marine mammal rescue coordination**.
 
 University of Chicago · MS in Applied Data Science Capstone · 2026
 
-[Start here](#start-here) · [How it works](#how-it-works) · [What is built](#what-is-built) · [Evidence](#evidence-and-evaluation) · [Try the demo](#try-the-demo)
+[![Explore the workflow](docs/images/button-workflow.svg)](#how-it-works) &nbsp; [![Run the demo](docs/images/button-demo.svg)](#try-the-demo) &nbsp; [![Review the evidence](docs/images/button-evidence.svg)](#evidence-and-evaluation)
+
+**Research prototype** &nbsp; · &nbsp; **Human approval** &nbsp; · &nbsp; **Selected-frame AI assessment**
+
+[What is built](#what-is-built) · [AI responsibilities](#where-ai-fitsand-where-it-does-not) · [Setup and demo](#try-the-demo)
 
 </div>
+
+---
 
 ## Start here
 

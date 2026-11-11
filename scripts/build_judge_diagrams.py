@@ -8,13 +8,13 @@ from pathlib import Path
 OUT = Path(__file__).resolve().parents[1] / "docs" / "images"
 OUT.mkdir(parents=True, exist_ok=True)
 NAVY, PANEL, LINE, INK, MUTED, TEAL, GOLD = (
-    "#0B1728",
-    "#13283B",
-    "#35546B",
-    "#F2F7FA",
-    "#B2C9D8",
-    "#63DECD",
-    "#F5C578",
+    "#FFFFFF",
+    "#F1F8F7",
+    "#D5DFE5",
+    "#202832",
+    "#586879",
+    "#087F8C",
+    "#B66B12",
 )
 
 
@@ -39,7 +39,7 @@ def box(x, y, w, h, title, body, badge=None, pending=False):
 
 def arrow(points, color=TEAL, dashed=False):
     dash = ' stroke-dasharray="6 5"' if dashed else ""
-    return f'<path d="{points}" fill="none" stroke="{color}" stroke-width="2.5" marker-end="url(#arrow)"{dash}/>'
+    return f'<path d="{points}" fill="none" stroke="{color}" stroke-dasharray="5 7" stroke-width="2.5" marker-end="url(#arrow)"{dash}/>'
 
 
 def save(name, h, title, description, body):
@@ -105,7 +105,7 @@ def overview():
     b += arrow("M382 268 H424") + arrow("M770 268 H812")
     b += arrow("M988 364 V414 H600 V370")
     b += text(711, 405, "New evidence returns to the same case", 17, MUTED)
-    b += '<rect x="42" y="449" width="1116" height="64" rx="14" fill="#153B3D"/>'
+    b += '<rect x="42" y="449" width="1116" height="64" rx="14" fill="#E6F5EF"/>'
     b += text(68, 488, "HUMAN REVIEW", 17, TEAL, 700)
     b += text(
         260,
@@ -132,7 +132,7 @@ def architecture():
         20,
         MUTED,
     )
-    b += '<rect x="42" y="174" width="672" height="348" rx="18" fill="#102235" stroke="#35546B"/>'
+    b += '<rect x="42" y="174" width="672" height="348" rx="18" fill="#F4F2FC" stroke="#D5DFE5"/>'
     b += text(65, 211, "ORCHESTRATED MODEL COMPONENTS", 15, TEAL, 700)
     for x, title, subtitle in [
         (64, "Detect", "Locate candidates"),
@@ -278,7 +278,7 @@ def drone():
         None,
     )
     b += arrow("M286 547 V781 H600 V809") + arrow("M886 731 V781 H600 V809")
-    b += '<rect x="255" y="815" width="690" height="91" rx="18" fill="#153B3D" stroke="#63DECD"/>'
+    b += '<rect x="255" y="815" width="690" height="91" rx="18" fill="#E6F5EF" stroke="#087F8C"/>'
     b += text(280, 853, "Coordinator reviews the same case", 25, INK, 650)
     b += text(
         280,
@@ -303,7 +303,20 @@ def drone():
     )
 
 
+def buttons():
+    for name, label, color in [
+        ("workflow", "01  EXPLORE THE WORKFLOW", "#087F8C"),
+        ("demo", "02  RUN THE DEMO", "#6554B4"),
+        ("evidence", "03  REVIEW THE EVIDENCE", "#263D50"),
+    ]:
+        svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="255" height="48" viewBox="0 0 255 48" role="img" aria-label="{label}">
+<rect width="255" height="48" rx="8" fill="{color}"/>
+<text x="127.5" y="29" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="white">{label}</text></svg>'''
+        (OUT / f"button-{name}.svg").write_text(svg + "\n")
+
+
 if __name__ == "__main__":
+    buttons()
     overview()
     architecture()
     drone()
