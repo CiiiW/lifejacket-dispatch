@@ -7,7 +7,8 @@ import time
 from pathlib import Path
 
 import pytest
-from test_drone_requests import drone_api  # noqa: F401
+from test_drone_followup import detect_result, followup_api, queue  # noqa: F401
+from test_drone_requests import BASE, change, drone_api  # noqa: F401
 from test_drone_streams import (
     opened,
     stream_api,  # noqa: F401
@@ -25,7 +26,7 @@ def wait_until(fn, timeout=20):
     raise AssertionError("Timed out waiting for media pipeline")
 
 
-def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  # noqa: F811
+def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, followup_api, tmp_path):  # noqa: F811
     media = os.environ.get("MEDIAMTX_BINARY")
     ffmpeg = os.environ.get("FFMPEG_BINARY", "ffmpeg")
     if not media:
@@ -165,6 +166,53 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
             },
         )
         assert saved.status_code == 201, saved.text
+        # Continue the SAME saved stream frame through real agent adapters and
+        # deterministic severity rules. Only model responses are scripted.
+        from lifejacket.llm.fake import ScriptedLLMClient
+        from lifejacket.models.tables import (
+            CaseDroneAnalysisRow,
+            CaseDroneEvidenceRow,
+            IncidentRow,
+        )
+        from lifejacket.services import drone_frame_analysis as analysis
+
+        scripted = ScriptedLLMClient.scenario("sea_lion")
+        scripted.queue("detection", {"animals": detect_result()["detections"]})
+        current_row = {**row, "revision": saved.json()["revision"]}
+        eid = saved.json()["evidence_id"]
+        detected = queue(client, current_row, eid)
+        assert detected.status_code == 202, detected.text
+        current_row["revision"] = detected.json()["revision"]
+        assert analysis.process_one(factory, lambda db, job: analysis.infer(db, job, scripted))
+        assessed = queue(
+            client,
+            current_row,
+            eid,
+            stage="assess",
+            request_key="stream-assess",
+            detection_job_id=detected.json()["analysis_id"],
+            animal_index=1,
+        )
+        assert assessed.status_code == 202, assessed.text
+        latest_revision = assessed.json()["revision"]
+        assert analysis.process_one(factory, lambda db, job: analysis.infer(db, job, scripted))
+        with factory() as db:
+            result = db.get(CaseDroneAnalysisRow, assessed.json()["analysis_id"])
+            assert result.status == "completed", result.error_code
+            assert result.evidence_id == eid and result.result_json["animal_number"] == 2
+            assert result.result_json["assessment"]["requires_human_review"] is True
+            assert result.result_json["assessment"]["severity_level"]
+            assert (
+                db.get(CaseDroneEvidenceRow, eid).metadata_json["source_session_id"]
+                == grant["stream_id"]
+            )
+            assert db.get(IncidentRow, "case").assessment_json is None
+        assert {call.agent for call in scripted.calls} == {
+            "detection",
+            "identification",
+            "assessment",
+        }
+        assert all(call.image_count == 1 for call in scripted.calls)
         good.terminate()
         good.wait(timeout=5)
         stale = wait_until(
@@ -215,11 +263,23 @@ def test_recorded_rtmp_to_case_evidence_and_disconnect(stream_api, tmp_path):  #
         wait_until(rtmp_ready)
         again = publish(grant["publish_url"])
         wait_until(lambda: client.get(endpoint + "/preview").json().get("frame"), 30)
-        ended = client.post(endpoint + "/end", json={"revision": saved.json()["revision"]})
+        ended = client.post(endpoint + "/end", json={"revision": latest_revision})
         assert ended.status_code == 200, ended.text
         assert client.get(endpoint + "/preview").json()["frame"] is None
         wait_until(lambda: again.poll() is not None, 15)
         assert client.get(BASE_PHOTO(row, saved)).status_code == 200
+        current_row["revision"] = ended.json()["revision"]
+        ready = change(client, current_row, "evidence_ready")
+        assert ready.status_code == 200, ready.text
+        reviewed = change(client, ready.json(), "reviewed", outcome="still_uncertain")
+        assert reviewed.status_code == 200, reviewed.text
+        final = client.get(BASE + "/" + row["request_id"]).json()
+        assert final["outcome"] == "still_uncertain"
+        assert eid in {item["evidence_id"] for item in final["evidence"]}
+        assert any(event["kind"] == "reviewed" for event in final["events"])
+        with factory() as db:
+            assert db.get(IncidentRow, "case").report_json == {"secret": "INTERNAL"}
+            assert db.get(IncidentRow, "case").assessment_json is None
     finally:
         for p in publishers:
             if p.poll() is None:

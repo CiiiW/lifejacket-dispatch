@@ -1,0 +1,163 @@
+{
+  "$defs": {
+    "DetectorBox": {
+      "additionalProperties": false,
+      "properties": {
+        "class_name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Class Name",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "xyxy": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Xyxy",
+          "type": "array"
+        },
+        "track_id": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Track Id"
+        }
+      },
+      "required": [
+        "class_name",
+        "confidence",
+        "xyxy"
+      ],
+      "title": "DetectorBox",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "evidence_id": {
+      "pattern": "^[a-f0-9]{32}$",
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "source_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "width": {
+      "exclusiveMinimum": 0,
+      "maximum": 8192,
+      "title": "Width",
+      "type": "integer"
+    },
+    "height": {
+      "exclusiveMinimum": 0,
+      "maximum": 8192,
+      "title": "Height",
+      "type": "integer"
+    },
+    "model_name": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Model Name",
+      "type": "string"
+    },
+    "model_version": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Model Version",
+      "type": "string"
+    },
+    "weights_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Weights Sha256",
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "sample_footage",
+        "operator_capture"
+      ],
+      "title": "Source Kind",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "detections": {
+      "items": {
+        "$ref": "#/$defs/DetectorBox"
+      },
+      "maxItems": 32,
+      "title": "Detections",
+      "type": "array"
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "decode_failed",
+            "inference_failed",
+            "model_unavailable"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Code"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "source_sha256",
+    "width",
+    "height",
+    "model_name",
+    "model_version",
+    "weights_sha256",
+    "source_kind",
+    "status"
+  ],
+  "title": "DetectorFrameResult",
+  "type": "object"
+}
