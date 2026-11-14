@@ -1,0 +1,15 @@
+# Optional extra: the aerial object detector.
+#
+#   pip install -r backend/requirements-detector.txt
+#
+# Deliberately NOT part of backend/requirements.txt. The API and the test
+# suite run without it: load_detector() returns a FakeDetector unless
+# DRONE_DETECTOR_ENABLED is set, and nothing here is imported until then.
+#
+# This is the inference side only - CPU, about 50 MB. Training needs torch and
+# CUDA and lives in research/aerial_detector/requirements.txt, which the
+# backend never installs.
+
+onnxruntime>=1.19.0        # CPU inference over the exported .onnx
+huggingface-hub>=0.25.0    # pinned-revision download of the published weights
+numpy>=1.26                # box maths and NMS; onnxruntime requires it anyway

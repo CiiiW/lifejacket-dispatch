@@ -1,0 +1,84 @@
+# Source class name -> target class.
+#
+# The target order is DroneMegaDetector's, read out of its published
+# checkpoint rather than copied from a README:
+#
+#   0 person   1 animal   2 vehicle
+#
+# It is the interface between this directory and
+# backend/lifejacket/drones/detector.py. Every fine-tune inherits it, so any
+# checkpoint is a drop-in replacement for any other; publish.py refuses a
+# mismatch because reordering relabels silently instead of failing.
+#
+#   person   people on foot, in any posture
+#   vehicle  anything wheeled and motorised, plus bicycles
+#   animal   any non-human animal
+#
+# NOTE ON SCOPE. The `datasets:` section below is for harmonize.py, which is
+# now the FALLBACK path: pooling WAID, MMLA and VisDrone to train a detector
+# from scratch. You only need it if DroneMegaDetector turns out not to
+# transfer. The main path -- prepare_noaa.py, dataset.py, finetune.py -- reads
+# COCO exports whose categories are already named person/animal/vehicle, and
+# matches them by name, so it does not use this file at all.
+#
+# `ignore` discards the boxes but keeps the image. Note that a discarded box
+# does not remove the object from the pixels: it becomes unlabelled
+# background, which actively teaches the model those pixels are not
+# interesting. Tolerable for VisDrone's two do-not-score meta-categories, and
+# the reason bicycles are mapped rather than dropped.
+
+targets:
+  - person
+  - animal
+  - vehicle
+
+datasets:
+
+  waid:
+    # github.com/xiaohuicui/WAID - 14,375 drone images, six species.
+    # Closest of the three to the target domain: it contains seals, and its
+    # habitats explicitly include sandy beaches.
+    map:
+      sheep: animal
+      cattle: animal
+      seal: animal
+      camelus: animal
+      kiang: animal
+      zebra: animal
+    ignore: []
+
+  mmla:
+    # huggingface.co/datasets/imageomics/mmla_{opc,mpala,wilds}
+    # 155,074 frames, Kenya and Ohio. Far from a California beach, but it is
+    # the only large source of low-altitude drone video with box labels.
+    map:
+      zebra: animal
+      "plains zebra": animal
+      "grevy's zebra": animal
+      grevys_zebra: animal
+      giraffe: animal
+      "reticulated giraffe": animal
+      "masai giraffe": animal
+      onager: animal
+      "persian onager": animal
+      dog: animal
+      "african wild dog": animal
+    ignore: []
+
+  visdrone:
+    # VisDrone2019-DET. The only one of the three with people and vehicles,
+    # which is the whole reason it is here.
+    map:
+      pedestrian: person      # standing or walking
+      people: person          # any other posture - sitting, lying, crouching
+      bicycle: vehicle
+      car: vehicle
+      van: vehicle
+      truck: vehicle
+      tricycle: vehicle
+      awning-tricycle: vehicle
+      bus: vehicle
+      motor: vehicle
+    ignore:
+      - ignored               # category 0: do-not-score crowd regions
+      - others                # category 11: unlabelled grab bag
