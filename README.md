@@ -32,12 +32,7 @@ MS in Applied Data Science Capstone · University of Chicago · 2026
 
 ## 1. 🌊 Project Motivation
 
-For the case-linked drone flow, run `python scripts/run_connected_scenario.py --with-drone`
-in the backend environment. This checks a submitted case through confidence suggestions,
-approved evidence collection and review using a temporary database and synthetic frame.
-See [connected drone scenario](docs/connected_drone_scenario.md).
-
-## Run the local drone demo
+*Human activity is driving wildlife toward extinction — and when an injured animal is found, the first few minutes decide what happens next.*
 
 <div align="center">
 
@@ -204,15 +199,121 @@ Strandings don't respect organizational boundaries, so a newer layer lets severa
 
 ### 3.3 Drones — a look at places crews can't reach
 
-*Two jobs: check now, patrol next.*
+*Three jobs: verify a case now, watch it over time, patrol next.*
 
-| | **USE CASE 1 · NOW** | **USE CASE 2 · NEXT STEP** |
+| | **VERIFY · NOW** | **MONITOR · NOW** | **PATROL · NEXT STEP** |
+|---|---|---|---|
+| *What it answers* | "Is that sea otter pup stranded, or is its mother nearby?" | "Has anything changed since yesterday?" | "Is anything in trouble on a beach nobody walks?" |
+| *What starts it* | Low confidence on a reviewed case, or a coordinator's own judgment | A coordinator schedules the next review | A report-density layer on the console map |
+| *Built so far* | Case-linked requests, approval and operator handoff, live and recorded frame capture, human review | Due/overdue queue, continue / escalate / finish decisions, background reminders | A historical density layer from NOAA's California records (2006–2025) |
+
+**Nothing flies on a model's say-so.** A suggestion is a prompt for a coordinator, approval is a human action, and every frame that becomes evidence was chosen by a person.
+
+#### A drone request belongs to a case
+
+Drone work used to sit in its own lab page, disconnected from any real report. It now hangs off a reviewed case in the Rescue network and runs one lifecycle:
+
+```
+requested  →  approved  →  in progress  →  evidence ready  →  reviewed
+                 │              │                                 │
+        lead names an     operator confirms site,         answered /
+        operator and      weather, range and battery      still uncertain /
+        writes the        before anything can be          escalation needed
+        question          collected
+```
+
+Decline, cancel and failure paths are all kept. **Completing a flight is not the same as answering the question** — the review step is separate, and a person writes the finding.
+
+Findings are an addendum to the case. The original intake and the rescue response status are never overwritten, and the response never waits on a drone.
+
+<div align="center">
+<img src="docs/images/drone-request-panel.png" width="760" alt="Case drone requests panel: a verification request with its question, approved operator and attached evidence">
+</div>
+
+<!-- PLACEHOLDER: capture from `npm run demo:drone-requests` (loopback :8084, fictional data, no backend) -->
+
+Only the active lead coordinator can change a request; other involved approved staff can read it. Naming an operator records responsibility — it does not grant an account or permission to fly. Every state and evidence change goes through a compare-and-swap revision check and an append-only event log, so two coordinators editing at once cannot silently overwrite each other.
+
+#### When the model isn't sure, it says so — and stops there
+
+The case endpoint now derives a suggestion from confidence values already saved on the case. It makes no model call, issues no aircraft command, and creates no record just by being read.
+
+| Signal | Rule |
+|---|---|
+| *Animal group uncertain* | Highest probability, pooled across species in the same routing group, falls below the threshold |
+| *Condition uncertain* | The saved injury-assessment confidence falls below the threshold |
+| *Intake asked for a better photo* | The report explicitly flagged the image as inadequate — at **any** confidence |
+| *Species uncertain, group confident* | **No suggestion.** Group is what drives routing, so the exact species can stay open |
+| *No usable score* | **No suggestion.** A missing confidence is never invented as a zero |
+| *Urgent case* | Review may run **in parallel** — dispatch is never held back for it |
+
+The cutoff is one setting, `DRONE_VERIFICATION_CONFIDENCE_THRESHOLD`, default **0.90** and explicitly provisional.
+
+Acting on a suggestion opens an editable draft. Submitting is a deliberate coordinator action, and the server re-checks the evidence before accepting it. While a request is active, the same evidence will not produce another one; closed, duplicate and unresolved cases produce none at all.
+
+#### From camera to reviewed evidence
+
+Two routes bring footage to a coordinator. Both end in the same place — a person looking at a frame and deciding.
+
+**Live, from the pilot's phone**
+
+```
+Mini 2 → DJI Fly  ──RTMP──▶  private receiver  ──▶  sampled preview  ──▶  saved frame
+the pilot flies              30-minute grant,       up to 2 fps,          exact frame ID,
+manually                     publish-only, cannot   no audio; a feed      immutable, hashed,
+                             read any case data     older than 6 s is     case-linked
+                                                    marked interrupted
+```
+
+MediaMTX v1.21.3 and FFmpeg, bound to loopback by default, with RTMP optionally on a private or VPN interface. The coordinator copies a short-lived publishing address to the operator; the operator flies manually in DJI Fly. Incoming frames sit in a bounded 12-second buffer and selection quotes an exact frame ID, so a newer frame cannot quietly replace the one the coordinator picked. A stale feed is hidden rather than frozen — the coordinator is never shown an old picture as if it were current.
+
+> **No DJI SDK integration, no waypoint flight, no automatic tracking.** Supporting a live stream does not make the aircraft autonomous; that would be a separate decision.
+
+<div align="center">
+<img src="docs/images/drone-stream-preview.png" width="760" alt="Coordinator stream panel showing a sampled preview, session state and the save-frame control">
+</div>
+
+<!-- PLACEHOLDER: capture from `python scripts/drone_stream_demo.py` — real RTMP receiver, disposable database, generated MP4 -->
+
+**From a recorded file**
+
+The existing extract → hash → review path still stands, and a new selector answers the question that makes long footage usable: *which five frames out of twenty minutes are worth a coordinator's time?*
+
+| Layer | What it does | Cost |
 |---|---|---|
-| | Check incidents that may not need a crew | Proactively patrol hard-to-reach areas |
-| *What it answers* | "Is that sea otter pup stranded, or is its mother nearby?" | Remote coastlines, cliffs and backcountry |
-| *Built so far* | Coordinator-approved survey routes, flown in simulation, plus a video review queue | A historical report-density layer on the console map |
+| *1 · Scan* | Decode at 160×90 and 2 fps. Drop blurred frames (Laplacian sharpness under half the clip's median), bad exposure and near-duplicates (64-bit perceptual hash); mark shot cuts; cap at 40 candidates | Free, local |
+| *2 · Describe* | One model call per surviving candidate, which only describes what the frame shows | One call per candidate |
+| *3 · Select* | Deterministic pick of up to 5 clear frames that differ in view and side | Free, code |
 
-**Either way, a coordinator approves every flight.**
+**The model never picks the frames.** It describes them; the choosing is code — the same split as everywhere else in LifeJacket. Running `select --scan-only` does layer 1 alone and prints the candidate offsets with no model calls and no cost.
+
+**Advisory screening on a saved frame.** A coordinator can explicitly send one saved frame to the same detection → identification → condition agents that run on reporter photos, then select the intended animal and confirm a second time before assessment. The frame's hash is re-checked first, and the result is stored *beside* the case, never over it. An empty detection means "look again yourself", not "nothing is there".
+
+#### Following through when no one is watching
+
+A monitoring request is only worth making if somebody comes back to it. A separate worker scans the database with no coordinator page open, derives overdue reviews and escalations from the existing workflow, and queues one notification per lead organization.
+
+| | |
+|---|---|
+| *Transport* | Signed HTTPS webhook — HMAC-SHA256 over the exact body, stable idempotency key |
+| *Guarantee* | At least once, not exactly once; five attempts with backoff, redirects rejected |
+| *Contents* | Identifiers only — no reporter contact, no GPS, no photos, no free text, no publishing address |
+| *Cancellation* | Closing or transferring the case, revoking verification, rescheduling, or acknowledging the attention cancels unsent items |
+
+Delivered means the destination accepted the callback, not that a human read it. No destination is configured in this repository and every flag defaults off.
+
+#### What we actually know about the 90% rule
+
+Two offline studies. Both say the same thing: not yet.
+
+| Study | Result | What it is not |
+|---|---|---|
+| *Policy sweep* | 12 synthetic scenarios across eight cutoffs. 90% finds all 5 expected positives with 0 unexpected suggestions; 95% and above begin over-suggesting | Not calibrated probabilities, not real observations, and with no held-out split it cannot select a cutoff |
+| *Real-photo retrospective* | The same 102 public photos as §4, re-scored with the drone policy's group pooling: **95.1%** agreement (97/102; a tied maximum counts as unresolved). At 90%, 100 photos clear the cutoff and **4 of those disagree with the reference group** | Saved outputs re-analyzed, not a fresh run, not expert-adjudicated, and not aerial |
+
+That second row is the useful one. **A confidence threshold does not catch a confident mistake** — the four disagreements all scored 95% or higher, so no low-confidence trigger would ever have flagged them.
+
+On the 38 assessed condition-pilot photos the rule asks for extra evidence on **24 (63%)**. Whether that is a sensible workload is a question for a response partner, not one we can answer ourselves.
 
 #### How a survey is planned
 
@@ -256,26 +357,16 @@ Before anything flies, the plan is validated against hard limits:
 
 <!-- PLACEHOLDER: planned route vs flown trace plot -->
 
-#### From recorded video to human review
-
-```
-Recorded video  →  Verifiable frames  →  Same detection AI  →  Human review
-NOAA's public      each still gets a      the model used on     a person keeps
-sea lion footage   timestamp and a        reporter photos       or rejects
-                   SHA-256 hash           looks for animals     every frame
-```
-
-**First real run:** 12 frames processed, 0 failures, on NOAA's public California sea lion B-roll.
-
-> ⚠️ This tests the **processing path**, not detection accuracy or injury diagnosis. The boxes the model drew are regions containing possible groups of animals, not validated individuals, and there are no expert labels yet.
-
 #### 🔗 The missing link
 
-| Flight half | Perception half |
-|---|---|
-| ✅ Planned route flown in simulation within 1.18 m | ✅ Recorded video processed and reviewed by a person |
+| Flight | Perception | Coordination |
+|---|---|---|
+| ✅ Planned route flown in simulation within **1.18 m** | ✅ Recorded video and live RTMP both reach a human reviewer | ✅ Request, approval, evidence and review run end to end on one case |
+| ❌ No physical aircraft has flown | ❌ Aerial recognition accuracy is unmeasured | ❌ Never run against real operational data |
 
-**They don't connect yet.** The simulator has no camera, and no physical drone has flown. Closing that gap — so a planned route produces real footage that flows into this pipeline — is the next major piece of work.
+**The simulator has no camera, and the camera has never been in the air.** The streaming path proves the software, using a generated test video; the simulation proves the flight worker, using synthetic telemetry. Neither proves that a drone can tell you anything useful about an animal.
+
+The hardware acceptance test is written and waiting. With a Mini 2 and an iPhone, motors off: pair them, publish to the private receiver, measure camera-to-screen delay against a visible clock, then pull the uplink and confirm the coordinator sees *interrupted* rather than a frozen frame. Only after that does aerial footage get evaluated for whether it changes a decision — and that judgment belongs to qualified reviewers, not to us.
 
 ---
 
@@ -293,14 +384,14 @@ clients/responder_console/   Expo + web — the rescue organization's console
 clients/shared/              one API client and one design system
 
 backend/lifejacket/
-  agents/        six intake agents + a bounded coordination agent
+  agents/        six intake agents, a frame observer, a bounded coordination agent
   dispatch/      severity, duplicates, mass strandings, responder matching (no LLM)
   context/       NOAA CO-OPS tides, Open-Meteo weather, Nominatim, OpenRouteService
   access/        role-scoped permissions across centers and agencies
-  drones/        planner, mock simulator, ArduPilot SITL adapter, video pipeline
+  drones/        planner, SITL adapter, recorded-video pipeline, frame selection
   services/      the intake pipeline — the single best entry point to the code
-  models/        23 tables, Pydantic schemas
-  api/routes/    12 route groups, 63 endpoints
+  models/        30 tables, Pydantic schemas
+  api/routes/    15 route groups, 84 endpoints
 
 prompts/         prompts as Markdown, not Python strings
 config/          every tunable number, with a comment on where it came from
@@ -333,9 +424,11 @@ Animal group is what drives responder matching, so the higher figure is the one 
 
 | Result | Detail |
 |---|---|
-| *Automated tests* | **566**, all running offline against a deterministic stand-in model — no API key, no network, no cost |
+| *Automated tests* | **755**, all running offline against a deterministic stand-in model — no API key, no network, no cost |
 | *Simulated flight* | **1.18 m** max deviation across 280 samples on real autopilot firmware |
 | *Video pipeline* | **12 frames, 0 failures** on real NOAA footage |
+| *Live stream transport* | Real RTMP publish → receive → save-frame → interrupt → reconnect, with MediaMTX and a generated video |
+| *Case-linked drone flow* | One case driven through request, approval, evidence and review against the real endpoints |
 | *Multi-organization case* | **42 checks** pass for one case across four roles |
 
 ### What we have not shown
@@ -389,8 +482,10 @@ Already built: a historical report-density layer from NOAA's California records 
 
 **Open work**
 
+- **Pass the hardware acceptance test** — a Mini 2 and an iPhone on the ground, motors off: pairing, private-network reach, measured camera-to-screen delay
 - **Close the drone loop** — fly a planned route on a real aircraft so the camera pipeline gets real footage
 - **Calibrate the battery model** against real flight data
+- **Calibrate the 0.90 suggestion threshold** on reviewer-labeled cases with a genuine held-out split
 - **Validate identification** against expert-labeled stranding cases
 - **Widen the region** beyond the California pilot bounds
 - **Add volunteer matching** — responder ranking currently covers organizations only
@@ -407,9 +502,9 @@ Already built: a historical report-density layer from NOAA's California records 
 | *Clients* | Expo SDK 57 · React Native 0.86 · React 19 · TypeScript |
 | *Maps* | MapLibre GL JS (web) · react-native-maps (native) |
 | *External data* | NOAA CO-OPS · Open-Meteo · Nominatim · OpenRouteService |
-| *Drone* | ArduPilot SITL 4.6.3 · MAVLink · pymavlink · FFmpeg |
+| *Drone* | ArduPilot SITL 4.6.3 · MAVLink · pymavlink · FFmpeg · MediaMTX (RTMP) · Pillow |
 | *Identity* | Firebase Authentication |
-| *Testing* | pytest (566 offline tests) · ruff |
+| *Testing* | pytest (755 offline tests) · ruff |
 
 ---
 
@@ -419,7 +514,7 @@ Already built: a historical report-density layer from NOAA's California records 
 # Backend
 make setup                      # venv + dependencies
 make run                        # API on http://localhost:8000
-make test                       # 566 tests, fully offline
+make test                       # 755 tests, fully offline
 
 # Rescue console (web)
 cd clients/responder_console && npx expo start --web --port 19006
@@ -435,6 +530,14 @@ npm ci && npm run setup:demos && npm run demo:network
 ```
 
 Open <http://127.0.0.1:8082> — two labeled UI fixtures with fictional data. No GCP login, no SMS, no model calls, no database.
+
+**Walk one case through the drone flow**, from a low-confidence report to a reviewed frame:
+
+```bash
+python scripts/run_connected_scenario.py --with-drone
+```
+
+It runs the real request, approval, evidence and review endpoints against a temporary database and a generated frame, then writes an HTML trace to `var/connected-drone-workflow/`. No server, no model calls, no aircraft. See [`docs/connected_drone_scenario.md`](docs/connected_drone_scenario.md).
 
 <div align="center">
 <img src="docs/evidence/teammate_local_demo.jpg" width="620" alt="LifeJacket local demo landing page">

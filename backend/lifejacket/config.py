@@ -59,6 +59,31 @@ class Settings(BaseSettings):
     drone_stream_receiver_secret: str = ""
     # Provisional suggestion threshold; independent from identification stopping.
     drone_verification_confidence_threshold: float = Field(default=0.90, gt=0, le=1)
+
+    # --- Aerial detector (optional) --------------------------------------
+    # An object detector published to Hugging Face by
+    # research/aerial_detector/publish.py. Off by default, like every other
+    # drone feature, and nothing in the app calls it yet. `onnxruntime` is NOT
+    # a backend dependency: it lives in backend/requirements-detector.txt and
+    # is imported only when this is on.
+    #
+    # The revision must be a commit SHA. A branch name is not a pin, and a
+    # Hugging Face repo can serve different bytes tomorrow under the same id.
+    #
+    # KNOWN GAP: publish.py uploads the RF-DETR `.pth` checkpoint, but
+    # `OnnxDetector` reads ONNX. Exporting RF-DETR to ONNX and confirming
+    # `decode_detr` against a real export is unfinished work -- see the
+    # "Honest limits" section of research/aerial_detector/README.md. Until
+    # then this stays off and `load_detector()` returns a FakeDetector.
+    drone_detector_enabled: bool = False
+    drone_detector_repo: str = ""
+    drone_detector_revision: str = ""
+    drone_detector_file: str = ""
+    drone_detector_sha256: str = ""
+    # DroneMegaDetector's native resolution, read from its own checkpoint.
+    drone_detector_imgsz: int = Field(default=1280, ge=64, le=4096)
+    drone_detector_confidence: float = Field(default=0.25, gt=0, le=1)
+    drone_detector_iou: float = Field(default=0.45, gt=0, le=1)
     # Only safe alongside the network boundary; never enables legacy public routes.
     reporter_phone_enabled: bool = False
     firebase_auth_project_id: str | None = None
@@ -112,6 +137,12 @@ class Settings(BaseSettings):
     drone_demo_dir: Path = REPO_ROOT / "var" / "drone-demo"
 
     drone_runs_dir: Path = Field(default=REPO_ROOT / "var" / "drone-runs")
+
+    # Downloaded detector weights. Outside the repo: large, and pinned by
+    # hash rather than by version control.
+    drone_detector_cache_dir: Path = Field(
+        default=REPO_ROOT / "var" / "drone-detector"
+    )
 
     photo_storage_dir: Path = Field(default=REPO_ROOT / "var" / "photos")
 

@@ -81,6 +81,20 @@ yarn-error.log*
 _claude_*
 scratch/
 
+# --- Aerial detector research ----------------------------------------------
+# Datasets, model weights and training runs. Large, licensed separately from
+# this repo, and reproducible from research/aerial_detector/harmonize.py.
+# The small JSON metrics in research/aerial_detector/results/ are committed.
+/research/aerial_detector/data/
+# Weights only. The training curves, results.csv and args.yaml beside them are
+# small and are the evidence for the writeup, so they stay committable.
+/research/aerial_detector/runs/**/weights/
+/research/aerial_detector/runs/**/merged/
+*.pt
+*.pth
+*.onnx
+*.engine
+
 # Local SITL binaries, environments and recorded simulation runs
 /sitl-tools/
 /var/drone-runs/

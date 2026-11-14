@@ -1,0 +1,30 @@
+# Aerial detector research environment.
+#
+# Deliberately separate from backend/requirements.txt: the backend test suite
+# must stay offline, fast and free of CUDA. Nothing in backend/ imports this.
+#
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r research/aerial_detector/requirements.txt
+#
+# On a GPU VM install torch first, matched to the driver's CUDA version, then
+# this file. See gcp/setup_vm.sh.
+#
+# The base detector is DroneMegaDetector, an RF-DETR Medium checkpoint.
+# rfdetr itself is Apache-2.0 and the DroneMegaDetector repo is MIT, so
+# nothing here carries the AGPL network clause that Ultralytics would have.
+
+rfdetr[train]>=1.6.0      # RF-DETR: inference, fine-tuning and export. Apache-2.0
+supervision>=0.24.0       # the Detections object rfdetr.predict returns
+torch>=2.4
+torchvision>=0.19
+numpy>=1.26
+pillow>=10.3
+pyyaml>=6.0
+tqdm>=4.66
+requests>=2.32            # fetching the DroneMegaDetector release weights
+huggingface-hub>=0.25     # alternative weight source, and publishing fine-tunes
+pycocotools>=2.0.7        # COCO ground truth and mAP
+pandas>=2.2               # result tables in the notebooks
+matplotlib>=3.8           # PR curves, box-size histograms, annotated previews
+jupyterlab>=4.2
+ipywidgets>=8.1           # confidence sliders in the tuning notebook
