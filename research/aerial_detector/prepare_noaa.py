@@ -30,7 +30,7 @@ import argparse
 import json
 import shutil
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from PIL import Image
@@ -152,7 +152,7 @@ def main() -> int:
     doc = json.loads(coco_path.read_text())
     doc["info"] = {
         "description": "LifeJacket NOAA aerial evaluation set",
-        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": manifest.get("metadata", {}).get("source", args.source),
         "rights_note": manifest.get("metadata", {}).get("rights_note", args.rights),
         "parent_video_sha256": manifest.get("source", {}).get("sha256"),

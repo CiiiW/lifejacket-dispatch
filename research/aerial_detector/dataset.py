@@ -34,7 +34,7 @@ import re
 import shutil
 import sys
 from collections import Counter, defaultdict
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -257,7 +257,7 @@ def main() -> int:
         write_coco(target / "_annotations.coco.json", out_images, out_annotations, DMD_CLASSES)
 
     report = {
-        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source_coco": str(args.coco.resolve()),
         "out": str(args.out.resolve()),
         "classes": list(DMD_CLASSES),

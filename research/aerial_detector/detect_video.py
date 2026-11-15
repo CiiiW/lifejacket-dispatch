@@ -36,7 +36,7 @@ import json
 import subprocess
 import sys
 from collections import Counter
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -52,6 +52,15 @@ from dmd import (  # noqa: E402
 )
 
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".m4v", ".avi"}
+
+
+def sha256_of(path: Path) -> str:
+    """Streamed, rather than hashlib.file_digest, which needs Python 3.11."""
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def run_ffmpeg(args: list[str], timeout: int = 1800) -> subprocess.CompletedProcess:
@@ -197,8 +206,7 @@ def main() -> int:
 
     args.out.mkdir(parents=True, exist_ok=True)
     info = probe(args.video)
-    with args.video.open("rb") as handle:
-        source_sha = hashlib.file_digest(handle, "sha256").hexdigest()
+    source_sha = sha256_of(args.video)
     print(f"  {args.video.name}")
     print(f"  {info['width']}x{info['height']}, {info['duration_seconds']:.1f}s, "
           f"{info['frame_rate']} fps")
@@ -245,7 +253,7 @@ def main() -> int:
     (args.out / "detections.json").write_text(
         json.dumps(
             {
-                "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "video": str(args.video.resolve()),
                 "video_sha256": source_sha,
                 "video_info": info,

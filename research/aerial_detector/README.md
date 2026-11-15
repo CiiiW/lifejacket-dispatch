@@ -298,6 +298,15 @@ Weights never go in git: `.gitignore` excludes `runs/**/weights/` and `*.pth`.
 The training curves and `results/*.json` beside them are small and stay
 committable — they are the evidence for the writeup.
 
+## A note on Python versions
+
+The backend requires Python 3.11+. **This directory stays compatible with
+3.10**, because the GCP Workbench image ships 3.10 and `setup_vm.sh` builds
+its virtualenv from whatever `python3` it finds there. In practice that means
+`timezone.utc` rather than `datetime.UTC`, and no `hashlib.file_digest`.
+`pyproject.toml` carries a matching per-file ruff ignore so the linter does
+not undo it.
+
 ## Honest limits
 
 - **Scoring is greedy IoU matching at 0.5, not COCO mAP**, on small
