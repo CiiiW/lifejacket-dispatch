@@ -80,6 +80,7 @@ if you decide the scene summary genuinely needs it.
 
 | | |
 | --- | --- |
+| [`doctor.py`](doctor.py) | **Run this if anything breaks.** Checks Python, FFmpeg, packages, GPU and weights in one pass; `--fix` installs what it can |
 | [`dmd.py`](dmd.py) | Shared: weights, inference, COCO, scoring, plots. The scoring half imports no torch, so it is testable anywhere |
 | [`detect_video.py`](detect_video.py) | **Point it at a clip and look.** Frames → detections → annotated video + scene summary. No labels needed |
 | [`prepare_noaa.py`](prepare_noaa.py) | NOAA video → spaced frames → a labelling-ready COCO skeleton |
@@ -139,7 +140,23 @@ training run; it is an L4 left running overnight.
 > activity. A terminal training run does not reset the timer, which is why
 > `create_vm.sh` sets it to 24 hours rather than the 180-minute default.
 
-## 1. Look at a clip first
+## 1. Check the environment
+
+```bash
+cd research/aerial_detector
+python doctor.py --fix
+```
+
+Checks Python, FFmpeg, the packages, the GPU and the DroneMegaDetector
+weights independently, so one failure does not hide the rest, and installs
+what it can. Notebook 00 runs the same check in its first cell.
+
+Worth doing first because three separate environment assumptions broke in a
+row on a fresh Workbench instance -- no Jupyter kernel registered, Python
+3.10 rather than 3.11, and no FFmpeg -- each surfacing several cells into a
+notebook as an unrelated-looking traceback.
+
+## 2. Look at a clip first
 
 Before any labelling, point the detector at a video and see what happens:
 
@@ -158,7 +175,7 @@ or recall is reported. Looking at output and measuring accuracy are
 different activities, and only the second belongs in the writeup. That is
 what the next step is for.
 
-## 2. Build the NOAA evaluation set
+## 3. Build the NOAA evaluation set
 
 ```bash
 cd research/aerial_detector
@@ -189,7 +206,7 @@ Fifty labelled frames for evaluation beats a thousand for training: two hours
 instead of a week, and **once you train on them you can no longer honestly
 evaluate on them.**
 
-## 3. Measure DroneMegaDetector
+## 4. Measure DroneMegaDetector
 
 Open [`notebooks/01_evaluate_dmd_on_noaa.ipynb`](notebooks/01_evaluate_dmd_on_noaa.ipynb),
 or from the shell:
@@ -204,7 +221,7 @@ notebook's conclusions section; in short:
 
 | Result | What to do |
 | --- | --- |
-| `animal` recall above ~0.6 | The pretraining transfers. Go straight to step 4 |
+| `animal` recall above ~0.6 | The pretraining transfers. Go straight to step 5 |
 | Poor recall, boxes in sensible places | Normal domain gap. Fine-tuning is the fix |
 | Finds nothing, and targets were under 32 px | A **resolution** problem. Fly lower or raise input size; weights will not help |
 | Boxes systematically offset | Stop — find the preprocessing bug first |
@@ -212,7 +229,7 @@ notebook's conclusions section; in short:
 Read `blind_images` before mAP: frames containing the target where nothing
 at all was detected. That is the failure a coordinator would feel.
 
-## 4. Fine-tune
+## 5. Fine-tune
 
 ```bash
 python dataset.py --coco labelled/_annotations.coco.json \
@@ -244,7 +261,7 @@ epoch one.
 Run it in `tmux`, not in a notebook cell. The notebooks print the exact
 command to copy.
 
-## 5. Check both directions
+## 6. Check both directions
 
 ```bash
 # did it get better at the job?
@@ -263,7 +280,7 @@ a worse product in the field than stock DroneMegaDetector, and without this
 you would ship it not knowing. `--compare` flags any metric that fell by 0.05
 or more and prints what to do about it.
 
-## 6. Choose an operating point
+## 7. Choose an operating point
 
 [`notebooks/04_compare_and_tune.ipynb`](notebooks/04_compare_and_tune.ipynb).
 
@@ -275,7 +292,7 @@ detection anyway. The notebook lets you set that ratio explicitly and picks
 the threshold that minimises real cost — usually lower than best-F1, which is
 correct.
 
-## 7. Publish
+## 8. Publish
 
 ```bash
 huggingface-cli login
