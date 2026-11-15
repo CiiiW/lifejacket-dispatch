@@ -20,6 +20,30 @@ echo "  venv       ${VENV}"
 echo "  data root  ${DATA_ROOT}"
 echo
 
+# FFmpeg. Not on the GCP Workbench image, and every frame-extraction path in
+# this repo needs it -- detect_video.py, prepare_noaa.py, and the backend's
+# drones/video.py. Installing it here rather than letting it surface as a
+# FileNotFoundError five cells into a notebook.
+if command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1; then
+  echo "  ffmpeg: $(ffmpeg -version | head -1)"
+else
+  echo "  installing ffmpeg"
+  if command -v sudo >/dev/null 2>&1 && command -v apt-get >/dev/null 2>&1; then
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg
+  elif command -v conda >/dev/null 2>&1; then
+    conda install -y -q -c conda-forge ffmpeg
+  else
+    echo "Could not install ffmpeg automatically. Install it, then rerun." >&2
+    exit 1
+  fi
+  command -v ffprobe >/dev/null 2>&1 || {
+    echo "ffmpeg installed but ffprobe is still missing." >&2
+    exit 1
+  }
+  echo "  ffmpeg: $(ffmpeg -version | head -1)"
+fi
+
 if ! command -v nvidia-smi >/dev/null 2>&1; then
   echo "nvidia-smi not found. The GPU driver is not installed." >&2
   echo "On a Workbench instance this means --install-gpu-driver was omitted." >&2
