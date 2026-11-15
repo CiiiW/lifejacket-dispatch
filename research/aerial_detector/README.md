@@ -122,9 +122,13 @@ bash research/aerial_detector/gcp/setup_vm.sh
 source ~/.venvs/aerial/bin/activate
 ```
 
-`setup_vm.sh` stops immediately if torch cannot see the GPU, and pre-fetches
-the DroneMegaDetector weights so a later step does not stall on a 142 MB
-download.
+`setup_vm.sh` stops immediately if torch cannot see the GPU, pre-fetches the
+DroneMegaDetector weights so a later step does not stall on a 142 MB
+download, and registers the virtualenv as a Jupyter kernel.
+
+**In JupyterLab, pick the kernel "Python (aerial detector)"** from the
+top-right kernel picker. Workbench's default kernel does not have `rfdetr`
+and the first import will fail.
 
 **Stop the instance when you are not training.** The cost leak is not the
 training run; it is an L4 left running overnight.
