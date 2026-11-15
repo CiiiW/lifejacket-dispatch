@@ -104,7 +104,17 @@ def main() -> int:
 
     bundle = args.bundle
     if args.video:
-        bundle = build_bundle(args.video, out, args)
+        try:
+            bundle = build_bundle(args.video, out, args)
+        except ValueError as exc:
+            # drones/video.py raises ValueError when ffmpeg is absent.
+            raise SystemExit(
+                f"{exc}\n"
+                "  conda install -y -c conda-forge ffmpeg\n"
+                "  or: sudo apt-get install -y ffmpeg\n"
+                "  Already installed but not visible? "
+                "export AERIAL_FFMPEG_DIR=/path/to/bin and add it to PATH."
+            ) from exc
 
     manifest_path = Path(bundle) / "manifest.json"
     if not manifest_path.exists():
