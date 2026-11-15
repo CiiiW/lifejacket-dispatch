@@ -33,6 +33,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import shutil
 import subprocess
 import sys
 from collections import Counter
@@ -63,17 +65,63 @@ def sha256_of(path: Path) -> str:
     return digest.hexdigest()
 
 
+#: Places FFmpeg lands that a Jupyter kernel's PATH often misses. A kernel
+#: inherits the Jupyter server's environment, not your login shell's, so
+#: `sudo apt-get install ffmpeg` in a terminal can leave the notebook still
+#: unable to find it. Set AERIAL_FFMPEG_DIR to add one.
+_BINARY_SEARCH_DIRS = (
+    "/opt/conda/bin",
+    "/usr/bin",
+    "/usr/local/bin",
+    "/opt/homebrew/bin",
+    "/snap/bin",
+)
+
+
+def resolve_binary(name: str) -> str | None:
+    """Full path to `name`, looking beyond PATH before giving up."""
+    found = shutil.which(name)
+    if found:
+        return found
+    candidates = []
+    override = os.environ.get("AERIAL_FFMPEG_DIR")
+    if override:
+        candidates.append(Path(override))
+    candidates.append(Path(sys.prefix) / "bin")          # the active venv
+    candidates.append(Path(sys.base_prefix) / "bin")     # the conda it came from
+    candidates.extend(Path(d) for d in _BINARY_SEARCH_DIRS)
+    for directory in candidates:
+        candidate = directory / name
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            return str(candidate)
+    return None
+
+
+def _missing_binary_message(name: str) -> str:
+    searched = [os.environ.get("AERIAL_FFMPEG_DIR"), str(Path(sys.prefix) / "bin")]
+    searched += list(_BINARY_SEARCH_DIRS)
+    return (
+        f"{name} not found.\n"
+        "  Install it:\n"
+        "    conda install -y -c conda-forge ffmpeg      # no sudo needed\n"
+        "    sudo apt-get install -y ffmpeg              # Debian/Workbench\n"
+        "    brew install ffmpeg                         # macOS\n"
+        "  Already installed? Its directory is not visible to this kernel.\n"
+        "  Point at it:  os.environ['AERIAL_FFMPEG_DIR'] = '/path/to/bin'\n"
+        f"  PATH was: {os.environ.get('PATH', '')[:200]}\n"
+        f"  Also searched: {', '.join(d for d in searched if d)}"
+    )
+
+
 def run_ffmpeg(args: list[str], timeout: int = 1800) -> subprocess.CompletedProcess:
+    resolved = resolve_binary(args[0])
+    if resolved is None:
+        raise DmdError(_missing_binary_message(args[0]))
+    args = [resolved, *args[1:]]
     try:
         result = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except FileNotFoundError as exc:
-        raise DmdError(
-            "ffmpeg and ffprobe are not installed.\n"
-            "  GCP Workbench / Debian:  sudo apt-get install -y ffmpeg\n"
-            "  conda:                   conda install -c conda-forge ffmpeg\n"
-            "  macOS:                   brew install ffmpeg\n"
-            "  In a notebook, prefix with ! and restart the kernel afterwards."
-        ) from exc
+        raise DmdError(_missing_binary_message(args[0])) from exc
     except subprocess.TimeoutExpired as exc:
         raise DmdError(f"ffmpeg exceeded {timeout}s") from exc
     if result.returncode:

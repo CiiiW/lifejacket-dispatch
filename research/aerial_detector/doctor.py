@@ -52,6 +52,10 @@ def install_ffmpeg() -> tuple[bool, str]:
         )
         if done.returncode == 0 and shutil.which("ffprobe"):
             return True, "installed with apt-get"
+        if done.returncode != 0:
+            detail = (done.stderr or done.stdout or "").strip()[-200:]
+            if "password" in detail.lower() or "sudo:" in detail:
+                return False, f"sudo needs a password here; use conda instead ({detail})"
     if shutil.which("conda"):
         ok, out = _run(["conda", "install", "-y", "-q", "-c", "conda-forge", "ffmpeg"], 1800)
         if ok and shutil.which("ffprobe"):
@@ -82,11 +86,19 @@ def check(fix: bool = False) -> bool:
     ))
 
     # --- ffmpeg ---------------------------------------------------------
+    # Use the same resolver detect_video.py uses, so doctor can never report
+    # ok on something the real code then fails to find.
+    sys.path.insert(0, str(HERE))
+    try:
+        from detect_video import resolve_binary
+    except ImportError:
+        resolve_binary = shutil.which
+
     for binary in ("ffmpeg", "ffprobe"):
-        found = shutil.which(binary)
+        found = resolve_binary(binary)
         if not found and fix:
             installed, detail = install_ffmpeg()
-            found = shutil.which(binary)
+            found = resolve_binary(binary)
             if not found:
                 rows.append((FAIL, binary, f"install failed: {detail}"))
                 continue
