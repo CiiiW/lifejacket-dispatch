@@ -67,7 +67,13 @@ def run_ffmpeg(args: list[str], timeout: int = 1800) -> subprocess.CompletedProc
     try:
         result = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except FileNotFoundError as exc:
-        raise DmdError("Install ffmpeg and ffprobe first") from exc
+        raise DmdError(
+            "ffmpeg and ffprobe are not installed.\n"
+            "  GCP Workbench / Debian:  sudo apt-get install -y ffmpeg\n"
+            "  conda:                   conda install -c conda-forge ffmpeg\n"
+            "  macOS:                   brew install ffmpeg\n"
+            "  In a notebook, prefix with ! and restart the kernel afterwards."
+        ) from exc
     except subprocess.TimeoutExpired as exc:
         raise DmdError(f"ffmpeg exceeded {timeout}s") from exc
     if result.returncode:
