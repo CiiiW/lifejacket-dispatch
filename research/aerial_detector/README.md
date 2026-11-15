@@ -158,6 +158,26 @@ notebook as an unrelated-looking traceback.
 
 ## 2. Look at a clip first
 
+> **Notebooks and `git pull`.** Jupyter rewrites a notebook's execution
+> counts and outputs as you run it, so a tracked notebook goes "modified"
+> the moment you use it and the next pull refuses to merge. Two ways round:
+>
+> ```bash
+> git stash && git pull        # discard the churn, take the update
+> ```
+>
+> and keep your own settings out of the file entirely:
+>
+> ```bash
+> export AERIAL_VIDEO=~/aerial-data/clips/NOAA_sealions.mp4
+> export AERIAL_WEIGHTS=runs/seals-v1/checkpoint_best_total.pth
+> ```
+>
+> Notebook 00 reads those, so changing the clip never edits tracked code.
+> There is also an override cell directly beneath the settings cell, meant
+> to be edited, if you would rather type the path.
+
+
 Before any labelling, point the detector at a video and see what happens:
 
 ```bash
