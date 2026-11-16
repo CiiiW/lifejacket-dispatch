@@ -1,0 +1,34 @@
+[
+  {
+    "case": "ai_negative_does_not_delete_detector_candidate",
+    "passed": true
+  },
+  {
+    "case": "all_actual_cards_start_unconfirmed",
+    "passed": true
+  },
+  {
+    "case": "same_frame_human_confirmation_only",
+    "passed": true
+  },
+  {
+    "case": "no_automatic_dispatch",
+    "passed": true
+  },
+  {
+    "case": "unconfirmed_frame_hides_all_context",
+    "passed": true
+  },
+  {
+    "case": "confirmation_does_not_transfer_to_another_frame",
+    "passed": true
+  },
+  {
+    "case": "approved_frame_still_requires_verified_context_class",
+    "passed": true
+  },
+  {
+    "case": "unverified_context_stays_hidden_after_confirmation",
+    "passed": true
+  }
+]

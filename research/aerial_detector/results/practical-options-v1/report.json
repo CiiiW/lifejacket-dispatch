@@ -1,0 +1,736 @@
+{
+  "scope": "Development factorial comparison, same previously inspected cached clips plus cached dog-human aerial proxy and parking control. No held-out field validation.",
+  "review_card_guard_code_sha256": "94fe45b1d4a368b1d6a0780e83f4395dada353317880293c7593398a878613d7",
+  "new_requests": 104,
+  "failed_outputs": 3,
+  "usage": {
+    "prompt_token_count": 234923,
+    "candidates_token_count": 24532,
+    "thoughts_token_count": 62014,
+    "total_token_count": 321469
+  },
+  "video_frames": 205,
+  "video_windows": 19,
+  "video_method_summaries": [
+    {
+      "mode": "single_whole",
+      "requests": 19,
+      "failed_outputs": 0,
+      "anchor_positive_windows": 13,
+      "anchor_positive_windows_flagged": 13,
+      "screened_control_windows": 5,
+      "screened_control_positive_flags": 0,
+      "unresolved_control_positive_flags": 0,
+      "uncertain_windows": 0,
+      "two_frame_supported_windows": 0,
+      "people_cooccurrence_anchor_windows": 4,
+      "people_context_windows_retained": 4,
+      "vehicle_cooccurrence_anchor_windows": 2,
+      "vehicle_context_windows_retained": 2,
+      "median_request_wall_seconds": 4.040189366001869,
+      "max_request_wall_seconds": 6.895852948000538,
+      "usage": {
+        "prompt_token_count": 45364,
+        "candidates_token_count": 2620,
+        "thoughts_token_count": 7556,
+        "total_token_count": 55540
+      },
+      "total_input_images": 19
+    },
+    {
+      "mode": "single_native",
+      "requests": 19,
+      "failed_outputs": 1,
+      "anchor_positive_windows": 13,
+      "anchor_positive_windows_flagged": 11,
+      "screened_control_windows": 5,
+      "screened_control_positive_flags": 0,
+      "unresolved_control_positive_flags": 0,
+      "uncertain_windows": 4,
+      "two_frame_supported_windows": 0,
+      "people_cooccurrence_anchor_windows": 4,
+      "people_context_windows_retained": 3,
+      "vehicle_cooccurrence_anchor_windows": 2,
+      "vehicle_context_windows_retained": 2,
+      "median_request_wall_seconds": 4.41231127899664,
+      "max_request_wall_seconds": 7.626908181991894,
+      "usage": {
+        "prompt_token_count": 31118,
+        "candidates_token_count": 3156,
+        "thoughts_token_count": 10199,
+        "total_token_count": 44473
+      },
+      "total_input_images": 64
+    },
+    {
+      "mode": "burst_whole",
+      "requests": 19,
+      "failed_outputs": 0,
+      "anchor_positive_windows": 13,
+      "anchor_positive_windows_flagged": 12,
+      "screened_control_windows": 5,
+      "screened_control_positive_flags": 0,
+      "unresolved_control_positive_flags": 0,
+      "uncertain_windows": 1,
+      "two_frame_supported_windows": 11,
+      "people_cooccurrence_anchor_windows": 4,
+      "people_context_windows_retained": 4,
+      "vehicle_cooccurrence_anchor_windows": 2,
+      "vehicle_context_windows_retained": 2,
+      "median_request_wall_seconds": 6.4068682189972606,
+      "max_request_wall_seconds": 8.730037967994576,
+      "usage": {
+        "prompt_token_count": 29391,
+        "candidates_token_count": 7513,
+        "thoughts_token_count": 13626,
+        "total_token_count": 50530
+      },
+      "total_input_images": 56
+    },
+    {
+      "mode": "burst_native",
+      "requests": 19,
+      "failed_outputs": 2,
+      "anchor_positive_windows": 13,
+      "anchor_positive_windows_flagged": 10,
+      "screened_control_windows": 5,
+      "screened_control_positive_flags": 1,
+      "unresolved_control_positive_flags": 0,
+      "uncertain_windows": 4,
+      "two_frame_supported_windows": 11,
+      "people_cooccurrence_anchor_windows": 4,
+      "people_context_windows_retained": 3,
+      "vehicle_cooccurrence_anchor_windows": 2,
+      "vehicle_context_windows_retained": 2,
+      "median_request_wall_seconds": 7.869314220995875,
+      "max_request_wall_seconds": 9.516528298001504,
+      "usage": {
+        "prompt_token_count": 74903,
+        "candidates_token_count": 8181,
+        "thoughts_token_count": 17286,
+        "total_token_count": 100370
+      },
+      "total_input_images": 191
+    }
+  ],
+  "seal_stress": [
+    {
+      "mode": "single_whole",
+      "images": 8,
+      "positive_images_confirmed": 0,
+      "uncertain": 0,
+      "no": 8,
+      "failed": 0,
+      "usage": {
+        "prompt_token_count": 18688,
+        "candidates_token_count": 684,
+        "thoughts_token_count": 1777,
+        "total_token_count": 21149
+      }
+    },
+    {
+      "mode": "single_native",
+      "images": 8,
+      "positive_images_confirmed": 0,
+      "uncertain": 3,
+      "no": 5,
+      "failed": 0,
+      "usage": {
+        "prompt_token_count": 11344,
+        "candidates_token_count": 628,
+        "thoughts_token_count": 3803,
+        "total_token_count": 15775
+      }
+    },
+    {
+      "mode": "tight_native",
+      "images": 8,
+      "positive_images_confirmed": 0,
+      "uncertain": 5,
+      "no": 3,
+      "failed": 0,
+      "usage": {
+        "prompt_token_count": 13248,
+        "candidates_token_count": 684,
+        "thoughts_token_count": 4682,
+        "total_token_count": 18614
+      }
+    }
+  ],
+  "cut_probe": [
+    {
+      "mode": "single_whole",
+      "status": "success",
+      "positive": false,
+      "uncertain": false,
+      "two_frame_support": false,
+      "people_context": false,
+      "vehicle_context": false,
+      "failed": false,
+      "frame_decisions": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F1-person",
+              "proposed_class_present": "uncertain",
+              "evidence": "Small, indistinct dark shape on the wet sand. Too blurry to confirm as a person."
+            },
+            {
+              "region_id": "F1-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red vehicle is clearly visible on the sand."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "single_native",
+      "status": "success",
+      "positive": false,
+      "uncertain": false,
+      "two_frame_support": false,
+      "people_context": false,
+      "vehicle_context": false,
+      "failed": false,
+      "frame_decisions": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F1-person",
+              "proposed_class_present": "yes",
+              "evidence": "A small human figure is visible in the water."
+            },
+            {
+              "region_id": "F1-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red vehicle with surfboards on its roof is visible on the sand."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "burst_whole",
+      "status": "success",
+      "positive": true,
+      "uncertain": false,
+      "two_frame_support": false,
+      "people_context": false,
+      "vehicle_context": false,
+      "failed": false,
+      "frame_decisions": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "yes",
+          "visible_mammal_features": "multiple sea lions with bodies, heads, and flippers visible on a floating platform",
+          "evidence_image_ids": [
+            "F1-whole"
+          ],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        },
+        {
+          "frame_id": "F2",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F2-person",
+              "proposed_class_present": "uncertain",
+              "evidence": "The region contains a very small, indistinct dark shape on the wet sand, too ambiguous to confirm as a person."
+            },
+            {
+              "region_id": "F2-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "The region clearly shows a red boat or kayak on the sand."
+            }
+          ]
+        },
+        {
+          "frame_id": "F3",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F3-vehicle",
+              "proposed_class_present": "no",
+              "evidence": "The region contains a blue tent or umbrella, not a vehicle."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "burst_native",
+      "status": "success",
+      "positive": true,
+      "uncertain": false,
+      "two_frame_support": false,
+      "people_context": false,
+      "vehicle_context": false,
+      "failed": false,
+      "frame_decisions": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "yes",
+          "visible_mammal_features": "Multiple sea lions with visible bodies, heads, and flippers are on a floating platform.",
+          "evidence_image_ids": [
+            "F1-whole"
+          ],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        },
+        {
+          "frame_id": "F2",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F2-person",
+              "proposed_class_present": "yes",
+              "evidence": "A person is visible lying on the sand."
+            },
+            {
+              "region_id": "F2-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red car with surfboards is visible."
+            }
+          ]
+        },
+        {
+          "frame_id": "F3",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F3-vehicle",
+              "proposed_class_present": "no",
+              "evidence": "A blue tent/canopy is visible, not a vehicle."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "adaptive_replay_requests": 25,
+  "adaptive_replay_candidate_cards": 19,
+  "ai_negative_candidates_preserved": 6,
+  "shared_subset_per_frame_requests": 117,
+  "shared_subset_adaptive_replay_requests": 19,
+  "candidate_generation": [
+    {
+      "mode": "full",
+      "candidate_windows": 13,
+      "windows": 19
+    },
+    {
+      "mode": "tiled_plus_full",
+      "candidate_windows": 19,
+      "windows": 19
+    }
+  ],
+  "cached_policy_replays": [
+    {
+      "policy": "crop_only",
+      "scope": "Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",
+      "gate_frames": 122,
+      "beach_gate_frames": 6,
+      "surf_gate_frames": 20,
+      "ground_gate_frames": 24
+    },
+    {
+      "policy": "scene_only",
+      "scope": "Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",
+      "gate_frames": 122,
+      "beach_gate_frames": 6,
+      "surf_gate_frames": 20,
+      "ground_gate_frames": 24
+    },
+    {
+      "policy": "same_check_agreement",
+      "scope": "Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",
+      "gate_frames": 122,
+      "beach_gate_frames": 6,
+      "surf_gate_frames": 20,
+      "ground_gate_frames": 24
+    },
+    {
+      "policy": "two_scene_checks",
+      "scope": "Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",
+      "gate_frames": 85,
+      "beach_gate_frames": 0,
+      "surf_gate_frames": 7,
+      "ground_gate_frames": 18
+    },
+    {
+      "policy": "agreement_or_repeated",
+      "scope": "Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",
+      "gate_frames": 122,
+      "beach_gate_frames": 6,
+      "surf_gate_frames": 20,
+      "ground_gate_frames": 24
+    }
+  ],
+  "cached_annotated_detector_metrics": [
+    {
+      "model": "dmd",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 4,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 0.3422947134986316
+    },
+    {
+      "model": "dmd",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 0,
+      "tp": 11,
+      "fp": 1,
+      "fn": 19,
+      "precision": 0.9166666666666666,
+      "recall": 0.36666666666666664,
+      "f1": 0.5238095238095238,
+      "top3_tp": 9,
+      "top8_tp": 11,
+      "images": 8,
+      "reference_boxes": 30,
+      "median_seconds": 0.2241920675005531
+    },
+    {
+      "model": "dmd",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 2,
+      "tp": 0,
+      "fp": 0,
+      "fn": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 6,
+      "median_seconds": 0.2241920675005531
+    },
+    {
+      "model": "dmd",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 10,
+      "fp": 23,
+      "fn": 4,
+      "precision": 0.30303030303030304,
+      "recall": 0.7142857142857143,
+      "f1": 0.425531914893617,
+      "top3_tp": 10,
+      "top8_tp": 10,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 5.727961728500304
+    },
+    {
+      "model": "grounding_dino",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 3,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 0.5928163214975939
+    },
+    {
+      "model": "grounding_dino",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 0,
+      "tp": 25,
+      "fp": 9,
+      "fn": 5,
+      "precision": 0.7352941176470589,
+      "recall": 0.8333333333333334,
+      "f1": 0.78125,
+      "top3_tp": 17,
+      "top8_tp": 25,
+      "images": 8,
+      "reference_boxes": 30,
+      "median_seconds": 0.4674467749991891
+    },
+    {
+      "model": "grounding_dino",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 2,
+      "tp": 6,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.8571428571428571,
+      "recall": 1.0,
+      "f1": 0.9230769230769231,
+      "top3_tp": 4,
+      "top8_tp": 6,
+      "images": 8,
+      "reference_boxes": 6,
+      "median_seconds": 0.4674467749991891
+    },
+    {
+      "model": "grounding_dino",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 2,
+      "fp": 37,
+      "fn": 12,
+      "precision": 0.05128205128205128,
+      "recall": 0.14285714285714285,
+      "f1": 0.07547169811320754,
+      "top3_tp": 2,
+      "top8_tp": 2,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 8.859371636499418
+    },
+    {
+      "model": "yolo_world",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 0,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 0.17955167000036454
+    },
+    {
+      "model": "yolo_world",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 0,
+      "tp": 23,
+      "fp": 2,
+      "fn": 7,
+      "precision": 0.92,
+      "recall": 0.7666666666666667,
+      "f1": 0.8363636363636363,
+      "top3_tp": 17,
+      "top8_tp": 23,
+      "images": 8,
+      "reference_boxes": 30,
+      "median_seconds": 0.030980661498688278
+    },
+    {
+      "model": "yolo_world",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 2,
+      "tp": 5,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.8333333333333334,
+      "f1": 0.9090909090909091,
+      "top3_tp": 4,
+      "top8_tp": 5,
+      "images": 8,
+      "reference_boxes": 6,
+      "median_seconds": 0.030980661498688278
+    },
+    {
+      "model": "yolo_world",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 18,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 1.2226505020007608
+    },
+    {
+      "model": "yoloe26",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 4,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 0.2560121629994683
+    },
+    {
+      "model": "yoloe26",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 0,
+      "tp": 19,
+      "fp": 3,
+      "fn": 11,
+      "precision": 0.8636363636363636,
+      "recall": 0.6333333333333333,
+      "f1": 0.7307692307692307,
+      "top3_tp": 15,
+      "top8_tp": 19,
+      "images": 8,
+      "reference_boxes": 30,
+      "median_seconds": 0.03962054349904065
+    },
+    {
+      "model": "yoloe26",
+      "method": "full",
+      "threshold": 0.3,
+      "cohort": "coco_context",
+      "class_id": 2,
+      "tp": 4,
+      "fp": 1,
+      "fn": 2,
+      "precision": 0.8,
+      "recall": 0.6666666666666666,
+      "f1": 0.7272727272727273,
+      "top3_tp": 3,
+      "top8_tp": 4,
+      "images": 8,
+      "reference_boxes": 6,
+      "median_seconds": 0.03962054349904065
+    },
+    {
+      "model": "yoloe26",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 6,
+      "fp": 86,
+      "fn": 8,
+      "precision": 0.06521739130434782,
+      "recall": 0.42857142857142855,
+      "f1": 0.11320754716981132,
+      "top3_tp": 2,
+      "top8_tp": 4,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 1.641823818501507
+    }
+  ],
+  "gpu_timing": [
+    {
+      "mode": "full",
+      "median_seconds": 0.23361923950142227,
+      "native4k_median_seconds": 0.23485754224748234
+    },
+    {
+      "mode": "full_plus_tiles",
+      "median_seconds": 1.9860498642483435,
+      "native4k_median_seconds": 2.002435259993945
+    }
+  ],
+  "audit": {
+    "source_frames_unchanged": true,
+    "frame_manifest_hash": true,
+    "group_manifest_hash": true,
+    "trial_hash": true,
+    "annotation_hash": true,
+    "prepare_code_hash": true,
+    "review_code_hash": true,
+    "all_76_tasks_completed": true,
+    "request_images_unchanged": true,
+    "seal-probe_input_hashes": true,
+    "seal-probe_code_hash": true,
+    "tight-seal-probe_input_hashes": true,
+    "tight-seal-probe_code_hash": true,
+    "cut-probe_input_hashes": true,
+    "cut-probe_code_hash": true
+  },
+  "recommendation": "Use tiled DMD animal candidates plus YOLO-World context as an offline proposal pipeline. Group into review windows. Gemini is advisory: whole-view first, selective crops for uncertainty/disagreement, never a hard negative veto for tiny animals. Show context boxes only after human animal confirmation for that exact frame and class-specific context verification. No autonomous rescue/dispatch.",
+  "not_tested": [
+    "Domain fine-tuning with a clean flight-level train/validation/test split",
+    "Independent aerial marine-animal-plus-human/vehicle box ground truth",
+    "Native-FPS live DJI streaming, online buffering and automatic cut detection",
+    "Tracking identities and per-track cached approvals"
+  ],
+  "limits": [
+    "All sources previously inspected development sources, except no new acquisition was required; no field-generalization or population accuracy claim.",
+    "Window anchor coverage and screened-control flags are descriptive, not exhaustive frame/box accuracy. One beach window is explicitly unresolved.",
+    "Four modes differ in information available and cost. Failed native-mode outputs remain failures; they were not silently retried.",
+    "Tiny-seal stress has8 positive images and14 reference boxes, no matched-domain negative set. Presence judgments are not box localization scores.",
+    "Adaptive routing is replayed from real cached responses, not a freshly deployed adaptive service.",
+    "Group results cannot be propagated to unreviewed frames or interpreted as animal identities or current animal presence.",
+    "No training, production integration, automatic incidents, flight control or deployment."
+  ]
+}

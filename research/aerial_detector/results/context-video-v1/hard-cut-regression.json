@@ -1,0 +1,1586 @@
+{
+  "scope": "Injected cut at3.5s combining actual reviewed platform and beach-control frames. Compares animal-evidence policies with raw context counts, not context verification or automatic cut detection. Offline reviews are applied at source time.",
+  "arms": {
+    "old_hold": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 6,
+      "raw_context_shown_frames": 6,
+      "rows": [
+        {
+          "segment": "before",
+          "replay_seconds": 0.0,
+          "gate": {
+            "scene": "injected",
+            "seconds": 0.0,
+            "scene_reset": true,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": true,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 0.5005000000000001,
+          "gate": {
+            "scene": "injected",
+            "seconds": 0.5005000000000001,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.5005000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.0010000000000001,
+          "gate": {
+            "scene": "injected",
+            "seconds": 1.0010000000000001,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.0010000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.5015,
+          "gate": {
+            "scene": "injected",
+            "seconds": 1.5015,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.5015,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.0020000000000002,
+          "gate": {
+            "scene": "injected",
+            "seconds": 2.0020000000000002,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.0020000000000002,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.5025,
+          "gate": {
+            "scene": "injected",
+            "seconds": 2.5025,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.5025,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 3.003,
+          "gate": {
+            "scene": "injected",
+            "seconds": 3.003,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 2
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 3.5,
+          "gate": {
+            "scene": "injected",
+            "seconds": 3.5,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 1,
+            "shown_vehicles": 2,
+            "confirmed_evidence_age_seconds": 0.4969999999999999,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.0005,
+          "gate": {
+            "scene": "injected",
+            "seconds": 4.0005,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 1,
+            "shown_vehicles": 1,
+            "confirmed_evidence_age_seconds": 0.9974999999999996,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.5009999999999994,
+          "gate": {
+            "scene": "injected",
+            "seconds": 4.5009999999999994,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 2,
+            "shown_vehicles": 1,
+            "confirmed_evidence_age_seconds": 1.4979999999999993,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.0015,
+          "gate": {
+            "scene": "injected",
+            "seconds": 5.0015,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 1,
+            "confirmed_evidence_age_seconds": 1.9985,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.502,
+          "gate": {
+            "scene": "injected",
+            "seconds": 5.502,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 1,
+            "shown_vehicles": 1,
+            "confirmed_evidence_age_seconds": 2.4989999999999997,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.0024999999999995,
+          "gate": {
+            "scene": "injected",
+            "seconds": 6.0024999999999995,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 2,
+            "confirmed_evidence_age_seconds": 2.9994999999999994,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.503,
+          "gate": {
+            "scene": "injected",
+            "seconds": 6.503,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 3.5,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.0035,
+          "gate": {
+            "scene": "injected",
+            "seconds": 7.0035,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 4.0005,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.504,
+          "gate": {
+            "scene": "injected",
+            "seconds": 7.504,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 4.5009999999999994,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.0045,
+          "gate": {
+            "scene": "injected",
+            "seconds": 8.0045,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 5.0015,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.504999999999999,
+          "gate": {
+            "scene": "injected",
+            "seconds": 8.504999999999999,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 5.501999999999999,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.0055,
+          "gate": {
+            "scene": "injected",
+            "seconds": 9.0055,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 6.0024999999999995,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.506,
+          "gate": {
+            "scene": "injected",
+            "seconds": 9.506,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 6.503,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        }
+      ]
+    },
+    "dual_negative_clear": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 0,
+      "raw_context_shown_frames": 0,
+      "rows": [
+        {
+          "segment": "before",
+          "replay_seconds": 0.0,
+          "gate": {
+            "scene": "injected",
+            "seconds": 0.0,
+            "scene_reset": true,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": true,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 0.5005000000000001,
+          "gate": {
+            "scene": "injected",
+            "seconds": 0.5005000000000001,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.5005000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.0010000000000001,
+          "gate": {
+            "scene": "injected",
+            "seconds": 1.0010000000000001,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.0010000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.5015,
+          "gate": {
+            "scene": "injected",
+            "seconds": 1.5015,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.5015,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.0020000000000002,
+          "gate": {
+            "scene": "injected",
+            "seconds": 2.0020000000000002,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.0020000000000002,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.5025,
+          "gate": {
+            "scene": "injected",
+            "seconds": 2.5025,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.5025,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 3.003,
+          "gate": {
+            "scene": "injected",
+            "seconds": 3.003,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 2
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 3.5,
+          "gate": {
+            "scene": "injected",
+            "seconds": 3.5,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": true,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.0005,
+          "gate": {
+            "scene": "injected",
+            "seconds": 4.0005,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.5009999999999994,
+          "gate": {
+            "scene": "injected",
+            "seconds": 4.5009999999999994,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.0015,
+          "gate": {
+            "scene": "injected",
+            "seconds": 5.0015,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.502,
+          "gate": {
+            "scene": "injected",
+            "seconds": 5.502,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.0024999999999995,
+          "gate": {
+            "scene": "injected",
+            "seconds": 6.0024999999999995,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.503,
+          "gate": {
+            "scene": "injected",
+            "seconds": 6.503,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.0035,
+          "gate": {
+            "scene": "injected",
+            "seconds": 7.0035,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.504,
+          "gate": {
+            "scene": "injected",
+            "seconds": 7.504,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.0045,
+          "gate": {
+            "scene": "injected",
+            "seconds": 8.0045,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.504999999999999,
+          "gate": {
+            "scene": "injected",
+            "seconds": 8.504999999999999,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.0055,
+          "gate": {
+            "scene": "injected",
+            "seconds": 9.0055,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.506,
+          "gate": {
+            "scene": "injected",
+            "seconds": 9.506,
+            "scene_reset": false,
+            "episode_id": "injected:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": true,
+          "crop_yes": false,
+          "scene_yes": false
+        }
+      ]
+    },
+    "provided_scene_reset": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 0,
+      "raw_context_shown_frames": 0,
+      "rows": [
+        {
+          "segment": "before",
+          "replay_seconds": 0.0,
+          "gate": {
+            "scene": "before",
+            "seconds": 0.0,
+            "scene_reset": true,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": true,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 0.5005000000000001,
+          "gate": {
+            "scene": "before",
+            "seconds": 0.5005000000000001,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.5005000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.0010000000000001,
+          "gate": {
+            "scene": "before",
+            "seconds": 1.0010000000000001,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.0010000000000001,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 1.5015,
+          "gate": {
+            "scene": "before",
+            "seconds": 1.5015,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 1.5015,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.0020000000000002,
+          "gate": {
+            "scene": "before",
+            "seconds": 2.0020000000000002,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.0020000000000002,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 2.5025,
+          "gate": {
+            "scene": "before",
+            "seconds": 2.5025,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 2.5025,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 1
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "before",
+          "replay_seconds": 3.003,
+          "gate": {
+            "scene": "before",
+            "seconds": 3.003,
+            "scene_reset": false,
+            "episode_id": "before:episode-1",
+            "new_candidate_episode": false,
+            "context_visible": true,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": 0.0,
+            "review_needed": false,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": true,
+            "reason": "agreement",
+            "scene_streak": 2
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": true,
+          "scene_yes": true
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 3.5,
+          "gate": {
+            "scene": "after",
+            "seconds": 3.5,
+            "scene_reset": true,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": true,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.0005,
+          "gate": {
+            "scene": "after",
+            "seconds": 4.0005,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 4.5009999999999994,
+          "gate": {
+            "scene": "after",
+            "seconds": 4.5009999999999994,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.0015,
+          "gate": {
+            "scene": "after",
+            "seconds": 5.0015,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 5.502,
+          "gate": {
+            "scene": "after",
+            "seconds": 5.502,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.0024999999999995,
+          "gate": {
+            "scene": "after",
+            "seconds": 6.0024999999999995,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 6.503,
+          "gate": {
+            "scene": "after",
+            "seconds": 6.503,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.0035,
+          "gate": {
+            "scene": "after",
+            "seconds": 7.0035,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 7.504,
+          "gate": {
+            "scene": "after",
+            "seconds": 7.504,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.0045,
+          "gate": {
+            "scene": "after",
+            "seconds": 8.0045,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 8.504999999999999,
+          "gate": {
+            "scene": "after",
+            "seconds": 8.504999999999999,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.0055,
+          "gate": {
+            "scene": "after",
+            "seconds": 9.0055,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "unscheduled",
+            "scene_streak": 0
+          },
+          "dual_negative": false,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        },
+        {
+          "segment": "after",
+          "replay_seconds": 9.506,
+          "gate": {
+            "scene": "after",
+            "seconds": 9.506,
+            "scene_reset": false,
+            "episode_id": "after:episode-2",
+            "new_candidate_episode": false,
+            "context_visible": false,
+            "shown_persons": 0,
+            "shown_vehicles": 0,
+            "confirmed_evidence_age_seconds": null,
+            "review_needed": true,
+            "automatic_incident_or_dispatch": false
+          },
+          "evidence": {
+            "confirmed": false,
+            "reason": "insufficient_evidence",
+            "scene_streak": 0
+          },
+          "dual_negative": true,
+          "negative_cleared": false,
+          "crop_yes": false,
+          "scene_yes": false
+        }
+      ]
+    }
+  }
+}

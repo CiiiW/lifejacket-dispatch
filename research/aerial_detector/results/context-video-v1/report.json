@@ -1,0 +1,284 @@
+{
+  "scope": "Full-duration 2-FPS replays of four previously inspected aerial clips; reuse96 exact study18 samples and extend through all source frames. Development regression, not held-out accuracy.",
+  "summary": [
+    {
+      "source": "raft",
+      "cohort": "aerial",
+      "samples": 37,
+      "old_animal_gate_frames": 37,
+      "clearing_animal_gate_frames": 37,
+      "dual_negative_checks": 0,
+      "raw_people_frames": 0,
+      "raw_vehicle_frames": 0,
+      "verified_people_frames": 0,
+      "verified_vehicle_frames": 0,
+      "verified_clear_people_frames": 0,
+      "verified_clear_vehicle_frames": 0,
+      "reviewed_proposals": 0,
+      "accepted_proposals": 0,
+      "rejected_proposal_classes": {}
+    },
+    {
+      "source": "surf",
+      "cohort": "aerial",
+      "samples": 31,
+      "old_animal_gate_frames": 20,
+      "clearing_animal_gate_frames": 19,
+      "dual_negative_checks": 2,
+      "raw_people_frames": 7,
+      "raw_vehicle_frames": 0,
+      "verified_people_frames": 0,
+      "verified_vehicle_frames": 0,
+      "verified_clear_people_frames": 0,
+      "verified_clear_vehicle_frames": 0,
+      "reviewed_proposals": 7,
+      "accepted_proposals": 0,
+      "rejected_proposal_classes": {
+        "animal": 6,
+        "background": 1
+      }
+    },
+    {
+      "source": "rocks",
+      "cohort": "aerial",
+      "samples": 35,
+      "old_animal_gate_frames": 35,
+      "clearing_animal_gate_frames": 35,
+      "dual_negative_checks": 0,
+      "raw_people_frames": 1,
+      "raw_vehicle_frames": 15,
+      "verified_people_frames": 0,
+      "verified_vehicle_frames": 0,
+      "verified_clear_people_frames": 0,
+      "verified_clear_vehicle_frames": 0,
+      "reviewed_proposals": 16,
+      "accepted_proposals": 0,
+      "rejected_proposal_classes": {
+        "animal": 13,
+        "background": 3
+      }
+    },
+    {
+      "source": "crowded_beach",
+      "cohort": "aerial",
+      "samples": 38,
+      "old_animal_gate_frames": 6,
+      "clearing_animal_gate_frames": 6,
+      "dual_negative_checks": 3,
+      "raw_people_frames": 5,
+      "raw_vehicle_frames": 6,
+      "verified_people_frames": 1,
+      "verified_vehicle_frames": 6,
+      "verified_clear_people_frames": 1,
+      "verified_clear_vehicle_frames": 6,
+      "reviewed_proposals": 18,
+      "accepted_proposals": 7,
+      "rejected_proposal_classes": {
+        "background": 11
+      }
+    },
+    {
+      "source": "ground_rescue",
+      "cohort": "ground_retention_regression",
+      "samples": 24,
+      "old_animal_gate_frames": 24,
+      "clearing_animal_gate_frames": 24,
+      "dual_negative_checks": 0,
+      "raw_people_frames": 19,
+      "raw_vehicle_frames": 15,
+      "verified_people_frames": 19,
+      "verified_vehicle_frames": 9,
+      "verified_clear_people_frames": 19,
+      "verified_clear_vehicle_frames": 9,
+      "reviewed_proposals": 63,
+      "accepted_proposals": 51,
+      "rejected_proposal_classes": {
+        "person": 10,
+        "background": 2
+      }
+    }
+  ],
+  "aerial_frames": 141,
+  "ground_regression_frames": 24,
+  "animal_review_calls_reused": 32,
+  "new_animal_review_calls": 20,
+  "new_context_review_calls": 57,
+  "new_failed_animal_calls": 0,
+  "new_failed_context_calls": 0,
+  "new_usage": {
+    "prompt_token_count": 93656,
+    "candidates_token_count": 6070,
+    "thoughts_token_count": 23706,
+    "total_token_count": 123432
+  },
+  "audit": {
+    "source_hashes": true,
+    "all_frame_hashes": true,
+    "frozen_original_code": true,
+    "phase_code": true,
+    "trial_hash": true,
+    "review_code_matches_context_plan": true,
+    "context_policy_matches_plan": true,
+    "dmd_weights": true,
+    "context_weights": true,
+    "animal_review_input_hashes": true,
+    "context_review_input_hashes": true,
+    "complete_context_task_count": true,
+    "exact_region_mapping": true,
+    "no_accepted_box_without_class_agreement": true,
+    "complete_source_sample_grid": true,
+    "96_prior_predictions_identical": true,
+    "both_animal_policy_replays": true,
+    "every_eligible_box_reviewed": true,
+    "display_requires_gate_and_acceptance": true,
+    "ground_scope_correction_verified": true,
+    "unique_frame_keys": true,
+    "all_context_tasks_reference_final_frames": true
+  },
+  "policy_checks_passed": 31,
+  "context_request_median_wall_seconds": 2.7187016630050493,
+  "context_request_max_wall_seconds": 9.785415121004917,
+  "context_request_sum_wall_seconds": 191.33507165301125,
+  "hard_cut": {
+    "old_hold": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 6,
+      "raw_context_shown_frames": 6
+    },
+    "dual_negative_clear": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 0,
+      "raw_context_shown_frames": 0
+    },
+    "provided_scene_reset": {
+      "control_frames": 13,
+      "animal_gate_open_frames": 0,
+      "raw_context_shown_frames": 0
+    }
+  },
+  "limits": [
+    "Previously inspected development sources and repeated stochastic model judgments; not held-out accuracy.",
+    "No exhaustively annotated aerial marine-animal-plus-person/vehicle positive. Ground segment checks retention only in ground footage.",
+    "All frames sampled at2FPS through complete source duration, not native-FPS analysis. Only every sixth sample has animal review; context acceptance is per eligible sample.",
+    "No temporal reuse of context acceptance. Additional verification latency/cost is measured per request, not live-stream throughput.",
+    "Animal confirmation does not establish injury, urgency or rescue need; displayed accepted proposals are not independently verified boxes or unique objects.",
+    "Dual-negative clearing can suppress useful context when small or occluded animals are missed by both reviewers.",
+    "Injected-cut experiment applies completed decisions at source time; online API delay and automatic cut detection are not solved.",
+    "No model retraining, app integration, flight control, automatic incident/dispatch or deployment."
+  ],
+  "class_specific_ablation": {
+    "scope": "Post-hoc A/B on exactly the prior full-clip context tasks and identical crop bytes; development regression, not held-out validation. Proposed detector labels supplied as hypotheses, not ground truth. No new animal decisions.",
+    "summary": [
+      {
+        "source": "raft",
+        "samples": 37,
+        "raw_persons_frames": 0,
+        "raw_vehicles_frames": 0,
+        "exclusive_persons_frames": 0,
+        "exclusive_vehicles_frames": 0,
+        "class_specific_persons_frames": 0,
+        "class_specific_vehicles_frames": 0,
+        "class_specific_clear_persons_frames": 0,
+        "class_specific_clear_vehicles_frames": 0,
+        "animal_gate_old_frames": 37,
+        "animal_gate_clear_frames": 37,
+        "directed_region_outcomes": {}
+      },
+      {
+        "source": "surf",
+        "samples": 31,
+        "raw_persons_frames": 7,
+        "raw_vehicles_frames": 0,
+        "exclusive_persons_frames": 0,
+        "exclusive_vehicles_frames": 0,
+        "class_specific_persons_frames": 0,
+        "class_specific_vehicles_frames": 0,
+        "class_specific_clear_persons_frames": 0,
+        "class_specific_clear_vehicles_frames": 0,
+        "animal_gate_old_frames": 20,
+        "animal_gate_clear_frames": 19,
+        "directed_region_outcomes": {
+          "no": 7
+        }
+      },
+      {
+        "source": "rocks",
+        "samples": 35,
+        "raw_persons_frames": 1,
+        "raw_vehicles_frames": 15,
+        "exclusive_persons_frames": 0,
+        "exclusive_vehicles_frames": 0,
+        "class_specific_persons_frames": 0,
+        "class_specific_vehicles_frames": 0,
+        "class_specific_clear_persons_frames": 0,
+        "class_specific_clear_vehicles_frames": 0,
+        "animal_gate_old_frames": 35,
+        "animal_gate_clear_frames": 35,
+        "directed_region_outcomes": {
+          "no": 16
+        }
+      },
+      {
+        "source": "crowded_beach",
+        "samples": 38,
+        "raw_persons_frames": 5,
+        "raw_vehicles_frames": 6,
+        "exclusive_persons_frames": 1,
+        "exclusive_vehicles_frames": 6,
+        "class_specific_persons_frames": 1,
+        "class_specific_vehicles_frames": 6,
+        "class_specific_clear_persons_frames": 1,
+        "class_specific_clear_vehicles_frames": 6,
+        "animal_gate_old_frames": 6,
+        "animal_gate_clear_frames": 6,
+        "directed_region_outcomes": {
+          "no": 7,
+          "yes": 7,
+          "uncertain": 4
+        }
+      },
+      {
+        "source": "ground_rescue",
+        "samples": 24,
+        "raw_persons_frames": 19,
+        "raw_vehicles_frames": 15,
+        "exclusive_persons_frames": 19,
+        "exclusive_vehicles_frames": 9,
+        "class_specific_persons_frames": 19,
+        "class_specific_vehicles_frames": 15,
+        "class_specific_clear_persons_frames": 19,
+        "class_specific_clear_vehicles_frames": 15,
+        "animal_gate_old_frames": 24,
+        "animal_gate_clear_frames": 24,
+        "directed_region_outcomes": {
+          "yes": 63
+        }
+      }
+    ],
+    "new_requests": 57,
+    "failed_requests": 0,
+    "usage": {
+      "prompt_token_count": 62736,
+      "candidates_token_count": 5270,
+      "thoughts_token_count": 10435,
+      "total_token_count": 78441
+    },
+    "audit": {
+      "identical_task_plan": true,
+      "hypothesis_code_frozen": true,
+      "request_count_complete": true,
+      "request_images_unchanged": true,
+      "all_eligible_regions_covered": true,
+      "no_display_on_closed_animal_gate": true
+    },
+    "median_request_wall_seconds": 2.4198459970066324,
+    "max_request_wall_seconds": 6.5195325589884305
+  },
+  "total_new_requests_all_phases": 134,
+  "late_beach_gate_review": {
+    "scheduled_source_seconds": 15.015,
+    "evidence": "Crop reviewer called an ambiguous small light-colored shape a quadruped; scene reviewer answered mammal yes but its evidence described people, a car, and birds. Native crop is too small for a reliable independent mammal label here.",
+    "consequence": "Animal gate opened six later control frames. Treat this as an unresolved/unsupported trigger; do not claim clean negative specificity or a field-ready animal gate."
+  },
+  "recommendation": "Keep the class-specific context verifier as an experimental candidate if retention improves, but do not deploy: later beach animal trigger remains unsupported/ambiguous, aerial marine co-occurrence is missing, and API latency is material."
+}

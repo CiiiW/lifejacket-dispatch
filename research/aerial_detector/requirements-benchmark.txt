@@ -1,0 +1,9 @@
+# Optional research-only dependencies; keep outside the application environment.
+-r requirements.txt
+ultralytics==8.4.215
+transformers==5.20.2
+google-genai==2.33.0
+pydantic-settings>=2.0
+nbformat>=5.10
+ftfy>=6.3
+clip @ git+https://github.com/openai/CLIP.git@d05afc436d78f1c48dc0dbf8e5980a9d471f35f6

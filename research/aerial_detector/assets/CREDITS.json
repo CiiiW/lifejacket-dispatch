@@ -1,0 +1,50 @@
+[
+  {
+    "file": "assets/seal-model-comparison.jpg",
+    "credit": "NOAA aerial-seal dataset; annotated model-comparison derivative.",
+    "original_derivative_sha256": "cec93a4b0dbff0bfa463d5338f5cca0910bbf1eb1f4c0cbde49e8d573205164e",
+    "published_sha256": "711915457b37e2e059eb4626f8e537adf9fef527473a335af9faf80834b0217e"
+  },
+  {
+    "file": "assets/seal-release-context.jpg",
+    "credit": "NOAA Fisheries/Hawaii Marine Animal Response R7AF release, source second18; ground-level derivative.",
+    "original_derivative_sha256": "5b32de2abd9d93ff12c88886a58953c6e8f52da6905b195ff7044810d3e94ba7",
+    "published_sha256": "f28dc3f2d2c0c6dd9ff447bf462998ae370a8a359a08ae88125fba60e966d5a9"
+  },
+  {
+    "file": "assets/surf-false-person-crop.jpg",
+    "credit": "Athena Sandrini/Pexels, video3006844; context-error crop.",
+    "original_derivative_sha256": "a84653e67a744c286be3e7a388266750bf36f1d9dc1268921cf317b6bd55aece",
+    "published_sha256": "4d46af2a99fc3091e6a779f97335d9b0a03972a34905efb603fed015074fc432"
+  },
+  {
+    "file": "assets/rock-false-vehicle-crop.jpg",
+    "credit": "Lost Souls NV/Pexels, video30824194; context-error crop.",
+    "original_derivative_sha256": "bec3c9836f8497514f7ff40aef06ad0c346e3d293c847af71eef8a48895c945f",
+    "published_sha256": "994e81deef1d44c76def151193b1322fb91812072feecd032466bf0988511018"
+  },
+  {
+    "file": "assets/context-verifier-comparison.jpg",
+    "credit": "NOAA Fisheries/Hawaii Marine Animal Response; verifier A/B.",
+    "original_derivative_sha256": "21cc71c0da06e99a62b8b0acda448cc0d601f531b870d52e607b8b617b520622",
+    "published_sha256": "b6bf51b43cfc96f9bc74dd7f914ee8eea35d966db2a5245bd7d3e4de799e50ff"
+  },
+  {
+    "file": "assets/tiny-seal-evaluation.jpg",
+    "credit": "NOAA aerial-seal dataset; reference-centered evaluation-only crop, never input selection.",
+    "original_derivative_sha256": "fb50886099d4b5b0cb477fffe4cac704286dafbff0bab7e3c69186ad7e072bb7",
+    "published_sha256": "7f368f0c1ae1dff24fd14f4cba6a178c0f154d2abfd9b6d29089ea9bb3f7fed1"
+  },
+  {
+    "file": "assets/dog-review-card.jpg",
+    "credit": "Altaf Shah/Pexels, video30022487; non-marine aerial proxy.",
+    "original_derivative_sha256": "0b537b758e8106e5ab540f45cac2344d497e74707d5641d09b556d49ffd3c166",
+    "published_sha256": "3d38dcdc76f4bd1454b1616b49a672c586cf038e1886075ea66b4dcdc4fc8e19"
+  },
+  {
+    "file": "assets/beach-review-card.jpg",
+    "credit": "8 K/Pexels, video32726982; review-card prototype.",
+    "original_derivative_sha256": "44686f682eec54b73cb8d9c2f2c2e933926f5eeec3e6ff53ce83f03f8f8e6cf9",
+    "published_sha256": "15581eb14c39baa4e7d430dcd867fb7a52cc6b71d4fa490c16ed7d6a27c4e520"
+  }
+]

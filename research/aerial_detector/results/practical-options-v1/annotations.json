@@ -1,0 +1,176 @@
+{
+  "created_before_new_model_calls": true,
+  "windows": [
+    {
+      "key": "raft-00",
+      "source": "raft",
+      "bucket": 0,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "raft-01",
+      "source": "raft",
+      "bucket": 1,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "raft-02",
+      "source": "raft",
+      "bucket": 2,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "surf-00",
+      "source": "surf",
+      "bucket": 0,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "surf-01",
+      "source": "surf",
+      "bucket": 1,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "surf-02",
+      "source": "surf",
+      "bucket": 2,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "rocks-00",
+      "source": "rocks",
+      "bucket": 0,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "rocks-01",
+      "source": "rocks",
+      "bucket": 1,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "rocks-02",
+      "source": "rocks",
+      "bucket": 2,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "crowded_beach-00",
+      "source": "crowded_beach",
+      "bucket": 0,
+      "screening_class": "screened_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "crowded_beach-01",
+      "source": "crowded_beach",
+      "bucket": 1,
+      "screening_class": "screened_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "crowded_beach-02",
+      "source": "crowded_beach",
+      "bucket": 2,
+      "screening_class": "unresolved_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "crowded_beach-03",
+      "source": "crowded_beach",
+      "bucket": 3,
+      "screening_class": "screened_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "ground_rescue-00",
+      "source": "ground_rescue",
+      "bucket": 0,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": true,
+      "vehicle_cooccurrence_anchor": true,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "ground_rescue-01",
+      "source": "ground_rescue",
+      "bucket": 1,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": true,
+      "vehicle_cooccurrence_anchor": true,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "dog_walk-00",
+      "source": "dog_walk",
+      "bucket": 0,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": true,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "dog_walk-01",
+      "source": "dog_walk",
+      "bucket": 1,
+      "screening_class": "anchor_positive",
+      "people_cooccurrence_anchor": true,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "parking_control-00",
+      "source": "parking_control",
+      "bucket": 0,
+      "screening_class": "screened_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    },
+    {
+      "key": "parking_control-01",
+      "source": "parking_control",
+      "bucket": 1,
+      "screening_class": "screened_control",
+      "people_cooccurrence_anchor": false,
+      "vehicle_cooccurrence_anchor": false,
+      "scope": "Manually screened window-level evidence/anchors, not exhaustive frame/box ground truth or a held-out test. Beach15s remains ambiguous. Dog-human clip is an aerial non-marine proxy."
+    }
+  ]
+}
