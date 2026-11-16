@@ -2,7 +2,7 @@
   "scope": "Sanitized publication snapshot; historical media audits are not rerun here.",
   "files": {
     ".gitignore": "e8287a11f618ad41911f0858da2c1d954a418a844594eb650d45cfaa483cc944",
-    "README.md": "67669aa49f123d40d4653437b6897123de22ba102dc7b690e93238fe257ad938",
+    "README.md": "8c9ab528e85aa4dd1ba62c550019e36a95c799b788654380fd9fd4ce0af3f979",
     "REPORT.md": "3bcca502edc38682878653f58cb696db67fc98d9d984579731e9da338f2e58ff",
     "REPRODUCING.md": "e743c5c09034842a8405543728592d3a43b1da29e068133a228fbabe85916930",
     "aerial_control_prepare_v1.py": "55aba1a0af4db1f357640ce3c0c9fc95beffb4a23bcc012c9b7fc88849fc070c",
@@ -48,7 +48,7 @@
     "notebooks/17_combined_detector_gemini.ipynb": "8d3bb38cec2b7cec227cb32859a4bcf5ef5e7ae59895d2fc871125568cda0bc1",
     "notebooks/18_aerial_patrol_validation.ipynb": "0293ec5bec574f0224df0f445a6349563fb4feea59b1e391e4ecb8b663b3e3aa",
     "notebooks/19_context_verified_video.ipynb": "fbe00deac2bfcdcd1f110414bac4fca00b6e258db7ab14e855518d9ce3afb489",
-    "notebooks/20_practical_options_report.ipynb": "5f9a2613c507972fefb23dc93595651efe8f0f94bad96122c399a8e84ca8666d",
+    "notebooks/20_practical_options_report.ipynb": "4fc972ee7c6931bb965d2515c321205ef6d469c10c14266433694d001adbf26d",
     "patrol_memory.py": "c7f788717c3f0d4536c4c21ea4b85cacadc93c1c498e8db6696526efe269b950",
     "practical_options_archive_v1.py": "4ea7aeb9b837b6981317921eafaa4a7ea5c46fdc975ce9ae6442047e7b261eac",
     "practical_options_cut_probe_v1.py": "1bdae0c7525f13d87d6961f982905b0d1157085988f1c55add5e67abe0f55eb3",
@@ -58,9 +58,9 @@
     "practical_options_tight_probe_v1.py": "d299e534a7c704ebcb647f33d796a11bf1da67df30f0d9ef2c957a7e46dc9688",
     "practical_options_timing_v1.py": "36c792bb9881564e826c38b7470d68d28d33c495e9620c10dc73772ab2e830b5",
     "requirements-benchmark.txt": "a601c8d10273ace3b2d7ad76de14b1f73bc132f8b6829e91a69b28aa58cb46c3",
-    "requirements.txt": "dfdac663c1676ff95ba3475905fad4660e53509a115f00168971a1062f743b9d",
+    "requirements.txt": "33d420f28b8f5e335f0d0eabe8708cfea98b13088947f25cfb8e8c60999e4b01",
     "results/ENVIRONMENTS.json": "bfc4ccee9705c85f9481127d4ae58f2502197caa5a40feaa448cce700d3db49c",
-    "results/README.md": "f1375ffadfbbf462ec15c786f6fb5ed6648f7cca4025a1b2fef9a3ed8cc73a33",
+    "results/README.md": "520bed09c5d1632b6328c7593910eb4cfb37dc3d1584f74ede9f71e954bd551c",
     "results/SOURCES.json": "006826d3255f110f4573a246eb9d9a48c80c119904d5dbe2441a334b0146208d",
     "results/aerial-patrol-v1/audit.json": "3ba1f64324a2c463af1866d6ad11ab3a819fb6aca92f77c1caabdaec2d165482",
     "results/aerial-patrol-v1/checkpoint-output.json": "fa09596499c7aff41b055f59511668368a68e345ae7dd9776a5cf93fd8881cca",
@@ -103,7 +103,10 @@
     "role_proposal_composer_v1.py": "732f6017a13a7fbcad4be1d1b225d911e620a0095bcd896b3065bba1c7277c61",
     "source-code-hashes.json": "c8a8c76403cfd7b5456c9edd68d823d2adbb45e2441b080416c320da9a062029",
     "tile_inference.py": "0e7bd0149be955b614c0b04761bf57580a512b88ead8fd94e12861852e3b8320",
-    "validate_snapshot.py": "dc8be7ebd4e9d633df4848857108ab0326f22d78d81ec190e038b1b6332d1972",
-    "video_patrol_review_v1.py": "4728a2559a65be1ebc03d2445068cd742cca23e453a5c6421d3c0a2c72e27c09"
+    "validate_snapshot.py": "a94790bfa0dab520ad15857b17a4c3ec7f09ebd3c556e4cd28c8ebd2ade60b6f",
+    "video_patrol_review_v1.py": "4728a2559a65be1ebc03d2445068cd742cca23e453a5c6421d3c0a2c72e27c09",
+    "video_review_workflow.py": "e64ece5a590d643b6c6ac9704ba1fd59324d4f878e9789f63ccc0f8ff24a1674",
+    "test_video_review_workflow.py": "68f119a619e20a3b08c32113633f1478802bae20daa398dd2def17b42a331c28",
+    "results/video-workflow-validation.json": "1f72239138fd9119c483b06e866476c3f078acea88a13071306efb8d308a1d2f"
   }
 }
