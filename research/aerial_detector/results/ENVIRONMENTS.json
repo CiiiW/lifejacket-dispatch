@@ -1,0 +1,30 @@
+{
+  "gpu-comparison": {
+    "rfdetr": "1.12.1",
+    "ultralytics": "8.4.215",
+    "transformers": "5.20.2",
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "numpy": "2.2.6",
+    "Pillow": "12.3.0",
+    "google-genai": "1.55.0",
+    "pydantic": "2.14.3",
+    "pydantic-settings": null,
+    "nbformat": "5.11.1",
+    "clip": "1.0"
+  },
+  "gemini-review": {
+    "rfdetr": null,
+    "ultralytics": null,
+    "transformers": null,
+    "torch": null,
+    "torchvision": null,
+    "numpy": null,
+    "Pillow": "12.3.0",
+    "google-genai": "2.33.0",
+    "pydantic": "2.14.3",
+    "pydantic-settings": "2.15.0",
+    "nbformat": null,
+    "clip": null
+  }
+}

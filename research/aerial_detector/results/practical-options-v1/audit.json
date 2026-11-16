@@ -1,0 +1,17 @@
+{
+  "source_frames_unchanged": true,
+  "frame_manifest_hash": true,
+  "group_manifest_hash": true,
+  "trial_hash": true,
+  "annotation_hash": true,
+  "prepare_code_hash": true,
+  "review_code_hash": true,
+  "all_76_tasks_completed": true,
+  "request_images_unchanged": true,
+  "seal-probe_input_hashes": true,
+  "seal-probe_code_hash": true,
+  "tight-seal-probe_input_hashes": true,
+  "tight-seal-probe_code_hash": true,
+  "cut-probe_input_hashes": true,
+  "cut-probe_code_hash": true
+}

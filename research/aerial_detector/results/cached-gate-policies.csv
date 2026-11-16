@@ -1,0 +1,6 @@
+policy,scope,gate_frames,beach_gate_frames,surf_gate_frames,ground_gate_frames
+crop_only,"Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",122,6,20,24
+scene_only,"Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",122,6,20,24
+same_check_agreement,"Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",122,6,20,24
+two_scene_checks,"Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",85,0,7,18
+agreement_or_repeated,"Cached165-frame shared subset; no dog/parking extension calls. Offline source-time policy replay, not new model inference.",122,6,20,24

@@ -1,0 +1,171 @@
+[
+  {
+    "source": "raft",
+    "url": "https://videos.pexels.com/video-files/40906785/17488096_3840_2160_30fps.mp4",
+    "page": "https://www.pexels.com/video/aerial-view-of-seals-resting-on-raft-40906785/",
+    "credit": "Marc Espejo/Pexels",
+    "sha256": "ff9edb6190a074f38898dff9b4ac99dd557916f628b14ad375969091e0a1c969",
+    "fps": 29.97002997002997,
+    "decoded_frames": 550,
+    "duration": 18.351666666666667,
+    "complete": true
+  },
+  {
+    "source": "surf",
+    "url": "https://videos.pexels.com/video-files/3006844/3006844-hd_1920_1080_25fps.mp4",
+    "page": "https://www.pexels.com/video/a-sea-lion-swimming-along-the-waves-in-a-beach-3006844/",
+    "credit": "Athena Sandrini/Pexels",
+    "sha256": "f7850a609c6a77744ac5e1b69915fd90f89f22e24f725ca847e665a3e6ede9d1",
+    "fps": 25.0,
+    "decoded_frames": 376,
+    "duration": 15.04,
+    "complete": true
+  },
+  {
+    "source": "rocks",
+    "url": "https://videos.pexels.com/video-files/30824194/13182815_1920_1080_30fps.mp4",
+    "page": "https://www.pexels.com/video/aerial-view-of-seals-resting-on-ocean-rocks-30824194/",
+    "credit": "Lost Souls NV/Pexels",
+    "sha256": "03f68da0dd7841e844c42f79b8a703921ee45bf68e4686a6444074257cae7eb1",
+    "fps": 29.97002997002997,
+    "decoded_frames": 521,
+    "duration": 17.384033333333335,
+    "complete": true
+  },
+  {
+    "source": "crowded_beach",
+    "url": "https://videos.pexels.com/video-files/32726982/13953558_3840_2160_24fps.mp4",
+    "page": "https://www.pexels.com/video/aerial-view-of-beach-with-people-and-umbrellas-32726982/",
+    "credit": "8 K/Pexels",
+    "sha256": "604582a1a036d717358cd2249cf8c417ad6ea2de761de7f64ff667c261b2ac43",
+    "fps": 23.976023976023978,
+    "decoded_frames": 454,
+    "duration": 18.935583333333334,
+    "complete": true
+  },
+  {
+    "id": "dog_walk",
+    "source_page": "https://www.pexels.com/video/aerial-view-of-couple-walking-on-beach-with-dog-30022487/",
+    "author": "Altaf Shah",
+    "download_url": "https://videos.pexels.com/video-files/30022487/12880812_3840_2160_30fps.mp4",
+    "sha256": "913c0600648c91cc28a19a2fc58d51c904cd9e225c595e03854cc9a0fcb50014",
+    "decoded_frames": 490,
+    "fps": 29.97002997002997,
+    "complete": true
+  },
+  {
+    "source": "ground_rescue",
+    "page": "https://videos.fisheries.noaa.gov/detail/videos/b-roll:-seals-and-sea-lions/video/6297080580001/b-roll:-release-of-hawaiian-monk-seal-r7af",
+    "credit": "NOAA Fisheries/Hawaii Marine Animal Response",
+    "sampled_source_seconds": [
+      12,
+      24
+    ],
+    "note": "Ground-level retention regression, not an aerial positive."
+  },
+  {
+    "source_page": "https://www.pexels.com/video/aerial-view-of-rally-cars-in-a-parking-lot-35827962/",
+    "author": "Marc Espejo",
+    "download_url": "https://videos.pexels.com/video-files/35827962/15191728_3840_2160_30fps.mp4",
+    "path": "CACHE_ROOT/video-patrol-v1/parking-people-4k.mp4",
+    "bytes": 76477248,
+    "sha256": "d0c5ea1ebb423638c6b6b57acd8609f789850b32acc828bc9ab85ef67966869d",
+    "chunks": [
+      {
+        "offset": 0,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 8388608,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 16777216,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 25165824,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 33554432,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 41943040,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 50331648,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 58720256,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 67108864,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 75497472,
+        "bytes": 979776,
+        "http": 206
+      }
+    ]
+  },
+  {
+    "source_page": "https://www.pexels.com/video/aerial-view-of-seal-swimming-in-clear-ocean-waters-35254732/",
+    "author": "Bil Hinton",
+    "download_url": "https://videos.pexels.com/video-files/35254732/14935457_3840_2160_25fps.mp4",
+    "path": "CACHE_ROOT/video-patrol-v1/seal-swimming-4k.mp4",
+    "bytes": 55719625,
+    "sha256": "6542ba2737ca7853e22d2b9f3a9df80d88019b007390c4102dc9a8b02694741a",
+    "chunks": [
+      {
+        "offset": 0,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 8388608,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 16777216,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 25165824,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 33554432,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 41943040,
+        "bytes": 8388608,
+        "http": 206
+      },
+      {
+        "offset": 50331648,
+        "bytes": 5387977,
+        "http": 206
+      }
+    ]
+  }
+]

@@ -1,0 +1,315 @@
+[
+  {
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F1-person",
+              "proposed_class_present": "uncertain",
+              "evidence": "Small, indistinct dark shape on the wet sand. Too blurry to confirm as a person."
+            },
+            {
+              "region_id": "F1-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red vehicle is clearly visible on the sand."
+            }
+          ]
+        }
+      ]
+    },
+    "wall_seconds": 5.149318216004758,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 139,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 139
+        }
+      ],
+      "prompt_token_count": 2446,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 640
+        }
+      ],
+      "thoughts_token_count": 543,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 3128,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "1f5f517cda6731427231bb074d39f099cbd4c53b33bca7b008e85133ae1eb6a2"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": [{\"region_id\": \"F1-person\", \"proposed_class\": \"person\", \"full_frame_target_yxyx_1000\": [285, 453, 314, 459]}, {\"region_id\": \"F1-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [775, 343, 803, 383]}]}]"
+  },
+  {
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F1-person",
+              "proposed_class_present": "yes",
+              "evidence": "A small human figure is visible in the water."
+            },
+            {
+              "region_id": "F1-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red vehicle with surfboards on its roof is visible on the sand."
+            }
+          ]
+        }
+      ]
+    },
+    "wall_seconds": 7.462684394995449,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 191,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 191
+        }
+      ],
+      "prompt_token_count": 2248,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 958
+        },
+        {
+          "modality": "IMAGE",
+          "token_count": 1290
+        }
+      ],
+      "thoughts_token_count": 854,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 3293,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "1f5f517cda6731427231bb074d39f099cbd4c53b33bca7b008e85133ae1eb6a2",
+      "a73f5529f8f32540a9bfba8d7e32289debbdcbb93eef511cb08bdb02bcddf12c",
+      "4e6d5a04fc6c5517371d113379238c273d35c49b982fc50b16d27a874de0971e",
+      "6f6a14ad9d0ebf5aec67b910cd16acdaf11a4bf660be138c1baf59a6b30aa417",
+      "54c99ff14e5ef17d89a0d6ef03ff2104800ef2006a18bcbda54f207f8e4f61a0"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\", \"F1-person-crop\", \"F1-vehicle-crop\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-person-crop\", \"role\": \"unverified_context_proposal\"}, {\"image_id\": \"F1-vehicle-crop\", \"role\": \"unverified_context_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [190, 435, 407, 564]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [262, 468, 417, 532]}], \"context_regions\": [{\"region_id\": \"F1-person\", \"proposed_class\": \"person\", \"full_frame_target_yxyx_1000\": [285, 453, 314, 459], \"crop_image_id\": \"F1-person-crop\", \"crop_target_yxyx_1000\": [379, 458, 617, 539]}, {\"region_id\": \"F1-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [775, 343, 803, 383], \"crop_image_id\": \"F1-vehicle-crop\", \"crop_target_yxyx_1000\": [382, 250, 620, 749]}]}]"
+  },
+  {
+    "mode": "burst_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "yes",
+          "visible_mammal_features": "multiple sea lions with bodies, heads, and flippers visible on a floating platform",
+          "evidence_image_ids": [
+            "F1-whole"
+          ],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        },
+        {
+          "frame_id": "F2",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F2-person",
+              "proposed_class_present": "uncertain",
+              "evidence": "The region contains a very small, indistinct dark shape on the wet sand, too ambiguous to confirm as a person."
+            },
+            {
+              "region_id": "F2-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "The region clearly shows a red boat or kayak on the sand."
+            }
+          ]
+        },
+        {
+          "frame_id": "F3",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F3-vehicle",
+              "proposed_class_present": "no",
+              "evidence": "The region contains a blue tent or umbrella, not a vehicle."
+            }
+          ]
+        }
+      ]
+    },
+    "wall_seconds": 4.816129640006693,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 322,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 322
+        }
+      ],
+      "prompt_token_count": 1570,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 796
+        },
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        }
+      ],
+      "thoughts_token_count": 425,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2317,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "3072d54916544a8487d10427c0fb68b6a53d9fadf05a0a43509fe85d43d8e1bc",
+      "1f5f517cda6731427231bb074d39f099cbd4c53b33bca7b008e85133ae1eb6a2",
+      "3386706b2688004939ab2614c5996dde16ed1d66904564c1b47fcbccfd9c7093"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F2-whole\", \"F3-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}, {\"frame_id\": \"F2\", \"images\": [{\"image_id\": \"F2-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": [{\"region_id\": \"F2-person\", \"proposed_class\": \"person\", \"full_frame_target_yxyx_1000\": [285, 453, 314, 459]}, {\"region_id\": \"F2-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [775, 343, 803, 383]}]}, {\"frame_id\": \"F3\", \"images\": [{\"image_id\": \"F3-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": [{\"region_id\": \"F3-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [555, 774, 626, 826]}]}]"
+  },
+  {
+    "mode": "burst_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "yes",
+          "visible_mammal_features": "Multiple sea lions with visible bodies, heads, and flippers are on a floating platform.",
+          "evidence_image_ids": [
+            "F1-whole"
+          ],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        },
+        {
+          "frame_id": "F2",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F2-person",
+              "proposed_class_present": "yes",
+              "evidence": "A person is visible lying on the sand."
+            },
+            {
+              "region_id": "F2-vehicle",
+              "proposed_class_present": "yes",
+              "evidence": "A red car with surfboards is visible."
+            }
+          ]
+        },
+        {
+          "frame_id": "F3",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "yes",
+          "vehicles_visible": "yes",
+          "context_regions": [
+            {
+              "region_id": "F3-vehicle",
+              "proposed_class_present": "no",
+              "evidence": "A blue tent/canopy is visible, not a vehicle."
+            }
+          ]
+        }
+      ]
+    },
+    "wall_seconds": 9.6828052970086,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 414,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 414
+        }
+      ],
+      "prompt_token_count": 4603,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 1507
+        },
+        {
+          "modality": "IMAGE",
+          "token_count": 3096
+        }
+      ],
+      "thoughts_token_count": 1263,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 6280,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "3072d54916544a8487d10427c0fb68b6a53d9fadf05a0a43509fe85d43d8e1bc",
+      "503c3ab28ae508bd1328019f4e1538b25f6db4d92df8f284951f1ef3067c7059",
+      "b8b71a472f64f240f802becb0660ea8f4374762edb335339e17cc423a7150703",
+      "1f5f517cda6731427231bb074d39f099cbd4c53b33bca7b008e85133ae1eb6a2",
+      "a73f5529f8f32540a9bfba8d7e32289debbdcbb93eef511cb08bdb02bcddf12c",
+      "4e6d5a04fc6c5517371d113379238c273d35c49b982fc50b16d27a874de0971e",
+      "6f6a14ad9d0ebf5aec67b910cd16acdaf11a4bf660be138c1baf59a6b30aa417",
+      "54c99ff14e5ef17d89a0d6ef03ff2104800ef2006a18bcbda54f207f8e4f61a0",
+      "3386706b2688004939ab2614c5996dde16ed1d66904564c1b47fcbccfd9c7093",
+      "01c87057910f5ed197a864e77cce53e68271bfea68c636cbc22562b424103a76",
+      "f27fe9390c03e310ce351c45471bc65193ceda432ed77204851ca72c2a5a9c32",
+      "cecd00538a8b473670b9792454b60c31dab52c238c4584375ace3e3431a8a519"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\", \"F2-whole\", \"F2-animal-1\", \"F2-animal-2\", \"F2-person-crop\", \"F2-vehicle-crop\", \"F3-whole\", \"F3-animal-1\", \"F3-animal-2\", \"F3-vehicle-crop\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [309, 350, 695, 652]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [361, 336, 640, 663]}], \"context_regions\": []}, {\"frame_id\": \"F2\", \"images\": [{\"image_id\": \"F2-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F2-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F2-animal-2\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F2-person-crop\", \"role\": \"unverified_context_proposal\"}, {\"image_id\": \"F2-vehicle-crop\", \"role\": \"unverified_context_proposal\"}], \"animal_regions\": [{\"image_id\": \"F2-animal-1\", \"target_yxyx_1000\": [190, 435, 407, 564]}, {\"image_id\": \"F2-animal-2\", \"target_yxyx_1000\": [262, 468, 417, 532]}], \"context_regions\": [{\"region_id\": \"F2-person\", \"proposed_class\": \"person\", \"full_frame_target_yxyx_1000\": [285, 453, 314, 459], \"crop_image_id\": \"F2-person-crop\", \"crop_target_yxyx_1000\": [379, 458, 617, 539]}, {\"region_id\": \"F2-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [775, 343, 803, 383], \"crop_image_id\": \"F2-vehicle-crop\", \"crop_target_yxyx_1000\": [382, 250, 620, 749]}]}, {\"frame_id\": \"F3\", \"images\": [{\"image_id\": \"F3-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F3-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F3-animal-2\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F3-vehicle-crop\", \"role\": \"unverified_context_proposal\"}], \"animal_regions\": [{\"image_id\": \"F3-animal-1\", \"target_yxyx_1000\": [191, 434, 417, 568]}, {\"image_id\": \"F3-animal-2\", \"target_yxyx_1000\": [266, 469, 410, 534]}], \"context_regions\": [{\"region_id\": \"F3-vehicle\", \"proposed_class\": \"vehicle\", \"full_frame_target_yxyx_1000\": [555, 774, 626, 826], \"crop_image_id\": \"F3-vehicle-crop\", \"crop_target_yxyx_1000\": [251, 250, 749, 748]}]}]"
+  }
+]

@@ -1,0 +1,5 @@
+mode,requests,failed_outputs,anchor_positive_windows,anchor_positive_windows_flagged,screened_control_windows,screened_control_positive_flags,unresolved_control_positive_flags,uncertain_windows,two_frame_supported_windows,people_cooccurrence_anchor_windows,people_context_windows_retained,vehicle_cooccurrence_anchor_windows,vehicle_context_windows_retained,median_request_wall_seconds,max_request_wall_seconds,total_input_images
+single_whole,19,0,13,13,5,0,0,0,0,4,4,2,2,4.040189366001869,6.895852948000538,19
+single_native,19,1,13,11,5,0,0,4,0,4,3,2,2,4.41231127899664,7.626908181991894,64
+burst_whole,19,0,13,12,5,0,0,1,11,4,4,2,2,6.4068682189972606,8.730037967994576,56
+burst_native,19,2,13,10,5,1,0,4,11,4,3,2,2,7.869314220995875,9.516528298001504,191

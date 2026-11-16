@@ -1,0 +1,198 @@
+{
+  "scope": "Six representative native frames, two synchronized repeats after one warm-up; model loading and source decode excluded. Small timing diagnostic, not live-stream throughput or detection accuracy.",
+  "gpu": "Tesla T4",
+  "rows": [
+    {
+      "source": "raft",
+      "sample_index": 18,
+      "sha256": "9ff74f607d057d0b7002e7160c8563ae71c48a9e58b412d17f5a25c4fd882340",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.2365295689960476,
+        0.23147998099739198
+      ],
+      "median_seconds": 0.2340047749967198,
+      "animal_proposals": 5
+    },
+    {
+      "source": "raft",
+      "sample_index": 18,
+      "sha256": "9ff74f607d057d0b7002e7160c8563ae71c48a9e58b412d17f5a25c4fd882340",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        1.976288478996139,
+        1.9668566000036662
+      ],
+      "median_seconds": 1.9715725394999026,
+      "animal_proposals": 16
+    },
+    {
+      "source": "surf",
+      "sample_index": 15,
+      "sha256": "d35364e9705dc6f813fd842e6df56d2a07570cc2453acd56b57f49bce29b3200",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.21602259199426044,
+        0.21402027299336623
+      ],
+      "median_seconds": 0.21502143249381334,
+      "animal_proposals": 1
+    },
+    {
+      "source": "surf",
+      "sample_index": 15,
+      "sha256": "d35364e9705dc6f813fd842e6df56d2a07570cc2453acd56b57f49bce29b3200",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        0.660536569004762,
+        0.65757508900424
+      ],
+      "median_seconds": 0.659055829004501,
+      "animal_proposals": 2
+    },
+    {
+      "source": "rocks",
+      "sample_index": 17,
+      "sha256": "2016853a968ac53418c74766d5f51682146a8610c72e60372803bd3cf7f18652",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.2155431739956839,
+        0.21690428699366748
+      ],
+      "median_seconds": 0.2162237304946757,
+      "animal_proposals": 1
+    },
+    {
+      "source": "rocks",
+      "sample_index": 17,
+      "sha256": "2016853a968ac53418c74766d5f51682146a8610c72e60372803bd3cf7f18652",
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        0.6562042690056842,
+        0.6573958280059742
+      ],
+      "median_seconds": 0.6568000485058292,
+      "animal_proposals": 1
+    },
+    {
+      "source": "crowded_beach",
+      "sample_index": 19,
+      "sha256": "4552321f5207f3b2ac187d12eafd994ea55b7f13e411918e621489459acb4989",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.23853256901202258,
+        0.23351347900461406
+      ],
+      "median_seconds": 0.23602302400831832,
+      "animal_proposals": 0
+    },
+    {
+      "source": "crowded_beach",
+      "sample_index": 19,
+      "sha256": "4552321f5207f3b2ac187d12eafd994ea55b7f13e411918e621489459acb4989",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        1.9948254269984318,
+        2.006228950995137
+      ],
+      "median_seconds": 2.0005271889967844,
+      "animal_proposals": 22
+    },
+    {
+      "source": "dog_walk",
+      "sample_index": 10,
+      "sha256": "8484ef1e4cf330fce90ab639b7ce6f697e87e1e8a00d415e9e6dae71a6d340b9",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.2320875550067285,
+        0.234379853005521
+      ],
+      "median_seconds": 0.23323370400612475,
+      "animal_proposals": 2
+    },
+    {
+      "source": "dog_walk",
+      "sample_index": 10,
+      "sha256": "8484ef1e4cf330fce90ab639b7ce6f697e87e1e8a00d415e9e6dae71a6d340b9",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        1.999439816994709,
+        2.0092468449875014
+      ],
+      "median_seconds": 2.004343330991105,
+      "animal_proposals": 3
+    },
+    {
+      "source": "parking_control",
+      "sample_index": 10,
+      "sha256": "53889d02e5de66233ffe3cb1f244d1fd5f02b06a2e51bb65fe1733993a2ae370",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full",
+      "times_seconds": [
+        0.23544235099689104,
+        0.23597826799959876
+      ],
+      "median_seconds": 0.2357103094982449,
+      "animal_proposals": 0
+    },
+    {
+      "source": "parking_control",
+      "sample_index": 10,
+      "sha256": "53889d02e5de66233ffe3cb1f244d1fd5f02b06a2e51bb65fe1733993a2ae370",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "full_plus_tiles",
+      "times_seconds": [
+        2.0207687199872453,
+        2.0275717379990965
+      ],
+      "median_seconds": 2.024170228993171,
+      "animal_proposals": 0
+    }
+  ]
+}

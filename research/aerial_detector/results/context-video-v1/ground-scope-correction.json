@@ -1,0 +1,8 @@
+{
+  "scope": "Postprocessing correction only: the ground reference file contains24 release rows and41 old negative-control rows. The completed verifier had renamed every reference row ground_rescue. The41 closed-gate rows generated no requests but duplicated positive frame keys in later lookup/summary. They are removed by exact release-frame SHA256 membership.",
+  "raw_observations_sha256": "21266b23d14a5f1bf313e0b1471034184c089691066ba8f42c19d7e42a7e40eb",
+  "removed_closed_gate_rows": 41,
+  "no_model_calls_repeated": true,
+  "aerial_rows_unchanged": true,
+  "corrected_observations_sha256": "729801ed09b8f1a56f79da922af7cf41d252738a6f461d1021d8357336131abe"
+}

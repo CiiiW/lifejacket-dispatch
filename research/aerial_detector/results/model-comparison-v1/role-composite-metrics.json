@@ -1,0 +1,34 @@
+[
+  {
+    "cohort": "noaa_seal",
+    "class_id": 1,
+    "tp": 10,
+    "fp": 23,
+    "fn": 4,
+    "reference_boxes": 14
+  },
+  {
+    "cohort": "coco_context",
+    "class_id": 0,
+    "tp": 23,
+    "fp": 2,
+    "fn": 7,
+    "reference_boxes": 30
+  },
+  {
+    "cohort": "coco_context",
+    "class_id": 1,
+    "tp": 0,
+    "fp": 7,
+    "fn": 0,
+    "reference_boxes": 0
+  },
+  {
+    "cohort": "coco_context",
+    "class_id": 2,
+    "tp": 5,
+    "fp": 0,
+    "fn": 1,
+    "reference_boxes": 6
+  }
+]

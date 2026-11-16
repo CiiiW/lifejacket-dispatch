@@ -1,0 +1,13 @@
+{
+  "source_sha256_verified": true,
+  "source_fully_decoded": true,
+  "frame_hashes_verified": true,
+  "frozen_code_verified": true,
+  "dmd_weights_verified": true,
+  "world_weights_verified": true,
+  "crop_inputs_verified": true,
+  "scene_inputs_verified": true,
+  "same_animal_proposals": true,
+  "paired_state_replay": true,
+  "no_automatic_dispatch": true
+}

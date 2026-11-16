@@ -1,0 +1,206 @@
+[
+  {
+    "source": "rescue",
+    "source_seconds": 12.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "baseline_person_boxes_shown": 3,
+    "combined_person_boxes_shown": 3,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 1,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "A seal is seen exiting a metal cage on a sandy beach. Several people are present, and a dark-colored truck is parked in the background."
+    }
+  },
+  {
+    "source": "rescue",
+    "source_seconds": 15.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "baseline_person_boxes_shown": 2,
+    "combined_person_boxes_shown": 2,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 2,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "A seal is partially out of a metal cage on a sandy beach. Two people are standing near a black pickup truck with its hood open in the background."
+    }
+  },
+  {
+    "source": "rescue",
+    "source_seconds": 18.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "baseline_person_boxes_shown": 2,
+    "combined_person_boxes_shown": 2,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 2,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "A seal is on a sandy beach. Two people are standing near a black pickup truck with its hood open. A metal cage is on the sand near the truck. There are rocks on the beach and a rock wall in the background."
+    }
+  },
+  {
+    "source": "rescue",
+    "source_seconds": 21.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 1,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 1,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "A seal or sea lion is resting on a sandy beach. A person is partially visible near a black pickup truck with its hood open. A large metal cage is on the sand. There are numerous dark rocks and a stone wall in the background under a clear blue sky."
+    }
+  },
+  {
+    "source": "beach_people",
+    "source_seconds": 0.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view shows a group of people gathered in a circle on a sandy beach next to the ocean. There are rocks in the water near the shore."
+    }
+  },
+  {
+    "source": "beach_people",
+    "source_seconds": 3.0,
+    "crop_yes": false,
+    "scene_yes": true,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "Several people are gathered on a sandy beach near the water. There are at least two dark-colored animals, possibly horses, visible near the people on the beach and near the rocks."
+    }
+  },
+  {
+    "source": "beach_people",
+    "source_seconds": 6.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view shows a sandy beach meeting the ocean. There are rocks along the shoreline where waves are breaking. A group of people is gathered on the sand near the water."
+    }
+  },
+  {
+    "source": "beach_people",
+    "source_seconds": 9.0,
+    "crop_yes": true,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view of a beach with dark water on the left and sand on the right. There are several rock formations near the water's edge. A large group of people is gathered in a circle on the sand, and a few other people are near the rocks. No animals or vehicles are visible."
+    }
+  },
+  {
+    "source": "rocky_people",
+    "source_seconds": 0.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view of a shoreline with clear green water, a gravel beach, and a rocky section. Several logs are scattered on the beach. There are bare trees and some green foliage on the left. Four people are visible: two in the water, one on the gravel beach, and one on a paved path."
+    }
+  },
+  {
+    "source": "rocky_people",
+    "source_seconds": 3.003,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view shows a rocky and sandy beach next to clear green water. Several logs are scattered on the beach. Two people are visible, one standing on the sand near the water's edge and another partially submerged in the water. Bare trees and some evergreen foliage are visible on the land side."
+    }
+  },
+  {
+    "source": "rocky_people",
+    "source_seconds": 6.006,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "An aerial view shows a rocky and sandy beach next to a body of water. Several people are visible on the beach and in the shallow water. There are many logs and bare trees along the shoreline and green foliage further inland. No non-human animals or vehicles are visible."
+    }
+  },
+  {
+    "source": "rocky_people",
+    "source_seconds": 8.992316666666667,
+    "crop_yes": false,
+    "scene_yes": true,
+    "gate_open": false,
+    "baseline_person_boxes_shown": 0,
+    "combined_person_boxes_shown": 0,
+    "baseline_vehicle_boxes_shown": 0,
+    "combined_vehicle_boxes_shown": 0,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": true,
+      "vehicles_visible": false,
+      "visible_evidence": "Two dark, elongated shapes resembling marine mammals are visible in the water near the shore. Three people are visible: two on the gravel beach and one partially in the water. A human shadow is also visible on a dirt path. The scene includes a body of water, a gravel beach with driftwood, rocks, and trees."
+    }
+  }
+]

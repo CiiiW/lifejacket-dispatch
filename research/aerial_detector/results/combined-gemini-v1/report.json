@@ -1,0 +1,86 @@
+{
+  "scope": "Paired research pipeline through actual Gemini verification. New NOAA ground-level seal+responder release segment, plus two previously inspected aerial coastal controls.",
+  "summary": [
+    {
+      "source": "rescue",
+      "samples": 24,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 4,
+      "scene_animal_confirmations": 4,
+      "gate_open_samples": 24,
+      "first_gate_source_seconds": 12.0,
+      "baseline_persons_shown_samples": 17,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 19,
+      "combined_vehicles_shown_samples": 15,
+      "baseline_any_context_shown_samples": 17,
+      "combined_any_context_shown_samples": 19
+    },
+    {
+      "source": "beach_people",
+      "samples": 20,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 1,
+      "scene_animal_confirmations": 1,
+      "gate_open_samples": 0,
+      "first_gate_source_seconds": null,
+      "baseline_persons_shown_samples": 0,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 0,
+      "combined_vehicles_shown_samples": 0,
+      "baseline_any_context_shown_samples": 0,
+      "combined_any_context_shown_samples": 0
+    },
+    {
+      "source": "rocky_people",
+      "samples": 21,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 0,
+      "scene_animal_confirmations": 1,
+      "gate_open_samples": 0,
+      "first_gate_source_seconds": null,
+      "baseline_persons_shown_samples": 0,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 0,
+      "combined_vehicles_shown_samples": 0,
+      "baseline_any_context_shown_samples": 0,
+      "combined_any_context_shown_samples": 0
+    }
+  ],
+  "requests": 24,
+  "failed_requests": 0,
+  "usage": {
+    "prompt_token_count": 44048,
+    "candidates_token_count": 1852,
+    "thoughts_token_count": 5483,
+    "total_token_count": 51383
+  },
+  "paired_design": "Identical DMD animal proposals and identical Gemini image inputs/decisions for both arms. Only context detections differ: DMD baseline versus YOLO-World full-frame context.",
+  "gate": "Frozen same-check crop+scene agreement OR two consecutive scene yes checks within four seconds, then existing three-second source-scene hold.",
+  "limits": [
+    "One new ground-level release segment is not drone/rescue accuracy or generalization validation.",
+    "Two coastal controls were already inspected; repeated-model-call regression, not fresh held-out negatives.",
+    "Context shown means gated detector proposals; no exhaustive bounding-box or identity truth and no validation of each displayed box.",
+    "Source-time replay excludes model/API scheduling latency. Native-video shot cuts and current animal disappearance timestamps are not annotated.",
+    "Animal confirmation is non-human mammal presence, not injury, urgency, danger or rescue need. No automatic incident/dispatch.",
+    "No production integration or deployment; training weights and prompts unchanged."
+  ],
+  "manual_screening_reference": {
+    "source_seconds": 18.0,
+    "observed_before_model_inference": "Monk seal, at least two responders and pickup visible in same native frame. Not exhaustive frame/box ground truth."
+  },
+  "paired_audit": {
+    "source_sha256_verified": true,
+    "source_fully_decoded": true,
+    "frame_hashes_verified": true,
+    "frozen_code_verified": true,
+    "dmd_weights_verified": true,
+    "world_weights_verified": true,
+    "crop_inputs_verified": true,
+    "scene_inputs_verified": true,
+    "same_animal_proposals": true,
+    "paired_state_replay": true,
+    "no_automatic_dispatch": true
+  },
+  "checkpoint_output_file": "checkpoint-output.json"
+}
