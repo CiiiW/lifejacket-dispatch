@@ -355,3 +355,15 @@ Two things to resolve before this ships anywhere: the DroneMegaDetector
 is CC BY-NC-ND — three different objects), and dataset licences are separate
 again. Email the authors; they are actively soliciting imagery from
 underrepresented habitats, and Californian beach strandings are exactly that.
+
+## Upload and test your own video
+
+Open [notebook 20](notebooks/20_practical_options_report.ipynb), select the aerial GPU kernel, and Run All once. Upload one short video (under 100 MB), then click **Run this video**. Start with the default six-second, 1-FPS preview. The panel runs DMD full-frame plus overlapping tiles, YOLO-World context proposals, and bounded Gemini advice, then displays review cards and an H.264 MP4. Nothing runs merely from opening the upload panel.
+
+Confirm the animal in the exact reviewed frame before any supported person/vehicle regions are shown; approval never carries to another timestamp. Open original full-resolution frames for small targets, then refresh the annotated video after reviewing. The advanced path input supports recordings already on the notebook server.
+
+Prerequisites: cached DMD and YOLO-World weights, the research detector environments, FFmpeg, ipywidgets, and configured Vertex access for Gemini. Existing Workbench environment markers are detected automatically; other installations can set the environment paths in the setup cell. Detector-only mode works without Gemini advice and leaves context unverified. The original recording stays on the server; selected review images are sent to configured Gemini when enabled.
+
+This is a sampled recorded-video research interface, not live DJI integration, field validation, an injury assessment or automatic dispatch. The ground-level seal/people/truck example is a proxy. Failed paid requests are retained rather than silently retried; other unreviewed windows remain visible.
+
+Offline policy/upload regression checks: python -m unittest discover -s research/aerial_detector -p test_video_review_workflow.py

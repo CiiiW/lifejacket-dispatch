@@ -23,7 +23,7 @@ def main():
  check('tiny seal stress preserved',len(report['seal_stress'])==3 and all(r['images']==8 and r['positive_images_confirmed']==0 for r in report['seal_stress']))
  catalog=load(ROOT/'assets/CREDITS.json')
  check('all examples credited and hashed',len(catalog)==8 and all(sha(ROOT/c['file'])==c['published_sha256'] and c['credit'] for c in catalog))
- notebooks=list((ROOT/'notebooks').glob('*.ipynb'))
+ notebooks=[ROOT/name for name in manifest['files'] if name.startswith('notebooks/') and name.endswith('.ipynb')]
  check('five compact notebooks',len(notebooks)==5)
  for p in notebooks:
   nb=load(p)
