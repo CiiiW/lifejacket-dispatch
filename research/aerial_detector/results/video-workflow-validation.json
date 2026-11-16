@@ -1,0 +1,29 @@
+{
+  "video-workflow-smoke-audit.json": {
+    "fresh_cases": 3,
+    "fresh_gemini_calls": 3,
+    "exact_frame_gates_passed": true,
+    "default_context_hidden": true,
+    "cached_review_no_rewrite": true,
+    "no_saved_human_approvals": true,
+    "pure_guard_check": "PASS: unconfirmed/negative/uncertain frames hide context; exact-index approval; class guard; evidence IDs."
+  },
+  "video-upload-handler-check.json": {
+    "single_file_control": true,
+    "uploaded_bytes_preserved": true,
+    "no_inference_before_run_click": true,
+    "full_pipeline_after_run_click": true,
+    "fresh_gemini_success": true,
+    "mp4_export": true,
+    "no_human_approvals_saved": true,
+    "scope": "Kernel-side widget upload event and Run-button callback; native browser picker transport not automated."
+  },
+  "notebook20-runner-check.json": {
+    "all_cells_executed": true,
+    "review_widget_skipped_for_headless_check": true,
+    "cached_model_calls_unchanged": true,
+    "seconds": 10.15
+  },
+  "final_layout_note": "Responsive widget wrapping was applied after the core smoke run; detector, review, and guard functions are unchanged.",
+  "current_helper_sha256": "e64ece5a590d643b6c6ac9704ba1fd59324d4f878e9789f63ccc0f8ff24a1674"
+}
