@@ -1,0 +1,25 @@
+# Deployment template only: configure service user, paths and protected environment first.
+[Unit]
+Description=LifeJacket private drone receiver and optional recording
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=lifejacket
+WorkingDirectory=/opt/lifejacket
+EnvironmentFile=/etc/lifejacket/drone.env
+# Publish address in the environment must match the selected private/VPN interface.
+ExecStart=/opt/lifejacket/.venv/bin/python scripts/drone_stream_receiver.py --mediamtx /usr/local/bin/mediamtx --ffmpeg /usr/bin/ffmpeg --bind 127.0.0.1
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=40
+KillMode=mixed
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/lifejacket
+
+[Install]
+WantedBy=multi-user.target

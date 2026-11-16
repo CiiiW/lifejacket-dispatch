@@ -1,3 +1,4 @@
+import { DroneRecordingPanel } from './DroneRecordingPanel.web';
 import { useEffect, useRef, useState } from 'react';
 import { type DroneApi, type DroneRequest, type DroneStream, networkErrorMessage, NetworkError } from '../lib/networkApi';
 
@@ -64,7 +65,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
     catch(e){if(!signal.aborted)failure(e);}
     finally{lock.current=false;if(!signal.aborted)setBusy(false);}
   }
-  if(!api.streams || available===false)return null;
+  if(!api.streams || available===false)return <p className="lj-notice">Live observation is not configured in this environment. Saved evidence remains available for review.</p>;
   if(available===null)return <p className="lj-muted">Checking observation streaming…</p>;
   const canManage=request.allowed_transitions.length>0 && request.status==='in_progress';
   const fresh=view?.status==='connected' && (view.frame_age_seconds??Infinity)+elapsed<=6;
@@ -110,6 +111,11 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
         })}>End observation session</button>
       </>}
     </>}
+    {selected && <DroneRecordingPanel api={api} id={id} request={request} streamId={selected} onUnavailable={onUnavailable}/>}
+    <details><summary>Connect DJI Fly</summary>
+      <p>The pilot connects the iPhone to the controller and confirms the camera view in DJI Fly. In the app's live streaming settings, choose RTMP and enter this session's private publishing address.</p>
+      <p>The phone needs a working connection to the private receiver. Seeing video in DJI Fly alone does not connect it here. Test with the aircraft stationary and motors off first.</p>
+    </details>
     <p className="lj-muted">Saved frames enter the existing evidence review. Streaming does not change severity, dispatch responders or control the drone.</p>
   </section>;
 }

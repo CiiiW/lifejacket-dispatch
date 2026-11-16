@@ -39,6 +39,7 @@ def out(row):
         "evidence_id": row.evidence_id,
         "status": row.status,
         "stage": row.input_json["stage"],
+        "provider": row.input_json.get("provider", "gemini"),
         "detection_job_id": row.input_json.get("detection_job_id"),
         "animal_index": row.input_json.get("animal_index"),
         "request_key": row.request_key,

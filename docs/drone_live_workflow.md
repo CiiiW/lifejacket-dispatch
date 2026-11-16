@@ -32,11 +32,11 @@ Run from repository root, with backend on PYTHONPATH:
 python scripts/drone_stream_receiver.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg
 ~~~
 
-The receiver binds RTMP 19350, RTSP 18554, its control API 19997 and auth callback 18941 to loopback by default. Only RTMP can be bound to a selected private/VPN interface with --bind. RTSP, control and auth stay on loopback. The normal authenticated LifeJacket API serves previews; the browser never receives receiver credentials. Disable other MediaMTX protocol servers and recording. Publish credentials cannot read streams. The receiver checks case/request activity and disconnects ended/expired/invalid publishers through the control API, normally within the one-second poll plus API timeout. Killing the receiver shuts down its media server and collectors.
+The receiver binds RTMP 19350, RTSP 18554, its control API 19997 and auth callback 18941 to loopback by default. Only RTMP can be bound to a selected private/VPN interface with --bind. RTSP, control and auth stay on loopback. The normal authenticated LifeJacket API serves previews; the browser never receives receiver credentials. Disable other MediaMTX protocol servers and native MediaMTX recording. Optional LifeJacket received-video segments are described in [drone_recordings.md](drone_recordings.md). Publish credentials cannot read streams. The receiver checks case/request activity and disconnects ended/expired/invalid publishers through the control API, normally within the one-second poll plus API timeout. Killing the receiver shuts down its media server and collectors.
 
 Do not expose raw RTMP on the public Internet: this implementation requires a private/VPN route for phone use. RTMPS support in the phone is not assumed, and this receiver launcher does not provision TLS. Jupyter's HTTP proxy cannot carry RTMP; a working web preview URL does not make the phone ingest address reachable. Deployment/network setup remains a separate acceptance item.
 
-Transient frame storage is bounded to 20 JPEGs of at most 256 KiB each per session, decoded to 640-pixel width. The running receiver clears ended/expired/inactive buffers. Stopping the receiver can leave its last bounded buffer in the private database until cleanup/restart; no full-video archive is created. Selected evidence follows the existing evidence retention policy. Use a dedicated database for synthetic rehearsals.
+Transient frame storage is bounded to 20 JPEGs of at most 256 KiB each per session, decoded to 640-pixel width. The running receiver clears ended/expired/inactive buffers. Stopping the receiver can leave its last bounded buffer in the private database until cleanup/restart; no full-video archive is created unless DRONE_RECORDINGS_ENABLED is explicitly enabled. Selected evidence follows the existing evidence retention policy. Use a dedicated database for synthetic rehearsals.
 
 ## Recorded rehearsal
 
@@ -82,7 +82,10 @@ Operator naming does not grant an app account or flight permission. The coordina
 With development dependencies installed, build the actual request UI:
 
 ~~~sh
-node scripts/build_drone_stream_preview.mjs
+npm ci
+npm ci --prefix clients/responder_console
+npm run build:drone-stream
+python scripts/check_drone_setup.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg
 python scripts/drone_stream_demo.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg --port 8935
 ~~~
 
@@ -102,3 +105,27 @@ See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest co
 
 
 Saved-frame AI jobs and closed-app reminder delivery are described in [drone_followup.md](drone_followup.md).
+
+
+## Setup boundaries before the hardware test
+
+The rehearsal uses the actual coordinator request/stream/evidence UI and case APIs.
+It is intentionally disposable: stopping it removes its generated media and test database.
+Do not use it for real animal evidence. A deployed API, receiver and analysis worker must
+share persistent database/evidence storage and the same configuration.
+
+The live preview remains sampled. The optional received-video archive now adds private
+segment playback; see [drone_recordings.md](drone_recordings.md). Without that flag, the
+receiver retains selected stills only. Recorded-file selection separately copies
+the original local clip into its output directory; that is not a live archive or a console
+video player. Keep original aircraft recordings separately until an archive workflow exists.
+
+Before involving YOLO, verify stream reception, exact-frame saving, original-photo access,
+interruption/reconnection, end-session revocation and the human review flow. AI outputs in
+the rehearsal are fixtures. YOLO integration and patrol-to-alert creation are separate work;
+this setup exercises an observation request linked to an existing case.
+
+For a remote phone, select a private/VPN route to the receiver with the project operator.
+The default loopback URL cannot be reached by an iPhone. An HTTP app/proxy URL does not
+carry RTMP. No public receiver, VPN, external notification destination or cloud service is
+provisioned by these commands.
