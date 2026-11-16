@@ -1,0 +1,1010 @@
+{
+  "created_at": "2026-11-16T03:34:25.392525+00:00",
+  "scope": "Exploratory comparison on previously inspected sources; no held-out performance claim.",
+  "items": [
+    {
+      "key": "seal-01",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl04/CENT/test_kotz_2019_fl04_C_20190510_000310.667291_rgb.jpg",
+      "source_sha256": "c21299bbc05ec8d5992f1d1ef70733e27f1a10cf776eea5dc915d3a08a992aa2",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 3403.0,
+          "y1": 418.0,
+          "x2": 3471.0,
+          "y2": 474.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 1,
+      "flight": "fl04"
+    },
+    {
+      "key": "seal-04",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl04/CENT/test_kotz_2019_fl04_C_20190510_012524.339010_rgb.jpg",
+      "source_sha256": "8cbb3e1ffeb808511f4580062b9460592a4c7b3b2e60af29dd09d4f829d305e7",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 3457.0,
+          "y1": 946.0,
+          "x2": 3492.0,
+          "y2": 1013.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 3503.0,
+          "y1": 798.0,
+          "x2": 3588.0,
+          "y2": 839.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 5152.0,
+          "y1": 2094.0,
+          "x2": 5201.0,
+          "y2": 2165.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 4,
+      "flight": "fl04"
+    },
+    {
+      "key": "seal-07",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl05/CENT/test_kotz_2019_fl05_C_20190510_045635.996851_rgb.jpg",
+      "source_sha256": "41ccdd79d9909c0b5fd67efc10783f8997a6b4f48935cc0ad3687a836b467ab7",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 6489.0,
+          "y1": 3475.0,
+          "x2": 6542.0,
+          "y2": 3508.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 6548.0,
+          "y1": 3348.0,
+          "x2": 6576,
+          "y2": 3392.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 7,
+      "flight": "fl05"
+    },
+    {
+      "key": "seal-10",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl05/LEFT/test_kotz_2019_fl05_L_20190510_052138.337715_rgb.jpg",
+      "source_sha256": "930b5350e7fd1c738b20cf2f425d0b4e3e1fb57a6b0279643a305704fdae43f2",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 5466.0,
+          "y1": 2329.0,
+          "x2": 5513.0,
+          "y2": 2417.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 10,
+      "flight": "fl05"
+    },
+    {
+      "key": "seal-13",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl06/CENT/polar_bear_2019_fl06_C_20190510_221957.082273_rgb.jpg",
+      "source_sha256": "9cc95fca766d27cf3db6558d1c45e5c81086c10d6ffb58b72fbacf80f646df11",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 3262.0,
+          "y1": 1811.0,
+          "x2": 3339.0,
+          "y2": 1871.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 13,
+      "flight": "fl06"
+    },
+    {
+      "key": "seal-16",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl06/LEFT/polar_bear_2019_fl06_L_20190510_224544.832840_rgb.jpg",
+      "source_sha256": "d65aaee90288c8ea5490466810be7c38cd8a24ef778912d2b5e62a67e130b1fb",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 3228.0,
+          "y1": 3310.0,
+          "x2": 3337.0,
+          "y2": 3386.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 2966.0,
+          "y1": 3936.0,
+          "x2": 3075.0,
+          "y2": 3998.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 5494.0,
+          "y1": 2302.0,
+          "x2": 5544.0,
+          "y2": 2381.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 16,
+      "flight": "fl06"
+    },
+    {
+      "key": "seal-19",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl07/CENT/polar_bear_2019_fl07_C_20190511_224932.852006_rgb.jpg",
+      "source_sha256": "6a5c8dddf0f58563a1d21da4d1d32916feffd19962a31d0276e0bcfe3445ecf8",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 5778.0,
+          "y1": 175.0,
+          "x2": 5814.0,
+          "y2": 219.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 19,
+      "flight": "fl07"
+    },
+    {
+      "key": "seal-22",
+      "cohort": "noaa_seal",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/noaa/Images/fl07/LEFT/polar_bear_2019_fl07_L_20190511_234340.662266_rgb.jpg",
+      "source_sha256": "063fe2bb16355a78d4669e3009f05bc8149a7efe9bbd374146fe9b686a6b3497",
+      "size": [
+        6576,
+        4384
+      ],
+      "references": [
+        {
+          "x1": 5910.0,
+          "y1": 228.0,
+          "x2": 5964.0,
+          "y2": 302.0,
+          "class_id": 1,
+          "score": 1.0
+        },
+        {
+          "x1": 4409.0,
+          "y1": 1082.0,
+          "x2": 4472.0,
+          "y2": 1137.0,
+          "class_id": 1,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        1
+      ],
+      "ignore": [],
+      "prior_source_index": 22,
+      "flight": "fl07"
+    },
+    {
+      "key": "coco-000000377113",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000377113.jpg",
+      "source_sha256": "1f611f47b69886a7a7ac6804c328877167ec98ec9c9286f1477a488c30d73359",
+      "size": [
+        640,
+        427
+      ],
+      "references": [
+        {
+          "x1": 149.69,
+          "y1": 61.25,
+          "x2": 347.36,
+          "y2": 388.46,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 32.86,
+          "y1": 0.28,
+          "x2": 82.14,
+          "y2": 102.19,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 292.06,
+          "y1": 1.14,
+          "x2": 341.88,
+          "y2": 117.06,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 372.64,
+          "y1": 1.09,
+          "x2": 410.77,
+          "y2": 114.94,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 617.13,
+          "y1": 1.33,
+          "x2": 639.1,
+          "y2": 23.299999999999997,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 521.57,
+          "y1": 0.0,
+          "x2": 581.75,
+          "y2": 141.06,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 575.66,
+          "y1": 4.83,
+          "x2": 633.8,
+          "y2": 141.88000000000002,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 166.25,
+          "y1": 0.0,
+          "x2": 197.5,
+          "y2": 88.82,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 86.93,
+          "y1": 0.21,
+          "x2": 112.55000000000001,
+          "y2": 58.31,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000502336",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000502336.jpg",
+      "source_sha256": "8b0cbc3210da8c5a493eade8e10b31f9ca525e0595f499ec04c52f8be56deef1",
+      "size": [
+        640,
+        431
+      ],
+      "references": [
+        {
+          "x1": 193.1,
+          "y1": 289.63,
+          "x2": 229.07,
+          "y2": 390.92,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 140.5,
+          "y1": 297.12,
+          "x2": 191.79,
+          "y2": 392.46000000000004,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 604.12,
+          "y1": 262.39,
+          "x2": 638.03,
+          "y2": 382.88,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 303.63,
+          "y1": 276.79,
+          "x2": 388.14,
+          "y2": 419.55,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 168.88,
+          "y1": 288.78,
+          "x2": 196.24,
+          "y2": 333.53,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000377946",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000377946.jpg",
+      "source_sha256": "85dd1fc393009264d88be57018aa813c3412fbbe5258af6fd2732552e92433a7",
+      "size": [
+        640,
+        426
+      ],
+      "references": [
+        {
+          "x1": 509.59,
+          "y1": 252.24,
+          "x2": 638.87,
+          "y2": 425.47,
+          "class_id": 2,
+          "score": 1.0
+        },
+        {
+          "x1": 0.91,
+          "y1": 186.57,
+          "x2": 81.59,
+          "y2": 274.26,
+          "class_id": 2,
+          "score": 1.0
+        },
+        {
+          "x1": 88.07,
+          "y1": 53.45,
+          "x2": 455.68,
+          "y2": 391.38,
+          "class_id": 2,
+          "score": 1.0
+        },
+        {
+          "x1": 613.61,
+          "y1": 162.92,
+          "x2": 640.0,
+          "y2": 220.48,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 582.36,
+          "y1": 169.63,
+          "x2": 594.54,
+          "y2": 191.99,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 539.35,
+          "y1": 169.76,
+          "x2": 554.0400000000001,
+          "y2": 205.67,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 591.73,
+          "y1": 165.63,
+          "x2": 600.1,
+          "y2": 208.70999999999998,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 628.33,
+          "y1": 164.19,
+          "x2": 635.7900000000001,
+          "y2": 180.68,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 568.85,
+          "y1": 164.4,
+          "x2": 572.6,
+          "y2": 179.43,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 0.0,
+          "y1": 143.39,
+          "x2": 91.12,
+          "y2": 200.89999999999998,
+          "class_id": 2,
+          "score": 1.0
+        },
+        {
+          "x1": 554.35,
+          "y1": 167.14,
+          "x2": 569.63,
+          "y2": 212.51999999999998,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 612.73,
+          "y1": 160.03,
+          "x2": 625.1800000000001,
+          "y2": 211.98000000000002,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 600.0,
+          "y1": 161.08,
+          "x2": 614.72,
+          "y2": 193.10000000000002,
+          "class_id": 2,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000391375",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000391375.jpg",
+      "source_sha256": "668cc307e1066ceb163f2ef4aa44383c78bdaa5ddcceba3907a8dee0ce531a10",
+      "size": [
+        640,
+        459
+      ],
+      "references": [
+        {
+          "x1": 243.42,
+          "y1": 177.41,
+          "x2": 403.29999999999995,
+          "y2": 417.74,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000442836",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000442836.jpg",
+      "source_sha256": "44b225eaff012bd016fcfe8a3dbeace93fd418164f40e4b5f5b9f0d76f39097b",
+      "size": [
+        640,
+        457
+      ],
+      "references": [
+        {
+          "x1": 136.11,
+          "y1": 37.44,
+          "x2": 257.21000000000004,
+          "y2": 417.58,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 300.9,
+          "y1": 142.82,
+          "x2": 449.80999999999995,
+          "y2": 410.84999999999997,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 47.24,
+          "y1": 150.87,
+          "x2": 116.56,
+          "y2": 349.34000000000003,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000205105",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000205105.jpg",
+      "source_sha256": "63126096550f5f9d35c81261d7f8ba341896a1ec8f958200c4fe20c6417462bc",
+      "size": [
+        640,
+        428
+      ],
+      "references": [
+        {
+          "x1": 142.26,
+          "y1": 127.89,
+          "x2": 303.46,
+          "y2": 427.9,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000516038",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000516038.jpg",
+      "source_sha256": "3bc21d2c8555b5590161b24228e8697d50e16b14ade10f4b02661d5f93148a42",
+      "size": [
+        480,
+        640
+      ],
+      "references": [
+        {
+          "x1": 54.65,
+          "y1": 226.62,
+          "x2": 206.70000000000002,
+          "y2": 435.34000000000003,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 371.57,
+          "y1": 0.0,
+          "x2": 438.48,
+          "y2": 66.48,
+          "class_id": 0,
+          "score": 1.0
+        },
+        {
+          "x1": 201.28,
+          "y1": 104.71,
+          "x2": 296.36,
+          "y2": 229.82,
+          "class_id": 0,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "coco-000000314914",
+      "cohort": "coco_context",
+      "source": "CACHE_ROOT/transfer-retention-v1/raw/coco/000000314914.jpg",
+      "source_sha256": "a73311750c13e8c8ca8284470cc0bcf3a6d64244594d5153d712b1be0446e182",
+      "size": [
+        480,
+        640
+      ],
+      "references": [
+        {
+          "x1": 342.78,
+          "y1": 265.51,
+          "x2": 480.0,
+          "y2": 367.07,
+          "class_id": 2,
+          "score": 1.0
+        }
+      ],
+      "annotated_classes": [
+        0,
+        1,
+        2
+      ],
+      "ignore": []
+    },
+    {
+      "key": "dog_walk-000",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/strict-fresh-v1/frames/dog_walk/000.jpg",
+      "source_sha256": "6518d8c2e29c142b6e138facb647ca6450e93c272030f2e82239bf0b53f48c57",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "dog_walk",
+      "seconds": 0.0
+    },
+    {
+      "key": "dog_walk-006",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/strict-fresh-v1/frames/dog_walk/006.jpg",
+      "source_sha256": "d1e011f0f1ad0d27311ec19ddf991d518ea146bc0d6c390fba4b23647e40275f",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "dog_walk",
+      "seconds": 3.003
+    },
+    {
+      "key": "dog_walk-012",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/strict-fresh-v1/frames/dog_walk/012.jpg",
+      "source_sha256": "d341774b415f419f2df8e720bfeb74f4c92dda9706784524589d701dbaa0147d",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "dog_walk",
+      "seconds": 6.006
+    },
+    {
+      "key": "dog_walk-018",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/strict-fresh-v1/frames/dog_walk/018.jpg",
+      "source_sha256": "0de90d541caa6f73445fb795278c3a35f2cbd1cd6f1a050a2641fc1d94102560",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "dog_walk",
+      "seconds": 9.009
+    },
+    {
+      "key": "beach_people-000",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-v1/frames/beach_people/000.jpg",
+      "source_sha256": "606bfafe96552e9e4f909f3c489efed97ef1c46d8163aeafc97d59efb0e5e445",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "beach_people",
+      "seconds": 0.0
+    },
+    {
+      "key": "beach_people-006",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-v1/frames/beach_people/006.jpg",
+      "source_sha256": "d3edc3aa14c3d2cfcbc2625929ffe8784711b2689fa5ee0b5dde81c7135ad652",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "beach_people",
+      "seconds": 3.0
+    },
+    {
+      "key": "beach_people-012",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-v1/frames/beach_people/012.jpg",
+      "source_sha256": "144b1a27f763d58bcc25e6c3ed9dcdb3e58681c104cf86ffe68b45d20fd0a4a7",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "beach_people",
+      "seconds": 6.0
+    },
+    {
+      "key": "beach_people-018",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-v1/frames/beach_people/018.jpg",
+      "source_sha256": "1977d3079207c71dff8c2b3207aa1dbd6e0a54b171df9d4af4cb163c8961921b",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "beach_people",
+      "seconds": 9.0
+    },
+    {
+      "key": "mixed-000",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/mixed-scene-v1/frames/mixed/000.jpg",
+      "source_sha256": "085d1fc68542467e5e7ba63c40b573f8f6b281e10184eca68c4342df24bb3a46",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "mixed",
+      "seconds": 0.0
+    },
+    {
+      "key": "mixed-006",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/mixed-scene-v1/frames/mixed/006.jpg",
+      "source_sha256": "f763316735fb8eccbdb5e15d83fee7d60f3313bfd9d9f6257f831252b44afe09",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "mixed",
+      "seconds": 3.003
+    },
+    {
+      "key": "mixed-012",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/mixed-scene-v1/frames/mixed/012.jpg",
+      "source_sha256": "4dfe138b2246146458edce029c64f8de77ae0cf9e42754816a9e0ac1cd79c369",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "mixed",
+      "seconds": 6.006
+    },
+    {
+      "key": "mixed-018",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/mixed-scene-v1/frames/mixed/018.jpg",
+      "source_sha256": "77022a6d637cd1cfde90857b61d47fa643d6fcc46a05aabb0caff78913ef45c0",
+      "size": [
+        3840,
+        2160
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "mixed",
+      "seconds": 9.009
+    },
+    {
+      "key": "ocean_rocks_candidate-000",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-extra-v1/frames/ocean_rocks_candidate/000.jpg",
+      "source_sha256": "69c671474a3f8637733f87d5b8163daecbef9a5a5e0ec9a8e5d7add0802b4dc1",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "ocean_rocks_candidate",
+      "seconds": 0.0
+    },
+    {
+      "key": "ocean_rocks_candidate-006",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-extra-v1/frames/ocean_rocks_candidate/006.jpg",
+      "source_sha256": "b783e3be1c8db3109632d50b55def01a84358a5d4a22203a1ecbad8b4350c8e8",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "ocean_rocks_candidate",
+      "seconds": 3.003
+    },
+    {
+      "key": "ocean_rocks_candidate-012",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-extra-v1/frames/ocean_rocks_candidate/012.jpg",
+      "source_sha256": "70e77cb9c0adace6dca133970463f44f4b0cfcd5eb922b027bc7132fa44295dd",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "ocean_rocks_candidate",
+      "seconds": 6.006
+    },
+    {
+      "key": "ocean_rocks_candidate-018",
+      "cohort": "video_diagnostic",
+      "source": "CACHE_ROOT/marine-validation-extra-v1/frames/ocean_rocks_candidate/018.jpg",
+      "source_sha256": "8d02bac2fd886c999cdb2083cb1c7b468d5c351e034cd0f2773d7e7dfbb93bdf",
+      "size": [
+        1920,
+        1080
+      ],
+      "references": [],
+      "annotated_classes": [],
+      "ignore": [],
+      "video_source": "ocean_rocks_candidate",
+      "seconds": 9.009
+    }
+  ],
+  "models": [
+    "dmd",
+    "grounding_dino",
+    "yolo_world",
+    "yoloe26"
+  ],
+  "vocabulary": [
+    "seal",
+    "sea lion",
+    "sea otter",
+    "dog",
+    "horse",
+    "cat",
+    "sheep",
+    "cow",
+    "elephant",
+    "bear",
+    "zebra",
+    "giraffe",
+    "person",
+    "bicycle",
+    "car",
+    "motorcycle",
+    "airplane",
+    "bus",
+    "train",
+    "truck",
+    "boat"
+  ],
+  "class_mapping": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "models_ids": {
+    "dmd": "DroneMegaDetector RFDETRMedium 2026.10.04",
+    "grounding_dino": "IDEA-Research/grounding-dino-tiny",
+    "yolo_world": "yolov8s-worldv2.pt",
+    "yoloe26": "yoloe-26s-seg.pt"
+  },
+  "raw_floor": 0.1,
+  "primary_confidence": 0.3,
+  "diagnostic_thresholds": [
+    0.1,
+    0.3,
+    0.5
+  ],
+  "grounding_dino_text_threshold": 0.2,
+  "tile_size": 1280,
+  "overlap": 100,
+  "merge_iou": 0.5,
+  "match_iou": 0.5,
+  "preprocessing": "Same original images and tile geometry; each model native preprocessing. DMD1280, YOLO1280, GroundingDINO processor defaults.",
+  "metrics": "Per-class greedy IoU0.5, NOAA animal refs only; COCO full relevant-class refs, ignore crowd overlaps. Videos are qualitative only, not accuracy.",
+  "noaa_subset": "Every third image in existing 24-image manifest, chosen before new inference. Eight sources across available flights.",
+  "baseline_sha256": "a50d654c2c5b2739bf0874450a834bcc2a6190eb72eba31f926294e3d2f44c01",
+  "no_new_gemini_calls": true,
+  "revision_note": "Shared environment initially lacked parent-venv torch; no inference occurred. Added YOLOE-26 before any model predictions were inspected. Other data/prompts/settings unchanged."
+}

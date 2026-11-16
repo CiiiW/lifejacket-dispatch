@@ -1,0 +1,400 @@
+[
+  {
+    "selected_frame_sha256": "fff7b68135b8cae9a2cd0f5a1d9e1f639dc07757e29b6e3d52960900d345d0ff",
+    "hidden_verified_context_proposals": 0,
+    "key": "raft-00",
+    "source": "raft",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "9ff74f607d057d0b7002e7160c8563ae71c48a9e58b412d17f5a25c4fd882340",
+    "hidden_verified_context_proposals": 0,
+    "key": "raft-01",
+    "source": "raft",
+    "start_seconds": 6.006,
+    "end_seconds": 11.5115,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      18,
+      23
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "c669d75bc1b657d8fb5437b50dc82080d6e148406a7298f2f33c5cd58fb5b61a",
+    "hidden_verified_context_proposals": 0,
+    "key": "raft-02",
+    "source": "raft",
+    "start_seconds": 12.012,
+    "end_seconds": 17.984633333333335,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      24,
+      30,
+      36
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "71230528c0fc29bc8a29993ab011613badf5cf6122a7d443669d10804dae068f",
+    "hidden_verified_context_proposals": 0,
+    "key": "surf-00",
+    "source": "surf",
+    "start_seconds": 0.0,
+    "end_seconds": 5.52,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "ae44d587365fae3180ea91198ec68a1f91cade220ad5beecfdfaaa238f8e9a68",
+    "hidden_verified_context_proposals": 0,
+    "key": "surf-01",
+    "source": "surf",
+    "start_seconds": 6.0,
+    "end_seconds": 11.52,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      18,
+      23
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "a7a801c62783597ccbdc0289bdfd040553a995078b7359b508402baee86e2193",
+    "hidden_verified_context_proposals": 0,
+    "key": "surf-02",
+    "source": "surf",
+    "start_seconds": 12.0,
+    "end_seconds": 15.0,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      24,
+      27,
+      30
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "b783e3be1c8db3109632d50b55def01a84358a5d4a22203a1ecbad8b4350c8e8",
+    "hidden_verified_context_proposals": 0,
+    "key": "rocks-00",
+    "source": "rocks",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "8d02bac2fd886c999cdb2083cb1c7b468d5c351e034cd0f2773d7e7dfbb93bdf",
+    "hidden_verified_context_proposals": 0,
+    "key": "rocks-01",
+    "source": "rocks",
+    "start_seconds": 6.006,
+    "end_seconds": 11.5115,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      18,
+      23
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "1f6d71ac52d7e270c23a04de57135dabf752604865506a5ce42cd3b4f4a5ccd9",
+    "hidden_verified_context_proposals": 0,
+    "key": "rocks-02",
+    "source": "rocks",
+    "start_seconds": 12.012,
+    "end_seconds": 16.983633333333334,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      24,
+      29,
+      34
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "2c76b9b8d94b50820686789658c4856939575d53d0b35bfce5853b662ed51043",
+    "hidden_verified_context_proposals": 1,
+    "key": "crowded_beach-00",
+    "source": "crowded_beach",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  },
+  {
+    "selected_frame_sha256": "63dad2998cd6ad0662429ba893187573ef40320a48b14da4798756ba215ea5a0",
+    "hidden_verified_context_proposals": 1,
+    "key": "crowded_beach-01",
+    "source": "crowded_beach",
+    "start_seconds": 6.005999999999999,
+    "end_seconds": 11.5115,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      18,
+      23
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  },
+  {
+    "selected_frame_sha256": "c714e18e709c2e9290e50ee50644054a07f54d172072fee9c5e141bdfb25e315",
+    "hidden_verified_context_proposals": 1,
+    "key": "crowded_beach-02",
+    "source": "crowded_beach",
+    "start_seconds": 12.011999999999999,
+    "end_seconds": 17.5175,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      24,
+      30,
+      35
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  },
+  {
+    "selected_frame_sha256": "31bb9e8aa5372f92795a8f951cdfa0753eb0e32c5a177f4e7335f526ee8f095c",
+    "hidden_verified_context_proposals": 0,
+    "key": "crowded_beach-03",
+    "source": "crowded_beach",
+    "start_seconds": 18.017999999999997,
+    "end_seconds": 18.5185,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      36,
+      37
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  },
+  {
+    "selected_frame_sha256": "5abcad7d63e9fc5de6132de959d03ef65f93c983078b5c868a948c15469f1582",
+    "hidden_verified_context_proposals": 2,
+    "key": "ground_rescue-00",
+    "source": "ground_rescue",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "7d23dc4a11787e98290c685c31b6aeb0896c72a64c943159cb3199b7dace34ff",
+    "hidden_verified_context_proposals": 2,
+    "key": "ground_rescue-01",
+    "source": "ground_rescue",
+    "start_seconds": 6.0,
+    "end_seconds": 11.5,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      18,
+      23
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "d1e011f0f1ad0d27311ec19ddf991d518ea146bc0d6c390fba4b23647e40275f",
+    "hidden_verified_context_proposals": 1,
+    "key": "dog_walk-00",
+    "source": "dog_walk",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "e44df9b6c42b5f35d5b1ca9c8b9bd86dba08b4a463c7962e5bf88f53fe9e7911",
+    "hidden_verified_context_proposals": 1,
+    "key": "dog_walk-01",
+    "source": "dog_walk",
+    "start_seconds": 6.006,
+    "end_seconds": 9.509500000000001,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": false,
+    "ai_advisory": "ai_supported_candidate",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      16,
+      19
+    ],
+    "whole_result": "success",
+    "native_fallback_used": false
+  },
+  {
+    "selected_frame_sha256": "971287ca68cc5e1b1e703a33625a8c00f3d9e7bad950c53a74612dc9cec3fbec",
+    "hidden_verified_context_proposals": 2,
+    "key": "parking_control-00",
+    "source": "parking_control",
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      0,
+      6,
+      11
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  },
+  {
+    "selected_frame_sha256": "433a5da7d757599b7ee990048b9c783932f9a853cf6e2ca4a12f9f83301d90cb",
+    "hidden_verified_context_proposals": 2,
+    "key": "parking_control-01",
+    "source": "parking_control",
+    "start_seconds": 6.006,
+    "end_seconds": 9.509500000000001,
+    "candidate_retained": true,
+    "detector_candidate_retained_despite_ai_negative": true,
+    "ai_advisory": "detector_ai_disagreement",
+    "human_confirmed": false,
+    "display_person_vehicle_boxes": false,
+    "automatic_incident_or_dispatch": false,
+    "representative_frames": [
+      12,
+      16,
+      19
+    ],
+    "whole_result": "success",
+    "native_fallback_used": true
+  }
+]

@@ -1,0 +1,202 @@
+{
+  "scope": "Exploratory comparison on previously inspected sources; no held-out performance claim.",
+  "completed_models": [
+    "dmd",
+    "grounding_dino",
+    "yolo_world",
+    "yoloe26"
+  ],
+  "failed_models": [],
+  "primary_seal_results": [
+    {
+      "model": "dmd",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 10,
+      "fp": 23,
+      "fn": 4,
+      "precision": 0.30303030303030304,
+      "recall": 0.7142857142857143,
+      "f1": 0.425531914893617,
+      "top3_tp": 10,
+      "top8_tp": 10,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 5.727961728500304
+    },
+    {
+      "model": "grounding_dino",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 2,
+      "fp": 37,
+      "fn": 12,
+      "precision": 0.05128205128205128,
+      "recall": 0.14285714285714285,
+      "f1": 0.07547169811320754,
+      "top3_tp": 2,
+      "top8_tp": 2,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 8.859371636499418
+    },
+    {
+      "model": "yolo_world",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 0,
+      "fp": 18,
+      "fn": 14,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "top3_tp": 0,
+      "top8_tp": 0,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 1.2226505020007608
+    },
+    {
+      "model": "yoloe26",
+      "method": "tiled_plus_full",
+      "threshold": 0.3,
+      "cohort": "noaa_seal",
+      "class_id": 1,
+      "tp": 6,
+      "fp": 86,
+      "fn": 8,
+      "precision": 0.06521739130434782,
+      "recall": 0.42857142857142855,
+      "f1": 0.11320754716981132,
+      "top3_tp": 2,
+      "top8_tp": 4,
+      "images": 8,
+      "reference_boxes": 14,
+      "median_seconds": 1.641823818501507
+    }
+  ],
+  "seal_reference_boxes": 14,
+  "images": 32,
+  "new_gemini_calls": 0,
+  "hybrids": [
+    {
+      "models": [
+        "dmd",
+        "grounding_dino"
+      ],
+      "tp": 10,
+      "fp": 60,
+      "fn": 4,
+      "top3_tp": 10,
+      "top8_tp": 10,
+      "note": "Exploratory union with raw score ranking; cross-model confidence is not calibrated."
+    },
+    {
+      "models": [
+        "dmd",
+        "yolo_world"
+      ],
+      "tp": 10,
+      "fp": 41,
+      "fn": 4,
+      "top3_tp": 10,
+      "top8_tp": 10,
+      "note": "Exploratory union with raw score ranking; cross-model confidence is not calibrated."
+    },
+    {
+      "models": [
+        "dmd",
+        "yoloe26"
+      ],
+      "tp": 11,
+      "fp": 107,
+      "fn": 3,
+      "top3_tp": 7,
+      "top8_tp": 10,
+      "note": "Exploratory union with raw score ranking; cross-model confidence is not calibrated."
+    }
+  ],
+  "previews": [
+    "CACHE_ROOT/model-comparison-v1/seal-01-comparison.jpg",
+    "CACHE_ROOT/model-comparison-v1/seal-10-comparison.jpg",
+    "CACHE_ROOT/model-comparison-v1/dog_walk-006-comparison.jpg",
+    "CACHE_ROOT/model-comparison-v1/beach_people-018-comparison.jpg"
+  ],
+  "limits": [
+    "Small previously inspected cohort, not fresh test or rescue validation; NOAA8 images14 boxes and COCO8 images36 relevant refs.",
+    "Videos have no independent box annotations: proposal counts and examples only, no video accuracy claim.",
+    "Fixed score0.3 is not calibrated across models; the 0.1/0.3/0.5 sweep is exploratory and no tuned threshold is validated.",
+    "Same native source/tile geometry, but native model preprocessing and built-in per-pass postprocessing differ.",
+    "YOLOE segmentation checkpoint runs its native mask branch; runtime is practical checkpoint cost, not detection-only export speed.",
+    "NOAA only animal references scored; context there is unannotated. COCO crowd overlaps ignored by detection IoA>0.5.",
+    "No production integration, fine-tuning, or deployment. A replacement requires separate flight/video validation."
+  ],
+  "role_composite": {
+    "scope": "Development composition of cached predictions; no new inference or end-to-end Gemini validation.",
+    "animal_branch": "DMD full+tiles",
+    "context_branch": "YOLO-World full-frame",
+    "metrics": [
+      {
+        "cohort": "noaa_seal",
+        "class_id": 1,
+        "tp": 10,
+        "fp": 23,
+        "fn": 4,
+        "reference_boxes": 14
+      },
+      {
+        "cohort": "coco_context",
+        "class_id": 0,
+        "tp": 23,
+        "fp": 2,
+        "fn": 7,
+        "reference_boxes": 30
+      },
+      {
+        "cohort": "coco_context",
+        "class_id": 1,
+        "tp": 0,
+        "fp": 7,
+        "fn": 0,
+        "reference_boxes": 0
+      },
+      {
+        "cohort": "coco_context",
+        "class_id": 2,
+        "tp": 5,
+        "fp": 0,
+        "fn": 1,
+        "reference_boxes": 6
+      }
+    ]
+  },
+  "fourk_runtime": [
+    {
+      "model": "dmd",
+      "full": 0.24795405950135319,
+      "tiled_plus_full": 2.0797294285039243
+    },
+    {
+      "model": "grounding_dino",
+      "full": 0.5476926774990716,
+      "tiled_plus_full": 3.355828700998245
+    },
+    {
+      "model": "yolo_world",
+      "full": 0.06433869200009212,
+      "tiled_plus_full": 0.4217193935000978
+    },
+    {
+      "model": "yoloe26",
+      "full": 0.06732543650105072,
+      "tiled_plus_full": 0.5510852910010726
+    }
+  ],
+  "recommendation": "Keep DMD animal proposals for now; prototype YOLO-World person/vehicle context as a separate branch. Improve crop diversity and short temporal evidence; validate marine co-occurrence before deployment."
+}

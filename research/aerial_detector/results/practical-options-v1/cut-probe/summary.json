@@ -1,0 +1,182 @@
+[
+  {
+    "mode": "single_whole",
+    "status": "success",
+    "positive": false,
+    "uncertain": false,
+    "two_frame_support": false,
+    "people_context": false,
+    "vehicle_context": false,
+    "failed": false,
+    "frame_decisions": [
+      {
+        "frame_id": "F1",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F1-person",
+            "proposed_class_present": "uncertain",
+            "evidence": "Small, indistinct dark shape on the wet sand. Too blurry to confirm as a person."
+          },
+          {
+            "region_id": "F1-vehicle",
+            "proposed_class_present": "yes",
+            "evidence": "A red vehicle is clearly visible on the sand."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "single_native",
+    "status": "success",
+    "positive": false,
+    "uncertain": false,
+    "two_frame_support": false,
+    "people_context": false,
+    "vehicle_context": false,
+    "failed": false,
+    "frame_decisions": [
+      {
+        "frame_id": "F1",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F1-person",
+            "proposed_class_present": "yes",
+            "evidence": "A small human figure is visible in the water."
+          },
+          {
+            "region_id": "F1-vehicle",
+            "proposed_class_present": "yes",
+            "evidence": "A red vehicle with surfboards on its roof is visible on the sand."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "burst_whole",
+    "status": "success",
+    "positive": true,
+    "uncertain": false,
+    "two_frame_support": false,
+    "people_context": false,
+    "vehicle_context": false,
+    "failed": false,
+    "frame_decisions": [
+      {
+        "frame_id": "F1",
+        "mammal_visible": "yes",
+        "visible_mammal_features": "multiple sea lions with bodies, heads, and flippers visible on a floating platform",
+        "evidence_image_ids": [
+          "F1-whole"
+        ],
+        "people_visible": "no",
+        "vehicles_visible": "no",
+        "context_regions": []
+      },
+      {
+        "frame_id": "F2",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F2-person",
+            "proposed_class_present": "uncertain",
+            "evidence": "The region contains a very small, indistinct dark shape on the wet sand, too ambiguous to confirm as a person."
+          },
+          {
+            "region_id": "F2-vehicle",
+            "proposed_class_present": "yes",
+            "evidence": "The region clearly shows a red boat or kayak on the sand."
+          }
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F3-vehicle",
+            "proposed_class_present": "no",
+            "evidence": "The region contains a blue tent or umbrella, not a vehicle."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "mode": "burst_native",
+    "status": "success",
+    "positive": true,
+    "uncertain": false,
+    "two_frame_support": false,
+    "people_context": false,
+    "vehicle_context": false,
+    "failed": false,
+    "frame_decisions": [
+      {
+        "frame_id": "F1",
+        "mammal_visible": "yes",
+        "visible_mammal_features": "Multiple sea lions with visible bodies, heads, and flippers are on a floating platform.",
+        "evidence_image_ids": [
+          "F1-whole"
+        ],
+        "people_visible": "no",
+        "vehicles_visible": "no",
+        "context_regions": []
+      },
+      {
+        "frame_id": "F2",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F2-person",
+            "proposed_class_present": "yes",
+            "evidence": "A person is visible lying on the sand."
+          },
+          {
+            "region_id": "F2-vehicle",
+            "proposed_class_present": "yes",
+            "evidence": "A red car with surfboards is visible."
+          }
+        ]
+      },
+      {
+        "frame_id": "F3",
+        "mammal_visible": "no",
+        "visible_mammal_features": "",
+        "evidence_image_ids": [],
+        "people_visible": "yes",
+        "vehicles_visible": "yes",
+        "context_regions": [
+          {
+            "region_id": "F3-vehicle",
+            "proposed_class_present": "no",
+            "evidence": "A blue tent/canopy is visible, not a vehicle."
+          }
+        ]
+      }
+    ]
+  }
+]

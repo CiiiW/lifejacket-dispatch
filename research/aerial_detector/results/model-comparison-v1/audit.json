@@ -1,0 +1,13 @@
+{
+  "source_hashes": true,
+  "inputs_count": 32,
+  "completed_models": [
+    "dmd",
+    "grounding_dino",
+    "yolo_world",
+    "yoloe26"
+  ],
+  "failed_models": [],
+  "prediction_manifest": true,
+  "plan_hashes": true
+}

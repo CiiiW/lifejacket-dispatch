@@ -1,0 +1,491 @@
+[
+  {
+    "key": "raft-00",
+    "source": "raft",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "raft-01",
+    "source": "raft",
+    "bucket": 1,
+    "start_seconds": 6.006,
+    "end_seconds": 11.5115,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "burst_indices": [
+      12,
+      18,
+      23
+    ],
+    "single_index": 18
+  },
+  {
+    "key": "raft-02",
+    "source": "raft",
+    "bucket": 2,
+    "start_seconds": 12.012,
+    "end_seconds": 17.984633333333335,
+    "all_frame_keys": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "burst_indices": [
+      24,
+      30,
+      36
+    ],
+    "single_index": 30
+  },
+  {
+    "key": "surf-00",
+    "source": "surf",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.52,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "surf-01",
+    "source": "surf",
+    "bucket": 1,
+    "start_seconds": 6.0,
+    "end_seconds": 11.52,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "burst_indices": [
+      12,
+      18,
+      23
+    ],
+    "single_index": 18
+  },
+  {
+    "key": "surf-02",
+    "source": "surf",
+    "bucket": 2,
+    "start_seconds": 12.0,
+    "end_seconds": 15.0,
+    "all_frame_keys": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "burst_indices": [
+      24,
+      27,
+      30
+    ],
+    "single_index": 27
+  },
+  {
+    "key": "rocks-00",
+    "source": "rocks",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "rocks-01",
+    "source": "rocks",
+    "bucket": 1,
+    "start_seconds": 6.006,
+    "end_seconds": 11.5115,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "burst_indices": [
+      12,
+      18,
+      23
+    ],
+    "single_index": 18
+  },
+  {
+    "key": "rocks-02",
+    "source": "rocks",
+    "bucket": 2,
+    "start_seconds": 12.012,
+    "end_seconds": 16.983633333333334,
+    "all_frame_keys": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "burst_indices": [
+      24,
+      29,
+      34
+    ],
+    "single_index": 29
+  },
+  {
+    "key": "crowded_beach-00",
+    "source": "crowded_beach",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "crowded_beach-01",
+    "source": "crowded_beach",
+    "bucket": 1,
+    "start_seconds": 6.005999999999999,
+    "end_seconds": 11.5115,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "burst_indices": [
+      12,
+      18,
+      23
+    ],
+    "single_index": 18
+  },
+  {
+    "key": "crowded_beach-02",
+    "source": "crowded_beach",
+    "bucket": 2,
+    "start_seconds": 12.011999999999999,
+    "end_seconds": 17.5175,
+    "all_frame_keys": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "burst_indices": [
+      24,
+      30,
+      35
+    ],
+    "single_index": 30
+  },
+  {
+    "key": "crowded_beach-03",
+    "source": "crowded_beach",
+    "bucket": 3,
+    "start_seconds": 18.017999999999997,
+    "end_seconds": 18.5185,
+    "all_frame_keys": [
+      36,
+      37
+    ],
+    "burst_indices": [
+      36,
+      37
+    ],
+    "single_index": 37
+  },
+  {
+    "key": "ground_rescue-00",
+    "source": "ground_rescue",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "ground_rescue-01",
+    "source": "ground_rescue",
+    "bucket": 1,
+    "start_seconds": 6.0,
+    "end_seconds": 11.5,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "burst_indices": [
+      12,
+      18,
+      23
+    ],
+    "single_index": 18
+  },
+  {
+    "key": "dog_walk-00",
+    "source": "dog_walk",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "dog_walk-01",
+    "source": "dog_walk",
+    "bucket": 1,
+    "start_seconds": 6.006,
+    "end_seconds": 9.509500000000001,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "burst_indices": [
+      12,
+      16,
+      19
+    ],
+    "single_index": 16
+  },
+  {
+    "key": "parking_control-00",
+    "source": "parking_control",
+    "bucket": 0,
+    "start_seconds": 0.0,
+    "end_seconds": 5.5055000000000005,
+    "all_frame_keys": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "burst_indices": [
+      0,
+      6,
+      11
+    ],
+    "single_index": 6
+  },
+  {
+    "key": "parking_control-01",
+    "source": "parking_control",
+    "bucket": 1,
+    "start_seconds": 6.006,
+    "end_seconds": 9.509500000000001,
+    "all_frame_keys": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "burst_indices": [
+      12,
+      16,
+      19
+    ],
+    "single_index": 16
+  }
+]

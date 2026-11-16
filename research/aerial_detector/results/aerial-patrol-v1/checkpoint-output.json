@@ -1,0 +1,469 @@
+[
+  {
+    "source": "raft",
+    "seconds": 0.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple sea lions are visible on a floating concrete platform in the water."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "large marine mammal on concrete"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "animal",
+          "evidence": "small marine mammal curled on concrete"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "background",
+          "evidence": "small bird-like creature on concrete (not a mammal)"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "raft",
+    "seconds": 3.003,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple sea lions are visible on a floating platform in the water. There are also several smaller dark shapes, possibly birds, on the platform."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "small dark mammal on light surface"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "animal",
+          "evidence": "small dark mammal lying on surface"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "animal",
+          "evidence": "large dark mammal with flippers"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "raft",
+    "seconds": 6.006,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Several sea lions are visible on a floating platform in the water. There are also some birds on the platform."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "large dark marine mammal"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "background",
+          "evidence": "small dark bird-like creature"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "background",
+          "evidence": "small dark bird-like creature"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "raft",
+    "seconds": 9.009,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Several sea lions are visible on a floating platform in the water. There are also some birds on the platform."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "large dark-colored non-human mammal with flippers"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "animal",
+          "evidence": "small light-colored non-human mammal with flippers"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "animal",
+          "evidence": "three dark-colored non-human mammals with flippers"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "surf",
+    "seconds": 0.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "The image shows a wave breaking on a sandy beach. The water is turquoise and white with foam, and the sand is light brown."
+    },
+    "crop_data": {
+      "animals": []
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "surf",
+    "seconds": 3.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "A dark, elongated marine animal is visible in the turquoise ocean water near the foamy shoreline."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "dark, elongated shape in water, consistent with a marine mammal"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "surf",
+    "seconds": 6.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "The image shows ocean water with waves and foam. No non-human animals, people, or vehicles are visible."
+    },
+    "crop_data": {
+      "animals": []
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "surf",
+    "seconds": 9.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "A dark-colored animal is visible in the breaking waves near the sandy shore."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "blurry dark-colored creature in the surf"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "rocks",
+    "seconds": 0.0,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple dark-colored animals are visible on a large rock in the ocean, and several dark shapes are in the water, consistent with marine mammals."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "Multiple dark, seal-like mammals are visible on the rock within the region."
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "animal",
+          "evidence": "A dark, seal-like mammal is visible on the rock within the region."
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "animal",
+          "evidence": "A dark, seal-like mammal is visible on the rock within the region."
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "rocks",
+    "seconds": 3.003,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple dark-colored animals, appearing to be seals or sea lions, are visible on a large rock in the ocean. There are also several birds flying and on the water."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "multiple dark, mammalian shapes on the rock"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "rocks",
+    "seconds": 6.006,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple seals or sea lions are visible on a large rock and swimming in the ocean around the rocks."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "Multiple dark, seal-like mammals are visible on the rock within the target region."
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "background",
+          "evidence": "The target region contains only rocks and water, with no visible animals, persons, or vehicles."
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "rocks",
+    "seconds": 9.009,
+    "crop_yes": true,
+    "scene_yes": true,
+    "gate_open": true,
+    "scene_data": {
+      "nonhuman_animal_visible": "yes",
+      "people_visible": false,
+      "vehicles_visible": false,
+      "visible_evidence": "Multiple dark, seal-like animals are visible on a large rock in the ocean. Several other dark shapes, consistent with seals or sea lions, are visible in the water around the rocks."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "animal",
+          "evidence": "multiple dark-colored non-human mammals on a rock"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "crowded_beach",
+    "seconds": 0.0,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "An aerial view of a crowded beach with many people, beach umbrellas, and tents. A red vehicle is visible on the sand, and other smaller vehicles are near the vegetation line."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "person",
+          "evidence": "Two small, dark, human-like figures in water."
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "person",
+          "evidence": "Small, dark, human-like figure in water."
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "person",
+          "evidence": "Small, light-colored, human-like figure in water."
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "crowded_beach",
+    "seconds": 3.0029999999999997,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "An aerial view of a crowded beach with many people, umbrellas, tents, and beach gear on the sand and in the shallow water. A red vehicle is visible on the sand near the bottom right."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "person",
+          "evidence": "two small human-like figures in water"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "person",
+          "evidence": "small human-like figure in water"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "uncertain",
+          "evidence": "extremely small and indistinct figure in water"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "crowded_beach",
+    "seconds": 6.005999999999999,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "scene_data": {
+      "nonhuman_animal_visible": "no",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "Numerous people are visible on the beach and in the water. A red vehicle is parked on the sand. No non-human animals are visible."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "person",
+          "evidence": "two human-like figures in the water"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "person",
+          "evidence": "small human-like figure in the water"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "person",
+          "evidence": "two human-like figures in the water"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  },
+  {
+    "source": "crowded_beach",
+    "seconds": 9.008999999999999,
+    "crop_yes": false,
+    "scene_yes": false,
+    "gate_open": false,
+    "scene_data": {
+      "nonhuman_animal_visible": "uncertain",
+      "people_visible": true,
+      "vehicles_visible": true,
+      "visible_evidence": "An aerial view of a crowded beach with many people, colorful umbrellas, and tents on the sand. A red vehicle is visible on the sand near the bottom left. There are some very small, indistinct dark specks near the water's edge that could potentially be birds, but their identity cannot be confirmed due to resolution."
+    },
+    "crop_data": {
+      "regions": [
+        {
+          "region_id": "R01",
+          "subject_class": "person",
+          "evidence": "small human figure walking"
+        },
+        {
+          "region_id": "R02",
+          "subject_class": "vehicle",
+          "evidence": "four small vehicles parked in a row"
+        },
+        {
+          "region_id": "R03",
+          "subject_class": "person",
+          "evidence": "small human figure with shadow"
+        }
+      ]
+    },
+    "crop_status": "success",
+    "scene_status": "success"
+  }
+]

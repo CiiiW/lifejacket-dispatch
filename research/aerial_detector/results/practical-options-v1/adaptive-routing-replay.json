@@ -1,0 +1,211 @@
+[
+  {
+    "key": "raft-00",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 122,
+      "thoughts_token_count": 215,
+      "total_token_count": 2673
+    }
+  },
+  {
+    "key": "raft-01",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 133,
+      "thoughts_token_count": 288,
+      "total_token_count": 2757
+    }
+  },
+  {
+    "key": "raft-02",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 99,
+      "thoughts_token_count": 462,
+      "total_token_count": 2897
+    }
+  },
+  {
+    "key": "surf-00",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 116,
+      "thoughts_token_count": 282,
+      "total_token_count": 2734
+    }
+  },
+  {
+    "key": "surf-01",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2391,
+      "candidates_token_count": 175,
+      "thoughts_token_count": 387,
+      "total_token_count": 2953
+    }
+  },
+  {
+    "key": "surf-02",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 79,
+      "thoughts_token_count": 272,
+      "total_token_count": 2687
+    }
+  },
+  {
+    "key": "rocks-00",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 127,
+      "thoughts_token_count": 215,
+      "total_token_count": 2678
+    }
+  },
+  {
+    "key": "rocks-01",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 120,
+      "thoughts_token_count": 192,
+      "total_token_count": 2648
+    }
+  },
+  {
+    "key": "rocks-02",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2336,
+      "candidates_token_count": 127,
+      "thoughts_token_count": 340,
+      "total_token_count": 2803
+    }
+  },
+  {
+    "key": "crowded_beach-00",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4245,
+      "candidates_token_count": 274,
+      "thoughts_token_count": 1155,
+      "total_token_count": 5674
+    }
+  },
+  {
+    "key": "crowded_beach-01",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4694,
+      "candidates_token_count": 365,
+      "thoughts_token_count": 1584,
+      "total_token_count": 6643
+    }
+  },
+  {
+    "key": "crowded_beach-02",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4694,
+      "candidates_token_count": 372,
+      "thoughts_token_count": 1746,
+      "total_token_count": 6812
+    }
+  },
+  {
+    "key": "crowded_beach-03",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4694,
+      "candidates_token_count": 342,
+      "thoughts_token_count": 1375,
+      "total_token_count": 6411
+    }
+  },
+  {
+    "key": "ground_rescue-00",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2443,
+      "candidates_token_count": 206,
+      "thoughts_token_count": 271,
+      "total_token_count": 2920
+    }
+  },
+  {
+    "key": "ground_rescue-01",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2437,
+      "candidates_token_count": 142,
+      "thoughts_token_count": 332,
+      "total_token_count": 2911
+    }
+  },
+  {
+    "key": "dog_walk-00",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2391,
+      "candidates_token_count": 114,
+      "thoughts_token_count": 431,
+      "total_token_count": 2936
+    }
+  },
+  {
+    "key": "dog_walk-01",
+    "requests_required": 1,
+    "fallback": false,
+    "usage": {
+      "prompt_token_count": 2391,
+      "candidates_token_count": 166,
+      "thoughts_token_count": 568,
+      "total_token_count": 3125
+    }
+  },
+  {
+    "key": "parking_control-00",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4025,
+      "candidates_token_count": 334,
+      "thoughts_token_count": 905,
+      "total_token_count": 5264
+    }
+  },
+  {
+    "key": "parking_control-01",
+    "requests_required": 2,
+    "fallback": true,
+    "usage": {
+      "prompt_token_count": 4361,
+      "candidates_token_count": 314,
+      "thoughts_token_count": 986,
+      "total_token_count": 5661
+    }
+  }
+]

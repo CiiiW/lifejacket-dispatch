@@ -1,0 +1,183 @@
+{
+  "scope": "Fixed paired pipeline on four new aerial stock clips: platform pinnipeds, surf animal, rocky-islet pinnipeds, and crowded-beach control. Not DJI field or annotated-box accuracy validation.",
+  "summary": [
+    {
+      "source": "raft",
+      "samples": 24,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 4,
+      "scene_animal_confirmations": 4,
+      "gate_open_samples": 24,
+      "first_gate_source_seconds": 0.0,
+      "baseline_persons_shown_samples": 1,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 0,
+      "combined_vehicles_shown_samples": 0,
+      "baseline_any_context_shown_samples": 1,
+      "combined_any_context_shown_samples": 0
+    },
+    {
+      "source": "surf",
+      "samples": 24,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 2,
+      "scene_animal_confirmations": 2,
+      "gate_open_samples": 13,
+      "first_gate_source_seconds": 3.0,
+      "baseline_persons_shown_samples": 0,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 2,
+      "combined_vehicles_shown_samples": 0,
+      "baseline_any_context_shown_samples": 0,
+      "combined_any_context_shown_samples": 2
+    },
+    {
+      "source": "rocks",
+      "samples": 24,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 4,
+      "scene_animal_confirmations": 4,
+      "gate_open_samples": 24,
+      "first_gate_source_seconds": 0.0,
+      "baseline_persons_shown_samples": 0,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 0,
+      "combined_vehicles_shown_samples": 8,
+      "baseline_any_context_shown_samples": 0,
+      "combined_any_context_shown_samples": 8
+    },
+    {
+      "source": "crowded_beach",
+      "samples": 24,
+      "scheduled_checks": 4,
+      "crop_animal_confirmations": 0,
+      "scene_animal_confirmations": 0,
+      "gate_open_samples": 0,
+      "first_gate_source_seconds": null,
+      "baseline_persons_shown_samples": 0,
+      "baseline_vehicles_shown_samples": 0,
+      "combined_persons_shown_samples": 0,
+      "combined_vehicles_shown_samples": 0,
+      "baseline_any_context_shown_samples": 0,
+      "combined_any_context_shown_samples": 0
+    }
+  ],
+  "requests": 32,
+  "failed_requests": 0,
+  "usage": {
+    "prompt_token_count": 54410,
+    "candidates_token_count": 2417,
+    "thoughts_token_count": 8725,
+    "total_token_count": 65552
+  },
+  "paired_design": "Identical DMD animal proposals and identical Gemini image inputs/decisions for both arms. Only context detections differ: DMD baseline versus YOLO-World full-frame context.",
+  "gate": "Frozen same-check crop+scene agreement OR two consecutive scene yes checks within four seconds, then existing three-second source-scene hold.",
+  "limits": [
+    "All four sources are aerial views newly reviewed in this study; source equipment/altitude and model pretraining overlap are not independently known.",
+    "Only one newly reviewed crowded-beach control; screening cannot prove exhaustive animal absence. No verified marine-plus-person/vehicle co-occurrence positive in these clips.",
+    "Context shown means gated detector proposals; no exhaustive bounding-box or identity truth and no validation of each displayed box.",
+    "Source-time replay excludes model/API scheduling latency. Native-video shot cuts and current animal disappearance timestamps are not annotated.",
+    "Animal confirmation is non-human mammal presence, not injury, urgency, danger or rescue need. No automatic incident/dispatch.",
+    "No production integration or deployment; training weights and prompts unchanged."
+  ],
+  "audit": {
+    "all_four_sources_decoded": true,
+    "source_sha256_verified": true,
+    "frame_hashes_verified": true,
+    "frozen_code_verified": true,
+    "review_plan_verified": true,
+    "dmd_weights_verified": true,
+    "context_weights_verified": true,
+    "crop_image_hashes_verified": true,
+    "scene_image_hashes_verified": true,
+    "same_animal_proposals": true,
+    "no_automatic_dispatch": true,
+    "full_paired_state_replay": true
+  },
+  "policy_checks_passed": 23,
+  "timing": [
+    {
+      "source": "raft",
+      "median_animal_detector_seconds": 2.02975623599923,
+      "median_context_detector_seconds": 0.06380509649898158,
+      "median_gemini_request_wall_seconds": 3.5458193355007097,
+      "max_gemini_request_wall_seconds": 4.2742992129933555
+    },
+    {
+      "source": "surf",
+      "median_animal_detector_seconds": 0.6814626029954525,
+      "median_context_detector_seconds": 0.030854324002575595,
+      "median_gemini_request_wall_seconds": 2.573782712497632,
+      "max_gemini_request_wall_seconds": 5.451311533994158
+    },
+    {
+      "source": "rocks",
+      "median_animal_detector_seconds": 0.6710994455061154,
+      "median_context_detector_seconds": 0.029631874509504996,
+      "median_gemini_request_wall_seconds": 2.7061133765018894,
+      "max_gemini_request_wall_seconds": 7.531987238995498
+    },
+    {
+      "source": "crowded_beach",
+      "median_animal_detector_seconds": 2.0472785154997837,
+      "median_context_detector_seconds": 0.05148266899777809,
+      "median_gemini_request_wall_seconds": 3.734853463000036,
+      "max_gemini_request_wall_seconds": 4.112469853993389
+    }
+  ],
+  "visibility_annotation": "No exhaustive frame-level animal visibility or box annotations. Gate-open counts are evidence persistence/proposal diagnostics, never video recall.",
+  "entry_exit_scope": "Source changes and expiration are checked by replay and policy fixtures. Natural animal disappearance and automatic shot-cut detection are not validated.",
+  "source_screening": {
+    "raft": "Clearly visible sea lions on floating platform, birds also present; no people identified.",
+    "surf": "Small nonhuman animal visible in surf at screened middle/later frames; wave occlusion makes continuous visibility uncertain.",
+    "rocks": "Group of pinnipeds visible on offshore rock in native crop; no people identified.",
+    "crowded_beach": "Crowded overhead beach, people and umbrellas; no nonhuman mammal identified in screening; absence not exhaustively annotated."
+  },
+  "hard_cut_regression": {
+    "no_cut_reset": {
+      "control_frames": 13,
+      "control_gate_open_frames": 6,
+      "control_context_shown_frames": 6,
+      "control_display_times": [
+        0.0,
+        0.5004999999999997,
+        1.0009999999999994,
+        1.5015,
+        2.002,
+        2.5024999999999995
+      ]
+    },
+    "provided_cut_reset": {
+      "control_frames": 13,
+      "control_gate_open_frames": 0,
+      "control_context_shown_frames": 0,
+      "control_display_times": []
+    }
+  },
+  "context_box_diagnostic": {
+    "scope": "Post-hoc diagnostic on two selected aerial failure frames and one previously inspected ground-level seal+person+truck frame. No held-out result or production adoption.",
+    "requests": 3,
+    "aerial_failure_proposals_rejected": 2,
+    "ground_positive_proposals_retained": 3,
+    "audit": {
+      "all_three_requests_succeeded": true,
+      "all_review_image_hashes_verified": true
+    }
+  },
+  "manual_context_error_examples": [
+    {
+      "source": "surf",
+      "source_seconds": 5.52,
+      "proposed_class": "person",
+      "manual_visual_subject": "Surfacing nonhuman animal; no human body in this target crop."
+    },
+    {
+      "source": "rocks",
+      "source_seconds": 4.004,
+      "proposed_class": "vehicle",
+      "manual_visual_subject": "Rock carrying pinnipeds; no vehicle in this target crop."
+    }
+  ],
+  "recommendation": "Do not promote context branch as-is. Validate proposed context boxes as well as animal presence, add reliable scene-boundary/negative-evidence handling, and evaluate latency. Marine-human/vehicle aerial co-occurrence retention remains untested.",
+  "plan_metadata_note": "trial-plan.json inherited an unused positive_source text field from study17. It describes prior NOAA footage and is not a study18 input. Only sources[], source_window, manual_screening and the matching frame manifest define this trial. The inherited field was preserved to retain the original frozen plan hash."
+}

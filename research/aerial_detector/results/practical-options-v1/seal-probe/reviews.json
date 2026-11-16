@@ -1,0 +1,849 @@
+[
+  {
+    "key": "seal_probe_seal-01",
+    "reference_key": "seal-01",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 4.035788604000118,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 251,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2676,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "7da1b3b780e43283b248ed01e295c0774a98d70bde75c08168b8c350e71d7527"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-01",
+    "reference_key": "seal-01",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 5.462939931006986,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 519,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2068,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "7da1b3b780e43283b248ed01e295c0774a98d70bde75c08168b8c350e71d7527",
+      "c1f41b69c6af761eab6f9594487eb2357e3f01a88aeb3029533b667dcded6202",
+      "ecde9b582e3f1ae1a8e40a6e7cdb2d7943bc5c29e4ab44b88181d1de3abba649"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [408, 378, 592, 621]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [359, 354, 639, 874]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-04",
+    "reference_key": "seal-04",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 2.764761754006031,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 173,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2598,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "d963abe504e2ab09bd818ad082a52b9a3a5658d6a5c582fbf9078f129bb61e0e"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-04",
+    "reference_key": "seal-04",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "uncertain",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.9977468330034753,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 416,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 1965,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "d963abe504e2ab09bd818ad082a52b9a3a5658d6a5c582fbf9078f129bb61e0e",
+      "a4daf86ed54e655384ffe985f0193079d469a254ec3bed538de83b1698555525",
+      "a78d73563f5aa7d1a14b66547cd965746a97c6f7b1f717b2a411906ab417d459"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [430, 373, 568, 630]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [381, 439, 615, 557]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-07",
+    "reference_key": "seal-07",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.3806381020112894,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 297,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2722,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "d8f85e011813c9bd3014c1a870a5f7fc2f9a382c88d504f88acb9dcadbfe8508"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-07",
+    "reference_key": "seal-07",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "uncertain",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 4.323438827996142,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 456,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2005,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "d8f85e011813c9bd3014c1a870a5f7fc2f9a382c88d504f88acb9dcadbfe8508",
+      "7ea18dc08d6575426f4c9329ca691478f427535c5bbc186a239e1d3800234b50",
+      "d446c2f489af09c61252629e6f1b6564d28c1aef1b7ec792f2b5c692507b3677"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [435, 546, 563, 833]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [412, 793, 591, 999]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-10",
+    "reference_key": "seal-10",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.204621731012594,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 236,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2661,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "eb7d26071236bef6f39282b4f0b3154cc735be08340aaef618c08df716077a32"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-10",
+    "reference_key": "seal-10",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.43772837499273,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 61,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 61
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 370,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 1891,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "eb7d26071236bef6f39282b4f0b3154cc735be08340aaef618c08df716077a32",
+      "33d8d21ea02ae93d683554648c4781316d0d8c323b3bba607570390d5b4f183f",
+      "6b237b507157faced4fc6233891328039cf840113dffb877cf17513774c7ed9c"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [363, 443, 636, 560]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [446, 408, 552, 594]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-13",
+    "reference_key": "seal-13",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 2.8101665989961475,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 61,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 61
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 248,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2645,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "87b3180fdd11b50029949d57b420090a0f5c9f9a7c8983ee6df99c58d930a4c7"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-13",
+    "reference_key": "seal-13",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.753981906003901,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 353,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 1902,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "87b3180fdd11b50029949d57b420090a0f5c9f9a7c8983ee6df99c58d930a4c7",
+      "6490fefbf9ed171b1070a1a2d55cee34a304b79f4f9e53aa96a89ae2938f745d",
+      "5b2d54c77ffff58212be70e16e37805ef7c0cc24e5b707d60174057ee39b8870"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [275, 252, 725, 748]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [381, 357, 619, 645]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-16",
+    "reference_key": "seal-16",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 2.806549826011178,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 199,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2624,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "da6f4538860242375ae46ef4c12ff853a4e07e7b3786255095d4af3183e4feee"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-16",
+    "reference_key": "seal-16",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 5.062103964010021,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 61,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 61
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        },
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        }
+      ],
+      "thoughts_token_count": 573,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2094,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "da6f4538860242375ae46ef4c12ff853a4e07e7b3786255095d4af3183e4feee",
+      "41570d8f49d294ebc2e03dd5e69e40977e2320780fd93d3b1f7492bb51df924c",
+      "73b589c93cf03670a97ecc45ac66273b437091ac7b6d93a400b330948fd9c0f7"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [352, 378, 648, 625]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [369, 392, 633, 605]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-19",
+    "reference_key": "seal-19",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 3.237729947999469,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        },
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        }
+      ],
+      "thoughts_token_count": 198,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2623,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "4a4159798cdba2d5cb477c6f0a21a0a80510ba6a218271bc7a293d34236f6c03"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-19",
+    "reference_key": "seal-19",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 4.432232033999753,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 61,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 61
+        }
+      ],
+      "prompt_token_count": 1124,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 516
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 608
+        }
+      ],
+      "thoughts_token_count": 561,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 1746,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "4a4159798cdba2d5cb477c6f0a21a0a80510ba6a218271bc7a293d34236f6c03",
+      "f8cc67c54be6e9f0c3e406487e93e752ad7182b9d6fe27484dd0213640e72741"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [401, 426, 602, 575]}], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-22",
+    "reference_key": "seal-22",
+    "mode": "single_whole",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "no",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 2.550554312998429,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 2336,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 1806
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 530
+        }
+      ],
+      "thoughts_token_count": 175,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2600,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "0e1a037511bf92c47dd53494e97c75880deb73af60577ffcdb61ca23d5c82b14"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}], \"animal_regions\": [], \"context_regions\": []}]"
+  },
+  {
+    "key": "seal_probe_seal-22",
+    "reference_key": "seal-22",
+    "mode": "single_native",
+    "status": "success",
+    "data": {
+      "frames": [
+        {
+          "frame_id": "F1",
+          "mammal_visible": "uncertain",
+          "visible_mammal_features": "",
+          "evidence_image_ids": [],
+          "people_visible": "no",
+          "vehicles_visible": "no",
+          "context_regions": []
+        }
+      ]
+    },
+    "wall_seconds": 5.0535844289988745,
+    "usage": {
+      "cache_tokens_details": null,
+      "cached_content_token_count": null,
+      "candidates_token_count": 89,
+      "candidates_tokens_details": [
+        {
+          "modality": "TEXT",
+          "token_count": 89
+        }
+      ],
+      "prompt_token_count": 1460,
+      "prompt_tokens_details": [
+        {
+          "modality": "IMAGE",
+          "token_count": 774
+        },
+        {
+          "modality": "TEXT",
+          "token_count": 686
+        }
+      ],
+      "thoughts_token_count": 555,
+      "tool_use_prompt_token_count": null,
+      "tool_use_prompt_tokens_details": null,
+      "total_token_count": 2104,
+      "traffic_type": "ON_DEMAND"
+    },
+    "input_sha256": [
+      "0e1a037511bf92c47dd53494e97c75880deb73af60577ffcdb61ca23d5c82b14",
+      "edf7152334fa4eb5314219b9d76366e12b5fad3aa007d44064637ebfbc9caa75",
+      "a462b31070c62fc9df21f982276deaec71b77d500297a87375fda3ee0a850b04"
+    ],
+    "model_version": "gemini-2.5-flash",
+    "prompt": "Review each timestamped frame independently, using only its associated images. Full frames preserve scene context; any native crops are candidate regions, not confirmed objects.\nFor mammal_visible, use yes only when visible non-human mammal anatomy supports it. Describe the actual mammal features and cite ONLY image IDs belonging to that frame. A generic dark shape, bird, human, shadow, rock or item on the beach is not sufficient. Use uncertain for ambiguous pixels, glare or occlusion; do not invent an animal from the video's theme.\nRepeated frames may help resolve what an object is, but an animal seen in one frame is not automatically visible in another. Return each frame's current evidence.\nAlso assess the provided person/vehicle target rectangles. Return yes only when the proposed class is visually supported INSIDE that rectangle. Other classes may coexist: people overlapping a truck do not invalidate a visible truck. Animals, birds, rocks, umbrellas, tents and crates/cages do not become people or vehicles. Use uncertain if unresolved.\nFor every frame return exact context region IDs, one result each. For people_visible and vehicles_visible assess actual whole-frame presence, independently of whether a target was proposed. Do not infer distance, identity, or relationships.\n\nImage order: [\"F1-whole\", \"F1-animal-1\", \"F1-animal-2\"]\nFrame/target mapping: [{\"frame_id\": \"F1\", \"images\": [{\"image_id\": \"F1-whole\", \"role\": \"whole_frame\"}, {\"image_id\": \"F1-animal-1\", \"role\": \"unverified_mammal_proposal\"}, {\"image_id\": \"F1-animal-2\", \"role\": \"unverified_mammal_proposal\"}], \"animal_regions\": [{\"image_id\": \"F1-animal-1\", \"target_yxyx_1000\": [416, 404, 585, 597]}, {\"image_id\": \"F1-animal-2\", \"target_yxyx_1000\": [366, 409, 634, 593]}], \"context_regions\": []}]"
+  }
+]
