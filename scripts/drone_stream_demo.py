@@ -56,6 +56,7 @@ def main():
             stream_context = stream_api.__wrapped__(drone, monkey)
             client, factory, _ = followup_api.__wrapped__(stream_context, monkey)
             monkey.setattr(settings, "drone_stream_receiver_secret", secrets.token_urlsafe(32))
+            monkey.setattr(settings, "drone_recordings_enabled", True)
             demo_row, _, grant = opened(client)
             with factory() as db:
                 request = db.get(CaseDroneRequestRow, demo_row["request_id"])
@@ -141,6 +142,8 @@ def main():
                 "NETWORK_AUTH_ENABLED": "true",
                 "CASE_DRONE_REQUESTS_ENABLED": "true",
                 "DRONE_STREAMS_ENABLED": "true",
+                "DRONE_RECORDINGS_ENABLED": "true",
+                "DRONE_EVIDENCE_DIR": str(settings.drone_evidence_dir),
                 "DRONE_STREAM_RECEIVER_SECRET": settings.drone_stream_receiver_secret,
             }
             children.append(

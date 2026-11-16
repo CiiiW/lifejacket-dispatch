@@ -1,5 +1,4 @@
-import { DroneFollowupPanel } from './DroneFollowupPanel.web';
-import { DroneStreamPanel } from './DroneStreamPanel.web';
+import { ObservationWorkspace } from './ObservationWorkspace.web';
 import { ObservationComparison } from './ObservationComparison.web';
 import { useEffect, useRef, useState } from 'react';
 import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMessage } from '../lib/networkApi';
@@ -37,11 +36,9 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
   const [rights, setRights] = useState('');
   const [capture, setCapture] = useState('');
   const [offset, setOffset] = useState('');
-  const [image, setImage] = useState('');
   const controller = useRef<AbortController | null>(null);
   const lock = useRef(false);
   const key = useRef(crypto.randomUUID());
-  const preview = useRef('');
   async function load(signal: AbortSignal, requestId?: string) {
     const list = await api.list(id, signal);
     const detail = requestId ? await api.detail(id, requestId, signal) : null;
@@ -54,7 +51,7 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
     const c = new AbortController(); controller.current = c;
     setRows([]); setConfidence(null); setSuggestions([]); setSelected(null); setCanCreate(false);
     void load(c.signal, initialRequestId).catch(e => { if (!c.signal.aborted) setError(networkErrorMessage(e)); });
-    return () => { c.abort(); if (preview.current) URL.revokeObjectURL(preview.current); };
+    return () => { c.abort(); };
   }, [api, id, initialRequestId]);
   async function act(fn: (signal: AbortSignal) => Promise<string | void>) {
     if (lock.current || !controller.current || controller.current.signal.aborted) return;
@@ -67,8 +64,6 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
     } catch (e) {
       if (!signal.aborted) {
         setError(networkErrorMessage(e)); setCanCreate(false); setRows([]); setConfidence(null); setSuggestions([]); setSelected(null);
-        if (preview.current) URL.revokeObjectURL(preview.current);
-        preview.current = ''; setImage('');
       }
     } finally { lock.current = false; if (!signal.aborted) setBusy(false); }
   }
@@ -121,7 +116,7 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
     {!rows.length && !error && <p className="lj-muted">No observation requests yet.</p>}
     <div className="lj-cases" style={{marginTop:16}}>
       {rows.map(row=><button key={row.request_id} className="lj-case" aria-pressed={selected?.request_id===row.request_id}
-        disabled={busy} onClick={()=>{setImage(''); if(preview.current)URL.revokeObjectURL(preview.current);preview.current='';void act(async () => row.request_id);}}>
+        disabled={busy} onClick={()=>void act(async () => row.request_id)}>
         <strong>{row.objective}</strong><span className="lj-meta">{label(row.purpose)} · {label(row.status)} · {label(row.execution_kind)}</span>
       </button>)}
     </div>
@@ -134,7 +129,12 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
         <dt>Next review</dt><dd>{selected.next_review_at ? new Date(selected.next_review_at).toLocaleString() : 'Not scheduled'}</dd>
         <dt>Reported location</dt><dd>{selected.target_location.latitude ?? 'Unknown'}, {selected.target_location.longitude ?? 'Unknown'}</dd>
       </dl>
-      {selected.allowed_transitions.length>0 && <form aria-label="Update drone request" onSubmit={e=>{
+      <ObservationWorkspace key={'workspace-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
+        onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
+          setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
+          setSuggestions([]);setConfidence(null);
+        }}/>
+      {selected.allowed_transitions.length>0 && <form id={'observation-review-'+selected.request_id} aria-label="Update drone request" onSubmit={e=>{
         e.preventDefault(); if (!confirmed) return;
         void act(async signal => {
           await api.change(id, selected.request_id, {revision:selected.revision, status:target, confirmed:true,
@@ -144,6 +144,7 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
           return selected.request_id;
         });
       }}>
+        <h3>Request update and human review</h3>
         <label>Next step<select required value={target} onChange={e=>{setTarget(e.target.value);setConfirmed(false);}}>
           <option value="">Choose a step</option>{selected.allowed_transitions.map(t=><option key={t} value={t}>{label(t)}</option>)}
         </select></label>
@@ -183,18 +184,6 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
         <label>Video offset · seconds<input type="number" min="0" step="any" value={offset} onChange={e=>setOffset(e.target.value)}/></label>
         <button disabled={busy || !file || !note.trim() || !rights.trim()}>Attach evidence</button>
       </form>}
-      {!!selected.evidence?.length && <><h3>Case evidence</h3>{selected.evidence.map(e=><div key={e.evidence_id} className="lj-panel">
-        <p>{e.description}</p><small>{label(e.source_kind)} · capture time {e.captured_at || 'unknown'} · offset {e.frame_offset_seconds ?? 'unknown'}</small>
-        {e.received_at && <p className="lj-muted">Saved from an observation stream · received {new Date(e.received_at).toLocaleString()}. Camera capture time remains unknown.</p>}
-        <p>{e.rights_note}</p>{e.source_url && <a href={e.source_url} target="_blank" rel="noreferrer" style={{color:'#48cae4'}}>Source</a>}
-        <button className="secondary" disabled={busy} onClick={()=>void act(async signal=>{
-          const blob=await api.photo(id,selected.request_id,e.evidence_id,signal);
-          if (!signal.aborted) {if(preview.current)URL.revokeObjectURL(preview.current);
-            preview.current=URL.createObjectURL(blob);setImage(preview.current);}
-          return selected.request_id;
-        })}>View evidence</button>
-      </div>)}</>}
-      {image && <img src={image} alt="Selected request evidence" style={{maxWidth:'100%',borderRadius:8}}/>}
       {selected.outcome && <p className="lj-notice"><strong>{label(selected.outcome)}</strong>: {selected.review_note}</p>}
       {selected.previous_request_id && <p className="lj-id">Follow-up of {selected.previous_request_id}</p>}
       {selected.monitoring_decision && <p className="lj-notice">Monitoring decision: {label(selected.monitoring_decision.action)} · {selected.monitoring_decision.reason}
@@ -225,22 +214,8 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
           <button disabled={busy || !monitoringConfirmed || !monitoringReason.trim()}>Record monitoring decision</button>
           <p className="lj-muted">Continue creates a follow-up awaiting approval. Escalation requires coordinator action. Finishing monitoring does not close the rescue case.</p>
         </form>}
-      <DroneFollowupPanel key={'followup-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
-        onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
-          setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
-          setSuggestions([]);setConfidence(null);setImage('');
-          if(preview.current)URL.revokeObjectURL(preview.current);preview.current='';
-        }}/>
-      <DroneStreamPanel key={'stream-'+selected.request_id} api={api} id={id} request={selected}
-        onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
-          setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
-          setSuggestions([]);setConfidence(null);setImage('');
-          if(preview.current)URL.revokeObjectURL(preview.current);preview.current='';
-        }}/>
       <ObservationComparison key={'comparison-'+selected.request_id} api={api} id={id} request={selected} rows={rows} onUnavailable={failure=>{
         setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);setSuggestions([]);setConfidence(null);
-        if(preview.current)URL.revokeObjectURL(preview.current);
-        preview.current='';setImage('');
       }}/>
       <details><summary>Request history</summary><ol>{selected.events?.map(e=><li key={e.revision}>{label(e.kind)} · {new Date(e.recorded_at).toLocaleString()} · {e.actor_user_id}{e.note ? ': '+e.note:''}</li>)}</ol></details>
       <p className="lj-muted">Findings are saved as a case addendum. Rescue status and the original intake assessment remain separately reviewed.</p>
