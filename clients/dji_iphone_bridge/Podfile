@@ -1,0 +1,5 @@
+platform :ios, '16.0'
+project 'LifeJacketCamera.xcodeproj'
+target 'LifeJacketCamera' do
+  pod 'DJI-SDK-iOS', '4.16.2'
+end
