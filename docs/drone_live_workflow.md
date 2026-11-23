@@ -129,3 +129,23 @@ For a remote phone, select a private/VPN route to the receiver with the project 
 The default loopback URL cannot be reached by an iPhone. An HTTP app/proxy URL does not
 carry RTMP. No public receiver, VPN, external notification destination or cloud service is
 provisioned by these commands.
+
+## Staged plush frame suggestions
+
+On a dedicated test instance, enable `DRONE_STREAM_DEMO_SUGGESTIONS_ENABLED=true`
+in both the API and receiver. Install `onnxruntime` and `opencv-python-headless`
+in the receiver environment. Download the
+[official YOLOX-S ONNX checkpoint](https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_s.onnx)
+to a local file and pass `--demo-yolox-model /path/to/yolox_s.onnx` to the normal
+receiver command. It checks the checkpoint SHA-256 on startup.
+
+Select **Suggest frames for a staged plush demo** when opening the observation.
+The receiver processes at most one sampled frame per second per stream, as
+capacity allows. It checks the whole frame and overlapping native 640-pixel
+crops for the COCO teddy bear class at a 0.30 cutoff. The coordinator can
+review and save the suggested JPEG. The saved evidence keeps its model score
+and exact provenance. Suggestions disappear when stale. Manual capture is
+still available. This staged classifier does not assess wildlife or issue
+flight commands.
+
+For the optional iPhone companion, see [the companion setup](../clients/dji_iphone_bridge/README.md).

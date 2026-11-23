@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from lifejacket.access.dependencies import AccessSession, current_access_session
 from lifejacket.api.routes.network import private
+from lifejacket.config import settings
 from lifejacket.models.db import get_session
 from lifejacket.models.drone_intake import Contract
 from lifejacket.models.tables import CaseDroneStreamRow
@@ -19,6 +20,7 @@ class OpenStream(Contract):
     label: str = Field(min_length=1, max_length=120)
     rights_note: str = Field(min_length=1, max_length=1000)
     source_url: str | None = Field(default=None, max_length=2000)
+    demo_suggestions: bool = False
 
 
 class EndStream(Contract):
@@ -55,6 +57,7 @@ def listing(
         .limit(20)
     ).all()
     return {
+        "demo_suggestions_available": settings.drone_stream_demo_suggestions_enabled,
         "streams": [
             streams.state(db, row, requests.writable(current.access.principal, case))
             for row in rows
