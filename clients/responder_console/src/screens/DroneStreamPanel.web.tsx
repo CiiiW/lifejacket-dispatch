@@ -60,7 +60,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
   }
   useEffect(()=>{
     const c=new AbortController();alive.current=c;
-    setAvailable(null);setStreams([]);setSelected('');setView(null);setGrant('');setError('');setDemoAvailable(false);setDemo(false);
+    setAvailable(null);setStreams([]);setSelected('');setView(null);setGrant(null);setError('');setDemoAvailable(false);setDemo(false);
     return ()=>{c.abort();};
   },[api,id,request.request_id]);
   useEffect(()=>{
@@ -113,7 +113,10 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
     {canManage && !active && <form aria-label="Open observation stream" onSubmit={e=>{
       e.preventDefault();void action(async signal=>{
         const value=await api.openStream!(id,request.request_id,{revision:request.revision,label,rights_note:rights,source_url:source||null,demo_suggestions:demoAvailable&&demo},signal);
-        if(!signal.aborted){setGrant(value.publish_url||'');setSelected(value.stream_id);setStreams(previous=>[value,...previous]);}
+        if (signal.aborted) return;
+        setGrant(value.publish_url ? { streamId: value.stream_id, address: value.publish_url } : null);
+        setSelected(value.stream_id);
+        setStreams(previous => [value, ...previous]);
       });
     }}>
       <label>Session label<input required maxLength={120} value={label} onChange={e=>setLabel(e.target.value)}/></label>
