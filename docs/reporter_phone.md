@@ -1,17 +1,21 @@
 # Phone-verified reporter flow
 
-Implemented on `charlotte-mini2-demo`; live SMS and deployment remain pending.
+Live SMS and a production deployment remain pending.
 
 ## Reporter experience
 
-The browser entry (`clients/reporter_app/App.web.tsx`) works as a phone-friendly
-reporter UI: prepare a photo/location/conversation draft without an account,
+The browser entry (`clients/reporter_app/App.web.tsx`) opens a phone-friendly chat.
+Reporters can share a camera or library photo, choose the animal in the image,
+confirm the animal's location using GPS or a map pin, and reply to follow-up
+questions in the same conversation. They can prepare a draft without an account,
 verify a phone through the managed SMS SDK, then explicitly submit. Verification
 alone does not submit a report. No password or blanket future-outreach consent
 is required. Call/text choices apply only to this case and default off.
 
-The reporter can sign in again and load their own submitted cases. Status is a
-minimal projection, with no staff positions, contacts, notes or statewide feed.
+The reporter can sign in again and load their own submitted cases. The status view
+shows the reported animal location, current contact choices, and the name of a
+verified response team after acceptance. It omits staff positions, private
+contacts, staff notes and other cases.
 Leaving records availability without changing case status or cancelling it.
 No ETA is invented: the current route has no reviewed arrival source, so it
 returns unavailable. Reviewed case phases can distinguish acceptance, travel,

@@ -154,11 +154,14 @@ def test_confirmed_lifecycle_reaches_only_own_reporter_minimal_status(api):
         reporter = client.post("/reporter/reports/case/status", json={"id_token": "owner"})
         assert reporter.status_code == 200 and reporter.json()["phase"] == phase
         assert reporter.json()["arrival_eta_minutes"] is None
-        assert (
-            "phone_number" not in reporter.text
-            and "INTERNAL" not in reporter.text
-            and "latitude" not in reporter.text
-        )
+        own_status = reporter.json()
+        assert own_status.pop("reported_location") == {
+            "latitude": 1.0,
+            "longitude": 2.0,
+            "place_name": None,
+        }
+        assert "phone_number" not in reporter.text and "INTERNAL" not in reporter.text
+        assert "latitude" not in str(own_status) and "longitude" not in str(own_status)
         assert (
             client.post(
                 "/reporter/reports/case/status", json={"id_token": "unrelated"}

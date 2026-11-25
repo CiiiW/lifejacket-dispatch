@@ -2,20 +2,31 @@ import { useEffect, useRef, useState } from 'react';
 import { phoneAuth, phoneConfigured } from '../lib/phoneAuth.web';
 import { createPhoneReporterApi, type Draft, type PhoneReporterApi, type PhoneUser, type ReportReceipt, type ReportStatus } from '../lib/phoneReporterApi';
 import { PhoneVerification } from './PhoneVerification.web';
+import { emptyLocation, ReporterLocation } from './ReporterLocation.web';
+import { ReporterMap } from './ReporterMap.web';
+import { AnimalChoice, ReportGuidance } from './ReporterEvidence.web';
 
-const css = `*{box-sizing:border-box}body{margin:0;background:#0b132b;color:#f4f7fb;font:16px/1.55 system-ui,sans-serif}.reporter{max-width:800px;padding:28px 20px;margin:auto}h1{font-size:32px;letter-spacing:-1px;margin:4px 0}h2{font-size:22px;margin-top:0}p{margin:8px 0 18px}small{color:#b1bdd1}.eyebrow{color:#48cae4;font-size:12px;letter-spacing:2px;text-transform:uppercase}.card{background:#101a38;border:1px solid #ffffff25;border-radius:16px;padding:24px;margin:18px 0}.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center}button{background:#48cae4;color:#07172b;font:inherit;font-weight:650;border:1px solid transparent;border-radius:8px;padding:11px 16px;cursor:pointer}button.secondary{color:#e5edf7;background:transparent;border-color:#ffffff45}button:disabled{opacity:.5;cursor:default}button:focus-visible,input:focus-visible{outline:3px solid #ffc043;outline-offset:3px}label{display:flex;flex-direction:column;gap:6px;margin:12px 0;color:#b1bdd1}input{width:100%;font:inherit;padding:11px;border:1px solid #ffffff40;border-radius:8px;background:#0b132b;color:#f4f7fb}label.choice{display:flex;flex-direction:row;align-items:start;gap:12px}input[type=checkbox]{width:auto;margin-top:6px}form button{margin:8px 10px 8px 0}.error{border-color:#ff8484;color:#ffd0d0}.notice{border-left:3px solid #48cae4;padding-left:14px}.reference{overflow-wrap:anywhere;font-size:13px;color:#b1bdd1}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:500px){.card{padding:18px}.grid{grid-template-columns:1fr}h1{font-size:28px}}`;
+import './phoneReporter.css';
 
-export function PhoneReporterPage({ api, configured = phoneConfigured, authDriver = phoneAuth }: {
-  api: PhoneReporterApi; configured?: boolean; authDriver?: typeof phoneAuth;
+type Exchange = { prompt: string | null; outgoing: string };
+
+const otterImage = './lifejacket-sea-otter.webp';
+
+export function PhoneReporterPage({ api, configured = phoneConfigured, authDriver = phoneAuth, offlineMap }: {
+  api: PhoneReporterApi; configured?: boolean; authDriver?: typeof phoneAuth; offlineMap?: boolean;
 }) {
+  const [page, setPage] = useState<'report' | 'history'>('report');
   const [draft, setDraft] = useState<Draft | null>(null);
   const [user, setUser] = useState<PhoneUser | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [reply, setReply] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const [location, setLocation] = useState(emptyLocation);
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [conversation, setConversation] = useState<Exchange[]>([]);
+  const [showReportMap, setShowReportMap] = useState(false);
+  const [submittedGuidance, setSubmittedGuidance] = useState<Draft['turn'] | null>(null);
   const [channels, setChannels] = useState<string[]>([]);
   const [receipts, setReceipts] = useState<ReportReceipt[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
@@ -23,7 +34,11 @@ export function PhoneReporterPage({ api, configured = phoneConfigured, authDrive
   const epoch = useRef(0);
   const lock = useRef(false);
   const active = useRef(true);
+  const latestPrompt = useRef<HTMLDivElement>(null);
   useEffect(() => { active.current = true; return () => { active.current = false; epoch.current += 1; }; }, []);
+  useEffect(() => {
+    if (draft) latestPrompt.current?.scrollIntoView({ block: 'nearest' });
+  }, [draft]);
   async function run<T>(operation: () => Promise<T>, success: (value: T) => void) {
     if (lock.current) return;
     lock.current = true; const generation = epoch.current;
@@ -48,63 +63,189 @@ export function PhoneReporterPage({ api, configured = phoneConfigured, authDrive
     return () => { cancelled = true; clearInterval(timer); };
   }, [selected, user, api]);
   function changeTurn(turn: Draft['turn']) { setDraft((current) => current ? { ...current, turn } : null); setReply(''); }
-  function selectReceipt(id: string) { setStatus(null); setSelected(id); }
+  function continueChat(turn: Draft['turn'], outgoing: string) {
+    setConversation(previous => [...previous, { prompt: draft?.turn.message ?? null, outgoing }]);
+    changeTurn(turn);
+  }
+  function selectReceipt(id: string) {
+    if (id === selected) return;
+    setShowReportMap(false); setStatus(null); setSelected(id);
+  }
   function toggle(channel: string) { setChannels((current) => current.includes(channel) ? current.filter((v) => v !== channel) : [...current, channel]); }
+  function attachPhoto(file: File) {
+    if (!draft) return;
+    if (file.size > 15 * 1024 * 1024) { setError('Choose a photo smaller than 15 MB.'); return; }
+    void run(() => api.photo(draft, file), turn => {
+      setPhoto(file); continueChat(turn, 'Shared a photo');
+    });
+  }
+  function answer(text: string) {
+    if (!draft || !text.trim()) return;
+    const outgoing = text.trim();
+    void run(() => api.turn(draft, { action:'reply', text:outgoing }), turn => continueChat(turn, outgoing));
+  }
   async function logout() {
     epoch.current += 1; lock.current = false; setBusy(false); setUser(null); setSelected(null);
-    setStatus(null); setReceipts([]); setDraft(null); setChannels([]); setReply(''); setLatitude(''); setLongitude(''); setError(''); setNotice('');
+    setPage('report'); setStatus(null); setReceipts([]); setDraft(null); setChannels([]); setReply(''); setLocation(emptyLocation);
+    setPhoto(null); setConversation([]); setShowReportMap(false); setSubmittedGuidance(null); setError(''); setNotice('');
     try { await authDriver.signOut(); } catch { setError('The view has been cleared. Close the tab to finish signing out.'); }
   }
-  return <main className="reporter"><style>{css}</style>
-    <header><div className="eyebrow">LifeJacket · Animal reporting</div><h1>A report can start with you.</h1><p>Prepare the photo and location first. Verify your phone before submitting.</p></header>
-    {error && <div className="card error" role="alert">{error}</div>}
-    {notice && <div className="card" role="status">{notice}</div>}
-    <section className="card">
-      <h2>{draft ? draft.turn.complete ? 'Draft ready for submission' : 'Prepare your report' : 'Start a report'}</h2>
-      <p className="notice">Keep a safe distance from wildlife. You may leave the scene; leaving does not cancel a submitted report.</p>
-      {!draft ? <><button disabled={busy} onClick={() => run(api.start, setDraft)}>Prepare a report</button><p><small>No registration is needed to prepare a draft. Drafts expire after 24 hours; this browser keeps the draft key only while the page stays open.</small></p></> : <>
-        <p className="reference">Draft {draft.turn.incident_id} · Not submitted</p>
-        <p>{draft.turn.complete ? 'Your draft is complete. Nothing has been submitted or accepted by a rescue team yet.' : draft.turn.message}</p>
-        {draft.turn.identified_as && <p>Possible identification: {draft.turn.identified_as}</p>}
-        {draft.turn.safety_guidance && <p>{draft.turn.safety_guidance}</p>}
-        {!draft.turn.complete && <>
-          {['request_photo','request_better_photo'].includes(draft.turn.action || '') && <label>Animal photo<input type="file" accept="image/jpeg,image/png,image/webp,image/heic" capture="environment" disabled={busy} onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ''; if (!file) return; if (file.size > 15 * 1024 * 1024) { setError('Choose a photo smaller than 15 MB.'); return; } void run(() => api.photo(draft, file), changeTurn); }} /></label>}
-          {draft.turn.action === 'request_location' && <form onSubmit={(e) => { e.preventDefault(); void run(() => api.turn(draft, { action:'location', latitude:Number(latitude), longitude:Number(longitude) }), changeTurn); }}>
-            <p>Enter where the animal was seen. This is not ongoing location sharing.</p>
-            <div className="grid"><label>Animal latitude<input type="number" min={-90} max={90} step="any" required disabled={busy} value={latitude} onChange={(e) => setLatitude(e.target.value)} /></label><label>Animal longitude<input type="number" min={-180} max={180} step="any" required disabled={busy} value={longitude} onChange={(e) => setLongitude(e.target.value)} /></label></div>
-            <button disabled={busy}>Use animal location</button>
-          </form>}
-          {draft.turn.awaiting_reply && !draft.turn.service_error && draft.turn.action !== 'ask_which_animal' && <form onSubmit={(e) => { e.preventDefault(); void run(() => api.turn(draft, { action:'reply', text:reply }), changeTurn); }}>
-            <div className="toolbar">{draft.turn.options.map((option) => <button key={option} type="button" className="secondary" disabled={busy} onClick={() => run(() => api.turn(draft, { action:'reply', text:option }), changeTurn)}>{option}</button>)}</div>
-            <label>Your answer<input value={reply} required maxLength={4000} disabled={busy} onChange={(e) => setReply(e.target.value)} /></label><button disabled={busy}>Send answer</button>
-          </form>}
-          {draft.turn.action === 'ask_which_animal' && draft.turn.detections.map((animal, index) => <button key={index} disabled={busy} onClick={() => run(() => api.turn(draft, { action:'animal', number:index + 1 }), changeTurn)}>{index + 1}. {animal.description}</button>)}
-          {draft.turn.service_error && <button disabled={busy} onClick={() => run(() => api.turn(draft, { action:'retry' }), changeTurn)}>Try this step again</button>}
+  function handleVerified(next: PhoneUser) {
+    setUser(next);
+    setError('');
+  }
+
+  const reporting = page === 'report';
+  const photoNeeded = draft?.turn.action === 'request_photo' || draft?.turn.action === 'request_better_photo';
+
+  return <main className="reporter">
+    <header className="topbar">
+      <span className="wordmark">LifeJacket</span>
+      <nav aria-label="Reporter navigation">
+        <button type="button" disabled={busy} aria-pressed={reporting} onClick={() => setPage('report')}>Report</button>
+        <button type="button" disabled={busy} aria-pressed={!reporting} onClick={() => setPage('history')}>My reports</button>
+      </nav>
+    </header>
+    <div className="stack">
+    {reporting && <section className="report-chat" aria-labelledby="report-title">
+      <header className="chat-header">
+        <img src={otterImage} alt="" width={56} height={56} />
+        <div>
+          <h1 id="report-title">Report a wildlife sighting</h1>
+          {draft && <p className="reference">Private draft · Not submitted</p>}
+        </div>
+      </header>
+      <div className="chat-body">
+        {!draft && <>
+          <div className="chat-bubble chat-incoming">
+            <p>I can help you report a marine animal. I’ll ask for a photo, where you saw it, and a few details.</p>
+            <p><strong>Keep a safe distance.</strong> Only take a photo if you can do so safely.</p>
+          </div>
+          <button type="button" disabled={busy} onClick={() => void run(api.start, setDraft)}>Start a report</button>
         </>}
-      </>}
-    </section>
-    {!user ? <PhoneVerification configured={configured} driver={authDriver} onVerified={(next) => { setUser(next); setError(''); }} /> : <section className="card">
-      <h2>Phone verified</h2><p>No password is needed. Your reports belong to this verified account.</p>
-      <div className="toolbar"><button className="secondary" disabled={busy} onClick={() => run(() => api.reports(user), (next) => { setReceipts(next); if (!next.length) setNotice('No submitted reports for this account.'); })}>Load my reports</button><button className="secondary" onClick={logout}>Sign out and clear this page</button></div>
+        {draft && <>
+          <ol className="transcript" aria-label="Conversation">
+            {conversation.map(({ prompt, outgoing }, index) => <li key={index}>
+              {prompt && <p className="chat-bubble chat-incoming"><span className="sr-only">LifeJacket: </span>{prompt}</p>}
+              <p className="chat-bubble chat-outgoing"><span className="sr-only">You: </span>{outgoing}</p>
+            </li>)}
+          </ol>
+          <div ref={latestPrompt}>
+            <div className="chat-bubble chat-incoming" aria-live="polite" aria-atomic="true">
+              <p><span className="sr-only">LifeJacket: </span>{draft.turn.complete
+                ? user ? 'Your report is ready. Choose how the response team can contact you, then send it.'
+                  : 'Your draft is ready. Verify your phone number to send it.'
+                : draft.turn.message}</p>
+              {draft.turn.identified_as && <p><strong>Possible identification</strong> · {draft.turn.identified_as}</p>}
+            </div>
+          </div>
+          {draft.turn.safety_guidance && <p className="status-note safety">{draft.turn.safety_guidance}</p>}
+          <ReportGuidance turn={draft.turn}/>
+          {!draft.turn.complete && <div className="chat-actions">
+            {photoNeeded && <div className="toolbar">
+              <label className="attachment">Take a photo<input type="file" accept="image/*" capture="environment" disabled={busy} onChange={event => {
+                const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) attachPhoto(file);
+              }}/></label>
+              <label className="attachment">Choose an animal photo<input type="file" accept="image/jpeg,image/png,image/webp,image/heic" disabled={busy} onChange={event => {
+                const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) attachPhoto(file);
+              }}/></label>
+            </div>}
+            {draft.turn.action === 'request_location' && <ReporterLocation value={location} onChange={setLocation}
+              busy={busy} offline={offlineMap} onConfirm={() => void run(() => api.turn(draft, {
+                action:'location', latitude:Number(location.latitude), longitude:Number(location.longitude),
+                location_source:location.source, accuracy_meters:location.accuracy,
+              }), turn => continueChat(turn, 'Shared the animal’s location'))}/>}
+            {draft.turn.detections.length > 1 && !photoNeeded && <AnimalChoice turn={draft.turn} file={photo} busy={busy}
+              onChoose={number => {
+                if (draft.turn.selected_detection === number - 1) return;
+                const animal = draft.turn.detections[number - 1];
+                void run(() => api.turn(draft, {action:'animal', number}), turn => {
+                  if (turn.selected_detection === draft.turn.selected_detection) changeTurn(turn);
+                  else continueChat(turn, animal?.description || `Selected animal ${number}`);
+                });
+              }}/>}
+            {draft.turn.awaiting_reply && !draft.turn.service_error && draft.turn.action !== 'ask_which_animal' && <form onSubmit={event => { event.preventDefault(); answer(reply); }}>
+              {draft.turn.options.length > 0 && <div className="toolbar quick-replies">{draft.turn.options.map(option =>
+                <button key={option} type="button" className="secondary" disabled={busy} onClick={() => answer(option)}>{option}</button>
+              )}</div>}
+              <div className="composer">
+                <label htmlFor="report-reply" className="sr-only">Your answer</label>
+                <input id="report-reply" placeholder="Type your reply…" value={reply} required maxLength={4000} disabled={busy} onChange={event => setReply(event.target.value)} />
+                <button type="submit" aria-label="Send answer" disabled={busy || !reply.trim()}>Send</button>
+              </div>
+            </form>}
+            {draft.turn.service_error && <button type="button" disabled={busy} onClick={() => run(() => api.turn(draft, { action:'retry' }), changeTurn)}>Try this step again</button>}
+          </div>}
+        </>}
+        {draft?.turn.complete && !user &&
+          <PhoneVerification configured={configured} driver={authDriver} onVerified={handleVerified} />}
+        {draft?.turn.complete && user && <section className="card"><h2>Submit your report</h2><p>How may the response team contact you about this report? Both choices are optional.</p>
+            <label className="choice"><input type="checkbox" disabled={busy} checked={channels.includes('call')} onChange={() => toggle('call')} />Phone call about this case</label>
+            <label className="choice"><input type="checkbox" disabled={busy} checked={channels.includes('text')} onChange={() => toggle('text')} />Text about this case</label>
+            <p><small>These choices do not allow future monitoring or volunteer invitations. No ongoing location sharing is enabled.</small></p>
+            <button disabled={busy} onClick={() => run(() => api.submit(draft, user, channels), (result) => {
+              setSubmittedGuidance(draft.turn);
+              setDraft(null);
+              setChannels([]);
+              setPhoto(null);
+              setConversation([]);
+              setLocation(emptyLocation);
+              setPage('history');
+              selectReceipt(result.case_id);
+              setNotice('Report received. A team has not yet confirmed a response.');
+            })}>Submit report</button>
+          </section>}
+        {error && <p className="status-note error" role="alert">{error}</p>}
+        {busy && <p className="chat-bubble chat-incoming chat-pending" role="status">Working on your request…</p>}
+      </div>
     </section>}
-    {draft?.turn.complete && <section className="card"><h2>Submit your report</h2><p>How may the response team contact you about this report? Both choices are optional.</p>
-      <label className="choice"><input type="checkbox" disabled={busy} checked={channels.includes('call')} onChange={() => toggle('call')} />Phone call about this case</label>
-      <label className="choice"><input type="checkbox" disabled={busy} checked={channels.includes('text')} onChange={() => toggle('text')} />Text about this case</label>
-      <p><small>These choices do not allow future monitoring or volunteer invitations. No ongoing location sharing is enabled.</small></p>
-      <button disabled={busy || !user} onClick={() => user && run(() => api.submit(draft, user, channels), (result) => { setDraft(null); setChannels([]); selectReceipt(result.case_id); setNotice('Report received. A team has not yet confirmed a response.'); })}>{busy ? 'Please wait…' : user ? 'Submit report' : 'Verify your phone to submit'}</button>
+    {!reporting && error && <div className="card error" role="alert">{error}</div>}
+    {notice && <div className="card" role="status">{notice}</div>}
+    {!reporting && <div><h1>My reports</h1><p className="muted">Check for updates on a report you sent.</p></div>}
+    {!user && !reporting &&
+      <PhoneVerification configured={configured} driver={authDriver} onVerified={handleVerified} />}
+    {user && !reporting && <section className="card">
+      <h2>Phone verified</h2>
+      <div className="toolbar"><button disabled={busy} onClick={() => run(() => api.reports(user), (next) => { setReceipts(next); if (!next.length) setNotice('No submitted reports for this account.'); })}>Load my reports</button><button className="secondary" onClick={logout}>Sign out and clear this page</button></div>
     </section>}
-    {user && receipts.length > 0 && <section className="card"><h2>Your submitted reports</h2><div className="toolbar">{receipts.map((receipt) => <button className="secondary" key={receipt.case_id} onClick={() => selectReceipt(receipt.case_id)}>{receipt.case_id}</button>)}</div></section>}
-    {user && selected && <section className="card"><h2>Your case update</h2><p className="reference">Report {selected}</p>
+    {!reporting && user && receipts.length > 0 && <section className="card"><h2>Your submitted reports</h2><div className="toolbar">{receipts.map((receipt) => <button className="secondary" key={receipt.case_id} onClick={() => selectReceipt(receipt.case_id)}>{receipt.case_id}</button>)}</div></section>}
+    {!reporting && user && selected && <section className="card"><h2>Your case update</h2><p className="reference">Report {selected}</p>
       <button className="secondary" disabled={busy} onClick={() => { setStatus(null); void run(() => api.status(selected, user), setStatus); }}>Refresh case update</button>
       {!status ? <p role="status">Waiting for a current case update…</p> : <>
         <p role="status">{status.message}</p>
+        {status.response_team && <p><strong>Response team</strong> · {status.response_team}</p>}
+        {submittedGuidance?.incident_id === selected && <>
+          {submittedGuidance.safety_guidance && <p className="status-note safety">{submittedGuidance.safety_guidance}</p>}
+          <ReportGuidance turn={submittedGuidance}/>
+        </>}
         <p>{status.arrival_eta_minutes !== null && status.eta_is_estimate ? `Approximate arrival: ${Math.ceil(status.arrival_eta_minutes)} minutes. Updated ${status.eta_updated_at}.` : 'An arrival estimate is not available.'}</p>
         <p>You may leave whenever you need to. Your report stays active.</p>
-        <button className="secondary" disabled={busy} onClick={() => run(() => api.preferences(selected, user, []), () => setNotice('Current-case call and text permission withdrawn. Your report has not been cancelled.'))}>Stop calls and texts about this case</button>
+        {status.reported_location && <details onToggle={event => setShowReportMap(event.currentTarget.open)}>
+          <summary>Reported animal location</summary>
+          <p>{status.reported_location.place_name ?? `${status.reported_location.latitude.toFixed(5)}, ${status.reported_location.longitude.toFixed(5)}`}</p>
+          {showReportMap && <ReporterMap point={status.reported_location} offline={offlineMap}/>}
+        </details>}
+        {status.contact_channels && <details>
+          <summary>Contact preferences</summary>
+          <form key={selected+status.contact_channels.join(',')} onSubmit={event => {
+            event.preventDefault();
+            const values = new FormData(event.currentTarget);
+            const updated = ['call','text'].filter(channel => values.has(channel));
+            void run(() => api.preferences(selected, user, updated), () => {
+              setStatus(previous => previous?.case_id===selected ? {...previous,contact_channels:updated} : previous);
+              setNotice('Contact preferences updated.');
+            });
+          }}>
+            <label className="choice"><input type="checkbox" name="call" defaultChecked={status.contact_channels.includes('call')} disabled={busy}/>Allow calls about this case</label>
+            <label className="choice"><input type="checkbox" name="text" defaultChecked={status.contact_channels.includes('text')} disabled={busy}/>Allow texts about this case</label>
+            <button className="secondary" disabled={busy}>Save contact preferences</button>
+          </form>
+        </details>}
         <div className="toolbar"><button className="secondary" disabled={busy} onClick={() => run(() => api.presence(selected, user, 'nearby'), () => setNotice('Recorded: you are still nearby.'))}>I’m still nearby</button><button className="secondary" disabled={busy} onClick={() => run(() => api.presence(selected, user, 'left'), () => setNotice('Recorded: you have left. Your report has not been cancelled.'))}>I’ve left the scene</button></div>
       </>}
     </section>}
-    {busy && <p role="status">Working on your request…</p>}
+    {!reporting && busy && <p className="status-note" role="status">Working on your request…</p>}
+    </div>
   </main>;
 }
 

@@ -385,9 +385,17 @@ def worker(directory, output, with_drone=False):
                 "reporter_can_leave",
                 "leaving_cancels_report",
                 "presence",
+                "reported_location",
+                "contact_channels",
+                "response_team",
             }
             if set(own) != allowed:
                 raise AssertionError("Unexpected reporter data exposure")
+            if own["contact_channels"] or (
+                own["reported_location"] is not None
+                and set(own["reported_location"]) != {"latitude", "longitude", "place_name"}
+            ):
+                raise AssertionError("Reporter projection exceeded the own-case settings")
             receipts.append({"phase": phase, "message": own["message"], "eta_minutes": None})
             noaa = check(
                 "NOAA sees the same response without operational permission",

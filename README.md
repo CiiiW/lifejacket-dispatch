@@ -121,7 +121,8 @@ npm run demo:network
 
 Open **<http://127.0.0.1:8082>** on that computer.
 
-- **Reporter fixture:** walk through a fictional report and its status screens.
+- **Reporter fixture:** try the phone-friendly chat, choose an animal in a sample
+  photo, share a map pin, answer follow-up questions, and check your report status.
 - **Console fixture:** inspect fictional cases and compare permitted role views.
 
 These are **two independent UI fixtures**, not a connected live rescue. They do not call Gemini, send SMS, share case state or require a database. Reloading resets their fixture state. Initial dependency installation needs internet access.

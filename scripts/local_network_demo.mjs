@@ -2,7 +2,7 @@
 /** Fictional UI demos only. Never imports the backend, reads .env, or enables auth. */
 import { build } from 'esbuild';
 import { createServer } from 'node:http';
-import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, access, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -38,6 +38,7 @@ if (values.install) {
       // The console's map uses react-native components, which need their web build here.
       alias: { 'react-native': 'react-native-web' },
       define: { 'process.env': '{}', __DEV__: 'false' }, jsx: 'automatic',
+      loader: { '.png': 'dataurl' },
       nodePaths: [join(client, 'node_modules')],
     });
     // OpenStreetMap refuses tile requests that carry no Referer, so only the console
@@ -45,6 +46,9 @@ if (values.install) {
     // Bundled CSS (the map library's) is emitted next to app.js and must be linked.
     const css = await access(join(directory, 'app.css')).then(() => '<link rel="stylesheet" href="./app.css">', () => '');
     await writeFile(join(directory, 'index.html'), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="${name === 'console' ? 'origin' : 'no-referrer'}">${css}<title>LifeJacket fictional ${name} demo</title></head><body style="margin:0"><div id="root"></div><script src="./app.js"></script></body></html>`);
+    if (name === 'reporter') {
+      await copyFile(join(client, 'public', 'lifejacket-sea-otter.webp'), join(directory, 'lifejacket-sea-otter.webp'));
+    }
   }
   if (values.check) {
     console.log('Both fictional demos built successfully. No GCP credentials or backend needed.');
@@ -57,6 +61,7 @@ if (values.install) {
       routes.set(`/${name}/app.js`, ['text/javascript; charset=utf-8', await readFile(join(output, name, 'app.js'))]);
       try { routes.set(`/${name}/app.css`, ['text/css; charset=utf-8', await readFile(join(output, name, 'app.css'))]); } catch {}
     }
+    routes.set('/reporter/lifejacket-sea-otter.webp', ['image/webp', await readFile(join(output, 'reporter', 'lifejacket-sea-otter.webp'))]);
     let connected;
     try { connected = await readFile(join(root, 'var', 'connected-workflow', 'latest.html')); }
     catch { connected = Buffer.from('<!doctype html><html><head><title>Connected scenario setup</title></head><body><h1>Run the connected API scenario first</h1><p>With the Python backend dependencies installed, run <code>python scripts/run_connected_scenario.py</code> from the repository root, then restart the demo launcher.</p><p>This report uses one temporary test database; no real SMS or cloud login.</p></body></html>'); }

@@ -10,6 +10,8 @@ let failStatus = false;
 let submitted = false;
 let completedDraft = false;
 let presence = 'unspecified';
+let location: { latitude: number; longitude: number; place_name: null } | null = null;
+let contactChannels: string[] = [];
 const turn = {
   incident_id:'fictional-report', message:'Add a photo from a safe distance.',
   complete:false, awaiting_reply:false, action:'request_photo', stage:'identifying', options:[],
@@ -20,17 +22,40 @@ const turn = {
   conditions:null, service_error:false, detections:[], detection_photo_id:null,
   detection_photo_url:null, detection_status:'pending', selected_detection:null,
 } satisfies Draft['turn'];
+const detected: Draft['turn'] = {
+  ...turn,
+  action:'ask_which_animal',
+  awaiting_reply:true,
+  message:'Which animal are you reporting?',
+  detection_status:'found',
+  detections:[
+    { kind:'seal', description:'Animal on the left', box:[130,80,800,490] },
+    { kind:'seal', description:'Animal on the right', box:[180,540,850,940] },
+  ],
+};
 const api: PhoneReporterApi = {
   start:async()=>({turn:completedDraft?{...turn,complete:true,action:null,stage:'complete'}:turn, draft_key:'fictional-never-sent', expires_at:'2026-11-03T00:00:00Z'}),
-  photo:async()=>({...turn,action:'request_location',message:'Where was the animal seen?'}),
-  turn:async()=>({...turn, action:null, complete:true,stage:'complete'}),
-  submit:async()=>{submitted=true;return {case_id:'fictional-report',submitted:true};},
+  photo:async()=>detected,
+  turn:async(_draft, action)=>{
+    if(action.action==='animal') return {...detected, selected_detection:Number(action.number)-1,
+      awaiting_reply:false, action:'request_location', message:'Where was the animal seen?'};
+    if(action.action==='location'){
+      location={latitude:Number(action.latitude),longitude:Number(action.longitude),place_name:null};
+      return {..._draft.turn, action:'ask_clarifying_question', message:'Is the animal moving?',
+        options:['Moving','Still','Not sure'], awaiting_reply:true};
+    }
+    return {..._draft.turn, action:null, options:[], awaiting_reply:false, complete:true, stage:'complete',
+      identified_as:'Possible seal', report_headline:'A coordinator can review this sighting.',
+      reporter_instructions:['Keep a safe distance.','Keep pets away from the animal.']};
+  },
+  submit:async(_draft,_user,channels)=>{submitted=true;contactChannels=channels;return {case_id:'fictional-report',submitted:true};},
   reports:async()=>submitted?[{case_id:'fictional-report',submitted_at:'2026-11-01T12:00:00Z'}]:[],
   status:async()=>{
     if(failStatus) throw new Error('Fictional unavailable');
-    return {case_id:'fictional-report',phase,message:phase==='animal_located'?'The team has located the animal.':phase==='accepted'?'A team has taken your report.':'Report received; awaiting team confirmation.',arrival_eta_minutes:null,eta_updated_at:null,eta_is_estimate:false,reporter_can_leave:true,leaving_cancels_report:false,presence};
+    return {case_id:'fictional-report',phase,message:phase==='animal_located'?'The team has located the animal.':phase==='accepted'?'A team has taken your report.':'Report received; awaiting team confirmation.',arrival_eta_minutes:null,eta_updated_at:null,eta_is_estimate:false,reporter_can_leave:true,leaving_cancels_report:false,presence,
+      reported_location:location,contact_channels:contactChannels,response_team:phase==='received'?null:'Fictional coastal response team'};
   },
-  preferences:async()=>({}),
+  preferences:async(_case,_user,channels)=>{contactChannels=channels;return {};},
   presence:async(_,__,next)=>{presence=next;return {};},
 };
 const driver = {
@@ -47,6 +72,6 @@ function Preview() {
     <label style={{color:'#241b00'}}>Fictional response phase<select aria-label="Fictional response phase" onChange={(e)=>{phase=e.target.value;}}><option value="received">Received</option><option value="accepted">Accepted</option><option value="animal_located">Animal located</option></select></label>
     <label style={{color:'#241b00'}}><input type="checkbox" style={{width:'auto'}} onChange={(e)=>{failStatus=e.target.checked;}} />Simulate unavailable status</label>
     <label style={{color:'#241b00'}}><input type="checkbox" style={{width:'auto'}} checked={ready} onChange={(e)=>setReady(e.target.checked)} />Fixture phone provider ready</label>
-  </aside><PhoneReporterPage api={stable} configured={ready} authDriver={driver} /></>;
+  </aside><PhoneReporterPage api={stable} configured={ready} authDriver={driver} offlineMap /></>;
 }
 createRoot(document.getElementById('root')!).render(<Preview />);
