@@ -69,6 +69,27 @@ Record device model and iOS version, DJI Fly version, original Mini 2 model, con
 
 Operator naming does not grant an app account or flight permission. The coordinator hands over the short-lived publishing address; the operator uses DJI Fly and operates the aircraft manually. No DJI SDK integration, autonomous dispatch, waypoint flight or automatic animal tracking is implemented.
 
+## First waypoint rehearsal
+
+Complete the motors-off DJI Fly connection test with the Mini 2, controller and
+phone before rehearsing a waypoint flight. Set aside 30 minutes for the connection
+check. Start with a case-linked publishing address that the phone can reach,
+save and reopen a frame, and check reconnect and session expiry.
+
+On a saved case search area, choose **Preview patrol**, expand **Pilot handoff**,
+and download the draft waypoint CSV. The file has survey coordinates only.
+It omits the simulator's launch, return and landing points and the simulated
+altitude. Use the coordinates as a drafting reference in Litchi or try a CSV import
+in [Litchi Legacy Mission Hub](https://flylitchi.com/help#missionhub).
+
+The pilot reviews or shortens the proposed path for the site, selects a launch
+point, and checks actual altitude, speed, finish action and link-loss behavior
+in Litchi before starting any mission. Check the imported points against the
+approved route and confirm that the pilot can interrupt the waypoint run. For a
+first test, use a staged target and attach evidence from the aircraft recording.
+DJI Fly streaming and Litchi waypoint execution require separate hardware checks
+before assuming a live feed during a waypoint mission.
+
 ## Primary references
 
 - DJI Fly livestream operation: https://repair.dji.com/help/content?customId=en-us03400006727&lang=en&paperDocType=paper&re=US&spaceId=34

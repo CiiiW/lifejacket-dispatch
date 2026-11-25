@@ -1,8 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 
-import type { DroneSimulationResult } from '../lib/api';
+import type { DronePlan, DroneSimulationResult } from '../lib/api';
 import { type DroneApi, type ObservationSearchArea, type PatrolPreview, networkErrorMessage } from '../lib/networkApi';
 import ObservationSearchMap from './ObservationSearchMap.web';
+
+function downloadSurveyWaypoints(plan: DronePlan) {
+  const rows = plan.waypoints
+    .filter(point => point.phase === 'survey')
+    .map(point => [point.latitude.toFixed(7), point.longitude.toFixed(7)].join(','));
+  const csv = ['latitude,longitude', ...rows, ''].join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `patrol-draft-${plan.plan_id}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 export default function ObservationPatrol({
   area, offline, previewPatrol,
@@ -80,6 +95,13 @@ export default function ObservationPatrol({
       {plan.blocked_reasons.map(reason => <p key={reason} role="status">{reason}</p>)}
       {plan.waypoints.length > 0 && <button type="button" className="secondary"
         onClick={() => setZoom(!zoom)}>{zoom ? 'Show full search area' : 'Zoom to patrol'}</button>}
+      {plan.status === 'ready_for_review' && <details>
+        <summary>Pilot handoff</summary>
+        <p className="lj-muted">Download the survey coordinates for route drafting in Litchi Legacy Mission Hub.
+          The pilot chooses the launch point and reviews altitude, speed, return and signal-loss settings in Litchi.</p>
+        <button type="button" className="secondary" disabled={busy}
+          onClick={() => downloadSurveyWaypoints(plan)}>Download draft waypoints (CSV)</button>
+      </details>}
       {plan.status === 'ready_for_review' && !simulation && <button type="button" disabled={busy}
         onClick={() => void planOrRun(plan.plan_id)}>Run simulated patrol</button>}
     </>}
