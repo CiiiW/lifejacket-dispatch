@@ -67,7 +67,10 @@ against the older main without reviewing the parent changes.
   install the backend Python dependencies in `.venv` or set `LIFEJACKET_DEMO_PYTHON`
   to an interpreter with those dependencies.
 - In the bear scenario, save the request, choose **Preview patrol** and **Run simulated patrol**,
-  then select a local clip under **Review recorded bear footage**. The clip is opened in the browser.
+  then approve the request and move it to **In progress**. Choose a local recorded clip,
+  pause on the frame, capture it, add source and credits, and attach it to that request.
+  Open the saved photo, mark evidence ready, and record the coordinator's outcome.
+  The demo's scripted practice observations are independent of the selected clip.
 - Case patrol previews use the saved search area to build a short first pass under the existing
   California simulator profile. The simulation does not estimate camera coverage.
 - The fixture ships with synthetic frames only. API tests use a temporary database and test identity overrides;

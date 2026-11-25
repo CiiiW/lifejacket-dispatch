@@ -1,3 +1,4 @@
+import ObservationEvidenceForm from '../components/ObservationEvidenceForm.web';
 import ObservationPatrol from '../components/ObservationPatrol.web';
 import ObservationSearchMap from '../components/ObservationSearchMap.web';
 import { ObservationWorkspace } from './ObservationWorkspace.web';
@@ -58,11 +59,6 @@ export function DroneRequests({
   const [operator, setOperator] = useState('');
   const [outcome, setOutcome] = useState('');
   const [confirmed, setConfirmed] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [source, setSource] = useState('');
-  const [rights, setRights] = useState('');
-  const [capture, setCapture] = useState('');
-  const [offset, setOffset] = useState('');
   const controller = useRef<AbortController | null>(null);
   const lock = useRef(false);
   const key = useRef(crypto.randomUUID());
@@ -214,29 +210,12 @@ export function DroneRequests({
         </label>
         <button disabled={busy || !target || !confirmed || !note.trim()}>Record update</button>
       </form>}
-      {selected.status==='in_progress' && canCreate && <form aria-label="Attach drone evidence" onSubmit={e=>{
-        e.preventDefault(); if (!file) return;
-        void act(async signal=>{
-          const data=new FormData();
-          data.set('metadata',JSON.stringify({revision:selected.revision,
-            source_kind:selected.execution_kind==='recorded_demo'?'sample_footage':'operator_capture',
-            source_url:source||null, rights_note:rights, description:note,
-            captured_at:capture?new Date(capture).toISOString():null,
-            frame_offset_seconds:offset?Number(offset):null}));
-          data.set('photo',file);
-          await api.upload(id,selected.request_id,data,signal); setFile(null);
+      {selected.status==='in_progress' && canCreate && <ObservationEvidenceForm
+        key={selected.request_id + '-' + selected.revision}
+        request={selected} busy={busy} onUpload={data => void act(async signal => {
+          await api.upload(id, selected.request_id, data, signal);
           return selected.request_id;
-        });
-      }}>
-        <h3>Attach a photo or extracted video frame</h3>
-        <label>Image<input required type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]||null)}/></label>
-        <label>Source URL<input type="url" required={selected.execution_kind==='recorded_demo'} value={source} onChange={e=>setSource(e.target.value)}/></label>
-        <label>Credits and reuse terms<input required value={rights} onChange={e=>setRights(e.target.value)}/></label>
-        <label>Evidence description<input required value={note} onChange={e=>setNote(e.target.value)}/></label>
-        <label>Actual capture time · leave unknown if unavailable<input type="datetime-local" required={selected.execution_kind==='operator_flight'} value={capture} onChange={e=>setCapture(e.target.value)} onInput={e=>setCapture(e.currentTarget.value)}/></label>
-        <label>Video offset · seconds<input type="number" min="0" step="any" value={offset} onChange={e=>setOffset(e.target.value)}/></label>
-        <button disabled={busy || !file || !note.trim() || !rights.trim()}>Attach evidence</button>
-      </form>}
+        })}/>}
       {selected.outcome && <p className="lj-notice"><strong>{label(selected.outcome)}</strong>: {selected.review_note}</p>}
       {selected.previous_request_id && <p className="lj-id">Follow-up of {selected.previous_request_id}</p>}
       {selected.monitoring_decision && <p className="lj-notice">Monitoring decision: {label(selected.monitoring_decision.action)} · {selected.monitoring_decision.reason}

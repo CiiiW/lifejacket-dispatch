@@ -81,6 +81,7 @@ function fixtureAttention(){
     })).filter(item=>!acknowledged.has(item.attention_key));
   });
 }
+const uploadedPhotos = new Map<string, Blob>();
 const api:DroneApi={
   async patrol(_id, requestId, planId, signal) {
     const area = rows.find(row => row.request_id === requestId)?.search_area;
@@ -150,7 +151,7 @@ const api:DroneApi={
   async change(_id,r,b){
     const row=rows.find(x=>x.request_id===r)!;
     if(row.revision!==b.revision)throw new Error('Stale fixture update');
-    if(b.status==='evidence_ready'&&!row.evidence?.length)throw new Error('Attach synthetic evidence first');
+    if(b.status==='evidence_ready'&&!row.evidence?.length)throw new Error('Attach evidence first');
     Object.assign(row,b,{revision:row.revision+1,allowed_transitions:next[String(b.status)]||[]});
     if(b.status==='reviewed')row.review_note=String(b.note);
     row.events!.push({revision:row.revision,kind:String(b.status),recorded_at:new Date().toISOString(),
@@ -160,21 +161,35 @@ const api:DroneApi={
   async upload(_id,r,form){
     const row=rows.find(x=>x.request_id===r)!;
     const meta=JSON.parse(String(form.get('metadata')));
-    row.revision++;row.evidence!.push({...meta,evidence_id:'synthetic-frame'});
+    const image = form.get('photo');
+    if (row.status !== 'in_progress' || row.revision !== meta.revision || !(image instanceof Blob)) {
+      throw new Error('Invalid fixture evidence upload');
+    }
+    const evidenceId = crypto.randomUUID();
+    uploadedPhotos.set(evidenceId, image);
+    row.revision++;
+    row.evidence!.push({...meta,evidence_id:evidenceId});
+    row.events!.push({revision:row.revision,kind:'evidence_attached',
+      recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator'});
     return {};
   },
-  async photo(){if(comparisonDenied)throw new NetworkError(403);return new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
+  async photo(_id,_requestId,evidenceId){if(comparisonDenied)throw new NetworkError(403);return uploadedPhotos.get(evidenceId) ?? new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
 };
-function BearFootage() {
-  const [video, setVideo] = React.useState('');
-  React.useEffect(() => () => { if (video) URL.revokeObjectURL(video); }, [video]);
+function BearReviewExercise() {
+  const [cue, setCue] = React.useState('obstructed');
   return <section className="lj-panel" style={{ marginTop: 18 }}>
-    <h2>Review recorded bear footage</h2>
-    <label>Choose a recorded clip<input type="file" accept="video/*" onChange={event => {
-      const file = event.target.files?.[0];
-      setVideo(file ? URL.createObjectURL(file) : '');
-    }}/></label>
-    {video && <video controls src={video} style={{ maxWidth: '100%', marginTop: 12 }}/>}
+    <h2>Simulated coordinator review</h2>
+    <p>These practice observations are scripted separately from the clip. Reviewers can use the evidence and record their own outcome.</p>
+    <label>Practice observation<select value={cue} onChange={event => setCue(event.target.value)}>
+      <option value="mobile">Moving freely in the visible segment</option>
+      <option value="obstructed">Partly hidden · movement unclear</option>
+      <option value="limp">Repeated limp · cause unclear</option>
+      <option value="entanglement">Visible line restricting movement</option>
+    </select></label>
+    {cue === 'mobile' && <p>Example finding: movement looks unrestricted in this view. Record the observation and its limits.</p>}
+    {cue === 'obstructed' && <p>Example finding: the view is obstructed. Leave the outcome still uncertain and request another view.</p>}
+    {cue === 'limp' && <p>Example finding: possible mobility issue. Describe the repeated movement and flag it for qualified review.</p>}
+    {cue === 'entanglement' && <p>Example finding: apparent restriction of movement. Record escalation needed for the wildlife coordinator.</p>}
   </section>;
 }
 
@@ -242,7 +257,7 @@ function Demo(){
     <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
     <DroneRequests key={version} api={api} id="fictional-case" reportedLocation={reportLocation} offlineMap initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
-    {scenario === 'bear_report' && <BearFootage/>}
+    {scenario === 'bear_report' && <BearReviewExercise/>}
   </Shell>;
 }
 createRoot(document.getElementById('root')!).render(<Demo/>);
