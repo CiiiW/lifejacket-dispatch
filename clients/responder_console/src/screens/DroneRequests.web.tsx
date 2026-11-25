@@ -1,11 +1,39 @@
+import ObservationEvidenceForm from '../components/ObservationEvidenceForm.web';
+import ObservationPatrol from '../components/ObservationPatrol.web';
+import ObservationSearchMap from '../components/ObservationSearchMap.web';
 import { ObservationWorkspace } from './ObservationWorkspace.web';
 import { ObservationComparison } from './ObservationComparison.web';
 import { useEffect, useRef, useState } from 'react';
-import { type DroneApi, type DroneRequest, type DroneSuggestion, networkErrorMessage } from '../lib/networkApi';
+import { type DroneApi, type DroneRequest, type DroneSuggestion, type ObservationPoint, networkErrorMessage } from '../lib/networkApi';
 
 const label = (s: string) => s.replaceAll('_', ' ');
 const confidenceText = (value: number | null) => value === null ? 'Unknown' : Number((value*100).toFixed(2))+'%';
-export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }: { api: DroneApi; id: string; initialRequestId?:string; onMonitoringChange?:()=>void }) {
+const DEFAULT_SEARCH_RADIUS_KM = '1';
+const MAX_SEARCH_RADIUS_KM = 10_000;
+
+export function DroneRequests({
+  api, id, reportedLocation, initialRequestId, onMonitoringChange, offlineMap,
+}: {
+  api: DroneApi;
+  id: string;
+  reportedLocation?: { latitude: number | null; longitude: number | null };
+  initialRequestId?: string;
+  onMonitoringChange?: () => void;
+  offlineMap?: boolean;
+}) {
+  const reportCenter = reportedLocation?.latitude != null && reportedLocation.longitude != null
+    ? { latitude: reportedLocation.latitude, longitude: reportedLocation.longitude }
+    : null;
+  const [centerDraft, setCenterDraft] = useState<{ latitude: string; longitude: string } | null>(null);
+  const [radiusKm, setRadiusKm] = useState(DEFAULT_SEARCH_RADIUS_KM);
+  const latitude = centerDraft?.latitude ?? String(reportCenter?.latitude ?? '');
+  const longitude = centerDraft?.longitude ?? String(reportCenter?.longitude ?? '');
+  const center: ObservationPoint | null = latitude.trim() && longitude.trim() &&
+    Math.abs(Number(latitude)) <= 90 && Math.abs(Number(longitude)) <= 180
+    ? { latitude: Number(latitude), longitude: Number(longitude) }
+    : null;
+  const radiusMeters = Math.round(Number(radiusKm) * 1000);
+  const validRadius = radiusMeters >= 1 && radiusMeters <= MAX_SEARCH_RADIUS_KM * 1000;
   const [rows, setRows] = useState<DroneRequest[]>([]);
   const [confidence, setConfidence] = useState<{animal_group:number|null;condition:number|null}|null>(null);
   const [suggestions, setSuggestions] = useState<DroneSuggestion[]>([]);
@@ -31,11 +59,6 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
   const [operator, setOperator] = useState('');
   const [outcome, setOutcome] = useState('');
   const [confirmed, setConfirmed] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
-  const [source, setSource] = useState('');
-  const [rights, setRights] = useState('');
-  const [capture, setCapture] = useState('');
-  const [offset, setOffset] = useState('');
   const controller = useRef<AbortController | null>(null);
   const lock = useRef(false);
   const key = useRef(crypto.randomUUID());
@@ -90,11 +113,14 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
     {canCreate && <details open={createOpen} onToggle={e=>setCreateOpen(e.currentTarget.open)} style={{marginTop:16}}><summary>Create observation request</summary>
       <form aria-label="Create drone request" onSubmit={e => {
         e.preventDefault();
+        if (!center || !validRadius) return;
         void act(async signal => {
           const row = await api.create(id, {purpose, objective, reason, execution_kind:mode,
             escalation_criteria:escalation, request_key:key.current, suggestion_id:suggestionId,
+            search_area:{center, radius_m:radiusMeters},
             next_review_at:reviewTime ? new Date(reviewTime).toISOString() : null}, signal);
           key.current = crypto.randomUUID();setSuggestionId(null);setCreateOpen(false); setObjective(''); setReason(''); setEscalation('');
+          setCenterDraft(null); setRadiusKm(DEFAULT_SEARCH_RADIUS_KM);
           return row.request_id;
         });
       }}>
@@ -110,7 +136,25 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
         <label>Why more evidence is needed<input required maxLength={2000} value={reason} onChange={e=>setReason(e.target.value)}/></label>
         <label>Escalate if<input required maxLength={1000} value={escalation} onChange={e=>setEscalation(e.target.value)}/></label>
         <label>Next review · your local time<input type="datetime-local" required={purpose==='monitoring'} value={reviewTime} onChange={e=>setReviewTime(e.target.value)} onInput={e=>setReviewTime(e.currentTarget.value)}/></label>
-        <button disabled={busy || !objective.trim() || !reason.trim() || !escalation.trim() || (purpose==='monitoring' && !reviewTime)}>Create request</button>
+        {createOpen && <fieldset style={{ width: '100%', minWidth: 0, border: '1px solid #ffffff25', borderRadius: 8 }}>
+          <legend>Search area</legend>
+          <p className="lj-muted">Choose a center on the map or enter coordinates. The radius defines the area to look in.</p>
+          <ObservationSearchMap center={center} radiusMeters={validRadius ? radiusMeters : 0} offline={offlineMap}
+            onPick={point => setCenterDraft({
+              latitude: point.latitude.toFixed(6), longitude: point.longitude.toFixed(6),
+            })}/>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 12, alignItems: 'end' }}>
+            <label>Search latitude<input type="number" required min={-90} max={90} step="any" value={latitude}
+              onChange={event => setCenterDraft({ latitude: event.target.value, longitude })}/></label>
+            <label>Search longitude<input type="number" required min={-180} max={180} step="any" value={longitude}
+              onChange={event => setCenterDraft({ latitude, longitude: event.target.value })}/></label>
+            <label>Search radius (km)<input type="number" required min={0.001} max={MAX_SEARCH_RADIUS_KM}
+              step="any" value={radiusKm} onChange={event => setRadiusKm(event.target.value)}/></label>
+            {reportCenter && centerDraft && <button type="button" className="secondary"
+              onClick={() => setCenterDraft(null)}>Use report pin</button>}
+          </div>
+        </fieldset>}
+        <button disabled={busy || !center || !validRadius || !objective.trim() || !reason.trim() || !escalation.trim() || (purpose==='monitoring' && !reviewTime)}>Create request</button>
       </form>
     </details>}
     {!rows.length && !error && <p className="lj-muted">No observation requests yet.</p>}
@@ -129,6 +173,11 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
         <dt>Next review</dt><dd>{selected.next_review_at ? new Date(selected.next_review_at).toLocaleString() : 'Not scheduled'}</dd>
         <dt>Reported location</dt><dd>{selected.target_location.latitude ?? 'Unknown'}, {selected.target_location.longitude ?? 'Unknown'}</dd>
       </dl>
+      {selected.search_area && <ObservationPatrol key={selected.request_id}
+        area={selected.search_area} offline={offlineMap}
+        previewPatrol={canCreate && api.patrol
+          ? (planId, signal, sendToSimulator) => api.patrol!(id, selected.request_id, planId, signal, sendToSimulator)
+          : undefined}/>}
       <ObservationWorkspace key={'workspace-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
         onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
           setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
@@ -161,29 +210,12 @@ export function DroneRequests({ api, id, initialRequestId, onMonitoringChange }:
         </label>
         <button disabled={busy || !target || !confirmed || !note.trim()}>Record update</button>
       </form>}
-      {selected.status==='in_progress' && canCreate && <form aria-label="Attach drone evidence" onSubmit={e=>{
-        e.preventDefault(); if (!file) return;
-        void act(async signal=>{
-          const data=new FormData();
-          data.set('metadata',JSON.stringify({revision:selected.revision,
-            source_kind:selected.execution_kind==='recorded_demo'?'sample_footage':'operator_capture',
-            source_url:source||null, rights_note:rights, description:note,
-            captured_at:capture?new Date(capture).toISOString():null,
-            frame_offset_seconds:offset?Number(offset):null}));
-          data.set('photo',file);
-          await api.upload(id,selected.request_id,data,signal); setFile(null);
+      {selected.status==='in_progress' && canCreate && <ObservationEvidenceForm
+        key={selected.request_id + '-' + selected.revision}
+        request={selected} busy={busy} onUpload={data => void act(async signal => {
+          await api.upload(id, selected.request_id, data, signal);
           return selected.request_id;
-        });
-      }}>
-        <h3>Attach a photo or extracted video frame</h3>
-        <label>Image<input required type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]||null)}/></label>
-        <label>Source URL<input type="url" required={selected.execution_kind==='recorded_demo'} value={source} onChange={e=>setSource(e.target.value)}/></label>
-        <label>Credits and reuse terms<input required value={rights} onChange={e=>setRights(e.target.value)}/></label>
-        <label>Evidence description<input required value={note} onChange={e=>setNote(e.target.value)}/></label>
-        <label>Actual capture time · leave unknown if unavailable<input type="datetime-local" required={selected.execution_kind==='operator_flight'} value={capture} onChange={e=>setCapture(e.target.value)} onInput={e=>setCapture(e.currentTarget.value)}/></label>
-        <label>Video offset · seconds<input type="number" min="0" step="any" value={offset} onChange={e=>setOffset(e.target.value)}/></label>
-        <button disabled={busy || !file || !note.trim() || !rights.trim()}>Attach evidence</button>
-      </form>}
+        })}/>}
       {selected.outcome && <p className="lj-notice"><strong>{label(selected.outcome)}</strong>: {selected.review_note}</p>}
       {selected.previous_request_id && <p className="lj-id">Follow-up of {selected.previous_request_id}</p>}
       {selected.monitoring_decision && <p className="lj-notice">Monitoring decision: {label(selected.monitoring_decision.action)} · {selected.monitoring_decision.reason}

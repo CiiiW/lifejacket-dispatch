@@ -2,7 +2,26 @@
 
 Implemented: reviewed demo → mission upload → supervised AUTO flight → saved
 telemetry/outcome. Upload/readback verification remains available separately.
-The API exposes saved runs read-only; flight commands use a local SITL-only CLI.
+The API exposes saved runs read-only. Commands to fly a simulated mission use a local CLI.
+
+## Send a case patrol to the simulator
+
+In the coordinator console or fictional case demo, save a search area, choose
+**Preview patrol**, expand **Mission handoff**, then choose **Send to simulator**.
+LifeJacket regenerates the previewed plan, starts a temporary local ArduCopter
+instance and checks the mission it reads back. The check compares the item count,
+navigation commands, coordinates and altitudes. The simulator closes after the
+check. **Run simulated patrol** plays the map preview separately.
+
+This option is off by default. On a simulator host, install `pymavlink==2.4.50`
+in the API Python environment (or the demo's Python environment). Set the server
+process environment variable `LIFEJACKET_PATROL_SITL_BINARY` to the absolute path
+of a trusted ArduCopter SITL executable, such as the Linux x86_64 build below.
+For the fictional demo, start it with that variable in the same shell.
+
+```sh
+LIFEJACKET_PATROL_SITL_BINARY=/absolute/path/to/arducopter npm run demo:drone-requests
+```
 
 ## Initial upload verification on GCP, 22 October 2026
 

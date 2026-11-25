@@ -1,7 +1,7 @@
-"""Mission upload protocol for a separately launched local ArduPilot SITL.
+"""Mission transfer protocol for local ArduPilot SITL.
 
-No arming, mode changes or flight execution. Transport creation belongs to the
-local companion process, never the public API.
+No arming, mode changes or flight execution. Callers supply an already
+established connection to their simulator.
 """
 
 import time
@@ -102,3 +102,42 @@ def upload_mission(connection, items: list[MissionItem], timeout_s: float = 30) 
         )
         sent.add(item.sequence)
     raise TimeoutError("Mission upload timed out without an accepted acknowledgment")
+
+
+def readback_mission(connection, items: list[MissionItem], timeout_s: float = 10) -> int:
+    """Confirm the uploaded mission count and every navigation item."""
+    system, component = connection.target_system, connection.target_component
+    deadline = time.monotonic() + timeout_s
+
+    def receive(kind):
+        while (remaining := deadline - time.monotonic()) > 0:
+            message = connection.recv_match(type=kind, blocking=True, timeout=remaining)
+            if message is None:
+                break
+            if (
+                message.get_srcSystem() == system
+                and message.get_srcComponent() == component
+                and getattr(message, "mission_type", 0) == 0
+            ):
+                return message
+        raise TimeoutError(f"No {kind} from SITL")
+
+    connection.mav.mission_request_list_send(system, component)
+    count = receive("MISSION_COUNT").count
+    if count != len(items):
+        raise RuntimeError(f"Readback count {count}, expected {len(items)}")
+    for expected in items:
+        connection.mav.mission_request_int_send(system, component, expected.sequence)
+        actual = receive("MISSION_ITEM_INT")
+        if actual.seq != expected.sequence:
+            raise RuntimeError("Unexpected sequence during readback")
+        # ArduPilot treats index zero as home; check the flown navigation items.
+        if expected.sequence and (
+            actual.command != expected.command
+            or abs(actual.x - expected.latitude_int) > 1
+            or abs(actual.y - expected.longitude_int) > 1
+            or abs(actual.z - expected.altitude_m) > 0.01
+        ):
+            raise RuntimeError(f"Readback mismatch at item {expected.sequence}")
+    connection.mav.mission_ack_send(system, component, 0)
+    return count

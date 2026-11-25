@@ -54,17 +54,17 @@ The observation loop above is the **existing-case workflow**. Automatic patrol-t
 |---|---|---|
 | 📱 Public reporting | Photo-based intake, animal selection, guided questions and structured reports | Identification and condition findings can be wrong; human review matters |
 | 🧭 Coordination | Case views, rule-based triage, responder ranking, role-scoped sharing and recorded response updates | No automatic rescue dispatch or verified field operations |
-| 📹 Drone evidence | Private stream receiver, sampled live preview, received-video recording/playback, saved frames and a unified observation workspace | Mini 2/iPhone connectivity and visual browser acceptance still need testing |
+| 📹 Drone evidence | Private stream receiver, Litchi and DJI Fly setup instructions, sampled preview, recording/playback and saved frames on the case | Both apps streamed Mini 2 video to LifeJacket over private Wi-Fi with the motors off |
 | 🔎 Detector handoff | Export original frames/metadata; validate and import detector results; select an animal for existing assessment and triage | Trained YOLO execution and automatic live frame shortlisting are not connected yet |
-| ✈️ Flight planning | Survey-route generation and ArduPilot software-in-the-loop testing | Simulation is separate from physical Mini 2 control; autonomous Mini 2 flight is not implemented |
+| ✈️ Flight planning | Editable case search area, patrol preview, draft waypoint export to Litchi and ArduPilot upload/readback | The exported route loaded on the pilot's iPhone. Outdoor waypoint flight with live video remains untested |
 
 ### The drone evidence loop
 
-![Drone evidence flow: private receiver splits footage into a received-video archive and saved frames; matched detector results and selected-still assessment support coordinator review. Hardware and live YOLO integration remain pending.](docs/images/judges-drone-evidence.svg)
+![Drone evidence flow: private receiver splits footage into a received-video archive and saved frames; matched detector results and selected-still assessment support coordinator review. Ground streaming is verified. Outdoor flight and live YOLO integration remain pending.](docs/images/judges-drone-evidence.svg)
 
 **Latest drone workflow:** received video → saved original frame → validated detector results → selected-animal assessment → triage suggestion → coordinator review. Only selected still images are sent for model assessment; original received recordings remain available for review.
 
-[Drone workflow and teammate handoff](docs/drone_detector_handoff.md) · [Recording and playback setup](docs/drone_recordings.md)
+[Mini 2 ground-test results and setup](docs/drone_live_workflow.md#ground-test-results-on-2026-11-24) · [Detector handoff](docs/drone_detector_handoff.md) · [Recording and playback setup](docs/drone_recordings.md)
 
 ## Where AI fits—and where it does not
 
@@ -85,14 +85,15 @@ The code uses names such as `IdentificationAgent`; those class names do not mean
 
 ## Evidence and evaluation
 
-We distinguish **model quality**, **software integration** and **flight simulation**. A passing software test is not evidence of successful wildlife rescue.
+The results cover model evaluation, software integration, flight simulation and motors-off hardware checks.
 
 | Evidence | Result | What it establishes—and what it does not |
 |---|---|---|
 | Saved first-look identification evaluation | **98/102** animal groups correct; **71/102** species correct | Exploratory comparison with source labels on original public photos. Not aerial detection, injury accuracy or calibrated confidence |
 | Recorded NOAA sea-lion footage pilot | **12 frames processed, 0 failures** | Processing path ran with real footage and Vertex inference. Candidate boxes were not expert-validated individual animals |
 | ArduPilot simulation | **1.18 m** maximum route deviation across **280** telemetry samples | A documented simulated survey completed and landed. Not a physical drone flight |
-| Latest focused drone checks, November 11 | **57 backend**, **17 client API**, **3 interface tests** passed | Integration, permissions, provenance and review behavior using synthetic evidence/scripted model responses. Not a full-suite total or live-model accuracy result |
+| Case patrol simulator handoff | **16 mission items** uploaded and read back through both the coordinator API and browser demo | ArduPilot verified the planned commands, coordinates and altitudes with the simulator disarmed |
+| Mini 2 ground checks, November 24 | **12 draft waypoints** loaded on the iPhone. DJI Fly and Litchi each streamed the camera to LifeJacket | Waypoint sync and private RTMP worked in separate motors-off checks. The outdoor combined test is pending |
 
 **Inspect the evidence:** [identification outputs](research/identification_eval/results/first_look_20261005_172608_detail.csv) · [real-photo limitations](docs/real_drone_validation_2026-11-07.md) · [NOAA video pilot](docs/noaa_video_pilot.md) · [simulation record](docs/sitl.md#flight-test-findings) · [drone acceptance workflow](docs/drone_detector_handoff.md#software-rehearsal-results)
 
@@ -100,7 +101,7 @@ We distinguish **model quality**, **software integration** and **flight simulati
 
 - Improved rescue response times or animal survival.
 - Expert-validated injury assessment from aerial footage.
-- A working Mini 2 → iPhone → LifeJacket field connection or autonomous Mini 2 flight.
+- Outdoor Mini 2 waypoint flight with simultaneous streaming to LifeJacket.
 - Trained YOLO execution, automatic live shortlisting or patrol alert creation.
 - Production readiness, verified operating permissions or a partner rescue-center field trial.
 
@@ -125,6 +126,20 @@ Open **<http://127.0.0.1:8082>** on that computer.
 
 These are **two independent UI fixtures**, not a connected live rescue. They do not call Gemini, send SMS, share case state or require a database. Reloading resets their fixture state. Initial dependency installation needs internet access.
 
+### Try the case-linked drone demo
+
+With the Node dependencies above and the [Python backend dependencies](#developer-setup) installed, run:
+
+```bash
+npm run demo:drone-requests
+```
+
+Open **<http://127.0.0.1:8084>**, select **Bear report · approximate location**,
+review the suggested request and create it. Choose **Preview patrol** to see
+the proposed pass. **Run simulated patrol** replays the route on the map.
+Under **Mission handoff**, download a draft for Litchi or use **Send to
+simulator** to verify an upload when [local ArduPilot is configured](docs/sitl.md#send-a-case-patrol-to-the-simulator).
+
 ### Reproduce the connected workflow
 
 The connected scenario uses real API routes with disposable data and scripted adapters:
@@ -135,8 +150,10 @@ python scripts/run_connected_scenario.py --with-drone
 
 This requires the backend/development dependencies. For generated-video streaming, recording and saved-frame review, follow the separate [live observation rehearsal](docs/drone_live_workflow.md#connected-browser-rehearsal); it also requires MediaMTX and FFmpeg. Hardware is not needed for that software rehearsal.
 
+### Developer setup
+
 <details>
-<summary><strong>Developer setup and deeper technical documentation</strong></summary>
+<summary><strong>Python dependencies and technical references</strong></summary>
 
 Install Python 3.11+ and use an isolated environment:
 
@@ -433,17 +450,16 @@ Two routes bring footage to a coordinator. Both end in the same place — a pers
 
 **Live, from the pilot's phone**
 
-```
-Mini 2 → DJI Fly  ──RTMP──▶  private receiver  ──▶  sampled preview  ──▶  saved frame
-the pilot flies              30-minute grant,       up to 2 fps,          exact frame ID,
-manually                     publish-only, cannot   no audio; a feed      immutable, hashed,
-                             read any case data     older than 6 s is     case-linked
-                                                    marked interrupted
-```
+The Mini 2 sends video through Litchi or DJI Fly on the iPhone. The operator
+publishes over RTMP to a private MediaMTX receiver. LifeJacket displays up to
+two frames per second and hides views more than six seconds old.
 
-MediaMTX v1.21.3 and FFmpeg, bound to loopback by default, with RTMP optionally on a private or VPN interface. The coordinator copies a short-lived publishing address to the operator; the operator flies manually in DJI Fly. Incoming frames sit in a bounded 12-second buffer and selection quotes an exact frame ID, so a newer frame cannot quietly replace the one the coordinator picked. A stale feed is hidden rather than frozen — the coordinator is never shown an old picture as if it were current.
+The publishing address expires after 30 minutes and grants publishing access
+only. Incoming images sit in a bounded 12-second buffer. When the coordinator
+saves a frame, LifeJacket uses the exact displayed frame ID and stores the
+original image and its hash on the case.
 
-> **No DJI SDK integration, no waypoint flight, no automatic tracking.** Supporting a live stream does not make the aircraft autonomous; that would be a separate decision.
+> The pilot uses Litchi for the waypoint handoff. LifeJacket generates the route and receives video for review. Actual waypoint flight is still untested.
 
 <div align="center">
 <img src="docs/images/drone-stream-preview.png" width="760" alt="Coordinator stream panel showing a sampled preview, session state and the save-frame control">
@@ -540,9 +556,9 @@ Before anything flies, the plan is validated against hard limits:
 | ✅ Planned route flown in simulation within **1.18 m** | ✅ Recorded video and live RTMP both reach a human reviewer | ✅ Request, approval, evidence and review run end to end on one case |
 | ❌ No physical aircraft has flown | ❌ Aerial recognition accuracy is unmeasured | ❌ Never run against real operational data |
 
-**The simulator has no camera, and the camera has never been in the air.** The streaming path proves the software, using a generated test video; the simulation proves the flight worker, using synthetic telemetry. Neither proves that a drone can tell you anything useful about an animal.
+**The Mini 2 passed two motors-off ground checks on November 24, 2026.** The fictional LifeJacket patrol imported into Litchi Legacy Mission Hub and loaded on the pilot's iPhone. In a separate ground check, Litchi streamed the Mini 2 camera to LifeJacket over private Wi-Fi. DJI Fly also streamed to the same receiver and was used to verify frame saving and reconnect behavior.
 
-The hardware acceptance test is written and waiting. With a Mini 2 and an iPhone, motors off: pair them, publish to the private receiver, measure camera-to-screen delay against a visible clock, then pull the uplink and confirm the coordinator sees *interrupted* rather than a frozen frame. Only after that does aerial footage get evaluated for whether it changes a decision — and that judgment belongs to qualified reviewers, not to us.
+The outdoor test will check whether Litchi can fly a short route planned for the site while LifeJacket continues receiving fresh frames. Camera-to-screen delay and the usefulness of aerial wildlife footage still need measurement. [Ground-test record and handoff](docs/drone_live_workflow.md#ground-test-results-on-2026-11-24).
 
 ---
 
@@ -658,8 +674,7 @@ Already built: a historical report-density layer from NOAA's California records 
 
 **Open work**
 
-- **Pass the hardware acceptance test** — a Mini 2 and an iPhone on the ground, motors off: pairing, private-network reach, measured camera-to-screen delay
-- **Close the drone loop** — fly a planned route on a real aircraft so the camera pipeline gets real footage
+- **Verify outdoor waypoint flight and streaming together** with the Mini 2 and Litchi, and measure camera-to-screen delay
 - **Calibrate the battery model** against real flight data
 - **Calibrate the 0.90 suggestion threshold** on reviewer-labeled cases with a genuine held-out split
 - **Validate identification** against expert-labeled stranding cases

@@ -16,6 +16,11 @@ from sqlalchemy.orm import Session
 from lifejacket.access.dependencies import AccessSession, current_access_session
 from lifejacket.api.routes.network import private
 from lifejacket.config import settings
+from lifejacket.drones.observation_patrol import (
+    PatrolPreview,
+    PatrolRequest,
+    observation_patrol,
+)
 from lifejacket.models.db import get_session
 from lifejacket.models.drone_requests import (
     AttentionAcknowledgment,
@@ -23,6 +28,7 @@ from lifejacket.models.drone_requests import (
     CreateRequest,
     EvidenceMetadata,
     MonitoringDecision,
+    ObservationSearchArea,
 )
 from lifejacket.models.tables import (
     CaseDroneEventRow,
@@ -130,6 +136,26 @@ def detail(
             for e in events
         ],
     }
+
+
+@router.post("/{request_id}/patrol", response_model=PatrolPreview)
+def patrol(
+    case_id: str,
+    request_id: str,
+    body: PatrolRequest,
+    response: Response,
+    current: AccessSession = Depends(current_access_session),
+    session: Session = Depends(get_session),
+):
+    private(response)
+    service.access(session, current.access.principal, case_id, write=True)
+    row = service.get(session, case_id, request_id)
+    area = row.payload_json.get("search_area")
+    if area is None:
+        return PatrolPreview(unavailable_reason="Save a search area to preview a patrol.")
+    return observation_patrol(
+        ObservationSearchArea.model_validate(area), body, "Case coordinator"
+    )
 
 
 @router.patch("/{request_id}")

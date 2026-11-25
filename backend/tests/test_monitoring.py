@@ -29,9 +29,9 @@ def future():
     return (datetime.now(UTC) + timedelta(hours=48)).isoformat()
 
 
-def monitored(client):
+def monitored(client, **extra):
     body = payload()
-    body.update(purpose="monitoring", next_review_at=future())
+    body.update(purpose="monitoring", next_review_at=future(), **extra)
     r = client.post(BASE, json=body)
     assert r.status_code == 201, r.text
     return r.json()
@@ -68,7 +68,8 @@ def terminal(client, row):
 
 def test_chain_requires_approval_and_rejects_repeat(monitoring_api):
     client, factory, _ = monitoring_api
-    row = monitored(client)
+    area = {"center": {"latitude": 45, "longitude": -123}, "radius_m": 750}
+    row = monitored(client, search_area=area)
     assert decide(client, row).status_code == 409
     row = terminal(client, row)
     r = decide(client, row)
@@ -79,6 +80,7 @@ def test_chain_requires_approval_and_rejects_repeat(monitoring_api):
     assert child["previous_request_id"] == row["request_id"]
     assert child["monitoring_root_request_id"] == row["request_id"]
     assert child["execution_kind"] == "recorded_demo"
+    assert child["search_area"] == area
     assert decide(client, row).status_code == 409
     queue = client.get("/network/monitoring").json()
     assert [x["request_id"] for x in queue["items"]] == [child_id]

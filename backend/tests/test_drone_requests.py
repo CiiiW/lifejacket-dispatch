@@ -250,3 +250,138 @@ def test_metadata_image_and_terminal_state_validation(drone_api):
     assert response.status_code == 422
     assert change(client, row, "cancelled").status_code == 200
     assert change(client, row, "approved", operator="x").status_code == 409
+
+
+
+@pytest.mark.parametrize("execution_kind", ["recorded_demo", "operator_flight"])
+def test_search_area_uses_report_pin_or_saves_override(drone_api, execution_kind):
+    client, _, _ = drone_api
+    body = {**payload(), "execution_kind": execution_kind, "search_area": {}}
+    response = client.post(BASE, json=body)
+    assert response.status_code == 201, response.text
+    default = response.json()
+    assert default["search_area"] == {
+        "center": {"latitude": 1, "longitude": 2},
+        "radius_m": 1000,
+    }
+    assert client.post(BASE, json=body).json()["request_id"] == default["request_id"]
+    custom_area = {"center": {"latitude": 45, "longitude": -123}, "radius_m": 750}
+    assert client.post(BASE, json={**body, "search_area": custom_area}).status_code == 409
+    response = client.post(BASE, json={**body, "request_key": "custom", "search_area": custom_area})
+    assert response.status_code == 201, response.text
+    detail = client.get(BASE + "/" + response.json()["request_id"]).json()
+    assert detail["search_area"] == custom_area
+    assert detail["target_location"]["latitude"] == 1
+
+
+def test_invalid_search_area_and_missing_report_location(drone_api):
+    client, factory, _ = drone_api
+    body = payload(search_area={"radius_m": 0})
+    assert client.post(BASE, json=body).status_code == 422
+    with factory() as session:
+        incident = session.get(IncidentRow, "case")
+        incident.latitude = incident.longitude = None
+        session.commit()
+    assert client.post(BASE, json={**body, "search_area": {}}).status_code == 422
+    assert client.post(BASE, json=payload()).status_code == 201
+
+
+def test_case_patrol_previews_and_replays_a_first_pass(drone_api):
+    from lifejacket.geo import haversine_km
+
+    client, _, current = drone_api
+    center = {"latitude": 36.8, "longitude": -121.79}
+    row = create(client, search_area={"center": center, "radius_m": 1000})
+    path = f"{BASE}/{row['request_id']}/patrol"
+    response = client.post(path, json={})
+    assert response.status_code == 200, response.text
+    assert "no-store" in response.headers["cache-control"]
+    preview = response.json()
+    plan = preview["plan"]
+    assert plan["status"] == "ready_for_review"
+    assert preview["simulation"] is None
+    assert plan["mission"]["home"] == center
+    assert any(point["phase"] == "survey" for point in plan["waypoints"])
+    assert all(
+        haversine_km(center["latitude"], center["longitude"], point["latitude"], point["longitude"])
+        < 0.15
+        for point in plan["waypoints"]
+    )
+    assert client.post(path, json={"plan_id": "0" * 24}).status_code == 409
+
+    result = client.post(path, json={"plan_id": plan["plan_id"]})
+    assert result.status_code == 200, result.text
+    simulation = result.json()["simulation"]
+    assert simulation["synthetic"] is True and simulation["status"] == "completed"
+    assert simulation["samples"][-1]["phase"] == "land"
+    assert client.get(f"{BASE}/{row['request_id']}").json()["status"] == "requested"
+
+    current[0] = actor("B")
+    assert client.post(path, json={}).status_code == 403
+
+
+def test_case_patrol_reports_when_simulator_cannot_use_search_area(drone_api):
+    client, _, _ = drone_api
+    row = create(client)
+    response = client.post(f"{BASE}/{row['request_id']}/patrol", json={})
+    assert response.status_code == 200 and response.json()["plan"] is None
+    out_of_bounds = {
+        **payload(search_area={"center": {"latitude": 58, "longitude": -134}}),
+        "request_key": "out-of-bounds",
+    }
+    created = client.post(BASE, json=out_of_bounds)
+    assert created.status_code == 201, created.text
+    response = client.post(f"{BASE}/{created.json()['request_id']}/patrol", json={})
+    assert response.status_code == 200
+    assert "California" in response.json()["unavailable_reason"]
+
+
+def test_case_patrol_sends_only_the_reviewed_plan_to_sitl(drone_api, monkeypatch):
+    from pathlib import Path
+
+    from lifejacket.drones import observation_patrol
+
+    client, _, current = drone_api
+    home = {"latitude": 36.8, "longitude": -121.79}
+    row = create(client, search_area={"center": home, "radius_m": 1000})
+    path = f"{BASE}/{row['request_id']}/patrol"
+    monkeypatch.delenv("LIFEJACKET_PATROL_SITL_BINARY", raising=False)
+    preview = client.post(path, json={}).json()
+    plan = preview["plan"]
+    body = {"plan_id": plan["plan_id"], "send_to_simulator": True}
+    assert preview["simulator_available"] is False
+    disabled = client.post(path, json=body).json()
+    assert disabled["upload"] is None and "disabled" in disabled["unavailable_reason"]
+
+    binary = Path("/simulator/arducopter")
+    uploads = []
+
+    def verify(configured_binary, reviewed_plan, plan_id):
+        uploads.append(plan_id)
+        assert configured_binary == binary
+        assert reviewed_plan.mission.home.model_dump() == home
+        assert reviewed_plan.plan_id == plan_id
+        return len(reviewed_plan.waypoints)
+
+    monkeypatch.setattr(observation_patrol, "simulator_binary", lambda: binary)
+    monkeypatch.setattr(observation_patrol, "verify_patrol_upload", verify)
+    assert client.post(path, json={}).json()["simulator_available"] is True
+    assert client.post(path, json={"send_to_simulator": True}).status_code == 422
+    assert client.post(path, json={**body, "plan_id": "0" * 24}).status_code == 409
+    assert client.post(path, json={**body, "endpoint": "tcp:10.0.0.1:5760"}).status_code == 422
+    assert uploads == []
+
+    response = client.post(path, json=body)
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert result["simulation"] is None
+    assert result["upload"] == {
+        "backend": "ardupilot_sitl",
+        "plan_id": plan["plan_id"],
+        "mission_items": len(plan["waypoints"]),
+        "flight_started": False,
+    }
+    assert client.get(f"{BASE}/{row['request_id']}").json()["status"] == "requested"
+    current[0] = actor("B")
+    assert client.post(path, json=body).status_code == 403
+    assert uploads == [plan["plan_id"]]

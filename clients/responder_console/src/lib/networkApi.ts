@@ -1,3 +1,4 @@
+import type { DronePlan, DroneSimulationResult } from './api';
 /** Dedicated authenticated network access. Never falls back to the legacy API. */
 export type NetworkRole =
   'reporter' | 'volunteer' | 'noaa' | 'center_coordinator' | 'rescuer';
@@ -197,6 +198,8 @@ export function createNetworkApi(
   }
   return {
     drones: {
+      patrol:(id,r,planId,s,sendToSimulator)=>request(followupPath(id,r)+'/patrol',s,
+        planId ? {plan_id:planId, ...(sendToSimulator && {send_to_simulator:true})} : {},'POST'),
       detectorInput:(id,r,e,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-input',s),
       attachDetectorResult:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-result',s,b,'POST'),
       frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
@@ -276,6 +279,16 @@ export interface MonitoringItem {
  case_id:string; request_id:string; queue_status:string; request_status:string;
  next_review_at:string|null; objective:string; execution_kind:string; can_decide:boolean;
 }
+export interface ObservationPoint {
+  latitude: number;
+  longitude: number;
+}
+
+export interface ObservationSearchArea {
+  center: ObservationPoint;
+  radius_m: number;
+}
+
 export interface DroneRequest {
  previous_request_id?:string; monitoring_root_request_id?:string;
  monitoring_decision?:{action:string;reason:string;next_request_id:string|null};
@@ -284,6 +297,7 @@ export interface DroneRequest {
   purpose: string; execution_kind: string; objective: string; reason: string;
   operator: string | null; next_review_at: string | null; escalation_criteria: string;
   target_location: {latitude:number|null;longitude:number|null};
+  search_area?: ObservationSearchArea;
   allowed_transitions: string[]; outcome: string|null; review_note?:string;
   evidence?: {evidence_id:string;description:string;source_kind:string;source_url:string|null;
     captured_at:string|null;frame_offset_seconds:number|null;rights_note:string;received_at?:string;source_session_id?:string}[];
@@ -328,7 +342,21 @@ export interface ReminderStatus {
   enabled:boolean;destination_configured:boolean;worker:{running:boolean;last_seen_at:string|null};
   items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
 }
+export interface PatrolPreview {
+  plan: DronePlan | null;
+  simulation: DroneSimulationResult | null;
+  unavailable_reason: string | null;
+  simulator_available?: boolean;
+  upload?: {
+    backend: 'ardupilot_sitl';
+    plan_id: string;
+    mission_items: number;
+    flight_started: false;
+  } | null;
+}
+
 export interface DroneApi {
+  patrol?(id: string, requestId: string, planId: string | null, signal?: AbortSignal, sendToSimulator?: boolean): Promise<PatrolPreview>;
   detectorInput?(id:string,r:string,e:string,signal?:AbortSignal):Promise<Record<string,unknown>>;
   attachDetectorResult?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   recordings?(id:string,r:string,t:string,signal?:AbortSignal):Promise<{enabled:boolean;recordings:DroneRecording[];time_note:string}>;

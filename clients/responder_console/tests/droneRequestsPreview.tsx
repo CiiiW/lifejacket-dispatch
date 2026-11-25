@@ -7,7 +7,17 @@ import { Shell } from '../src/screens/NetworkScreen.web';
 import { NetworkError, type DroneApi, type DroneRequest, type DroneSuggestion } from '../src/lib/networkApi';
 
 
+const reportLocation = { latitude: 36.8, longitude: -121.79 };
+
 const suggestionFor=(scenario:string):DroneSuggestion|null=>{
+  if (scenario === 'bear_report') {
+    const base = suggestionFor('low_group')!;
+    return {
+      ...base, suggestion_id: '6'.repeat(64), title: 'Distant bear report needs verification',
+      objective: 'Look for the reported animal and record observable activity.',
+      reason: 'The report gives an approximate location and the available image is inconclusive.',
+    };
+  }
   if(scenario==='photo_gap'){
     const base=suggestionFor('low_group')!;
     return {...base,suggestion_id:'5'.repeat(64),title:'Clearer photo requested',
@@ -71,7 +81,17 @@ function fixtureAttention(){
     })).filter(item=>!acknowledged.has(item.attention_key));
   });
 }
+const uploadedPhotos = new Map<string, Blob>();
 const api:DroneApi={
+  async patrol(_id, requestId, planId, signal, sendToSimulator) {
+    const area = rows.find(row => row.request_id === requestId)?.search_area;
+    if (!area) return { plan: null, simulation: null, unavailable_reason: 'Save a search area first.' };
+    const response = await fetch('/patrol', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ area, plan_id: planId, send_to_simulator: sendToSimulator }), signal,
+    });
+    return response.json();
+  },
   async attention(offset){const items=fixtureAttention();return {items:clone(items.slice(offset,offset+50)),total:items.length};},
   async acknowledgeAttention(_id,r,b){
     const row=rows.find(x=>x.request_id===r)!;
@@ -103,7 +123,8 @@ const api:DroneApi={
     let child:DroneRequest|undefined;
     if(b.action==='continue'){
       child=await api.create(id,{purpose:'monitoring',objective:row.objective,reason:b.reason,
-        execution_kind:row.execution_kind,next_review_at:b.next_review_at,escalation_criteria:row.escalation_criteria});
+        execution_kind:row.execution_kind,next_review_at:b.next_review_at,escalation_criteria:row.escalation_criteria,
+        search_area:row.search_area});
       const stored=rows.find(x=>x.request_id===child!.request_id)!;
       stored.previous_request_id=r;stored.monitoring_root_request_id=row.monitoring_root_request_id||r;
     }
@@ -111,7 +132,7 @@ const api:DroneApi={
     row.events!.push({revision:row.revision,kind:'monitoring_'+b.action,recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator',note:String(b.reason)});
     return clone(row);
   },
-  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='photo_gap'?.9:scenario==='unidentified'?null:scenario==='low_group'?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
+  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='photo_gap'?.9:scenario==='unidentified'?null:['low_group','bear_report'].includes(scenario)?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
   async detail(_id,r){return clone(rows.find(x=>x.request_id===r)!);},
   async create(id,b){
     if (b.purpose==='monitoring' && !b.next_review_at) throw new Error('Monitoring requires a review time');
@@ -122,7 +143,7 @@ const api:DroneApi={
       if(b.execution_kind==='operator_flight')consumed.add(String(b.suggestion_id));
     }
     const row={...b,request_id:String(++seq).padStart(32,'0'),case_id:id,status:'requested',revision:0,
-      operator:null,outcome:null,target_location:{latitude:36.8,longitude:-121.79},
+      operator:null,outcome:null,target_location:reportLocation,
       allowed_transitions:next.requested,evidence:[],events:[{revision:0,kind:'requested',
         recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator'}]} as unknown as DroneRequest;
     rows.unshift(row);return clone(row);
@@ -130,7 +151,7 @@ const api:DroneApi={
   async change(_id,r,b){
     const row=rows.find(x=>x.request_id===r)!;
     if(row.revision!==b.revision)throw new Error('Stale fixture update');
-    if(b.status==='evidence_ready'&&!row.evidence?.length)throw new Error('Attach synthetic evidence first');
+    if(b.status==='evidence_ready'&&!row.evidence?.length)throw new Error('Attach evidence first');
     Object.assign(row,b,{revision:row.revision+1,allowed_transitions:next[String(b.status)]||[]});
     if(b.status==='reviewed')row.review_note=String(b.note);
     row.events!.push({revision:row.revision,kind:String(b.status),recorded_at:new Date().toISOString(),
@@ -140,11 +161,38 @@ const api:DroneApi={
   async upload(_id,r,form){
     const row=rows.find(x=>x.request_id===r)!;
     const meta=JSON.parse(String(form.get('metadata')));
-    row.revision++;row.evidence!.push({...meta,evidence_id:'synthetic-frame'});
+    const image = form.get('photo');
+    if (row.status !== 'in_progress' || row.revision !== meta.revision || !(image instanceof Blob)) {
+      throw new Error('Invalid fixture evidence upload');
+    }
+    const evidenceId = crypto.randomUUID();
+    uploadedPhotos.set(evidenceId, image);
+    row.revision++;
+    row.evidence!.push({...meta,evidence_id:evidenceId});
+    row.events!.push({revision:row.revision,kind:'evidence_attached',
+      recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator'});
     return {};
   },
-  async photo(){if(comparisonDenied)throw new NetworkError(403);return new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
+  async photo(_id,_requestId,evidenceId){if(comparisonDenied)throw new NetworkError(403);return uploadedPhotos.get(evidenceId) ?? new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
 };
+function BearReviewExercise() {
+  const [cue, setCue] = React.useState('obstructed');
+  return <section className="lj-panel" style={{ marginTop: 18 }}>
+    <h2>Simulated coordinator review</h2>
+    <p>These practice observations are scripted separately from the clip. Reviewers can use the evidence and record their own outcome.</p>
+    <label>Practice observation<select value={cue} onChange={event => setCue(event.target.value)}>
+      <option value="mobile">Moving freely in the visible segment</option>
+      <option value="obstructed">Partly hidden · movement unclear</option>
+      <option value="limp">Repeated limp · cause unclear</option>
+      <option value="entanglement">Visible line restricting movement</option>
+    </select></label>
+    {cue === 'mobile' && <p>Example finding: movement looks unrestricted in this view. Record the observation and its limits.</p>}
+    {cue === 'obstructed' && <p>Example finding: the view is obstructed. Leave the outcome still uncertain and request another view.</p>}
+    {cue === 'limp' && <p>Example finding: possible mobility issue. Describe the repeated movement and flag it for qualified review.</p>}
+    {cue === 'entanglement' && <p>Example finding: apparent restriction of movement. Record escalation needed for the wildlife coordinator.</p>}
+  </section>;
+}
+
 function Demo(){
   const [version,setVersion]=React.useState(0);
   const [request,setRequest]=React.useState<string>();
@@ -154,6 +202,7 @@ function Demo(){
     <section className="lj-panel"><label>Test scenario<select value={scenario} onChange={e=>{
       scenario=e.target.value;setVersion(v=>v+1);
     }}><option value="low_group">Animal group unclear · 62%</option>
+      <option value="bear_report">Bear report · approximate location</option>
       <option value="low_condition">Animal group clear · condition uncertain · 58%</option>
       <option value="confident_group">Exact species unclear · animal group confident · 95%</option>
       <option value="urgent">Urgent response · condition uncertain</option>
@@ -207,7 +256,8 @@ function Demo(){
     <button className="secondary" onClick={()=>{comparisonDenied=true;}}>Fixture: deny evidence access</button>
     <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
-    <DroneRequests key={version} api={api} id="fictional-case" initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
+    <DroneRequests key={version} api={api} id="fictional-case" reportedLocation={reportLocation} offlineMap initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
+    {scenario === 'bear_report' && <BearReviewExercise/>}
   </Shell>;
 }
 createRoot(document.getElementById('root')!).render(<Demo/>);

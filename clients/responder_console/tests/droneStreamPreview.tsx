@@ -16,6 +16,10 @@ const root=createRoot(document.getElementById('root')!);
 void api.list('case').then(list=>root.render(<main style={{maxWidth:1000,margin:'auto',padding:28}}>
   <h1>LifeJacket · observation rehearsal</h1>
   {simulateOutage && <p>Temporary API outage rehearsal: preview requests 3–5 fail, then recover.</p>}
-  <p className="lj-notice">Isolated synthetic case and recorded test-pattern video. AI outputs are fixtures; reminders are captured locally. No real account, animal or aircraft.</p>
-  <DroneRequests api={api} id="case" initialRequestId={list.requests[0]?.request_id}/>
+  <p className="lj-notice">
+    {list.requests[0]?.execution_kind === 'operator_flight'
+      ? 'Disposable phone connection rehearsal. Keep the aircraft stationary with motors off. Saved frames are discarded when the rehearsal ends. AI outputs are fixtures.'
+      : 'Isolated synthetic case and recorded test-pattern video. AI outputs are fixtures; reminders are captured locally. No real account, animal or aircraft.'}
+  </p>
+  <DroneRequests api={api} id="case" reportedLocation={list.requests[0]?.target_location} offlineMap initialRequestId={list.requests[0]?.request_id}/>
 </main>)).catch(()=>root.render(<p>Rehearsal unavailable.</p>));

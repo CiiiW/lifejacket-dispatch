@@ -8,6 +8,16 @@ from pydantic import AwareDatetime, Field, model_validator
 from lifejacket.models.drone_intake import Contract
 
 
+class ObservationPoint(Contract):
+    latitude: float = Field(ge=-90, le=90)
+    longitude: float = Field(ge=-180, le=180)
+
+
+class ObservationSearchArea(Contract):
+    center: ObservationPoint | None = None
+    radius_m: int = Field(default=1000, gt=0, le=10_000_000)
+
+
 class CreateRequest(Contract):
     suggestion_id: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     purpose: Literal["verification", "monitoring"]
@@ -16,6 +26,7 @@ class CreateRequest(Contract):
     execution_kind: Literal["recorded_demo", "operator_flight"]
     next_review_at: AwareDatetime | None = None
     escalation_criteria: str = Field(min_length=1, max_length=1000)
+    search_area: ObservationSearchArea | None = None
     request_key: str = Field(pattern=r"^[A-Za-z0-9_-]{1,64}$")
 
     @model_validator(mode="after")

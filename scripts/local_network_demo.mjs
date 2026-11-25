@@ -67,7 +67,7 @@ if (values.install) {
     const server = createServer((request, response) => {
       response.setHeader('Cache-Control', 'no-store');
       response.setHeader('X-Content-Type-Options', 'nosniff');
-      response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://tile.openstreetmap.org; connect-src https://tile.openstreetmap.org; worker-src blob:; child-src blob:; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
+      response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://tile.openstreetmap.org; media-src blob:; connect-src https://tile.openstreetmap.org; worker-src blob:; child-src blob:; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
       if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405, { Allow: 'GET, HEAD' }); response.end(); return; }
       const path = new URL(request.url, 'http://localhost').pathname;
       if (path === '/console' || path === '/reporter' || path === '/connected') { response.writeHead(303, { Location: `.${path}/` }); response.end(); return; }
