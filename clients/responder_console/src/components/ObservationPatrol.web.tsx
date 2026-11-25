@@ -101,8 +101,11 @@ export default function ObservationPatrol({
         onClick={() => setZoom(!zoom)}>{zoom ? 'Show full search area' : 'Zoom to patrol'}</button>}
       {plan.status === 'ready_for_review' && <details>
         <summary>Mission handoff</summary>
-        <p className="lj-muted">Download the survey coordinates for route drafting in Litchi Legacy Mission Hub.
-          The pilot chooses the launch point and reviews altitude, speed, return and signal-loss settings in Litchi.</p>
+        <p>For the Mini 2, download the draft, then choose <strong>Missions → Import</strong> in{' '}
+          <a href="https://flylitchi.com/hub" target="_blank" rel="noreferrer">Litchi Legacy Mission Hub</a>.
+          Save it privately and use <strong>Waypoint → Load</strong> in Litchi on the iPhone.</p>
+        <p className="lj-muted">The export contains survey coordinates only. The pilot reviews the site, route, altitude,
+          speed, return and signal-loss behavior before flight.</p>
         <button type="button" className="secondary" disabled={busy}
           onClick={() => downloadSurveyWaypoints(plan)}>Download draft waypoints (CSV)</button>
         <p className="lj-muted">{preview?.simulator_available

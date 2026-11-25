@@ -54,9 +54,9 @@ The observation loop above is the **existing-case workflow**. Automatic patrol-t
 |---|---|---|
 | 📱 Public reporting | Photo-based intake, animal selection, guided questions and structured reports | Identification and condition findings can be wrong; human review matters |
 | 🧭 Coordination | Case views, rule-based triage, responder ranking, role-scoped sharing and recorded response updates | No automatic rescue dispatch or verified field operations |
-| 📹 Drone evidence | Private stream receiver, sampled live preview, received-video recording/playback, saved frames and a unified observation workspace | Mini 2 video reached LifeJacket over private Wi-Fi using DJI Fly and Litchi during motors-off tests |
+| 📹 Drone evidence | Private stream receiver, Litchi and DJI Fly setup instructions, sampled preview, recording/playback and saved frames on the case | Both apps streamed Mini 2 video to LifeJacket over private Wi-Fi with the motors off |
 | 🔎 Detector handoff | Export original frames/metadata; validate and import detector results; select an animal for existing assessment and triage | Trained YOLO execution and automatic live frame shortlisting are not connected yet |
-| ✈️ Flight planning | Survey routes, ArduPilot upload/readback and draft waypoint export to Litchi | The exported route loaded on the Mini 2 pilot's iPhone. Outdoor waypoint flight with live video remains untested |
+| ✈️ Flight planning | Editable case search area, patrol preview, draft waypoint export to Litchi and ArduPilot upload/readback | The exported route loaded on the pilot's iPhone. Outdoor waypoint flight with live video remains untested |
 
 ### The drone evidence loop
 
@@ -64,7 +64,7 @@ The observation loop above is the **existing-case workflow**. Automatic patrol-t
 
 **Latest drone workflow:** received video → saved original frame → validated detector results → selected-animal assessment → triage suggestion → coordinator review. Only selected still images are sent for model assessment; original received recordings remain available for review.
 
-[Drone workflow and teammate handoff](docs/drone_detector_handoff.md) · [Recording and playback setup](docs/drone_recordings.md)
+[Mini 2 ground-test results and setup](docs/drone_live_workflow.md#ground-test-results-on-2026-11-24) · [Detector handoff](docs/drone_detector_handoff.md) · [Recording and playback setup](docs/drone_recordings.md)
 
 ## Where AI fits—and where it does not
 
@@ -85,14 +85,15 @@ The code uses names such as `IdentificationAgent`; those class names do not mean
 
 ## Evidence and evaluation
 
-We distinguish **model quality**, **software integration** and **flight simulation**. A passing software test is not evidence of successful wildlife rescue.
+The results cover model evaluation, software integration, flight simulation and motors-off hardware checks.
 
 | Evidence | Result | What it establishes—and what it does not |
 |---|---|---|
 | Saved first-look identification evaluation | **98/102** animal groups correct; **71/102** species correct | Exploratory comparison with source labels on original public photos. Not aerial detection, injury accuracy or calibrated confidence |
 | Recorded NOAA sea-lion footage pilot | **12 frames processed, 0 failures** | Processing path ran with real footage and Vertex inference. Candidate boxes were not expert-validated individual animals |
 | ArduPilot simulation | **1.18 m** maximum route deviation across **280** telemetry samples | A documented simulated survey completed and landed. Not a physical drone flight |
-| Latest focused drone checks, November 11 | **57 backend**, **17 client API**, **3 interface tests** passed | Integration, permissions, provenance and review behavior using synthetic evidence/scripted model responses. Not a full-suite total or live-model accuracy result |
+| Case patrol simulator handoff | **16 mission items** uploaded and read back through both the coordinator API and browser demo | ArduPilot verified the planned commands, coordinates and altitudes with the simulator disarmed |
+| Mini 2 ground checks, November 24 | **12 draft waypoints** loaded on the iPhone. DJI Fly and Litchi each streamed the camera to LifeJacket | Waypoint sync and private RTMP worked in separate motors-off checks. The outdoor combined test is pending |
 
 **Inspect the evidence:** [identification outputs](research/identification_eval/results/first_look_20261005_172608_detail.csv) · [real-photo limitations](docs/real_drone_validation_2026-11-07.md) · [NOAA video pilot](docs/noaa_video_pilot.md) · [simulation record](docs/sitl.md#flight-test-findings) · [drone acceptance workflow](docs/drone_detector_handoff.md#software-rehearsal-results)
 
@@ -100,7 +101,7 @@ We distinguish **model quality**, **software integration** and **flight simulati
 
 - Improved rescue response times or animal survival.
 - Expert-validated injury assessment from aerial footage.
-- A working Mini 2 → iPhone → LifeJacket field connection or autonomous Mini 2 flight.
+- Outdoor Mini 2 waypoint flight with simultaneous streaming to LifeJacket.
 - Trained YOLO execution, automatic live shortlisting or patrol alert creation.
 - Production readiness, verified operating permissions or a partner rescue-center field trial.
 
@@ -125,6 +126,20 @@ Open **<http://127.0.0.1:8082>** on that computer.
 
 These are **two independent UI fixtures**, not a connected live rescue. They do not call Gemini, send SMS, share case state or require a database. Reloading resets their fixture state. Initial dependency installation needs internet access.
 
+### Try the case-linked drone demo
+
+With the Node dependencies above and the [Python backend dependencies](#developer-setup) installed, run:
+
+```bash
+npm run demo:drone-requests
+```
+
+Open **<http://127.0.0.1:8084>**, select **Bear report · approximate location**,
+review the suggested request and create it. Choose **Preview patrol** to see
+the proposed pass. **Run simulated patrol** replays the route on the map.
+Under **Mission handoff**, download a draft for Litchi or use **Send to
+simulator** to verify an upload when [local ArduPilot is configured](docs/sitl.md#send-a-case-patrol-to-the-simulator).
+
 ### Reproduce the connected workflow
 
 The connected scenario uses real API routes with disposable data and scripted adapters:
@@ -135,8 +150,10 @@ python scripts/run_connected_scenario.py --with-drone
 
 This requires the backend/development dependencies. For generated-video streaming, recording and saved-frame review, follow the separate [live observation rehearsal](docs/drone_live_workflow.md#connected-browser-rehearsal); it also requires MediaMTX and FFmpeg. Hardware is not needed for that software rehearsal.
 
+### Developer setup
+
 <details>
-<summary><strong>Developer setup and deeper technical documentation</strong></summary>
+<summary><strong>Python dependencies and technical references</strong></summary>
 
 Install Python 3.11+ and use an isolated environment:
 

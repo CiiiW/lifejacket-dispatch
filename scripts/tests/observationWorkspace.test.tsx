@@ -4,7 +4,8 @@ import { JSDOM } from 'jsdom';
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ObservationWorkspace } from '../../clients/responder_console/src/screens/ObservationWorkspace.web';
-import { type DroneApi, type DroneRequest, NetworkError } from '../../clients/responder_console/src/lib/networkApi';
+import { DroneStreamPanel } from '../../clients/responder_console/src/screens/DroneStreamPanel.web';
+import { type DroneApi, type DroneRequest, type DroneStream, NetworkError } from '../../clients/responder_console/src/lib/networkApi';
 
 const request:DroneRequest={request_id:'request',case_id:'case',revision:1,status:'in_progress',purpose:'verification',execution_kind:'recorded_demo',objective:'Check the reported animal',reason:'Additional view needed',operator:'Demo operator',next_review_at:null,escalation_criteria:'Visible entanglement',target_location:{latitude:null,longitude:null},allowed_transitions:['evidence_ready'],outcome:null,evidence:[
   {evidence_id:'photo1',description:'Full body',source_kind:'sample_footage',source_url:null,captured_at:null,frame_offset_seconds:null,rights_note:'Synthetic test only',received_at:'2026-11-11T12:00:04Z',source_session_id:'stream'},
@@ -87,4 +88,55 @@ test('a denied evidence read clears the image and reports lost access',async()=>
     assert.equal(failures,1);
     assert.ok(document.querySelector('[role="alert"]'));
   }finally{await act(async()=>root.unmount());dom.window.close();}
+});
+
+test('the operator can copy or reveal the address until the publishing session expires',async()=>{
+  const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/'});
+  Object.assign(globalThis,{window:dom.window,document:dom.window.document,HTMLElement:dom.window.HTMLElement,IS_REACT_ACT_ENVIRONMENT:true});
+  const originalClipboard=Object.getOwnPropertyDescriptor(navigator,'clipboard');
+  let failCopy=false;
+  let copied='';
+  Object.defineProperty(navigator,'clipboard',{configurable:true,value:{
+    writeText:async(address:string)=>{
+      if(failCopy)throw new Error('Clipboard blocked');
+      copied=address;
+    },
+  }});
+  const address='rtmp://127.0.0.1:19350/live/fixture';
+  const stream:DroneStream={stream_id:'stream',request_id:'request',status:'waiting',created_at:'2026-11-24T23:00:00Z',
+    expires_at:'2026-11-24T23:30:00Z',last_frame_at:null,frame_age_seconds:null,can_manage:true,
+    source:{label:'Ground test',source_kind:'operator_capture',source_url:null,rights_note:'Fixture'}};
+  const api:DroneApi={
+    streams:async()=>({streams:[]}),
+    openStream:async()=>({...stream,publish_url:address}),
+    streamPreview:async()=>({...stream}),
+  } as DroneApi;
+  const root=createRoot(document.getElementById('root')!);
+  const button=(label:string)=>Array.from(document.querySelectorAll('button')).find(b=>b.textContent===label)!;
+  try{
+    await act(async()=>root.render(<DroneStreamPanel api={api} id="case" request={{...request,execution_kind:'operator_flight'}}
+      onChanged={async()=>{}} onUnavailable={()=>assert.fail('Unexpected access failure')}/>));
+    await act(async()=>document.querySelector('form')!.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
+    assert.match(document.body.textContent!,/Connect Litchi or DJI Fly/);
+    const input=document.querySelector<HTMLInputElement>('input[readonly]')!;
+    assert.equal(input.type,'password');
+    await act(async()=>button('Copy private address').click());
+    assert.equal(copied,address);
+    assert.match(document.body.textContent!,/Private address copied/);
+    failCopy=true;
+    await act(async()=>button('Copy private address').click());
+    assert.match(document.body.textContent!,/Clipboard unavailable/);
+    assert.equal(input.type,'password');
+    await act(async()=>button('Show private address').click());
+    assert.equal(input.type,'text');
+    stream.status='expired';
+    stream.can_manage=false;
+    await act(async()=>new Promise(resolve=>setTimeout(resolve,1100)));
+    assert.equal(document.querySelector('input[readonly]'),null);
+  }finally{
+    await act(async()=>root.unmount());
+    dom.window.close();
+    if(originalClipboard)Object.defineProperty(navigator,'clipboard',originalClipboard);
+    else Reflect.deleteProperty(navigator,'clipboard');
+  }
 });
