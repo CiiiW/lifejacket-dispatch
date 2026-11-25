@@ -83,12 +83,12 @@ function fixtureAttention(){
 }
 const uploadedPhotos = new Map<string, Blob>();
 const api:DroneApi={
-  async patrol(_id, requestId, planId, signal) {
+  async patrol(_id, requestId, planId, signal, sendToSimulator) {
     const area = rows.find(row => row.request_id === requestId)?.search_area;
     if (!area) return { plan: null, simulation: null, unavailable_reason: 'Save a search area first.' };
     const response = await fetch('/patrol', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ area, plan_id: planId }), signal,
+      body: JSON.stringify({ area, plan_id: planId, send_to_simulator: sendToSimulator }), signal,
     });
     return response.json();
   },

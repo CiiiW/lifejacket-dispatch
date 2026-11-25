@@ -73,6 +73,9 @@ against the older main without reviewing the parent changes.
   The demo's scripted practice observations are independent of the selected clip.
 - Case patrol previews use the saved search area to build a short first pass under the existing
   California simulator profile. The simulation does not estimate camera coverage.
+- **Mission handoff** offers a draft Litchi waypoint CSV and, on configured hosts, **Send to simulator**
+  for ArduPilot upload and readback. Both the coordinator console and fixture use the same planner.
+  See [simulator setup](sitl.md#send-a-case-patrol-to-the-simulator).
 - The fixture ships with synthetic frames only. API tests use a temporary database and test identity overrides;
   there is no production mock-auth flag.
 

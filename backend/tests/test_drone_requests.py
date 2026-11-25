@@ -334,3 +334,54 @@ def test_case_patrol_reports_when_simulator_cannot_use_search_area(drone_api):
     response = client.post(f"{BASE}/{created.json()['request_id']}/patrol", json={})
     assert response.status_code == 200
     assert "California" in response.json()["unavailable_reason"]
+
+
+def test_case_patrol_sends_only_the_reviewed_plan_to_sitl(drone_api, monkeypatch):
+    from pathlib import Path
+
+    from lifejacket.drones import observation_patrol
+
+    client, _, current = drone_api
+    home = {"latitude": 36.8, "longitude": -121.79}
+    row = create(client, search_area={"center": home, "radius_m": 1000})
+    path = f"{BASE}/{row['request_id']}/patrol"
+    monkeypatch.delenv("LIFEJACKET_PATROL_SITL_BINARY", raising=False)
+    preview = client.post(path, json={}).json()
+    plan = preview["plan"]
+    body = {"plan_id": plan["plan_id"], "send_to_simulator": True}
+    assert preview["simulator_available"] is False
+    disabled = client.post(path, json=body).json()
+    assert disabled["upload"] is None and "disabled" in disabled["unavailable_reason"]
+
+    binary = Path("/simulator/arducopter")
+    uploads = []
+
+    def verify(configured_binary, reviewed_plan, plan_id):
+        uploads.append(plan_id)
+        assert configured_binary == binary
+        assert reviewed_plan.mission.home.model_dump() == home
+        assert reviewed_plan.plan_id == plan_id
+        return len(reviewed_plan.waypoints)
+
+    monkeypatch.setattr(observation_patrol, "simulator_binary", lambda: binary)
+    monkeypatch.setattr(observation_patrol, "verify_patrol_upload", verify)
+    assert client.post(path, json={}).json()["simulator_available"] is True
+    assert client.post(path, json={"send_to_simulator": True}).status_code == 422
+    assert client.post(path, json={**body, "plan_id": "0" * 24}).status_code == 409
+    assert client.post(path, json={**body, "endpoint": "tcp:10.0.0.1:5760"}).status_code == 422
+    assert uploads == []
+
+    response = client.post(path, json=body)
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert result["simulation"] is None
+    assert result["upload"] == {
+        "backend": "ardupilot_sitl",
+        "plan_id": plan["plan_id"],
+        "mission_items": len(plan["waypoints"]),
+        "flight_started": False,
+    }
+    assert client.get(f"{BASE}/{row['request_id']}").json()["status"] == "requested"
+    current[0] = actor("B")
+    assert client.post(path, json=body).status_code == 403
+    assert uploads == [plan["plan_id"]]

@@ -1,8 +1,16 @@
-"""Build a short, simulated first pass inside a saved observation search area."""
+"""Plan, replay or verify a simulator upload for a case observation patrol."""
+
+import logging
+from typing import Literal
 
 from fastapi import HTTPException
-from pydantic import Field, ValidationError
+from pydantic import Field, ValidationError, model_validator
 
+from lifejacket.drones.patrol_sitl import (
+    SimulatorBusyError,
+    simulator_binary,
+    verify_patrol_upload,
+)
 from lifejacket.drones.planner import plan_mission
 from lifejacket.drones.simulator import MockSimulator
 from lifejacket.geo import bounding_box
@@ -15,16 +23,33 @@ from lifejacket.models.drone import (
 from lifejacket.models.drone_requests import ObservationSearchArea
 
 FIRST_PASS_HALF_WIDTH_M = 100
+logger = logging.getLogger(__name__)
 
 
 class PatrolRequest(DroneModel):
     plan_id: str | None = Field(default=None, pattern=r"^[0-9a-f]{24}$")
+    send_to_simulator: bool = False
+
+    @model_validator(mode="after")
+    def require_review(self) -> "PatrolRequest":
+        if self.send_to_simulator and self.plan_id is None:
+            raise ValueError("Preview the patrol before sending it to the simulator")
+        return self
+
+
+class PatrolUploadReceipt(DroneModel):
+    backend: Literal["ardupilot_sitl"] = "ardupilot_sitl"
+    plan_id: str
+    mission_items: int
+    flight_started: Literal[False] = False
 
 
 class PatrolPreview(DroneModel):
     plan: DronePlan | None = None
     simulation: DroneSimulationResult | None = None
     unavailable_reason: str | None = None
+    simulator_available: bool = False
+    upload: PatrolUploadReceipt | None = None
 
 
 def observation_patrol(
@@ -47,11 +72,27 @@ def observation_patrol(
             unavailable_reason="This search area is outside the California simulation region."
         )
     plan = plan_mission(mission)
+    binary = simulator_binary()
+    result = PatrolPreview(plan=plan, simulator_available=binary is not None)
     if body.plan_id is None:
-        return PatrolPreview(plan=plan)
+        return result
     if body.plan_id != plan.plan_id:
         raise HTTPException(409, "Patrol plan changed; preview it again")
     if plan.status == "blocked":
         raise HTTPException(409, "Blocked patrol plans cannot run")
-    simulation = MockSimulator().run(plan, "nominal", reviewed_by)
-    return PatrolPreview(plan=plan, simulation=simulation)
+    if not body.send_to_simulator:
+        result.simulation = MockSimulator().run(plan, "nominal", reviewed_by)
+        return result
+    if binary is None:
+        result.unavailable_reason = "ArduPilot simulation is disabled on this server."
+        return result
+    try:
+        count = verify_patrol_upload(binary, plan, body.plan_id)
+    except SimulatorBusyError as exc:
+        result.unavailable_reason = str(exc)
+    except (OSError, RuntimeError, ImportError, ValueError):
+        logger.exception("ArduPilot patrol upload could not be verified")
+        result.unavailable_reason = "ArduPilot could not verify the upload. Try again."
+    else:
+        result.upload = PatrolUploadReceipt(plan_id=plan.plan_id, mission_items=count)
+    return result

@@ -10,7 +10,10 @@ if __name__ == "__main__":
     data = json.loads(sys.argv[1])
     preview = observation_patrol(
         ObservationSearchArea.model_validate(data["area"]),
-        PatrolRequest(plan_id=data.get("plan_id")),
+        PatrolRequest(
+            plan_id=data.get("plan_id"),
+            send_to_simulator=data.get("send_to_simulator", False),
+        ),
         "Demo coordinator",
     )
     print(preview.model_dump_json())

@@ -41,7 +41,8 @@ if(!process.argv.includes('--check')){
       try {
         const payload = JSON.parse(input);
         const {stdout} = await run(python, [join(root, 'scripts/preview_observation_patrol.py'), JSON.stringify(payload)], {
-          cwd: root, env: {...process.env, PYTHONPATH: join(root, 'backend')}, timeout: 5000,
+          cwd: root, env: {...process.env, PYTHONPATH: join(root, 'backend')},
+          timeout: payload.send_to_simulator === true ? 15000 : 5000,
         });
         res.writeHead(200, {'Content-Type': 'application/json'}).end(stdout);
       } catch {

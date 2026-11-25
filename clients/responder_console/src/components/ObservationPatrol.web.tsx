@@ -24,7 +24,7 @@ export default function ObservationPatrol({
 }: {
   area: ObservationSearchArea;
   offline?: boolean;
-  previewPatrol?: (planId: string | null, signal: AbortSignal) => ReturnType<NonNullable<DroneApi['patrol']>>;
+  previewPatrol?: (planId: string | null, signal: AbortSignal, sendToSimulator?: boolean) => ReturnType<NonNullable<DroneApi['patrol']>>;
 }) {
   const [preview, setPreview] = useState<PatrolPreview | null>(null);
   const [simulation, setSimulation] = useState<DroneSimulationResult | null>(null);
@@ -46,25 +46,29 @@ export default function ObservationPatrol({
     return () => clearTimeout(timer);
   }, [frame, playing, simulation]);
 
-  async function planOrRun(planId: string | null) {
+  async function planOrRun(planId: string | null, sendToSimulator = false) {
     if (!previewPatrol || pending.current) return;
     const request = new AbortController();
     pending.current = request;
     setBusy(true);
     setError('');
-    setPlaying(false);
-    setSimulation(null);
-    setFrame(0);
+    if (!sendToSimulator) {
+      setPlaying(false);
+      setSimulation(null);
+      setFrame(0);
+    }
     try {
-      const result = await previewPatrol(planId, request.signal);
+      const result = await previewPatrol(planId, request.signal, sendToSimulator);
       if (request.signal.aborted) return;
       setPreview(result);
-      setZoom(Boolean(result.plan?.waypoints.length));
-      setSimulation(result.simulation);
-      setPlaying(Boolean(result.simulation));
+      if (!sendToSimulator) {
+        setZoom(Boolean(result.plan?.waypoints.length));
+        setSimulation(result.simulation);
+        setPlaying(Boolean(result.simulation));
+      }
     } catch (failure) {
       if (!request.signal.aborted) {
-        setPreview(null);
+        if (!sendToSimulator) setPreview(null);
         setError(networkErrorMessage(failure));
       }
     } finally {
@@ -96,11 +100,19 @@ export default function ObservationPatrol({
       {plan.waypoints.length > 0 && <button type="button" className="secondary"
         onClick={() => setZoom(!zoom)}>{zoom ? 'Show full search area' : 'Zoom to patrol'}</button>}
       {plan.status === 'ready_for_review' && <details>
-        <summary>Pilot handoff</summary>
+        <summary>Mission handoff</summary>
         <p className="lj-muted">Download the survey coordinates for route drafting in Litchi Legacy Mission Hub.
           The pilot chooses the launch point and reviews altitude, speed, return and signal-loss settings in Litchi.</p>
         <button type="button" className="secondary" disabled={busy}
           onClick={() => downloadSurveyWaypoints(plan)}>Download draft waypoints (CSV)</button>
+        <p className="lj-muted">{preview?.simulator_available
+          ? 'Verify this route by uploading it to a temporary ArduPilot simulator. The simulator closes after readback.'
+          : 'ArduPilot upload verification is disabled on this server.'}</p>
+        <button type="button" className="secondary" disabled={busy || !preview?.simulator_available}
+          onClick={() => void planOrRun(plan.plan_id, true)}>Send to simulator</button>
+        {!busy && !error && preview?.upload && <p role="status">
+          ArduPilot verified the upload and readback of {preview.upload.mission_items} mission items. Flight not started.
+        </p>}
       </details>}
       {plan.status === 'ready_for_review' && !simulation && <button type="button" disabled={busy}
         onClick={() => void planOrRun(plan.plan_id)}>Run simulated patrol</button>}

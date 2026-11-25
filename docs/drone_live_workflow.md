@@ -102,7 +102,7 @@ phone before rehearsing a waypoint flight. Set aside 30 minutes for the connecti
 check. Start with a case-linked publishing address that the phone can reach,
 save and reopen a frame, and check reconnect and session expiry.
 
-On a saved case search area, choose **Preview patrol**, expand **Pilot handoff**,
+On a saved case search area, choose **Preview patrol**, expand **Mission handoff**,
 and download the draft waypoint CSV. The file has survey coordinates only.
 It omits the simulator's launch, return and landing points and the simulated
 altitude. Use the coordinates as a drafting reference in Litchi or try a CSV import

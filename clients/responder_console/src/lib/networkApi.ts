@@ -198,7 +198,8 @@ export function createNetworkApi(
   }
   return {
     drones: {
-      patrol:(id,r,planId,s)=>request(followupPath(id,r)+'/patrol',s,planId ? {plan_id:planId} : {},'POST'),
+      patrol:(id,r,planId,s,sendToSimulator)=>request(followupPath(id,r)+'/patrol',s,
+        planId ? {plan_id:planId, ...(sendToSimulator && {send_to_simulator:true})} : {},'POST'),
       detectorInput:(id,r,e,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-input',s),
       attachDetectorResult:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-result',s,b,'POST'),
       frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
@@ -341,10 +342,17 @@ export interface PatrolPreview {
   plan: DronePlan | null;
   simulation: DroneSimulationResult | null;
   unavailable_reason: string | null;
+  simulator_available?: boolean;
+  upload?: {
+    backend: 'ardupilot_sitl';
+    plan_id: string;
+    mission_items: number;
+    flight_started: false;
+  } | null;
 }
 
 export interface DroneApi {
-  patrol?(id: string, requestId: string, planId: string | null, signal?: AbortSignal): Promise<PatrolPreview>;
+  patrol?(id: string, requestId: string, planId: string | null, signal?: AbortSignal, sendToSimulator?: boolean): Promise<PatrolPreview>;
   detectorInput?(id:string,r:string,e:string,signal?:AbortSignal):Promise<Record<string,unknown>>;
   attachDetectorResult?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   recordings?(id:string,r:string,t:string,signal?:AbortSignal):Promise<{enabled:boolean;recordings:DroneRecording[];time_note:string}>;

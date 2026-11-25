@@ -176,7 +176,7 @@ export function DroneRequests({
       {selected.search_area && <ObservationPatrol key={selected.request_id}
         area={selected.search_area} offline={offlineMap}
         previewPatrol={canCreate && api.patrol
-          ? (planId, signal) => api.patrol!(id, selected.request_id, planId, signal)
+          ? (planId, signal, sendToSimulator) => api.patrol!(id, selected.request_id, planId, signal, sendToSimulator)
           : undefined}/>}
       <ObservationWorkspace key={'workspace-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
         onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
