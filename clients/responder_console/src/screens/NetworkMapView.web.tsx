@@ -4,7 +4,7 @@
  * the permissioned `/network/cases` API through `rows`; nothing here fetches.
  */
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 import TriageMap from '../components/TriageMap.web';
@@ -47,12 +47,12 @@ export default function NetworkMapView({
   const [panelWidth, setPanelWidth] = useState(PANEL_DEFAULT_WIDTH);
   const [expanded, setExpanded] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const layout = useRef<HTMLDivElement>(null);
 
-  const clamp = useCallback(
-    (width: number) =>
-      Math.max(PANEL_MIN_WIDTH, Math.min(width, window.innerWidth - MAP_MIN_WIDTH)),
-    [],
-  );
+  const clamp = useCallback((width: number) => {
+    const available = layout.current?.clientWidth ?? window.innerWidth;
+    return Math.max(PANEL_MIN_WIDTH, Math.min(width, available - MAP_MIN_WIDTH - 8));
+  }, []);
 
   // Dragging left widens the panel. Listeners sit on `window` so the drag keeps
   // tracking over the map canvas, which would otherwise swallow the events.
@@ -92,25 +92,8 @@ export default function NetworkMapView({
   return (
     <>
     <style>{mapControlCss}</style>
-    <div
-      style={{
-        display: 'flex',
-        height: 'calc(100vh - 260px)',
-        minHeight: 520,
-        border: '1px solid #ffffff20',
-        borderRadius: 14,
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          position: 'relative',
-          flex: 1,
-          minWidth: MAP_MIN_WIDTH,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+    <div className="lj-map-layout" ref={layout}>
+      <div className="lj-map-canvas">
         <TriageMap
           pins={pins}
           centres={NO_CENTRES}
@@ -122,8 +105,7 @@ export default function NetworkMapView({
           popup={false}
         />
         <button
-          className="secondary"
-          style={{ position: 'absolute', top: 12, left: 12, zIndex: 5, background: '#0b132b' }}
+          className="secondary lj-map-toggle"
           aria-label={expanded ? 'Show case list' : 'Expand map'}
           onClick={() => setExpanded((current) => !current)}
         >
@@ -142,26 +124,17 @@ export default function NetworkMapView({
           onKeyDown={dividerKey}
           onDoubleClick={() => setPanelWidth(PANEL_DEFAULT_WIDTH)}
           title="Drag to resize · double-click to reset"
-          style={{
-            flex: '0 0 8px',
-            cursor: 'col-resize',
-            touchAction: 'none',
-            background: dragging ? '#48cae4' : '#ffffff20',
-          }}
+          className="lj-map-divider"
+          data-dragging={dragging}
         />
       )}
 
       {/* Kept mounted but hidden while expanded so scroll position survives. */}
       <aside
         aria-label="Cases"
-        style={{
-          display: expanded ? 'none' : 'block',
-          flex: `0 0 ${panelWidth}px`,
-          width: panelWidth,
-          overflowY: 'auto',
-          padding: 16,
-          background: '#101a38',
-        }}
+        className="lj-map-cases"
+        hidden={expanded}
+        style={{ flexBasis: panelWidth }}
       >
         {selected ? (
           <>
