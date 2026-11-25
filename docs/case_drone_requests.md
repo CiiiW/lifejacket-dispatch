@@ -1,7 +1,7 @@
 # Case-linked drone observation requests
 
-Status: implemented on `charlotte-case-drone-requests`; not deployed.
-Hardware: Charlotte has purchased an original DJI Mini 2.
+Status: prototype in [draft PR #25](https://github.com/CiiiW/lifejacket-dispatch/pull/25).
+Hardware: original DJI Mini 2 and iPhone tested with motors off.
 This increment connects case requests to reviewed still-image evidence; it does not control aircraft.
 
 ## Workflow
@@ -75,7 +75,8 @@ against the older main without reviewing the parent changes.
   California simulator profile. The simulation does not estimate camera coverage.
 - **Mission handoff** offers a draft Litchi waypoint CSV and, on configured hosts, **Send to simulator**
   for ArduPilot upload and readback. Both the coordinator console and fixture use the same planner.
-  See [simulator setup](sitl.md#send-a-case-patrol-to-the-simulator).
+  See [simulator setup](sitl.md#send-a-case-patrol-to-the-simulator) and the
+  [Mini 2 handoff and streaming results](drone_live_workflow.md#ground-test-results-on-2026-11-24).
 - The fixture ships with synthetic frames only. API tests use a temporary database and test identity overrides;
   there is no production mock-auth flag.
 
@@ -84,7 +85,7 @@ against the older main without reviewing the parent changes.
 Automatic low-confidence suggestions are implemented as described below; calibration and additional evidence-gap rules remain future work.
 The existing 0.90 identification threshold is unvalidated and is not used as an automatic flight rule.
 Monitoring recurrence, notifications, operator self-service, video upload/automatic frame import into requests,
-live managed-auth deployment and Mini 2 flight/camera integration remain future work.
+live managed-auth deployment and outdoor Mini 2 waypoint flight with simultaneous streaming remain future work.
 
 Validation on 2026-11-06: full backend 579 passed / 15 skipped; final focused drone suite 13 passed.
 TypeScript, lint and fictional browser monitoring lifecycle passed.

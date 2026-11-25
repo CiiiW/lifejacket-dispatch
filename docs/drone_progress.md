@@ -1,6 +1,17 @@
 # Drone progress tracker
 
-Last updated: **2026-11-06** · Working branch: **charlotte-mini2-demo**
+## Ground-test update on 2026-11-24
+
+The original Mini 2 passed motors-off checks for both waypoint handoff and private
+live video to LifeJacket. The fictional patrol imported into Legacy Mission Hub
+and loaded on the iPhone. DJI Fly and Litchi each streamed the camera separately
+to the local Mac receiver. The outdoor test will check route following and video
+reception together. See the [ground-test record](drone_live_workflow.md#ground-test-results-on-2026-11-24)
+and [draft PR #25](https://github.com/CiiiW/lifejacket-dispatch/pull/25).
+
+## Earlier engineering tracker
+
+Original working branch: **charlotte-mini2-demo**. Entries below describe earlier checkpoints.
 
 ## Current scope and decisions
 

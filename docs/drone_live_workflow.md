@@ -1,6 +1,6 @@
 # Case-linked live observation workflow
 
-Status: software rehearsal; DJI Mini 2 / iPhone hardware acceptance remains pending.
+Status: motors-off waypoint handoff and live video verified on the DJI Mini 2 and iPhone. Outdoor waypoint flight with live video remains untested.
 
 ## Coordinator workflow
 
@@ -67,7 +67,7 @@ Record device model and iOS version, DJI Fly version, original Mini 2 model, con
 - Interrupt the uplink: the coordinator must see interrupted rather than an apparently current frozen image. Reconnect, end, and confirm the old publishing address is rejected.
 - After this passes, separately evaluate actual aerial footage, battery/radio behavior, target visibility and the usefulness of the evidence with the appropriate operator. None of these are established by the software rehearsal.
 
-Operator naming does not grant an app account or flight permission. The coordinator hands over the short-lived publishing address; the operator uses DJI Fly and operates the aircraft manually. No DJI SDK integration, autonomous dispatch, waypoint flight or automatic animal tracking is implemented.
+The coordinator gives the operator a short-lived publishing address. The pilot uses DJI Fly or Litchi for the camera feed and uses Litchi to review the waypoint route. LifeJacket generates the plan and receives evidence for coordinator review.
 
 ### Start an isolated phone rehearsal
 
@@ -95,30 +95,48 @@ frame, interrupt the phone connection, reconnect, and end the session. The
 launcher does not record the full stream in this mode. Stopping it discards
 the test case and its saved frames.
 
-## First waypoint rehearsal
+## Litchi ground rehearsal
 
-Complete the motors-off DJI Fly connection test with the Mini 2, controller and
-phone before rehearsing a waypoint flight. Set aside 30 minutes for the connection
-check. Start with a case-linked publishing address that the phone can reach,
-save and reopen a frame, and check reconnect and session expiry.
+1. On a fictional case with a saved search area, choose **Preview patrol → Mission
+   handoff → Download draft waypoints (CSV)**. The export contains survey coordinates
+   only. Launch, return, landing and altitude settings require pilot review.
+2. Open [Litchi Legacy Mission Hub](https://flylitchi.com/hub), choose **Missions →
+   Import**, check the points on the map and save the mission privately. On iPhone,
+   use the same Litchi account and load the mission in **Waypoint → Load**.
+3. Keep the Mini 2 stationary with its motors off. Fully close DJI Fly before
+   opening **Litchi for DJI Drones**. Confirm that the camera image is visible in
+   **FPV** before starting the stream.
+4. Open a private LifeJacket observation session. On the same private network,
+   paste the full publishing address into **FPV → Share Video Stream → RTMP
+   Streaming**. Verify **Connected** and an advancing reception timestamp
+   in LifeJacket. Tap **End Live** in Litchi when done.
 
-On a saved case search area, choose **Preview patrol**, expand **Mission handoff**,
-and download the draft waypoint CSV. The file has survey coordinates only.
-It omits the simulator's launch, return and landing points and the simulated
-altitude. Use the coordinates as a drafting reference in Litchi or try a CSV import
-in [Litchi Legacy Mission Hub](https://flylitchi.com/help#missionhub).
+In this rehearsal, Litchi did not initially appear in iOS Local Network settings.
+Selecting **Share Video Stream → Litchi Vue** triggered the permission prompt.
+An initial RTMP attempt showed **End Live** in Litchi while LifeJacket received
+no frames and the camera view in Litchi was blank. DJI Fly then published to the
+same address as a receiver check. After the Litchi camera connection was
+restored, retrying RTMP produced fresh frames in LifeJacket.
 
-The pilot reviews or shortens the proposed path for the site, selects a launch
-point, and checks actual altitude, speed, finish action and link-loss behavior
-in Litchi before starting any mission. Check the imported points against the
-approved route and confirm that the pilot can interrupt the waypoint run. For a
-first test, use a staged target and attach evidence from the aircraft recording.
-DJI Fly streaming and Litchi waypoint execution require separate hardware checks
-before assuming a live feed during a waypoint mission.
+## Ground-test results on 2026-11-24
+
+| Check | Observed result |
+| --- | --- |
+| Waypoint handoff | Twelve fictional survey points exported from LifeJacket, imported into Legacy Mission Hub and saved privately. The pilot confirmed the route loaded on the iPhone. |
+| DJI Fly video | Original Mini 2 camera reached the private Mac receiver over local Wi-Fi. A case frame was saved and reopened. Interruption and reconnection were observed. |
+| Litchi video | After restoring the FPV camera view, the same receiver showed **Connected**, displayed a sampled preview and received fresh frames at 10:50:04 and 10:50:10 PM Chicago time. These are server reception times. |
+
+All checks were motors-off. For the outdoor acceptance test, the pilot will
+review a short route planned for the actual site. Verify that fresh frames
+continue arriving while Litchi follows that route, record interruptions and
+pilot takeover behavior, and measure camera-to-screen delay. Leave the fictional
+ground-test mission as a rehearsal artifact. Aerial observation usefulness
+requires its own review.
 
 ## Primary references
 
-- DJI Fly livestream operation: https://repair.dji.com/help/content?customId=en-us03400006727&lang=en&paperDocType=paper&re=US&spaceId=34
+- [DJI Fly livestream operation](https://repair.dji.com/help/content?customId=en-us03400006727&lang=en&paperDocType=paper&re=US&spaceId=34)
+- [Litchi connection, video sharing and mission sync](https://flylitchi.com/help)
 - MediaMTX HTTP authentication and RTMP credentials: https://mediamtx.org/docs/features/authentication
 - MediaMTX configuration: https://mediamtx.org/docs/references/configuration-file
 - MediaMTX releases: https://github.com/bluenviron/mediamtx/releases
@@ -145,7 +163,7 @@ Open the authenticated Workbench proxy for port 8935. The server is loopback-onl
 - 14 client API checks, TypeScript validation and Ruff passed.
 - Browser rehearsal saved an exact displayed frame, ended the stream, submitted evidence for review, recorded still uncertain, and scheduled follow-up. Stream reception time remained separate from unknown camera capture time; the original case assessment was preserved.
 - Bad publishing credentials, non-lead writes, unrelated case access, stale frames, expiry and loss of case participation are covered. The transport check verified interruption, reconnect and publisher disconnection on end. The receiver exits with its media children on termination.
-- Physical Mini 2/iPhone pairing, DJI Fly URL handling, private-network reachability, camera-to-screen delay and usefulness of aerial wildlife footage remain hardware acceptance items.
+- This software rehearsal preceded the November 24 Mini 2 ground checks.
 
 
 See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest coverage review and remaining software, deployment and hardware acceptance items.
@@ -154,7 +172,7 @@ See [drone_workflow_readiness.md](drone_workflow_readiness.md) for the latest co
 Saved-frame AI jobs and closed-app reminder delivery are described in [drone_followup.md](drone_followup.md).
 
 
-## Setup boundaries before the hardware test
+## Rehearsal setup boundaries
 
 The rehearsal uses the actual coordinator request/stream/evidence UI and case APIs.
 It is intentionally disposable: stopping it removes its generated media and test database.
