@@ -250,3 +250,37 @@ def test_metadata_image_and_terminal_state_validation(drone_api):
     assert response.status_code == 422
     assert change(client, row, "cancelled").status_code == 200
     assert change(client, row, "approved", operator="x").status_code == 409
+
+
+
+@pytest.mark.parametrize("execution_kind", ["recorded_demo", "operator_flight"])
+def test_search_area_uses_report_pin_or_saves_override(drone_api, execution_kind):
+    client, _, _ = drone_api
+    body = {**payload(), "execution_kind": execution_kind, "search_area": {}}
+    response = client.post(BASE, json=body)
+    assert response.status_code == 201, response.text
+    default = response.json()
+    assert default["search_area"] == {
+        "center": {"latitude": 1, "longitude": 2},
+        "radius_m": 1000,
+    }
+    assert client.post(BASE, json=body).json()["request_id"] == default["request_id"]
+    custom_area = {"center": {"latitude": 45, "longitude": -123}, "radius_m": 750}
+    assert client.post(BASE, json={**body, "search_area": custom_area}).status_code == 409
+    response = client.post(BASE, json={**body, "request_key": "custom", "search_area": custom_area})
+    assert response.status_code == 201, response.text
+    detail = client.get(BASE + "/" + response.json()["request_id"]).json()
+    assert detail["search_area"] == custom_area
+    assert detail["target_location"]["latitude"] == 1
+
+
+def test_invalid_search_area_and_missing_report_location(drone_api):
+    client, factory, _ = drone_api
+    body = payload(search_area={"radius_m": 0})
+    assert client.post(BASE, json=body).status_code == 422
+    with factory() as session:
+        incident = session.get(IncidentRow, "case")
+        incident.latitude = incident.longitude = None
+        session.commit()
+    assert client.post(BASE, json={**body, "search_area": {}}).status_code == 422
+    assert client.post(BASE, json=payload()).status_code == 201

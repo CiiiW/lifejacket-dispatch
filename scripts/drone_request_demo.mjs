@@ -8,15 +8,16 @@ const output=join(root,'var','drone-request-preview');
 await mkdir(output,{recursive:true});
 await build({absWorkingDir:root,entryPoints:['clients/responder_console/tests/droneRequestsPreview.tsx'],
   bundle:true,outfile:join(output,'app.js'),platform:'browser',jsx:'automatic',
-  define:{'process.env':'{}'},nodePaths:[join(root,'clients/responder_console/node_modules')]});
-await writeFile(join(output,'index.html'),'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LifeJacket fictional drone requests</title></head><body style="margin:0"><div id="root"></div><script src="./app.js"></script></body></html>');
+  alias:{'react-native':'react-native-web'},define:{'process.env':'{}',__DEV__:'false'},nodePaths:[join(root,'clients/responder_console/node_modules')]});
+await writeFile(join(output,'index.html'),'<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="./app.css"><title>LifeJacket fictional drone requests</title></head><body style="margin:0"><div id="root"></div><script src="./app.js"></script></body></html>');
 if(!process.argv.includes('--check')){
   const routes=new Map([['/', ['text/html',await readFile(join(output,'index.html'))]],
-    ['/app.js',['text/javascript',await readFile(join(output,'app.js'))]]]);
+    ['/app.js',['text/javascript',await readFile(join(output,'app.js'))]],
+    ['/app.css',['text/css',await readFile(join(output,'app.css'))]]]);
   createServer((req,res)=>{
     res.setHeader('Cache-Control','no-store');
     res.setHeader('X-Content-Type-Options','nosniff');
-    res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src blob: data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
+    res.setHeader('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src blob: data:; worker-src blob:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
     const route=routes.get(new URL(req.url,'http://localhost').pathname);
     if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);res.end();return;}
     if(!route){res.writeHead(404);res.end();return;}

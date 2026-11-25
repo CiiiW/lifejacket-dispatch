@@ -113,6 +113,7 @@ def run_drone_checks(client, case_id, headers, check, sessions):
         "execution_kind": "recorded_demo",
         "escalation_criteria": suggestion["escalation_criteria"],
         "request_key": "connected-drone-request",
+        "search_area": {},
         "suggestion_id": suggestion["suggestion_id"],
     }
     check(
@@ -131,6 +132,11 @@ def run_drone_checks(client, case_id, headers, check, sessions):
     detail_path = path + "/" + request_id
     if created["case_id"] != case_id or created["status"] != "requested":
         raise AssertionError("Creation must stay attached to the same case and unapproved")
+    if created["search_area"] != {
+        "center": {"latitude": 36.8, "longitude": -121.79},
+        "radius_m": 1000,
+    }:
+        raise AssertionError("The demo search area must default to the report location")
     retry = check(
         "Retry reuses the same request",
         client.post(path, headers=lead, json=body),

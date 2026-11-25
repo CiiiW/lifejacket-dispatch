@@ -491,7 +491,7 @@ function CaseDetail({
         detail and media access is added.
       </p>
       <CaseActions api={api} id={id} />
-      {api.drones && <DroneRequests key={id} api={api.drones} id={id} initialRequestId={droneRequest} onMonitoringChange={onMonitoringChange}/>}
+      {api.drones && <DroneRequests key={id} api={api.drones} id={id} reportedLocation={row} initialRequestId={droneRequest} onMonitoringChange={onMonitoringChange}/>}
     </section>
   );
 }

@@ -276,6 +276,16 @@ export interface MonitoringItem {
  case_id:string; request_id:string; queue_status:string; request_status:string;
  next_review_at:string|null; objective:string; execution_kind:string; can_decide:boolean;
 }
+export interface ObservationPoint {
+  latitude: number;
+  longitude: number;
+}
+
+export interface ObservationSearchArea {
+  center: ObservationPoint;
+  radius_m: number;
+}
+
 export interface DroneRequest {
  previous_request_id?:string; monitoring_root_request_id?:string;
  monitoring_decision?:{action:string;reason:string;next_request_id:string|null};
@@ -284,6 +294,7 @@ export interface DroneRequest {
   purpose: string; execution_kind: string; objective: string; reason: string;
   operator: string | null; next_review_at: string | null; escalation_criteria: string;
   target_location: {latitude:number|null;longitude:number|null};
+  search_area?: ObservationSearchArea;
   allowed_transitions: string[]; outcome: string|null; review_note?:string;
   evidence?: {evidence_id:string;description:string;source_kind:string;source_url:string|null;
     captured_at:string|null;frame_offset_seconds:number|null;rights_note:string;received_at?:string;source_session_id?:string}[];

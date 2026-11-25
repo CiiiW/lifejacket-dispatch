@@ -7,7 +7,17 @@ import { Shell } from '../src/screens/NetworkScreen.web';
 import { NetworkError, type DroneApi, type DroneRequest, type DroneSuggestion } from '../src/lib/networkApi';
 
 
+const reportLocation = { latitude: 36.8, longitude: -121.79 };
+
 const suggestionFor=(scenario:string):DroneSuggestion|null=>{
+  if (scenario === 'bear_report') {
+    const base = suggestionFor('low_group')!;
+    return {
+      ...base, suggestion_id: '6'.repeat(64), title: 'Distant bear report needs verification',
+      objective: 'Look for the reported animal and record observable activity.',
+      reason: 'The report gives an approximate location and the available image is inconclusive.',
+    };
+  }
   if(scenario==='photo_gap'){
     const base=suggestionFor('low_group')!;
     return {...base,suggestion_id:'5'.repeat(64),title:'Clearer photo requested',
@@ -103,7 +113,8 @@ const api:DroneApi={
     let child:DroneRequest|undefined;
     if(b.action==='continue'){
       child=await api.create(id,{purpose:'monitoring',objective:row.objective,reason:b.reason,
-        execution_kind:row.execution_kind,next_review_at:b.next_review_at,escalation_criteria:row.escalation_criteria});
+        execution_kind:row.execution_kind,next_review_at:b.next_review_at,escalation_criteria:row.escalation_criteria,
+        search_area:row.search_area});
       const stored=rows.find(x=>x.request_id===child!.request_id)!;
       stored.previous_request_id=r;stored.monitoring_root_request_id=row.monitoring_root_request_id||r;
     }
@@ -111,7 +122,7 @@ const api:DroneApi={
     row.events!.push({revision:row.revision,kind:'monitoring_'+b.action,recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator',note:String(b.reason)});
     return clone(row);
   },
-  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='photo_gap'?.9:scenario==='unidentified'?null:scenario==='low_group'?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
+  async list(){return {can_create:true,requests:clone(rows),suggestions:clone(available()),confidence_summary:{animal_group:scenario==='photo_gap'?.9:scenario==='unidentified'?null:['low_group','bear_report'].includes(scenario)?0.62:scenario==='confident_group'?0.95:0.98,condition:scenario==='missing_scores'?null:['low_condition','urgent'].includes(scenario)?0.58:0.98}};},
   async detail(_id,r){return clone(rows.find(x=>x.request_id===r)!);},
   async create(id,b){
     if (b.purpose==='monitoring' && !b.next_review_at) throw new Error('Monitoring requires a review time');
@@ -122,7 +133,7 @@ const api:DroneApi={
       if(b.execution_kind==='operator_flight')consumed.add(String(b.suggestion_id));
     }
     const row={...b,request_id:String(++seq).padStart(32,'0'),case_id:id,status:'requested',revision:0,
-      operator:null,outcome:null,target_location:{latitude:36.8,longitude:-121.79},
+      operator:null,outcome:null,target_location:reportLocation,
       allowed_transitions:next.requested,evidence:[],events:[{revision:0,kind:'requested',
         recorded_at:new Date().toISOString(),actor_user_id:'fictional-coordinator'}]} as unknown as DroneRequest;
     rows.unshift(row);return clone(row);
@@ -154,6 +165,7 @@ function Demo(){
     <section className="lj-panel"><label>Test scenario<select value={scenario} onChange={e=>{
       scenario=e.target.value;setVersion(v=>v+1);
     }}><option value="low_group">Animal group unclear · 62%</option>
+      <option value="bear_report">Bear report · approximate location</option>
       <option value="low_condition">Animal group clear · condition uncertain · 58%</option>
       <option value="confident_group">Exact species unclear · animal group confident · 95%</option>
       <option value="urgent">Urgent response · condition uncertain</option>
@@ -207,7 +219,7 @@ function Demo(){
     <button className="secondary" onClick={()=>{comparisonDenied=true;}}>Fixture: deny evidence access</button>
     <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
-    <DroneRequests key={version} api={api} id="fictional-case" initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
+    <DroneRequests key={version} api={api} id="fictional-case" reportedLocation={reportLocation} offlineMap initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
   </Shell>;
 }
 createRoot(document.getElementById('root')!).render(<Demo/>);

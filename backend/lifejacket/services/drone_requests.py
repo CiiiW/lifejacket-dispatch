@@ -10,6 +10,11 @@ from sqlalchemy import select, update
 from lifejacket.access.policy import Role, can_update_case, participating_org
 from lifejacket.api.routes.network_actions import context
 from lifejacket.config import settings
+from lifejacket.models.drone_requests import (
+    CreateRequest,
+    ObservationPoint,
+    ObservationSearchArea,
+)
 from lifejacket.models.tables import (
     CaseDroneEventRow,
     CaseDroneEvidenceRow,
@@ -151,6 +156,8 @@ def create(session, actor, case_id, body, *, commit=True):
         )
     )
     payload = body.model_dump(mode="json", exclude={"request_key"})
+    if body.search_area is None:
+        payload.pop("search_area")
     if previous:
         if previous.payload_json["original_request"] != payload:
             raise HTTPException(409, "Request key was already used for different details")
@@ -172,6 +179,19 @@ def create(session, actor, case_id, body, *, commit=True):
         if suggestion is None or body.purpose != "verification":
             raise HTTPException(409, "Suggestion changed; refresh and review current evidence")
     incident = session.get(IncidentRow, case_id)
+    search_area = {}
+    if body.search_area:
+        center = body.search_area.center
+        if center is None:
+            if incident.latitude is None or incident.longitude is None:
+                raise HTTPException(
+                    422, "Choose a search center when the report has no location"
+                )
+            center = ObservationPoint(latitude=incident.latitude, longitude=incident.longitude)
+        search_area["search_area"] = {
+            "center": center.model_dump(),
+            "radius_m": body.search_area.radius_m,
+        }
     row = CaseDroneRequestRow(
         request_id=uuid.uuid4().hex,
         incident_id=case_id,
@@ -181,6 +201,7 @@ def create(session, actor, case_id, body, *, commit=True):
         payload_json={
             **payload,
             "original_request": payload,
+            **search_area,
             "suggestion_snapshot": suggestion,
             "target_location": {
                 "latitude": incident.latitude,
@@ -315,8 +336,6 @@ def monitoring_decision(session, actor, case_id, request_id, body):
     compare_swap(session, row, body.revision, payload_json=payload)
     child_id = None
     if body.action == "continue":
-        from lifejacket.models.drone_requests import CreateRequest
-
         created = create(
             session,
             actor,
@@ -329,6 +348,11 @@ def monitoring_decision(session, actor, case_id, request_id, body):
                 escalation_criteria=payload["escalation_criteria"],
                 next_review_at=body.next_review_at,
                 request_key="followup_" + request_id,
+                search_area=(
+                    ObservationSearchArea.model_validate(payload["search_area"])
+                    if payload.get("search_area")
+                    else None
+                ),
             ),
             commit=False,
         )
