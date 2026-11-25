@@ -307,11 +307,15 @@ export interface DroneRecording {
   recording_id:string;status:string;started_at:string;updated_at:string;
   segments:RecordingSegment[];error_code:string|null;
 }
+export interface DroneStreamFrame {
+  frame_id:string;received_at:string;jpeg_base64:string;sha256:string;
+}
 export interface DroneStream {
   stream_id:string;request_id:string;status:string;created_at:string;expires_at:string;
   last_frame_at:string|null;frame_age_seconds:number|null;can_manage:boolean;publish_url?:string;recording_enabled?:boolean;
   source:{label:string;source_kind:string;source_url:string|null;rights_note:string};
-  frame?:{frame_id:string;received_at:string;jpeg_base64:string;sha256:string}|null;
+  frame?:DroneStreamFrame|null;
+  suggested_frame?:(DroneStreamFrame & {demo_plush_score:number;age_seconds:number})|null;
 }
 export interface FrameAnalysis {
   provider?:string;analysis_id:string;evidence_id:string;stage:'detect'|'assess';status:string;request_key:string;
@@ -333,7 +337,7 @@ export interface DroneApi {
   queueFrameAnalysis?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   reminderStatus?(id:string,r:string,signal?:AbortSignal):Promise<ReminderStatus>;
   retryReminder?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;
-  streams?(id:string,r:string,signal?:AbortSignal):Promise<{streams:DroneStream[]}>;
+  streams?(id:string,r:string,signal?:AbortSignal):Promise<{streams:DroneStream[];demo_suggestions_available?:boolean}>;
   openStream?(id:string,r:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<DroneStream>;
   streamPreview?(id:string,r:string,t:string,signal?:AbortSignal):Promise<DroneStream>;
   captureStream?(id:string,r:string,t:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<unknown>;

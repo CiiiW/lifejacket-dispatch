@@ -215,3 +215,48 @@ def test_one_session_revision_source_and_flags(stream_api, monkeypatch):
     )
     monkeypatch.setattr(settings, "drone_streams_enabled", False)
     assert client.get(path).status_code == 503
+
+
+def test_demo_suggestion_captures_exact_frame(stream_api, monkeypatch):
+    client, factory, _ = stream_api
+    row = start(client)
+    path = BASE + "/" + row["request_id"] + "/streams"
+    body = {
+        "revision": row["revision"],
+        "label": "Staged Tim",
+        "rights_note": "Rehearsal",
+        "source_url": "https://example.org/staged-tim",
+        "demo_suggestions": True,
+    }
+    assert client.post(path, json=body).status_code == 409
+    monkeypatch.setattr(settings, "drone_stream_demo_suggestions_enabled", True)
+    response = client.post(path, json=body)
+    assert response.status_code == 201, response.text
+    grant = response.json()
+    sid = grant["stream_id"]
+    endpoint = f"{path}/{sid}"
+    candidate_id = "a" * 32
+    with factory() as db:
+        assert streams.receive(db, sid, jpeg(), frame_id=candidate_id)
+        assert streams.receive(db, sid, jpeg("red"))
+        streams.mark_demo_candidate(db, sid, candidate_id, 0.71)
+        assert not db.scalars(select(CaseDroneEvidenceRow)).all()
+    view = client.get(endpoint + "/preview").json()
+    assert view["frame"]["frame_id"] != candidate_id
+    assert view["suggested_frame"]["frame_id"] == candidate_id
+    saved = client.post(
+        endpoint + "/capture",
+        json={
+            "revision": grant["revision"],
+            "frame_id": candidate_id,
+            "description": "Staged Tim",
+        },
+    )
+    assert saved.status_code == 201, saved.text
+    with factory() as db:
+        evidence = db.get(CaseDroneEvidenceRow, saved.json()["evidence_id"])
+        assert evidence.sha256 == view["suggested_frame"]["sha256"]
+        assert evidence.metadata_json["demo_suggestion"]["score"] == 0.71
+    ended = client.post(endpoint + "/end", json={"revision": saved.json()["revision"]})
+    assert ended.status_code == 200
+    assert client.get(endpoint + "/preview").json()["suggested_frame"] is None

@@ -14,6 +14,8 @@ import sys
 import tempfile
 import threading
 import time
+import uuid
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -60,6 +62,11 @@ def control(path, method="GET"):
 
 def run(args):
     streams.enabled()
+    detector = None
+    if args.demo_yolox_model and settings.drone_stream_demo_suggestions_enabled:
+        from lifejacket.drones.demo_plush import DemoPlushDetector
+
+        detector = DemoPlushDetector(args.demo_yolox_model)
     init_db()
     # OS lock prevents two collectors from racing over the same frame buffer.
     import fcntl
@@ -95,6 +102,10 @@ def run(args):
     recorders = {}
     blocked_recordings = set()
     selector = selectors.DefaultSelector()
+    worker = ThreadPoolExecutor(max_workers=1) if detector else None
+    pending = None
+    demo_streams = set()
+    last_sample = {}
     try:
         with tempfile.TemporaryDirectory(prefix="lifejacket-receiver-") as temp:
             configfile = Path(temp) / "mediamtx.yml"
@@ -112,6 +123,18 @@ def run(args):
             )
             try:
                 while media.poll() is None and thread.is_alive():
+                    if pending and pending[2].done():
+                        sid, frame_id, result = pending
+                        pending = None
+                        try:
+                            score = result.result()
+                            if score is not None:
+                                with SessionLocal() as db:
+                                    streams.mark_demo_candidate(db, sid, frame_id, score)
+                        except Exception:
+                            print(
+                                "Demo suggestion failed; preview is still running.", flush=True
+                            )
                     if time.monotonic() - last > 1:
                         last = time.monotonic()
                         with SessionLocal() as db:
@@ -121,6 +144,16 @@ def run(args):
                                 )
                             ).all()
                             active = {row.stream_id for row in rows if streams.active(db, row)}
+                            demo_streams = {
+                                row.stream_id
+                                for row in rows
+                                if worker
+                                and row.stream_id in active
+                                and row.source_json.get("demo_suggestions")
+                            }
+                            last_sample = {
+                                sid: t for sid, t in last_sample.items() if sid in demo_streams
+                            }
                             for row in rows:
                                 if row.stream_id not in active and row.frames_json:
                                     row.frames_json = []
@@ -210,7 +243,12 @@ def run(args):
                                 url,
                                 "-an",
                                 "-vf",
-                                "fps=2,scale=640:-2",
+                                (
+                                    "fps=2,scale='min(1280,iw)':'min(720,ih)':"
+                                    "force_original_aspect_ratio=decrease:force_divisible_by=2"
+                                    if sid in demo_streams
+                                    else "fps=2,scale=640:-2"
+                                ),
                                 "-threads",
                                 "1",
                                 "-q:v",
@@ -241,8 +279,25 @@ def run(args):
                                 child["buffer"][end:],
                             )
                             try:
+                                now = time.monotonic()
+                                sample = (
+                                    worker
+                                    and pending is None
+                                    and sid in demo_streams
+                                    and now - last_sample.get(sid, -1) >= 1
+                                )
+                                frame_id = uuid.uuid4().hex if sample else None
                                 with SessionLocal() as db:
-                                    streams.receive(db, sid, jpeg)
+                                    received = streams.receive(
+                                        db, sid, jpeg, frame_id=frame_id
+                                    )
+                                if received and sample:
+                                    last_sample[sid] = now
+                                    pending = (
+                                        sid,
+                                        frame_id,
+                                        worker.submit(detector.score, jpeg),
+                                    )
                             except (ValueError, OSError, HTTPException):
                                 pass
                         if len(child["buffer"]) > 512 * 1024:
@@ -262,6 +317,8 @@ def run(args):
                     media.wait()
     finally:
         server.should_exit = True
+        if worker:
+            worker.shutdown(wait=False, cancel_futures=True)
         selector.close()
         lock.close()
 
@@ -289,6 +346,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mediamtx", required=True, help="MediaMTX v1.21.3 executable")
     parser.add_argument("--ffmpeg", default="ffmpeg")
+    parser.add_argument("--demo-yolox-model", type=Path)
     parser.add_argument(
         "--bind", default="127.0.0.1", help="Private/VPN interface only; defaults to loopback"
     )

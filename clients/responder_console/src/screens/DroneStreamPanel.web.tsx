@@ -13,6 +13,8 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
   const [label,setLabel]=useState('');
   const [rights,setRights]=useState('');
   const [source,setSource]=useState('');
+  const [demoAvailable,setDemoAvailable]=useState(false);
+  const [demo,setDemo]=useState(false);
   const [description,setDescription]=useState('');
   const [elapsed,setElapsed]=useState(0);
   const clock=useRef(0);
@@ -30,13 +32,13 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
   }
   useEffect(()=>{
     const c=new AbortController();alive.current=c;
-    setAvailable(null);setStreams([]);setSelected('');setView(null);setGrant('');setError('');
+    setAvailable(null);setStreams([]);setSelected('');setView(null);setGrant('');setError('');setDemoAvailable(false);setDemo(false);
     return ()=>{c.abort();};
   },[api,id,request.request_id]);
   useEffect(()=>{
     const c=new AbortController();
     if(api.streams) void api.streams(id,request.request_id,c.signal).then(value=>{
-      if(!c.signal.aborted){setAvailable(true);setStreams(value.streams);setSelected(previous=>value.streams.some(s=>s.stream_id===previous)?previous:value.streams[0]?.stream_id||'');}
+      if(!c.signal.aborted){setAvailable(true);setDemoAvailable(value.demo_suggestions_available===true);setStreams(value.streams);setSelected(previous=>value.streams.some(s=>s.stream_id===previous)?previous:value.streams[0]?.stream_id||'');}
     }).catch(e=>{if(!c.signal.aborted)failure(e);});
     return ()=>c.abort();
   },[api,id,request.request_id,request.revision]);
@@ -69,6 +71,7 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
   if(available===null)return <p className="lj-muted">Checking observation streaming…</p>;
   const canManage=request.allowed_transitions.length>0 && request.status==='in_progress';
   const fresh=view?.status==='connected' && (view.frame_age_seconds??Infinity)+elapsed<=6;
+  const suggestion=fresh && view.suggested_frame && view.suggested_frame.age_seconds+elapsed<=6 ? view.suggested_frame : null;
   const active=streams.some(s=>['waiting','connected','interrupted'].includes(s.status));
   return <section className="lj-panel" aria-label="Case live preview" style={{marginTop:20}}>
     <h3>Live observation session</h3>
@@ -77,13 +80,14 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
     {error && <p role="alert">{error}</p>}
     {canManage && !active && <form aria-label="Open observation stream" onSubmit={e=>{
       e.preventDefault();void action(async signal=>{
-        const value=await api.openStream!(id,request.request_id,{revision:request.revision,label,rights_note:rights,source_url:source||null},signal);
+        const value=await api.openStream!(id,request.request_id,{revision:request.revision,label,rights_note:rights,source_url:source||null,demo_suggestions:demoAvailable&&demo},signal);
         if(!signal.aborted){setGrant(value.publish_url||'');setSelected(value.stream_id);setStreams(previous=>[value,...previous]);}
       });
     }}>
       <label>Session label<input required maxLength={120} value={label} onChange={e=>setLabel(e.target.value)}/></label>
       <label>Credits and reuse terms<input required maxLength={1000} value={rights} onChange={e=>setRights(e.target.value)}/></label>
       {request.execution_kind==='recorded_demo' && <label>Recording source reference<input required type="url" value={source} onChange={e=>setSource(e.target.value)}/></label>}
+      {demoAvailable && <label><input type="checkbox" checked={demo} onChange={e=>setDemo(e.target.checked)}/>Suggest frames for a staged plush demo</label>}
       <button disabled={busy}>Open private session</button>
     </form>}
     {grant && <details><summary>Private publishing address · shown for this session only</summary>
@@ -105,6 +109,15 @@ export function DroneStreamPanel({api,id,request,onChanged,onUnavailable}:{api:D
           const frame=view.frame;if(!frame)return;
           void action(async signal=>{await api.captureStream!(id,request.request_id,view.stream_id,{revision:request.revision,frame_id:frame.frame_id,description},signal);if(!signal.aborted)setDescription('');});
         }}>Save displayed frame as evidence</button>
+        {suggestion && <div className="lj-panel">
+          <h4>Suggested staged plush frame</h4>
+          <img src={'data:image/jpeg;base64,'+suggestion.jpeg_base64} alt="Suggested frame from the staged plush detector" style={{width:'100%',maxWidth:320,borderRadius:8}}/>
+          <p>YOLOX-S COCO teddy bear score {suggestion.demo_plush_score.toFixed(2)}.</p>
+          <button className="secondary" disabled={busy} onClick={()=>void action(async signal=>{
+            await api.captureStream!(id,request.request_id,view.stream_id,{revision:request.revision,frame_id:suggestion.frame_id,description:description.trim()||'Staged plush candidate selected for review.'},signal);
+            if(!signal.aborted)setDescription('');
+          })}>Save suggested frame as evidence</button>
+        </div>}
         <button className="secondary" disabled={busy} onClick={()=>void action(async signal=>{
           await api.endStream!(id,request.request_id,view.stream_id,{revision:request.revision},signal);
           if(!signal.aborted){setGrant('');setView(null);}

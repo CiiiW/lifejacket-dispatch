@@ -142,6 +142,8 @@ def create(db, actor, case_id, request_id, body):
             private_host = base.hostname == "localhost"
         if not private_host:
             raise HTTPException(503, "Use RTMPS or a private receiver address")
+    if body.demo_suggestions and not settings.drone_stream_demo_suggestions_enabled:
+        raise HTTPException(409, "Demo suggestions are not configured")
     token = secrets.token_urlsafe(32)
     row = CaseDroneStreamRow(
         stream_id=uuid.uuid4().hex,
@@ -155,6 +157,7 @@ def create(db, actor, case_id, request_id, body):
             "source_url": body.source_url,
             "rights_note": body.rights_note,
             "label": body.label,
+            "demo_suggestions": body.demo_suggestions,
         },
         frames_json=[],
         created_at=requests.now(),
@@ -231,7 +234,7 @@ def authorize(db, body):
     raise HTTPException(401, "Stream unavailable")
 
 
-def receive(db, stream_id, data):
+def receive(db, stream_id, data, *, frame_id=None):
     enabled()
     row = db.get(CaseDroneStreamRow, stream_id)
     if row is None or not active(db, row):
@@ -244,7 +247,7 @@ def receive(db, stream_id, data):
         image.verify()
     clock = requests.now()
     frame = {
-        "frame_id": uuid.uuid4().hex,
+        "frame_id": frame_id or uuid.uuid4().hex,
         "received_at": clock.isoformat() + "Z",
         "sha256": hashlib.sha256(data).hexdigest(),
         "jpeg_base64": base64.b64encode(data).decode(),
@@ -268,11 +271,54 @@ def receive(db, stream_id, data):
     return changed.rowcount == 1
 
 
+def mark_demo_candidate(db, stream_id, frame_id, score):
+    row = db.get(CaseDroneStreamRow, stream_id)
+    if (
+        not settings.drone_stream_demo_suggestions_enabled
+        or row is None
+        or not row.source_json.get("demo_suggestions")
+        or not active(db, row)
+        or not any(frame["frame_id"] == frame_id for frame in row.frames_json)
+    ):
+        return
+    db.execute(
+        update(CaseDroneStreamRow)
+        .where(
+            CaseDroneStreamRow.stream_id == stream_id,
+            CaseDroneStreamRow.ended_at.is_(None),
+            CaseDroneStreamRow.expires_at > requests.now(),
+        )
+        .values(
+            frames_json=[
+                {**frame, "demo_plush_score": score}
+                if frame["frame_id"] == frame_id
+                else frame
+                for frame in row.frames_json
+            ]
+        )
+    )
+    db.commit()
+
+
 def preview(db, row, writable=False):
     value = state(db, row, writable)
     if value["status"] != "connected":
-        return {**value, "frame": None}
-    return {**value, "frame": row.frames_json[-1]}
+        return {**value, "frame": None, "suggested_frame": None}
+    suggestion = None
+    if settings.drone_stream_demo_suggestions_enabled and row.source_json.get(
+        "demo_suggestions"
+    ):
+        now = requests.now()
+        for frame in reversed(row.frames_json):
+            age = (
+                now - datetime.fromisoformat(frame["received_at"].rstrip("Z"))
+            ).total_seconds()
+            if age > STALE_SECONDS:
+                break
+            if "demo_plush_score" in frame:
+                suggestion = {**frame, "age_seconds": max(0, age)}
+                break
+    return {**value, "frame": row.frames_json[-1], "suggested_frame": suggestion}
 
 
 def capture(db, actor, case_id, request_id, stream_id, body):
@@ -308,6 +354,12 @@ def capture(db, actor, case_id, request_id, stream_id, body):
             "Server reception time; camera capture time and source video offset are unknown."
         ),
     }
+    if "demo_plush_score" in frame:
+        meta["demo_suggestion"] = {
+            "label": "teddy bear",
+            "model": "YOLOX-S COCO",
+            "score": frame["demo_plush_score"],
+        }
     data = base64.b64decode(frame["jpeg_base64"])
     try:
         requests.compare_swap(db, request, body.revision)
