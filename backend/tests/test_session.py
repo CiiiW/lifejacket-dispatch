@@ -143,14 +143,52 @@ class TestStoppingRule:
         assert state.identification.resolution.rank.value == "family"
         assert "safe distance" in identification_stop_reason(state)
 
-    def test_indistinguishable_flag_stops_even_if_a_question_was_offered(self):
-        """The agent's own judgement that questions cannot help is respected."""
+    def test_indistinguishable_flag_is_respected_once_a_question_was_tried(self):
+        """The agent's judgement that questions cannot help stands -- after one.
+
+        Before any question it is untested, so the agent's own question is
+        asked once; with one asked, the same judgement settles it.
+        """
         state = _ready_state()
         state.identification = _identification(
             [_species(*COMMON, 0.50, "Delphinidae"), _species(*BOTTLENOSE, 0.44, "Delphinidae")],
             distinguishable=False,
         )
+        first = decide_next_step(state)
+        assert first.action is StepAction.ASK_CLARIFYING_QUESTION
+        assert first.question.question == "Roughly how long is it?"  # the agent's own
+
+        state.identification_questions_asked = 1
+        state.probed_features.append("body_length")
         assert decide_next_step(state).action is StepAction.RUN_ASSESSMENT
+
+    def test_a_family_answer_is_not_settled_without_asking_anything(self):
+        """The eared-seal case: 85% California sea lion, 10% Steller.
+
+        Pooled 0.95 for the family, the agent offered no question and said
+        none could separate them -- yet size usually does. One generic clue is
+        asked before the family answer is accepted.
+        """
+        state = _ready_state()
+        state.identification = _identification(
+            [
+                _species("California sea lion", "Zalophus californianus", 0.85, "Otariidae"),
+                _species("Steller sea lion", "Eumetopias jubatus", 0.10, "Otariidae"),
+            ],
+            question=None,
+            distinguishable=False,
+        )
+        assert state.identification.resolution.rank.value == "family"
+        assert identification_stop_reason(state) is None
+
+        decision = decide_next_step(state)
+        assert decision.action is StepAction.ASK_CLARIFYING_QUESTION
+        assert decision.question.feature == "body_length"
+        assert "no question has been asked yet" in decision.reason
+
+        state.identification_questions_asked = 1
+        state.probed_features.append("body_length")
+        assert "safe distance" in identification_stop_reason(state)
 
     def test_family_can_be_made_a_stopping_rank(self, monkeypatch):
         monkeypatch.setattr(settings, "confident_taxon_ranks", ["species", "genus", "family"])

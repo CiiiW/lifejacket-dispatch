@@ -1,0 +1,370 @@
+{
+  "_note": "FICTIONAL demo volunteers. Names are invented; phone numbers are in the 555-0100..0199 range reserved for fiction; addresses are street-level only (no house numbers) so no entry points at a real home. Coordinates were geocoded once from the street names via OpenStreetMap Nominatim. Nothing is ever sent to these numbers.",
+  "volunteers": [
+    {
+      "volunteer_id": "VOL_001",
+      "name": "Ana Ruiz",
+      "phone": "+18315550101",
+      "address": "Sandholdt Rd, Moss Landing, CA 95039",
+      "latitude": 36.79937,
+      "longitude": -121.78647,
+      "qualification": "observer",
+      "travel_radius_km": 15,
+      "skills": [
+        "seals and sea lions",
+        "keeping the public back"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_002",
+      "name": "Marcus Bell",
+      "phone": "+18315550102",
+      "address": "Moss Landing Rd, Moss Landing, CA 95039",
+      "latitude": 36.7963,
+      "longitude": -121.78597,
+      "qualification": "trained_responder",
+      "travel_radius_km": 40,
+      "skills": [
+        "seals and sea lions",
+        "transport"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_003",
+      "name": "Priya Natarajan",
+      "phone": "+18315550103",
+      "address": "Dolan Rd, Moss Landing, CA 95039",
+      "latitude": 36.80056,
+      "longitude": -121.76893,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "seabirds",
+        "photography"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_004",
+      "name": "Tomás Herrera",
+      "phone": "+18315550104",
+      "address": "Merritt St, Castroville, CA 95012",
+      "latitude": 36.7654,
+      "longitude": -121.75763,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "keeping the public back"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_005",
+      "name": "Grace Liu",
+      "phone": "+18315550105",
+      "address": "Main St, Watsonville, CA 95076",
+      "latitude": 36.91704,
+      "longitude": -121.77428,
+      "qualification": "trained_responder",
+      "travel_radius_km": 35,
+      "skills": [
+        "seabirds",
+        "sea turtles"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_006",
+      "name": "Daniel Okafor",
+      "phone": "+18315550106",
+      "address": "Beach Dr, Aptos, CA 95003",
+      "latitude": 36.96979,
+      "longitude": -121.9048,
+      "qualification": "observer",
+      "travel_radius_km": 25,
+      "skills": [
+        "photography",
+        "keeping the public back"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_007",
+      "name": "Hannah Weiss",
+      "phone": "+18315550107",
+      "address": "Reservation Rd, Marina, CA 93933",
+      "latitude": 36.67437,
+      "longitude": -121.77235,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "seals and sea lions"
+      ],
+      "available": false
+    },
+    {
+      "volunteer_id": "VOL_008",
+      "name": "Kenji Watanabe",
+      "phone": "+18315550108",
+      "address": "Del Monte Blvd, Marina, CA 93933",
+      "latitude": 36.69042,
+      "longitude": -121.79828,
+      "qualification": "trained_responder",
+      "travel_radius_km": 30,
+      "skills": [
+        "whales and dolphins",
+        "transport"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_009",
+      "name": "Lucia Ferreira",
+      "phone": "+18315550109",
+      "address": "Fremont Blvd, Seaside, CA 93955",
+      "latitude": 36.60205,
+      "longitude": -121.84907,
+      "qualification": "observer",
+      "travel_radius_km": 25,
+      "skills": [
+        "keeping the public back"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_010",
+      "name": "Sam Delgado",
+      "phone": "+18315550110",
+      "address": "Cannery Row, Monterey, CA 93940",
+      "latitude": 36.61349,
+      "longitude": -121.89794,
+      "qualification": "trained_responder",
+      "travel_radius_km": 40,
+      "skills": [
+        "seals and sea lions",
+        "whales and dolphins"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_011",
+      "name": "Olivia Chen",
+      "phone": "+18315550111",
+      "address": "Lighthouse Ave, Pacific Grove, CA 93950",
+      "latitude": 36.61677,
+      "longitude": -121.90602,
+      "qualification": "observer",
+      "travel_radius_km": 15,
+      "skills": [
+        "seabirds",
+        "photography"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_012",
+      "name": "Ben Archer",
+      "phone": "+18315550112",
+      "address": "Ocean Ave, Carmel-by-the-Sea, CA 93921",
+      "latitude": 36.55514,
+      "longitude": -121.92271,
+      "qualification": "trained_responder",
+      "travel_radius_km": 35,
+      "skills": [
+        "sea turtles",
+        "transport"
+      ],
+      "available": false
+    },
+    {
+      "volunteer_id": "VOL_013",
+      "name": "Rosa Medina",
+      "phone": "+18315550113",
+      "address": "Main St, Salinas, CA 93901",
+      "latitude": 36.67381,
+      "longitude": -121.65491,
+      "qualification": "observer",
+      "travel_radius_km": 30,
+      "skills": [
+        "keeping the public back"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_014",
+      "name": "Ethan Park",
+      "phone": "+18315550114",
+      "address": "Capitola Ave, Capitola, CA 95010",
+      "latitude": 36.97431,
+      "longitude": -121.95352,
+      "qualification": "observer",
+      "travel_radius_km": 25,
+      "skills": [
+        "seabirds"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_015",
+      "name": "Maya Thompson",
+      "phone": "+18315550115",
+      "address": "West Cliff Dr, Santa Cruz, CA 95060",
+      "latitude": 36.95304,
+      "longitude": -122.03785,
+      "qualification": "trained_responder",
+      "travel_radius_km": 40,
+      "skills": [
+        "seals and sea lions",
+        "seabirds"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_016",
+      "name": "Noah Fischer",
+      "phone": "+18315550116",
+      "address": "Soquel Ave, Santa Cruz, CA 95062",
+      "latitude": 36.97341,
+      "longitude": -122.02401,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "photography"
+      ],
+      "available": false
+    },
+    {
+      "volunteer_id": "VOL_017",
+      "name": "Isabel Cruz",
+      "phone": "+18315550117",
+      "address": "Prunedale North Rd, Prunedale, CA 93907",
+      "latitude": 36.78996,
+      "longitude": -121.66961,
+      "qualification": "observer",
+      "travel_radius_km": 25,
+      "skills": [
+        "keeping the public back",
+        "transport"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_018",
+      "name": "Jordan Lee",
+      "phone": "+14155550118",
+      "address": "Great Hwy, San Francisco, CA 94122",
+      "latitude": 37.77608,
+      "longitude": -122.51144,
+      "qualification": "trained_responder",
+      "travel_radius_km": 30,
+      "skills": [
+        "seals and sea lions"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_019",
+      "name": "Claire Dubois",
+      "phone": "+14155550119",
+      "address": "Bridgeway, Sausalito, CA 94965",
+      "latitude": 37.86123,
+      "longitude": -122.48938,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "seabirds"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_020",
+      "name": "Arjun Mehta",
+      "phone": "+16505550120",
+      "address": "Main St, Half Moon Bay, CA 94019",
+      "latitude": 37.46414,
+      "longitude": -122.42916,
+      "qualification": "observer",
+      "travel_radius_km": 25,
+      "skills": [
+        "whales and dolphins",
+        "photography"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_021",
+      "name": "Sofia Alvarez",
+      "phone": "+13105550121",
+      "address": "Ocean Ave, Santa Monica, CA 90401",
+      "latitude": 34.00595,
+      "longitude": -118.48976,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "seabirds"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_022",
+      "name": "Malik Johnson",
+      "phone": "+13105550122",
+      "address": "Pacific Coast Hwy, Malibu, CA 90265",
+      "latitude": 34.03091,
+      "longitude": -118.84323,
+      "qualification": "trained_responder",
+      "travel_radius_km": 40,
+      "skills": [
+        "seals and sea lions",
+        "transport"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_023",
+      "name": "Emily Novak",
+      "phone": "+15625550123",
+      "address": "Ocean Blvd, Long Beach, CA 90802",
+      "latitude": 33.76075,
+      "longitude": -118.15005,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "sea turtles"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_024",
+      "name": "Diego Ramos",
+      "phone": "+18585550124",
+      "address": "Prospect St, La Jolla, CA 92037",
+      "latitude": 32.84456,
+      "longitude": -117.27761,
+      "qualification": "trained_responder",
+      "travel_radius_km": 35,
+      "skills": [
+        "seals and sea lions",
+        "sea turtles"
+      ],
+      "available": true
+    },
+    {
+      "volunteer_id": "VOL_025",
+      "name": "Aiko Sato",
+      "phone": "+16195550125",
+      "address": "Newport Ave, San Diego, CA 92107",
+      "latitude": 32.74208,
+      "longitude": -117.24328,
+      "qualification": "observer",
+      "travel_radius_km": 20,
+      "skills": [
+        "seabirds",
+        "keeping the public back"
+      ],
+      "available": true
+    }
+  ]
+}

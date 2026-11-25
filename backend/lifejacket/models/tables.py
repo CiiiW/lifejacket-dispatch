@@ -636,3 +636,113 @@ class DroneWorkerHeartbeatRow(Base):
     __tablename__ = "drone_worker_heartbeats"
     worker_kind: Mapped[str] = mapped_column(String(20), primary_key=True)
     touched_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+# ---------------------------------------------------------------------------
+# Local-console coordination: volunteers, volunteer alerts, and the
+# coordinator <-> reporter thread. All additive; no existing table changes.
+# Every route over these is a legacy route, so network mode blocks it.
+# ---------------------------------------------------------------------------
+
+
+class VolunteerRow(Base):
+    """A person who has opted in to help with nearby animals.
+
+    Deliberately not a `ResponderRow`: the responders table is the stranding
+    network's organisation directory, and the coordination agent's
+    `get_available_responders` tool reads it. A volunteer is not a team, and
+    must never be offered to that tool as one.
+
+    The position is the volunteer's chosen base area, not a live location, and
+    the UI labels it that way. Seeded volunteers are fictional (`is_fictional`)
+    with 555-01xx numbers, which are reserved for fiction; nothing is sent.
+    """
+
+    __tablename__ = "volunteers"
+
+    volunteer_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(128))
+    phone: Mapped[str] = mapped_column(String(32))
+    #: Street-level only, never a house number: the base area, not a home.
+    address: Mapped[str] = mapped_column(String(256))
+    latitude: Mapped[float] = mapped_column(Float)
+    longitude: Mapped[float] = mapped_column(Float)
+    #: "observer" or "trained_responder". See services/volunteers.py.
+    qualification: Mapped[str] = mapped_column(String(32))
+    travel_radius_km: Mapped[float] = mapped_column(Float)
+    skills: Mapped[list] = mapped_column(JSON, default=list)
+    #: False while the volunteer has paused alerts.
+    available: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    is_fictional: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+class VolunteerAlertRow(Base):
+    """One alert asking one volunteer to check in for one incident.
+
+    An alert is an invitation, not an assignment, and `delivery` says how it
+    went out. With no SMS provider configured it is always "simulated": the
+    console records the alert, and a volunteer's reply is recorded explicitly.
+    """
+
+    __tablename__ = "volunteer_alerts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), index=True
+    )
+    volunteer_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("volunteers.volunteer_id"), index=True
+    )
+    #: "observe" or "support": what the volunteer is being asked to do.
+    task: Mapped[str] = mapped_column(String(16))
+    message: Mapped[str] = mapped_column(Text)
+    #: awaiting_reply -> checked_in | declined; cancelled if the case is ignored.
+    status: Mapped[str] = mapped_column(String(16), index=True)
+    delivery: Mapped[str] = mapped_column(String(16))
+    #: Distance at send time, kept even if the volunteer later moves area.
+    distance_km: Mapped[float | None] = mapped_column(Float)
+    sent_by: Mapped[str | None] = mapped_column(String(128))
+    sent_at: Mapped[datetime] = mapped_column(DateTime)
+    responded_at: Mapped[datetime | None] = mapped_column(DateTime)
+    response_note: Mapped[str | None] = mapped_column(Text)
+
+
+class IncidentMessageRow(Base):
+    """One message between a coordinator and the person who filed the report.
+
+    Separate from `chat_messages`, which is the reporter's conversation with
+    the agents and is fed back into their prompts. Coordinator messages are
+    not agent context.
+    """
+
+    __tablename__ = "incident_messages"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), index=True
+    )
+    #: "coordinator" or "reporter".
+    sender: Mapped[str] = mapped_column(String(16))
+    body: Mapped[str] = mapped_column(Text)
+    #: Who on the coordinator side wrote it. Never shown to the reporter.
+    author_ref: Mapped[str | None] = mapped_column(String(128))
+    created_at: Mapped[datetime] = mapped_column(DateTime, index=True)
+
+
+class ReporterThreadKeyRow(Base):
+    """The secret that lets a reporter's app read its own coordinator thread.
+
+    Incident IDs are eight hex characters, built to be read aloud over a
+    radio, so they are not secrets. Knowing one must not let anyone read what
+    a coordinator wrote to the reporter, or reply as them. The key is issued
+    once when the report starts; only its SHA-256 is stored.
+    """
+
+    __tablename__ = "reporter_thread_keys"
+
+    incident_id: Mapped[str] = mapped_column(
+        String(32), ForeignKey("incidents.incident_id"), primary_key=True
+    )
+    key_sha256: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime)

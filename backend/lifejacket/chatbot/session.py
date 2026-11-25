@@ -399,13 +399,18 @@ def identification_stop_reason(state: ConversationState) -> str | None:
     2. **Out of questions** (5 by default) -> stop with the best answer so far,
        whatever its rank or confidence.
     3. **Agent says no question can help** -> stop, *unless* confidence is
-       below `identification_min_confidence_to_settle`. Below that bar, "no
-       question can help" is not trustworthy enough to settle on its own --
-       there is always a fallback clue to try (see
-       `_fallback_identification_question`) while budget remains. This is how
-       a family-level answer such as "oceanic dolphin" is still reached when
-       genuinely warranted: the species cannot be told apart from a safe
-       distance, but pooled confidence is still high enough to trust that call.
+       below `identification_min_confidence_to_settle`, or no question has
+       been asked yet. Below that bar, "no question can help" is not
+       trustworthy enough to settle on its own -- there is always a fallback
+       clue to try (see `_fallback_identification_question`) while budget
+       remains. And it is never accepted untested: an answer broader than a
+       confident species or genus gets at least one question first, the
+       agent's own if it offered one, else a generic clue. The agent claimed
+       nothing could separate a California from a Steller sea lion, which
+       size alone usually does. A family-level answer such as "oceanic
+       dolphin" is still reached when genuinely warranted: one question in,
+       the species still cannot be told apart from a safe distance, and pooled
+       confidence is high enough to trust that call.
     4. **Agent's question repeats a feature already asked about** -> stop,
        unless a fallback clue not yet asked about still exists.
 
@@ -432,10 +437,17 @@ def identification_stop_reason(state: ConversationState) -> str | None:
         return f"Question budget spent ({asked} of {limit}); proceeding with best answer."
 
     low_confidence = result.confidence < settings.identification_min_confidence_to_settle
+    # Not confident at a stopping rank (rule 1 would have stopped), and
+    # nothing asked yet: "no question can help" has not been put to the test.
+    untested = asked == 0
 
     question = result.next_question
-    if question is None or not question.question.strip() or not result.species_distinguishable:
-        if low_confidence and _fallback_identification_question(state) is not None:
+    offered = question is not None and bool(question.question.strip())
+    if not offered or not result.species_distinguishable:
+        if untested and offered:
+            return None  # ask the agent's own question once before settling
+        fallback = _fallback_identification_question(state)
+        if (low_confidence or untested) and fallback is not None:
             return None
         rank = resolution.rank.value if resolution else "unknown"
         return (
@@ -520,15 +532,20 @@ def _decide_identification(state: ConversationState) -> Decision | None:
         or not question.question.strip()
         or (question.feature and question.feature in state.probed_features)
     ):
-        # Reached only below identification_min_confidence_to_settle, where
-        # identification_stop_reason refused to accept "no question left" as
-        # a reason to stop (see its rule 3/4).
+        # Reached only where identification_stop_reason refused to accept
+        # "no question left" as a reason to stop (see its rule 3/4): below
+        # identification_min_confidence_to_settle, or before any question.
         question = _fallback_identification_question(state)
+        why = (
+            f"confidence is only {confidence:.2f}"
+            if confidence < settings.identification_min_confidence_to_settle
+            else f"no question has been asked yet about {result.display_name}"
+        )
         reason = (
-            f"Confidence is only {confidence:.2f} and the agent had no "
-            "discriminating question left; asking a general clue instead of "
-            f"settling (question {state.identification_questions_asked + 1} "
-            f"of {settings.max_identification_questions})."
+            f"The agent had no discriminating question left, but {why}; "
+            "asking a general clue instead of settling (question "
+            f"{state.identification_questions_asked + 1} of "
+            f"{settings.max_identification_questions})."
         )
     return Decision(
         action=StepAction.ASK_CLARIFYING_QUESTION,

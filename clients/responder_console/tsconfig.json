@@ -12,12 +12,17 @@
       // `../shared/theme.ts` imports react-native, but it sits outside this
       // app, so the usual node_modules walk-up from its own folder misses
       // this app's copy. Metro already resolves it (see metro.config.js);
-      // this is the same mapping for tsc.
-      "react-native": ["./node_modules/react-native"],
+      // this is the same mapping for tsc. It names the .d.ts rather than the
+      // package folder: since 0.88 react-native publishes its types only
+      // through `exports`, which a folder mapping bypasses, landing on
+      // untyped index.js. This is the file `exports["."].types` points to.
+      "react-native": ["./node_modules/react-native/types_generated/index.d.ts"],
       // `../shared/ConditionsPanel.tsx` is JSX living outside the app, so the
       // JSX runtime's types are not on its resolution path either. Map it to
       // the type definitions, not to react's JS, which would shadow @types.
-      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"]
+      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"],
+      // And for hooks in shared components (TideChart, ConditionsPanel).
+      "react": ["./node_modules/@types/react/index.d.ts"]
     }
   }
 }

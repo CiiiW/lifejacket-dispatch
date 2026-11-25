@@ -29,9 +29,17 @@ from lifejacket.config import settings
 from lifejacket.llm.client import ImageInput
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
-from lifejacket.models.schemas import AnimalDetection, ConversationStage, GeoPoint, Incident
+from lifejacket.models.schemas import (
+    AnimalDetection,
+    ConversationStage,
+    GeoPoint,
+    IdentificationResult,
+    Incident,
+    SpeciesCandidate,
+    TaxonRank,
+)
 from lifejacket.models.tables import IncidentRow, PhotoRow
-from lifejacket.services import health
+from lifejacket.services import health, progress, reporter_thread
 from lifejacket.services.pipeline import (
     SERVICE_RETRY_MESSAGE,
     IntakePipeline,
@@ -116,6 +124,12 @@ class TurnResponse(BaseModel):
     #: Pooled confidence in `identified_as`, so the app can show how firm the
     #: answer is rather than presenting a 0.30 guess like a certainty.
     species_confidence: float | None = None
+    #: The most likely species inside a genus, family or group answer, e.g.
+    #: "California Sea Lion" within "Eared seals", and its probability. The
+    #: reporter is told it as a best guess; null when `identified_as` is
+    #: already one species.
+    likely_species: str | None = None
+    likely_species_confidence: float | None = None
 
     #: Triage band, available as soon as the assessment agent has run rather
     #: than only at the end. It can still change while questions continue, so
@@ -157,6 +171,10 @@ class TurnResponse(BaseModel):
     detection_photo_url: str | None = None
     detection_status: str = "pending"
     selected_detection: int | None = None
+    #: Returned by `/intake/start` only, once. The app keeps it to read and
+    #: answer messages from the rescue team (`/intake/{id}/messages`); the
+    #: server keeps only its hash. Null on every other turn.
+    reporter_key: str | None = None
 
 
 @router.post("/start", response_model=TurnResponse)
@@ -171,7 +189,11 @@ def start_intake(
 
     turn = pipeline.advance(incident, state)
     _persist(session, pipeline, incident, state)
-    return _to_response(incident.incident_id, turn, state, incident)
+    reporter_key = reporter_thread.issue_key(session, incident.incident_id)
+    session.commit()
+    response = _to_response(incident.incident_id, turn, state, incident)
+    response.reporter_key = reporter_key
+    return response
 
 
 @router.post("/{incident_id}/photo", response_model=TurnResponse)
@@ -461,6 +483,21 @@ def _persist(
     repository.save_incident(session, incident)
     repository.save_conversation_state(session, incident.incident_id, state)
     session.commit()
+    # The request's steps are done; the app's waiting line goes back to idle.
+    progress.clear(incident.incident_id)
+
+
+def _likely_species(identification: IdentificationResult | None) -> SpeciesCandidate | None:
+    """The best species guess inside a broader answer, for telling the reporter.
+
+    Taken from the species pooled into the resolved taxon, so the guess is
+    always inside the group the reporter is told about. None when the answer
+    is already a single species.
+    """
+    resolution = identification.resolution if identification else None
+    if resolution is None or resolution.rank is TaxonRank.SPECIES or not resolution.members:
+        return None
+    return max(resolution.members, key=lambda member: member.confidence)
 
 
 def _to_response(
@@ -477,6 +514,7 @@ def _to_response(
     """
     assessment = state.assessment
     identification = state.identification
+    likely = _likely_species(identification)
     return TurnResponse(
         incident_id=incident_id,
         message=turn.message,
@@ -494,6 +532,8 @@ def _to_response(
             else None
         ),
         species_confidence=identification.confidence if identification else None,
+        likely_species=likely.common_name if likely else None,
+        likely_species_confidence=likely.confidence if likely else None,
         # Not gated on `turn.complete`: withholding triage until the end meant
         # the reporter learned nothing while three agents ran.
         severity_level=assessment.severity_level.value if assessment else None,

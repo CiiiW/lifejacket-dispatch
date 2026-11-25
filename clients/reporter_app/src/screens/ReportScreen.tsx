@@ -16,7 +16,7 @@
  * no scripted questionnaire. Options are shortcuts -- typed text works too.
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type ComponentRef, useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -43,9 +43,11 @@ import {
   reporter,
   severityColour,
   type Conditions,
+  type IntakeStep,
   type MatchedTeam,
   type Turn,
 } from '../lib/api';
+import { DEMO_LOCATION, DEMO_MODE } from '../lib/demo';
 import ConditionsPanel from '../../../shared/ConditionsPanel';
 import { reporterVerdict, summariseConditions } from '../../../shared/conditions';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
@@ -152,6 +154,33 @@ const WAIT_LABELS: Record<string, string> = {
   reply: 'Working out what this means…',
 };
 
+/**
+ * What the waiting line says while the server is on each step. One reply can
+ * run several model calls in a row; the server says which is running
+ * (`GET /intake/{id}/progress`) and this names it, so twenty seconds of
+ * waiting reads as work being done rather than as a stuck spinner.
+ */
+const STEP_LABELS: Record<IntakeStep, string> = {
+  context: 'Checking the tide, weather and daylight where you are…',
+  detection: 'Finding the animals in your photo…',
+  identification: 'Figuring out the species…',
+  assessment: "Assessing the animal's condition…",
+  validation: 'Double-checking the facts against your photo…',
+  report: 'Writing the report for the rescue team…',
+  guardrail: 'Running a final safety check on the report…',
+  matching: 'Finding the rescue teams that cover this area…',
+};
+
+/** How often to ask which step is running while a request is in flight. */
+const PROGRESS_POLL_MS = 700;
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/** "a California Sea Lion", "an Atlantic spotted dolphin". */
+function withArticle(name: string): string {
+  return `${/^[aeiou]/i.test(name) ? 'an' : 'a'} ${name}`;
+}
+
 export default function ReportScreen({
   onComplete,
   onIncident,
@@ -159,10 +188,15 @@ export default function ReportScreen({
   onMatchedTeams,
   pendingPin = null,
   onPinSubmitted,
+  phone = null,
+  onNewReport,
 }: {
   onComplete: (incidentId: string) => void;
-  /** Fires as soon as an incident id exists, so other tabs can open. */
-  onIncident?: (incidentId: string) => void;
+  /**
+   * Fires as soon as an incident id exists, so other tabs can open. The
+   * reporter key arrives once, with the turn that started the report.
+   */
+  onIncident?: (incidentId: string, reporterKey: string | null) => void;
   /** Fires when the reporter shares GPS, so the map tab can centre on it. */
   onLocation?: (latitude: number, longitude: number) => void;
   /** Weather/tide/daylight, which arrive with every turn once located. */
@@ -175,10 +209,20 @@ export default function ReportScreen({
    */
   pendingPin?: { latitude: number; longitude: number } | null;
   onPinSubmitted?: () => void;
+  /**
+   * Sent with the report. Using the app means sharing this number with the
+   * rescue organisation, so it is asked for once, before the first report.
+   */
+  phone?: string | null;
+  /** Offered once this report is filed, so another can follow without a restart. */
+  onNewReport?: () => void;
 }) {
   const [turn, setTurn] = useState<Turn | null>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [draft, setDraft] = useState('');
+  // This report's key, from the turn that started it: lets the waiting line
+  // ask the server which step is running.
+  const reportKey = useRef<{ incidentId: string; key: string } | null>(null);
   const [changingAnimal, setChangingAnimal] = useState(false);
   const [busy, setBusy] = useState(false);
   const [waitLabel, setWaitLabel] = useState<string | null>(null);
@@ -189,7 +233,9 @@ export default function ReportScreen({
     longitude: number;
     accuracy?: number;
   } | null>(null);
-  const scrollRef = useRef<ScrollView>(null);
+  // `ComponentRef`, not `ScrollView`: under react-native's strict types
+  // (0.88+) the component name is the function, not what a ref holds.
+  const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
 
   // What has already been announced, so a fact is reported when it changes
   // rather than repeated after every turn.
@@ -234,9 +280,12 @@ export default function ReportScreen({
       }
     }
 
-    if (next.identified_as && next.identified_as !== seen.species) {
+    // Keyed on the best guess too: an answer can stay "Eared seals" while the
+    // likely species inside it changes, and that is worth saying.
+    const speciesKey = next.identified_as ? `${next.identified_as}|${next.likely_species ?? ''}` : null;
+    if (speciesKey && next.identified_as && speciesKey !== seen.species) {
       const first = seen.species === null;
-      seen.species = next.identified_as;
+      seen.species = speciesKey;
 
       // Written as a sentence rather than a bare name. "California Sea Lion ·
       // 95%" assumes the reader knows what that line is for; "I think this is
@@ -252,10 +301,22 @@ export default function ReportScreen({
           ? `. That is a ${next.taxon_rank}, which covers a few similar species that cannot be told apart from this distance`
           : '';
 
+      // A broader answer leads with the best guess inside it, labelled as a
+      // guess: "most likely a California Sea Lion (85%)" says more than
+      // "eared seals", and the group it sits in is the part to trust.
+      const likely =
+        next.taxon_rank && next.taxon_rank !== 'species' && next.likely_species
+          ? `From your photo, this is most likely ${withArticle(next.likely_species)}` +
+            `${next.likely_species_confidence != null ? ` (${Math.round(next.likely_species_confidence * 100)}%)` : ''}. ` +
+            `I am surer of the broader group, ${next.identified_as.toLowerCase()}` +
+            `${next.species_confidence !== null ? ` (${Math.round(next.species_confidence * 100)}%)` : ''}` +
+            ', so a responder will confirm the exact species.'
+          : null;
+
       notes.push({
         kind: 'status',
         label: first ? 'Species identified' : 'Species updated',
-        text: `From your photo, this looks like a ${next.identified_as}${confidence}${rank}.`,
+        text: likely ?? `From your photo, this looks like a ${next.identified_as}${confidence}${rank}.`,
         provisional: !next.complete,
       });
     }
@@ -295,8 +356,27 @@ export default function ReportScreen({
     async (call: () => Promise<Turn>, waiting?: string) => {
     setBusy(true);
     setWaitLabel(waiting ?? WAIT_LABELS.reply);
+    // Until the first answer, the label above guesses from what was sent;
+    // after that it names the step the server is actually on.
+    const target = reportKey.current;
+    let inFlight = true;
+    void (async () => {
+      while (inFlight && target) {
+        await sleep(PROGRESS_POLL_MS);
+        if (!inFlight) break;
+        try {
+          const { step } = await reporter.progress(target.incidentId, target.key);
+          if (inFlight && step && STEP_LABELS[step]) setWaitLabel(STEP_LABELS[step]);
+        } catch {
+          // Only a hint: a failed poll keeps the current label.
+        }
+      }
+    })();
     try {
       const next = await call();
+      if (next.reporter_key) {
+        reportKey.current = { incidentId: next.incident_id, key: next.reporter_key };
+      }
       const previous = activeSubject.current;
       const subjectChanged = previous && (
         (previous.photo && next.detection_photo_id && previous.photo !== next.detection_photo_id)
@@ -313,7 +393,7 @@ export default function ReportScreen({
       };
       setTurn(next);
       setChangingAnimal(false);
-      onIncident?.(next.incident_id);
+      onIncident?.(next.incident_id, next.reporter_key ?? null);
       // Only once there are any: an empty list arrives on every turn before
       // intake completes and would wipe a list already shown on the map.
       if (next.matched_teams.length > 0) {
@@ -388,6 +468,7 @@ export default function ReportScreen({
         error instanceof ApiError ? error.message : 'Could not reach LifeJacket.';
       Alert.alert('Something went wrong', message);
     } finally {
+      inFlight = false;
       setBusy(false);
       setWaitLabel(null);
     }
@@ -459,8 +540,8 @@ export default function ReportScreen({
   useEffect(() => {
     if (started.current) return;
     started.current = true;
-    void run(() => reporter.start(), WAIT_LABELS.start);
-  }, [run]);
+    void run(() => reporter.start(phone ?? undefined), WAIT_LABELS.start);
+  }, [run, phone]);
 
   async function takePhoto() {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
@@ -585,6 +666,12 @@ export default function ReportScreen({
    * says where *they* are and the animal is often somewhere else.
    */
   async function shareLocation() {
+    if (DEMO_MODE) {
+      // Never read the real position during a recording: see lib/demo.ts.
+      setPickerStart({ ...DEMO_LOCATION });
+      return;
+    }
+
     const permission = await Location.requestForegroundPermissionsAsync();
     if (!permission.granted) {
       Alert.alert(
@@ -639,8 +726,9 @@ export default function ReportScreen({
           picked.latitude,
           picked.longitude,
           picked.accuracy,
-          // Honest about which it is: a moved pin is no longer a GPS reading.
-          picked.moved ? 'map_pin' : 'device_gps',
+          // Honest about which it is: a moved pin is no longer a GPS reading,
+          // and in demo mode the starting point never was one.
+          picked.moved || DEMO_MODE ? 'map_pin' : 'device_gps',
         ),
       WAIT_LABELS.location,
     );
@@ -815,6 +903,19 @@ export default function ReportScreen({
             />
             <Pressable style={styles.send} onPress={() => void send(draft)} disabled={busy}>
               <Text style={styles.primaryText}>Send</Text>
+            </Pressable>
+          </View>
+        )}
+
+        {/* Filed: another report can start straight away, no restart. The
+            rescue team's messages for this one are on the Communications tab. */}
+        {turn?.complete && onNewReport && (
+          <View style={styles.after}>
+            <Text style={styles.afterText}>
+              The rescue team can message you about this report on the Communications tab.
+            </Text>
+            <Pressable style={styles.primary} onPress={onNewReport}>
+              <Text style={styles.primaryText}>Start another report</Text>
             </Pressable>
           </View>
         )}
@@ -1115,6 +1216,9 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
   },
   theirs: { ...glass, alignSelf: 'flex-start' },
+  /** A person on the rescue team, not an agent: marked with a seafoam edge. */
+  after: { gap: spacing.sm },
+  afterText: { ...type.meta, color: colors.textMuted, textAlign: 'center' },
   mine: { ...shadow.soft, alignSelf: 'flex-end', backgroundColor: colors.accent },
   theirsText: { ...type.body, fontSize: 16, color: colors.text, lineHeight: 22 },
   mineText: { ...type.body, fontSize: 16, color: colors.onAccent, lineHeight: 22 },

@@ -10,7 +10,14 @@ const TASK_LABELS = {
   human_review: 'Coordinator review',
 };
 
-export default function CoordinationPanel({ incidentId }: { incidentId: string }) {
+export default function CoordinationPanel({
+  incidentId,
+  bare = false,
+}: {
+  incidentId: string;
+  /** Inside a titled card: drop this panel's own heading and divider. */
+  bare?: boolean;
+}) {
   const [result, setResult] = useState<CoordinationCheck | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -46,9 +53,9 @@ export default function CoordinationPanel({ incidentId }: { incidentId: string }
   }
 
   return (
-    <View style={styles.section}>
+    <View style={bare ? styles.bare : styles.section}>
       <View style={styles.header}>
-        <Text style={styles.heading}>Coordination</Text>
+        {!bare && <Text style={styles.heading}>Coordination</Text>}
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Check Coordination"
@@ -122,6 +129,7 @@ export default function CoordinationPanel({ incidentId }: { incidentId: string }
 
 const styles = StyleSheet.create({
   section: { borderTopWidth: 1, borderColor: colors.border, paddingVertical: spacing.md, gap: spacing.sm },
+  bare: { gap: spacing.sm, marginTop: spacing.sm },
   header: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm },
   heading: { ...type.heading, letterSpacing: 0, color: colors.text },
   button: { minHeight: 44, paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderWidth: 1, borderColor: colors.accent, borderRadius: 8, flexDirection: 'row', alignItems: 'center', gap: spacing.sm },

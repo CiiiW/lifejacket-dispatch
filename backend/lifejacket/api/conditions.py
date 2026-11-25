@@ -13,17 +13,36 @@ turn, so the two cannot drift into describing the same incident differently.
 Every field is optional. A failed API call shows as a gap, never as a
 comfortable default -- `unavailable` names what is missing so a client can say
 "tide unknown" rather than implying calm water.
+
+Two versions exist. The incident detail carries the **snapshot** taken when
+the report came in, which is what the agents and the triage rules worked from.
+`live_conditions` fetches the same thing **now**, for a coordinator opening a
+case hours later; `local_time` says when each was taken and `live` which it is.
 """
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time, timedelta
 
 from pydantic import BaseModel, Field
 
-from lifejacket.context.tides import describe_tide
+from lifejacket.context.environment import gather_context
+from lifejacket.context.tides import describe_tide, tide_curve
 from lifejacket.context.weather import minutes_to_sunset
-from lifejacket.models.schemas import EnvironmentalContext
+from lifejacket.models.schemas import EnvironmentalContext, GeoPoint, TideEvent
+
+#: How long a live reading is reused for the same spot. Tide predictions do
+#: not change and weather barely does in ten minutes; NOAA, Open-Meteo and
+#: Nominatim are free services, and several coordinators may open one case.
+LIVE_TTL = timedelta(minutes=10)
+_live_cache: dict[tuple[float, float], tuple[datetime, ConditionsOut]] = {}
+
+
+class TidePoint(BaseModel):
+    """One point on the predicted tide curve, in the station's local time."""
+
+    time: datetime
+    height_m: float
 
 
 class ConditionsOut(BaseModel):
@@ -54,21 +73,38 @@ class ConditionsOut(BaseModel):
     wave_height_m: float | None = None
     sea_temperature_c: float | None = None
     tide_station_name: str | None = None
+    tide_station_distance_km: float | None = None
     next_high_tide: datetime | None = None
     next_low_tide: datetime | None = None
+    #: Predicted highs and lows around `local_time`, oldest first. Heights are
+    #: metres above MLLW, NOAA's chart datum, like `water_level_m`.
+    tide_events: list[TideEvent] = Field(default_factory=list)
+    #: The predicted curve for the local day of `local_time`, every 15 minutes,
+    #: midnight to midnight. Empty when the predictions do not cover that day.
+    tide_curve: list[TidePoint] = Field(default_factory=list)
+
+    #: True when fetched just now for display; false for the snapshot taken
+    #: when the report came in. Either way `local_time` is when it was taken.
+    live: bool = False
 
     is_coastal: bool = True
     #: Which lookups failed, so a client shows a gap instead of a default.
     unavailable: list[str] = Field(default_factory=list)
 
 
-def build_conditions(context: EnvironmentalContext | None) -> ConditionsOut | None:
+def build_conditions(
+    context: EnvironmentalContext | None, *, live: bool = False
+) -> ConditionsOut | None:
     """Flatten an `EnvironmentalContext` into the display model."""
     if context is None:
         return None
 
     weather = context.weather
     tide = context.tide
+    day_start = datetime.combine((context.local_time or datetime.now()).date(), time.min)
+    curve = (
+        tide_curve(tide.events, day_start, day_start + timedelta(days=1)) if tide else []
+    )
 
     return ConditionsOut(
         place_name=context.location.place_name if context.location else None,
@@ -83,13 +119,17 @@ def build_conditions(context: EnvironmentalContext | None) -> ConditionsOut | No
         minutes_to_sunset=minutes_to_sunset(weather, context.local_time),
         sunset_local=weather.sunset_local if weather else None,
         tide_trend=tide.trend if tide else None,
-        tide_summary=describe_tide(tide) if tide else None,
+        tide_summary=describe_tide(tide, now=context.local_time) if tide else None,
         water_level_m=tide.water_level_m if tide else None,
         wave_height_m=tide.wave_height_m if tide else None,
         sea_temperature_c=tide.sea_surface_temperature_c if tide else None,
         tide_station_name=tide.station_name if tide else None,
+        tide_station_distance_km=tide.station_distance_km if tide else None,
         next_high_tide=tide.next_high_tide if tide else None,
         next_low_tide=tide.next_low_tide if tide else None,
+        tide_events=list(tide.events) if tide else [],
+        tide_curve=[TidePoint(time=when, height_m=height) for when, height in curve],
+        live=live,
         is_coastal=context.is_coastal,
         unavailable=list(context.unavailable),
     )
@@ -109,3 +149,23 @@ def conditions_from_json(payload: dict | None) -> ConditionsOut | None:
         # A context stored by an older schema version should not take down the
         # detail view; the rest of the incident is still worth showing.
         return None
+
+
+def live_conditions(location: GeoPoint) -> ConditionsOut:
+    """Weather, tide and daylight at `location` now, for display.
+
+    Reused for `LIVE_TTL` per spot, rounded to about 100 m, so reopening a
+    case or several coordinators reading it cost one set of lookups.
+    """
+    key = (round(location.latitude, 3), round(location.longitude, 3))
+    now = datetime.now()
+    cached = _live_cache.get(key)
+    if cached is not None and now - cached[0] < LIVE_TTL:
+        return cached[1]
+
+    conditions = build_conditions(gather_context(location), live=True)
+    assert conditions is not None  # gather_context always returns a context
+    for stale in [k for k, (at, _) in _live_cache.items() if now - at >= LIVE_TTL]:
+        del _live_cache[stale]
+    _live_cache[key] = (now, conditions)
+    return conditions

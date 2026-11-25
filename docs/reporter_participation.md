@@ -1,6 +1,8 @@
 # Reporter participation and nearby volunteer alerts
 
-Status: requirements/design recorded, not implemented. Charlotte requested an
+Status: requirements/design recorded, not implemented. A local-console demo
+of nearby volunteer alerts now exists (fictional roster, simulated delivery,
+blocked in network mode): see [coordinator decisions](coordinator_decisions.md). Charlotte requested an
 optional phone/text contact preference for future animal monitoring or rescue
 support, plus opt-in location-based invitations for nearby volunteers.
 

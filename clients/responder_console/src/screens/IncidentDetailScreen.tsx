@@ -1,19 +1,30 @@
 /**
- * Incident detail: the generated report, navigation, and contacting the reporter.
+ * Incident detail, in reading order: the evidence first, the coordinator's
+ * tools last. Photo, conditions at the location and the summary lead; the
+ * rest of the report follows; the reporter thread, the coordination check,
+ * the decision (ignore / send a team / send volunteers / send a drone) and
+ * navigation come at the end, once the case has been read.
  *
- * Three things here are deliberate:
+ * Four things here are deliberate:
  *
  * 1. **The review banner comes first.** If the guardrail agent found an
  *    unsupported claim or unsafe advice, the responder sees that *before* the
- *    report text, not buried under it.
+ *    report text, not buried under it. Mass-stranding and duplicate warnings
+ *    sit with it, for the same reason.
  * 2. **Unknowns are shown, not hidden.** A responder who knows the tide was
  *    never checked plans differently from one who assumes it was fine.
- * 3. **Navigation hands off to the OS map app.** Turn-by-turn on a coast road
+ * 3. **Cards that would say almost nothing are left out.** The reporter
+ *    thread only appears when the reporter can be reached; suggested
+ *    responders are not repeated, because the Decide card's "Send a team"
+ *    lists the same centres with more detail; access notes are a line beside
+ *    Navigate; the coordination check starts collapsed, since it is empty
+ *    until run.
+ * 4. **Navigation hands off to the OS map app.** Turn-by-turn on a coast road
  *    is a solved problem, and Apple Maps and Google Maps both do it better
  *    than we would.
  */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -35,8 +46,10 @@ import {
   type IncidentHealth,
 } from '../lib/api';
 import { colors, glass, radius, shadow, spacing, type } from '../lib/theme';
-import ConditionsPanel from '../../../shared/ConditionsPanel';
 import CoordinationPanel from '../components/CoordinationPanel';
+import DecisionPanel from '../components/DecisionPanel';
+import LiveConditions from '../components/LiveConditions';
+import ReporterChat from '../components/ReporterChat';
 
 export default function IncidentDetailScreen({
   incidentId,
@@ -54,6 +67,11 @@ export default function IncidentDetailScreen({
 
   useEffect(() => {
     void responder.getIncident(incidentId).then(setIncident).catch(() => setIncident(null));
+  }, [incidentId]);
+
+  // After a decision: keep showing the current record if the refetch fails.
+  const reload = useCallback(() => {
+    void responder.getIncident(incidentId).then(setIncident).catch(() => undefined);
   }, [incidentId]);
 
   if (!incident) {
@@ -103,7 +121,7 @@ export default function IncidentDetailScreen({
         </View>
       )}
 
-      {/* 2. Scale. One animal and several need different responses, and this
+      {/* Scale. One animal and several need different responses, and this
           can become true after the incident was first opened, when someone
           else reports. Other incidents are listed so they are handled as one. */}
       {incident.mass_stranding && (
@@ -118,6 +136,24 @@ export default function IncidentDetailScreen({
             </Text>
           )}
         </View>
+      )}
+
+      {/* Other reports of the same animal: warnings, like the banners above,
+          rather than details to find halfway down the page. */}
+      {incident.duplicate_of && (
+        <Text style={styles.duplicate}>
+          Linked as a duplicate of {incident.duplicate_of}. Not dispatched separately.
+        </Text>
+      )}
+
+      {/* Same place and time as another report, different animal group. The
+          system will not merge those, so this was dispatched normally and a
+          person decides. */}
+      {incident.possible_duplicate && (
+        <Text style={styles.duplicate}>
+          Possible duplicate of {incident.possible_duplicate.incident_id} (
+          {incident.possible_duplicate.reason}). Check before sending a second team.
+        </Text>
       )}
 
       {/* Retries that recovered need no action, but should not be invisible. */}
@@ -161,9 +197,10 @@ export default function IncidentDetailScreen({
         </View>
       )}
 
-      {/* The evidence, next to the conclusions drawn from it. A responder
-          deciding whether to drive two hours wants to judge the animal
-          themselves, not only read what the agent made of it. */}
+      {/* The evidence, then what was made of it. A responder deciding whether
+          to drive two hours wants to judge the animal and the scene
+          themselves before reading any recommendation, so the photo, the
+          conditions around it and the summary are the first three cards. */}
       {incident.photos.length > 0 && (
         <Section title={incident.photos.length === 1 ? 'Photo' : 'Photos'}>
           <Pressable
@@ -208,56 +245,31 @@ export default function IncidentDetailScreen({
         </Section>
       )}
 
-      {incident.duplicate_of && (
-        <Text style={styles.duplicate}>
-          Linked as a duplicate of {incident.duplicate_of}. Not dispatched separately.
-        </Text>
+      {/* Live where possible: the snapshot shows at once and is replaced
+          by a reading taken now, since the tide has moved since the report. */}
+      {(incident.conditions || coordinates) && (
+        <Section title="Conditions at the location">
+          <LiveConditions incidentId={incident.incident_id} snapshot={incident.conditions} />
+        </Section>
       )}
 
-      {/* Same place and time as another report, different animal group. The
-          system will not merge those, so this was dispatched normally and a
-          person decides. */}
-      {incident.possible_duplicate && (
-        <Text style={styles.duplicate}>
-          Possible duplicate of {incident.possible_duplicate.incident_id} (
-          {incident.possible_duplicate.reason}). Check before sending a second team.
-        </Text>
+      {report?.summary && (
+        <Section title="Summary">
+          <Text style={styles.body}>{report.summary}</Text>
+        </Section>
       )}
-
-      <View style={styles.buttonRow}>
-        {coordinates && (
-          <Pressable style={styles.primary} onPress={navigate}>
-            <Text style={styles.primaryText}>Navigate</Text>
-          </Pressable>
-        )}
-        {incident.reporter_phone && (
-          <Pressable
-            style={styles.secondary}
-            onPress={() => void Linking.openURL(`tel:${incident.reporter_phone}`)}
-          >
-            <Text style={styles.secondaryText}>Call reporter</Text>
-          </Pressable>
-        )}
-      </View>
-
-      <CoordinationPanel
-        key={`${incident.incident_id}:${incident.updated_at}`}
-        incidentId={incident.incident_id}
-      />
 
       {report && (
         <>
-          <Section title="Summary">
-            <Text style={styles.body}>{report.summary}</Text>
-          </Section>
-
-          <Section title="Recommended actions" count={report.recommended_actions.length}>
-            {report.recommended_actions.map((action, i) => (
-              <Text key={i} style={styles.bullet}>
-                {i + 1}. {action}
-              </Text>
-            ))}
-          </Section>
+          {report.recommended_actions.length > 0 && (
+            <Section title="Recommended actions" count={report.recommended_actions.length}>
+              {report.recommended_actions.map((action, i) => (
+                <Text key={i} style={styles.bullet}>
+                  {i + 1}. {action}
+                </Text>
+              ))}
+            </Section>
+          )}
 
           {/* Directly under the actions: a coordinator reading "what to do"
               immediately asks "on what grounds", and these are the rules that
@@ -292,13 +304,7 @@ export default function IncidentDetailScreen({
             </Section>
           )}
 
-          {report.access_notes && (
-            <Section title="Access">
-              <Text style={styles.body}>{report.access_notes}</Text>
-            </Section>
-          )}
-
-          {/* 2. Unknowns, shown as plainly as the findings. */}
+          {/* Unknowns, shown as plainly as the findings. */}
           {report.unknowns.length > 0 && (
             <Section title="Not established" count={report.unknowns.length}>
               {report.unknowns.map((unknown, i) => (
@@ -311,33 +317,57 @@ export default function IncidentDetailScreen({
         </>
       )}
 
-      {incident.conditions && (
-        <Section title="Conditions at the location">
-          <ConditionsPanel conditions={incident.conditions} bare />
-        </Section>
-      )}
-
-      <Section title="What the reporter said" defaultOpen={false} count={incident.transcript.length}>
-        {incident.transcript.map((turn, i) => (
-          <Text key={i} style={styles.transcriptLine}>
-            <Text style={styles.transcriptRole}>{turn.role}: </Text>
-            {turn.content}
-          </Text>
-        ))}
-      </Section>
-
-      {incident.dispatch_candidates.length > 0 && (
-        <Section title="Suggested responders" count={incident.dispatch_candidates.length}>
-          {incident.dispatch_candidates.map((candidate) => (
-            <View key={candidate.responder_id} style={styles.candidate}>
-              <Text style={styles.candidateName}>
-                {candidate.name} ({candidate.score.toFixed(2)})
-              </Text>
-              <Text style={styles.candidateWhy}>{candidate.rationale}</Text>
-            </View>
+      {incident.transcript.length > 0 && (
+        <Section title="What the reporter said" defaultOpen={false} count={incident.transcript.length}>
+          {incident.transcript.map((turn, i) => (
+            <Text key={i} style={styles.transcriptLine}>
+              <Text style={styles.transcriptRole}>{turn.role}: </Text>
+              {turn.content}
+            </Text>
           ))}
         </Section>
       )}
+
+      {/* Acting on it, last: by here the coordinator has read the whole case.
+          Ask the reporter for anything missing, optionally run the
+          coordination check, decide, then go. */}
+      <ReporterChat incidentId={incident.incident_id} actor={responderId} />
+
+      <Section title="Coordination check" defaultOpen={false}>
+        <Text style={styles.meta}>
+          The coordination agent reads this case's history, offers and open tasks,
+          and lists what still needs doing. It suggests; it never acts.
+        </Text>
+        <CoordinationPanel
+          key={`${incident.incident_id}:${incident.updated_at}`}
+          incidentId={incident.incident_id}
+          bare
+        />
+      </Section>
+
+      <DecisionPanel incident={incident} actor={responderId} onChanged={reload} />
+
+      {report?.access_notes && (
+        <Text style={styles.access}>
+          <Text style={styles.accessLabel}>Access: </Text>
+          {report.access_notes}
+        </Text>
+      )}
+      <View style={styles.buttonRow}>
+        {coordinates && (
+          <Pressable style={styles.primary} onPress={navigate}>
+            <Text style={styles.primaryText}>Navigate</Text>
+          </Pressable>
+        )}
+        {incident.reporter_phone && (
+          <Pressable
+            style={styles.secondary}
+            onPress={() => void Linking.openURL(`tel:${incident.reporter_phone}`)}
+          >
+            <Text style={styles.secondaryText}>Call reporter</Text>
+          </Pressable>
+        )}
+      </View>
 
       <View style={styles.buttonRow}>
         <Pressable style={styles.secondary} onPress={() => void setStatus('en_route')}>
@@ -550,6 +580,8 @@ const styles = StyleSheet.create({
   },
   photoThumbActive: { borderColor: colors.accent },
   photoNote: { ...type.meta, fontSize: 12, color: colors.textFaint, marginTop: spacing.xs },
+  access: { ...type.meta, color: colors.textMuted, lineHeight: 19 },
+  accessLabel: { fontWeight: '700', color: colors.text },
 
   buttonRow: {
     flexDirection: 'row',
@@ -595,7 +627,4 @@ const styles = StyleSheet.create({
   unknown: { color: colors.textFaint, fontStyle: 'italic' },
   transcriptLine: { ...type.meta, color: colors.textMuted, lineHeight: 20 },
   transcriptRole: { fontWeight: '700', color: colors.text, textTransform: 'capitalize' },
-  candidate: { paddingVertical: spacing.xs + 2 },
-  candidateName: { ...type.label, color: colors.text, fontSize: 15 },
-  candidateWhy: { ...type.meta, fontSize: 12.5, color: colors.textFaint, lineHeight: 18 },
 });
