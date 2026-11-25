@@ -69,6 +69,32 @@ Record device model and iOS version, DJI Fly version, original Mini 2 model, con
 
 Operator naming does not grant an app account or flight permission. The coordinator hands over the short-lived publishing address; the operator uses DJI Fly and operates the aircraft manually. No DJI SDK integration, autonomous dispatch, waypoint flight or automatic animal tracking is implemented.
 
+### Start an isolated phone rehearsal
+
+Use a CPU host on the phone's trusted LAN, or a host with a private IPv4 route
+the phone already has access to. On that host, build the rehearsal UI and launch
+the receiver with its specific private interface address:
+
+~~~sh
+npm run build:drone-stream
+python scripts/drone_stream_demo.py --mediamtx /absolute/path/mediamtx \
+  --ffmpeg /absolute/path/ffmpeg --phone-bind <host-private-ipv4>
+~~~
+
+The coordinator UI stays on loopback port 8935. Open it on the host or through
+an existing authenticated HTTP proxy. The phone needs a separate route to the
+private RTMP listener on TCP 19350. The browser proxy does not provide that path.
+Only use this mode on a trusted LAN or an existing private route. The launcher
+does not configure a firewall or make the receiver public.
+
+The rehearsal opens a disposable test case with a requested operator observation.
+Approve it in the coordinator UI, record the ground-test readiness check,
+and create a private session. Give the phone the session URL privately. The
+preview starts in **Waiting** until the phone publishes. Save and reopen a
+frame, interrupt the phone connection, reconnect, and end the session. The
+launcher does not record the full stream in this mode. Stopping it discards
+the test case and its saved frames.
+
 ## First waypoint rehearsal
 
 Complete the motors-off DJI Fly connection test with the Mini 2, controller and
@@ -110,7 +136,7 @@ python scripts/check_drone_setup.py --mediamtx /absolute/path/mediamtx --ffmpeg 
 python scripts/drone_stream_demo.py --mediamtx /absolute/path/mediamtx --ffmpeg /absolute/path/ffmpeg --port 8935
 ~~~
 
-Open the authenticated Workbench proxy for port 8935. The server is loopback-only and uses a disposable database, synthetic identity, a generated MP4 and a real RTMP receiver. It seeds an approved, in-progress recorded-demo request so you can save frames and complete review. It never connects to production data or a drone. Stop this rehearsal before running receiver integration tests because it uses the same private media ports. Restart it to reset the synthetic case. The initial stream expires after 30 minutes; shutdown removes disposable data and stops its media children.
+Open the authenticated Workbench proxy for port 8935. The server is loopback-only and uses a disposable database, synthetic identity, a generated MP4 and a real RTMP receiver. Without `--phone-bind`, it seeds an approved, in-progress recorded-demo request so you can save frames and complete review. It never connects to production data or a drone. Stop this rehearsal before running receiver integration tests because it uses the same private media ports. Restart it to reset the synthetic case. The initial stream expires after 30 minutes; shutdown removes disposable data and stops its media children.
 
 
 ## Verification on 2026-11-07
