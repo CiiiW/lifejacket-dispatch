@@ -82,6 +82,15 @@ function fixtureAttention(){
   });
 }
 const api:DroneApi={
+  async patrol(_id, requestId, planId, signal) {
+    const area = rows.find(row => row.request_id === requestId)?.search_area;
+    if (!area) return { plan: null, simulation: null, unavailable_reason: 'Save a search area first.' };
+    const response = await fetch('/patrol', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ area, plan_id: planId }), signal,
+    });
+    return response.json();
+  },
   async attention(offset){const items=fixtureAttention();return {items:clone(items.slice(offset,offset+50)),total:items.length};},
   async acknowledgeAttention(_id,r,b){
     const row=rows.find(x=>x.request_id===r)!;
@@ -156,6 +165,19 @@ const api:DroneApi={
   },
   async photo(){if(comparisonDenied)throw new NetworkError(403);return new Blob(['<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="640" height="360" fill="#17364a"/><text x="40" y="180" fill="white" font-size="22">Synthetic workflow test — no wildlife evidence</text></svg>'],{type:'image/svg+xml'});}
 };
+function BearFootage() {
+  const [video, setVideo] = React.useState('');
+  React.useEffect(() => () => { if (video) URL.revokeObjectURL(video); }, [video]);
+  return <section className="lj-panel" style={{ marginTop: 18 }}>
+    <h2>Review recorded bear footage</h2>
+    <label>Choose a recorded clip<input type="file" accept="video/*" onChange={event => {
+      const file = event.target.files?.[0];
+      setVideo(file ? URL.createObjectURL(file) : '');
+    }}/></label>
+    {video && <video controls src={video} style={{ maxWidth: '100%', marginTop: 12 }}/>}
+  </section>;
+}
+
 function Demo(){
   const [version,setVersion]=React.useState(0);
   const [request,setRequest]=React.useState<string>();
@@ -220,6 +242,7 @@ function Demo(){
     <CoordinatorAttention api={api} revision={monitorRevision} onChange={()=>setMonitorRevision(v=>v+1)} onOpen={(_id,r)=>setRequest(r)}/>
     <MonitoringQueue api={api} revision={monitorRevision} onOpen={(_id,r)=>setRequest(r)}/>
     <DroneRequests key={version} api={api} id="fictional-case" reportedLocation={reportLocation} offlineMap initialRequestId={request} onMonitoringChange={()=>setMonitorRevision(v=>v+1)}/>
+    {scenario === 'bear_report' && <BearFootage/>}
   </Shell>;
 }
 createRoot(document.getElementById('root')!).render(<Demo/>);

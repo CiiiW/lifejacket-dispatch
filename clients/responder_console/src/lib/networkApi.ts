@@ -1,3 +1,4 @@
+import type { DronePlan, DroneSimulationResult } from './api';
 /** Dedicated authenticated network access. Never falls back to the legacy API. */
 export type NetworkRole =
   'reporter' | 'volunteer' | 'noaa' | 'center_coordinator' | 'rescuer';
@@ -197,6 +198,7 @@ export function createNetworkApi(
   }
   return {
     drones: {
+      patrol:(id,r,planId,s)=>request(followupPath(id,r)+'/patrol',s,planId ? {plan_id:planId} : {},'POST'),
       detectorInput:(id,r,e,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-input',s),
       attachDetectorResult:(id,r,e,b,s)=>request(followupPath(id,r)+'/evidence/'+caseId(e)+'/detector-result',s,b,'POST'),
       frameAnalyses:(id,r,s)=>request(followupPath(id,r)+'/analysis',s),
@@ -335,7 +337,14 @@ export interface ReminderStatus {
   enabled:boolean;destination_configured:boolean;worker:{running:boolean;last_seen_at:string|null};
   items:{notification_id:string;kind:string;status:string;attempts:number;error_code:string|null}[];
 }
+export interface PatrolPreview {
+  plan: DronePlan | null;
+  simulation: DroneSimulationResult | null;
+  unavailable_reason: string | null;
+}
+
 export interface DroneApi {
+  patrol?(id: string, requestId: string, planId: string | null, signal?: AbortSignal): Promise<PatrolPreview>;
   detectorInput?(id:string,r:string,e:string,signal?:AbortSignal):Promise<Record<string,unknown>>;
   attachDetectorResult?(id:string,r:string,e:string,b:Record<string,unknown>,signal?:AbortSignal):Promise<FrameAnalysis>;
   recordings?(id:string,r:string,t:string,signal?:AbortSignal):Promise<{enabled:boolean;recordings:DroneRecording[];time_note:string}>;

@@ -284,3 +284,53 @@ def test_invalid_search_area_and_missing_report_location(drone_api):
         session.commit()
     assert client.post(BASE, json={**body, "search_area": {}}).status_code == 422
     assert client.post(BASE, json=payload()).status_code == 201
+
+
+def test_case_patrol_previews_and_replays_a_first_pass(drone_api):
+    from lifejacket.geo import haversine_km
+
+    client, _, current = drone_api
+    center = {"latitude": 36.8, "longitude": -121.79}
+    row = create(client, search_area={"center": center, "radius_m": 1000})
+    path = f"{BASE}/{row['request_id']}/patrol"
+    response = client.post(path, json={})
+    assert response.status_code == 200, response.text
+    assert "no-store" in response.headers["cache-control"]
+    preview = response.json()
+    plan = preview["plan"]
+    assert plan["status"] == "ready_for_review"
+    assert preview["simulation"] is None
+    assert plan["mission"]["home"] == center
+    assert any(point["phase"] == "survey" for point in plan["waypoints"])
+    assert all(
+        haversine_km(center["latitude"], center["longitude"], point["latitude"], point["longitude"])
+        < 0.15
+        for point in plan["waypoints"]
+    )
+    assert client.post(path, json={"plan_id": "0" * 24}).status_code == 409
+
+    result = client.post(path, json={"plan_id": plan["plan_id"]})
+    assert result.status_code == 200, result.text
+    simulation = result.json()["simulation"]
+    assert simulation["synthetic"] is True and simulation["status"] == "completed"
+    assert simulation["samples"][-1]["phase"] == "land"
+    assert client.get(f"{BASE}/{row['request_id']}").json()["status"] == "requested"
+
+    current[0] = actor("B")
+    assert client.post(path, json={}).status_code == 403
+
+
+def test_case_patrol_reports_when_simulator_cannot_use_search_area(drone_api):
+    client, _, _ = drone_api
+    row = create(client)
+    response = client.post(f"{BASE}/{row['request_id']}/patrol", json={})
+    assert response.status_code == 200 and response.json()["plan"] is None
+    out_of_bounds = {
+        **payload(search_area={"center": {"latitude": 58, "longitude": -134}}),
+        "request_key": "out-of-bounds",
+    }
+    created = client.post(BASE, json=out_of_bounds)
+    assert created.status_code == 201, created.text
+    response = client.post(f"{BASE}/{created.json()['request_id']}/patrol", json={})
+    assert response.status_code == 200
+    assert "California" in response.json()["unavailable_reason"]

@@ -11,6 +11,7 @@ const LOCAL_STYLE: StyleSpecification = {
   sources: {},
   layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#16283d' } }],
 };
+const EMPTY_ROUTE: ObservationPoint[] = [];
 const radians = Math.PI / 180;
 
 // Spherical destinations keep the displayed radius in meters at different latitudes.
@@ -34,11 +35,15 @@ function searchRing(center: ObservationPoint, radiusMeters: number) {
 
 export default function ObservationSearchMap({
   center, radiusMeters, onPick, offline = false,
+  route = EMPTY_ROUTE, patrolPosition, focusPatrol = false,
 }: {
   center: ObservationPoint | null;
   radiusMeters: number;
   onPick?: (center: ObservationPoint) => void;
   offline?: boolean;
+  route?: ObservationPoint[];
+  patrolPosition?: ObservationPoint;
+  focusPatrol?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<maplibre.Map | null>(null);
@@ -77,9 +82,22 @@ export default function ObservationSearchMap({
         paint: { 'line-color': '#48cae4', 'line-width': 2 },
       });
       instance.addLayer({
+        id: 'patrol-route', type: 'line', source: 'observation-search',
+        filter: ['==', '$type', 'LineString'],
+        paint: { 'line-color': '#ffc65b', 'line-width': 3 },
+      });
+      instance.addLayer({
         id: 'search-center', type: 'circle', source: 'observation-search',
-        filter: ['==', '$type', 'Point'],
+        filter: ['==', 'kind', 'center'],
         paint: { 'circle-color': '#48cae4', 'circle-stroke-color': '#0b132b',
+          'circle-stroke-width': 2, 'circle-radius': 6 },
+      });
+      instance.addSource('patrol-position', {
+        type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+      });
+      instance.addLayer({
+        id: 'patrol-position', type: 'circle', source: 'patrol-position',
+        paint: { 'circle-color': '#fff4d9', 'circle-stroke-color': '#8c5900',
           'circle-stroke-width': 2, 'circle-radius': 6 },
       });
     });
@@ -107,14 +125,21 @@ export default function ObservationSearchMap({
         type: 'FeatureCollection',
         features: [
 
-          { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [longitude, latitude] } },
+          { type: 'Feature', properties: { kind: 'center' }, geometry: { type: 'Point', coordinates: [longitude, latitude] } },
+          ...(route.length > 1 ? [{ type: 'Feature' as const, properties: {},
+            geometry: { type: 'LineString' as const,
+              coordinates: route.map(point => [point.longitude, point.latitude]) } }] : []),
           ...(ring ? [{ type: 'Feature' as const, properties: {},
             geometry: { type: 'Polygon' as const, coordinates: [ring] } }] : []),
         ],
       });
       if (ring) {
         const bounds = new maplibre.LngLatBounds();
-        ring.forEach(([lng, lat]) => bounds.extend([lng, lat]));
+        if (focusPatrol && route.length > 1) {
+          route.forEach(point => bounds.extend([point.longitude, point.latitude]));
+        } else {
+          ring.forEach(([lng, lat]) => bounds.extend([lng, lat]));
+        }
         instance.fitBounds(bounds, { padding: 34, maxZoom: 17, duration: 0 });
       } else {
         instance.setCenter([longitude, latitude]);
@@ -123,7 +148,24 @@ export default function ObservationSearchMap({
     if (instance.getSource('observation-search')) draw();
     else instance.once('load', draw);
     return () => { instance.off('load', draw); };
-  }, [latitude, longitude, radiusMeters, offline]);
+  }, [latitude, longitude, radiusMeters, offline, route, focusPatrol]);
+
+  useEffect(() => {
+    const instance = map.current;
+    if (!instance) return;
+    const draw = () => {
+      const source = instance.getSource<GeoJSONSource>('patrol-position');
+      source?.setData({
+        type: 'FeatureCollection',
+        features: patrolPosition ? [{ type: 'Feature', properties: {},
+          geometry: { type: 'Point', coordinates: [patrolPosition.longitude, patrolPosition.latitude] },
+        }] : [],
+      });
+    };
+    if (instance.getSource('patrol-position')) draw();
+    else instance.once('load', draw);
+    return () => { instance.off('load', draw); };
+  }, [patrolPosition, offline]);
 
   if (unavailable) return <p className="lj-muted">Search-area map unavailable.</p>;
   return <div ref={container} aria-label="Observation search area map"

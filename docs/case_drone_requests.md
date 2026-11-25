@@ -63,8 +63,14 @@ against the older main without reviewing the parent changes.
 - Backend: `python -m pytest backend/tests/test_drone_requests.py`
 - Types: `npx tsc -p clients/responder_console --noEmit`
 - UI fixture: `npm ci`, install responder-console dependencies, then `npm run demo:drone-requests`.
-  Opens on loopback port 8084. No backend, credentials or real case data.
-- UI fixture uses synthetic frames only. API tests use a temporary database and test identity overrides;
+  Opens on loopback port 8084 with fixture cases and no credentials. For **Preview patrol**,
+  install the backend Python dependencies in `.venv` or set `LIFEJACKET_DEMO_PYTHON`
+  to an interpreter with those dependencies.
+- In the bear scenario, save the request, choose **Preview patrol** and **Run simulated patrol**,
+  then select a local clip under **Review recorded bear footage**. The clip is opened in the browser.
+- Case patrol previews use the saved search area to build a short first pass under the existing
+  California simulator profile. The simulation does not estimate camera coverage.
+- The fixture ships with synthetic frames only. API tests use a temporary database and test identity overrides;
   there is no production mock-auth flag.
 
 ## Remaining work

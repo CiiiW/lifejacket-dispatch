@@ -1,3 +1,4 @@
+import ObservationPatrol from '../components/ObservationPatrol.web';
 import ObservationSearchMap from '../components/ObservationSearchMap.web';
 import { ObservationWorkspace } from './ObservationWorkspace.web';
 import { ObservationComparison } from './ObservationComparison.web';
@@ -176,12 +177,11 @@ export function DroneRequests({
         <dt>Next review</dt><dd>{selected.next_review_at ? new Date(selected.next_review_at).toLocaleString() : 'Not scheduled'}</dd>
         <dt>Reported location</dt><dd>{selected.target_location.latitude ?? 'Unknown'}, {selected.target_location.longitude ?? 'Unknown'}</dd>
       </dl>
-      {selected.search_area && <>
-        <h4>Search area · {selected.search_area.radius_m / 1000} km radius</h4>
-        <ObservationSearchMap center={selected.search_area.center}
-          radiusMeters={selected.search_area.radius_m} offline={offlineMap}/>
-        <p className="lj-muted">Search center {selected.search_area.center.latitude.toFixed(5)}, {selected.search_area.center.longitude.toFixed(5)}</p>
-      </>}
+      {selected.search_area && <ObservationPatrol key={selected.request_id}
+        area={selected.search_area} offline={offlineMap}
+        previewPatrol={canCreate && api.patrol
+          ? (planId, signal) => api.patrol!(id, selected.request_id, planId, signal)
+          : undefined}/>}
       <ObservationWorkspace key={'workspace-'+selected.request_id} api={api} id={id} request={selected} canManage={canCreate}
         onChanged={()=>act(async()=>selected.request_id)} onUnavailable={failure=>{
           setError(networkErrorMessage(failure));setRows([]);setSelected(null);setCanCreate(false);
