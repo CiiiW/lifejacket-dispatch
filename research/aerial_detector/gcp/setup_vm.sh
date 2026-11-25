@@ -12,11 +12,37 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 VENV="${VENV:-${HOME}/.venvs/aerial}"
 DATA_ROOT="${DATA_ROOT:-${HOME}/aerial-data}"
+KERNEL_NAME="${KERNEL_NAME:-aerial}"
+KERNEL_LABEL="${KERNEL_LABEL:-Python (aerial detector)}"
 
 echo "  repo       ${REPO_ROOT}"
 echo "  venv       ${VENV}"
 echo "  data root  ${DATA_ROOT}"
 echo
+
+# FFmpeg. Not on the GCP Workbench image, and every frame-extraction path in
+# this repo needs it -- detect_video.py, prepare_noaa.py, and the backend's
+# drones/video.py. Installing it here rather than letting it surface as a
+# FileNotFoundError five cells into a notebook.
+if command -v ffmpeg >/dev/null 2>&1 && command -v ffprobe >/dev/null 2>&1; then
+  echo "  ffmpeg: $(ffmpeg -version | head -1)"
+else
+  echo "  installing ffmpeg"
+  if command -v sudo >/dev/null 2>&1 && command -v apt-get >/dev/null 2>&1; then
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -qq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg
+  elif command -v conda >/dev/null 2>&1; then
+    conda install -y -q -c conda-forge ffmpeg
+  else
+    echo "Could not install ffmpeg automatically. Install it, then rerun." >&2
+    exit 1
+  fi
+  command -v ffprobe >/dev/null 2>&1 || {
+    echo "ffmpeg installed but ffprobe is still missing." >&2
+    exit 1
+  }
+  echo "  ffmpeg: $(ffmpeg -version | head -1)"
+fi
 
 if ! command -v nvidia-smi >/dev/null 2>&1; then
   echo "nvidia-smi not found. The GPU driver is not installed." >&2
@@ -48,6 +74,14 @@ else:
     raise SystemExit("torch cannot see the GPU - stop here and fix it")
 PY
 
+# Register this venv as a Jupyter kernel. Without this, Workbench's
+# JupyterLab only offers its own default kernel, the notebooks open against
+# a Python that has no rfdetr, and the first import fails.
+python -m ipykernel install --user \
+  --name "${KERNEL_NAME}" \
+  --display-name "${KERNEL_LABEL}"
+echo "  registered Jupyter kernel: ${KERNEL_LABEL}"
+
 mkdir -p "${DATA_ROOT}/raw" "${DATA_ROOT}/weights"
 
 # Fetch DroneMegaDetector now, so a later step does not stall on a 142 MB
@@ -70,7 +104,16 @@ FETCH
 
 cat <<NEXT
 
-Ready. Activate the environment in every new shell:
+Ready.
+
+IN JUPYTERLAB: open a notebook, then pick the kernel
+"${KERNEL_LABEL}" from the top-right kernel picker (or
+Kernel > Change Kernel). The default kernel does not have rfdetr and the
+first import will fail. Start with:
+
+  research/aerial_detector/notebooks/00_try_a_video.ipynb
+
+IN A TERMINAL: activate the environment in every new shell:
 
   source ${VENV}/bin/activate
 

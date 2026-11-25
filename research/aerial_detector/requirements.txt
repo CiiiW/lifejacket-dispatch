@@ -9,6 +9,11 @@
 # On a GPU VM install torch first, matched to the driver's CUDA version, then
 # this file. See gcp/setup_vm.sh.
 #
+# PYTHON 3.10 OR NEWER. The repo's backend requires 3.11, but the GCP
+# Workbench image ships 3.10, so this directory stays compatible with it:
+# `timezone.utc` rather than `datetime.UTC`, and no `hashlib.file_digest`.
+# pyproject.toml carries a matching per-file ruff ignore.
+#
 # The base detector is DroneMegaDetector, an RF-DETR Medium checkpoint.
 # rfdetr itself is Apache-2.0 and the DroneMegaDetector repo is MIT, so
 # nothing here carries the AGPL network clause that Ultralytics would have.
@@ -27,4 +32,6 @@ pycocotools>=2.0.7        # COCO ground truth and mAP
 pandas>=2.2               # result tables in the notebooks
 matplotlib>=3.8           # PR curves, box-size histograms, annotated previews
 jupyterlab>=4.2
+ipykernel>=6.29           # registers this venv as a Jupyter kernel, so
+                          # Workbench's JupyterLab can actually run the notebooks
 ipywidgets>=8.1           # confidence sliders in the tuning notebook

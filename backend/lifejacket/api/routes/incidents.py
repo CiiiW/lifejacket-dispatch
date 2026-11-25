@@ -21,7 +21,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from lifejacket.api.conditions import ConditionsOut, build_conditions
+from lifejacket.api.conditions import ConditionsOut, build_conditions, live_conditions
 from lifejacket.context.routing import driving_route
 from lifejacket.dispatch.duplicates import is_possible_duplicate
 from lifejacket.dispatch.mass_stranding import find_mass_strandings
@@ -32,6 +32,7 @@ from lifejacket.models.schemas import (
     DispatchCandidate,
     DuplicateMatch,
     EnvironmentalContext,
+    GeoPoint,
     IncidentReport,
     IncidentStatus,
     MassStranding,
@@ -460,6 +461,30 @@ class RouteResponse(BaseModel):
     #: straight line is never mistaken for a drive.
     source: str = "straight_line"
     from_name: str | None = None
+
+
+@router.get("/{incident_id}/conditions", response_model=ConditionsOut)
+def get_live_conditions(
+    incident_id: str, session: Session = Depends(get_session)
+) -> ConditionsOut:
+    """Tide, weather and daylight at the incident now, not when it was reported.
+
+    The detail view's `conditions` is the snapshot the agents worked from. A
+    coordinator opening the case hours later needs the water as it is now:
+    the tide has turned at least once since a report six hours old.
+    """
+    incident = session.get(IncidentRow, incident_id)
+    if incident is None:
+        raise HTTPException(status_code=404, detail=f"Unknown incident: {incident_id}")
+    if incident.latitude is None or incident.longitude is None:
+        raise HTTPException(status_code=409, detail="Incident has no location yet")
+    return live_conditions(
+        GeoPoint(
+            latitude=incident.latitude,
+            longitude=incident.longitude,
+            place_name=incident.place_name,
+        )
+    )
 
 
 @router.get("/{incident_id}/route", response_model=RouteResponse)

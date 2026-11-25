@@ -33,10 +33,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import shutil
 import subprocess
 import sys
 from collections import Counter
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -54,11 +56,72 @@ from dmd import (  # noqa: E402
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".m4v", ".avi"}
 
 
+def sha256_of(path: Path) -> str:
+    """Streamed, rather than hashlib.file_digest, which needs Python 3.11."""
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+#: Places FFmpeg lands that a Jupyter kernel's PATH often misses. A kernel
+#: inherits the Jupyter server's environment, not your login shell's, so
+#: `sudo apt-get install ffmpeg` in a terminal can leave the notebook still
+#: unable to find it. Set AERIAL_FFMPEG_DIR to add one.
+_BINARY_SEARCH_DIRS = (
+    "/opt/conda/bin",
+    "/usr/bin",
+    "/usr/local/bin",
+    "/opt/homebrew/bin",
+    "/snap/bin",
+)
+
+
+def resolve_binary(name: str) -> str | None:
+    """Full path to `name`, looking beyond PATH before giving up."""
+    found = shutil.which(name)
+    if found:
+        return found
+    candidates = []
+    override = os.environ.get("AERIAL_FFMPEG_DIR")
+    if override:
+        candidates.append(Path(override))
+    candidates.append(Path(sys.prefix) / "bin")          # the active venv
+    candidates.append(Path(sys.base_prefix) / "bin")     # the conda it came from
+    candidates.extend(Path(d) for d in _BINARY_SEARCH_DIRS)
+    for directory in candidates:
+        candidate = directory / name
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            return str(candidate)
+    return None
+
+
+def _missing_binary_message(name: str) -> str:
+    searched = [os.environ.get("AERIAL_FFMPEG_DIR"), str(Path(sys.prefix) / "bin")]
+    searched += list(_BINARY_SEARCH_DIRS)
+    return (
+        f"{name} not found.\n"
+        "  Install it:\n"
+        "    conda install -y -c conda-forge ffmpeg      # no sudo needed\n"
+        "    sudo apt-get install -y ffmpeg              # Debian/Workbench\n"
+        "    brew install ffmpeg                         # macOS\n"
+        "  Already installed? Its directory is not visible to this kernel.\n"
+        "  Point at it:  os.environ['AERIAL_FFMPEG_DIR'] = '/path/to/bin'\n"
+        f"  PATH was: {os.environ.get('PATH', '')[:200]}\n"
+        f"  Also searched: {', '.join(d for d in searched if d)}"
+    )
+
+
 def run_ffmpeg(args: list[str], timeout: int = 1800) -> subprocess.CompletedProcess:
+    resolved = resolve_binary(args[0])
+    if resolved is None:
+        raise DmdError(_missing_binary_message(args[0]))
+    args = [resolved, *args[1:]]
     try:
         result = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     except FileNotFoundError as exc:
-        raise DmdError("Install ffmpeg and ffprobe first") from exc
+        raise DmdError(_missing_binary_message(args[0])) from exc
     except subprocess.TimeoutExpired as exc:
         raise DmdError(f"ffmpeg exceeded {timeout}s") from exc
     if result.returncode:
@@ -197,8 +260,7 @@ def main() -> int:
 
     args.out.mkdir(parents=True, exist_ok=True)
     info = probe(args.video)
-    with args.video.open("rb") as handle:
-        source_sha = hashlib.file_digest(handle, "sha256").hexdigest()
+    source_sha = sha256_of(args.video)
     print(f"  {args.video.name}")
     print(f"  {info['width']}x{info['height']}, {info['duration_seconds']:.1f}s, "
           f"{info['frame_rate']} fps")
@@ -245,7 +307,7 @@ def main() -> int:
     (args.out / "detections.json").write_text(
         json.dumps(
             {
-                "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "video": str(args.video.resolve()),
                 "video_sha256": source_sha,
                 "video_info": info,

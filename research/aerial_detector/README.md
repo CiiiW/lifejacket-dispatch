@@ -80,6 +80,7 @@ if you decide the scene summary genuinely needs it.
 
 | | |
 | --- | --- |
+| [`doctor.py`](doctor.py) | **Run this if anything breaks.** Checks Python, FFmpeg, packages, GPU and weights in one pass; `--fix` installs what it can |
 | [`dmd.py`](dmd.py) | Shared: weights, inference, COCO, scoring, plots. The scoring half imports no torch, so it is testable anywhere |
 | [`detect_video.py`](detect_video.py) | **Point it at a clip and look.** Frames → detections → annotated video + scene summary. No labels needed |
 | [`prepare_noaa.py`](prepare_noaa.py) | NOAA video → spaced frames → a labelling-ready COCO skeleton |
@@ -122,9 +123,15 @@ bash research/aerial_detector/gcp/setup_vm.sh
 source ~/.venvs/aerial/bin/activate
 ```
 
-`setup_vm.sh` stops immediately if torch cannot see the GPU, and pre-fetches
-the DroneMegaDetector weights so a later step does not stall on a 142 MB
-download.
+`setup_vm.sh` installs FFmpeg (not on the Workbench image, and every
+frame-extraction path here needs it), stops immediately if torch cannot see
+the GPU, pre-fetches the DroneMegaDetector weights so a later step does not
+stall on a 142 MB download, and registers the virtualenv as a Jupyter
+kernel.
+
+**In JupyterLab, pick the kernel "Python (aerial detector)"** from the
+top-right kernel picker. Workbench's default kernel does not have `rfdetr`
+and the first import will fail.
 
 **Stop the instance when you are not training.** The cost leak is not the
 training run; it is an L4 left running overnight.
@@ -133,7 +140,43 @@ training run; it is an L4 left running overnight.
 > activity. A terminal training run does not reset the timer, which is why
 > `create_vm.sh` sets it to 24 hours rather than the 180-minute default.
 
-## 1. Look at a clip first
+## 1. Check the environment
+
+```bash
+cd research/aerial_detector
+python doctor.py --fix
+```
+
+Checks Python, FFmpeg, the packages, the GPU and the DroneMegaDetector
+weights independently, so one failure does not hide the rest, and installs
+what it can. Notebook 00 runs the same check in its first cell.
+
+Worth doing first because three separate environment assumptions broke in a
+row on a fresh Workbench instance -- no Jupyter kernel registered, Python
+3.10 rather than 3.11, and no FFmpeg -- each surfacing several cells into a
+notebook as an unrelated-looking traceback.
+
+## 2. Look at a clip first
+
+> **Notebooks and `git pull`.** Jupyter rewrites a notebook's execution
+> counts and outputs as you run it, so a tracked notebook goes "modified"
+> the moment you use it and the next pull refuses to merge. Two ways round:
+>
+> ```bash
+> git stash && git pull        # discard the churn, take the update
+> ```
+>
+> and keep your own settings out of the file entirely:
+>
+> ```bash
+> export AERIAL_VIDEO=~/aerial-data/clips/NOAA_sealions.mp4
+> export AERIAL_WEIGHTS=runs/seals-v1/checkpoint_best_total.pth
+> ```
+>
+> Notebook 00 reads those, so changing the clip never edits tracked code.
+> There is also an override cell directly beneath the settings cell, meant
+> to be edited, if you would rather type the path.
+
 
 Before any labelling, point the detector at a video and see what happens:
 
@@ -152,7 +195,7 @@ or recall is reported. Looking at output and measuring accuracy are
 different activities, and only the second belongs in the writeup. That is
 what the next step is for.
 
-## 2. Build the NOAA evaluation set
+## 3. Build the NOAA evaluation set
 
 ```bash
 cd research/aerial_detector
@@ -183,7 +226,7 @@ Fifty labelled frames for evaluation beats a thousand for training: two hours
 instead of a week, and **once you train on them you can no longer honestly
 evaluate on them.**
 
-## 3. Measure DroneMegaDetector
+## 4. Measure DroneMegaDetector
 
 Open [`notebooks/01_evaluate_dmd_on_noaa.ipynb`](notebooks/01_evaluate_dmd_on_noaa.ipynb),
 or from the shell:
@@ -198,7 +241,7 @@ notebook's conclusions section; in short:
 
 | Result | What to do |
 | --- | --- |
-| `animal` recall above ~0.6 | The pretraining transfers. Go straight to step 4 |
+| `animal` recall above ~0.6 | The pretraining transfers. Go straight to step 5 |
 | Poor recall, boxes in sensible places | Normal domain gap. Fine-tuning is the fix |
 | Finds nothing, and targets were under 32 px | A **resolution** problem. Fly lower or raise input size; weights will not help |
 | Boxes systematically offset | Stop — find the preprocessing bug first |
@@ -206,7 +249,7 @@ notebook's conclusions section; in short:
 Read `blind_images` before mAP: frames containing the target where nothing
 at all was detected. That is the failure a coordinator would feel.
 
-## 4. Fine-tune
+## 5. Fine-tune
 
 ```bash
 python dataset.py --coco labelled/_annotations.coco.json \
@@ -238,7 +281,7 @@ epoch one.
 Run it in `tmux`, not in a notebook cell. The notebooks print the exact
 command to copy.
 
-## 5. Check both directions
+## 6. Check both directions
 
 ```bash
 # did it get better at the job?
@@ -257,7 +300,7 @@ a worse product in the field than stock DroneMegaDetector, and without this
 you would ship it not knowing. `--compare` flags any metric that fell by 0.05
 or more and prints what to do about it.
 
-## 6. Choose an operating point
+## 7. Choose an operating point
 
 [`notebooks/04_compare_and_tune.ipynb`](notebooks/04_compare_and_tune.ipynb).
 
@@ -269,7 +312,7 @@ detection anyway. The notebook lets you set that ratio explicitly and picks
 the threshold that minimises real cost — usually lower than best-F1, which is
 correct.
 
-## 7. Publish
+## 8. Publish
 
 ```bash
 huggingface-cli login
@@ -293,6 +336,15 @@ pip install -r ../../backend/requirements-detector.txt
 Weights never go in git: `.gitignore` excludes `runs/**/weights/` and `*.pth`.
 The training curves and `results/*.json` beside them are small and stay
 committable — they are the evidence for the writeup.
+
+## A note on Python versions
+
+The backend requires Python 3.11+. **This directory stays compatible with
+3.10**, because the GCP Workbench image ships 3.10 and `setup_vm.sh` builds
+its virtualenv from whatever `python3` it finds there. In practice that means
+`timezone.utc` rather than `datetime.UTC`, and no `hashlib.file_digest`.
+`pyproject.toml` carries a matching per-file ruff ignore so the linter does
+not undo it.
 
 ## Honest limits
 

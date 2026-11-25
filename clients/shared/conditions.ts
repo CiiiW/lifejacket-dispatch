@@ -6,7 +6,7 @@
  * no React, so both a phone screen and a web dashboard can use them.
  */
 
-import type { Conditions } from './api';
+import type { Conditions, TidePoint } from './api';
 
 /**
  * Triage, in words a member of the public understands.
@@ -209,4 +209,99 @@ export function summariseConditions(conditions: Conditions): string {
 export function describeGaps(conditions: Conditions): string | null {
   if (conditions.unavailable.length === 0) return null;
   return `Could not check: ${conditions.unavailable.join(', ')}.`;
+}
+
+// --- Tide outlook -------------------------------------------------------------
+//
+// The chart and the "next low in 2h 10m" line read the same predictions, so
+// they cannot disagree. Times are local (see `TideEvent`); everything here is
+// relative to a moment the caller passes in: now for live conditions, the
+// snapshot's own time for a stored one.
+
+/** A tide time from the API as a Date. */
+export function tideDate(time: string): Date {
+  return new Date(time);
+}
+
+/** "4:52 PM". Written out rather than Intl, so web and Hermes agree. */
+export function clockTime(date: Date): string {
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  return `${hours % 12 || 12}:${minutes} ${hours < 12 ? 'AM' : 'PM'}`;
+}
+
+/** "in 2h 05m", "in 40 min", or "now". */
+export function timeUntil(from: Date, to: Date): string {
+  const minutes = Math.max(0, Math.round((to.getTime() - from.getTime()) / 60000));
+  if (minutes < 1) return 'now';
+  if (minutes < 60) return `in ${minutes} min`;
+  return `in ${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, '0')}m`;
+}
+
+/** "1.84 m", or "−0.42 m" with a true minus: low water can be below the datum. */
+export function metres(value: number): string {
+  return `${value.toFixed(2).replace('-', '−')} m`;
+}
+
+/** Feet, for readers of US tide tables: "6.0 ft". */
+export function feet(value: number): string {
+  return `${(value * 3.28084).toFixed(1).replace('-', '−')} ft`;
+}
+
+export interface TideTurn {
+  kind: 'high' | 'low';
+  at: Date;
+  /** Null for snapshots stored before turning points were kept. */
+  heightM: number | null;
+}
+
+export interface TideOutlook {
+  trend: 'rising' | 'falling' | null;
+  /** Predicted height at the moment asked about, or null if unknown. */
+  heightM: number | null;
+  nextHigh: TideTurn | null;
+  nextLow: TideTurn | null;
+}
+
+/** Height on the 15-minute curve at `at`, interpolated; null outside it. */
+export function heightOnCurve(curve: TidePoint[], at: Date): number | null {
+  const t = at.getTime();
+  for (let i = 1; i < curve.length; i += 1) {
+    const a = tideDate(curve[i - 1].time).getTime();
+    const b = tideDate(curve[i].time).getTime();
+    if (t >= a && t <= b) {
+      const f = b === a ? 0 : (t - a) / (b - a);
+      return curve[i - 1].height_m + (curve[i].height_m - curve[i - 1].height_m) * f;
+    }
+  }
+  return null;
+}
+
+/** Where the water is at `at`, which way it is going, and the next high and low. */
+export function tideOutlook(conditions: Conditions, at: Date): TideOutlook {
+  const turns: TideTurn[] = (conditions.tide_events ?? []).map((e) => ({
+    kind: e.kind,
+    at: tideDate(e.time),
+    heightM: e.height_m,
+  }));
+  const upcoming = turns.filter((e) => e.at.getTime() >= at.getTime());
+
+  // Older snapshots carry only the next high and low, without heights.
+  const stored = (kind: 'high' | 'low', time: string | null): TideTurn | null =>
+    time && tideDate(time).getTime() >= at.getTime()
+      ? { kind, at: tideDate(time), heightM: null }
+      : null;
+
+  const nextHigh = upcoming.find((e) => e.kind === 'high') ?? stored('high', conditions.next_high_tide);
+  const nextLow = upcoming.find((e) => e.kind === 'low') ?? stored('low', conditions.next_low_tide);
+
+  let trend: TideOutlook['trend'] = null;
+  if (upcoming.length > 0) {
+    trend = upcoming[0].kind === 'high' ? 'rising' : 'falling';
+  } else if (conditions.tide_trend === 'rising' || conditions.tide_trend === 'falling') {
+    trend = conditions.tide_trend;
+  }
+
+  const heightM = heightOnCurve(conditions.tide_curve ?? [], at) ?? conditions.water_level_m;
+  return { trend, heightM, nextHigh, nextLow };
 }

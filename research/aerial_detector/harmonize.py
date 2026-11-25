@@ -32,7 +32,7 @@ import shutil
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -535,7 +535,7 @@ def write_dataset_yaml(out: Path, cmap: ClassMap) -> Path:
 
 def build_report(args, cmap: ClassMap, tally: Tally) -> dict:
     return {
-        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "targets": cmap.targets,
         "sources": {
             name: str(Path(value).resolve())

@@ -34,7 +34,9 @@ from starlette.responses import JSONResponse
 from lifejacket.access.boundary import NetworkBoundaryMiddleware
 from lifejacket.api.routes import (
     access,
+    communications,
     coordination,
+    coordinator_actions,
     drone_demo,
     drone_intake,
     drone_requests,
@@ -47,7 +49,9 @@ from lifejacket.api.routes import (
     network,
     network_actions,
     reporter_phone,
+    reporter_thread,
     responders,
+    volunteers,
 )
 from lifejacket.config import settings
 from lifejacket.models.db import init_db
@@ -119,9 +123,13 @@ app.include_router(drone_requests.monitoring_router)
 app.include_router(network_actions.router)
 app.include_router(access.router)
 app.include_router(intake.router)
+app.include_router(reporter_thread.router)
+app.include_router(communications.router)
 app.include_router(incidents.router)
 app.include_router(responders.router)
 app.include_router(coordination.router)
+app.include_router(coordinator_actions.router)
+app.include_router(volunteers.router)
 app.include_router(historical_strandings.router)
 app.include_router(drones.router)
 app.include_router(drone_intake.router)

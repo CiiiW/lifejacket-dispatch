@@ -30,7 +30,7 @@ import argparse
 import json
 import shutil
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from PIL import Image
@@ -104,7 +104,17 @@ def main() -> int:
 
     bundle = args.bundle
     if args.video:
-        bundle = build_bundle(args.video, out, args)
+        try:
+            bundle = build_bundle(args.video, out, args)
+        except ValueError as exc:
+            # drones/video.py raises ValueError when ffmpeg is absent.
+            raise SystemExit(
+                f"{exc}\n"
+                "  conda install -y -c conda-forge ffmpeg\n"
+                "  or: sudo apt-get install -y ffmpeg\n"
+                "  Already installed but not visible? "
+                "export AERIAL_FFMPEG_DIR=/path/to/bin and add it to PATH."
+            ) from exc
 
     manifest_path = Path(bundle) / "manifest.json"
     if not manifest_path.exists():
@@ -152,7 +162,7 @@ def main() -> int:
     doc = json.loads(coco_path.read_text())
     doc["info"] = {
         "description": "LifeJacket NOAA aerial evaluation set",
-        "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": manifest.get("metadata", {}).get("source", args.source),
         "rights_note": manifest.get("metadata", {}).get("rights_note", args.rights),
         "parent_video_sha256": manifest.get("source", {}).get("sha256"),

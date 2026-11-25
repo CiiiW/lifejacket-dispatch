@@ -38,3 +38,13 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 # Tests assert on private helpers and use long descriptive names.
 "backend/tests/*" = ["E501"]
+# The aerial detector research runs on the GCP Workbench image, which ships
+# Python 3.10, not in the backend's 3.11+ environment. UP017 would have us
+# write `datetime.UTC`, which does not exist there. Keep `timezone.utc`.
+"research/aerial_detector/*" = ["UP017"]
+# These notebooks locate research/aerial_detector and put it on sys.path
+# before importing from it, because JupyterLab does not reliably start a
+# kernel in the notebook's own directory. The imports cannot precede the
+# bootstrap that makes them resolvable. research/identification_eval does the
+# same thing with a per-line noqa.
+"research/aerial_detector/notebooks/*" = ["UP017", "E402"]

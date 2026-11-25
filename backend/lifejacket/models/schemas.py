@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -137,6 +137,14 @@ class WeatherConditions(BaseModel):
     retrieved_at: datetime | None = None
 
 
+class TideEvent(BaseModel):
+    """One predicted high or low water, in the station's local time."""
+
+    time: datetime
+    height_m: float
+    kind: Literal["high", "low"]
+
+
 class TideConditions(BaseModel):
     """Tide state, which decides whether an animal is about to be refloated.
 
@@ -158,6 +166,10 @@ class TideConditions(BaseModel):
     wave_height_m: float | None = None
     sea_surface_temperature_c: float | None = None
     retrieved_at: datetime | None = None
+    #: Predicted turning points from the evening before the report's day to
+    #: the morning after it, so a display can draw that day's curve. Empty
+    #: in contexts stored before this field existed.
+    events: list[TideEvent] = Field(default_factory=list)
 
 
 class EnvironmentalContext(BaseModel):

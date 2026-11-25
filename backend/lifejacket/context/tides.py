@@ -23,7 +23,9 @@ Two sources are combined:
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta
+import math
+from collections.abc import Sequence
+from datetime import datetime, time, timedelta
 from functools import lru_cache
 from typing import Any
 
@@ -31,7 +33,7 @@ import httpx
 
 from lifejacket.config import settings
 from lifejacket.geo import haversine_km
-from lifejacket.models.schemas import TideConditions
+from lifejacket.models.schemas import TideConditions, TideEvent
 
 logger = logging.getLogger(__name__)
 
@@ -103,8 +105,9 @@ def find_nearest_station(
 def fetch_tides(latitude: float, longitude: float) -> TideConditions | None:
     """Tide state at a coastal point, or None if unavailable.
 
-    Queries a 48-hour window centred on now, so that the next high and low tide
-    are both found even near midnight.
+    Queries from the evening before today to the morning after tomorrow: wide
+    enough that the next high and low are always found, and that today's
+    curve can be drawn midnight to midnight with a turning point either side.
     """
     found = find_nearest_station(latitude, longitude)
     if found is None:
@@ -112,12 +115,15 @@ def fetch_tides(latitude: float, longitude: float) -> TideConditions | None:
     station, distance_km = found
 
     now = datetime.now()
+    midnight = datetime.combine(now.date(), time.min)
     params = {
         "product": "predictions",
         "application": "LifeJacketDispatch",
         "station": station["id"],
-        "begin_date": (now - timedelta(hours=12)).strftime("%Y%m%d %H:%M"),
-        "end_date": (now + timedelta(hours=36)).strftime("%Y%m%d %H:%M"),
+        "begin_date": (midnight - timedelta(hours=14)).strftime("%Y%m%d %H:%M"),
+        "end_date": max(now + timedelta(hours=36), midnight + timedelta(hours=38)).strftime(
+            "%Y%m%d %H:%M"
+        ),
         "datum": "MLLW",  # NOAA's standard chart datum for US tide predictions
         "time_zone": "lst_ldt",  # local time at the station, DST-aware
         "units": "metric",
@@ -170,41 +176,34 @@ def _parse_predictions(payload: dict[str, Any], now: datetime) -> TideConditions
             logger.warning("NOAA tide API error: %s", payload["error"])
         return None
 
-    events: list[tuple[datetime, float, str]] = []
+    events: list[TideEvent] = []
     for entry in raw:
+        # "H"/"L", and "HH"/"LL" (higher high, lower low) at mixed-tide stations.
+        kind = {"H": "high", "L": "low"}.get(str(entry.get("type", ""))[:1])
+        if kind is None:
+            continue
         try:
             when = datetime.strptime(entry["t"], "%Y-%m-%d %H:%M")
-            events.append((when, float(entry["v"]), entry.get("type", "")))
+            events.append(TideEvent(time=when, height_m=float(entry["v"]), kind=kind))
         except (KeyError, ValueError):
             continue
 
     if not events:
         return None
 
-    events.sort(key=lambda e: e[0])
-    future = [e for e in events if e[0] >= now]
+    events.sort(key=lambda e: e.time)
+    future = [e for e in events if e.time >= now]
 
-    next_high = next((e[0] for e in future if e[2] == "H"), None)
-    next_low = next((e[0] for e in future if e[2] == "L"), None)
+    next_high = next((e.time for e in future if e.kind == "high"), None)
+    next_low = next((e.time for e in future if e.kind == "low"), None)
 
     trend: str | None = None
     if future:
         # The very next turning point determines the direction of travel.
-        trend = "rising" if future[0][2] == "H" else "falling"
+        trend = "rising" if future[0].kind == "high" else "falling"
 
-    # Approximate the present water level by interpolating linearly between the
-    # last turning point and the next. Real tides follow a sine curve, so this
-    # is only indicative -- good enough to say "near low water", not good
-    # enough to navigate by.
-    water_level: float | None = None
-    past = [e for e in events if e[0] <= now]
-    if past and future:
-        previous_time, previous_level, _ = past[-1]
-        next_time, next_level, _ = future[0]
-        span = (next_time - previous_time).total_seconds()
-        if span > 0:
-            fraction = (now - previous_time).total_seconds() / span
-            water_level = previous_level + (next_level - previous_level) * fraction
+    # Indicative only: good enough to say "near low water", not to navigate by.
+    water_level = tide_height_at(events, now)
 
     return TideConditions(
         water_level_m=round(water_level, 2) if water_level is not None else None,
@@ -212,7 +211,51 @@ def _parse_predictions(payload: dict[str, Any], now: datetime) -> TideConditions
         next_high_tide=next_high,
         next_low_tide=next_low,
         retrieved_at=datetime.now(),
+        events=events,
     )
+
+
+def tide_height_at(events: Sequence[TideEvent], moment: datetime) -> float | None:
+    """Predicted height at `moment`, from the turning points either side of it.
+
+    A half-cosine between consecutive high and low water: the water moves
+    slowest at the turn and fastest midway, as a real tide does. Many NOAA
+    stations (the subordinate ones, typical of small harbours and sloughs)
+    publish only highs and lows, so this is the curve every station supports.
+    None outside the span of `events`.
+    """
+    ordered = sorted(events, key=lambda e: e.time)
+    for before, after in zip(ordered, ordered[1:], strict=False):
+        if before.time <= moment <= after.time:
+            span = (after.time - before.time).total_seconds()
+            if span <= 0:
+                return before.height_m
+            fraction = (moment - before.time).total_seconds() / span
+            eased = (1 - math.cos(math.pi * fraction)) / 2
+            return before.height_m + (after.height_m - before.height_m) * eased
+    return None
+
+
+def tide_curve(
+    events: Sequence[TideEvent],
+    start: datetime,
+    end: datetime,
+    step: timedelta = timedelta(minutes=15),
+) -> list[tuple[datetime, float]]:
+    """Heights every `step` from `start` to `end` inclusive.
+
+    Empty unless the events span the whole range: half a curve, ending where
+    the predictions run out, would read as the water stopping.
+    """
+    points: list[tuple[datetime, float]] = []
+    moment = start
+    while moment <= end:
+        height = tide_height_at(events, moment)
+        if height is None:
+            return []
+        points.append((moment, round(height, 3)))
+        moment += step
+    return points
 
 
 def _fetch_marine(latitude: float, longitude: float) -> dict[str, float] | None:
@@ -242,11 +285,13 @@ def _fetch_marine(latitude: float, longitude: float) -> dict[str, float] | None:
     }
 
 
-def describe_tide(tide: TideConditions | None) -> str:
+def describe_tide(tide: TideConditions | None, now: datetime | None = None) -> str:
     """One plain-language sentence about the tide, for prompts and reports.
 
     This string goes straight into the assessment prompt and the incident
     report, so it is written to be read by a volunteer, not parsed by a model.
+    `now` is the moment the sentence describes: a stored snapshot passes the
+    time it was taken, so "low water in 5h" is not re-measured from today.
     """
     if tide is None:
         return "Tide data unavailable for this location."
@@ -254,13 +299,13 @@ def describe_tide(tide: TideConditions | None) -> str:
     parts: list[str] = []
 
     if tide.trend == "rising" and tide.next_high_tide:
-        hours = _hours_until(tide.next_high_tide)
+        hours = _hours_until(tide.next_high_tide, now)
         parts.append(
             f"Tide is RISING, high water in about {hours}. "
             "Water is advancing toward the animal and may refloat it."
         )
     elif tide.trend == "falling" and tide.next_low_tide:
-        hours = _hours_until(tide.next_low_tide)
+        hours = _hours_until(tide.next_low_tide, now)
         parts.append(
             f"Tide is FALLING, low water in about {hours}. "
             "The animal will be left further from the water as time passes."
@@ -280,9 +325,9 @@ def describe_tide(tide: TideConditions | None) -> str:
     return " ".join(parts)
 
 
-def _hours_until(moment: datetime) -> str:
+def _hours_until(moment: datetime, now: datetime | None = None) -> str:
     """Format a future time as "2h 15m", for human-readable tide windows."""
-    delta = moment - datetime.now()
+    delta = moment - (now or datetime.now())
     total_minutes = max(int(delta.total_seconds() // 60), 0)
     hours, minutes = divmod(total_minutes, 60)
     return f"{hours}h {minutes:02d}m" if hours else f"{minutes}m"

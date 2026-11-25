@@ -81,7 +81,7 @@ from lifejacket.models.schemas import (
     IncidentStatus,
     SeverityLevel,
 )
-from lifejacket.services import health
+from lifejacket.services import health, progress
 from lifejacket.taxonomy import describe_resolution
 
 logger = logging.getLogger(__name__)
@@ -163,6 +163,7 @@ class IntakePipeline:
         species are plausible, not just what the tide is doing.
         """
         state.has_location = True
+        progress.mark(incident.incident_id, "context")
         context = gather_context(location)
         incident.environment = context
         # `gather_context` fills in a resolved place name when none was given.
@@ -344,6 +345,9 @@ class IntakePipeline:
             AgentError: Re-raised after being recorded; the caller decides
                 what the fail-safe for its step is.
         """
+        # Before the call, so the reporter's waiting line names this step
+        # for as long as it runs (`services/progress.py`).
+        progress.mark(incident.incident_id, agent.name)
         try:
             result = agent.run(**kwargs)
         except AgentError as exc:
@@ -850,6 +854,7 @@ class IntakePipeline:
     def rank_responders(self, incident: Incident) -> list[DispatchCandidate]:
         """Rank rescue organisations for this incident."""
         assert incident.assessment is not None
+        progress.mark(incident.incident_id, "matching")
 
         area_terms: list[str] = []
         if incident.location:

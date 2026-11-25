@@ -51,12 +51,39 @@ export interface Conditions {
   wave_height_m: number | null;
   sea_temperature_c: number | null;
   tide_station_name: string | null;
+  tide_station_distance_km?: number | null;
   next_high_tide: string | null;
   next_low_tide: string | null;
+  /** Predicted highs and lows around `local_time`, oldest first. */
+  tide_events?: TideEvent[];
+  /** That day's predicted curve, every 15 minutes, midnight to midnight. Empty if unknown. */
+  tide_curve?: TidePoint[];
+  /**
+   * True when fetched just now (`responder.liveConditions`); false for the
+   * snapshot stored when the report came in. `local_time` is when it was taken.
+   */
+  live?: boolean;
 
   is_coastal: boolean;
   /** Lookups that failed. Show these as gaps, not as calm conditions. */
   unavailable: string[];
+}
+
+/**
+ * Tide times are the station's local time with no offset, as NOAA gives them,
+ * so `new Date(time)` reads them as local -- right for a coordinator on the
+ * same coast as the animal.
+ */
+export interface TideEvent {
+  time: string;
+  /** Metres above MLLW, the chart datum. Low water can be below zero. */
+  height_m: number;
+  kind: 'high' | 'low';
+}
+
+export interface TidePoint {
+  time: string;
+  height_m: number;
 }
 
 /** One contradiction found between the record and the evidence. */
@@ -116,6 +143,9 @@ export interface Turn {
   taxon_rank: string | null;
   /** Pooled confidence in `identified_as`, 0-1. */
   species_confidence: number | null;
+  /** Best species guess inside a genus/family/group answer, e.g. "California Sea Lion". */
+  likely_species?: string | null;
+  likely_species_confidence?: number | null;
 
   /**
    * Triage band, available as soon as the assessment agent has run -- not
@@ -166,6 +196,11 @@ export interface Turn {
   detection_status: string;
   /** Zero-based index into detections. */
   selected_detection: number | null;
+  /**
+   * Returned by `/intake/start` only. Keep it with the incident ID: it is
+   * what lets this app read and answer messages from the rescue team.
+   */
+  reporter_key?: string | null;
 }
 
 /**
@@ -585,6 +620,41 @@ export const reporter = {
   /** Current state without advancing it -- used when the app reopens. */
   getState: (incidentId: string) => request<Turn>(`/intake/${incidentId}`),
 
+  /** Messages with the rescue team. Needs the key from `start`. */
+  teamMessages: (incidentId: string, reporterKey: string) =>
+    request<ReporterMessage[]>(`/intake/${incidentId}/messages`, {
+      headers: { 'X-Reporter-Key': reporterKey },
+    }),
+
+  /** Write to the rescue team about this report. Either side may write first. */
+  replyToTeam: (incidentId: string, reporterKey: string, body: string) =>
+    request<ReporterMessage>(`/intake/${incidentId}/messages`, {
+      method: 'POST',
+      headers: { 'X-Reporter-Key': reporterKey },
+      body: JSON.stringify({ body }),
+    }),
+
+  /**
+   * Which intake step is running for this report, while a request is in
+   * flight: null when idle. Drives the specific waiting line ("Figuring out
+   * the species...") instead of one spinner for every step.
+   */
+  progress: (incidentId: string, reporterKey: string) =>
+    request<{ step: IntakeStep | null }>(`/intake/${incidentId}/progress`, {
+      headers: { 'X-Reporter-Key': reporterKey },
+    }),
+
+  /**
+   * Status and thread summary for every report this device holds a key for.
+   * Keys travel in the body, never the URL. Reports whose key no longer
+   * matches (a reset database, say) are simply left out.
+   */
+  myReports: (reports: { incident_id: string; reporter_key: string }[]) =>
+    request<MyReport[]>('/intake/my-reports', {
+      method: 'POST',
+      body: JSON.stringify({ reports }),
+    }),
+
   /** Who is coming, and how far away. Poll while an incident is active. */
   getEtas: (incidentId: string) =>
     request<ResponderEta[]>(`/responders/incident/${incidentId}/eta`),
@@ -611,6 +681,9 @@ export const responder = {
   },
 
   getIncident: (incidentId: string) => request<IncidentDetail>(`/incidents/${incidentId}`),
+  /** Tide, weather and daylight at the incident now; the detail carries the report-time snapshot. */
+  liveConditions: (incidentId: string) =>
+    request<Conditions>(`/incidents/${incidentId}/conditions`),
 
   updateStatus: (incidentId: string, status: string, responderId?: string) =>
     request<{ incident_id: string; status: string }>(`/incidents/${incidentId}/status`, {
@@ -703,6 +776,258 @@ export const coordination = {
       `/coordination/incidents/${encodeURIComponent(incidentId)}/check`,
       { method: 'POST', signal },
     ),
+};
+
+// --- Coordinator actions (local console) -----------------------------------
+// Mirrors `backend/lifejacket/models/coordinator.py`. Four decisions per
+// incident -- ignore, send a team, send volunteers, send a drone -- plus the
+// thread with the reporter.
+
+export type VolunteerTask = 'observe' | 'support';
+export type AlertStatus = 'awaiting_reply' | 'checked_in' | 'declined' | 'cancelled';
+export type IgnoreReason =
+  | 'false_report'
+  | 'healthy_animal'
+  | 'duplicate'
+  | 'animal_left'
+  | 'out_of_area'
+  | 'other';
+
+export interface NearbyVolunteer {
+  volunteer_id: string;
+  name: string;
+  /** Street-level base area: not a home address, not a live position. */
+  address: string;
+  latitude: number;
+  longitude: number;
+  qualification: 'observer' | 'trained_responder';
+  travel_radius_km: number;
+  skills: string[];
+  available: boolean;
+  /** The API never returns the number itself. */
+  phone_last4: string;
+  distance_km: number;
+  in_range: boolean;
+  eligible: boolean;
+  ineligible_reason: string | null;
+  alert: { alert_id: number; status: AlertStatus } | null;
+  fictional: boolean;
+}
+
+export interface NearbyVolunteers {
+  incident_id: string;
+  task: VolunteerTask;
+  task_description: string;
+  search_radius_km: number;
+  volunteers: NearbyVolunteer[];
+}
+
+export interface VolunteerAlert {
+  alert_id: number;
+  incident_id: string;
+  volunteer_id: string;
+  volunteer_name: string;
+  phone_last4: string;
+  task: VolunteerTask;
+  message: string;
+  status: AlertStatus;
+  /** "simulated": no SMS provider is configured, so nothing was sent. */
+  delivery: 'simulated';
+  distance_km: number | null;
+  sent_at: string;
+  responded_at: string | null;
+  response_note: string | null;
+}
+
+export interface VolunteerSummary { total: number; available: number; fictional: number }
+
+export interface IgnoreResult {
+  incident_id: string;
+  status: string;
+  reason: IgnoreReason;
+  volunteer_alerts_cancelled: number;
+}
+
+/** A planned survey over the incident. Simulation only: nothing flies. */
+export interface DroneSurvey {
+  incident_id: string;
+  plan_id: string;
+  status: 'ready_for_review' | 'blocked';
+  blocked_reasons: string[];
+  home_latitude: number;
+  home_longitude: number;
+  survey_south: number;
+  survey_north: number;
+  survey_west: number;
+  survey_east: number;
+  altitude_m: number;
+  distance_m: number | null;
+  duration_s: number | null;
+  estimated_battery_remaining_percent: number | null;
+  waypoint_count: number;
+  launch_note: string;
+  synthetic: true;
+}
+
+export interface DecisionEntry {
+  event_id: number;
+  kind: string;
+  summary: string;
+  actor: string | null;
+  recorded_at: string;
+}
+
+export interface ThreadMessage {
+  message_id: number;
+  sender: 'coordinator' | 'reporter';
+  body: string;
+  author_ref: string | null;
+  created_at: string;
+}
+
+export interface CoordinatorThread {
+  incident_id: string;
+  /** False when nobody holds this report's key, so a message could not be read. */
+  reporter_connected: boolean;
+  messages: ThreadMessage[];
+}
+
+/** The reporter's view of one message: text, direction, time. */
+export interface ReporterMessage {
+  message_id: number;
+  sender: 'team' | 'you';
+  body: string;
+  sent_at: string;
+}
+
+/** Intake steps the server reports while a request runs (`services/progress.py`). */
+export type IntakeStep =
+  | 'context'
+  | 'detection'
+  | 'identification'
+  | 'assessment'
+  | 'validation'
+  | 'report'
+  | 'guardrail'
+  | 'matching';
+
+/** One of the reporter's own reports: status, animal, place, thread shape. */
+export interface MyReport {
+  incident_id: string;
+  status: string;
+  /** Intake finished and the report reached the rescue network. */
+  complete: boolean;
+  species_common_name: string | null;
+  severity_level: string | null;
+  place_name: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+  team_message_count: number;
+  last_message: ReporterMessage | null;
+}
+
+/** One reporter conversation in the console's Communications tab. */
+export interface ThreadSummary {
+  incident_id: string;
+  headline: string | null;
+  species_common_name: string | null;
+  place_name: string | null;
+  severity_level: string | null;
+  status: string;
+  reporter_phone: string | null;
+  message_count: number;
+  last_message: ThreadMessage | null;
+  /** The reporter wrote last, so the team owes a reply. */
+  awaiting_reply: boolean;
+  last_activity_at: string;
+}
+
+/** An offer to a team. Mirrors `coordination.AssignmentRecord`. */
+export interface AssignmentRecord {
+  assignment_id: number;
+  incident_id: string;
+  responder_id: string;
+  responder_name: string | null;
+  status: string;
+  offered_at: string;
+  responded_at: string | null;
+  match_score: number | null;
+  match_rationale: string | null;
+}
+
+export const coordinator = {
+  // 1. Ignore
+  ignore: (incidentId: string, reason: IgnoreReason, note: string, decidedBy: string) =>
+    request<IgnoreResult>(`/incidents/${incidentId}/ignore`, {
+      method: 'POST',
+      body: JSON.stringify({ reason, note: note.trim() || null, decided_by: decidedBy }),
+    }),
+
+  // 2. Send a team: the existing offer flow.
+  assignments: (incidentId: string) =>
+    request<AssignmentRecord[]>(`/coordination/incidents/${incidentId}/assignments`),
+  offerTeam: (incidentId: string, candidate: DispatchCandidate, approvedBy: string) =>
+    request<{ assignment_id: number; status: string; eta_minutes: number | null }>(
+      '/responders/assign',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          incident_id: incidentId,
+          responder_id: candidate.responder_id,
+          approved_by: approvedBy,
+          match_score: candidate.score,
+          match_rationale: candidate.rationale,
+        }),
+      },
+    ),
+  /** Record the team's answer to an offer, as relayed to the coordinator. */
+  teamReply: (assignmentId: number, accept: boolean) =>
+    request<{ assignment_id: number; status: string }>(
+      `/responders/assignments/${assignmentId}/respond`,
+      { method: 'POST', body: JSON.stringify({ accept }) },
+    ),
+
+  // 3. Send volunteers
+  volunteerSummary: () => request<VolunteerSummary>('/volunteers/summary'),
+  seedVolunteers: () => request<VolunteerSummary>('/volunteers/seed-demo', { method: 'POST' }),
+  volunteers: (incidentId: string) =>
+    request<NearbyVolunteers>(`/incidents/${incidentId}/volunteers`),
+  alerts: (incidentId: string) =>
+    request<VolunteerAlert[]>(`/incidents/${incidentId}/volunteer-alerts`),
+  sendAlerts: (incidentId: string, volunteerIds: string[], message: string, sentBy: string) =>
+    request<VolunteerAlert[]>(`/incidents/${incidentId}/volunteer-alerts`, {
+      method: 'POST',
+      body: JSON.stringify({ volunteer_ids: volunteerIds, message, sent_by: sentBy }),
+    }),
+  recordReply: (alertId: number, status: 'checked_in' | 'declined', recordedBy: string) =>
+    request<VolunteerAlert>(`/volunteers/alerts/${alertId}/reply`, {
+      method: 'POST',
+      body: JSON.stringify({ status, recorded_by: recordedBy }),
+    }),
+
+  // 4. Send a drone (simulation)
+  droneSurvey: (incidentId: string, requestedBy: string) =>
+    request<DroneSurvey>(`/incidents/${incidentId}/drone-survey`, {
+      method: 'POST',
+      body: JSON.stringify({ requested_by: requestedBy }),
+    }),
+
+  decisions: (incidentId: string) =>
+    request<DecisionEntry[]>(`/incidents/${incidentId}/decisions`),
+
+  // The thread with the reporter
+  /** Every conversation a reporter can be reached on, replies owed first. */
+  threads: () => request<ThreadSummary[]>('/communications/threads'),
+  thread: (incidentId: string) =>
+    request<CoordinatorThread>(`/incidents/${incidentId}/messages`),
+  messageReporter: (incidentId: string, body: string, authorRef: string) =>
+    request<ThreadMessage>(`/incidents/${incidentId}/messages`, {
+      method: 'POST',
+      body: JSON.stringify({ body, author_ref: authorRef }),
+    }),
 };
 
 export interface ShiftHandover {

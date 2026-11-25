@@ -566,3 +566,30 @@ def test_any_text_is_a_valid_answer(api):
         f"/intake/{incident_id}/reply", json={"text": "hard to say, it's facing away"}
     )
     assert response.status_code == 200
+
+
+def test_a_broad_answer_tells_the_reporter_the_likely_species():
+    """Inside "Eared seals" the best guess is named, from the pooled members."""
+    from lifejacket.api.routes.intake import _likely_species
+    from lifejacket.config import settings
+    from lifejacket.models.schemas import AnimalGroup, IdentificationResult, SpeciesCandidate
+    from lifejacket.taxonomy import resolve_taxon
+
+    def species(name, scientific, confidence):
+        return SpeciesCandidate(common_name=name, scientific_name=scientific, confidence=confidence,
+                                family="Otariidae", animal_group=AnimalGroup.PINNIPED)
+
+    broad = [species("California sea lion", "Zalophus californianus", 0.85),
+             species("Steller sea lion", "Eumetopias jubatus", 0.10)]
+    family = IdentificationResult(
+        candidates=broad, resolution=resolve_taxon(broad, settings.identification_confidence_threshold)
+    )
+    likely = _likely_species(family)
+    assert family.resolution.rank.value == "family"
+    assert (likely.common_name, likely.confidence) == ("California sea lion", 0.85)
+
+    sure = [species("California sea lion", "Zalophus californianus", 0.97)]
+    exact = IdentificationResult(
+        candidates=sure, resolution=resolve_taxon(sure, settings.identification_confidence_threshold)
+    )
+    assert _likely_species(exact) is None and _likely_species(None) is None

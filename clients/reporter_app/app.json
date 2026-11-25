@@ -25,7 +25,8 @@
     "plugins": [
       "expo-location",
       "expo-image-picker",
-      "expo-asset"
+      "expo-asset",
+      "expo-status-bar"
     ]
   }
 }

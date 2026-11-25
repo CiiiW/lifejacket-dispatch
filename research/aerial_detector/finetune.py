@@ -31,7 +31,7 @@ import json
 import shutil
 import subprocess
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -236,7 +236,7 @@ def main() -> int:
 
     base = Path(args.base) if args.base else ensure_dmd_weights()
     provenance = {
-        "started_at": datetime.now(UTC).isoformat(timespec="seconds"),
+        "started_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "git_commit": git_commit(),
         "base_weights": str(base),
         "base_is_stock_dmd": args.base is None,
@@ -279,7 +279,7 @@ def main() -> int:
         resume=args.resume,
     )
 
-    provenance["finished_at"] = datetime.now(UTC).isoformat(timespec="seconds")
+    provenance["finished_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     candidates = sorted(run_dir.glob("checkpoint_best*.pth")) or sorted(run_dir.glob("*.pth"))
     provenance["best_weights"] = str(candidates[0]) if candidates else None
     (run_dir / "run.json").write_text(json.dumps(provenance, indent=2) + "\n")

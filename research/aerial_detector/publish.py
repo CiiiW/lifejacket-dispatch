@@ -27,7 +27,7 @@ import json
 import shutil
 import sys
 import tempfile
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).parent
@@ -270,7 +270,7 @@ def main() -> int:
         checkpoint=checkpoint_lines,
         training=describe_training(run),
         evaluation=describe_evaluation(metrics),
-        generated_at=datetime.now(UTC).isoformat(timespec="seconds"),
+        generated_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
     )
     (staging / "README.md").write_text(card)
 
@@ -317,7 +317,7 @@ def main() -> int:
     out.write_text(
         json.dumps(
             {
-                "published_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "published_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "repo": args.repo,
                 "revision": revision,
                 "sha256": digest,

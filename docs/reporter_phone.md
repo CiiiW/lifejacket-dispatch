@@ -77,12 +77,28 @@ Sources: https://firebase.google.com/docs/auth/web/phone-auth .
 
 ## Native app
 
-The default native wrapper does not fall back to unverified intake. Set an approved
-HTTPS `EXPO_PUBLIC_REPORTER_WEB_URL` to open the phone-browser flow. The old native
-screens remain available only with explicit `EXPO_PUBLIC_LEGACY_REPORTER_DEMO=true`
-for private demos and are not phone-verified. Native SMS support requires a development
-build plus the native Firebase/APNs/app-verification setup; Expo Go does not include
-those native modules. No native-device verification is claimed.
+With an approved HTTPS `EXPO_PUBLIC_REPORTER_WEB_URL` configured, the native
+wrapper opens the phone-browser flow and does not fall back to unverified intake.
+
+Without one — local development and Expo Go — it shows the reporter console
+(Report / My reports / Communications) instead, so the app is testable on a
+phone. It asks for the reporter's number once, on first launch (using the app
+shares it with the rescue organisation), and keeps every report on the phone so
+another can be filed without restarting. That path
+submits through the legacy intake API and is **not phone-verified**; it carries a
+banner on screen saying so. `EXPO_PUBLIC_LEGACY_REPORTER_DEMO=true` forces the
+console even when a web URL is set, for checking a deployment build locally.
+
+For screen recordings, `EXPO_PUBLIC_DEMO_MODE=true` keeps the phone's real
+position off camera: **Share location** opens the map on Jetty Beach, Moss
+Landing (real coastal tide data) instead of reading GPS, and the banner is
+hidden. The spot is sent as a `map_pin`, not `device_gps`. Restart with
+`npx expo start -c` after changing it. See `clients/reporter_app/src/lib/demo.ts`.
+
+Native SMS support requires a development build plus the native
+Firebase/APNs/app-verification setup; Expo Go does not include those native
+modules, so there is no verified native path to fall back to. No native-device
+verification is claimed.
 Source: https://rnfirebase.io/ .
 
 ## Tests and fixture
