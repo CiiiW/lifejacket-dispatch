@@ -70,11 +70,24 @@ if (values.install) {
     routes.set('/', ['text/html; charset=utf-8', Buffer.from(home)]);
     routes.set('/health', ['application/json', Buffer.from(JSON.stringify({ mode: 'fictional-ui-only', gcp_required: false }))]);
     const server = createServer((request, response) => {
+      const path = new URL(request.url, 'http://localhost').pathname;
+      const mapTiles = path === '/console/' ? 'https://tile.openstreetmap.org' : '';
       response.setHeader('Cache-Control', 'no-store');
       response.setHeader('X-Content-Type-Options', 'nosniff');
-      response.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://tile.openstreetmap.org; media-src blob:; connect-src https://tile.openstreetmap.org; worker-src blob:; child-src blob:; form-action 'none'; base-uri 'none'; frame-ancestors 'none'");
+      response.setHeader('Content-Security-Policy', [
+        "default-src 'none'",
+        "script-src 'self'",
+        "style-src 'self' 'unsafe-inline'",
+        `img-src 'self' blob: data:${mapTiles ? ' ' + mapTiles : ''}`,
+        'media-src blob:',
+        `connect-src ${mapTiles || "'none'"}`,
+        'worker-src blob:',
+        'child-src blob:',
+        "form-action 'none'",
+        "base-uri 'none'",
+        "frame-ancestors 'none'",
+      ].join('; '));
       if (!['GET', 'HEAD'].includes(request.method)) { response.writeHead(405, { Allow: 'GET, HEAD' }); response.end(); return; }
-      const path = new URL(request.url, 'http://localhost').pathname;
       if (path === '/console' || path === '/reporter' || path === '/connected') { response.writeHead(303, { Location: `.${path}/` }); response.end(); return; }
       const route = routes.get(path);
       if (!route) { response.writeHead(404); response.end(); return; }
