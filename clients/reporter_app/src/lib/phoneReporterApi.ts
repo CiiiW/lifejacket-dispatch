@@ -6,6 +6,9 @@ export type ReportStatus = {
   case_id: string; phase: string; message: string; arrival_eta_minutes: number | null;
   eta_updated_at: string | null; eta_is_estimate: boolean; presence: string;
   reporter_can_leave: boolean; leaving_cancels_report: boolean;
+  reported_location?: { latitude: number; longitude: number; place_name: string | null } | null;
+  contact_channels?: string[];
+  response_team?: string | null;
 };
 export type ReportReceipt = { case_id: string; submitted_at: string };
 

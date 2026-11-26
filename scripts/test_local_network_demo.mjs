@@ -22,11 +22,16 @@ test('local launcher serves both fictional clients without exposing files or acc
     for (const page of ['console/', 'reporter/']) {
       const response = await fetch(base + page);
       assert.equal(response.status, 200);
+      const expectedConnections = page === 'console/' ? 'https://tile.openstreetmap.org' : "'none'";
+      assert.ok(response.headers.get('content-security-policy').split('; ').includes(`connect-src ${expectedConnections}`));
       assert.match(await response.text(), /LifeJacket fictional/);
       const bundle = await fetch(base + page + 'app.js');
       assert.equal(bundle.status, 200);
       assert.match(await bundle.text(), /Fictional/);
     }
+    const avatar = await fetch(base + 'reporter/lifejacket-sea-otter.webp');
+    assert.equal(avatar.status, 200);
+    assert.equal(avatar.headers.get('content-type'), 'image/webp');
     const connected = await fetch(base + 'connected/');
     assert.equal(connected.status, 200);
     assert.match(await connected.text(), /connected|Connected/);

@@ -29,7 +29,12 @@ from lifejacket.config import settings
 from lifejacket.models import repository
 from lifejacket.models.db import get_session
 from lifejacket.models.schemas import ConversationStage
-from lifejacket.models.tables import NetworkCaseRow, ReporterDraftRow
+from lifejacket.models.tables import (
+    AccessOrganizationRow,
+    IncidentRow,
+    NetworkCaseRow,
+    ReporterDraftRow,
+)
 
 
 def available(response: Response):
@@ -56,6 +61,8 @@ class DraftTurn(DraftKey):
     text: str = Field(default="", max_length=4000)
     latitude: float | None = Field(default=None, ge=-90, le=90)
     longitude: float | None = Field(default=None, ge=-180, le=180)
+    location_source: Literal["map_pin", "device_gps", "manual"] = "map_pin"
+    accuracy_meters: float | None = Field(default=None, ge=0, allow_inf_nan=False)
     number: int = Field(default=1, ge=1, le=100)
 
 
@@ -177,7 +184,12 @@ def draft_turn(incident_id: str, body: DraftTurn, session: Session = Depends(get
         turn = intake.set_location(
             incident_id,
             intake.LocationRequest(
-                latitude=body.latitude, longitude=body.longitude, source="map_pin"
+                latitude=body.latitude,
+                longitude=body.longitude,
+                source=body.location_source,
+                accuracy_meters=(
+                    body.accuracy_meters if body.location_source == "device_gps" else None
+                ),
             ),
             session,
         )
@@ -275,6 +287,7 @@ def reports(body: PhoneToken, session: Session = Depends(get_session)):
 def status(incident_id: str, body: PhoneToken, session: Session = Depends(get_session)):
     row, user = own_submission(session, incident_id, body)
     access = session.get(NetworkCaseRow, incident_id)
+    incident = session.get(IncidentRow, incident_id)
     # Only reviewed response phases can advance the reporter's timeline. Raw AI
     # output, an old assignment or a guessed ETA cannot assert team acceptance.
     phase = ResponsePhase.RECEIVED
@@ -283,6 +296,32 @@ def status(incident_id: str, body: PhoneToken, session: Session = Depends(get_se
             phase = ResponsePhase(access.response_phase)
         except ValueError as exc:
             raise HTTPException(409, "Case update unavailable") from exc
+    location = (
+        {
+            "latitude": incident.latitude,
+            "longitude": incident.longitude,
+            "place_name": incident.place_name,
+        }
+        if incident
+        and incident.latitude is not None
+        and -90 <= incident.latitude <= 90
+        and incident.longitude is not None
+        and -180 <= incident.longitude <= 180
+        else None
+    )
+    organization = (
+        session.get(AccessOrganizationRow, access.lead_org_id)
+        if phase
+        in (
+            ResponsePhase.ACCEPTED,
+            ResponsePhase.EN_ROUTE,
+            ResponsePhase.ON_SCENE,
+            ResponsePhase.ANIMAL_LOCATED,
+        )
+        and access
+        and access.lead_org_id
+        else None
+    )
     return reporter_update(
         Principal(user.user_id, Role.REPORTER, identity_verified=True),
         CaseAccess(
@@ -293,7 +332,22 @@ def status(incident_id: str, body: PhoneToken, session: Session = Depends(get_se
         ),
         phase,
         now=datetime.now(UTC),
-    ) | {"presence": row.presence}
+    ) | {
+        "presence": row.presence,
+        "reported_location": location,
+        "contact_channels": [
+            channel for channel in (row.contact_channels or []) if channel in ("call", "text")
+        ],
+        "response_team": (
+            organization.name
+            if organization
+            and organization.enabled
+            and organization.verified_at
+            and organization.verified_by
+            and organization.kind == "rescue_center"
+            else None
+        ),
+    }
 
 
 @router.post("/reports/{incident_id}/presence")
