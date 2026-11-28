@@ -67,7 +67,6 @@ const css = `
 .lj-network p { margin: 8px 0 14px; overflow-wrap: anywhere; }
 .lj-network small, .lj-network .lj-muted { color: var(--lj-muted); }
 .lj-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-.lj-header { border-bottom: 1px solid var(--lj-edge); padding: 0 0 18px; }
 .lj-eyebrow { color: var(--lj-action); font-size: 12px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; }
 .lj-panel { padding: 18px; background: #fff; border: 1px solid var(--lj-edge); border-radius: 15px; margin-bottom: 14px; min-width: 0; }
 .lj-signin { max-width: 560px; margin: 7vh auto; }
@@ -122,47 +121,10 @@ const css = `
 .lj-id { font-size: 12px; overflow-wrap: anywhere; color: var(--lj-muted); }
 .lj-network form { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
 
-.lj-dispatch { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; gap: 16px; }
-.lj-dispatch-board { min-width: 0; background: #fff; border: 1px solid var(--lj-edge); border-radius: 15px; overflow: hidden; }
-.lj-board-header { padding: 12px 16px; border-bottom: 1px solid var(--lj-edge); margin: 0; }
-.lj-board-header h2 { margin: 0; }
-.lj-board-header label { flex-direction: row; align-items: center; gap: 8px; }
-.lj-dispatch-queues { min-width: 0; }
-.lj-dispatch-queues > .lj-panel { padding: 15px; }
-.lj-dispatch-queues article.lj-panel { background: #fff6e9; border-color: #e8d5b9; padding: 11px; }
-.lj-dispatch-queues article p:first-child { margin-top: 0; }
-.lj-dispatch-queues .lj-pagination button { padding: 6px 8px; }
-.lj-map-layout { display: flex; height: max(530px, calc(100vh - 276px)); }
-.lj-map-canvas { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; background: #e3efe9; }
-.lj-map-toggle { position: absolute; top: 12px; left: 12px; z-index: 5; }
-.lj-map-divider { flex: 0 0 8px; cursor: col-resize; touch-action: none; background: var(--lj-edge); }
-.lj-map-divider[data-dragging=true] { background: var(--lj-action); }
-.lj-map-cases {
-  flex: 0 0 360px;
-  min-width: min(320px, 46%);
-  max-width: calc(100% - 368px);
-  overflow-y: auto;
-  overflow-wrap: anywhere;
-  padding: 14px;
-  background: #f8fbf9;
-}
-.lj-map-cases > .lj-panel { padding: 12px; }
-.lj-map-cases a { color: var(--lj-action) !important; text-decoration: underline; }
-
-@media (min-width: 1220px) {
-  .lj-dispatch:has(.lj-dispatch-queues) { grid-template-columns: minmax(0, 1fr) minmax(300px, 25%); }
-}
-@media (max-width: 1219px) {
-  .lj-dispatch-queues { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 12px; }
-}
 @media (max-width: 760px) {
   .lj-network { padding: 16px 12px 28px; }
-  .lj-grid, .lj-dispatch-queues { grid-template-columns: 1fr; }
-  .lj-board-header label { flex-wrap: wrap; }
-  .lj-map-layout { height: auto; flex-direction: column; }
-  .lj-map-canvas { flex: none; min-height: 320px; }
-  .lj-map-divider { display: none; }
-  .lj-map-cases { flex: auto !important; min-width: 0; max-width: 100%; }
+  .lj-grid { grid-template-columns: 1fr; }
+  .lj-signin { margin: 5vh auto; }
 }
 `;
 
@@ -286,10 +248,10 @@ export function NetworkWorkspace({
   const [organization, setOrganization] = useState<string | null>(null);
   return (
     <Shell>
-      <header className="lj-top lj-header">
+      <header className="lj-top">
         <div>
           <div className="lj-eyebrow">LifeJacket · Rescue network</div>
-          <h1>Rescue console</h1>
+          <h1>Coordinate the next response</h1>
         </div>
         <div className="lj-toolbar">
           <span className="lj-pill">Verified access</span>
@@ -484,56 +446,47 @@ function SessionWorkspace({
         </>
       ) : (
         <>
-          <div className="lj-dispatch">
-            <section className="lj-dispatch-board" aria-labelledby="network-case-map-title">
-              <div className="lj-top lj-board-header">
-                <h2 id="network-case-map-title">Case map</h2>
-                <label>
-                  Show cases
-                  <select value={scope} onChange={(event) => {
-                    setSelected(null);
-                    setScope(event.target.value as CaseScope);
-                  }}>
-                    {filters.map((filter) => (
-                      <option key={filter.value} value={filter.value}>
-                        {filter.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-              <NetworkMapView
-                rows={rows}
-                selected={selected}
-                onSelect={(caseId) => {
-                  setDroneRequest(undefined);
-                  setSelected(caseId);
+          <div className="lj-top">
+            <label>
+              Show cases
+              <select
+                value={scope}
+                onChange={(event) => {
+                  setSelected(null);
+                  setScope(event.target.value as CaseScope);
                 }}
-                truncatedAt={truncatedAt}
-                detail={selected ? (
-                  <CaseDetail
-                    key={selected}
-                    api={api}
-                    id={selected}
-                    droneRequest={droneRequest}
-                    onMonitoringChange={monitoringChanged}
-                    organizations={session.organizations}
-                  />
-                ) : null}
-              />
-            </section>
-            {api.drones && session.role !== 'noaa' && <aside className="lj-dispatch-queues" aria-label="Coordination queues">
-              <CoordinatorAttention api={api.drones} revision={monitorRevision}
-                onChange={monitoringChanged} onOpen={(caseId, requestId) => {
-                  setDroneRequest(requestId);
-                  setSelected(caseId);
-                }}/>
-              <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId, requestId) => {
-                setDroneRequest(requestId);
-                setSelected(caseId);
-              }}/>
-            </aside>}
+              >
+                {filters.map((filter) => (
+                  <option key={filter.value} value={filter.value}>
+                    {filter.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <small>
+              Access refreshes every 30 seconds and when you return to this tab.
+            </small>
           </div>
+          {api.drones && session.role !== 'noaa' && <CoordinatorAttention api={api.drones} revision={monitorRevision} onChange={monitoringChanged} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
+          {api.drones && session.role !== 'noaa' && <MonitoringQueue api={api.drones} revision={monitorRevision} onOpen={(caseId,requestId)=>{setDroneRequest(requestId);setSelected(caseId);}}/>}
+                    <NetworkMapView
+            rows={rows}
+            selected={selected}
+            onSelect={(caseId) => {setDroneRequest(undefined);setSelected(caseId);}}
+            truncatedAt={truncatedAt}
+            detail={
+              selected ? (
+                <CaseDetail
+                  key={selected}
+                  api={api}
+                  id={selected}
+                  droneRequest={droneRequest}
+                  onMonitoringChange={monitoringChanged}
+                  organizations={session.organizations}
+                />
+              ) : null
+            }
+          />
         </>
       )}
     </>
