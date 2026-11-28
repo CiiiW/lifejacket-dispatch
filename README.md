@@ -121,8 +121,7 @@ npm run demo:network
 
 Open **<http://127.0.0.1:8082>** on that computer.
 
-- **Reporter fixture:** try the phone-friendly chat, choose an animal in a sample
-  photo, share a map pin, answer follow-up questions, and check your report status.
+- **Reporter fixture:** try the phone-verified web flow with fictional data.
 - **Console fixture:** inspect fictional cases and compare permitted role views.
 
 These are **two independent UI fixtures**, not a connected live rescue. They do not call Gemini, send SMS, share case state or require a database. Reloading resets their fixture state. Initial dependency installation needs internet access.
@@ -711,7 +710,7 @@ make test                       # 755 tests, fully offline
 # Rescue console (web)
 cd clients/responder_console && npx expo start --web --port 19006
 
-# Reporter app
+# Phone-verified reporter (browser)
 cd clients/reporter_app && npx expo start --web --port 19007
 ```
 
@@ -722,6 +721,12 @@ npm ci && npm run setup:demos && npm run demo:network
 ```
 
 Open <http://127.0.0.1:8082> — two labeled UI fixtures with fictional data. No GCP login, no SMS, no model calls, no database.
+
+For the presentation, use the same native Expo reporter build and private
+demo backend as the original recording. Run the responder console with
+`EXPO_PUBLIC_NETWORK_MODE=false` for **Triage → Incident → Decide**.
+Set `EXPO_PUBLIC_DEMO_MODE=true` for the native reporter's Jetty Beach map pin.
+[Recording setup](docs/reporter_phone.md#native-app) · [Coordinator decisions](docs/coordinator_decisions.md)
 
 **Walk one case through the drone flow**, from a low-confidence report to a reviewed frame:
 

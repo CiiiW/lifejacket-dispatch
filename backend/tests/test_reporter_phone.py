@@ -12,7 +12,6 @@ from lifejacket.models.db import get_session
 from lifejacket.models.schemas import ConversationStage
 from lifejacket.models.tables import (
     AccessMembershipRow,
-    AccessOrganizationRow,
     AccessUserRow,
     Base,
     IncidentRow,
@@ -147,13 +146,6 @@ def test_submission_requires_finished_draft_and_is_idempotent_owned_and_minimal(
         assert access.submitted and not access.verified_at and not access.state_code
         assert session.scalar(select(func.count()).select_from(AccessMembershipRow)) == 0
         assert session.get(IncidentRow, incident_id).reporter_phone is None
-        incident = session.get(IncidentRow, incident_id)
-        incident.latitude, incident.longitude, incident.place_name = (
-            36.8,
-            -121.79,
-            "Test beach",
-        )
-        session.commit()
     path = f"/reporter/reports/{incident_id}/status"
     assert client.post(path, json={"id_token": "other"}).status_code == 404
     response = client.post(path, json={"id_token": "owner"})
@@ -169,17 +161,7 @@ def test_submission_requires_finished_draft_and_is_idempotent_owned_and_minimal(
         "reporter_can_leave",
         "leaving_cancels_report",
         "presence",
-        "reported_location",
-        "contact_channels",
-        "response_team",
     }
-    assert response.json()["reported_location"] == {
-        "latitude": 36.8,
-        "longitude": -121.79,
-        "place_name": "Test beach",
-    }
-    assert response.json()["contact_channels"] == ["text"]
-    assert response.json()["response_team"] is None
     assert (
         response.json()["phase"] == "received"
         and response.json()["arrival_eta_minutes"] is None
@@ -207,31 +189,8 @@ def test_submission_requires_finished_draft_and_is_idempotent_owned_and_minimal(
         access = session.get(NetworkCaseRow, incident_id)
         access.verified_at = datetime.now()
         access.verified_by = "reviewer"
-        session.add(
-            AccessOrganizationRow(
-                organization_id="test-center",
-                name="Test coast response",
-                kind="rescue_center",
-                enabled=True,
-                verified_at=datetime.now(),
-                verified_by="reviewer",
-            )
-        )
-        access.lead_org_id = "test-center"
         session.commit()
     assert client.post(path, json={"id_token": "owner"}).json()["phase"] == "animal_located"
-    assert (
-        client.post(path, json={"id_token": "owner"}).json()["response_team"]
-        == "Test coast response"
-    )
-    assert (
-        client.post(
-            f"/reporter/reports/{incident_id}/contact-preferences",
-            json={"id_token": "owner", "contact_channels": []},
-        ).status_code
-        == 200
-    )
-    assert client.post(path, json={"id_token": "owner"}).json()["contact_channels"] == []
     with factory() as session:
         session.get(AccessUserRow, access.reporter_user_id).enabled = False
         session.commit()
